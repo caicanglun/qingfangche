@@ -1,0 +1,197 @@
+{
+	"pages": [ //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
+	             {
+	             			 "path" : "pages/qing-f-c/buyDupty/customer-created",
+	             			 "style" : {"navigationBarTitleText": " 买帮办新建客户"}
+	             },
+	             {
+	                 "path" : "pages/qing-f-c/buyDupty/setManagerCondition/setManagerCondition",
+	                 "style" : {"navigationBarTitleText": "设置经营状况"}
+	             },
+	             {
+	                 "path" : "pages/qing-f-c/login/login",
+	                 "style" : {
+	             				"navigationStyle":"custom"
+	             			 }
+	                   
+	             },
+	              
+	             {
+	                 "path" : "pages/qing-f-c/sellDupty/customer-created/customer-created",
+	                 "style" : {"navigationBarTitleText": "卖帮办新建客户"}
+	             },
+				 
+	            
+	            {
+	                "path" : "pages/qing-f-c/buyDupty/add-contact",
+	                "style" : {"navigationBarTitleText": "添加联系人"}
+	            },
+	            	          
+	            
+	           {
+	           			 "path" : "pages/qing-f-c/buyDupty/customer-details",
+	           			 "style" : {
+	           				        "navigationStyle":"custom"
+	           					}
+	           			
+	           },
+	           
+			  {
+			      "path" : "pages/qing-f-c/buyDupty/detail-competitor",
+			      "style" : {"navigationBarTitleText": "竞争对手详情"}
+			  },
+			  {
+			      "path" : "pages/qing-f-c/buyDupty/edit-competitor",
+			      "style" : {"navigationBarTitleText": "编辑竞争对手"}
+			  },
+	         {
+	             "path" : "pages/qing-f-c/buyDupty/add-competitor",
+	             "style" : {"navigationBarTitleText": "添加竞争对手"}
+	         },
+	        
+			{
+						 "path" : "pages/qing-f-c/buyDupty/set-identity",
+						 "style" : {"navigationBarTitleText": "设置特征"}
+			},
+	        {
+	        			 "path" : "pages/qing-f-c/buyDupty/customer-admin",
+	        			 "style" : {"navigationBarTitleText": "买帮办客户管理"}
+	        },
+			
+	        
+	        {
+	        			 "path" : "pages/qing-f-c/sales_director/customer-admin",
+                          "style" : {
+							  "navigationBarTitleText": "客户管理",
+							  "app-plus": {
+											  "titleNView": {
+												  
+												  "buttons": [
+												  {
+													   "float": "right",
+													   "fontSize": "15px",
+													   "text": "" // 字体图标\u 开头，加上字体图标unicode后面四位
+												  }
+												  ]
+											  }
+							               }
+						  }
+						  
+	        },
+			{
+						 "path" : "pages/qing-f-c/sales_director/deputy-list",
+						 "style" : {"navigationBarTitleText": "选择区域经理"}
+			},
+	       
+			{
+						 "path" : "pages/qing-f-c/customer/customer-list",
+						 "style" : {"navigationBarTitleText": "客户管理"}
+			},
+			{
+						 "path" : "pages/qing-f-c/index",
+						 "style" : {"navigationBarTitleText": ""}
+			},
+	       
+		   {
+		       "path" : "pages/qing-f-c/claimIdentity/claimIdentity",
+		       "style" : {"navigationBarTitleText": "身份认领"}
+		   },
+	      
+	     {
+	         "path" : "pages/qing-f-c/register/register",
+	         "style" : {
+	         			"navigationStyle":"custom"
+	         		 }
+	     },
+	     {
+	         "path" : "pages/qing-f-c/register/findPassword",
+	         "style" : {
+	         			"navigationStyle":"custom"
+	         		 }
+	     },
+	     
+	     {
+	         "path" : "pages/qing-f-c/register/finish",
+	         "style" : {"navigationBarTitleText": "注册完成"}
+	     },
+		 
+		 {
+		     "path" : "pages/jin-suo-yun/index",
+		     "style" : {"navigationBarTitleText": "首页"}
+		 },
+		 {
+		     "path" : "pages/jin-suo-yun/choice-identity",
+		     "style" : {"navigationBarTitleText": "选择身份"}
+		 },
+		 {
+		     "path" : "pages/jin-suo-yun/register",
+		     "style" : {"navigationBarTitleText": "填写信息"}
+		 },
+		 {
+		     "path" : "pages/jin-suo-yun/choosing-company",
+		     "style" : {"navigationBarTitleText": "选择公司"}
+		 },
+	    {
+	        "path" : "pages/login/login",
+	        "style" : {"navigationBarTitleText": "登录首页"}
+	    },
+		{
+			"path": "pages/index/index",
+			"style": {
+				"navigationBarTitleText": "胚布配"
+			}
+		}   
+       
+        ,{
+            "path" : "pages/qing-f-c/sellDupty/sellDupty",
+            "style" : {"navigationBarTitleText": "买帮办客户管理"}
+        }
+        
+       
+      
+    ],
+	"tabBar": {
+	    "list": [
+	      {
+	        "pagePath": "pages/qing-f-c/index",
+	        "iconPath": "/static/images/tab/i-index.png",
+	        "selectedIconPath": "/static/images/tab/i-index-end.png",
+	        "text": "纺织道"
+	      },
+	      {
+	        "pagePath": "pages/qing-f-c/index",
+	        "iconPath": "/static/images/tab/i-buy.png",
+	        "selectedIconPath": "/static/images/tab/i-buy-end.png",
+	        "text": "求购区"
+	      },
+	      {
+	        "pagePath": "pages/qing-f-c/index",
+	        "iconPath": "/static/images/tab/i-goods.png",
+	        "selectedIconPath": "/static/images/tab/i-goods-end.png",
+	        "text": "现货区"
+	      },
+	      {
+	        "pagePath": "pages/qing-f-c/index",
+	        "iconPath": "/static/images/tab/i-on-sell.png",
+	        "selectedIconPath": "/static/images/tab/i-on-sell-end.png",
+	        "text": "特卖区"
+	      },
+	      {
+	        "pagePath": "pages/qing-f-c/index",
+	        "iconPath": "/static/images/tab/i-user.png",
+	        "selectedIconPath": "/static/images/tab/i-user-end.png",
+	        "text": "我的"
+	      }
+	    ],
+	    "color": "#333",
+	    "position": "bottom",
+	    "selectedColor": "#ee603f",
+	    "backgroundColor": "#f8f8f8"
+	  },
+	"globalStyle": {
+		"navigationBarTextStyle": "white",
+		"navigationBarTitleText": "",
+		"navigationBarBackgroundColor": "#FF6000",
+		"backgroundColor": "white"
+	}
+}

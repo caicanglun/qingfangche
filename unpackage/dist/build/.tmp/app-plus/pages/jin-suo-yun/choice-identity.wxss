@@ -1,0 +1,28 @@
+
+.back_top{
+  height: 842rpx;
+  width: 750rpx;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  background-image:url(https://api.qingfangche.net/api/common/picture/201904221111003/png/images/download);
+  background-repeat:no-repeat;
+  background-position:center top;
+  background-size:cover;
+  text-align: center;
+  color: #fff;
+  padding-top:120rpx;
+}
+.fs_22{
+  font-size: 22px;
+  margin-bottom: 80rpx;
+}
+.btn{
+  width: 406rpx;
+  line-height: 96rpx;
+  font-size: 18px;
+  text-align: center;
+  background: #EE603F;
+  border-radius: 6rpx;
+  margin: 70rpx auto 0;
+}
+

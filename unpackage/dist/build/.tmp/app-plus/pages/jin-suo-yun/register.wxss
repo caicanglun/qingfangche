@@ -1,0 +1,130 @@
+
+page {
+  font-size: 14px;
+}
+.box {
+  margin-bottom: 20rpx;
+  padding: 0 30rpx;
+  background-color: #fff;
+}
+.box_row {
+  padding: 0 10rpx;
+  height: 88rpx;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  line-height: 88rpx;
+  border-bottom: 1rpx solid #ccc;
+  color: #333236;
+}
+.box_row:nth-last-child(1){
+	 border: none;
+}
+.box_input {
+  width: 450rpx;
+}
+.code_input{
+  width: 180rpx;
+}
+.code_btn{
+  width: 200rpx;
+  background-color: #ee603f;
+  color: #fff;
+  text-align: center;
+	line-height: 48rpx;
+	height: 48rpx;
+	border-radius: 6rpx;
+}
+.success_btn{
+	line-height: 48rpx;
+	height: 48rpx;
+  width: 200rpx;
+  background-color: #ccc;
+  text-align: center;
+	border-radius: 6rpx;
+}
+.color_888 {
+  color: #888890;
+}
+.select_box {
+  border: 2rpx solid #ee603f;
+  padding: 0 20rpx;
+  line-height: 40rpx;
+  border-radius: 6rpx;
+}
+.select_img {
+  width: 14rpx;
+  height: 22rpx;
+  margin-left: 20rpx;
+}
+.scope_box {
+  overflow: hidden;
+  position: fixed;
+  top: 50%;
+  left: 0;
+  right: 0;
+  width: 86%;
+  margin: 0 auto;
+  z-index: 9999;
+  background-color: #fff;
+  border-radius: 20rpx;
+  text-align: center;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  padding-top:30rpx;
+  -webkit-transform:translateY(-50%);
+      -ms-transform:translateY(-50%);
+          transform:translateY(-50%);
+}
+.scope_mask {
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background: #000;
+  opacity: 0.5;
+  overflow: hidden;
+  z-index: 9000;
+  color: #fff;
+}
+.secope_padding{
+  padding: 30rpx
+}
+.scope_option{
+  width: 160rpx;
+  line-height: 70rpx;
+  border: 1rpx solid #ccc;
+  border-radius: 70rpx;
+  margin-top: 20rpx;
+  height: 70rpx;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+}
+.scope_btn{
+  line-height: 90rpx;
+  background-color: #ee603f;
+  color: #fff;
+  font-size: 18px;
+}
+.i-next{
+	width: 12rpx;
+	height: 20rpx;
+}
+.scope_action{
+  color:#fff;
+  background-color: #ee603f;
+  border:none;
+}
+.wid_170{
+	width: 170rpx;
+}
+.select_btn{
+  width: 152rpx;
+	text-align: center;
+  color: #fff;
+	background-color: #EE603F;
+  line-height: 48rpx;
+  border-radius: 6rpx;
+	font-size: 14px;
+}
+

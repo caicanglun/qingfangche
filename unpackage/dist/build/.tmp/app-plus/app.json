@@ -1,0 +1,69 @@
+{
+  "pages": [
+    "pages/qing-f-c/index",
+    "pages/qing-f-c/customer/customer-list",
+    "pages/qing-f-c/login/login",
+    "pages/qing-f-c/claimIdentity/claimIdentity",
+    "pages/qing-f-c/register/register",
+    "pages/qing-f-c/register/finish",
+    "pages/jin-suo-yun/index",
+    "pages/jin-suo-yun/choice-identity",
+    "pages/jin-suo-yun/register",
+    "pages/jin-suo-yun/choosing-company",
+    "pages/login/login",
+    "pages/index/index"
+  ],
+  "window": {
+    "navigationBarTextStyle": "black",
+    "navigationBarTitleText": "",
+    "navigationBarBackgroundColor": "white",
+    "backgroundColor": "white"
+  },
+  "tabBar": {
+    "list": [
+      {
+        "pagePath": "pages/qing-f-c/index",
+        "iconPath": "/static/images/tab/i-index.png",
+        "selectedIconPath": "/static/images/tab/i-index-end.png",
+        "text": "纺织道"
+      },
+      {
+        "pagePath": "pages/qing-f-c/index",
+        "iconPath": "/static/images/tab/i-buy.png",
+        "selectedIconPath": "/static/images/tab/i-buy-end.png",
+        "text": "求购区"
+      },
+      {
+        "pagePath": "pages/qing-f-c/index",
+        "iconPath": "/static/images/tab/i-goods.png",
+        "selectedIconPath": "/static/images/tab/i-goods-end.png",
+        "text": "现货区"
+      },
+      {
+        "pagePath": "pages/qing-f-c/index",
+        "iconPath": "/static/images/tab/i-on-sell.png",
+        "selectedIconPath": "/static/images/tab/i-on-sell-end.png",
+        "text": "特卖区"
+      },
+      {
+        "pagePath": "pages/qing-f-c/index",
+        "iconPath": "/static/images/tab/i-user.png",
+        "selectedIconPath": "/static/images/tab/i-user-end.png",
+        "text": "我的"
+      }
+    ],
+    "color": "#333",
+    "position": "bottom",
+    "selectedColor": "#ee603f",
+    "backgroundColor": "#f8f8f8"
+  },
+  "nvueCompiler": "weex",
+  "renderer": "auto",
+  "splashscreen": {
+    "alwaysShowBeforeRender": true,
+    "autoclose": false
+  },
+  "appname": "轻纺车网",
+  "compilerVersion": "2.2.2",
+  "usingComponents": {}
+}

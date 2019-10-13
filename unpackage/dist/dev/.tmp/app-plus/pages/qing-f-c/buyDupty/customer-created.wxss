@@ -1,0 +1,121 @@
+
+.form_box{
+  background-color:#fff; 
+  font-size: 15px;
+  margin-bottom: 20rpx;
+}
+.list{
+  margin: 0 30rpx;
+  padding:0 10rpx;
+  border-bottom: 1rpx solid rgba(221, 221, 221, 0.3);
+  line-height: 87rpx;
+  color: #333236;
+}
+.list:nth-last-child(1),.border_none{
+	border:none;
+}
+.list_right{
+  width:226rpx;
+}
+.width_282{
+	width:282rpx;
+}
+.color_888{
+  color: #888890;
+}
+.algin_right{
+	text-align: right;
+	color: #888890;
+}
+.ml-14{
+	margin-left: -14rpx;
+	margin-right:14rpx
+}
+.input{
+	background-color: #fff;
+	width: 444rpx;
+}
+/* .pickerClass{
+  width: 152upx;
+	text-align: center;
+  color: #fff;
+	background-color: #EE603F;
+  line-height: 48upx;
+  border-radius: 6upx;
+	font-size: 14px;
+} */
+.pickerClass{
+  width: 152rpx;
+	text-align: center;
+  color: #909090;
+	background-color: #fff;
+  line-height: 48rpx;
+  border-radius: 6rpx;
+	font-size: 15px;
+}
+.pickerImg{
+  width: 14rpx;
+  height: 22rpx;
+  margin-left: 20rpx;
+}
+.font_we{
+	overflow: hidden;
+	-o-text-overflow:ellipsis;
+	   text-overflow:ellipsis;
+	white-space: nowrap;
+}
+.unit{
+  font-size: 14px;
+  line-height: 48rpx;
+  width: 80rpx;
+  height: 48rpx;
+  text-align: center;
+  border: 2rpx solid #EE603F;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+	border-right: none;
+}
+.borderright{
+  border-top-right-radius: 6rpx;
+  border-bottom-right-radius: 6rpx;
+	border-right: 2rpx solid #EE603F;
+}
+.borderleft{
+  border-top-left-radius: 6rpx;
+  border-bottom-left-radius: 6rpx;
+}
+.unitselect{
+  color: #fff;
+  background-color: #EE603F;
+}
+.unitunselect{
+  color: #888890;
+  background-color: #fff;
+}
+.width_107{
+	width: 107rpx
+}
+.add_img{
+	width:34rpx;
+	height:34rpx;
+}
+.title{
+	margin: 0 30rpx;
+	padding:0 10rpx 27rpx 10rpx;
+	border-bottom: 1rpx solid rgba(221, 221, 221, 0.3);
+	font-size: 12px;
+	color: #9B9B9B;
+}
+.i-next{
+	   width: 14rpx;
+	   height: 24rpx;
+	   position: absolute;
+	   right: 30rpx;
+}
+.i-position{
+	width: 32rpx;
+	height: 35rpx;
+	position: absolute;
+	right: 30rpx;
+}
+

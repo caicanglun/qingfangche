@@ -1,0 +1,13 @@
+{
+  "navigationBarTitleText": "客户管理",
+  "titleNView": {
+    "buttons": [
+      {
+        "float": "right",
+        "fontSize": "15px",
+        "text": ""
+      }
+    ]
+  },
+  "usingComponents": {}
+}

@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText": "添加竞争对手",
+  "usingComponents": {
+    "my-picker": "/components/myPicker"
+  }
+}

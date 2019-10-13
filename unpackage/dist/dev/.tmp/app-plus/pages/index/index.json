@@ -1,0 +1,8 @@
+{
+  "navigationBarTitleText": "胚布配",
+  "usingComponents": {
+    "top-search": "/components/topSearch",
+    "top-tabbar": "/components/topTabbar",
+    "analyist-result": "/components/analyist-result"
+  }
+}

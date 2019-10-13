@@ -1,0 +1,1 @@
+<view class="content"><top-search vue-id="1" bind:__l="__l"></top-search><top-tabbar vue-id="2" items="{{items}}" bind:__l="__l"></top-tabbar><analyist-result vue-id="3" bind:__l="__l"></analyist-result></view>

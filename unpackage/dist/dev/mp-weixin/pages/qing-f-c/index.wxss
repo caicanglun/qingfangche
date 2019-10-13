@@ -1,0 +1,203 @@
+
+page{
+  background-color: #f6f6f6;
+}
+.mb_40{
+  margin-bottom: 40rpx
+}
+.mb_20{
+  margin-bottom: 20rpx
+}
+.mt_10{
+	margin-top: 10rpx;
+}
+.color_cf{
+  color:#cfcfcf
+}
+.hand_box{
+  background-image:url(https://api.qingfangche.net/api/common/picture/hand_back/png/images/download);
+  background-repeat:no-repeat;
+  background-position:center top;
+  background-size:cover;
+  color:#fff;
+  padding: 30rpx 24rpx 100rpx;
+}
+.hand_img{
+  width: 160rpx;
+  height: 160rpx;
+  margin-right: 30rpx;
+  border-radius: 8rpx;
+}
+.hand_content{
+	width: 512rpx;
+	line-height: 1;
+}
+.xiaoxi{
+  position: absolute;
+  top:30rpx;
+  right: 60rpx;
+}
+.xiaoxi_text{
+  background-color: #FF7D21;
+  color: #fff;
+  border-radius: 26rpx;
+  height: 26rpx;
+  width: 26rpx;
+  text-align: center;
+  line-height: 26rpx; 
+  font-size: 12px;
+  z-index: 100;
+  position: absolute;
+  top: -10rpx;
+  right: -10rpx;
+}
+.xiaoxi_img{
+  height: 42rpx;
+  width: 36rpx;
+  z-index: 95;
+}
+.setting_img{
+  height: 42rpx;
+  width: 36rpx;
+  padding-right: 40rpx;
+  z-index: 95;
+}
+.box{
+  padding: 30rpx 50rpx 0;
+  margin:0 24rpx;
+  position: relative;
+  bottom: 60rpx;
+  background-color: #fff;
+  border-radius: 8rpx;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-wrap: wrap;
+      -ms-flex-wrap: wrap;
+          flex-wrap: wrap;
+}
+.mar_131{
+  margin: 0 91rpx;
+}
+.text_algin_c{
+  text-align: center;
+  width: 140rpx;
+  white-space: nowrap
+}
+.icon_blue{
+	width: 100rpx;
+	height: 100rpx;
+	background: -webkit-gradient(linear, left top, right top, from(#4487FD), to(#40adfa));
+	background: -o-linear-gradient(left, #4487FD, #40adfa);
+	background: linear-gradient(to right, #4487FD, #40adfa);
+	z-index: -1;
+	border-radius: 50%;
+	margin: 14rpx 20rpx 0;
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: -ms-flexbox;
+	display: flex;
+	-webkit-box-pack: center;
+	-webkit-justify-content: center;
+	    -ms-flex-pack: center;
+	        justify-content: center;
+	-webkit-box-align: center;
+	-webkit-align-items: center;
+	    -ms-flex-align: center;
+	        align-items: center;
+}
+.icon_orange{
+	width: 100rpx;
+	height: 100rpx;
+	background: -webkit-gradient(linear, left top, right top, from(#FF6000), to(#FFA24F));
+	background: -o-linear-gradient(left, #FF6000, #FFA24F);
+	background: linear-gradient(to right, #FF6000, #FFA24F);
+	z-index: -1;
+	border-radius: 50%;
+	margin: 14rpx 20rpx 0;
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: -ms-flexbox;
+	display: flex;
+	-webkit-box-pack: center;
+	-webkit-justify-content: center;
+	    -ms-flex-pack: center;
+	        justify-content: center;
+	-webkit-box-align: center;
+	-webkit-align-items: center;
+	    -ms-flex-align: center;
+	        align-items: center;
+}
+.icon_img{
+  width:45rpx;
+  height: 52rpx;
+  /* position: relative;
+  top: 20upx;
+  left: 20upx; */
+ /*  */
+}
+.er_img{
+  position: absolute;
+  bottom: 90rpx;
+  right: 24rpx;
+  width: 120rpx;
+  height: 120rpx;
+}
+.login_top{
+  height: 404rpx;
+  width: 750rpx;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  background-image:url(https://api.qingfangche.net/api/common/picture/hand_back/png/static/images/download);
+  background-repeat:no-repeat;
+  background-position:center top;
+  background-size:cover;
+  text-align: center;
+}
+.login_img{
+  width: 336rpx;
+  height: 128rpx;
+  margin: 138rpx auto;
+}
+.login_btn{
+  width: 406rpx;
+  line-height: 96rpx;
+  color:#fff;
+  background-color: #EE603F;
+  border-radius: 6rpx;
+  margin: 160rpx auto 40rpx;
+  font-size: 18px;
+}
+.login_text{
+  width: 602rpx;
+  text-align: center;
+  font-size: 28rpx;
+  color:#4A4A4A;
+  margin: 0 auto;
+}
+.hand_btn{
+	border: 2rpx solid #FFFFFF;
+	border-radius: 4rpx;
+	line-height: 40rpx;
+	padding: 0 10rpx;
+	color: #FFFFFF;
+	font-size: 24rpx;
+}
+.ml_20{
+	margin-left: 20rpx;
+}
+.frozen{
+	padding: 100rpx 0;
+	color: #cfcfcf;
+	font-size: 16px;
+	text-align: center;
+	width: 602rpx;
+}
+.bottom_img{
+	width: 20rpx;
+	height: 20rpx;
+	-webkit-box-shadow: 0 4rpx 8rpx 0 rgba(0, 0, 0, 0.2);
+	        box-shadow: 0 4rpx 8rpx 0 rgba(0, 0, 0, 0.2);
+}
+
