@@ -1,8 +1,18 @@
 {
   "pages": [
     "pages/qing-f-c/login/login",
-    "pages/qing-f-c/sellDupty/customer-created/customer-created",
+    "pages/qing-f-c/buyDupty/customer-created",
+    "pages/qing-f-c/buyDupty/contact-detail/contact-detail",
     "pages/qing-f-c/buyDupty/setManagerCondition/setManagerCondition",
+    "pages/qing-f-c/sellDupty/customer-created",
+    "pages/qing-f-c/sellDupty/edit-customer",
+    "pages/qing-f-c/sellDupty/customer-details",
+    "pages/qing-f-c/sellDupty/contact-detail",
+    "pages/qing-f-c/sellDupty/setManagerCondition",
+    "pages/qing-f-c/sellDupty/editManagerCondition",
+    "pages/qing-f-c/sellDupty/add-contact",
+    "pages/qing-f-c/sellDupty/edit-contact",
+    "pages/qing-f-c/sellDupty/add-competitor",
     "pages/qing-f-c/buyDupty/add-contact",
     "pages/qing-f-c/buyDupty/customer-details",
     "pages/qing-f-c/buyDupty/detail-competitor",
@@ -10,51 +20,49 @@
     "pages/qing-f-c/buyDupty/add-competitor",
     "pages/qing-f-c/buyDupty/set-identity",
     "pages/qing-f-c/buyDupty/customer-admin",
-    "pages/qing-f-c/buyDupty/customer-created",
     "pages/qing-f-c/sales_director/customer-admin",
     "pages/qing-f-c/sales_director/deputy-list",
     "pages/qing-f-c/customer/customer-list",
     "pages/qing-f-c/index",
     "pages/qing-f-c/claimIdentity/claimIdentity",
+    "pages/qing-f-c/regionalManager/customer-admin",
     "pages/qing-f-c/register/register",
     "pages/qing-f-c/register/findPassword",
     "pages/qing-f-c/register/finish",
-    "pages/jin-suo-yun/index",
-    "pages/jin-suo-yun/choice-identity",
-    "pages/jin-suo-yun/register",
-    "pages/jin-suo-yun/choosing-company",
-    "pages/login/login",
-    "pages/index/index",
-    "pages/qing-f-c/sellDupty/sellDupty"
+    "pages/qing-f-c/sellDupty/sellDupty",
+    "pages/qing-f-c/fangzhidao/index/index",
+    "pages/qing-f-c/qiugouqu/index/index",
+    "pages/qing-f-c/xianhuoqu/index/index",
+    "pages/qing-f-c/temaiqu/index/index"
   ],
   "window": {
     "navigationBarTextStyle": "white",
     "navigationBarTitleText": "",
-    "navigationBarBackgroundColor": "#EE603F",
+    "navigationBarBackgroundColor": "#FF6000",
     "backgroundColor": "white"
   },
   "tabBar": {
     "list": [
       {
-        "pagePath": "pages/qing-f-c/index",
+        "pagePath": "pages/qing-f-c/fangzhidao/index/index",
         "iconPath": "/static/images/tab/i-index.png",
         "selectedIconPath": "/static/images/tab/i-index-end.png",
         "text": "纺织道"
       },
       {
-        "pagePath": "pages/qing-f-c/index",
+        "pagePath": "pages/qing-f-c/qiugouqu/index/index",
         "iconPath": "/static/images/tab/i-buy.png",
         "selectedIconPath": "/static/images/tab/i-buy-end.png",
         "text": "求购区"
       },
       {
-        "pagePath": "pages/qing-f-c/index",
+        "pagePath": "pages/qing-f-c/xianhuoqu/index/index",
         "iconPath": "/static/images/tab/i-goods.png",
         "selectedIconPath": "/static/images/tab/i-goods-end.png",
         "text": "现货区"
       },
       {
-        "pagePath": "pages/qing-f-c/index",
+        "pagePath": "pages/qing-f-c/temaiqu/index/index",
         "iconPath": "/static/images/tab/i-on-sell.png",
         "selectedIconPath": "/static/images/tab/i-on-sell-end.png",
         "text": "特卖区"

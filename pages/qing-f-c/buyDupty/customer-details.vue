@@ -409,41 +409,9 @@ export default {
 		  });
 	  },
     // 设置身份
-    setIdentity: function () {
-      let userInfo = wx.getStorageSync("userInfo");
-      this.setData({
-        userInfo: userInfo
-      });
-      let role = userInfo.authority[0].name;
-
-      if (role == "ROLE_BUY_DEPUTY") {
-        this.setData({
-          identity: 1
-        });
-      } else if (role == "ROLE_SELL_DEPUTY") {
-        this.setData({
-          identity: 2
-        });
-      }
-
-      if (userInfo.authorityOther == 7 || role == 'ROLE_SALES_DIRECTOR') {
-        this.setData({
-          admin: true
-        });
-      }
-    },
+    
     getCustomerInfo: function () {
-      // JsyServer.getCustomerInfo(_id).then(res => {
-      //   wx.stopPullDownRefresh();
-      //   console.log("res==", res);
-
-      //   _this.setData({
-      //     customerInfo: res.data
-      //   });
-      // }).catch(err => {
-      //   wx.stopPullDownRefresh();
-      //   console.log("Err===", err);
-      // });
+      
 	  this.customerInfo={
 		  characteristics:{
 			  channelStatus: "原有采购渠道较窄,优势不大",

@@ -1,5 +1,5 @@
 {
-  "navigationBarTitleText": "",
+  "navigationStyle": "custom",
   "usingComponents": {
     "mpvue-picker": "/components/mpvue-picker/mpvuePicker"
   }

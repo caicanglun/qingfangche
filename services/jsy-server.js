@@ -16,9 +16,9 @@ function getRegion() {
   })
 }
 //配合度
-function getcoordinate() {
+function getCoordinate() {
   return new Es6Promise(function(resolve, reject) {
-    let newApi = Api.getcoordinate;
+    let newApi = Api.getCoordinate;
     Util.request(newApi,{}, 'get').then(res => {
       resolve(res);
     }).catch(err => {
@@ -38,9 +38,9 @@ function getType() {
   })
 }
 //客户规模
-function getScale() {
+function getCompanyScale() {
   return new Es6Promise(function(resolve, reject) {
-    let newApi = Api.getScale;
+    let newApi = Api.getCompanyScale;
     Util.request(newApi,{}, 'get').then(res => {
       resolve(res);
     }).catch(err => {
@@ -148,9 +148,9 @@ function getPost() {
   })
 }
 //渠道
-function getChanne() {
+function getChannel() {
   return new Es6Promise(function(resolve, reject) {
-    let newApi = Api.getChanne;
+    let newApi = Api.getChannel;
     Util.request(newApi,{}, 'get').then(res => {
       resolve(res);
     }).catch(err => {
@@ -236,6 +236,7 @@ function getManagementPosition() {
     })
   })
 }
+//合作意向
 function getCooperationIntention(){
 	return new Es6Promise(function(resolve, reject) {
 	  let newApi = Api.getCooperationIntention;
@@ -246,9 +247,284 @@ function getCooperationIntention(){
 	  })
 	})
 }
+//用户登陆
+// function login(data) {
+//     return new Es6Promise(function(resolve, reject) {
+//       let newApi = Api.login;
+//       Util.request(newApi, data, 'post').then(res => {
+//         resolve(res);
+//       }).catch(err => {
+//         reject(err);
+//       })
+//     })
+//   }
+ // 更改密码
+ function chanage_password(data) {
+     return new Es6Promise(function(resolve, reject) {
+       let newApi = Api.chanage_password;
+       Util.request(newApi, data, 'post').then(res => {
+         resolve(res);
+       }).catch(err => {
+         reject(err);
+       })
+     })
+   } 
+//验证码
+function verification(data) {
+       return new Es6Promise(function(resolve, reject) {
+         let newApi = Api.verification;
+         Util.request(newApi, data, 'post').then(res => {
+           resolve(res);
+         }).catch(err => {
+           reject(err);
+         })
+       })
+} 
+//用户注册
+function registration(data) {
+       return new Es6Promise(function(resolve, reject) {
+         let newApi = Api.registration;
+         Util.request(newApi, data, 'post').then(res => {
+           resolve(res);
+         }).catch(err => {
+           reject(err);
+         })
+       })
+} 
+//用户个人信息
+function userDetails(data) {
+   return new Es6Promise(function(resolve, reject) {
+	 let newApi = Api.userDetails;
+	 Util.request(newApi, data, 'get').then(res => {
+	   resolve(res);
+	 }).catch(err => {
+	   reject(err);
+	 })
+   })
+}
+//未读信息
+function getNewsNum() {
+   return new Es6Promise(function(resolve, reject) {
+	 let newApi = Api.getNewsNum;
+	 Util.request(newApi, {}, 'get').then(res => {
+	   resolve(res);
+	 }).catch(err => {
+	   reject(err);
+	 })
+   })
+} 
+//未读信息列表
+function noReadList(data) {
+   return new Es6Promise(function(resolve, reject) {
+	 let newApi = Api.noReadList;
+	 Util.request(newApi, data, 'post').then(res => {
+	   resolve(res);
+	 }).catch(err => {
+	   reject(err);
+	 })
+   })
+} 
+//查询用户职位列表
+function pupList(data) {
+   return new Es6Promise(function(resolve, reject) {
+	 let newApi = Api.pupList;
+	 Util.request(newApi, data, 'get').then(res => {
+	   resolve(res);
+	 }).catch(err => {
+	   reject(err);
+	 })
+   })
+} 
+//获取默认职位
+function pupDefault(data) {
+   return new Es6Promise(function(resolve, reject) {
+	 let newApi = Api.pupDefault;
+	 Util.request(newApi, data, 'get').then(res => {
+	   resolve(res);
+	 }).catch(err => {
+	   reject(err);
+	 })
+   })
+} 
+//买/卖帮办客户列表
+function bsList(data) {
+   return new Es6Promise(function(resolve, reject) {
+	 let newApi = Api.bsList;
+	 Util.request(newApi, data, 'get').then(res => {
+	   resolve(res);
+	 }).catch(err => {
+	   reject(err);
+	 })
+   })
+} 
+//客户详情
+function cmDetail(data) {
+   return new Es6Promise(function(resolve, reject) {
+	 let newApi = Api.cmDetail;
+	 Util.request(newApi, data, 'get').then(res => {
+	   resolve(res);
+	 }).catch(err => {
+	   reject(err);
+	 })
+   })
+} 
+//更新客户信息 
+function updateCustomer(data) {
+   return new Es6Promise(function(resolve, reject) {
+	 let newApi = Api.updateCustomer;
+	 Util.request(newApi, data, 'post').then(res => {
+	   resolve(res);
+	 }).catch(err => {
+	   reject(err);
+	 })
+   })
+} 
 
+//销售总监，区域经理客户列表
+function dmList(data) {
+   return new Es6Promise(function(resolve, reject) {
+	 let newApi = Api.dmList;
+	 Util.request(newApi, data, 'get').then(res => {
+	   resolve(res);
+	 }).catch(err => {
+	   reject(err);
+	 })
+   })
+} 
+//公司联系人
+function linkMan(data) {
+   return new Es6Promise(function(resolve, reject) {
+	 let newApi = Api.linkMan;
+	 Util.request(newApi, data, 'get').then(res => {
+	   resolve(res);
+	 }).catch(err => {
+	   reject(err);
+	 })
+   })
+} 
+//联系人详情
+function linkmanDetails(data) {
+   return new Es6Promise(function(resolve, reject) {
+	 let newApi = Api.linkmanDetails;
+	 Util.request(newApi, data, 'get').then(res => {
+	   resolve(res);
+	 }).catch(err => {
+	   reject(err);
+	 })
+   })
+} 
+//删除联系人
+function linkmanDel(data) {
+   return new Es6Promise(function(resolve, reject) {
+	 let newApi = Api.linkmanDel;
+	 Util.request(newApi, data, 'get').then(res => {
+	   resolve(res);
+	 }).catch(err => {
+	   reject(err);
+	 })
+   })
+} 
+//公司联系人添加
+function linkmanAdd(data) {
+   return new Es6Promise(function(resolve, reject) {
+	 let newApi = Api.linkmanAdd;
+	 Util.request(newApi, data, 'post').then(res => {
+	   resolve(res);
+	 }).catch(err => {
+	   reject(err);
+	 })
+   })
+} 
+//更新联系人 
+function linkmanUpdate(data) {
+   return new Es6Promise(function(resolve, reject) {
+	 let newApi = Api.linkmanUpdate;
+	 Util.request(newApi, data, 'post').then(res => {
+	   resolve(res);
+	 }).catch(err => {
+	   reject(err);
+	 })
+   })
+} 
+//获取公司经营状况
+function operation(data) {
+   return new Es6Promise(function(resolve, reject) {
+	 let newApi = Api.operation;
+	 Util.request(newApi, data, 'get').then(res => {
+	   resolve(res);
+	 }).catch(err => {
+	   reject(err);
+	 })
+   })
+} 
+//公司竞争对手列表
+function rival(data) {
+   return new Es6Promise(function(resolve, reject) {
+	 let newApi = Api.rival;
+	 Util.request(newApi, data, 'get').then(res => {
+	   resolve(res);
+	 }).catch(err => {
+	   reject(err);
+	 })
+   })
+} 
+//竞争对手详情
+function rivalDetails(data) {
+   return new Es6Promise(function(resolve, reject) {
+	 let newApi = Api.rivalDetails;
+	 Util.request(newApi, data, 'get').then(res => {
+	   resolve(res);
+	 }).catch(err => {
+	   reject(err);
+	 })
+   })
+} 
+//竞争对手更新
+function rivalUpdate(data) {
+   return new Es6Promise(function(resolve, reject) {
+	 let newApi = Api.rivalUpdate;
+	 Util.request(newApi, data, 'post').then(res => {
+	   resolve(res);
+	 }).catch(err => {
+	   reject(err);
+	 })
+   })
+} 
 
-
+//删除竞争对手
+function rivalDel(data) {
+   return new Es6Promise(function(resolve, reject) {
+	 let newApi = Api.rivalDel;
+	 Util.request(newApi, data, 'get').then(res => {
+	   resolve(res);
+	 }).catch(err => {
+	   reject(err);
+	 })
+   })
+} 
+//买办创建客户
+function buyAddCustomer(data) {
+   return new Es6Promise(function(resolve, reject) {
+	 let newApi = Api.buyAddCustomer;
+	 Util.request(newApi, data, 'post').then(res => {
+	   resolve(res);
+	 }).catch(err => {
+	   reject(err);
+	 })
+   })
+} 
+//修改客户
+function updateCustomer(data) {
+   return new Es6Promise(function(resolve, reject) {
+	 let newApi = Api.updateCustomer;
+	 Util.request(newApi, data, 'post').then(res => {
+	   resolve(res);
+	 }).catch(err => {
+	   reject(err);
+	 })
+   })
+} 
+//卖帮办创建客户
   function sellCusmterCreated(data) {
     return new Es6Promise(function(resolve, reject) {
       let newApi = Api.sellCusmterCreated;
@@ -259,33 +535,59 @@ function getCooperationIntention(){
       })
     })
   }
+ //更新经营状况
+   function operationUpdate(data) {
+     return new Es6Promise(function(resolve, reject) {
+       let newApi = Api.operationUpdate;
+       Util.request(newApi, data, 'post').then(res => {
+         resolve(res);
+       }).catch(err => {
+         reject(err);
+       })
+     })
+   }
+   //添加经营状况
+  function operationAdd(data) {
+    return new Es6Promise(function(resolve, reject) {
+      let newApi = Api.operationAdd;
+      Util.request(newApi, data, 'post').then(res => {
+        resolve(res);
+      }).catch(err => {
+        reject(err);
+      })
+    })
+  } 
+function rivalAdd(data) {
+    return new Es6Promise(function(resolve, reject) {
+      let newApi = Api.rivalAdd;
+      Util.request(newApi, data, 'post').then(res => {
+        resolve(res);
+      }).catch(err => {
+        reject(err);
+      })
+    })
+  } 
+  
+  
+  
 // ---------------------------------------------
 
 //新用户注册
-function registration(data) {
-  return new Es6Promise(function(resolve, reject) {
-    let newApi = Api.registration;
-    Util.request(newApi, data, 'post').then(res => {
-      resolve(res);
-    }).catch(err => {
-      reject(err);
-    })
-  })
-}
 
-function getUserInfo(){
-  return new Es6Promise(function (resolve, reject) {
-    let newApi = Api.getAccountInfo;
-    Util.request(newApi, {}, 'get').then(res => {
-      resolve(res);
-    }).catch(err => {
-			if(err.statusCode==404){
-				wx.clearStorage()
-			}
-			reject(err);
-    })
-  })
-}
+
+// function getUserInfo(){
+//   return new Es6Promise(function (resolve, reject) {
+//     let newApi = Api.getAccountInfo;
+//     Util.request(newApi, {}, 'get').then(res => {
+//       resolve(res);
+//     }).catch(err => {
+// 			if(err.statusCode==404){
+// 				wx.clearStorage()
+// 			}
+// 			reject(err);
+//     })
+//   })
+//}
 function getInquiryDetail(id) {
   return new Es6Promise(function(resolve, reject) {
     let newApi = Api.getInquiryDetail + '/' + id;
@@ -373,882 +675,14 @@ function getRecordOne(id) {
     })
   })
 }
-//跟进记录详情
-function getRecord(data) {
-  return new Es6Promise(function(resolve, reject) {
-    let newApi = Api.getRecord;
-    Util.request(newApi, data, 'get').then(res => {
-      resolve(res);
-    }).catch(err => {
-      reject(err);
-    })
-  })
-}
-// 新建客户基本信息
-function addCustomer(data){
-  return new Es6Promise(function (resolve, reject) {
-    let newApi = Api.addCustomer;
-    Util.request(newApi, data, 'post').then(res => {
-      resolve(res);
-    }).catch(err => {
-      reject(err);
-    })
-  })
-}
-//获取客户信息
-function getCustomerInfo(id){
-  return new Es6Promise(function (resolve, reject) {
-    let newApi = Api.getCustomerInfo+id;
-    Util.request(newApi, {}, 'get').then(res => {
-      resolve(res);
-    }).catch(err => {
-      reject(err);
-    })
-  })
-}
-// 设置客户身份特征
-function setIdentity(data){
-  return new Es6Promise(function (resolve, reject) {
-    let newApi = Api.setIdentity;
-    Util.request(newApi, data, 'post').then(res => {
-      resolve(res);
-    }).catch(err => {
-      reject(err);
-    })
-  })
-}
-// 设置客户产品信息
-function setOpi(data) {
-  return new Es6Promise(function (resolve, reject) {
-    let newApi = Api.setOpi;
-    Util.request(newApi, data, 'post').then(res => {
-      resolve(res);
-    }).catch(err => {
-      reject(err);
-    })
-  })
-}
-// 设置经营状况
-function setManagement(data) {
-  return new Es6Promise(function (resolve, reject) {
-    let newApi = Api.setManagement;
-    Util.request(newApi, data, 'post').then(res => {
-      resolve(res);
-    }).catch(err => {
-      reject(err);
-    })
-  })
-}
-// 新建保证金管理
-function setDeposit(data) {
-  return new Es6Promise(function (resolve, reject) {
-    let newApi = Api.setDeposit;
-    Util.request(newApi, data, 'post').then(res => {
-      resolve(res);
-    }).catch(err => {
-      reject(err);
-    })
-  })
-}
-//保证金详情
-function getDeposit(id){
-  return new Es6Promise(function (resolve, reject) {
-    let newApi = Api.setDeposit+"/"+id;
-    Util.request(newApi, {}, 'get').then(res => {
-      resolve(res);
-    }).catch(err => {
-      reject(err);
-    })
-  })
-}
-  
-//分析单管理列表
-function getAnalysisLst(data){
-  return new Es6Promise(function (resolve, reject) {
-    let newApi = Api.getAnalysisLst;
-    Util.request(newApi, data, 'get').then(res => {
-      resolve(res);
-    }).catch(err => {
-      reject(err);
-    })
-  })
-}
-// 新建询价分析单
-function addXJAnalysis(data){
-  return new Es6Promise(function (resolve, reject) {
-    let newApi = Api.addXJAnalysis;
-    Util.request(newApi, data, 'post').then(res => {
-      resolve(res);
-    }).catch(err => {
-      reject(err);
-    })
-  })
-}
-//录入找样分析单
-function addZYAnalysis(data) {
-  return new Es6Promise(function (resolve, reject) {
-    let newApi = Api.addZYAnalysis;
-    Util.request(newApi, data, 'post').then(res => {
-      resolve(res);
-    }).catch(err => {
-      reject(err);
-    })
-  })
-}
-//推送给全部卖帮办
-function pushSellDeputy(id){
-  return new Es6Promise(function (resolve, reject) {
-    let newApi = Api.pushSellDeputy + "/" + id;
-    Util.request(newApi, {}, 'get').then(res => {
-      resolve(res);
-    }).catch(err => {
-      reject(err);
-    })
-  })
-}
-// 推送单个帮办
-function pushSingleSeLLDeputy(data){
-	return new Es6Promise(function (resolve, reject) {
-		let newApi = Api.getMatchingDetail;
-		Util.request(newApi, data, 'post').then(res => {
-			resolve(res);
-		}).catch(err => {
-			reject(err);
-		})
-	})
-}
-//匹配列表
-function getMatchingList(id){
-  return new Es6Promise(function (resolve, reject) {
-    let newApi = Api.getMatchingList + "/" + id;
-    Util.request(newApi, {}, 'get').then(res => {
-      resolve(res);
-    }).catch(err => {
-      reject(err);
-    })
-  })
-}
-//录入找样结果
-function inputResult(data){
-  return new Es6Promise(function (resolve, reject) {
-    let newApi = Api.inputResult;
-    Util.request(newApi,data, 'post').then(res => {
-      resolve(res);
-    }).catch(err => {
-      reject(err);
-    })
-  })
-}
-// 获取找样结果详情
-function getSampleDetail(data){
-  return new Es6Promise(function (resolve, reject) {
-		let newApi = Api.getSampleDetail;
-    Util.request(newApi, data, 'get').then(res => {
-      resolve(res);
-    }).catch(err => {
-      reject(err);
-    })
-  })
-}
-// 获取匹配结果详情
-function getMatchingDetail(id) {
-  return new Es6Promise(function (resolve, reject) {
-    let newApi = Api.getMatchingDetail + "/" + id;
-    Util.request(newApi, {}, 'get').then(res => {
-      resolve(res);
-    }).catch(err => {
-      reject(err);
-    })
-  })
-}
-// 设置找样结果
-function setSearchResul(data) {
-  return new Es6Promise(function (resolve, reject) {
-    let newApi = Api.setSearchResul;
-    Util.request(newApi, data, 'post').then(res => {
-      resolve(res);
-    }).catch(err => {
-      reject(err);
-    })
-  })
-}
-// 设置报价
-function setOffer(data) {
-  return new Es6Promise(function (resolve, reject) {
-    let newApi = Api.setOffer;
-    // if (pageId.zyId){
-    //   newApi = newApi + '?zyid=' + pageId.zyId
-    // }
-		//  else if (pageId.ppId){
-    //   newApi = newApi + '?ppid=' + pageId.ppId
-    // }
-    Util.request(newApi, data, 'post').then(res => {
-      resolve(res);
-    }).catch(err => {
-      reject(err);
-    })
-  })
-}
-// 设置是否匹配
-function setWhetherMarching(data) {
-  return new Es6Promise(function (resolve, reject) {
-    let newApi = Api.setWhetherMarching;
-    Util.request(newApi, data, 'post').then(res => {
-      resolve(res);
-    }).catch(err => {
-      reject(err);
-    })
-  })
-}
-function getVerificationCode(data){
-  return new Es6Promise(function (resolve, reject) {
-    let newApi = Api.getVerificationCode;
-    Util.request(newApi, data, 'get').then(res => {
-      resolve(res);
-    }).catch(err => {
-      reject(err);
-    })
-  })
-}
-function userRegistration(data,code){
-  return new Es6Promise(function (resolve, reject) {
-    let newApi = Api.userRegistration+'?code='+code;
-    Util.request(newApi, data, 'post').then(res => {
-      resolve(res);
-    }).catch(err => {
-      reject(err);
-    })
-  })
-}
-//获取最热搜索内容
-function getNewSearch(data){
-  return new Es6Promise(function (resolve, reject) {
-    let newApi = Api.getNewSearch;
-    Util.request(newApi, data, 'get').then(res => {
-      resolve(res);
-    }).catch(err => {
-      reject(err);
-    })
-  })
-}
-// 样品库搜索结果列表
-function getsearchResult(data){
-  return new Es6Promise(function (resolve, reject) {
-    let newApi = Api.getsearchResult;
-    Util.request(newApi, data, 'post').then(res => {
-      resolve(res);
-    }).catch(err => {
-      reject(err);
-    })
-  })
-}
-// 多项搜索
-function manySearch(data, pageNo, pageSize){
-  return new Es6Promise(function (resolve, reject) {
-		let newApi = Api.manySearch + "?pageNo=" + pageNo + "&pageSize=" + pageSize;
-    Util.request(newApi, data, 'post').then(res => {
-      resolve(res);
-    }).catch(err => {
-      reject(err);
-    })
-  })
-}
-// 获取样品详情
-function getSampleDetailBank(id){
-  return new Es6Promise(function (resolve, reject) {
-    let newApi = Api.getsearchResult + "/" + id;
-    Util.request(newApi, {}, 'get').then(res => {
-      resolve(res);
-    }).catch(err => {
-      reject(err);
-    })
-  })
-}
-// 查看历史报价
-function viewHistoryQutoe(data){
-  return new Es6Promise(function (resolve, reject) {
-    let newApi = Api.viewHistoryQutoe;
-    Util.request(newApi, data, 'post').then(res => {
-      resolve(res);
-    }).catch(err => {
-      reject(err);
-    })
-  })
-}
-// 获取管理帮办列表
-function getDeputyAdminList(data){
-  return new Es6Promise(function (resolve, reject) {
-    let newApi = Api.getDeputyAdminList;
-    Util.request(newApi, data, 'get').then(res => {
-      resolve(res);
-    }).catch(err => {
-      reject(err);
-    })
-  })
-}
-// 获取区域列表
-function getAreaList() {
-  return new Es6Promise(function (resolve, reject) {
-    let newApi = Api.getAreaList;
-    Util.request(newApi, {}, 'get').then(res => {
-      resolve(res);
-    }).catch(err => {
-      reject(err);
-    })
-  })
-}
-// 设置区域经理
-function setManager(id,areaId) {
-  return new Es6Promise(function (resolve, reject) {
-    let newApi = Api.setManager + "?id=" + id + "&&areaId=" + areaId;
-    Util.request(newApi, {}, 'get').then(res => {
-      resolve(res);
-    }).catch(err => {
-      reject(err);
-    })
-  })
-}
-// 获取区域经理列表
-function getManagerList(data) {
-  return new Es6Promise(function (resolve, reject) {
-    let newApi = Api.getManagerList;
-    Util.request(newApi, data, 'get').then(res => {
-      resolve(res);
-    }).catch(err => {
-      reject(err);
-    })
-  })
-}
-// 获取帮办详情
-function getDeputyDetails(data){
-	return new Es6Promise(function (resolve, reject) {
-		let newApi = Api.getDeputyDetails;
-		Util.request(newApi, data, 'get').then(res => {
-			resolve(res);
-		}).catch(err => {
-			reject(err);
-		})
-	})
-}
-// 冻结帮办
-function freezeDeputy(data){
-	return new Es6Promise(function (resolve, reject) {
-		let newApi = Api.freezeDeputy ;
-		Util.request(newApi, data, 'get').then(res => {
-			resolve(res);
-		}).catch(err => {
-			reject(err);
-		})
-	})
-}
-// 分配给区域经理
-function allocationDeputy(data){
-	return new Es6Promise(function (resolve, reject) {
-		let newApi = Api.allocationDeputy;
-		Util.request(newApi, data, 'post').then(res => {
-			resolve(res);
-		}).catch(err => {
-			reject(err);
-		})
-	})
-}
-// 获分配的客户列表
-function getAllocationClientList(data){
-	return new Es6Promise(function (resolve, reject) {
-		let newApi = Api.getAllocationClientList;
-		Util.request(newApi, data, 'get').then(res => {
-			resolve(res);
-		}).catch(err => {
-			reject(err);
-		})
-	})
-}
-// 获分配的帮办列表
-function getAllocationDeputyList(data) {
-	return new Es6Promise(function (resolve, reject) {
-		let newApi = Api.getAllocationDeputyList;
-		Util.request(newApi, data, 'get').then(res => {
-			resolve(res);
-		}).catch(err => {
-			reject(err);
-		})
-	})
-}
-// 移交权限
-function transferManager(data){
-	return new Es6Promise(function (resolve, reject) {
-		let newApi = Api.transferManager;
-		Util.request(newApi, data, 'get').then(res => {
-			resolve(res);
-		}).catch(err => {
-			reject(err);
-		})
-	})
-}
-// 删除帮办分配
-function deleteDeputyAllocation(data){
-	return new Es6Promise(function (resolve, reject) {
-		let newApi = Api.deleteDeputyAllocation;
-		Util.request(newApi, data, 'post').then(res => {
-			resolve(res);
-		}).catch(err => {
-			reject(err);
-		})
-	})
-}
-// 管理人员获取客户管理列表
-function getAdminCustomerList(data) {
-	return new Es6Promise(function (resolve, reject) {
-		let newApi = Api.getAdminCustomerList;
-		Util.request(newApi, data, 'get').then(res => {
-			resolve(res);
-		}).catch(err => {
-			reject(err);
-		})
-	})
-}
-// 分配客户给区域经理
-function allocationCustomer(data){
-	return new Es6Promise(function (resolve, reject) {
-		let newApi = Api.allocationCustomer;
-		Util.request(newApi, data, 'post').then(res => {
-			resolve(res);
-		}).catch(err => {
-			reject(err);
-		})
-	})
-}
-// 删除客户分配(销售总监)
-function deleteAllotCustomer(data){
-	return new Es6Promise(function (resolve, reject) {
-		let newApi = Api.deleteAllotCustomer;
-		Util.request(newApi, data, 'post').then(res => {
-			resolve(res);
-		}).catch(err => {
-			reject(err);
-		})
-	})
-}
-//删除客户分配（区域经理）
-function deleCustomers(data){
-	return new Es6Promise(function (resolve, reject) {
-		let newApi = Api.deleCustomers;
-		Util.request(newApi, data, 'post').then(res => {
-			resolve(res);
-		}).catch(err => {
-			reject(err);
-		})
-	})
-}
-// 区域经理分配客户
-function setCustomerForManager(data){
-	return new Es6Promise(function (resolve, reject) {
-		let newApi = Api.setCustomerForManager;
-		Util.request(newApi, data, 'post').then(res => {
-			resolve(res);
-		}).catch(err => {
-			reject(err);
-		})
-	})
-}
-// 获取常规询价列表
-function getRoutineList(data){
-	return new Es6Promise(function (resolve, reject) {
-		let newApi = Api.getRoutineList;
-		Util.request(newApi, data, 'get').then(res => {
-			resolve(res);
-		}).catch(err => {
-			reject(err);
-		})
-	})
-}
-// 催单报价
-function reminderOffer(id){
-	return new Es6Promise(function (resolve, reject) {
-		let newApi = Api.reminderOffer+"/"+id;
-		Util.request(newApi, {}, 'get').then(res => {
-			resolve(res);
-		}).catch(err => {
-			reject(err);
-		})
-	})
-}
-// 常规询价报价
-function setQuoteforCgxj(id,data){
-	return new Es6Promise(function (resolve, reject) {
-		let newApi = Api.setQuoteforCgxj + "/" + id;
-		Util.request(newApi, data, 'post').then(res => {
-			resolve(res);
-		}).catch(err => {
-			reject(err);
-		})
-	})
-}
-// 匹配结果报价
-function setQuoteforPpbj(id,data){
-	return new Es6Promise(function (resolve, reject) {
-		let newApi = Api.setQuoteforPpbj + "/" + id;
-		Util.request(newApi, data, 'post').then(res => {
-			resolve(res);
-		}).catch(err => {
-			reject(err);
-		})
-	})
-}
-function getPpDetail(data){
-	return new Es6Promise(function (resolve, reject) {
-		let newApi = Api.getPpDetail;
-		Util.request(newApi, data, 'get').then(res => {
-			resolve(res);
-		}).catch(err => {
-			reject(err);
-		})
-	})
-}
-// 推送卖家
-function pushSeller(data){
-	return new Es6Promise(function (resolve, reject) {
-		let newApi = Api.pushSeller;
-		Util.request(newApi, data, 'post').then(res => {
-			resolve(res);
-		}).catch(err => {
-			reject(err);
-		})
-	})
-}
-// 卖家我的报价列表
-function getOfferList(data){
-	return new Es6Promise(function (resolve, reject) {
-		let newApi = Api.getOfferList;
-		Util.request(newApi, data, 'get').then(res => {
-			resolve(res);
-		}).catch(err => {
-			reject(err);
-		})
-	})
-}
-// 获取全部找样、匹配列表
-function getAllList(data){
-	return new Es6Promise(function (resolve, reject) {
-		let newApi = Api.getAllList;
-		Util.request(newApi, data, 'get').then(res => {
-			resolve(res);
-		}).catch(err => {
-			reject(err);
-		})
-	})
-}
-// 关闭询价单
-function closeInquirySheet(id, shut_reason){
-	return new Es6Promise(function (resolve, reject) {
-		let newApi = Api.closeInquirySheet+"/"+id;
-		Util.request(newApi, {shut_reason}, 'put').then(res => {
-			resolve(res);
-		}).catch(err => {
-			reject(err);
-		})
-	})
-}
-// 生成小程序二维码
-function generateQrCode(data){
-	return new Es6Promise(function (resolve, reject) {
-		let newApi = Api.generateQrCode;
-		Util.request(newApi, data, 'post').then(res => {
-			resolve(res);
-		}).catch(err => {
-			reject(err);
-		})
-	})
-}
-// 获取未读消息数量
-function getNewsNum(){
-	return new Es6Promise(function (resolve, reject) {
-		let newApi = Api.getNewsNum;
-		Util.request(newApi, {}, 'get').then(res => {
-			resolve(res);
-		}).catch(err => {
-			reject(err);
-		})
-	})
-}
-// 获取消息列表
-function getNewsList(data){
-	return new Es6Promise(function (resolve, reject) {
-		let newApi = Api.getNewsList;
-		Util.request(newApi, data, 'get').then(res => {
-			resolve(res);
-		}).catch(err => {
-			reject(err);
-		})
-	})
-}
-// 标记已读
-function setHaveRead(id){
-	return new Es6Promise(function (resolve, reject) {
-		let newApi = Api.setHaveRead
-		if(id){
-			newApi = Api.setHaveRead+"/"+id;
-		}
-		Util.request(newApi, {}, 'get').then(res => {
-			resolve(res);
-		}).catch(err => {
-			reject(err);
-		})
-	})
-}
-// 获取客户询价列表
-function getCustomerInquiryList(data){
-	return new Es6Promise(function (resolve, reject) {
-		let newApi = Api.getCustomerInquiryList
-		Util.request(newApi, data, 'get').then(res => {
-			resolve(res);
-		}).catch(err => {
-			reject(err);
-		})
-	})
-}
-// 获取最热
-function getNewNumber(data){
-	return new Es6Promise(function (resolve, reject) {
-		let newApi = Api.getNewNumber
-		Util.request(newApi, data, 'get').then(res => {
-			resolve(res);
-		}).catch(err => {
-			reject(err);
-		})
-	})
-}
-// 删除找样结果
-function deleteSample(data){
-	return new Es6Promise(function (resolve, reject) {
-		let newApi = Api.deleteSample
-		Util.request(newApi, data, 'post').then(res => {
-			resolve(res);
-		}).catch(err => {
-			reject(err);
-		})
-	})
-}
-// 获取产品展示详情
-function getProductDetail(id){
-	return new Es6Promise(function (resolve, reject) {
-		let newApi = Api.getProductDetail+"/"+id
-		Util.request(newApi, {}, 'get').then(res => {
-			resolve(res);
-		}).catch(err => {
-			reject(err);
-		})
-	})
-}
-// 新增产品
-function addProduct(data) {
-	return new Es6Promise(function (resolve, reject) {
-		let newApi = Api.addProduct;
-		Util.request(newApi, data, 'post').then(res => {
-			resolve(res);
-		}).catch(err => {
-			reject(err);
-		})
-	})
-}
-// 批量修改产品展示系列类型
-function allModityTypeSeries(data) {
-	return new Es6Promise(function (resolve, reject) {
-		let newApi = Api.allModityTypeSeries;
-		Util.request(newApi, data, 'post').then(res => {
-			resolve(res);
-		}).catch(err => {
-			reject(err);
-		})
-	})
-}
-// 获取产品详情
-function getProductDetails(id){
-	return new Es6Promise(function (resolve, reject) {
-		let newApi = Api.addProduct + "/" + id
-		Util.request(newApi, {}, 'get').then(res => {
-			resolve(res);
-		}).catch(err => {
-			reject(err);
-		})
-	})
-}
-// 更新产品信息
-function updateProduct(data,id){
-	return new Es6Promise(function (resolve, reject) {
-		let newApi = Api.updateProduct + "/" + id
-		Util.request(newApi, data, 'post').then(res => {
-			resolve(res);
-		}).catch(err => {
-			reject(err);
-		})
-	})
-}
-// 更新记录列表
-function getRenewList(data) {
-	return new Es6Promise(function (resolve, reject) {
-		let newApi = Api.getRenewList
-		Util.request(newApi, data, 'get').then(res => {
-			resolve(res);
-		}).catch(err => {
-			reject(err);
-		})
-	})
-}
-// 更新产品状态
-function updateStatus(data) {
-	return new Es6Promise(function (resolve, reject) {
-		let newApi = Api.updateStatus
-		Util.request(newApi, data, 'post').then(res => {
-			resolve(res);
-		}).catch(err => {
-			reject(err);
-		})
-	})
-}
-// 保证金处理列表
-function getBondHandleList(data) {
-	return new Es6Promise(function (resolve, reject) {
-		let newApi = Api.getBondHandleList
-		Util.request(newApi, data, 'get').then(res => {
-			resolve(res);
-		}).catch(err => {
-			reject(err);
-		})
-	})
-}
-// 新增保证金处理
-function addBondHandle(data) {
-	return new Es6Promise(function (resolve, reject) {
-		let newApi = Api.addBondHandle
-		Util.request(newApi, data, 'post').then(res => {
-			resolve(res);
-		}).catch(err => {
-			reject(err);
-		})
-	})
-}
-// 保证金处理详情
-function getHandleDetail(id) {
-	return new Es6Promise(function (resolve, reject) {
-		let newApi = Api.addBondHandle+'/'+id
-		Util.request(newApi, {}, 'get').then(res => {
-			resolve(res);
-		}).catch(err => {
-			reject(err);
-		})
-	})
-}
-// 新增保证金列表
-function getBondAddList(data) {
-	return new Es6Promise(function (resolve, reject) {
-		let newApi = Api.getBondAddList
-		Util.request(newApi, data, 'get').then(res => {
-			resolve(res);
-		}).catch(err => {
-			reject(err);
-		})
-	})
-}
-// 新增保证金
-function addBond(data){
-	return new Es6Promise(function (resolve, reject) {
-		let newApi = Api.setDeposit
-		Util.request(newApi, data, 'post').then(res => {
-			resolve(res);
-		}).catch(err => {
-			reject(err);
-		})
-	})
-}
-// 新增保证金详情
-function getBondeDetail(id) {
-	return new Es6Promise(function (resolve, reject) {
-		let newApi = Api.setDeposit + '/' + id
-		Util.request(newApi, {}, 'get').then(res => {
-			resolve(res);
-		}).catch(err => {
-			reject(err);
-		})
-	})
-}
-// 管理员获取审核列表
-function getBondAdmin(data){
-	return new Es6Promise(function (resolve, reject) {
-		let newApi = Api.getBondAdmin
-		Util.request(newApi, data, 'get').then(res => {
-			resolve(res);
-		}).catch(err => {
-			reject(err);
-		})
-	})
-}
-// 修改保证金处理状态
-function setHandleStatus(data) {
-	return new Es6Promise(function (resolve, reject) {
-		let newApi = Api.setHandleStatus
-		Util.request(newApi, data, 'post').then(res => {
-			resolve(res);
-		}).catch(err => {
-			reject(err);
-		})
-	})
-} 
-// 修改保证金状态
-function setBondStatus(data) {
-	return new Es6Promise(function (resolve, reject) {
-		let newApi = Api.setBondStatus
-		Util.request(newApi, data, 'post').then(res => {
-			resolve(res);
-		}).catch(err => {
-			reject(err);
-		})
-	})
-}
-// 请求再次报价
-function requestQuoation(data) {
-	return new Es6Promise(function (resolve, reject) {
-		let newApi = Api.requestQuoation
-		Util.request(newApi, data, 'get').then(res => {
-			resolve(res);
-		}).catch(err => {
-			reject(err);
-		})
-	})
-}
-// 找样结果发起报价
-function setQuoteForZyxj(id, data) {
-	return new Es6Promise(function (resolve, reject) {
-		let newApi = Api.setQuoteForZyxj + "/" + id;
-		Util.request(newApi, data, 'post').then(res => {
-			resolve(res);
-		}).catch(err => {
-			reject(err);
-		})
-	})
-}
-// 推送买帮办
-function pushToBuyer(id){
-	return new Es6Promise(function (resolve, reject) {
-		let newApi = Api.pushToBuyer + "/" + id;
-		Util.request(newApi, {}, 'get').then(res => {
-			resolve(res);
-		}).catch(err => {
-			reject(err);
-		})
-	})
-}
-// 分析师找样列表
-function getzyAnalysisList(data){
-	return new Es6Promise(function (resolve, reject) {
-		let newApi = Api.getzyAnalysisList;
-		Util.request(newApi, data, 'get').then(res => {
-			resolve(res);
-		}).catch(err => {
-			reject(err);
-		})
-	})
-}
+
+
+
+
+
+
+
+
 // 分析师询价列表
 function getxjAnalysisList(data){
 	return new Es6Promise(function (resolve, reject) {
@@ -1261,256 +695,14 @@ function getxjAnalysisList(data){
 	})
 }
 // 移交客户列表
-function getTransferCustomersList(data) {
-	return new Es6Promise(function (resolve, reject) {
-		let newApi = Api.getTransferCustomersList;
-		Util.request(newApi, data, 'get').then(res => {
-			resolve(res);
-		}).catch(err => {
-			reject(err);
-		})
-	})
-}
-// 新建修改公司
-function corporateBaseInfo(data){
-	return new Es6Promise(function (resolve, reject) {
-		let newApi = Api.corporateBaseInfo;
-		Util.request(newApi, data, 'post').then(res => {
-			resolve(res);
-		}).catch(err => {
-			reject(err);
-		})
-	})
-}
-// 添加修改联系人
-function addContacts(data){
-	return new Es6Promise(function (resolve, reject) {
-		let newApi = Api.addContacts;
-		Util.request(newApi, data, 'post').then(res => {
-			resolve(res);
-		}).catch(err => {
-			reject(err);
-		})
-	})
-}
-// 删除联系人
-function deleBaseInfo(id){
-	return new Es6Promise(function (resolve, reject) {
-		let newApi = Api.deleBaseInfo+"/"+id;
-		Util.request(newApi, {}, 'get').then(res => {
-			resolve(res);
-		}).catch(err => {
-			reject(err);
-		})
-	})
-}
-// 获取公司列表
-function getCompanyList(data){
-	return new Es6Promise(function (resolve, reject) {
-		let newApi = Api.getCompanyList;
-		Util.request(newApi, data, 'get').then(res => {
-			resolve(res);
-		}).catch(err => {
-			reject(err);
-		})
-	})
-}
-// 是否展示
-function controllShow(){
-	return new Es6Promise(function (resolve, reject) {
-		let newApi = Api.controllShow;
-		Util.request(newApi, {}, 'get').then(res => {
-			resolve(res);
-		}).catch(err => {
-			reject(err);
-		})
-	})
-}
-// 获取报价详情
-function getQuoteDetail(id){
-	return new Es6Promise(function (resolve, reject) {
-		let newApi = Api.getQuoteDetail+"/"+id;
-		Util.request(newApi, {}, 'get').then(res => {
-			resolve(res);
-		}).catch(err => {
-			reject(err);
-		})
-	})
-}
-// 删除客户公司
-function deleteCompany(id){
-	return new Es6Promise(function (resolve, reject) {
-		let newApi = Api.deleteCompany + "/" + id;
-		Util.request(newApi, {}, 'get').then(res => {
-			resolve(res);
-		}).catch(err => {
-			reject(err);
-		})
-	})
-}
-// 选择公司
-function getContactsList(id){
-	return new Es6Promise(function (resolve, reject) {
-		let newApi = Api.getContactsList + "/" + id;
-		Util.request(newApi, {}, 'get').then(res => {
-			resolve(res);
-		}).catch(err => {
-			reject(err);
-		})
-	})
-}
-// 删除跟进记录
-function deleteFollow(id){
-	return new Es6Promise(function (resolve, reject) {
-		let newApi = Api.deleteFollow + "/" + id;
-		Util.request(newApi, {}, 'get').then(res => {
-			resolve(res);
-		}).catch(err => {
-			reject(err);
-		})
-	})
-}
-// 分析师推送
-function pushAllDeputy(data){
-	return new Es6Promise(function (resolve, reject) {
-		let newApi = Api.pushAllDeputy;
-		Util.request(newApi,data, 'get').then(res => {
-			resolve(res);
-		}).catch(err => {
-			reject(err);
-		})
-	})
-}
-// 我的询价列表
-function getMyList(data){
-  return new Es6Promise(function (resolve, reject) {
-    let newApi = Api.getMyList;
-    Util.request(newApi, data, 'get').then(res => {
-      resolve(res);
-    }).catch(err => {
-      reject(err);
-    })
-  })
-}
-// 买帮办直接报价
-function directQuotation(data,id) {
-  return new Es6Promise(function (resolve, reject) {
-    let newApi = Api.directQuotation+"/"+id;
-    Util.request(newApi, data, 'post').then(res => {
-      resolve(res);
-    }).catch(err => {
-      reject(err);
-    })
-  })
-}
+
 module.exports = {
-  getUserInfo,
-  getInquiryDetail,
-  getInquiryList,
-  getRecordList,
-  getCustomerList,
-  getAssociatedCustomers,
-	getBoundAssociatedCustomers,
-  addRecord,
-  getRecordOne,
-  getRecord,
-  addCustomer,
-  getCustomerInfo,
-  setIdentity,
-  setOpi,
-  setManagement,
-  setDeposit,
-  getDeposit,
-  getAnalysisLst,
-  addXJAnalysis,
-  addZYAnalysis,
-  pushSellDeputy,
-  getMatchingList,
-  inputResult,
-  getSampleDetail,
-  getMatchingDetail,
-  setSearchResul,
-  setOffer,
-  setWhetherMarching,
-  getVerificationCode,
-  userRegistration,
-  getNewSearch,
-  getsearchResult,
-  manySearch,
-  getSampleDetailBank,
-  viewHistoryQutoe,
-  getDeputyAdminList,
-  getAreaList,
-  setManager,
-  getManagerList,
-	getDeputyDetails,
-	freezeDeputy,
-	allocationDeputy,
-	getAllocationDeputyList,
-	getAllocationClientList,
-	transferManager,
-	deleteDeputyAllocation,
-	getAdminCustomerList,
-	allocationCustomer,
-	deleteAllotCustomer,
-	deleCustomers,
-	setCustomerForManager,
-	getRoutineList,
-	reminderOffer,
-	setQuoteforCgxj,
-	pushSingleSeLLDeputy,
-	getPpDetail,
-	setQuoteforPpbj,
-	pushSeller,
-	getOfferList,
-	getAllList,
-	closeInquirySheet,
-	generateQrCode,
-	getNewsNum,
-	getNewsList,
-	setHaveRead,
-	getCustomerInquiryList,
-	getNewNumber,
-	deleteSample,
-	getProductDetail,
-	addProduct,
-	allModityTypeSeries,
-	getProductDetails,
-	updateProduct,
-	getRenewList,
-	updateStatus,
-	getBondHandleList,
-	addBondHandle,
-	getHandleDetail,
-	getBondAddList,
-	addBond,
-	getBondeDetail,
-	getBondAdmin,
-	setHandleStatus,
-	setBondStatus,
-	requestQuoation,
-	setQuoteForZyxj,
-	pushToBuyer,
-	getzyAnalysisList,
-	getxjAnalysisList,
-	getTransferCustomersList,
-	corporateBaseInfo,
-	addContacts,
-	deleBaseInfo,
-	getCompanyList,
-	controllShow,
-	getQuoteDetail,
-	deleteCompany,
-	getContactsList,
-	deleteFollow,
-	pushAllDeputy,
-  getMyList,
-  directQuotation,
+  
   getManageFeatures,
   getRegion, 
-  getcoordinate,
+  getCoordinate,
   getType, 
-  getScale,
+  getCompanyScale,
   getSource,
   getBusinessModel,
   getMainProduct,
@@ -1520,7 +712,7 @@ module.exports = {
   getOperateWom,
   getQuality,
   getPost,
-  getChanne,
+  getChannel,
   getCostPerformance,
   getIdentity,
   getPotential,
@@ -1529,6 +721,34 @@ module.exports = {
   getManageFeatures,
   getManagementPosition,
   getCooperationIntention,
-  sellCusmterCreated
   
+//用户中心功能
+  chanage_password,
+  verification,
+  registration,
+  getNewsNum,
+  noReadList,
+  pupList,
+  pupDefault,
+  bsList,
+  dmList,
+  linkMan,
+  linkmanDetails,
+  linkmanAdd,
+  linkmanUpdate,
+  operation,
+  rival,
+  buyAddCustomer,
+  updateCustomer,
+  sellCusmterCreated,
+  userDetails,
+  cmDetail,
+  operationUpdate,
+  operationAdd,
+  rivalDetails,
+  rivalAdd,
+  linkmanDel,
+  rivalDel,
+  rivalUpdate
+
 }

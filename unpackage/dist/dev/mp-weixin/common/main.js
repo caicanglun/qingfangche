@@ -12,17 +12,26 @@ var _vue = _interopRequireDefault(__webpack_require__(/*! vue */ 2));
 var _App = _interopRequireDefault(__webpack_require__(/*! ./App */ 9));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}function _objectSpread(target) {for (var i = 1; i < arguments.length; i++) {var source = arguments[i] != null ? arguments[i] : {};var ownKeys = Object.keys(source);if (typeof Object.getOwnPropertySymbols === 'function') {ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) {return Object.getOwnPropertyDescriptor(source, sym).enumerable;}));}ownKeys.forEach(function (key) {_defineProperty(target, key, source[key]);});}return target;}function _defineProperty(obj, key, value) {if (key in obj) {Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true });} else {obj[key] = value;}return obj;}
 
 _vue.default.config.productionTip = false;
-_vue.default.prototype.checkLogin = function (backpage, backtype) {
-  var SUID = uni.getStorageSync('SUID');
-  var SNAME = uni.getStorageSync('SNAME');
-  var TOKEN = uni.getStorageSync('TOKEN');
-  if (SUID == '' || SNAME == '' || TOKEN == '') {
-    uni.redirectTo({ url: '/pages/qing-f-c/login/login?backpage=' + backpage + '&backtype=' + backtype });
+_vue.default.prototype.checkLogin = function () {
+  var TOKEN = uni.getStorageSync('token');
+  var pupDefault = uni.getStorageSync('pupDefault');
+  if (TOKEN == '') {
+    // uni.redirectTo({url:'/pages/qing-f-c/login/login?backpage='+backpage+'&backtype='+backtype});
+    uni.redirectTo({ url: '/pages/qing-f-c/login/login' });
     return false;
   }
-  return [SUID, SNAME, TOKEN];
+  if (pupDefault == '') {
+    uni.showToast({
+      title: '还没有设置身份，请找帮办确认！',
+      icon: 'none',
+      duration: 2000 });
+
+    uni.redirectTo({ url: '/pages/qing-f-c/login/login' });
+    return false;
+  }
+  return TOKEN;
 };
-_vue.default.prototype.apiServer = "http://192.168.11.141";
+
 _App.default.mpType = 'app';
 
 var app = new _vue.default(_objectSpread({},

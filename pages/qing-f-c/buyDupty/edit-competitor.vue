@@ -104,7 +104,7 @@
 </template>
 
 <script>
-	let _this,_customerId,_competitor;
+	let _this,_competitor;
 	export default {
 		data() {
 			return {
@@ -130,14 +130,11 @@
 		},
 		onLoad:function(options){
 			_this = this;
-			_customerId = options.customerId;
-			console.log(_customerId )
-			_competitor = JSON.parse(options.competitor)
-			
+			_competitor = JSON.parse(options.odata)
+			console.log("competior=====",_competitor)
 		},
 		onShow:function(){
 			this.competitor = _competitor
-			console.log(this.competitor)
 			let competitor = this.competitor
 			this.companyName = competitor.name
 			this.companyAddr = competitor.address

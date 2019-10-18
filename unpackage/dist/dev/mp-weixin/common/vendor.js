@@ -1604,216 +1604,6 @@ function normalizeComponent (
 
 /***/ }),
 
-/***/ 143:
-/*!*********************************************************!*\
-  !*** /Users/lee/Downloads/备份11/轻纺车网/services/server.js ***!
-  \*********************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-var Common = __webpack_require__(/*! utils/common.js */ 23);
-var Api = __webpack_require__(/*! services/config/api.js */ 22);
-var Util = __webpack_require__(/*! utils/util.js */ 26);
-var Es6Promise = __webpack_require__(/*! lib/es6-promise.js */ 27);
-
-/*
-                                                 * get 数据
-                                                 */
-function getDataWX(api, data) {
-  return new Es6Promise(function (resolve, reject) {
-    Util.request(api, data, 'get').then(function (res) {
-      if (res.statusCode === 200) {
-        resolve(res);
-      } else {
-        reject(res);
-      }
-    }).catch(function (err) {
-      reject(err);
-    });
-  });
-}
-
-/**
-   * post 数据
-   */
-function postDataWX(api, data) {
-  return new Es6Promise(function (resolve, reject) {
-    Util.request(api, data, 'post').then(function (res) {
-      if (res.statusCode >= 200 && res.statusCode < 300) {
-        resolve(res);
-      } else {
-        reject(res);
-      }
-    }).catch(function (err) {
-      reject(err);
-    });
-  });
-}
-
-
-/**
-   * put 数据
-   */
-function putDataWX(api, data) {
-  return new Es6Promise(function (resolve, reject) {
-    Util.request(api, data, 'put').then(function (res) {
-      if (res.statusCode >= 200 && res.statusCode < 300) {
-        resolve(res);
-      } else {
-        reject(res);
-      }
-    }).catch(function (err) {
-      reject(err);
-    });
-  });
-}
-
-/**
-   * delete 数据
-   */
-function deleteDataWX(api, data) {
-  return new Es6Promise(function (resolve, reject) {
-    Util.request(api, data, 'delete').then(function (res) {
-      if (res.statusCode >= 200 && res.statusCode < 300) {
-        resolve(res);
-      } else {
-        reject(res);
-      }
-    }).catch(function (err) {
-      reject(err);
-    });
-  });
-}
-
-/**
-   * 页面行为记录
-   */
-function setActive(that, data) {
-  var apiStr = Api.userBehavior;
-  var token = wx.getStorageSync("token");
-
-  if (that.data.loadState && token) {
-    postDataWX(apiStr, data).then(function (res) {
-      Common.setLoadTrue(that);
-    }).catch(function (err) {
-      Common.setLoadTrue(that);
-    });
-  }
-}
-
-/**
-   * 获取表单formId
-   */
-function getFormId(e) {
-  var formId = e.detail.formId;
-  var formApi = Common.pinFormId(Api.formID, formId);
-  var token = wx.getStorageSync("token");
-
-  if (token && formId != "the formId is a mock one") {
-    Util.request(formApi, {}, 'get').then(function (res) {}).catch(function (err) {});
-  }
-}
-
-
-/**
-   * 功能：获取二维码
-   * 参数：
-   *    pagePath：页面路径
-   *    id：订单id
-   */
-function getQRCodeUrl(pagePath, id) {
-  return new Es6Promise(function (resolve, reject) {
-    var COdeApi = Api.QRCodeUrl;
-    var pageUrl = id ? "".concat(pagePath, "?id=").concat(id) : pagePath;
-
-    Util.request(COdeApi, pageUrl, 'post').then(function (res) {
-      var picUrl = "".concat(Api.ShowPic, "/").concat(res.data.id, "/download");
-
-      Util.downloadFile(picUrl).then(function (weChatUrl) {
-        resolve(weChatUrl);
-      }).catch(function (err) {
-        showModal("图片下载失败");
-      });
-    }).catch(function (err) {
-      Util.showErrorToast("获取二维码失败");
-    });
-  });
-}
-
-/**
-   * 上传图片
-   * 
-   * 参数：
-   *    photoList：要上传的图片数组
-   *    apiState：控制使用压缩上传的api，还是不压缩上传的api
-   */
-var uploadPics = function uploadPics(photoList) {var apiState = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;
-  return new Es6Promise(function (resolve, reject) {
-    var photoJsonArray = [];
-    if (photoList && photoList.length >= 1) {
-      photoList.forEach(function (item) {
-        wx.uploadFile({
-          url: !apiState ? Api.PicUpload : Api.PicNewUpload,
-          filePath: item,
-          name: 'file',
-          header: {
-            'Authorization': "Bearer " + wx.getStorageSync('token') },
-
-          formData: {
-            'user': 'test' },
-
-          success: function success(res) {
-            photoJsonArray.push(JSON.parse(res.data));
-
-            if (photoJsonArray.length == photoList.length) {
-              resolve(photoJsonArray);
-            }
-          },
-          fail: function fail(err) {
-            reject(err);
-          } });
-
-      });
-    } else {
-      resolve([]);
-    }
-  });
-};
-
-
-
-/**
-    * 功能：采购订单详情--获取用户的 付款银行账户 
-    */
-function createOrder(data) {
-  return new Es6Promise(function (resolve, reject) {
-    var createOrderApi = Api.createOrder;
-
-    Util.request(createOrderApi, data, 'post').then(function (res) {
-      resolve(res);
-    }).catch(function (err) {
-      Util.showModal("新建询价单失败");
-      // reject(err);
-    });
-  });
-}
-
-
-
-module.exports = {
-  getDataWX: getDataWX,
-  postDataWX: postDataWX,
-  putDataWX: putDataWX,
-  deleteDataWX: deleteDataWX,
-  setActive: setActive,
-  getFormId: getFormId,
-  getQRCodeUrl: getQRCodeUrl,
-  uploadPics: uploadPics,
-  createOrder: createOrder };
-
-/***/ }),
-
 /***/ 2:
 /*!******************************************************************************************!*\
   !*** ./node_modules/@dcloudio/vue-cli-plugin-uni/packages/mp-vue/dist/mp.runtime.esm.js ***!
@@ -7779,17 +7569,343 @@ internalMixin(Vue);
 
 /***/ 21:
 /*!*************************************************************!*\
+  !*** /Users/lee/Downloads/备份11/轻纺车网/services/config/api.js ***!
+  \*************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+var _module$exports;function _defineProperty(obj, key, value) {if (key in obj) {Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true });} else {obj[key] = value;}return obj;} //  const ServerUrl = "https://www.144f.com"; // 生产环境
+
+//const ServerUrl = "https://www.qingfangche.net"; // 开发环境
+var ServerUrl = "http://192.168.11.141";
+var NewApiRootUrl = ServerUrl + '/api/';
+var WXApiRootUrl = ServerUrl + '/wx/';
+var ChooseUrl = ServerUrl + '/choose/';
+var VERSION = '3.3.72'; // 小程序版本
+
+module.exports = (_module$exports = {
+  VERSION: VERSION,
+  NewApiRootUrl: NewApiRootUrl,
+  WXApiRootUrl: WXApiRootUrl,
+  ChooseUrl: ChooseUrl,
+  //下拉选择
+
+  getRegion: ChooseUrl + "region", //区域
+  getCoordinate: ChooseUrl + "coordinate", //配合度
+  getType: ChooseUrl + "type", //客户类型
+  getCompanyScale: ChooseUrl + "scale", //客户规模
+  getSource: ChooseUrl + "source", //客户来源
+  getBusinessModel: ChooseUrl + "businessModel", //公司经营模式
+  getMainProduct: ChooseUrl + "mainProduct", //主营产品
+  getOperateCapital: ChooseUrl + "operateCapital", //资金状况
+  getOperateCredit: ChooseUrl + "operateCredit", //信用状况
+  getOperateOperation: ChooseUrl + "operateOperation", //运营状况
+  getOperateWom: ChooseUrl + "operateWom", //口碑
+  getQuality: ChooseUrl + "quality", //品质定位
+  getPost: ChooseUrl + "post", //角色
+  getChannel: ChooseUrl + "channe", //渠道
+  getCostPerformance: ChooseUrl + "costPerformance", //性价比
+  getIdentity: ChooseUrl + "identity", //身份
+  getPotential: ChooseUrl + "potential", //发展潜力
+  getPriceSensitivity: ChooseUrl + "priceSensitivity", //用户价格敏感度
+  getCooperationIntention: ChooseUrl + "cooperationIntention", //合作意向
+  getCharacterFeatures: ChooseUrl + "characterFeatures", //性格特点
+  getManageFeatures: ChooseUrl + "manageFeatures", //经营者特征
+  getManagementPosition: ChooseUrl + "managementPosition", //经营定位
+
+
+  //用户登陆注册
+
+  login: ServerUrl + '/ul/login', //用户登陆 post
+  chanage_password: ServerUrl + '/ul/change_password', // 修改密码 post
+  verification: ServerUrl + '/ul/verification', //短信验证码 post
+  registration: ServerUrl + '/ul/registration', //用户注册 post
+  getNewsNum: ServerUrl + '/um/count', //未读信息
+  noReadList: ServerUrl + '/um/list', //未读信息列表 post
+
+  //个人中心
+  userDetails: ServerUrl + '/user/details', //用户个人信息
+  pupList: ServerUrl + '/pup/list', //查询用户职位列表
+  pupDefault: ServerUrl + '/pup/default', //获取默认职位
+  bsList: ServerUrl + '/cm/bsList', //买/卖帮办客户列表
+  dmList: ServerUrl + '/cm/dmList', //销售总监，区域经理客户列表
+
+  cmDetail: ServerUrl + '/cm/details', //客户详情
+  updateCustomer: ServerUrl + '/cm/updateCustomer', //更新联系人
+  linkMan: ServerUrl + '/cm/linkman', //公司联系人
+  linkmanDetails: ServerUrl + '/cm/linkmanDetails', //联系人详情
+  linkmanDel: ServerUrl + '/cm/linkmanDel', //删除联系人
+  linkmanAdd: ServerUrl + '/cm/linkmanAdd', //公司联系人添加 post
+  linkmanUpdate: ServerUrl + '/cm/linkmanUpdate', //更新联系人 post
+  operation: ServerUrl + '/cm/operation', //获取公司经营状况
+  rival: ServerUrl + '/cm/rival', //公司竞争对手列表
+  rivalDetails: ServerUrl + '/cm/rivalDetails', //竞争对手详情
+  rivalDel: ServerUrl + '/cm/rivalDel', //删除竞争对手
+  rivalUpdate: ServerUrl + '/cm/rivalUpdate', //更新竞争对手
+  buyAddCustomer: ServerUrl + '/cm/buyAddCustomer' }, _defineProperty(_module$exports, "updateCustomer",
+ServerUrl + '/cm/updateCustomer'), _defineProperty(_module$exports, "sellCusmterCreated",
+ServerUrl + "/cm/sellAddCustomer"), _defineProperty(_module$exports, "operationUpdate",
+ServerUrl + "/cm/operationUpdate"), _defineProperty(_module$exports, "operationAdd",
+ServerUrl + '/cm/operationAdd'), _defineProperty(_module$exports, "rivalAdd",
+ServerUrl + '/cm/rivalAdd'), _module$exports);
+
+/***/ }),
+
+/***/ 215:
+/*!*********************************************************!*\
+  !*** /Users/lee/Downloads/备份11/轻纺车网/services/server.js ***!
+  \*********************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+var Common = __webpack_require__(/*! utils/common.js */ 31);
+var Api = __webpack_require__(/*! services/config/api.js */ 21);
+var Util = __webpack_require__(/*! utils/util.js */ 34);
+var Es6Promise = __webpack_require__(/*! lib/es6-promise.js */ 35);
+
+/*
+                                                 * get 数据
+                                                 */
+function getDataWX(api, data) {
+  return new Es6Promise(function (resolve, reject) {
+    Util.request(api, data, 'get').then(function (res) {
+      if (res.statusCode === 200) {
+        resolve(res);
+      } else {
+        reject(res);
+      }
+    }).catch(function (err) {
+      reject(err);
+    });
+  });
+}
+
+/**
+   * post 数据
+   */
+function postDataWX(api, data) {
+  return new Es6Promise(function (resolve, reject) {
+    Util.request(api, data, 'post').then(function (res) {
+      if (res.statusCode >= 200 && res.statusCode < 300) {
+        resolve(res);
+      } else {
+        reject(res);
+      }
+    }).catch(function (err) {
+      reject(err);
+    });
+  });
+}
+
+
+/**
+   * put 数据
+   */
+function putDataWX(api, data) {
+  return new Es6Promise(function (resolve, reject) {
+    Util.request(api, data, 'put').then(function (res) {
+      if (res.statusCode >= 200 && res.statusCode < 300) {
+        resolve(res);
+      } else {
+        reject(res);
+      }
+    }).catch(function (err) {
+      reject(err);
+    });
+  });
+}
+
+/**
+   * delete 数据
+   */
+function deleteDataWX(api, data) {
+  return new Es6Promise(function (resolve, reject) {
+    Util.request(api, data, 'delete').then(function (res) {
+      if (res.statusCode >= 200 && res.statusCode < 300) {
+        resolve(res);
+      } else {
+        reject(res);
+      }
+    }).catch(function (err) {
+      reject(err);
+    });
+  });
+}
+
+/**
+   * 页面行为记录
+   */
+function setActive(that, data) {
+  var apiStr = Api.userBehavior;
+  var token = wx.getStorageSync("token");
+
+  if (that.data.loadState && token) {
+    postDataWX(apiStr, data).then(function (res) {
+      Common.setLoadTrue(that);
+    }).catch(function (err) {
+      Common.setLoadTrue(that);
+    });
+  }
+}
+
+/**
+   * 获取表单formId
+   */
+function getFormId(e) {
+  var formId = e.detail.formId;
+  var formApi = Common.pinFormId(Api.formID, formId);
+  var token = wx.getStorageSync("token");
+
+  if (token && formId != "the formId is a mock one") {
+    Util.request(formApi, {}, 'get').then(function (res) {}).catch(function (err) {});
+  }
+}
+
+
+/**
+   * 功能：获取二维码
+   * 参数：
+   *    pagePath：页面路径
+   *    id：订单id
+   */
+function getQRCodeUrl(pagePath, id) {
+  return new Es6Promise(function (resolve, reject) {
+    var COdeApi = Api.QRCodeUrl;
+    var pageUrl = id ? "".concat(pagePath, "?id=").concat(id) : pagePath;
+
+    Util.request(COdeApi, pageUrl, 'post').then(function (res) {
+      var picUrl = "".concat(Api.ShowPic, "/").concat(res.data.id, "/download");
+
+      Util.downloadFile(picUrl).then(function (weChatUrl) {
+        resolve(weChatUrl);
+      }).catch(function (err) {
+        showModal("图片下载失败");
+      });
+    }).catch(function (err) {
+      Util.showErrorToast("获取二维码失败");
+    });
+  });
+}
+
+/**
+   * 上传图片
+   * 
+   * 参数：
+   *    photoList：要上传的图片数组
+   *    apiState：控制使用压缩上传的api，还是不压缩上传的api
+   */
+var uploadPics = function uploadPics(photoList) {var apiState = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;
+  return new Es6Promise(function (resolve, reject) {
+    var photoJsonArray = [];
+    if (photoList && photoList.length >= 1) {
+      photoList.forEach(function (item) {
+        wx.uploadFile({
+          url: !apiState ? Api.PicUpload : Api.PicNewUpload,
+          filePath: item,
+          name: 'file',
+          header: {
+            'Authorization': "Bearer " + wx.getStorageSync('token') },
+
+          formData: {
+            'user': 'test' },
+
+          success: function success(res) {
+            photoJsonArray.push(JSON.parse(res.data));
+
+            if (photoJsonArray.length == photoList.length) {
+              resolve(photoJsonArray);
+            }
+          },
+          fail: function fail(err) {
+            reject(err);
+          } });
+
+      });
+    } else {
+      resolve([]);
+    }
+  });
+};
+
+
+
+/**
+    * 功能：采购订单详情--获取用户的 付款银行账户 
+    */
+function createOrder(data) {
+  return new Es6Promise(function (resolve, reject) {
+    var createOrderApi = Api.createOrder;
+
+    Util.request(createOrderApi, data, 'post').then(function (res) {
+      resolve(res);
+    }).catch(function (err) {
+      Util.showModal("新建询价单失败");
+      // reject(err);
+    });
+  });
+}
+
+
+
+module.exports = {
+  getDataWX: getDataWX,
+  postDataWX: postDataWX,
+  putDataWX: putDataWX,
+  deleteDataWX: deleteDataWX,
+  setActive: setActive,
+  getFormId: getFormId,
+  getQRCodeUrl: getQRCodeUrl,
+  uploadPics: uploadPics,
+  createOrder: createOrder };
+
+/***/ }),
+
+/***/ 3:
+/*!***********************************!*\
+  !*** (webpack)/buildin/global.js ***!
+  \***********************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+var g;
+
+// This works in non-strict mode
+g = (function() {
+	return this;
+})();
+
+try {
+	// This works if eval is allowed (see CSP)
+	g = g || new Function("return this")();
+} catch (e) {
+	// This works if the window reference is available
+	if (typeof window === "object") g = window;
+}
+
+// g can still be undefined, but nothing to do about it...
+// We return undefined, instead of nothing here, so it's
+// easier to handle this case. if(!global) { ...}
+
+module.exports = g;
+
+
+/***/ }),
+
+/***/ 30:
+/*!*************************************************************!*\
   !*** /Users/lee/Downloads/备份11/轻纺车网/services/jsy-server.js ***!
   \*************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-var _module$exports;function _defineProperty(obj, key, value) {if (key in obj) {Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true });} else {obj[key] = value;}return obj;}var Api = __webpack_require__(/*! services/config/api.js */ 22);
-var Common = __webpack_require__(/*! utils/common.js */ 23);
-var Util = __webpack_require__(/*! utils/util.js */ 26);
-var User = __webpack_require__(/*! services/user.js */ 30);
-var Es6Promise = __webpack_require__(/*! lib/es6-promise.js */ 27);
+var _module$exports;function _defineProperty(obj, key, value) {if (key in obj) {Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true });} else {obj[key] = value;}return obj;}var Api = __webpack_require__(/*! services/config/api.js */ 21);
+var Common = __webpack_require__(/*! utils/common.js */ 31);
+var Util = __webpack_require__(/*! utils/util.js */ 34);
+var User = __webpack_require__(/*! services/user.js */ 38);
+var Es6Promise = __webpack_require__(/*! lib/es6-promise.js */ 35);
 //下拉选择
 //区域列表
 function getRegion() {
@@ -7803,9 +7919,9 @@ function getRegion() {
   });
 }
 //配合度
-function getcoordinate() {
+function getCoordinate() {
   return new Es6Promise(function (resolve, reject) {
-    var newApi = Api.getcoordinate;
+    var newApi = Api.getCoordinate;
     Util.request(newApi, {}, 'get').then(function (res) {
       resolve(res);
     }).catch(function (err) {
@@ -7825,9 +7941,9 @@ function getType() {
   });
 }
 //客户规模
-function getScale() {
+function getCompanyScale() {
   return new Es6Promise(function (resolve, reject) {
-    var newApi = Api.getScale;
+    var newApi = Api.getCompanyScale;
     Util.request(newApi, {}, 'get').then(function (res) {
       resolve(res);
     }).catch(function (err) {
@@ -7935,9 +8051,9 @@ function getPost() {
   });
 }
 //渠道
-function getChanne() {
+function getChannel() {
   return new Es6Promise(function (resolve, reject) {
-    var newApi = Api.getChanne;
+    var newApi = Api.getChannel;
     Util.request(newApi, {}, 'get').then(function (res) {
       resolve(res);
     }).catch(function (err) {
@@ -8023,6 +8139,7 @@ function getManagementPosition() {
     });
   });
 }
+//合作意向
 function getCooperationIntention() {
   return new Es6Promise(function (resolve, reject) {
     var newApi = Api.getCooperationIntention;
@@ -8033,12 +8150,21 @@ function getCooperationIntention() {
     });
   });
 }
-
-
-
-function sellCusmterCreated(data) {
+//用户登陆
+// function login(data) {
+//     return new Es6Promise(function(resolve, reject) {
+//       let newApi = Api.login;
+//       Util.request(newApi, data, 'post').then(res => {
+//         resolve(res);
+//       }).catch(err => {
+//         reject(err);
+//       })
+//     })
+//   }
+// 更改密码
+function chanage_password(data) {
   return new Es6Promise(function (resolve, reject) {
-    var newApi = Api.sellCusmterCreated;
+    var newApi = Api.chanage_password;
     Util.request(newApi, data, 'post').then(function (res) {
       resolve(res);
     }).catch(function (err) {
@@ -8046,9 +8172,18 @@ function sellCusmterCreated(data) {
     });
   });
 }
-// ---------------------------------------------
-
-//新用户注册
+//验证码
+function verification(data) {
+  return new Es6Promise(function (resolve, reject) {
+    var newApi = Api.verification;
+    Util.request(newApi, data, 'post').then(function (res) {
+      resolve(res);
+    }).catch(function (err) {
+      reject(err);
+    });
+  });
+}
+//用户注册
 function registration(data) {
   return new Es6Promise(function (resolve, reject) {
     var newApi = Api.registration;
@@ -8059,20 +8194,303 @@ function registration(data) {
     });
   });
 }
-
-function getUserInfo() {
+//用户个人信息
+function userDetails(data) {
   return new Es6Promise(function (resolve, reject) {
-    var newApi = Api.getAccountInfo;
-    Util.request(newApi, {}, 'get').then(function (res) {
+    var newApi = Api.userDetails;
+    Util.request(newApi, data, 'get').then(function (res) {
       resolve(res);
     }).catch(function (err) {
-      if (err.statusCode == 404) {
-        wx.clearStorage();
-      }
       reject(err);
     });
   });
 }
+//未读信息
+function getNewsNum() {
+  return new Es6Promise(function (resolve, reject) {
+    var newApi = Api.getNewsNum;
+    Util.request(newApi, {}, 'get').then(function (res) {
+      resolve(res);
+    }).catch(function (err) {
+      reject(err);
+    });
+  });
+}
+//未读信息列表
+function noReadList(data) {
+  return new Es6Promise(function (resolve, reject) {
+    var newApi = Api.noReadList;
+    Util.request(newApi, data, 'post').then(function (res) {
+      resolve(res);
+    }).catch(function (err) {
+      reject(err);
+    });
+  });
+}
+//查询用户职位列表
+function pupList(data) {
+  return new Es6Promise(function (resolve, reject) {
+    var newApi = Api.pupList;
+    Util.request(newApi, data, 'get').then(function (res) {
+      resolve(res);
+    }).catch(function (err) {
+      reject(err);
+    });
+  });
+}
+//获取默认职位
+function pupDefault(data) {
+  return new Es6Promise(function (resolve, reject) {
+    var newApi = Api.pupDefault;
+    Util.request(newApi, data, 'get').then(function (res) {
+      resolve(res);
+    }).catch(function (err) {
+      reject(err);
+    });
+  });
+}
+//买/卖帮办客户列表
+function bsList(data) {
+  return new Es6Promise(function (resolve, reject) {
+    var newApi = Api.bsList;
+    Util.request(newApi, data, 'get').then(function (res) {
+      resolve(res);
+    }).catch(function (err) {
+      reject(err);
+    });
+  });
+}
+//客户详情
+function cmDetail(data) {
+  return new Es6Promise(function (resolve, reject) {
+    var newApi = Api.cmDetail;
+    Util.request(newApi, data, 'get').then(function (res) {
+      resolve(res);
+    }).catch(function (err) {
+      reject(err);
+    });
+  });
+}
+//更新客户信息 
+function updateCustomer(data) {
+  return new Es6Promise(function (resolve, reject) {
+    var newApi = Api.updateCustomer;
+    Util.request(newApi, data, 'post').then(function (res) {
+      resolve(res);
+    }).catch(function (err) {
+      reject(err);
+    });
+  });
+}
+
+//销售总监，区域经理客户列表
+function dmList(data) {
+  return new Es6Promise(function (resolve, reject) {
+    var newApi = Api.dmList;
+    Util.request(newApi, data, 'get').then(function (res) {
+      resolve(res);
+    }).catch(function (err) {
+      reject(err);
+    });
+  });
+}
+//公司联系人
+function linkMan(data) {
+  return new Es6Promise(function (resolve, reject) {
+    var newApi = Api.linkMan;
+    Util.request(newApi, data, 'get').then(function (res) {
+      resolve(res);
+    }).catch(function (err) {
+      reject(err);
+    });
+  });
+}
+//联系人详情
+function linkmanDetails(data) {
+  return new Es6Promise(function (resolve, reject) {
+    var newApi = Api.linkmanDetails;
+    Util.request(newApi, data, 'get').then(function (res) {
+      resolve(res);
+    }).catch(function (err) {
+      reject(err);
+    });
+  });
+}
+//删除联系人
+function linkmanDel(data) {
+  return new Es6Promise(function (resolve, reject) {
+    var newApi = Api.linkmanDel;
+    Util.request(newApi, data, 'get').then(function (res) {
+      resolve(res);
+    }).catch(function (err) {
+      reject(err);
+    });
+  });
+}
+//公司联系人添加
+function linkmanAdd(data) {
+  return new Es6Promise(function (resolve, reject) {
+    var newApi = Api.linkmanAdd;
+    Util.request(newApi, data, 'post').then(function (res) {
+      resolve(res);
+    }).catch(function (err) {
+      reject(err);
+    });
+  });
+}
+//更新联系人 
+function linkmanUpdate(data) {
+  return new Es6Promise(function (resolve, reject) {
+    var newApi = Api.linkmanUpdate;
+    Util.request(newApi, data, 'post').then(function (res) {
+      resolve(res);
+    }).catch(function (err) {
+      reject(err);
+    });
+  });
+}
+//获取公司经营状况
+function operation(data) {
+  return new Es6Promise(function (resolve, reject) {
+    var newApi = Api.operation;
+    Util.request(newApi, data, 'get').then(function (res) {
+      resolve(res);
+    }).catch(function (err) {
+      reject(err);
+    });
+  });
+}
+//公司竞争对手列表
+function rival(data) {
+  return new Es6Promise(function (resolve, reject) {
+    var newApi = Api.rival;
+    Util.request(newApi, data, 'get').then(function (res) {
+      resolve(res);
+    }).catch(function (err) {
+      reject(err);
+    });
+  });
+}
+//竞争对手详情
+function rivalDetails(data) {
+  return new Es6Promise(function (resolve, reject) {
+    var newApi = Api.rivalDetails;
+    Util.request(newApi, data, 'get').then(function (res) {
+      resolve(res);
+    }).catch(function (err) {
+      reject(err);
+    });
+  });
+}
+//竞争对手更新
+function rivalUpdate(data) {
+  return new Es6Promise(function (resolve, reject) {
+    var newApi = Api.rivalUpdate;
+    Util.request(newApi, data, 'post').then(function (res) {
+      resolve(res);
+    }).catch(function (err) {
+      reject(err);
+    });
+  });
+}
+
+//删除竞争对手
+function rivalDel(data) {
+  return new Es6Promise(function (resolve, reject) {
+    var newApi = Api.rivalDel;
+    Util.request(newApi, data, 'get').then(function (res) {
+      resolve(res);
+    }).catch(function (err) {
+      reject(err);
+    });
+  });
+}
+//买办创建客户
+function buyAddCustomer(data) {
+  return new Es6Promise(function (resolve, reject) {
+    var newApi = Api.buyAddCustomer;
+    Util.request(newApi, data, 'post').then(function (res) {
+      resolve(res);
+    }).catch(function (err) {
+      reject(err);
+    });
+  });
+}
+//修改客户
+function updateCustomer(data) {
+  return new Es6Promise(function (resolve, reject) {
+    var newApi = Api.updateCustomer;
+    Util.request(newApi, data, 'post').then(function (res) {
+      resolve(res);
+    }).catch(function (err) {
+      reject(err);
+    });
+  });
+}
+//卖帮办创建客户
+function sellCusmterCreated(data) {
+  return new Es6Promise(function (resolve, reject) {
+    var newApi = Api.sellCusmterCreated;
+    Util.request(newApi, data, 'post').then(function (res) {
+      resolve(res);
+    }).catch(function (err) {
+      reject(err);
+    });
+  });
+}
+//更新经营状况
+function operationUpdate(data) {
+  return new Es6Promise(function (resolve, reject) {
+    var newApi = Api.operationUpdate;
+    Util.request(newApi, data, 'post').then(function (res) {
+      resolve(res);
+    }).catch(function (err) {
+      reject(err);
+    });
+  });
+}
+//添加经营状况
+function operationAdd(data) {
+  return new Es6Promise(function (resolve, reject) {
+    var newApi = Api.operationAdd;
+    Util.request(newApi, data, 'post').then(function (res) {
+      resolve(res);
+    }).catch(function (err) {
+      reject(err);
+    });
+  });
+}
+function rivalAdd(data) {
+  return new Es6Promise(function (resolve, reject) {
+    var newApi = Api.rivalAdd;
+    Util.request(newApi, data, 'post').then(function (res) {
+      resolve(res);
+    }).catch(function (err) {
+      reject(err);
+    });
+  });
+}
+
+
+
+// ---------------------------------------------
+
+//新用户注册
+
+
+// function getUserInfo(){
+//   return new Es6Promise(function (resolve, reject) {
+//     let newApi = Api.getAccountInfo;
+//     Util.request(newApi, {}, 'get').then(res => {
+//       resolve(res);
+//     }).catch(err => {
+// 			if(err.statusCode==404){
+// 				wx.clearStorage()
+// 			}
+// 			reject(err);
+//     })
+//   })
+//}
 function getInquiryDetail(id) {
   return new Es6Promise(function (resolve, reject) {
     var newApi = Api.getInquiryDetail + '/' + id;
@@ -8160,882 +8578,14 @@ function getRecordOne(id) {
     });
   });
 }
-//跟进记录详情
-function getRecord(data) {
-  return new Es6Promise(function (resolve, reject) {
-    var newApi = Api.getRecord;
-    Util.request(newApi, data, 'get').then(function (res) {
-      resolve(res);
-    }).catch(function (err) {
-      reject(err);
-    });
-  });
-}
-// 新建客户基本信息
-function addCustomer(data) {
-  return new Es6Promise(function (resolve, reject) {
-    var newApi = Api.addCustomer;
-    Util.request(newApi, data, 'post').then(function (res) {
-      resolve(res);
-    }).catch(function (err) {
-      reject(err);
-    });
-  });
-}
-//获取客户信息
-function getCustomerInfo(id) {
-  return new Es6Promise(function (resolve, reject) {
-    var newApi = Api.getCustomerInfo + id;
-    Util.request(newApi, {}, 'get').then(function (res) {
-      resolve(res);
-    }).catch(function (err) {
-      reject(err);
-    });
-  });
-}
-// 设置客户身份特征
-function setIdentity(data) {
-  return new Es6Promise(function (resolve, reject) {
-    var newApi = Api.setIdentity;
-    Util.request(newApi, data, 'post').then(function (res) {
-      resolve(res);
-    }).catch(function (err) {
-      reject(err);
-    });
-  });
-}
-// 设置客户产品信息
-function setOpi(data) {
-  return new Es6Promise(function (resolve, reject) {
-    var newApi = Api.setOpi;
-    Util.request(newApi, data, 'post').then(function (res) {
-      resolve(res);
-    }).catch(function (err) {
-      reject(err);
-    });
-  });
-}
-// 设置经营状况
-function setManagement(data) {
-  return new Es6Promise(function (resolve, reject) {
-    var newApi = Api.setManagement;
-    Util.request(newApi, data, 'post').then(function (res) {
-      resolve(res);
-    }).catch(function (err) {
-      reject(err);
-    });
-  });
-}
-// 新建保证金管理
-function setDeposit(data) {
-  return new Es6Promise(function (resolve, reject) {
-    var newApi = Api.setDeposit;
-    Util.request(newApi, data, 'post').then(function (res) {
-      resolve(res);
-    }).catch(function (err) {
-      reject(err);
-    });
-  });
-}
-//保证金详情
-function getDeposit(id) {
-  return new Es6Promise(function (resolve, reject) {
-    var newApi = Api.setDeposit + "/" + id;
-    Util.request(newApi, {}, 'get').then(function (res) {
-      resolve(res);
-    }).catch(function (err) {
-      reject(err);
-    });
-  });
-}
 
-//分析单管理列表
-function getAnalysisLst(data) {
-  return new Es6Promise(function (resolve, reject) {
-    var newApi = Api.getAnalysisLst;
-    Util.request(newApi, data, 'get').then(function (res) {
-      resolve(res);
-    }).catch(function (err) {
-      reject(err);
-    });
-  });
-}
-// 新建询价分析单
-function addXJAnalysis(data) {
-  return new Es6Promise(function (resolve, reject) {
-    var newApi = Api.addXJAnalysis;
-    Util.request(newApi, data, 'post').then(function (res) {
-      resolve(res);
-    }).catch(function (err) {
-      reject(err);
-    });
-  });
-}
-//录入找样分析单
-function addZYAnalysis(data) {
-  return new Es6Promise(function (resolve, reject) {
-    var newApi = Api.addZYAnalysis;
-    Util.request(newApi, data, 'post').then(function (res) {
-      resolve(res);
-    }).catch(function (err) {
-      reject(err);
-    });
-  });
-}
-//推送给全部卖帮办
-function pushSellDeputy(id) {
-  return new Es6Promise(function (resolve, reject) {
-    var newApi = Api.pushSellDeputy + "/" + id;
-    Util.request(newApi, {}, 'get').then(function (res) {
-      resolve(res);
-    }).catch(function (err) {
-      reject(err);
-    });
-  });
-}
-// 推送单个帮办
-function pushSingleSeLLDeputy(data) {
-  return new Es6Promise(function (resolve, reject) {
-    var newApi = Api.getMatchingDetail;
-    Util.request(newApi, data, 'post').then(function (res) {
-      resolve(res);
-    }).catch(function (err) {
-      reject(err);
-    });
-  });
-}
-//匹配列表
-function getMatchingList(id) {
-  return new Es6Promise(function (resolve, reject) {
-    var newApi = Api.getMatchingList + "/" + id;
-    Util.request(newApi, {}, 'get').then(function (res) {
-      resolve(res);
-    }).catch(function (err) {
-      reject(err);
-    });
-  });
-}
-//录入找样结果
-function inputResult(data) {
-  return new Es6Promise(function (resolve, reject) {
-    var newApi = Api.inputResult;
-    Util.request(newApi, data, 'post').then(function (res) {
-      resolve(res);
-    }).catch(function (err) {
-      reject(err);
-    });
-  });
-}
-// 获取找样结果详情
-function getSampleDetail(data) {
-  return new Es6Promise(function (resolve, reject) {
-    var newApi = Api.getSampleDetail;
-    Util.request(newApi, data, 'get').then(function (res) {
-      resolve(res);
-    }).catch(function (err) {
-      reject(err);
-    });
-  });
-}
-// 获取匹配结果详情
-function getMatchingDetail(id) {
-  return new Es6Promise(function (resolve, reject) {
-    var newApi = Api.getMatchingDetail + "/" + id;
-    Util.request(newApi, {}, 'get').then(function (res) {
-      resolve(res);
-    }).catch(function (err) {
-      reject(err);
-    });
-  });
-}
-// 设置找样结果
-function setSearchResul(data) {
-  return new Es6Promise(function (resolve, reject) {
-    var newApi = Api.setSearchResul;
-    Util.request(newApi, data, 'post').then(function (res) {
-      resolve(res);
-    }).catch(function (err) {
-      reject(err);
-    });
-  });
-}
-// 设置报价
-function setOffer(data) {
-  return new Es6Promise(function (resolve, reject) {
-    var newApi = Api.setOffer;
-    // if (pageId.zyId){
-    //   newApi = newApi + '?zyid=' + pageId.zyId
-    // }
-    //  else if (pageId.ppId){
-    //   newApi = newApi + '?ppid=' + pageId.ppId
-    // }
-    Util.request(newApi, data, 'post').then(function (res) {
-      resolve(res);
-    }).catch(function (err) {
-      reject(err);
-    });
-  });
-}
-// 设置是否匹配
-function setWhetherMarching(data) {
-  return new Es6Promise(function (resolve, reject) {
-    var newApi = Api.setWhetherMarching;
-    Util.request(newApi, data, 'post').then(function (res) {
-      resolve(res);
-    }).catch(function (err) {
-      reject(err);
-    });
-  });
-}
-function getVerificationCode(data) {
-  return new Es6Promise(function (resolve, reject) {
-    var newApi = Api.getVerificationCode;
-    Util.request(newApi, data, 'get').then(function (res) {
-      resolve(res);
-    }).catch(function (err) {
-      reject(err);
-    });
-  });
-}
-function userRegistration(data, code) {
-  return new Es6Promise(function (resolve, reject) {
-    var newApi = Api.userRegistration + '?code=' + code;
-    Util.request(newApi, data, 'post').then(function (res) {
-      resolve(res);
-    }).catch(function (err) {
-      reject(err);
-    });
-  });
-}
-//获取最热搜索内容
-function getNewSearch(data) {
-  return new Es6Promise(function (resolve, reject) {
-    var newApi = Api.getNewSearch;
-    Util.request(newApi, data, 'get').then(function (res) {
-      resolve(res);
-    }).catch(function (err) {
-      reject(err);
-    });
-  });
-}
-// 样品库搜索结果列表
-function getsearchResult(data) {
-  return new Es6Promise(function (resolve, reject) {
-    var newApi = Api.getsearchResult;
-    Util.request(newApi, data, 'post').then(function (res) {
-      resolve(res);
-    }).catch(function (err) {
-      reject(err);
-    });
-  });
-}
-// 多项搜索
-function manySearch(data, pageNo, pageSize) {
-  return new Es6Promise(function (resolve, reject) {
-    var newApi = Api.manySearch + "?pageNo=" + pageNo + "&pageSize=" + pageSize;
-    Util.request(newApi, data, 'post').then(function (res) {
-      resolve(res);
-    }).catch(function (err) {
-      reject(err);
-    });
-  });
-}
-// 获取样品详情
-function getSampleDetailBank(id) {
-  return new Es6Promise(function (resolve, reject) {
-    var newApi = Api.getsearchResult + "/" + id;
-    Util.request(newApi, {}, 'get').then(function (res) {
-      resolve(res);
-    }).catch(function (err) {
-      reject(err);
-    });
-  });
-}
-// 查看历史报价
-function viewHistoryQutoe(data) {
-  return new Es6Promise(function (resolve, reject) {
-    var newApi = Api.viewHistoryQutoe;
-    Util.request(newApi, data, 'post').then(function (res) {
-      resolve(res);
-    }).catch(function (err) {
-      reject(err);
-    });
-  });
-}
-// 获取管理帮办列表
-function getDeputyAdminList(data) {
-  return new Es6Promise(function (resolve, reject) {
-    var newApi = Api.getDeputyAdminList;
-    Util.request(newApi, data, 'get').then(function (res) {
-      resolve(res);
-    }).catch(function (err) {
-      reject(err);
-    });
-  });
-}
-// 获取区域列表
-function getAreaList() {
-  return new Es6Promise(function (resolve, reject) {
-    var newApi = Api.getAreaList;
-    Util.request(newApi, {}, 'get').then(function (res) {
-      resolve(res);
-    }).catch(function (err) {
-      reject(err);
-    });
-  });
-}
-// 设置区域经理
-function setManager(id, areaId) {
-  return new Es6Promise(function (resolve, reject) {
-    var newApi = Api.setManager + "?id=" + id + "&&areaId=" + areaId;
-    Util.request(newApi, {}, 'get').then(function (res) {
-      resolve(res);
-    }).catch(function (err) {
-      reject(err);
-    });
-  });
-}
-// 获取区域经理列表
-function getManagerList(data) {
-  return new Es6Promise(function (resolve, reject) {
-    var newApi = Api.getManagerList;
-    Util.request(newApi, data, 'get').then(function (res) {
-      resolve(res);
-    }).catch(function (err) {
-      reject(err);
-    });
-  });
-}
-// 获取帮办详情
-function getDeputyDetails(data) {
-  return new Es6Promise(function (resolve, reject) {
-    var newApi = Api.getDeputyDetails;
-    Util.request(newApi, data, 'get').then(function (res) {
-      resolve(res);
-    }).catch(function (err) {
-      reject(err);
-    });
-  });
-}
-// 冻结帮办
-function freezeDeputy(data) {
-  return new Es6Promise(function (resolve, reject) {
-    var newApi = Api.freezeDeputy;
-    Util.request(newApi, data, 'get').then(function (res) {
-      resolve(res);
-    }).catch(function (err) {
-      reject(err);
-    });
-  });
-}
-// 分配给区域经理
-function allocationDeputy(data) {
-  return new Es6Promise(function (resolve, reject) {
-    var newApi = Api.allocationDeputy;
-    Util.request(newApi, data, 'post').then(function (res) {
-      resolve(res);
-    }).catch(function (err) {
-      reject(err);
-    });
-  });
-}
-// 获分配的客户列表
-function getAllocationClientList(data) {
-  return new Es6Promise(function (resolve, reject) {
-    var newApi = Api.getAllocationClientList;
-    Util.request(newApi, data, 'get').then(function (res) {
-      resolve(res);
-    }).catch(function (err) {
-      reject(err);
-    });
-  });
-}
-// 获分配的帮办列表
-function getAllocationDeputyList(data) {
-  return new Es6Promise(function (resolve, reject) {
-    var newApi = Api.getAllocationDeputyList;
-    Util.request(newApi, data, 'get').then(function (res) {
-      resolve(res);
-    }).catch(function (err) {
-      reject(err);
-    });
-  });
-}
-// 移交权限
-function transferManager(data) {
-  return new Es6Promise(function (resolve, reject) {
-    var newApi = Api.transferManager;
-    Util.request(newApi, data, 'get').then(function (res) {
-      resolve(res);
-    }).catch(function (err) {
-      reject(err);
-    });
-  });
-}
-// 删除帮办分配
-function deleteDeputyAllocation(data) {
-  return new Es6Promise(function (resolve, reject) {
-    var newApi = Api.deleteDeputyAllocation;
-    Util.request(newApi, data, 'post').then(function (res) {
-      resolve(res);
-    }).catch(function (err) {
-      reject(err);
-    });
-  });
-}
-// 管理人员获取客户管理列表
-function getAdminCustomerList(data) {
-  return new Es6Promise(function (resolve, reject) {
-    var newApi = Api.getAdminCustomerList;
-    Util.request(newApi, data, 'get').then(function (res) {
-      resolve(res);
-    }).catch(function (err) {
-      reject(err);
-    });
-  });
-}
-// 分配客户给区域经理
-function allocationCustomer(data) {
-  return new Es6Promise(function (resolve, reject) {
-    var newApi = Api.allocationCustomer;
-    Util.request(newApi, data, 'post').then(function (res) {
-      resolve(res);
-    }).catch(function (err) {
-      reject(err);
-    });
-  });
-}
-// 删除客户分配(销售总监)
-function deleteAllotCustomer(data) {
-  return new Es6Promise(function (resolve, reject) {
-    var newApi = Api.deleteAllotCustomer;
-    Util.request(newApi, data, 'post').then(function (res) {
-      resolve(res);
-    }).catch(function (err) {
-      reject(err);
-    });
-  });
-}
-//删除客户分配（区域经理）
-function deleCustomers(data) {
-  return new Es6Promise(function (resolve, reject) {
-    var newApi = Api.deleCustomers;
-    Util.request(newApi, data, 'post').then(function (res) {
-      resolve(res);
-    }).catch(function (err) {
-      reject(err);
-    });
-  });
-}
-// 区域经理分配客户
-function setCustomerForManager(data) {
-  return new Es6Promise(function (resolve, reject) {
-    var newApi = Api.setCustomerForManager;
-    Util.request(newApi, data, 'post').then(function (res) {
-      resolve(res);
-    }).catch(function (err) {
-      reject(err);
-    });
-  });
-}
-// 获取常规询价列表
-function getRoutineList(data) {
-  return new Es6Promise(function (resolve, reject) {
-    var newApi = Api.getRoutineList;
-    Util.request(newApi, data, 'get').then(function (res) {
-      resolve(res);
-    }).catch(function (err) {
-      reject(err);
-    });
-  });
-}
-// 催单报价
-function reminderOffer(id) {
-  return new Es6Promise(function (resolve, reject) {
-    var newApi = Api.reminderOffer + "/" + id;
-    Util.request(newApi, {}, 'get').then(function (res) {
-      resolve(res);
-    }).catch(function (err) {
-      reject(err);
-    });
-  });
-}
-// 常规询价报价
-function setQuoteforCgxj(id, data) {
-  return new Es6Promise(function (resolve, reject) {
-    var newApi = Api.setQuoteforCgxj + "/" + id;
-    Util.request(newApi, data, 'post').then(function (res) {
-      resolve(res);
-    }).catch(function (err) {
-      reject(err);
-    });
-  });
-}
-// 匹配结果报价
-function setQuoteforPpbj(id, data) {
-  return new Es6Promise(function (resolve, reject) {
-    var newApi = Api.setQuoteforPpbj + "/" + id;
-    Util.request(newApi, data, 'post').then(function (res) {
-      resolve(res);
-    }).catch(function (err) {
-      reject(err);
-    });
-  });
-}
-function getPpDetail(data) {
-  return new Es6Promise(function (resolve, reject) {
-    var newApi = Api.getPpDetail;
-    Util.request(newApi, data, 'get').then(function (res) {
-      resolve(res);
-    }).catch(function (err) {
-      reject(err);
-    });
-  });
-}
-// 推送卖家
-function pushSeller(data) {
-  return new Es6Promise(function (resolve, reject) {
-    var newApi = Api.pushSeller;
-    Util.request(newApi, data, 'post').then(function (res) {
-      resolve(res);
-    }).catch(function (err) {
-      reject(err);
-    });
-  });
-}
-// 卖家我的报价列表
-function getOfferList(data) {
-  return new Es6Promise(function (resolve, reject) {
-    var newApi = Api.getOfferList;
-    Util.request(newApi, data, 'get').then(function (res) {
-      resolve(res);
-    }).catch(function (err) {
-      reject(err);
-    });
-  });
-}
-// 获取全部找样、匹配列表
-function getAllList(data) {
-  return new Es6Promise(function (resolve, reject) {
-    var newApi = Api.getAllList;
-    Util.request(newApi, data, 'get').then(function (res) {
-      resolve(res);
-    }).catch(function (err) {
-      reject(err);
-    });
-  });
-}
-// 关闭询价单
-function closeInquirySheet(id, shut_reason) {
-  return new Es6Promise(function (resolve, reject) {
-    var newApi = Api.closeInquirySheet + "/" + id;
-    Util.request(newApi, { shut_reason: shut_reason }, 'put').then(function (res) {
-      resolve(res);
-    }).catch(function (err) {
-      reject(err);
-    });
-  });
-}
-// 生成小程序二维码
-function generateQrCode(data) {
-  return new Es6Promise(function (resolve, reject) {
-    var newApi = Api.generateQrCode;
-    Util.request(newApi, data, 'post').then(function (res) {
-      resolve(res);
-    }).catch(function (err) {
-      reject(err);
-    });
-  });
-}
-// 获取未读消息数量
-function getNewsNum() {
-  return new Es6Promise(function (resolve, reject) {
-    var newApi = Api.getNewsNum;
-    Util.request(newApi, {}, 'get').then(function (res) {
-      resolve(res);
-    }).catch(function (err) {
-      reject(err);
-    });
-  });
-}
-// 获取消息列表
-function getNewsList(data) {
-  return new Es6Promise(function (resolve, reject) {
-    var newApi = Api.getNewsList;
-    Util.request(newApi, data, 'get').then(function (res) {
-      resolve(res);
-    }).catch(function (err) {
-      reject(err);
-    });
-  });
-}
-// 标记已读
-function setHaveRead(id) {
-  return new Es6Promise(function (resolve, reject) {
-    var newApi = Api.setHaveRead;
-    if (id) {
-      newApi = Api.setHaveRead + "/" + id;
-    }
-    Util.request(newApi, {}, 'get').then(function (res) {
-      resolve(res);
-    }).catch(function (err) {
-      reject(err);
-    });
-  });
-}
-// 获取客户询价列表
-function getCustomerInquiryList(data) {
-  return new Es6Promise(function (resolve, reject) {
-    var newApi = Api.getCustomerInquiryList;
-    Util.request(newApi, data, 'get').then(function (res) {
-      resolve(res);
-    }).catch(function (err) {
-      reject(err);
-    });
-  });
-}
-// 获取最热
-function getNewNumber(data) {
-  return new Es6Promise(function (resolve, reject) {
-    var newApi = Api.getNewNumber;
-    Util.request(newApi, data, 'get').then(function (res) {
-      resolve(res);
-    }).catch(function (err) {
-      reject(err);
-    });
-  });
-}
-// 删除找样结果
-function deleteSample(data) {
-  return new Es6Promise(function (resolve, reject) {
-    var newApi = Api.deleteSample;
-    Util.request(newApi, data, 'post').then(function (res) {
-      resolve(res);
-    }).catch(function (err) {
-      reject(err);
-    });
-  });
-}
-// 获取产品展示详情
-function getProductDetail(id) {
-  return new Es6Promise(function (resolve, reject) {
-    var newApi = Api.getProductDetail + "/" + id;
-    Util.request(newApi, {}, 'get').then(function (res) {
-      resolve(res);
-    }).catch(function (err) {
-      reject(err);
-    });
-  });
-}
-// 新增产品
-function addProduct(data) {
-  return new Es6Promise(function (resolve, reject) {
-    var newApi = Api.addProduct;
-    Util.request(newApi, data, 'post').then(function (res) {
-      resolve(res);
-    }).catch(function (err) {
-      reject(err);
-    });
-  });
-}
-// 批量修改产品展示系列类型
-function allModityTypeSeries(data) {
-  return new Es6Promise(function (resolve, reject) {
-    var newApi = Api.allModityTypeSeries;
-    Util.request(newApi, data, 'post').then(function (res) {
-      resolve(res);
-    }).catch(function (err) {
-      reject(err);
-    });
-  });
-}
-// 获取产品详情
-function getProductDetails(id) {
-  return new Es6Promise(function (resolve, reject) {
-    var newApi = Api.addProduct + "/" + id;
-    Util.request(newApi, {}, 'get').then(function (res) {
-      resolve(res);
-    }).catch(function (err) {
-      reject(err);
-    });
-  });
-}
-// 更新产品信息
-function updateProduct(data, id) {
-  return new Es6Promise(function (resolve, reject) {
-    var newApi = Api.updateProduct + "/" + id;
-    Util.request(newApi, data, 'post').then(function (res) {
-      resolve(res);
-    }).catch(function (err) {
-      reject(err);
-    });
-  });
-}
-// 更新记录列表
-function getRenewList(data) {
-  return new Es6Promise(function (resolve, reject) {
-    var newApi = Api.getRenewList;
-    Util.request(newApi, data, 'get').then(function (res) {
-      resolve(res);
-    }).catch(function (err) {
-      reject(err);
-    });
-  });
-}
-// 更新产品状态
-function updateStatus(data) {
-  return new Es6Promise(function (resolve, reject) {
-    var newApi = Api.updateStatus;
-    Util.request(newApi, data, 'post').then(function (res) {
-      resolve(res);
-    }).catch(function (err) {
-      reject(err);
-    });
-  });
-}
-// 保证金处理列表
-function getBondHandleList(data) {
-  return new Es6Promise(function (resolve, reject) {
-    var newApi = Api.getBondHandleList;
-    Util.request(newApi, data, 'get').then(function (res) {
-      resolve(res);
-    }).catch(function (err) {
-      reject(err);
-    });
-  });
-}
-// 新增保证金处理
-function addBondHandle(data) {
-  return new Es6Promise(function (resolve, reject) {
-    var newApi = Api.addBondHandle;
-    Util.request(newApi, data, 'post').then(function (res) {
-      resolve(res);
-    }).catch(function (err) {
-      reject(err);
-    });
-  });
-}
-// 保证金处理详情
-function getHandleDetail(id) {
-  return new Es6Promise(function (resolve, reject) {
-    var newApi = Api.addBondHandle + '/' + id;
-    Util.request(newApi, {}, 'get').then(function (res) {
-      resolve(res);
-    }).catch(function (err) {
-      reject(err);
-    });
-  });
-}
-// 新增保证金列表
-function getBondAddList(data) {
-  return new Es6Promise(function (resolve, reject) {
-    var newApi = Api.getBondAddList;
-    Util.request(newApi, data, 'get').then(function (res) {
-      resolve(res);
-    }).catch(function (err) {
-      reject(err);
-    });
-  });
-}
-// 新增保证金
-function addBond(data) {
-  return new Es6Promise(function (resolve, reject) {
-    var newApi = Api.setDeposit;
-    Util.request(newApi, data, 'post').then(function (res) {
-      resolve(res);
-    }).catch(function (err) {
-      reject(err);
-    });
-  });
-}
-// 新增保证金详情
-function getBondeDetail(id) {
-  return new Es6Promise(function (resolve, reject) {
-    var newApi = Api.setDeposit + '/' + id;
-    Util.request(newApi, {}, 'get').then(function (res) {
-      resolve(res);
-    }).catch(function (err) {
-      reject(err);
-    });
-  });
-}
-// 管理员获取审核列表
-function getBondAdmin(data) {
-  return new Es6Promise(function (resolve, reject) {
-    var newApi = Api.getBondAdmin;
-    Util.request(newApi, data, 'get').then(function (res) {
-      resolve(res);
-    }).catch(function (err) {
-      reject(err);
-    });
-  });
-}
-// 修改保证金处理状态
-function setHandleStatus(data) {
-  return new Es6Promise(function (resolve, reject) {
-    var newApi = Api.setHandleStatus;
-    Util.request(newApi, data, 'post').then(function (res) {
-      resolve(res);
-    }).catch(function (err) {
-      reject(err);
-    });
-  });
-}
-// 修改保证金状态
-function setBondStatus(data) {
-  return new Es6Promise(function (resolve, reject) {
-    var newApi = Api.setBondStatus;
-    Util.request(newApi, data, 'post').then(function (res) {
-      resolve(res);
-    }).catch(function (err) {
-      reject(err);
-    });
-  });
-}
-// 请求再次报价
-function requestQuoation(data) {
-  return new Es6Promise(function (resolve, reject) {
-    var newApi = Api.requestQuoation;
-    Util.request(newApi, data, 'get').then(function (res) {
-      resolve(res);
-    }).catch(function (err) {
-      reject(err);
-    });
-  });
-}
-// 找样结果发起报价
-function setQuoteForZyxj(id, data) {
-  return new Es6Promise(function (resolve, reject) {
-    var newApi = Api.setQuoteForZyxj + "/" + id;
-    Util.request(newApi, data, 'post').then(function (res) {
-      resolve(res);
-    }).catch(function (err) {
-      reject(err);
-    });
-  });
-}
-// 推送买帮办
-function pushToBuyer(id) {
-  return new Es6Promise(function (resolve, reject) {
-    var newApi = Api.pushToBuyer + "/" + id;
-    Util.request(newApi, {}, 'get').then(function (res) {
-      resolve(res);
-    }).catch(function (err) {
-      reject(err);
-    });
-  });
-}
-// 分析师找样列表
-function getzyAnalysisList(data) {
-  return new Es6Promise(function (resolve, reject) {
-    var newApi = Api.getzyAnalysisList;
-    Util.request(newApi, data, 'get').then(function (res) {
-      resolve(res);
-    }).catch(function (err) {
-      reject(err);
-    });
-  });
-}
+
+
+
+
+
+
+
 // 分析师询价列表
 function getxjAnalysisList(data) {
   return new Es6Promise(function (resolve, reject) {
@@ -9048,256 +8598,14 @@ function getxjAnalysisList(data) {
   });
 }
 // 移交客户列表
-function getTransferCustomersList(data) {
-  return new Es6Promise(function (resolve, reject) {
-    var newApi = Api.getTransferCustomersList;
-    Util.request(newApi, data, 'get').then(function (res) {
-      resolve(res);
-    }).catch(function (err) {
-      reject(err);
-    });
-  });
-}
-// 新建修改公司
-function corporateBaseInfo(data) {
-  return new Es6Promise(function (resolve, reject) {
-    var newApi = Api.corporateBaseInfo;
-    Util.request(newApi, data, 'post').then(function (res) {
-      resolve(res);
-    }).catch(function (err) {
-      reject(err);
-    });
-  });
-}
-// 添加修改联系人
-function addContacts(data) {
-  return new Es6Promise(function (resolve, reject) {
-    var newApi = Api.addContacts;
-    Util.request(newApi, data, 'post').then(function (res) {
-      resolve(res);
-    }).catch(function (err) {
-      reject(err);
-    });
-  });
-}
-// 删除联系人
-function deleBaseInfo(id) {
-  return new Es6Promise(function (resolve, reject) {
-    var newApi = Api.deleBaseInfo + "/" + id;
-    Util.request(newApi, {}, 'get').then(function (res) {
-      resolve(res);
-    }).catch(function (err) {
-      reject(err);
-    });
-  });
-}
-// 获取公司列表
-function getCompanyList(data) {
-  return new Es6Promise(function (resolve, reject) {
-    var newApi = Api.getCompanyList;
-    Util.request(newApi, data, 'get').then(function (res) {
-      resolve(res);
-    }).catch(function (err) {
-      reject(err);
-    });
-  });
-}
-// 是否展示
-function controllShow() {
-  return new Es6Promise(function (resolve, reject) {
-    var newApi = Api.controllShow;
-    Util.request(newApi, {}, 'get').then(function (res) {
-      resolve(res);
-    }).catch(function (err) {
-      reject(err);
-    });
-  });
-}
-// 获取报价详情
-function getQuoteDetail(id) {
-  return new Es6Promise(function (resolve, reject) {
-    var newApi = Api.getQuoteDetail + "/" + id;
-    Util.request(newApi, {}, 'get').then(function (res) {
-      resolve(res);
-    }).catch(function (err) {
-      reject(err);
-    });
-  });
-}
-// 删除客户公司
-function deleteCompany(id) {
-  return new Es6Promise(function (resolve, reject) {
-    var newApi = Api.deleteCompany + "/" + id;
-    Util.request(newApi, {}, 'get').then(function (res) {
-      resolve(res);
-    }).catch(function (err) {
-      reject(err);
-    });
-  });
-}
-// 选择公司
-function getContactsList(id) {
-  return new Es6Promise(function (resolve, reject) {
-    var newApi = Api.getContactsList + "/" + id;
-    Util.request(newApi, {}, 'get').then(function (res) {
-      resolve(res);
-    }).catch(function (err) {
-      reject(err);
-    });
-  });
-}
-// 删除跟进记录
-function deleteFollow(id) {
-  return new Es6Promise(function (resolve, reject) {
-    var newApi = Api.deleteFollow + "/" + id;
-    Util.request(newApi, {}, 'get').then(function (res) {
-      resolve(res);
-    }).catch(function (err) {
-      reject(err);
-    });
-  });
-}
-// 分析师推送
-function pushAllDeputy(data) {
-  return new Es6Promise(function (resolve, reject) {
-    var newApi = Api.pushAllDeputy;
-    Util.request(newApi, data, 'get').then(function (res) {
-      resolve(res);
-    }).catch(function (err) {
-      reject(err);
-    });
-  });
-}
-// 我的询价列表
-function getMyList(data) {
-  return new Es6Promise(function (resolve, reject) {
-    var newApi = Api.getMyList;
-    Util.request(newApi, data, 'get').then(function (res) {
-      resolve(res);
-    }).catch(function (err) {
-      reject(err);
-    });
-  });
-}
-// 买帮办直接报价
-function directQuotation(data, id) {
-  return new Es6Promise(function (resolve, reject) {
-    var newApi = Api.directQuotation + "/" + id;
-    Util.request(newApi, data, 'post').then(function (res) {
-      resolve(res);
-    }).catch(function (err) {
-      reject(err);
-    });
-  });
-}
+
 module.exports = (_module$exports = {
-  getUserInfo: getUserInfo,
-  getInquiryDetail: getInquiryDetail,
-  getInquiryList: getInquiryList,
-  getRecordList: getRecordList,
-  getCustomerList: getCustomerList,
-  getAssociatedCustomers: getAssociatedCustomers,
-  getBoundAssociatedCustomers: getBoundAssociatedCustomers,
-  addRecord: addRecord,
-  getRecordOne: getRecordOne,
-  getRecord: getRecord,
-  addCustomer: addCustomer,
-  getCustomerInfo: getCustomerInfo,
-  setIdentity: setIdentity,
-  setOpi: setOpi,
-  setManagement: setManagement,
-  setDeposit: setDeposit,
-  getDeposit: getDeposit,
-  getAnalysisLst: getAnalysisLst,
-  addXJAnalysis: addXJAnalysis,
-  addZYAnalysis: addZYAnalysis,
-  pushSellDeputy: pushSellDeputy,
-  getMatchingList: getMatchingList,
-  inputResult: inputResult,
-  getSampleDetail: getSampleDetail,
-  getMatchingDetail: getMatchingDetail,
-  setSearchResul: setSearchResul,
-  setOffer: setOffer,
-  setWhetherMarching: setWhetherMarching,
-  getVerificationCode: getVerificationCode,
-  userRegistration: userRegistration,
-  getNewSearch: getNewSearch,
-  getsearchResult: getsearchResult,
-  manySearch: manySearch,
-  getSampleDetailBank: getSampleDetailBank,
-  viewHistoryQutoe: viewHistoryQutoe,
-  getDeputyAdminList: getDeputyAdminList,
-  getAreaList: getAreaList,
-  setManager: setManager,
-  getManagerList: getManagerList,
-  getDeputyDetails: getDeputyDetails,
-  freezeDeputy: freezeDeputy,
-  allocationDeputy: allocationDeputy,
-  getAllocationDeputyList: getAllocationDeputyList,
-  getAllocationClientList: getAllocationClientList,
-  transferManager: transferManager,
-  deleteDeputyAllocation: deleteDeputyAllocation,
-  getAdminCustomerList: getAdminCustomerList,
-  allocationCustomer: allocationCustomer,
-  deleteAllotCustomer: deleteAllotCustomer,
-  deleCustomers: deleCustomers,
-  setCustomerForManager: setCustomerForManager,
-  getRoutineList: getRoutineList,
-  reminderOffer: reminderOffer,
-  setQuoteforCgxj: setQuoteforCgxj,
-  pushSingleSeLLDeputy: pushSingleSeLLDeputy,
-  getPpDetail: getPpDetail,
-  setQuoteforPpbj: setQuoteforPpbj,
-  pushSeller: pushSeller,
-  getOfferList: getOfferList,
-  getAllList: getAllList,
-  closeInquirySheet: closeInquirySheet,
-  generateQrCode: generateQrCode,
-  getNewsNum: getNewsNum,
-  getNewsList: getNewsList,
-  setHaveRead: setHaveRead,
-  getCustomerInquiryList: getCustomerInquiryList,
-  getNewNumber: getNewNumber,
-  deleteSample: deleteSample,
-  getProductDetail: getProductDetail,
-  addProduct: addProduct,
-  allModityTypeSeries: allModityTypeSeries,
-  getProductDetails: getProductDetails,
-  updateProduct: updateProduct,
-  getRenewList: getRenewList,
-  updateStatus: updateStatus,
-  getBondHandleList: getBondHandleList,
-  addBondHandle: addBondHandle,
-  getHandleDetail: getHandleDetail,
-  getBondAddList: getBondAddList,
-  addBond: addBond,
-  getBondeDetail: getBondeDetail,
-  getBondAdmin: getBondAdmin,
-  setHandleStatus: setHandleStatus,
-  setBondStatus: setBondStatus,
-  requestQuoation: requestQuoation,
-  setQuoteForZyxj: setQuoteForZyxj,
-  pushToBuyer: pushToBuyer,
-  getzyAnalysisList: getzyAnalysisList,
-  getxjAnalysisList: getxjAnalysisList,
-  getTransferCustomersList: getTransferCustomersList,
-  corporateBaseInfo: corporateBaseInfo,
-  addContacts: addContacts,
-  deleBaseInfo: deleBaseInfo,
-  getCompanyList: getCompanyList,
-  controllShow: controllShow,
-  getQuoteDetail: getQuoteDetail,
-  deleteCompany: deleteCompany,
-  getContactsList: getContactsList,
-  deleteFollow: deleteFollow,
-  pushAllDeputy: pushAllDeputy,
-  getMyList: getMyList,
-  directQuotation: directQuotation,
+
   getManageFeatures: getManageFeatures,
   getRegion: getRegion,
-  getcoordinate: getcoordinate,
+  getCoordinate: getCoordinate,
   getType: getType,
-  getScale: getScale,
+  getCompanyScale: getCompanyScale,
   getSource: getSource,
   getBusinessModel: getBusinessModel,
   getMainProduct: getMainProduct,
@@ -9307,7 +8615,7 @@ module.exports = (_module$exports = {
   getOperateWom: getOperateWom,
   getQuality: getQuality,
   getPost: getPost,
-  getChanne: getChanne,
+  getChannel: getChannel,
   getCostPerformance: getCostPerformance,
   getIdentity: getIdentity,
   getPotential: getPotential,
@@ -9315,385 +8623,40 @@ module.exports = (_module$exports = {
   getCharacterFeatures: getCharacterFeatures }, _defineProperty(_module$exports, "getManageFeatures",
 getManageFeatures), _defineProperty(_module$exports, "getManagementPosition",
 getManagementPosition), _defineProperty(_module$exports, "getCooperationIntention",
-getCooperationIntention), _defineProperty(_module$exports, "sellCusmterCreated",
-sellCusmterCreated), _module$exports);
+getCooperationIntention), _defineProperty(_module$exports, "chanage_password",
+
+
+chanage_password), _defineProperty(_module$exports, "verification",
+verification), _defineProperty(_module$exports, "registration",
+registration), _defineProperty(_module$exports, "getNewsNum",
+getNewsNum), _defineProperty(_module$exports, "noReadList",
+noReadList), _defineProperty(_module$exports, "pupList",
+pupList), _defineProperty(_module$exports, "pupDefault",
+pupDefault), _defineProperty(_module$exports, "bsList",
+bsList), _defineProperty(_module$exports, "dmList",
+dmList), _defineProperty(_module$exports, "linkMan",
+linkMan), _defineProperty(_module$exports, "linkmanDetails",
+linkmanDetails), _defineProperty(_module$exports, "linkmanAdd",
+linkmanAdd), _defineProperty(_module$exports, "linkmanUpdate",
+linkmanUpdate), _defineProperty(_module$exports, "operation",
+operation), _defineProperty(_module$exports, "rival",
+rival), _defineProperty(_module$exports, "buyAddCustomer",
+buyAddCustomer), _defineProperty(_module$exports, "updateCustomer",
+updateCustomer), _defineProperty(_module$exports, "sellCusmterCreated",
+sellCusmterCreated), _defineProperty(_module$exports, "userDetails",
+userDetails), _defineProperty(_module$exports, "cmDetail",
+cmDetail), _defineProperty(_module$exports, "operationUpdate",
+operationUpdate), _defineProperty(_module$exports, "operationAdd",
+operationAdd), _defineProperty(_module$exports, "rivalDetails",
+rivalDetails), _defineProperty(_module$exports, "rivalAdd",
+rivalAdd), _defineProperty(_module$exports, "linkmanDel",
+linkmanDel), _defineProperty(_module$exports, "rivalDel",
+rivalDel), _defineProperty(_module$exports, "rivalUpdate",
+rivalUpdate), _module$exports);
 
 /***/ }),
 
-/***/ 22:
-/*!*************************************************************!*\
-  !*** /Users/lee/Downloads/备份11/轻纺车网/services/config/api.js ***!
-  \*************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
- //  const ServerUrl = "https://www.144f.com"; // 生产环境
-
-//const ServerUrl = "https://www.qingfangche.net"; // 开发环境
-var ServerUrl = "http://192.168.11.141";
-
-var NewApiRootUrl = ServerUrl + '/api/';
-var WXApiRootUrl = ServerUrl + '/wx/';
-var ChooseUrl = ServerUrl + '/choose/';
-var VERSION = '3.3.72'; // 小程序版本
-
-module.exports = {
-  VERSION: VERSION,
-  NewApiRootUrl: NewApiRootUrl,
-  WXApiRootUrl: WXApiRootUrl,
-  ChooseUrl: ChooseUrl,
-  //下拉选择
-
-  getRegion: ChooseUrl + "region", //区域
-  getcoordinate: ChooseUrl + "coordinate", //配合度
-  getType: ChooseUrl + "type", //客户类型
-  getScale: ChooseUrl + "scale", //客户规模
-  getSource: ChooseUrl + "source", //客户来源
-  getBusinessModel: ChooseUrl + "businessModel", //公司经营模式
-  getMainProduct: ChooseUrl + "mainProduct", //主营产品
-  getOperateCapital: ChooseUrl + "operateCapital", //资金状况
-  getOperateCredit: ChooseUrl + "operateCredit", //信用状况
-  getOperateOperation: ChooseUrl + "operateOperation", //运营状况
-  getOperateWom: ChooseUrl + "operateWom", //口碑
-  getQuality: ChooseUrl + "quality", //品质定位
-  getPost: ChooseUrl + "post", //角色
-  getChanne: ChooseUrl + "channe", //渠道
-  getCostPerformance: ChooseUrl + "costPerformance", //性价比
-  getIdentity: ChooseUrl + "identity", //身份
-  getPotential: ChooseUrl + "potential", //发展潜力
-  getPriceSensitivity: ChooseUrl + "priceSensitivity", //用户价格敏感度
-  getCooperationIntention: ChooseUrl + "cooperationIntention", //合作意向
-  getCharacterFeatures: ChooseUrl + "characterFeatures", //性格特点
-  getManageFeatures: ChooseUrl + "manageFeatures", //经营者特征
-  getManagementPosition: ChooseUrl + "managementPosition", //经营定位
-
-
-  //
-  sellCusmterCreated: ServerUrl + "/cm/sellAddCustomer", //卖帮办创建客户
-
-
-
-
-  // 图片处理
-  picIdentify: NewApiRootUrl + "common/picture", // 图片识别
-  ShowPic: NewApiRootUrl + 'common/picture', // 图片展示/下载
-  PicUpload: NewApiRootUrl + 'common/picture/upload', // 图片上传
-  PicNewUpload: NewApiRootUrl + 'common/picture/v2.2/upload', // 图片上传
-  QRCodeUrl: NewApiRootUrl + 'wxma/qrcode/save', // 获取二维码
-  ConsultTel: WXApiRootUrl + 'consultative', // 获取咨询电话
-
-  AuthLoginByWeixin: WXApiRootUrl + 'user/login', // 微信登录
-  getAccountInfo: WXApiRootUrl + 'user/account', // 获取用户信息
-  // Info: WXApiRootUrl +'user/info', // test
-  formID: WXApiRootUrl + 'formid', // 提交formId
-  userBehavior: WXApiRootUrl + 'common/event', // 用户行为
-  phoneAuthorize: WXApiRootUrl + 'user/registered', // 判断电话是否授权
-  getUserPhone: WXApiRootUrl + 'user/getPhone', // 获取用户微信电话号码
-
-
-  IndexBanner: WXApiRootUrl + 'pbp/banner', // 首页--banner
-  IndexNews: WXApiRootUrl + 'common/message/pbp-index/top', // 首页--公告
-  IndexParam: WXApiRootUrl + 'pbp/index/data', // 首页--系统数据：加入的人织造厂等
-  IndexOrder: WXApiRootUrl + "common/message/pbp-user/tx-buy-order/first", // 首页--待支付订单
-  IndexJoinState: WXApiRootUrl + 'pbp/corp-apply/status', // 首页--申请加盟状态
-  regUser: WXApiRootUrl + 'user/v2.2/phone', // 用户注册--提交用户注册（用户微信有号码）
-
-  // 首页--找布、加盟
-  findCloth: WXApiRootUrl + 'pbp/seek-demand', // 提交我的找布
-  joinCorp: WXApiRootUrl + 'pbp/corp-apply', // 提交加盟申请
-  validate: WXApiRootUrl + 'common/sms/sendPbpUserVerifyCode', // 加盟申请/用户注册--发送验证码
-  telName: WXApiRootUrl + 'user/phone', // 用户注册--提交用户注册
-  company: WXApiRootUrl + 'user', // 用户注册--提交公司名称
-
-  // 求购区
-  BuySample: WXApiRootUrl + 'pbp/qiugou', // 求购区--求购列表/求购详情/收藏/取消收藏/浏览人数/搜索
-  BuyOffer: WXApiRootUrl + 'pbp/qiugou-baojia', // 求购区--求购报价
-  BuyCase: WXApiRootUrl + 'pbp/seek-case', // 求购区--匹配成功列表/匹配详情/交易成功列表/交易详情/搜索
-
-  // 现货区
-  goodsList: WXApiRootUrl + 'pbp/spotarea', // 现货区--现货列表/现货详情/收藏/取消收藏/浏览人数
-  goodsApply: WXApiRootUrl + 'pbp/spotarea-apply', // 现货区--提交索样
-
-  // 我的
-  UserNews: WXApiRootUrl + 'common/message/pbp-user/top', // 我的--是否有我的消息
-  UserApprove: WXApiRootUrl + "tx/certify", // 我的--个人/企业认证信息
-  UserPaySave: WXApiRootUrl + 'tx/bank/paylist/1', // 我的--付款支持的 储蓄卡 账户列表
-  UserPayCredit: WXApiRootUrl + 'tx/bank/paylist/3', // 我的--付款支持的 信用卡 账户列表
-  UserCashBank: WXApiRootUrl + 'tx/bank/recvlist', // 我的--收款支持的银行账户列表
-
-  // 我的--我的消息
-  UserNewsList: WXApiRootUrl + 'common/message/pbp-user', // 我的--我的消息--消息列表
-  UserNewsRead: WXApiRootUrl + 'common/message', // 我的--我的消息--阅读消息
-
-  // 我的--我的找布
-  UserCloth: WXApiRootUrl + 'pbp/seek', // 我的--我的找布--我的找布/找布详情
-  UserAnalysis: WXApiRootUrl + 'pbp/seek-analysis', // 我的--我的找布--找布详情--分析结果确认/否认
-  UserResult: WXApiRootUrl + 'pbp/seek-result', // 我的--我的找布--找布详情--布样结果确认/否认
-  UserFinally: WXApiRootUrl + 'pbp/seek-finally', // 我的--我的找布--找布详情--匹配结果-提交评价
-
-  // 我的--报价
-  UserPrice: WXApiRootUrl + 'pbp/qiugou-baojia', // 我的--我的报价--报价列表/报价详情
-  UserPriceDel: WXApiRootUrl + 'pbp/qiugou-baojia/delete', // 我的--我的报价--清除失效报价
-  UserPriceMatch: WXApiRootUrl + 'pbp/qiugou-matched', // 我的--我的报价--报价详情--提交报价评价
-
-  // 我的--我的索样
-  UserSeek: WXApiRootUrl + 'pbp/spotarea-apply/query', // 我的--我的索样--索样列表
-  UserSeekDel: WXApiRootUrl + 'pbp/spotarea-apply/delete', // 我的--我的索样--清空失效索样
-
-  // 我的--收藏夹
-  UserCollBuy: WXApiRootUrl + 'pbp/user-collection', // 我的--收藏夹--求购收藏--收藏列表
-  UserBuyUnColl: WXApiRootUrl + 'pbp/qiugou/uncollect', // 我的--收藏夹--求购收藏--取消收藏（清除失效收藏）
-  UserCollGoods: WXApiRootUrl + 'pbp/user-collection/query/spotarea', // 我的--收藏夹--现货收藏--收藏列表
-  UserGoodsUnColl: WXApiRootUrl + 'pbp/spotarea/uncollect', // 我的--收藏夹--现货收藏--取消收藏（清除失效收藏）
-
-  // 我的--交易账户
-  UserPayVerify: WXApiRootUrl + 'tx/user-paycard/send', // 我的--我的交易账户--添加交易账户--发送验证码
-  UserPayAccount: WXApiRootUrl + 'tx/user-paycard', // 我的--我的交易账户--付款账户--付款账户列表/解除绑定/设为默认账户/添加付款账户
-  UserCashAccount: WXApiRootUrl + "tx/user-recvcard", // 我的--我的交易账户--收款账户--(个人)收款账户列表/解除绑定/设为默认账户/添加收款账户/(企业)收款账户列表/添加收款账户/解除绑定
-
-  // 我的--个人/企业 认证
-  UserFormApprove: WXApiRootUrl + "tx/certify", // 我的--个人/企业认证--获取认证信息/提交个人认证/提交企业认证
-
-  // 我的--我的交易订单
-  UserBuyList: WXApiRootUrl + "tx/order/buylist", // 我的--我的交易订单--采购订单列表
-  UserSellList: WXApiRootUrl + "tx/order/selllist", // 我的--我的交易订单--销售订单列表
-  UserOrder: WXApiRootUrl + "tx/order", // 我的--我的交易订单--采购订单详情/提交评价/修改退款账户/确认收货/快捷支付验证码/快捷支付；销售订单详情/确认订单/修改收款账户/确认收货/提交评价
-  UserBuyAppraise: WXApiRootUrl + "tx/assess", // 采购订单提交评价
-  UserOrderSend: NewApiRootUrl + "wxma/tplmsg/send", // 订单支付成功后，发送信息通知卖家
-  // bannee点击跳转
-  // bannerJump: NewApiRootUrl +"pbp/banner",
-
-  // 加盟，找样，上月成交
-  mainCount: WXApiRootUrl + "pbp/mixed-information/banner/count",
-  // 客户评语
-  guestComment: WXApiRootUrl + "pbp/comments",
-  //弹窗广告
-  popAds: WXApiRootUrl + "pbp/banner/advertise",
-
-  //搜索求购、现货、成功案例的整合
-  goodsCount: WXApiRootUrl + "pbp/mixed-information/keyword",
-
-  // 订单整合
-  totalOrder: WXApiRootUrl + "tx/order/orderlist",
-
-  // mingpian: WXApiRootUrl + "pbp/corp-apply",
-
-  tiaozhuan: WXApiRootUrl + "user/gotoCarte",
-
-  //白条消息通知
-  whiteBars: WXApiRootUrl + "tx/white-strip/notice", //POST
-
-
-  //白条页面展示
-  whiteStrips: WXApiRootUrl + "tx/whitebar-apply/status", //get
-
-  baitiaoApply: WXApiRootUrl + "tx/whitebar-apply", //POST
-
-
-  //获取信用卡手续费费率
-  getPayRateNum: NewApiRootUrl + "/common/param/creditrates", //get
-
-  // 金梭云
-  // 新建询价单
-  createOrder: WXApiRootUrl + "inquiry-list", //post
-
-  // 询价单详情
-  getInquiryDetail: WXApiRootUrl + "inquiry-list", //get
-
-  // 获取询价单列表
-  getInquiryList: WXApiRootUrl + "inquiry-list/findAll",
-  //分析师获取分析单管理列表
-  getAnalysisLst: WXApiRootUrl + "inquirylist/analysis/findAll",
-  // 录入找样结果，
-  inputResult: WXApiRootUrl + "inquirylist/seek-result",
-  // 获取找样结果详情
-  getSampleDetail: WXApiRootUrl + "inquirylist/seek-result/getZyDetail",
-  //新建保证金管理
-  setDeposit: WXApiRootUrl + "customer/deposit",
-  // 新建询价分析单
-  addXJAnalysis: WXApiRootUrl + "inquirylist/analysis",
-  // 录入找样分析单
-  addZYAnalysis: WXApiRootUrl + "inquirylist/seekresult/analysis",
-  //推送给卖帮办
-  pushSellDeputy: WXApiRootUrl + "inquiry-list/forAllseller",
-  // 催单报价
-  reminderOffer: WXApiRootUrl + "inquiry-list/urgeQuote",
-  //获取匹配列表
-  getMatchingList: WXApiRootUrl + "inquiry-list/searchInSample",
-  //设置找样结果
-  setSearchResul: WXApiRootUrl + "inquirylist/seek-result/setSampleResults",
-  //设置并推送报价
-  setOffer: WXApiRootUrl + "inquirylist/quote/setQuote",
-  //设置是否匹配
-  setWhetherMarching: WXApiRootUrl + "inquirylist/quote/updateStatus",
-  // 获取匹配结果详情,推送卖帮办
-  getMatchingDetail: WXApiRootUrl + "inquirylist/push",
-  // 样品库获取最热搜索
-  getNewSearch: WXApiRootUrl + "jsy/sample/findByType",
-  // 样品库搜索结果列表,样品详情
-  getsearchResult: WXApiRootUrl + "jsy/sample",
-  //多项搜索
-  manySearch: WXApiRootUrl + "jsy/sample/searchDetail",
-  //查看历史报价
-  viewHistoryQutoe: WXApiRootUrl + "jsy/sample/quoteHistory",
-  // 获取管理帮办列表
-  getDeputyAdminList: WXApiRootUrl + "jsy/designatedPersons/deputy",
-  //获取区域列表 
-  getAreaList: WXApiRootUrl + "jsy/designatedPersons/getAreaList",
-  // 设置区域经理
-  setManager: WXApiRootUrl + "jsy/designatedPersons/setManager",
-  //获取区域经理列表
-  getManagerList: WXApiRootUrl + "jsy/designatedPersons/getManagerList",
-  // 获取帮办详情
-  getDeputyDetails: WXApiRootUrl + "jsy/designatedPersons/getDeputy",
-  // 冻结帮办
-  freezeDeputy: WXApiRootUrl + "jsy/designatedPersons/freezeDeputy",
-  // 分配给区域经理
-  allocationDeputy: WXApiRootUrl + "jsy/designatedPersons/setDeputy",
-  //获取分配的客户列表
-  getAllocationClientList: WXApiRootUrl + "jsy/designatedPersons/distribution/customer",
-  //获取分配的帮办列表
-  getAllocationDeputyList: WXApiRootUrl + "jsy/designatedPersons/distribution/deputy",
-  // 移交权限
-  transferManager: WXApiRootUrl + "jsy/designatedPersons/transferManager",
-  // 删除帮办分配
-  deleteDeputyAllocation: WXApiRootUrl + "jsy/designatedPersons/deleDeputyList",
-  // 管理人员获取客户管理列表
-  getAdminCustomerList: WXApiRootUrl + "jsy/designatedPersons/customerList",
-  // 分配客户给区域经理
-  allocationCustomer: WXApiRootUrl + "jsy/designatedPersons/setCustomerForDirector",
-  // 删除客户分配
-  deleteAllotCustomer: WXApiRootUrl + "jsy/designatedPersons/deleCustomerList",
-  //删除客户分配（区域经理）
-  deleCustomers: WXApiRootUrl + "jsy/designatedPersons/deleCustomers",
-  // 区域经理分配客户
-  setCustomerForManager: WXApiRootUrl + "jsy/designatedPersons/setCustomerForManager",
-  // 获取常规询价列表
-  getRoutineList: WXApiRootUrl + "inquiry-list/findAllConvention",
-  // 常规询价报价
-  setQuoteforCgxj: WXApiRootUrl + "inquirylist/push/setQuoteforCgxj",
-  // 匹配结果报价
-  setQuoteforPpbj: WXApiRootUrl + "inquirylist/push/setQuote",
-  // 获取匹配结果详情
-  getPpDetail: WXApiRootUrl + "inquirylist/push/getPpDetail",
-  // 推送卖家
-  pushSeller: WXApiRootUrl + "inquirylist/push/pushSeller",
-  // 卖家，我的报价列表
-  getOfferList: WXApiRootUrl + "inquiry-list/myQuote",
-  // 获取全部找样、匹配列表
-  getAllList: WXApiRootUrl + "inquiry-list/getAllQuote",
-  // 关闭询价单
-  closeInquirySheet: WXApiRootUrl + "inquiry-list/updateStatus",
-  // 生成小程序二维码
-  generateQrCode: NewApiRootUrl + "wxma/qrcode/min",
-  // 获取未读消息数量
-  getNewsNum: WXApiRootUrl + "jsy/message/findAllNum",
-  //获取消息列表
-  getNewsList: WXApiRootUrl + "jsy/message/findAll",
-  //标记已读
-  setHaveRead: WXApiRootUrl + "jsy/message/haveRead",
-  // 最热
-  getNewNumber: WXApiRootUrl + "jsy/sample/findAllByType",
-  // 删除找样结果
-  deleteSample: WXApiRootUrl + "inquirylist/seek-result/delete",
-  // 请求再次报价
-  requestQuoation: WXApiRootUrl + "inquirylist/quote/requestQuoteAgain",
-  // 找样发起报价
-  setQuoteForZyxj: WXApiRootUrl + "inquirylist/quote/setQuoteForZyxj",
-  // 推送买帮办
-  pushToBuyer: WXApiRootUrl + "inquirylist/quote/pushToBuyer",
-  // 分析师找样列表
-  getzyAnalysisList: WXApiRootUrl + "inquirylist/analysis/findAllForZy",
-  // 分析师询价列表
-  getxjAnalysisList: WXApiRootUrl + "inquirylist/analysis/findAllForXj",
-  // 移交客户列表
-  getTransferCustomersList: WXApiRootUrl + "jsy/designatedPersons/deputylistForTransfer",
-
-  //金梭云客户管理系统
-
-  // 获取跟进记录列表
-  getRecordList: WXApiRootUrl + "customer/findAllFollowList", //get
-  //获取客户列表
-  getCustomerList: WXApiRootUrl + "customer/findAllCustomerByPage", //get
-  // 获取帮办关联客户列表
-  getAssociatedCustomers: WXApiRootUrl + "customer/findAllCustomer", //get
-  // 获取帮办关联客户列表(已绑定)
-  getBoundAssociatedCustomers: WXApiRootUrl + "customer/findAllUser",
-  //新建客户跟进记录
-  addRecord: WXApiRootUrl + "customer/followRecord", //post
-  //跟进记录单条
-  getRecordOne: WXApiRootUrl + "customer/followRecordFindOne", //post
-  //跟进记录
-  getRecord: WXApiRootUrl + "customer/followRecordFindAll", //get
-  // 新建客户
-  addCustomer: WXApiRootUrl + "customer/baseInfo", //post
-  // 获取客户信息
-  getCustomerInfo: WXApiRootUrl + "customer/baseInfo/", //get
-  //设置客户身份特征
-  setIdentity: WXApiRootUrl + "customer/identityCharacteristics", //post
-  // 设置客户产品信息
-  setOpi: WXApiRootUrl + "customer/productInfo", //post
-  // 设置经营状况
-  setManagement: WXApiRootUrl + "customer/operationStatus", //post
-  //获取验证码
-  getVerificationCode: WXApiRootUrl + "common/sms/sendPbpUserVerifyCodeUnBind", //post
-  // 注册用户
-  userRegistration: WXApiRootUrl + "customer/login", //post
-  // 客户询价记录
-  getCustomerInquiryList: WXApiRootUrl + "inquiry-list/findAllByBuyerid",
-  //产品展示详情
-  getProductDetail: WXApiRootUrl + "customer/product/productShow",
-  // 新增产品
-  addProduct: WXApiRootUrl + "customer/product",
-  // 批量修改产品展示系列类型
-  allModityTypeSeries: WXApiRootUrl + "customer/product/updateAll",
-  // 更新产品信息
-  updateProduct: WXApiRootUrl + "customer/product/updateProduct",
-  // 更新记录列表
-  getRenewList: WXApiRootUrl + "customer/product/renewList",
-  //更新产品状态
-  updateStatus: WXApiRootUrl + "customer/product/updateStatus",
-  // 保证金处理列表
-  getBondHandleList: WXApiRootUrl + "customer/depositDeal/findAll",
-  // 新增保证金处理
-  addBondHandle: WXApiRootUrl + "customer/depositDeal",
-  // 保证金列表
-  getBondAddList: WXApiRootUrl + "customer/deposit/findAll",
-  // 管理员获取审核列表
-  getBondAdmin: WXApiRootUrl + "customer/depositDeal/findAllList",
-  // 修改保证金处理状态
-  setHandleStatus: WXApiRootUrl + "customer/depositDeal/updateStatus",
-  // 修改添加保证金状态
-  setBondStatus: WXApiRootUrl + "customer/deposit/updateStatus",
-  // 新建修改公司
-  corporateBaseInfo: WXApiRootUrl + "corporateBaseInfo",
-  // 添加联系人
-  addContacts: WXApiRootUrl + "customer/baseInfo",
-  // 删除联系人
-  deleBaseInfo: WXApiRootUrl + "customer/deleBaseInfo",
-  // 获取公司列表
-  getCompanyList: WXApiRootUrl + "corporateBaseInfo/list",
-  // 是否展示
-  controllShow: NewApiRootUrl + "common/param/controllShow",
-  // 报价详情
-  getQuoteDetail: WXApiRootUrl + "inquirylist/quote",
-  // 删除客户公司
-  deleteCompany: WXApiRootUrl + "corporateBaseInfo/dele",
-  // 选择联系人
-  getContactsList: WXApiRootUrl + "corporateBaseInfo/contlist",
-  // 删除跟进记录
-  deleteFollow: WXApiRootUrl + "customer/deleFollowRecord",
-  // 分析师推送
-  pushAllDeputy: WXApiRootUrl + "inquirylist/seekresult/analysis/push",
-  // 我的询价列表
-  getMyList: WXApiRootUrl + "inquiry-list/findMyInquiry",
-  // 
-  directQuotation: WXApiRootUrl + "inquirylist/quote/setQuoteMJ" };
-
-/***/ }),
-
-/***/ 23:
+/***/ 31:
 /*!******************************************************!*\
   !*** /Users/lee/Downloads/备份11/轻纺车网/utils/common.js ***!
   \******************************************************/
@@ -9701,10 +8664,10 @@ module.exports = {
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-var Api = __webpack_require__(/*! services/config/api.js */ 22);
-var Pipe = __webpack_require__(/*! utils/pipe.js */ 24);
-var Util = __webpack_require__(/*! utils/util.js */ 26);
-var Es6Promise = __webpack_require__(/*! lib/es6-promise.js */ 27);
+var Api = __webpack_require__(/*! services/config/api.js */ 21);
+var Pipe = __webpack_require__(/*! utils/pipe.js */ 32);
+var Util = __webpack_require__(/*! utils/util.js */ 34);
+var Es6Promise = __webpack_require__(/*! lib/es6-promise.js */ 35);
 
 /**
                                                  * 去除前后空格
@@ -10355,7 +9318,7 @@ module.exports = {
 
 /***/ }),
 
-/***/ 24:
+/***/ 32:
 /*!****************************************************!*\
   !*** /Users/lee/Downloads/备份11/轻纺车网/utils/pipe.js ***!
   \****************************************************/
@@ -10378,7 +9341,7 @@ var _require =
 
 
 
-__webpack_require__(/*! ./const.js */ 25),QUALITY = _require.QUALITY,POSITION = _require.POSITION,GLOSS = _require.GLOSS,STOCK_TYPES = _require.STOCK_TYPES,BUY_ORDER = _require.BUY_ORDER,BUY_BACK_ORDER = _require.BUY_BACK_ORDER,SELL_ORDER = _require.SELL_ORDER,COMPLETE = _require.COMPLETE,COST_PERFORMANCE = _require.COST_PERFORMANCE,REAL_RATE = _require.REAL_RATE,BREAK_OUT = _require.BREAK_OUT,STOP_BRIGHT = _require.STOP_BRIGHT,STOP_DIM = _require.STOP_DIM,DARK_STRIP = _require.DARK_STRIP;
+__webpack_require__(/*! ./const.js */ 33),QUALITY = _require.QUALITY,POSITION = _require.POSITION,GLOSS = _require.GLOSS,STOCK_TYPES = _require.STOCK_TYPES,BUY_ORDER = _require.BUY_ORDER,BUY_BACK_ORDER = _require.BUY_BACK_ORDER,SELL_ORDER = _require.SELL_ORDER,COMPLETE = _require.COMPLETE,COST_PERFORMANCE = _require.COST_PERFORMANCE,REAL_RATE = _require.REAL_RATE,BREAK_OUT = _require.BREAK_OUT,STOP_BRIGHT = _require.STOP_BRIGHT,STOP_DIM = _require.STOP_DIM,DARK_STRIP = _require.DARK_STRIP;
 
 function formatTime(date) {
   if (date) {
@@ -10718,7 +9681,7 @@ module.exports = {
 
 /***/ }),
 
-/***/ 25:
+/***/ 33:
 /*!*****************************************************!*\
   !*** /Users/lee/Downloads/备份11/轻纺车网/utils/const.js ***!
   \*****************************************************/
@@ -10893,7 +9856,7 @@ module.exports = {
 
 /***/ }),
 
-/***/ 26:
+/***/ 34:
 /*!****************************************************!*\
   !*** /Users/lee/Downloads/备份11/轻纺车网/utils/util.js ***!
   \****************************************************/
@@ -10901,8 +9864,8 @@ module.exports = {
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-var Api = __webpack_require__(/*! services/config/api.js */ 22);
-var Es6Promise = __webpack_require__(/*! lib/es6-promise.js */ 27);
+/* WEBPACK VAR INJECTION */(function(uni) {var Api = __webpack_require__(/*! services/config/api.js */ 21);
+var Es6Promise = __webpack_require__(/*! lib/es6-promise.js */ 35);
 
 
 /**
@@ -10927,83 +9890,80 @@ function request(url) {var data = arguments.length > 1 && arguments[1] !== undef
           resolve(res);
         }
         // 重新登录
-        else if (res.statusCode == 401 && url.indexOf(loginApi) == -1) {
-            var loginOn = wx.getStorageSync("loginOn");
+        // else if (res.statusCode == 401 && url.indexOf(loginApi) == -1) {
+        //   let loginOn = wx.getStorageSync("loginOn");
 
-            if (!loginOn) {
-              wx.setStorageSync("loginOn", true);
+        // if (!loginOn) {
+        //   wx.setStorageSync("loginOn", true);
 
-              //需要登录后才可以操作
-              var code = null;
-              return login().then(function (res) {
-                code = res.code;
-                return getUserInfo();
-              }).then(function (userInfo) {
+        //需要登录后才可以操作
+        // let code = null;
+        // return login().then((res) => {
+        //   code = res.code;
+        //   return getUserInfo();
+        // }).then((userInfo) => {
 
-                wx.setStorageSync("rawData", userInfo.rawData);
-                wx.setStorageSync("signature", userInfo.signature);
+        //   wx.setStorageSync("rawData", userInfo.rawData)
+        //   wx.setStorageSync("signature", userInfo.signature)
 
-                // 重新登录，登录远程服务器
-                request(Api.AuthLoginByWeixin, { code: code, userInfo: userInfo }, 'POST').then(function (res) {
-                  wx.setStorageSync("loginOn", false);
+        //   // 重新登录，登录远程服务器
+        //   request(Api.AuthLoginByWeixin, { code: code, userInfo: userInfo }, 'POST').then(res => { 
+        //     wx.setStorageSync("loginOn", false);
 
-                  if (res.data.code == 200) {
-                    if (res.data.sessionKey) {
-                      wx.setStorageSync("sessionKey", res.data.sessionKey);
-                    }
+        //     if (res.data.code == 200) {
+        //       if (res.data.sessionKey) {
+        //         wx.setStorageSync("sessionKey", res.data.sessionKey);
+        //       }
 
-                    // 存储用户信息
-                    wx.setStorageSync('userInfo', res.data.userInfo);
-                    wx.setStorageSync('token', res.data.token);
 
-                    // 获取用户认证信息
-                    // getApproveData();
-                    // 获取支持的银行卡
-                    // getSupportBank();
-                    // 获取当前页面的路径
-                    var getPage = getCurrentPages();
+        //     // 获取当前页面的路径
+        //       let getPage = getCurrentPages();
 
-                    // 拼接当前页面路径
-                    var pageRoute = "/".concat(getPage[getPage.length - 1].route);
-                    var pageOptions = getPage[getPage.length - 1].options;
-                    var nStr = "";
-                    // 当前路径拼接
-                    for (var attr in pageOptions) {
-                      nStr += "&".concat(attr, "=").concat(pageOptions[attr]);
-                    }
-                    var pageUrl = pageRoute + nStr.replace('&', '?');
+        //       // 拼接当前页面路径
+        //       let pageRoute = `/${getPage[getPage.length-1].route}`;
+        //       let pageOptions = getPage[getPage.length - 1].options;
+        //       let nStr = ``;
+        //       // 当前路径拼接
+        //       for (let attr in pageOptions) {
+        //         nStr += `&${attr}=${pageOptions[attr]}`
+        //       }
+        //       let pageUrl = pageRoute + nStr.replace('&', '?');
 
-                    if (wx.reLaunch) {
-                      wx.reLaunch({
-                        url: pageUrl });
+        //       if (wx.reLaunch) {
+        //         wx.reLaunch({
+        //           url: pageUrl
+        //         });
+        //       } else {
+        //         wx.switchTab({
+        //           url: '/pages/tab-index/index'
+        //         })
+        //       }
+        //     } else {
+        //       reject(res);
+        //     }
+        //   }).catch((err) => {
+        //     wx.setStorageSync("loginOn", false);
+        //     reject(err);
+        //   });
 
-                    } else {
-                      wx.switchTab({
-                        url: '/pages/tab-index/index' });
+        // }).catch((err) => {
+        //   wx.setStorageSync("loginOn", false);
+        //   reject(err);
+        // })
+        //}
+        //}
+        // 无权限
+        else if (res.statusCode == 401) {
+            // backIndexPageModal("很抱歉，你没有查看权限");
 
-                    }
-                  } else {
-                    reject(res);
-                  }
-                }).catch(function (err) {
-                  wx.setStorageSync("loginOn", false);
-                  reject(err);
-                });
+            uni.navigateTo({
+              url: '/pages/qing-f-c/login/login',
+              success: function success(res) {},
+              fail: function fail() {},
+              complete: function complete() {} });
 
-              }).catch(function (err) {
-                wx.setStorageSync("loginOn", false);
-                reject(err);
-              });
-            }
+            return;
           }
-          // 无权限
-          else if (res.statusCode == 403) {
-              // backIndexPageModal("很抱歉，你没有查看权限");
-              reject(res);
-            } else
-            {
-              reject(res);
-            }
       },
       fail: function fail(err) {
         reject(err);
@@ -11658,10 +10618,11 @@ module.exports = {
 
   getTime: getTime,
   picUpPic: picUpPic };
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 
 /***/ }),
 
-/***/ 27:
+/***/ 35:
 /*!*********************************************************!*\
   !*** /Users/lee/Downloads/备份11/轻纺车网/lib/es6-promise.js ***!
   \*********************************************************/
@@ -11670,11 +10631,11 @@ module.exports = {
 
 "use strict";
 /* WEBPACK VAR INJECTION */(function(process, global) {var require;!function (t, e) { true ? module.exports = e() : undefined;}(void 0, function () {"use strict";function t(t) {return "function" == typeof t || "object" == typeof t && null !== t;}function e(t) {return "function" == typeof t;}function n(t) {I = t;}function r(t) {J = t;}function o() {return function () {return process.nextTick(a);};}function i() {return "undefined" != typeof H ? function () {H(a);} : c();}function s() {var t = 0,e = new V(a),n = document.createTextNode("");return e.observe(n, { characterData: !0 }), function () {n.data = t = ++t % 2;};}function u() {var t = new MessageChannel();return t.port1.onmessage = a, function () {return t.port2.postMessage(0);};}function c() {var t = setTimeout;return function () {return t(a, 1);};}function a() {for (var t = 0; t < G; t += 2) {var e = $[t],n = $[t + 1];e(n), $[t] = void 0, $[t + 1] = void 0;}G = 0;}function f() {try {var t = require,e = __webpack_require__(!(function webpackMissingModule() { var e = new Error("Cannot find module 'vertx'"); e.code = 'MODULE_NOT_FOUND'; throw e; }()));return H = e.runOnLoop || e.runOnContext, i();} catch (n) {return c();}}function l(t, e) {var n = arguments,r = this,o = new this.constructor(p);void 0 === o[et] && k(o);var i = r._state;return i ? !function () {var t = n[i - 1];J(function () {return x(i, o, t, r._result);});}() : E(r, o, t, e), o;}function h(t) {var e = this;if (t && "object" == typeof t && t.constructor === e) return t;var n = new e(p);return g(n, t), n;}function p() {}function v() {return new TypeError("You cannot resolve a promise with itself");}function d() {return new TypeError("A promises callback cannot return that same promise.");}function _(t) {try {return t.then;} catch (e) {return it.error = e, it;}}function y(t, e, n, r) {try {t.call(e, n, r);} catch (o) {return o;}}function m(t, e, n) {J(function (t) {var r = !1,o = y(n, e, function (n) {r || (r = !0, e !== n ? g(t, n) : S(t, n));}, function (e) {r || (r = !0, j(t, e));}, "Settle: " + (t._label || " unknown promise"));!r && o && (r = !0, j(t, o));}, t);}function b(t, e) {e._state === rt ? S(t, e._result) : e._state === ot ? j(t, e._result) : E(e, void 0, function (e) {return g(t, e);}, function (e) {return j(t, e);});}function w(t, n, r) {n.constructor === t.constructor && r === l && n.constructor.resolve === h ? b(t, n) : r === it ? (j(t, it.error), it.error = null) : void 0 === r ? S(t, n) : e(r) ? m(t, n, r) : S(t, n);}function g(e, n) {e === n ? j(e, v()) : t(n) ? w(e, n, _(n)) : S(e, n);}function A(t) {t._onerror && t._onerror(t._result), T(t);}function S(t, e) {t._state === nt && (t._result = e, t._state = rt, 0 !== t._subscribers.length && J(T, t));}function j(t, e) {t._state === nt && (t._state = ot, t._result = e, J(A, t));}function E(t, e, n, r) {var o = t._subscribers,i = o.length;t._onerror = null, o[i] = e, o[i + rt] = n, o[i + ot] = r, 0 === i && t._state && J(T, t);}function T(t) {var e = t._subscribers,n = t._state;if (0 !== e.length) {for (var r = void 0, o = void 0, i = t._result, s = 0; s < e.length; s += 3) {r = e[s], o = e[s + n], r ? x(n, r, o, i) : o(i);}t._subscribers.length = 0;}}function M() {this.error = null;}function P(t, e) {try {return t(e);} catch (n) {return st.error = n, st;}}function x(t, n, r, o) {var i = e(r),s = void 0,u = void 0,c = void 0,a = void 0;if (i) {if (s = P(r, o), s === st ? (a = !0, u = s.error, s.error = null) : c = !0, n === s) return void j(n, d());} else s = o, c = !0;n._state !== nt || (i && c ? g(n, s) : a ? j(n, u) : t === rt ? S(n, s) : t === ot && j(n, s));}function C(t, e) {try {e(function (e) {g(t, e);}, function (e) {j(t, e);});} catch (n) {j(t, n);}}function O() {return ut++;}function k(t) {t[et] = ut++, t._state = void 0, t._result = void 0, t._subscribers = [];}function Y(t, e) {this._instanceConstructor = t, this.promise = new t(p), this.promise[et] || k(this.promise), B(e) ? (this._input = e, this.length = e.length, this._remaining = e.length, this._result = new Array(this.length), 0 === this.length ? S(this.promise, this._result) : (this.length = this.length || 0, this._enumerate(), 0 === this._remaining && S(this.promise, this._result))) : j(this.promise, q());}function q() {return new Error("Array Methods must be provided an Array");}function F(t) {return new Y(this, t).promise;}function D(t) {var e = this;return new e(B(t) ? function (n, r) {for (var o = t.length, i = 0; i < o; i++) {e.resolve(t[i]).then(n, r);}} : function (t, e) {return e(new TypeError("You must pass an array to race."));});}function K(t) {var e = this,n = new e(p);return j(n, t), n;}function L() {throw new TypeError("You must pass a resolver function as the first argument to the promise constructor");}function N() {throw new TypeError("Failed to construct 'Promise': Please use the 'new' operator, this object constructor cannot be called as a function.");}function U(t) {this[et] = O(), this._result = this._state = void 0, this._subscribers = [], p !== t && ("function" != typeof t && L(), this instanceof U ? C(this, t) : N());}function W() {var t = void 0;if ("undefined" != typeof global) t = global;else if ("undefined" != typeof self) t = self;else try {t = Function("return this")();} catch (e) {throw new Error("polyfill failed because global object is unavailable in this environment");}var n = t.Promise;if (n) {var r = null;try {r = Object.prototype.toString.call(n.resolve());} catch (e) {}if ("[object Promise]" === r && !n.cast) return;}t.Promise = U;}var z = void 0;z = Array.isArray ? Array.isArray : function (t) {return "[object Array]" === Object.prototype.toString.call(t);};var B = z,G = 0,H = void 0,I = void 0,J = function J(t, e) {$[G] = t, $[G + 1] = e, G += 2, 2 === G && (I ? I(a) : tt());},Q = "undefined" != typeof window ? window : void 0,R = Q || {},V = R.MutationObserver || R.WebKitMutationObserver,X = "undefined" == typeof self && "undefined" != typeof process && "[object process]" === {}.toString.call(process),Z = "undefined" != typeof Uint8ClampedArray && "undefined" != typeof importScripts && "undefined" != typeof MessageChannel,$ = new Array(1e3),tt = void 0;tt = X ? o() : V ? s() : Z ? u() : void 0 === Q && "function" == "function" ? f() : c();var et = Math.random().toString(36).substring(16),nt = void 0,rt = 1,ot = 2,it = new M(),st = new M(),ut = 0;return Y.prototype._enumerate = function () {for (var t = this.length, e = this._input, n = 0; this._state === nt && n < t; n++) {this._eachEntry(e[n], n);}}, Y.prototype._eachEntry = function (t, e) {var n = this._instanceConstructor,r = n.resolve;if (r === h) {var o = _(t);if (o === l && t._state !== nt) this._settledAt(t._state, e, t._result);else if ("function" != typeof o) this._remaining--, this._result[e] = t;else if (n === U) {var i = new n(p);w(i, t, o), this._willSettleAt(i, e);} else this._willSettleAt(new n(function (e) {return e(t);}), e);} else this._willSettleAt(r(t), e);}, Y.prototype._settledAt = function (t, e, n) {var r = this.promise;r._state === nt && (this._remaining--, t === ot ? j(r, n) : this._result[e] = n), 0 === this._remaining && S(r, this._result);}, Y.prototype._willSettleAt = function (t, e) {var n = this;E(t, void 0, function (t) {return n._settledAt(rt, e, t);}, function (t) {return n._settledAt(ot, e, t);});}, U.all = F, U.race = D, U.resolve = h, U.reject = K, U._setScheduler = n, U._setAsap = r, U._asap = J, U.prototype = { constructor: U, then: l, "catch": function _catch(t) {return this.then(null, t);} }, U.polyfill = W, U.Promise = U, U.polyfill(), U;});
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../../../../../../Applications/HBuilderX.app/Contents/HBuilderX/plugins/uniapp-cli/node_modules/node-libs-browser/mock/process.js */ 28), __webpack_require__(/*! ./../../../../../../Applications/HBuilderX.app/Contents/HBuilderX/plugins/uniapp-cli/node_modules/webpack/buildin/global.js */ 3)))
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../../../../../../Applications/HBuilderX.app/Contents/HBuilderX/plugins/uniapp-cli/node_modules/node-libs-browser/mock/process.js */ 36), __webpack_require__(/*! ./../../../../../../Applications/HBuilderX.app/Contents/HBuilderX/plugins/uniapp-cli/node_modules/webpack/buildin/global.js */ 3)))
 
 /***/ }),
 
-/***/ 28:
+/***/ 36:
 /*!********************************************************!*\
   !*** ./node_modules/node-libs-browser/mock/process.js ***!
   \********************************************************/
@@ -11701,7 +10662,7 @@ exports.binding = function (name) {
     var path;
     exports.cwd = function () { return cwd };
     exports.chdir = function (dir) {
-        if (!path) path = __webpack_require__(/*! path */ 29);
+        if (!path) path = __webpack_require__(/*! path */ 37);
         cwd = path.resolve(dir, cwd);
     };
 })();
@@ -11715,7 +10676,7 @@ exports.features = {};
 
 /***/ }),
 
-/***/ 29:
+/***/ 37:
 /*!***********************************************!*\
   !*** ./node_modules/path-browserify/index.js ***!
   \***********************************************/
@@ -11947,42 +10908,11 @@ var substr = 'ab'.substr(-1) === 'b'
     }
 ;
 
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../node-libs-browser/mock/process.js */ 28)))
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../node-libs-browser/mock/process.js */ 36)))
 
 /***/ }),
 
-/***/ 3:
-/*!***********************************!*\
-  !*** (webpack)/buildin/global.js ***!
-  \***********************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-var g;
-
-// This works in non-strict mode
-g = (function() {
-	return this;
-})();
-
-try {
-	// This works if eval is allowed (see CSP)
-	g = g || new Function("return this")();
-} catch (e) {
-	// This works if the window reference is available
-	if (typeof window === "object") g = window;
-}
-
-// g can still be undefined, but nothing to do about it...
-// We return undefined, instead of nothing here, so it's
-// easier to handle this case. if(!global) { ...}
-
-module.exports = g;
-
-
-/***/ }),
-
-/***/ 30:
+/***/ 38:
 /*!*******************************************************!*\
   !*** /Users/lee/Downloads/备份11/轻纺车网/services/user.js ***!
   \*******************************************************/
@@ -11994,9 +10924,9 @@ module.exports = g;
                * 用户相关服务
                */
 
-var Util = __webpack_require__(/*! utils/util.js */ 26);
-var Api = __webpack_require__(/*! services/config/api.js */ 22);
-var Es6Promise = __webpack_require__(/*! lib/es6-promise.js */ 27);
+var Util = __webpack_require__(/*! utils/util.js */ 34);
+var Api = __webpack_require__(/*! services/config/api.js */ 21);
+var Es6Promise = __webpack_require__(/*! lib/es6-promise.js */ 35);
 
 
 /**
@@ -12072,6 +11002,49 @@ function checkLogin() {
 module.exports = {
   loginByWeixin: loginByWeixin,
   checkLogin: checkLogin };
+
+/***/ }),
+
+/***/ 382:
+/*!********************************************************!*\
+  !*** /Users/lee/Downloads/备份11/轻纺车网/services/tools.js ***!
+  \********************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+function filterNull(data) {
+  var temp = {};
+  Object.keys(data).forEach(function (key) {
+    if (data[key] != -1) {
+      temp[key] = data[key];
+    }
+  });
+  return temp;
+}
+function list2code(data) {
+  var temp = [];
+  data.forEach(function (item) {
+    if (item.isChecked == true) {
+      temp.push(item.id);
+    }
+  });
+  return temp;
+}
+function list2string(data) {
+  var temp = [];
+  data.forEach(function (item) {
+    temp.push(item.label);
+  });
+  return temp.join('+');
+}
+
+module.exports = {
+  filterNull: filterNull,
+  list2code: list2code,
+  list2string: list2string };
 
 /***/ }),
 
@@ -12990,7 +11963,7 @@ module.exports = {"_from":"@dcloudio/uni-stat@next","_id":"@dcloudio/uni-stat@2.
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _default = { "pages": { "pages/qing-f-c/buyDupty/setManagerCondition/setManagerCondition": { "navigationBarTitleText": "设置经营状况", "usingComponents": { "my-picker": "/components/myPicker", "my-checkbox-group": "/components/myCheckboxGroup", "uni-icon": "/components/uni-icons/uni-icons" } }, "pages/qing-f-c/login/login": { "navigationStyle": "custom", "usingComponents": {} }, "pages/qing-f-c/sellDupty/customer-created/customer-created": { "navigationBarTitleText": "卖帮办新建客户", "usingComponents": { "my-picker": "/components/myPicker", "range-button": "/components/rangeButton", "swith-button": "/components/switchButton" } }, "pages/qing-f-c/buyDupty/add-contact": { "navigationBarTitleText": "添加联系人", "usingComponents": { "my-picker": "/components/myPicker", "range-button": "/components/rangeButton", "my-checkbox-group": "/components/myCheckboxGroup" } }, "pages/qing-f-c/buyDupty/customer-details": { "navigationStyle": "custom", "usingComponents": {} }, "pages/qing-f-c/buyDupty/detail-competitor": { "navigationBarTitleText": "竞争对手详情", "usingComponents": {} }, "pages/qing-f-c/buyDupty/edit-competitor": { "navigationBarTitleText": "编辑竞争对手", "usingComponents": {} }, "pages/qing-f-c/buyDupty/add-competitor": { "navigationBarTitleText": "添加竞争对手", "usingComponents": { "my-picker": "/components/myPicker" } }, "pages/qing-f-c/buyDupty/set-identity": { "navigationBarTitleText": "设置特征", "usingComponents": {} }, "pages/qing-f-c/buyDupty/customer-admin": { "navigationBarTitleText": "买帮办客户管理", "usingComponents": {} }, "pages/qing-f-c/buyDupty/customer-created": { "navigationBarTitleText": " 买帮办新建客户", "usingComponents": { "my-picker": "/components/myPicker", "range-button": "/components/rangeButton", "swith-button": "/components/switchButton" } }, "pages/qing-f-c/sales_director/customer-admin": { "navigationBarTitleText": "客户管理", "usingComponents": {} }, "pages/qing-f-c/sales_director/deputy-list": { "navigationBarTitleText": "选择区域经理", "usingComponents": {} }, "pages/qing-f-c/customer/customer-list": { "navigationBarTitleText": "客户管理", "usingComponents": {} }, "pages/qing-f-c/index": { "navigationBarTitleText": "", "usingComponents": { "mpvue-picker": "/components/mpvue-picker/mpvuePicker" } }, "pages/qing-f-c/claimIdentity/claimIdentity": { "navigationBarTitleText": "身份认领", "usingComponents": {} }, "pages/qing-f-c/register/register": { "navigationStyle": "custom", "usingComponents": {} }, "pages/qing-f-c/register/findPassword": { "navigationStyle": "custom", "usingComponents": {} }, "pages/qing-f-c/register/finish": { "navigationBarTitleText": "注册完成", "usingComponents": {} }, "pages/jin-suo-yun/index": { "navigationBarTitleText": "首页", "usingComponents": {} }, "pages/jin-suo-yun/choice-identity": { "navigationBarTitleText": "选择身份", "usingComponents": {} }, "pages/jin-suo-yun/register": { "navigationBarTitleText": "填写信息", "usingComponents": {} }, "pages/jin-suo-yun/choosing-company": { "navigationBarTitleText": "选择公司", "usingComponents": {} }, "pages/login/login": { "navigationBarTitleText": "登录首页", "usingComponents": {} }, "pages/index/index": { "navigationBarTitleText": "胚布配", "usingComponents": { "top-search": "/components/topSearch", "top-tabbar": "/components/topTabbar", "analyist-result": "/components/analyist-result" } }, "pages/qing-f-c/sellDupty/sellDupty": { "navigationBarTitleText": "买帮办客户管理", "usingComponents": {} } }, "globalStyle": { "navigationBarTextStyle": "white", "navigationBarTitleText": "", "navigationBarBackgroundColor": "#FF6000", "backgroundColor": "white" } };exports.default = _default;
+Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _default = { "pages": { "pages/qing-f-c/login/login": { "navigationStyle": "custom", "usingComponents": { "uni-icon": "/components/uni-icons/uni-icons" } }, "pages/qing-f-c/buyDupty/customer-created": { "navigationBarTitleText": " 买帮办新建客户", "usingComponents": { "my-picker": "/components/myPicker", "range-button": "/components/rangeButton", "swith-button": "/components/switchButton" } }, "pages/qing-f-c/buyDupty/contact-detail/contact-detail": { "navigationBarTitleText": "联系人详情", "usingComponents": { "list-show": "/components/listShow" } }, "pages/qing-f-c/buyDupty/setManagerCondition/setManagerCondition": { "navigationBarTitleText": "买帮办设置经营状况", "usingComponents": { "my-picker": "/components/myPicker", "my-checkbox-group": "/components/myCheckboxGroup", "uni-icon": "/components/uni-icons/uni-icons" } }, "pages/qing-f-c/sellDupty/customer-created": { "navigationBarTitleText": "卖帮办新建客户", "usingComponents": { "my-picker": "/components/myPicker", "range-button": "/components/rangeButton", "swith-button": "/components/switchButton" } }, "pages/qing-f-c/sellDupty/edit-customer": { "navigationBarTitleText": "卖帮办修改客户", "usingComponents": { "my-picker": "/components/myPicker", "range-button": "/components/rangeButton-v", "swith-button": "/components/switchButton" } }, "pages/qing-f-c/sellDupty/customer-details": { "navigationStyle": "custom", "usingComponents": { "list-show": "/components/listShow", "uni-icon": "/components/uni-icons/uni-icons" } }, "pages/qing-f-c/sellDupty/contact-detail": { "navigationBarTitleText": "卖帮办联系人详情", "usingComponents": { "list-show": "/components/listShow" } }, "pages/qing-f-c/sellDupty/setManagerCondition": { "navigationBarTitleText": "卖帮办设置管理者特征", "usingComponents": { "my-picker": "/components/myPicker", "my-checkbox-group": "/components/myCheckboxGroup", "uni-icon": "/components/uni-icons/uni-icons" } }, "pages/qing-f-c/sellDupty/editManagerCondition": { "navigationBarTitleText": "卖帮办编辑管理者特征", "usingComponents": { "my-picker": "/components/myPicker", "my-checkbox-group": "/components/myCheckboxGroup", "uni-icon": "/components/uni-icons/uni-icons" } }, "pages/qing-f-c/sellDupty/add-contact": { "navigationBarTitleText": "卖帮办联系人详情", "usingComponents": { "my-picker": "/components/myPicker", "range-button": "/components/rangeButton", "my-checkbox-group": "/components/myCheckboxGroup" } }, "pages/qing-f-c/sellDupty/edit-contact": { "navigationBarTitleText": "卖帮办修改联系人", "usingComponents": { "my-picker": "/components/myPicker", "range-button": "/components/rangeButton-v", "my-checkbox-group": "/components/myCheckboxGroup" } }, "pages/qing-f-c/sellDupty/add-competitor": { "navigationBarTitleText": "卖帮办添加竞争者", "usingComponents": { "my-picker": "/components/myPicker", "my-checkbox-group": "/components/myCheckboxGroup" } }, "pages/qing-f-c/buyDupty/add-contact": { "navigationBarTitleText": "买办添加联系人", "usingComponents": { "my-picker": "/components/myPicker", "range-button": "/components/rangeButton", "my-checkbox-group": "/components/myCheckboxGroup" } }, "pages/qing-f-c/buyDupty/customer-details": { "navigationStyle": "custom", "usingComponents": {} }, "pages/qing-f-c/buyDupty/detail-competitor": { "navigationBarTitleText": "竞争对手详情", "usingComponents": {} }, "pages/qing-f-c/buyDupty/edit-competitor": { "navigationBarTitleText": "编辑竞争对手", "usingComponents": {} }, "pages/qing-f-c/buyDupty/add-competitor": { "navigationBarTitleText": "添加竞争对手", "usingComponents": { "my-picker": "/components/myPicker" } }, "pages/qing-f-c/buyDupty/set-identity": { "navigationBarTitleText": "设置特征", "usingComponents": {} }, "pages/qing-f-c/buyDupty/customer-admin": { "navigationBarTitleText": "帮办客户管理", "usingComponents": {} }, "pages/qing-f-c/sales_director/customer-admin": { "navigationBarTitleText": "客户管理", "usingComponents": {} }, "pages/qing-f-c/sales_director/deputy-list": { "navigationBarTitleText": "选择区域经理", "usingComponents": {} }, "pages/qing-f-c/customer/customer-list": { "navigationBarTitleText": "客户管理", "usingComponents": {} }, "pages/qing-f-c/index": { "navigationStyle": "custom", "enablePullDownRefresh": true, "usingComponents": { "mpvue-picker": "/components/mpvue-picker/mpvuePicker" } }, "pages/qing-f-c/claimIdentity/claimIdentity": { "navigationBarTitleText": "身份认领", "usingComponents": {} }, "pages/qing-f-c/regionalManager/customer-admin": { "navigationBarTitleText": "区域经理客户管理", "usingComponents": {} }, "pages/qing-f-c/register/register": { "navigationStyle": "custom", "usingComponents": { "uni-icon": "/components/uni-icons/uni-icons" } }, "pages/qing-f-c/register/findPassword": { "navigationStyle": "custom", "usingComponents": { "uni-icon": "/components/uni-icons/uni-icons" } }, "pages/qing-f-c/register/finish": { "navigationBarTitleText": "注册完成", "usingComponents": {} }, "pages/qing-f-c/sellDupty/sellDupty": { "navigationBarTitleText": "买帮办客户管理", "usingComponents": {} }, "pages/qing-f-c/fangzhidao/index/index": { "navigationBarTitleText": "纺织道论坛", "usingComponents": {} }, "pages/qing-f-c/qiugouqu/index/index": { "navigationBarTitleText": "求购区", "usingComponents": {} }, "pages/qing-f-c/xianhuoqu/index/index": { "navigationBarTitleText": "现货区", "usingComponents": {} }, "pages/qing-f-c/temaiqu/index/index": { "navigationBarTitleText": "特卖区", "usingComponents": {} }, "pages/qing-f-c/sellDupty/detail-competitor": { "navigationBarTitleText": "卖帮办竞争对手详情", "usingComponents": {} }, "pages/qing-f-c/sellDupty/customer-admin": { "navigationBarTitleText": "卖帮办客户管理", "usingComponents": {} }, "pages/qing-f-c/sellDupty/edit-competitor": { "navigationBarTitleText": "卖帮办修改竞争者" } }, "globalStyle": { "navigationBarTextStyle": "white", "navigationBarTitleText": "", "navigationBarBackgroundColor": "#FF6000", "backgroundColor": "white" } };exports.default = _default;
 
 /***/ }),
 

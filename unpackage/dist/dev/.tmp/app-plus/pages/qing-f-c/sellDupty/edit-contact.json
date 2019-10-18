@@ -1,0 +1,8 @@
+{
+  "navigationBarTitleText": "卖帮办修改联系人",
+  "usingComponents": {
+    "my-picker": "/components/myPicker",
+    "range-button": "/components/rangeButton",
+    "my-checkbox-group": "/components/myCheckboxGroup"
+  }
+}

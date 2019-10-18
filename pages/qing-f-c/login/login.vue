@@ -10,7 +10,8 @@
 					<!-- 手机输入框 -->
 					<view class="flex_c box_row">
 					  
-					  <image src="../../../static/images/qingfc/user.png" class="i-next-login" mode="aspectFill"></image>
+					  <!-- <image src="../../../static/images/qingfc/user.png" class="i-next-login" mode="aspectFill"></image> -->
+					  <uniIcon type="phone" size="20"></uniIcon>
 					  <input name="contPhone" v-model="contPhone" class="box_input" 
 						  placeholder="请输入手机号" 
 						  placeholder-style="color: #ccc;font-size: 14px;" 
@@ -18,11 +19,15 @@
 						  @input="showCloseIcon"
 						  
 					  ></input>
-					  <image v-if="isPhoneClear" src="../../../static/images/qingfc/close.png" class="i-next-login" mode="aspectFill" @tap="clearPhone"></image>
+					  <!-- <image v-if="isPhoneClear" src="../../../static/images/qingfc/close.png" class="i-next-login" mode="aspectFill" @tap="clearPhone"></image> -->
+					  <view style="width: 40upx;padding-left: 20upx;"  @tap="clearPhone">
+						  <uniIcon type="close" size="20" v-if="isPhoneClear"></uniIcon>
+					  </view>
 					</view>
 					<!-- 密码输入框 -->
 					<view class="flex_c box_row">
-					  <image src="../../../static/images/qingfc/passwd.png" class="i-next-login" mode="aspectFill" ></image>
+					  <!-- <image src="../../../static/images/qingfc/passwd.png" class="i-next-login" mode="aspectFill" ></image> -->
+					  <uniIcon type="locked" size="20"></uniIcon>
 					  <input name="contPass" v-model="contPass" class="box_input" 
 						  placeholder="请输入密码"
 						  placeholder-style="color: #ccc;font-size: 14px;"
@@ -30,13 +35,20 @@
 						  :type="passType"
 						  @input="showPassClearIcon"
 					  ></input>
-					  <image v-if="isPassClear" src="../../../static/images/qingfc/close.png" class="i-next"
+					  <!-- <image v-if="isPassClear" src="../../../static/images/qingfc/close.png" class="i-next"
 					       @tap ="clearPass">
-					   </image>
-					  <image src="../../../static/images/qingfc/invisiable.png" 
+					   </image> -->
+					    <view style="width: 40upx;padding-left: 20upx;"  @tap ="clearPass">
+							<uniIcon type="close" size="20" v-if="isPassClear"></uniIcon>
+					   </view>
+					  <!-- <image src="../../../static/images/qingfc/invisiable.png" 
 					       class="i-next i-padding" 
 						   mode="aspectFit" 
-						   @tap="showPass"></image>
+						   @tap="showPass"></image> -->
+						   <view style="padding-left: 10upx;">
+							   <uniIcon type="eye" size="20" v-if="isPassClear" @tap ="showPass"></uniIcon>
+						   </view>
+						   
 					</view>
 					
 					<button class="login_btn" formType="submit">登录</button>
@@ -53,8 +65,13 @@
 </template>
 
 <script>
-	
+	import uniIcon from "@/components/uni-icons/uni-icons.vue";
+	const JsyServer = require("services/jsy-server.js");
+	const Api = require('services/config/api.js');
 	export default {
+		components:{
+			uniIcon
+		},
 		data() {
 			return {
 				contPhone: '',
@@ -64,8 +81,17 @@
 				isPassClear: false
 			};
 		},
+	
 		
 		methods:{
+			getPupDefault:function(){
+				JsyServer.pupDefault().then(res => {
+						uni.setStorageSync("pupDefault",res.data.data.msg);	
+					}).catch(err => {
+					  console.log("currentIdentity=err==", res);
+					});
+			},
+
 			showPass: function(){
 				this.passType = this.passType==='password'?'text':'password'
 			},
@@ -118,7 +144,7 @@
 					mask: true
 				});
 				uni.request({
-					url: this.apiServer+'/ul/login',
+					url: Api.login,
 					method: 'POST',
 					header: {
 						'content-type': 'application/json'
@@ -131,15 +157,10 @@
 						console.log(res.data);
 						if (res.data.status=== 0){
 							uni.setStorageSync("token",res.data.data.msg);
-							uni.navigateTo({
-								url: '/pages/qing-f-c/sellDupty/customer-created/customer-created',
-								success: res => {},
-								fail: () => {},
-								complete: () => {}
-							});
-							// uni.switchTab({
-							// 	url:"/pages/qing-f-c/index"
-							// })
+							this.getPupDefault()
+							uni.switchTab({
+								url:"/pages/qing-f-c/index"
+							})
 						}
 						if (res.data.status === 1){
 							uni.showToast({

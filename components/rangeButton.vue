@@ -21,11 +21,15 @@
 			name:{
 				type: String,
 				default: '测试'
+			},
+			initValue: {
+				type: Number,
+				default: 2
 			}
 		},
 		data() {
 			return {
-				index: 1
+				index: this.initValue
 			};
 		},
 		methods:{

@@ -1,50 +1,64 @@
 <template>
 <view>
 	<view v-if="isIdentity">
-	  <view class="flex hand_box">
-		<image :src="userInfo.avatar" class="hand_img" mode="aspectFilt"></image>
-		<view class="hand_content">
-		  <view class="fs_16 mb_40 mt_10">{{userInfo.nickName}}</view>
-		  <view class="fs_14 color_cf">{{userInfo.name}}</view>
-		<view class="flex_sb">
-			<view class="fs_12 color_cf mt_20">{{userInfo.phone}}</view>
-			<view class="flex" v-if="identityName!='已冻结'">
-				<!-- <view class="hand_btn" v-if="regionalManager">区域经理</view> -->
-				<view class="hand_btn" v-if="!isSpecial">{{identityName}}</view>
-				<view class="hand_btn ml_20" v-if="isSpecial" @tap="showSinglePicker">
+	  <view class="hand_box">
+		 <view class="flex mt_50">
+			 <view>
+				 <image :src="userInfo.avatar" class="hand_img" mode="aspectFilt"></image>
+			 </view>
 			
-				       {{identityName}}
-				</view>
-				
-				<view class="hand_btn ml_20" v-if="userInfo.region">{{userInfo.region}}</view>
-
+			<view class="hand_content">
+			  <view class="fs_15 mb_40 mt_10">{{userInfo.nickName}}</view>
+			  <view class="fs_14 color_cf">{{userInfo.realName}}</view>
+			  <view class="fs_12 color_cf mt_20">{{userInfo.phone}}</view>
 			</view>
-		</view>
-		</view>
-	  </view>
-	  <view class="xiaoxi" @tap="navNewsPage" v-if="identityName!='已冻结'">
-		 <image src="/static/images/jinsy/setting@2x.png" class="setting_img" mode="aspectFilt"></image>
-		
-		<image src="/static/images/jinsy/xiaoxi@2x.png" class="xiaoxi_img" mode="aspectFilt"></image>
-		<view class="xiaoxi_text" v-if="newsNum>0">{{newsNum}}</view>
+			
+			<view class="flex_column ml_30">
+					<view class="flex-row-reverse" @tap="navNewsPage">
+							 
+							<view class="widgit">
+								<image src="/static/images/jinsy/xiaoxi@2x.png" class="xiaoxi_img" mode="aspectFilt"></image>
+								<view class="xiaoxi_text" v-if="newsNum>0">{{newsNum}}</view>
+							</view>
+							<view style="padding-right: 20upx;">
+									<image src="/static/images/jinsy/setting@2x.png" class="setting_img" mode="aspectFilt"></image>
+							</view>
+							
+					</view>
+				
+					<view class="flex mt_50">
+						<!-- <view class="hand_btn" v-if="regionalManager">区域经理</view> -->
+						<!-- <view class="hand_btn" v-if="!isSpecial">{{userInfo.postName}}</view> -->
+						<view class="hand_btn ml_20" @tap="showSinglePicker">
+							   {{userInfo.postName}}
+						</view>
+						
+						<view class="hand_btn ml_20" v-if="userInfo.regionName">{{userInfo.regionName}}</view>
+
+					</view>
+			
+			</view>
+		  </view>
 	  </view>
 
 	  <view class="box box_shadow">
 		<block v-for="(item, index) in arrList" :key="index">
 		  <navigator :url="(!popAds&&item.url=='/pages/user-order/order'?'':item.url)" hover-class="none">
 			<view :class="'mb_30 ' + (index==1||index==4||index==7?'mar_131':'')" @tap="toJump" :data-url="item.url">
-			  <view :class="[isSeller?'icon_blue':'icon_orange']"><image :src="item.icon" mode="aspectFilt" class="icon_img"></image></view>
+			  <view :class="(isSeller?'icon_blue':'icon_orange')"><image :src="item.icon" mode="aspectFilt" class="icon_img"></image></view>
 			  <view class="fs_12 text_algin_c">{{item.name}}</view>
 			</view>
 		  </navigator>
 		</block>
-			<!-- <view class="frozen" v-if="identityName=='已冻结'">您的内部人员身份已被冻结,不能进行操作</view> -->
+			
 	  </view>
       <image src="/static/images/jinsy/erweima.png" mode="aspectFilt" class="er_img" @tap="scanCode" v-if="identityName!='已冻结'"></image>
 
 	</view>
 	<!-- <view @tap="showSinglePicker" v-if="shopList.length != 0">门店:{{shopList[index].label}}</view> -->
-	 <mpvue-picker ref="mpvuePicker" :mode="mode" :pickerValueDefault="index" @onChange="onChange" @onConfirm="onConfirm" @onCancel="onCancel" :pickerValueArray="identList">
+	 <mpvue-picker ref="mpvuePicker" :mode="mode" :pickerValueDefault="index" 
+	 @onChange="onChange" @onConfirm="onConfirm" @onCancel="onCancel" 
+	 :pickerValueArray="identList">
 	 </mpvue-picker>
 </view>	
 </template>
@@ -55,11 +69,29 @@ const JsyServer = require("../../services/jsy-server.js");
 const User = require("../../services/user.js");
 const Api = require("../../services/config/api.js");
 const Server = require("../../services/server.js");
-const a = [{
-  icon: '/static/images/jinsy/kehu.png',
-  name: '客户管理',
-  url: '/pages/qing-f-c/customer-admin/customer-list'
-}, {
+const a = [[
+	  {
+	  icon: '/static/images/jinsy/kehu.png',
+	  name: '客户管理',
+	  url: '/pages/qing-f-c/buyDupty/customer-admin'
+	  },
+	  {
+	   icon: '/static/images/jinsy/kehu.png',
+	   name: '客户管理',
+	   url: '/pages/qing-f-c/sellDupty/customer-admin'
+	   },
+	  {
+	    icon: '/static/images/jinsy/kehu.png',
+	    name: '客户管理',
+	    url: '/pages/qing-f-c/sales_director/customer-admin'
+	    },
+		{
+		  icon: '/static/images/jinsy/kehu.png',
+		  name: '客户管理',
+		  url: '/pages/qing-f-c/regionalManager/customer-admin'
+		  }	
+]
+, {
   icon: '/static/images/jinsy/jiaoyi.png',
   name: '交易管理',
   url: '/pages/user-order/order'
@@ -102,10 +134,10 @@ const a = [{
   name: '身份认领',
   url: ''
 }];
-const arrListBuyB = [a[0],a[1],a[2],a[3],a[4],a[9]];  //买办
-const arrListSellB = [a[0],a[1],a[2],a[3],a[4],a[9]];   //卖办
-const arrListRG = [a[0],a[3],a[6],a[7],a[8],a[9]];      //区域经理
-const arrListGM= [a[0],a[3],a[6],a[7],a[8],a[9]];     //销售总监
+const arrListBuyB = [a[0][0],a[1],a[2],a[3],a[4],a[9]];  //买办
+const arrListSellB = [a[0][1],a[1],a[2],a[3],a[4],a[9]];   //卖办
+const arrListRG = [a[0][2],a[3],a[6],a[7],a[8],a[9]];      //区域经理
+const arrListGM= [a[0][3],a[3],a[6],a[7],a[8],a[9]];     //销售总监
 const arrListAN= [a[6],a[5]];     //分析师
 const arrListBS= [{   //买，卖家共用一个
   icon: '/static/images/jinsy/woxunjia.png',
@@ -145,36 +177,27 @@ const arrListBS= [{   //买，卖家共用一个
   name: '采购名片',
   url: ''
 }];
-const selectRGB = [{id:'REGIONAL_MANAGER',label:'区域经理'},{id:'BUY_DEPUTY',label:'买帮办'}];
-const selectRGS = [{id:'REGIONAL_MANAGER',label:'区域经理'},{id:'SELL_DEPUTY',label:'买帮办'}];
-const selectGM = [{id:'SALES_DIRECTOR',label:'销售总监'},{id:'BUY_DEPUTY',label:'买帮办'},{id:'SELL_DEPUTY',label:'卖帮办'}];
 
 let _this;
 
 export default {
   data() {
     return {
-       arrList: arrListRG,
-	   userInfo: {
-		  avatar: "",
-		  nickName: "昵称",
-		  name: "真实姓名",
-		  phone: '15259777775',
-		  region: '厦门'
-	  },
+      arrList: [],
+	  userInfo: {},
+	  pupDef:'',   //默认身份
+	  
 	  isSeller: false,
       isIdentity: true,
       //是否已经有身份
-      inAudit: false,
-      //是否审核中
-      identityName: '销售总监',
-	  isSpecial: true,
+      identityName: '',
+	  isSpecial: false,
       regionalManager: false,
       //是否是区域经理
-      newsNum: 6,
+      newsNum: 0,
       //新消息数量
       popAds: false,
-	  identList:[{id:'SALES_DIRECTOR',label:'销售总监'},{id:'BUY_DEPUTY',label:'买帮办'},{id:'SELL_DEPUTY',label:'卖帮办'}],
+	  identList:[],
 	  index:[0],
 	  mode: 'selector',
 	  
@@ -183,50 +206,40 @@ export default {
 
   onPullDownRefresh() {
     // this.getUserInfo();
-    this.getNewsNum();
-    this.popAds();
+	  this.userDetails()
+	  //获取未读信息
+	  this.getNewsNum()
+	  //获取默认职位
+	  this.pupDefault()
+	  //获取职位列表
+	  this.pupList()
+    
   },
 
   onShow: function (e) {
-	  this.isSpecial = true;
-	  this.identList = selectGM;
-//     let register = wx.getStorageSync("register");
-// 
-//     if (register) {
-//       this.getUserInfo();
-//       wx.removeStorageSync("register");
-//     }
-// 
-//     if (wx.getStorageSync("token")) {
-//       this.getNewsNum();
-//     }
+	  
   },
   onLoad: function (options) {
         _this = this;
-//     wx.showLoading({
-//       title: '加载中'
-//     });
-//     let timer = setTimeout(() => {
-//       wx.hideLoading();
-//     }, 3000);
-//     _this = this;
-// 
-//     if (wx.getStorageSync("token")) {
-//       // this.setUserInfo();
-//       // this.getUserInfo();
-//       this.popAds();
-//     } else {
-//       wx.hideLoading();
-//       User.loginByWeixin().then(res => {
-//         _this.setUserInfo();
-// 
-//         _this.getUserInfo();
-// 
-//         _this.popAds();
-//       }).catch(err => {
-//         console.log("err=>", err);
-//       });
-//     }
+		if (this.checkLogin()){
+			uni.showLoading({
+			  title: '加载中'
+			});
+			let timer = setTimeout(() => {
+			  uni.hideLoading();
+			}, 3000);
+			//用户信息
+			this.userDetails()
+			//获取未读信息
+			this.getNewsNum()
+			//获取默认职位
+			this.pupDefault()
+			//获取职位列表
+			this.pupList()
+			
+		}
+		
+
   },
   components: {
 	  mpvuePicker
@@ -238,23 +251,72 @@ export default {
     			},
     			onConfirm(e) {
     				this.index = e.index
-					this.identityName = this.identList[this.index].label
+					// this.identityName = this.identList[this.index].label
 					let id = this.identList[this.index].id
 					switch(id){
-						case 'SALES_DIRECTOR':
+							case 'SALES_DIRECTOR':
+							 try{
+								uni.setStorageSync('pupDefault','SALES_DIRECTOR')
+							 }catch(e){
+								//TODO handle the exception
+								uni.showToast({
+									title: '缓存出错',
+									icon: 'none'
+								});
+								return
+							 }
+						    
+						    this.userDetails()
 						    this.arrList =arrListGM;
+							this.isSpecial = true
 						    this.isSeller = false;
 							break;
 					    case  'REGIONAL_MANAGER':
+							try{
+								uni.setStorageSync('pupDefault','REGIONAL_MANAGER')
+							}catch(e){
+								//TODO handle the exception
+								uni.showToast({
+									title: '缓存出错',
+									icon: 'none'
+								});
+								return
+							}
+							this.userDetails()
 						    this.arrList = arrListRG;
+							this.isSpecial = true
 						    this.isSeller = false;
 							break;
 						case 'BUY_DEPUTY':
+						     try{
+						     	uni.setStorageSync('pupDefault','BUY_DEPUTY')
+						     }catch(e){
+						     	//TODO handle the exception
+						     	uni.showToast({
+						     		title: '缓存出错',
+						     		icon: 'none'
+						     	});
+						     	return
+						     }
+							 this.userDetails()
+						    this.arrList = arrListBuyB; 
 						    this.isSeller = false;
-						    this.arrList = arrListBuyB;
+							this.isSpecial = false
 							break;
 						case 'SELL_DEPUTY':
+						    try{
+						    	uni.setStorageSync('pupDefault','SELL_DEPUTY')
+						    }catch(e){
+						    	//TODO handle the exception
+						    	uni.showToast({
+						    		title: '缓存出错',
+						    		icon: 'none'
+						    	});
+						    	return
+						    }
+							this.userDetails()
 						    this.arrList = arrListSellB;
+							this.isSpecial = false
 						    this.isSeller = true; 
 							break;
 					}		
@@ -263,7 +325,7 @@ export default {
     			  this.index = e.index
     			},
     			onCancel(e) {
-    				console.log('onCancel')
+    			  console.log('onCancel')
     			  console.log(e);
     			},
     			selectChange(e){
@@ -274,130 +336,75 @@ export default {
     				this.mode = 'selector'
     				this.index = [0]
     				this.$refs.mpvuePicker.show()
-    			},	
+    			},
+					
     // 获取未读消息数量
     getNewsNum: function () {
       JsyServer.getNewsNum().then(res => {
-        _this.setData({
-          newsNum: res.data
-        });
+        _this.newsNum = res.data.data.count
       }).catch(err => {
         console.log("getNewsNum=err==", res);
       });
     },
-    getUserInfo: function () {
-      wx.showLoading({
-        title: '加载中'
-      });
-      wx.stopPullDownRefresh();
-      JsyServer.getUserInfo().then(res => {
-        // if (res.data.authority.length != 0 && res.data.authority != "EXAMINE") {
-        console.log("res----", res.data);
-        wx.setStorageSync("userInfo", res.data);
-
-        _this.setUserInfo(); // }
-
-      }).catch(err => {
-        wx.hideLoading();
-        console.log("getUserInfoERR=>", err);
-      });
-    },
-    setUserInfo: function () {
-      let userInfo = wx.getStorageSync("userInfo");
-      this.setData({
-        userInfo: userInfo
-      });
-
-      if (userInfo.authority && userInfo.authority.length == 0) {
-        this.setData({
-          isIdentity: false
-        });
-      } else if (userInfo.authority[0].name == "EXAMINE") {
-        this.setData({
-          isIdentity: false,
-          inAudit: true
-        });
-      } else {
-        this.setData({
-          isIdentity: true
-        });
-        let role = userInfo.authority[0].name;
-
-        if (role == "ROLE_SELL_DEPUTY") {
-          if (userInfo.authorityOther == 7) {
-            this.setData({
-              identityName: '卖帮办',
-              regionalManager: true,
-              arrList: arrListAdmin
-            });
-          } else {
-            this.setData({
-              identityName: '卖帮办',
-              regionalManager: false,
-              arrList: arrListBb
-            });
-          }
-        } else if (role == "ROLE_BUY_DEPUTY") {
-          if (userInfo.authorityOther == 7) {
-            this.setData({
-              identityName: '买帮办',
-              regionalManager: true,
-              arrList: arrListAdmin
-            });
-          } else {
-            this.setData({
-              identityName: '买帮办',
-              regionalManager: false,
-              arrList: arrListBb
-            });
-          }
-        } else if (role == "ROLE_BUYER") {
-          this.setData({
-            identityName: '买家',
-            regionalManager: false,
-            arrList: arrListBuyer
-          });
-        } else if (role == "ROLE_SELLER") {
-          this.setData({
-            identityName: '卖家',
-            regionalManager: false,
-            arrList: arrListSeller
-          });
-        } else if (role == "ROLE_ANALYST") {
-          this.setData({
-            identityName: '分析师',
-            regionalManager: false,
-            arrList: arrListFx
-          });
-        } else if (role == "ROLE_SALES_DIRECTOR") {
-          this.setData({
-            identityName: '销售总监',
-            regionalManager: false,
-            arrList: arrListAdmin
-          });
-        } else if (role == "FREEZE") {
-          this.setData({
-            regionalManager: false,
-            identityName: '已冻结',
-            arrList: []
-          });
-        }
-      }
-
-      if (userInfo.authority && userInfo.authority.length == 2 && userInfo.authority[1].name == "ROLE_MANAGER") {
-        let list = this.arrList;
-        list.push({
-          icon: '/static/images/jinsy/examine.png',
-          name: '审核管理',
-          url: '/pages/jin-suo-yun/customer-admin/bond-examine'
-        });
-        this.setData({
-          arrList: list
-        });
-      }
-
-      wx.hideLoading();
-    },
+	userDetails:function(){
+		let data = {
+			postCode: uni.getStorageSync('pupDefault')
+		} 
+		
+		JsyServer.userDetails(data).then(res => {
+		  console.log(res)
+		  _this.userInfo = res.data.data
+		  console.log("userInfo===",_this.userInfo)
+		  this.pupDefault()
+		}).catch(err => {
+		  console.log("getNewsNum=err==", res);
+		});
+	},
+	
+    pupDefault:function(){
+			let pupDefault = uni.getStorageSync('pupDefault')
+			console.log("默认身份====",pupDefault)
+			if (pupDefault == 'SELL_DEPUTY' || pupDefault == 'SELLER'){
+				_this.isSeller = true;
+			}
+			if (pupDefault == 'SALES_DIRECTOR' || pupDefault == 'REGIONAL_MANAGER'){
+				_this.isSpecial = true;
+			}
+			switch (pupDefault){
+				case "BUY_DEPUTY":
+				     _this.arrList = arrListBuyB
+					 break;
+				case "SELL_DEPUTY":
+				     _this.arrList = arrListSellB
+				     break;
+				case "ANALYST":
+				     _this.arrList = arrListAN
+				     break;
+				case "SALES_DIRECTOR":
+				     _this.arrList = arrListGM
+					 break;
+				case "REGIONAL_MANAGER":
+				     _this.arrList = arrListRG
+					 break;
+				case "BUYER":
+				     _this.arrList = arrListBS
+					 break;
+				case "SELLER":
+				     _this.arrList = arrListBS
+					 break;
+			}
+		
+	},
+	
+    pupList:function(){
+		JsyServer.pupList().then(res=>{
+			console.log("身份列表",res)
+			_this.identList = res.data.data.list
+			 
+		}).catch(err =>{
+			console.log("pupList=err==", res)
+		})
+	},
     // 扫描二维码
     scanCode: function () {
       var that = this;
@@ -422,24 +429,8 @@ export default {
       if (!wx.getStorageSync("token")) {
         return;
       }
-
-     
     },
-//     userInfo: function (e) {
-//       console.log(e);
-// 
-//       if (e.detail.errMsg.indexOf("getUserInfo:fail") != -1) {
-//         console.log("用户拒绝授权");
-//       } else {
-//         console.log("用户接受授权");
-// 
-//         if (!wx.getStorageSync("userInfo")) {
-//           _this.onLoad();
-//         }
-// 
-//         wx.setStorageSync("loginOn", false);
-//       }
-//     },
+
     toJump: function (e) {
       let url = e.currentTarget.dataset.url;
 
@@ -516,9 +507,9 @@ page{
   background-repeat:no-repeat;
   background-position:center top;
   background-size:cover;
+  height: 300upx;
   color:#fff;
   padding: 30upx 24upx 100upx;
-  
 }
 .hand_img{
   width: 160upx;
@@ -527,15 +518,16 @@ page{
   border-radius: 8upx;
 }
 .hand_content{
-	width: 512upx;
+	width: 250upx;
 	line-height: 1;
 }
-.xiaoxi{
-  position: absolute;
-  top:30upx;
-  right: 60upx;
-
+.align-c{
+	align-content: space-between;
 }
+.widgit{
+	position: relative;
+}
+
 .xiaoxi_text{
   background-color: #FF7D21;
   color: #fff;
@@ -558,14 +550,13 @@ page{
 .setting_img{
   height: 42upx;
   width: 36upx;
-  padding-right: 40upx;
   z-index: 95;
 }
 .box{
   padding: 30upx 50upx 0;
   margin:0 24upx;
   position: relative;
-  bottom: 60upx;
+  bottom: 130upx;
   background-color: #fff;
   border-radius: 8upx;
   display: flex;

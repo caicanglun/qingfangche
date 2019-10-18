@@ -41,7 +41,7 @@
     "statusbar": {
       "immersed": "supportedDevice",
       "style": "light",
-      "background": "#EE603F"
+      "background": "#FF6000"
     },
     "usingComponents": true,
     "distribute": {

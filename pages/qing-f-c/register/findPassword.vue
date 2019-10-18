@@ -11,7 +11,8 @@
 					<!-- 手机输入框 -->
 					<view class="flex_c box_row">
 					  
-					  <image src="../../../static/images/qingfc/user.png" class="i-next" mode="aspectFill"></image>
+					  <!-- <image src="../../../static/images/qingfc/user.png" class="i-next" mode="aspectFill"></image> -->
+					  <uniIcon type="phone" size="20"></uniIcon>
 					  <input name="phone" v-model="phone" class="box_input" 
 						  placeholder="请输入手机号" 
 						  placeholder-style="color: #ccc;font-size: 14px;" 
@@ -19,32 +20,48 @@
 						  @input="showCloseIcon"
 						  
 					  ></input>
-					  <image v-if="isPhoneClear" src="../../../static/images/qingfc/close.png" class="i-next" mode="aspectFill" @tap="clearPhone"></image>
+					  <!-- <image v-if="isPhoneClear" src="../../../static/images/qingfc/close.png" class="i-next" 
+					  mode="aspectFill" @tap="clearPhone"></image> -->
+					  
+					  <view style="width: 40upx;padding-left: 20upx;"  @tap="clearPhone">
+					  		<uniIcon type="close" size="20" v-if="isPhoneClear"></uniIcon>
+					  </view>
 					</view>
 					<!-- 密码输入框 -->
 					<view class="flex_c box_row">
-					  <image src="../../../static/images/qingfc/passwd.png" class="i-next" mode="aspectFill" ></image>
-					  <input name="password" v-model="password" class="box_input" 
-						  placeholder="请输入新的密码"
-						  placeholder-style="color: #ccc;font-size: 14px;"
-						  maxlength="11"
-						  :type="passType"
-						  @input="showPassClearIcon"
-						 
-						  
-					  ></input>
-					  <image v-if="isPassClear" src="../../../static/images/qingfc/close.png" class="i-next"
-					       @tap ="clearPass" >
-					   </image>
-					  <image src="../../../static/images/qingfc/invisiable.png" 
-					       class="i-next i-padding" 
-						   mode="aspectFit" 
-						   @tap="showPass"></image>
-					</view>
+					  <!-- <image src="../../../static/images/qingfc/passwd.png" class="i-next" mode="aspectFill" ></image> -->
+						  <uniIcon type="locked" size="20"></uniIcon>
+						  <input name="password" v-model="password" class="box_input" 
+							  placeholder="请输入新的密码"
+							  placeholder-style="color: #ccc;font-size: 14px;"
+							  maxlength="11"
+							  :type="passType"
+							  @input="showPassClearIcon"
+						  ></input>
+							  <!-- <image v-if="isPassClear" src="../../../static/images/qingfc/close.png" class="i-next"
+								   @tap ="clearPass" >
+							   </image>
+							  <image src="../../../static/images/qingfc/invisiable.png" 
+								   class="i-next i-padding" 
+								   mode="aspectFit" 
+								   @tap="showPass"></image> -->
+						<view style="width: 40upx;padding-left: 20upx;" @tap="clearPass">
+							<uniIcon type="close" size="20" v-if="isPassClear"></uniIcon>
+						 </view>
+						
+					   <view style="padding-left: 10upx;" @tap ="showPass">
+						   <uniIcon type="eye" size="20" v-if="isPassClear" ></uniIcon>
+					   </view>
+					  
+					</view> 
+					
+				  
+				   
 					<!-- 验证码输入框 -->
 					<view class="flex_c box_row">
 					  
-					  <image src="../../../static/images/qingfc/message.png" class="i-next" mode="aspectFill"></image>
+					  <!-- <image src="../../../static/images/qingfc/message.png" class="i-next" mode="aspectFill"></image> -->
+					  <uniIcon type="email" size="20"></uniIcon>
 					  <input name="code" class="box_input" 
 						  placeholder="输入短信验证码" 
 						  placeholder-style="color: #ccc;font-size: 14px;" 
@@ -64,7 +81,12 @@
 </template>
 
 <script>
+	import uniIcon from "@/components/uni-icons/uni-icons.vue";
+	const JsyServer = require("services/jsy-server.js");
 	export default {
+		components:{
+			uniIcon
+		},
 		data() {
 			return {
 				phone: '',
@@ -86,10 +108,10 @@
 				this.passType = this.passType==='password'?'text':'password'
 			},
 			clearPhone: function(){
-				this.contPhone = ''
+				this.phone = ''
 			},
 			clearPass: function(){
-				this.contPass =''
+				this.password =''
 			},
 			showCloseIcon:function(e){
 				if (e.target.value){
@@ -108,22 +130,29 @@
 			},
 			
 			getValidCode:function(){
-				uni.request({
-					url: this.apiServer + '/ul/verification',
-					method: 'POST',
-					data: {
-						phone:　this.phone
-					},
-					success: res => {
-						uni.showToast({
-							title: '验证码已发送',
-							duration: 2000,
-							icon: 'none'
-						});
-					},
-					fail: () => {},
-					complete: () => {}
-				});
+				if (!this.phone){
+					uni.showToast({
+						title: '请输入手机号码',
+						icon: 'none'
+					});
+					return;
+				}
+				let _data ={
+					phone: this.phone
+				}
+				JsyServer.verification(_data).then(res => {
+				  console.log(res);
+				  uni.showToast({
+				  	title: '验证码已发送',
+					icon: 'none'
+				  });
+					
+				}).catch(err => {
+				  wx.showToast({
+				    title: err.data.errMsg,
+				    icon: 'none'
+				  });
+				});		
 			},
 			formSubmit: function(e){
 				let data = e.detail.value;
@@ -156,30 +185,28 @@
 					});
 					return ;
 				}
-				uni.request({
-					url: this.apiServer+'/ul/registration',
-					method: 'POST',
-					header: {
-						'content-type': 'application/json'
-					},
-					data: { 
-						phone: data.phone,
-						password: data.password,
-						verification: code
-					},
-					success: res => {
-						console.log(res.data);
-						if (res.data.status  == 0){
-							uni.switchTab({
-								url: "/pages/qing-f-c/index"
-							})
-						}
-					},
-					fail: (err) => {
-						console.log(err.data)
-					},
-					complete: () => {}
-				});
+				let _data = { 
+					phone: data.phone,
+					password: data.password,
+					verification: code
+				}
+				console.log(_data)
+				JsyServer.chanage_password(_data).then(res => {
+				  console.log(res);
+				  uni.showToast({
+				  	title: '修改成功',
+					icon: 'none'
+				  });
+					
+				  uni.navigateBack({
+				  	delta: 1
+				  });
+				}).catch(err => {
+				  wx.showToast({
+				    title: err.data.errMsg,
+				    icon: 'none'
+				  });
+				});		
 				
 			}
 		

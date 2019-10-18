@@ -19,87 +19,84 @@ function request(url, data = {}, method = "GET") {
 		'MYTK': wx.getStorageSync('token')
       },
       success: function (res) {
-  
+        
         if (res.statusCode >= 200 && res.statusCode < 300) {
           resolve(res);
         }
         // 重新登录
-        else if (res.statusCode == 401 && url.indexOf(loginApi) == -1) {
-          let loginOn = wx.getStorageSync("loginOn");
+        // else if (res.statusCode == 401 && url.indexOf(loginApi) == -1) {
+        //   let loginOn = wx.getStorageSync("loginOn");
 
-          if (!loginOn) {
-            wx.setStorageSync("loginOn", true);
+          // if (!loginOn) {
+          //   wx.setStorageSync("loginOn", true);
 
             //需要登录后才可以操作
-            let code = null;
-            return login().then((res) => {
-              code = res.code;
-              return getUserInfo();
-            }).then((userInfo) => {
+            // let code = null;
+            // return login().then((res) => {
+            //   code = res.code;
+            //   return getUserInfo();
+            // }).then((userInfo) => {
 
-              wx.setStorageSync("rawData", userInfo.rawData)
-              wx.setStorageSync("signature", userInfo.signature)
+            //   wx.setStorageSync("rawData", userInfo.rawData)
+            //   wx.setStorageSync("signature", userInfo.signature)
 
-              // 重新登录，登录远程服务器
-              request(Api.AuthLoginByWeixin, { code: code, userInfo: userInfo }, 'POST').then(res => { 
-                wx.setStorageSync("loginOn", false);
+            //   // 重新登录，登录远程服务器
+            //   request(Api.AuthLoginByWeixin, { code: code, userInfo: userInfo }, 'POST').then(res => { 
+            //     wx.setStorageSync("loginOn", false);
 
-                if (res.data.code == 200) {
-                  if (res.data.sessionKey) {
-                    wx.setStorageSync("sessionKey", res.data.sessionKey);
-                  }
+            //     if (res.data.code == 200) {
+            //       if (res.data.sessionKey) {
+            //         wx.setStorageSync("sessionKey", res.data.sessionKey);
+            //       }
 
-                  // 存储用户信息
-                  wx.setStorageSync('userInfo', res.data.userInfo);
-		              wx.setStorageSync('token', res.data.token);
+           
+		          //     // 获取当前页面的路径
+            //       let getPage = getCurrentPages();
 
-                  // 获取用户认证信息
-                  // getApproveData();
-                  // 获取支持的银行卡
-                  // getSupportBank();
-		              // 获取当前页面的路径
-                  let getPage = getCurrentPages();
-
-                  // 拼接当前页面路径
-                  let pageRoute = `/${getPage[getPage.length-1].route}`;
-                  let pageOptions = getPage[getPage.length - 1].options;
-                  let nStr = ``;
-                  // 当前路径拼接
-                  for (let attr in pageOptions) {
-                    nStr += `&${attr}=${pageOptions[attr]}`
-                  }
-                  let pageUrl = pageRoute + nStr.replace('&', '?');
+            //       // 拼接当前页面路径
+            //       let pageRoute = `/${getPage[getPage.length-1].route}`;
+            //       let pageOptions = getPage[getPage.length - 1].options;
+            //       let nStr = ``;
+            //       // 当前路径拼接
+            //       for (let attr in pageOptions) {
+            //         nStr += `&${attr}=${pageOptions[attr]}`
+            //       }
+            //       let pageUrl = pageRoute + nStr.replace('&', '?');
                   
-                  if (wx.reLaunch) {
-                    wx.reLaunch({
-                      url: pageUrl
-                    });
-                  } else {
-                    wx.switchTab({
-                      url: '/pages/tab-index/index'
-                    })
-                  }
-                } else {
-                  reject(res);
-                }
-              }).catch((err) => {
-                wx.setStorageSync("loginOn", false);
-                reject(err);
-              });
+            //       if (wx.reLaunch) {
+            //         wx.reLaunch({
+            //           url: pageUrl
+            //         });
+            //       } else {
+            //         wx.switchTab({
+            //           url: '/pages/tab-index/index'
+            //         })
+            //       }
+            //     } else {
+            //       reject(res);
+            //     }
+            //   }).catch((err) => {
+            //     wx.setStorageSync("loginOn", false);
+            //     reject(err);
+            //   });
               
-            }).catch((err) => {
-              wx.setStorageSync("loginOn", false);
-              reject(err);
-            })
-          }
-        }
+            // }).catch((err) => {
+            //   wx.setStorageSync("loginOn", false);
+            //   reject(err);
+            // })
+          //}
+        //}
         // 无权限
-        else if (res.statusCode == 403) {
+        else if (res.statusCode == 401) {
           // backIndexPageModal("很抱歉，你没有查看权限");
-          reject(res);
-        }
-        else {
-          reject(res);
+		    
+			uni.navigateTo({
+				url: '/pages/qing-f-c/login/login',
+				success: res => {},
+				fail: () => {},
+				complete: () => {}
+			});
+			return;
         }
       },
       fail: function (err) {

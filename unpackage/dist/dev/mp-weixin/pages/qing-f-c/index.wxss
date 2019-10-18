@@ -19,6 +19,7 @@ page{
   background-repeat:no-repeat;
   background-position:center top;
   background-size:cover;
+  height: 300rpx;
   color:#fff;
   padding: 30rpx 24rpx 100rpx;
 }
@@ -29,13 +30,16 @@ page{
   border-radius: 8rpx;
 }
 .hand_content{
-	width: 512rpx;
+	width: 250rpx;
 	line-height: 1;
 }
-.xiaoxi{
-  position: absolute;
-  top:30rpx;
-  right: 60rpx;
+.align-c{
+	-webkit-align-content: space-between;
+	    -ms-flex-line-pack: justify;
+	        align-content: space-between;
+}
+.widgit{
+	position: relative;
 }
 .xiaoxi_text{
   background-color: #FF7D21;
@@ -59,14 +63,13 @@ page{
 .setting_img{
   height: 42rpx;
   width: 36rpx;
-  padding-right: 40rpx;
   z-index: 95;
 }
 .box{
   padding: 30rpx 50rpx 0;
   margin:0 24rpx;
   position: relative;
-  bottom: 60rpx;
+  bottom: 130rpx;
   background-color: #fff;
   border-radius: 8rpx;
   display: -webkit-box;
