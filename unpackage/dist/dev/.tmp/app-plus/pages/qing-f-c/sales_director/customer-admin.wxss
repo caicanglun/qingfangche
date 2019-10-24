@@ -30,7 +30,7 @@
   font-weight: bold;
 }
 .line{
-  height: 60rpx;
+  height: 45rpx;
   width: 2rpx;
   background-color: #D3D3D3;
 }
@@ -157,6 +157,7 @@
 }
 .search_btn{
   width: 210rpx;
+  /* background-color: #F2F2F2; */
   background-color: #F2F2F2;
   border-radius: 28rpx;
   display: -webkit-box;

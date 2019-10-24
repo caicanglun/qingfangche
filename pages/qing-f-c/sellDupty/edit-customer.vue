@@ -263,19 +263,7 @@
 					    }
 					});
 				}
-				if (index ==2){
-					uni.chooseLocation({
-					    success: function (res) {
-					        console.log('位置名称：' + res.name);
-							_this.salesroomAddress = res.address
-					        console.log('详细地址：' + res.address);
-							_this.factoryLatitude = res.latitude
-					        console.log('纬度：' + res.latitude);
-							_this.factoryLongitude = res.longitude
-					        console.log('经度：' + res.longitude);
-					    }
-					});
-				}
+				
 				
 			},
 			
@@ -287,12 +275,12 @@
 			formSubmit:function(e){
 				let data = this.customerInfo
                 let _data = {}
-				let cooper = list2code(this.cooperationIntention)  //合作意向编码
-				let coor = list2code(this.coordinate)    //配合度
+				console.log("合作意向====",this.cooperationIntention)
+				let cooper = Tools.list2code(this.cooperationIntention)  //合作意向编码
+				let coor = Tools.list2code(this.coordinate)    //配合度
 				
 				console.log("cooper",cooper)
-				
-				
+
 				_data.companyCode  = data.companyCode                    //客户编号
 				_data.companyName = data.companyName 					//客户名
 				

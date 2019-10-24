@@ -19,14 +19,14 @@
 			<view>({{numOne}})</view>
 		  </view>
 		</view>
-		<view class="line"></view>
+		<view class="line mt_10"></view>
 		<view :class="'tab_208 flex_c_c ' + (tabTwo==1?'tab_on':'')" @tap="tapTabTwo" data-index="1">
 		  <view :class="(tabTwo==1?'text_on':'') + ' ptb_20'">
 			<view>已分配</view>
 			<view>({{numTwo}})</view>
 		  </view>
 		</view>
-		<view class="line"></view>
+		<view class="line mt_10"></view>
 		<view :class="'tab_208 flex_c_c ' + (tabTwo==2?'tab_on':'')" @tap="tapTabTwo" data-index="2">
 		  <view :class="(tabTwo==2?'text_on':'') + ' ptb_20'">
 			<view>未分配</view>
@@ -42,7 +42,7 @@
 			  <view>
 				<block v-for="(item, index) in selectContent" :key="index">
 				  <view :class="'fs_14 ' + (index>0?'lh_62':'color_ee603f')" @tap="bindSelectContent" 
-				  :data-index="index">{{item.name}}</view>
+				  :data-index="index">{{item.label}}</view>
 				</block>
 			  </view>
 			  <image src="/static/images/qingfc/application/select_bind.png" mode="aspectFit"></image>
@@ -65,32 +65,32 @@
 
 <view>
   <block v-for="(item, index) in customerList" :key="index" v-if="!compileing">
-    <view class="list flex_c box_shadow" @click.stop="toClientDetail" :data-id="item.id" :data-index="index">
+    <view class="list flex_c box_shadow" @click.stop="toClientDetail(item.companyCode)" :data-id="item.id" :data-index="index">
       
       <view :class="(compileing?'wid_610':'wid_670')">
         <view class="flex_sb mt_10">
           <view class="flex">
             <image src="/static/images/qingfc/application/companyx.png" class="title_img" mode="aspectFit"></image>
-            <view class="fs_16 font_we_bold wid_510">{{item.name||''}}</view>
+            <view class="fs_16 font_we_bold wid_510">{{item.companyName||''}}</view>
           </view>
-          <view :class="(item.type==2?'id_btn':'seller_btn')">{{item.type==2?'买家':'卖家'}}</view>
+          <view :class="(item.buyOrSell==1?'id_btn':'seller_btn')">{{item.buyOrSell==1?'买家':'卖家'}}</view>
         </view>
         <view class="flex_c mt_20">
           <image src="/static/images/qingfc/application/list.png" class="title_img" mode="aspectFit"></image>
           <view class="fs_14 ">
-            <text class="mr_60">{{item.region||''}}</text>
-            <text class="mr_60">{{item.type1||''}}</text>
-            <text>{{item.contNum||0}}个联系人</text>
+            <text class="mr_60">{{item.regionName||''}}</text>
+            <text class="mr_60">{{item.companyTypeName||''}}</text>
+            <text>{{item.linkmanCount||0}}个联系人</text>
           </view>
         </view>
         <view class="flex_c mt_20">
 			  <image src="/static/images/qingfc/application/contacts.png" class="title_img" mode="aspectFit"></image>
-			  <view class="fs_14">{{item.contName||''}} {{item.contPhone||""}}</view>
+			  <view class="fs_14">{{item.deputyRealName||''}} {{item.deputyPhone||""}}</view>
         </view>
 		<view class="flex_sb mt_20">
 		  <view class="flex">
 			  <image src="/static/images/qingfc/application/organize.png" class="title_img" mode="aspectFit"></image>
-			  <view class="fs_14 ">所属帮办: {{ item.bangban||'' }}</view>
+			  <view class="fs_14 ">所属帮办: {{ item.deputyRealName||'' }}</view>
 		  </view>
 		  <view v-if="tabTwo==0">
 				  <image src="/static/images/qingfc/application/exit2x.png" class="title_img" mode="aspectFit"></image>
@@ -103,39 +103,39 @@
   </block>
 
   <checkbox-group @change="checkboxChange" v-if="compileing&&tabTwo>0">
-  	<label v-for="item in customerList" :key="item.id"> 
+  	<label v-for="item in customerList" :key="item.companyCode"> 
   	<view class="flex">
   		<view class="checkboxSty"> 
-  				<checkbox :value="item.id" :checked="(allPitchOn?true:items.ischecked)" /> 
+  				<checkbox :value="item.companyCode" :checked="(allPitchOn?true:item.isChecked)"/> 
   		</view>
-  		<view>
+  		<view >
 			
 			 <view class="list flex_c box_shadow" >
 			   
-			    <view :class="(compileing?'wid_610':'wid_670')">
+			    <view :class="(compileing?'wid_610':'wid_670')" >
 			      <view class="flex_sb mt_10">
 			        <view class="flex">
 			          <image src="/static/images/qingfc/application/companyx.png" class="title_img" mode="aspectFit"></image>
-			          <view class="fs_16 font_we_bold wid_510">{{item.name||''}}</view>
+			          <view class="fs_16 font_we_bold wid_510">{{item.companyName||''}}</view>
 			        </view>
-			        <view :class="(item.type==2?'id_btn':'seller_btn')">{{item.type==2?'买家':'卖家'}}</view>
+			        <view :class="(item.buyOrSell==1?'id_btn':'seller_btn')">{{item.buyOrSell==1?'买家':'卖家'}}</view>
 			      </view>
 			      <view class="flex_c mt_20">
 			        <image src="/static/images/qingfc/application/list.png" class="title_img" mode="aspectFit"></image>
 			        <view class="fs_14 ">
-			          <text class="mr_60">{{item.region||''}}</text>
-			          <text class="mr_60">{{item.type1||''}}</text>
-			          <text>{{item.contNum||0}}个联系人</text>
+			          <text class="mr_60">{{item.regionName||''}}</text>
+			          <text class="mr_60">{{item.companyTypeName||''}}</text>
+			          <text>{{item.linkmanCount||0}}个联系人</text>
 			        </view>
 			      </view>
 			      <view class="flex_c mt_20">
 						  <image src="/static/images/qingfc/application/contacts.png" class="title_img" mode="aspectFit"></image>
-						  <view class="fs_14">{{item.contName||''}} {{item.contPhone||""}}</view>
+						  <view class="fs_14">{{item.deputyRealName||''}} {{item.deputyPhone||""}}</view>
 			      </view>
 					<view class="flex_sb mt_20">
 					  <view class="flex">
 						  <image src="/static/images/qingfc/application/organize.png" class="title_img" mode="aspectFit"></image>
-						  <view class="fs_14 ">所属帮办: {{ item.bangban||'' }}</view>
+						  <view class="fs_14 ">所属帮办: {{ item.deputyRealName||'' }}</view>
 					  </view>
 					 
 					</view>	
@@ -167,7 +167,7 @@
   <view class="btn_left_tapTwo" v-if="tabTwo==2" @tap="tabAllPitchOn">
   	  <checkbox value="" :checked="allPitchOn" />全选
   </view>
-  <view class="btn_right_tapTwo" v-if="tabTwo==2" @tap="toAllotDeputy">去分配</view>
+  <view class="btn_right_tapTwo" v-if="tabTwo==2" @tap="toAllotAreaManager">去分配</view>
 </view>
 <view class="height_100" v-if="compileing"></view>
 
@@ -178,83 +178,76 @@
 
 <script>
 
-let pageSize = 20,
-    recordPage = 1,
-    _this,
-    custYN = true,
-    recordYN = true;
-
+let pageSize = 20
+let _this,_postCode
+ const JsyServer = require("@/services/jsy-server.js");
 export default {
   data() {
     return {
-      
+   
       tabTwo: 0,
       compileing:false,
       allPitchOn: false,
       //是否全部选中
-      inputValue: '',
-      //跟进记录搜索内容
       inputValueOne: '',
       setOver: false,
       //返回该页是否刷新
-      selectContent: [{
-        name: '区域',
-        id: 0
-      }, {
-        name: '石狮',
-        id: 2
-      }, {
-        name: '盛泽',
-        id: 4
-      },
-	  {
-	    name: '柯桥',
-	    id: 6
-	  },
-	  {
-	    name: '其他',
-	    id: 8
-	  }],
+      selectContent: [],
       bindSelect: false,
       //是否点开搜素类别
       loading: false,
       numOne: 0,
       numTwo: 0,
       numThree: 0,
-      numFour: 0,
 	  customerList: [],
-	  //区域经理
-	  orginalList:[],
 	  isFilterBuyer:false,
-	  isFilterSeller: false
+	  isFilterSeller: false,
+	  pageNum: 1,   //当前页
+	  buyOrSell: -1,   //0全部，1买家，2卖家
+	  isAllocation: -1,   //-1全部，1已分配，0未分配
+	  isLastPage: false   ,//是否最后一页面
+	  codeValue:[],
+	  isDoRefresh:false
+	  
     };
   },
 
   onReachBottom: function () {
-    
 
-  },
-  onPullDownRefresh: function () {
-    this.getAdminCustomerList();
-    
-  },
-  onShow: function () {
-    
-      this.getAdminCustomerList();
-    
-  },
-  onLoad: function (options) {
-    _this = this;
-   
-    recordPage = 1;
-    custYN = true;
+     if (!this.isLastPage){
+	   this.pageNum = this.pageNum + 1
+	   
+	   this.getCustomerList(this.pageNum,this.isAllocation)
+      }
 
-    //let userInfo = wx.getStorageSync("userInfo");
-	
-    this.getAdminCustomerList();
-	this.numOne = this.customerList.length
-    this.setTime();
-  },
+   },
+   onPullDownRefresh: function () {
+  	 this.pageNum =1
+     this.getCustomerList(this.pageNum,this.isAllocation); 
+   },
+   onShow: function () {
+	   
+      let pages = getCurrentPages();
+      let currPage = pages[pages.length-1];
+      if (currPage.data.isDoRefresh == true){
+		   currPage.data.isDoRefresh = false;
+		   this.pageNum =1
+		   this.getCustomerList(this.pageNum,this.isAllocation);
+		   this.dmCount()
+     	 }
+   },
+   onLoad: function (options) {
+     _this = this;
+	 _postCode = uni.getStorageSync('pupDefault')
+     //let userInfo = wx.getStorageSync("userInfo");
+  	if (this.checkLogin()){
+		this.getCustomerList(this.pageNum,this.isAllocation)
+		this.getRegionCode()
+		this.dmCount()
+  	    //获取职位
+  	
+  	}
+   },
   onNavigationBarButtonTap:function(val){
 	  if (this.tabTwo>0) {
 		 this.tapCompile() 
@@ -265,77 +258,134 @@ export default {
   components: {},
   props: {},
   methods: {
+	  getRegionCode:function(){
+		  let url = this.Api.getRegion
+		  this.myRequest({},url,'get').then(res => {
+			 console.log("regionCode",res)
+		     _this.selectContent = res.data.data.list
+			 _this.selectContent.unshift({id: 0 ,label:'区域'})
+		  	console.log("regionCode===",_this.selectContent)
+		  	
+		   }).catch(err => {
+		     console.log("getBSList=err==", res);
+		   });  
+		  
+		  
+	  },
+	  getCustomerList:function(pageNum=1,isAllocation=-1,buyOrSell=-1,regionCode='',keyword=''){
+			let _data={
+			 	keyword:keyword,		//搜索关键字
+			 	regionCode: regionCode,	//区域编码，空为全部区域
+			 	buyOrSell: buyOrSell,			//-1全部，0未知，1买家，2卖家
+			 	isAllocation: isAllocation,		//是否已分配买/卖帮办。-1全部，1已分配，0未分配
+			 	pageNum: pageNum,			//当前页
+			 	pageSize: pageSize,             // 页面大小
+			 	postCode: _postCode             //职位
+			 }
+		    console.log(_data)
+	    
+			JsyServer.dmList(_data).then(res => {
+			   console.log("客户信息===",res)
+			   _this.customerList = res.data.data.list
+				console.log("customerlist===",_this.customerList)
+				_this.isLastPage = res.data.data.isLastPage
+				console.log("最后一页",_this.isLastPage)
+			 }).catch(err => {
+			   console.log("getBSList=err==", res);
+			 });  
+	  },
+	  
+	  dmCount:function(){
+		  let _data ={
+			  keyword:'',		//关键词
+			  regionCode:'',   //区域编码
+			  buyOrSell: -1   //买卖家
+		  }
+		 JsyServer.dmCount(_data).then(res => {
+		    console.log("客户数量===",res)
+            _this.numOne = res.data.data.all
+			_this.numTwo = res.data.data.isAllocation
+			_this.numThree = res.data.data.notAllocation
+		  }).catch(err => {
+		    console.log("getBSList=err==", res);
+		  }); 
+	  },
 	  checkboxChange: function (e) {
-	     				var items = this.customerList;
-	     				var	values = e.detail.value;
-	  				  //  console.log(values);
-	     				for (var i = 0, lenI = items.length; i < lenI; ++i) {
-	     					const item = items[i]
-	     					if(values.includes(item.id)){
-	     						this.$set(item,'ischecked',true)
-	     					}else{
-	     						this.$set(item,'ischecked',false)
-	     					}
-	     				}
+			
+			this.codeValue = e.detail.value
+			
 						
 	  },
 	  tabAllPitchOn:function(){
 		  this.allPitchOn = !this.allPitchOn;
+		  console.log('quanxuankuang',this.allPitchOn)
+		  let temp = []
+		  if (this.allPitchOn){
+			 
+			 this.customerList.forEach((item)=>{
+			 			  temp.push(item.companyCode)
+			 })
+			 _this.codeValue = temp 
+		  }else {
+			  _this.codeValue=[]
+		  }
+		  
+		 
+		  
+		  
+		  
 	  },
     blurInput: function (e) {
       console.log(this.tabOne, e.detail.value);
 
-      if (this.tabOne == 0) {
-        this.setData({
-          inputValueOne: e.detail.value
-        });
-      } else {
-        this.setData({
-          inputValue: e.detail.value
-        });
-      }
+  //     if (this.tabOne == 0) {
+  //       // this.setData({
+  //       //   inputValueOne: e.detail.value
+  //       // });
+		// this.inputValue = e.detail.value
+  //     } else {
+  //       this.inputValue = e.detail.value
+  //     }
     },
 	tapBuyFilter:function(e){
-		this.isFilterBuyer = true;
-	    this.isFilterSeller = false;
-		let region = this.selectContent[0].name;
-		this.customerList = this.orginalList
-		this.customerList = this.customerList.filter((item)=>{
-			if ( region == '区域'){
-				return item.type==2
-			}else {
-				return item.type==2&&item.region==region
-			}
-			
-		})
+		this.buyOrSell = 1
+		this.isFilterBuyer = true
+		this.isFilterSeller = false
+		let regionCode 
+		if(this.selectContent[0].id == 0){
+			regionCode = ''
+		}else {
+			regionCode = this.selectContent[0].id
+		}
+		this.getCustomerList(this.pageNum,this.isAllocation,this.buyOrSell,regionCode)
+		
 		
 	},
 	tapSellFilter:function(){
-		this.isFilterBuyer = false;
-		this.isFilterSeller = true;
-		let region = this.selectContent[0].name;
-		this.customerList = this.orginalList
-		this.customerList = this.customerList.filter((item)=>{
-			if ( region == '区域'){
-				return item.type==1
-			}else {
-				return item.type==1&&item.region==region
-			}
-			
-		})
+		this.buyOrSell = 2
+		this.isFilterBuyer = false
+		this.isFilterSeller = true
+		let regionCode
+		if(this.selectContent[0].id == 0){
+			regionCode = ''
+		}else {
+			regionCode = this.selectContent[0].id
+		}
+		this.getCustomerList(this.pageNum,this.isAllocation,this.buyOrSell,regionCode)
 	},
     bindSearch: function (e) {
-      recordPage = 1;
-      this.setData({
-        inputValue: e.detail.value
-      });
-      this.getRecordList();
+    
+      // this.setData({
+      //   inputValue: e.detail.value
+      // });
+     
     },
     // 点开搜索下拉选项
     bindSelectFunc: function () {
-      this.setData({
-         bindSelect: !this.bindSelect
-      });
+      // this.setData({
+      //    bindSelect: !this.bindSelect
+      // });
+	  this.bindSelect = !this.bindSelect
     },
     // 点击选项
     bindSelectContent: function (e) {
@@ -344,58 +394,32 @@ export default {
       let obj = selectContent[0];
       selectContent[0] = selectContent[index];
       selectContent[index] = obj;
-      this.setData({
-        selectContent: selectContent
-      });
-      this.customerList = this.orginalList
-      this.customerList = this.customerList.filter((item)=>{
-      		      if (selectContent[0].name == '区域'){
-      				  return item
-      			  }else {
-      				  return item.region==selectContent[0].name
-      			  }
-      });
-      // if (index > 0) {
-      //   this.tapSearch();
-      // }
+	  if (this.selectContent[0].id == 0){
+		  this.getCustomerList(this.pageNum,this.isAllocation,this.buyOrSell)
+	  }else{
+		  this.getCustomerList(this.pageNum,this.isAllocation,this.buyOrSell,this.selectContent[0].id)
+	  }
+	  
+	  
+      
+	 
+	  
+     
     },
     // 点击搜索
     tapSearch: function () {
       
-      // wx.showLoading({
-      //   title: '搜索中...'
-      // });
-      this.getAdminCustomerList();
+      uni.showLoading({
+        title: '搜索中...'
+      });
+      this.getCustomerList('','','','',this.inputValueOne);
+      setTimeout(function() {
+      		  uni.hideLoading();
+      }, 1000);
+	  
 	  
     },
-    // 获取客户列表
-    getAdminCustomerList: function () {
-       this.customerList = [
-	   {id:"1",followid: "11",followRecord: "","name":"绿城纺织有限公司",contNum: 3,
-       region:"柯桥",type: 2,type1: '布行',contName:"王兴明",contPhone:'13400223325',bangban:'王新有'},
-       {id:"2",followid: "11",followRecord: "","name":"绿城纺织有限公司",contNum: 3,
-       region:"石狮",type: 1,type1: '布行',contName:"王兴明",contPhone:'13400223325',bangban:'王新有'},
-       {id:"3",followid: "11",followRecord: "","name":"绿城纺织有限公司",contNum: 3,
-       region:"盛泽",type: 2,type1: '布行',contName:"王兴明",contPhone:'13400223325',bangban:'王新有'},
-       {id:"4",followid: "11",followRecord: "","name":"绿城纺织有限公司",contNum: 3,
-       region:"厦门",type: 1,type1: '布行',contName:"王兴明",contPhone:'13400223325',bangban:'王新有'},
-       {id:"5",followid: "11",followRecord: "","name":"绿城纺织有限公司",contNum: 3,
-       region:"其他",type: 2,type1: '布行',contName:"王兴明",contPhone:'13400223325',bangban:'王新有'},
-	   {id:"6",followid: "11",followRecord: "","name":"绿城纺织有限公司",contNum: 3,
-	   region:"盛泽",type: 2,type1: '布行',contName:"王兴明",contPhone:'13400223325',bangban:'王新有'},
-	   {id:"7",followid: "11",followRecord: "","name":"绿城纺织有限公司",contNum: 3,
-	   region:"柯桥",type: 1,type1: '布行',contName:"王兴明",contPhone:'13400223325',bangban:'王新有'},
-	   {id:"8",followid: "11",followRecord: "","name":"绿城纺织有限公司",contNum: 3,
-	   region:"石狮",type: 2,type1: '布行',contName:"王兴明",contPhone:'13400223325',bangban:'王新有'},
-	   {id:"9",followid: "11",followRecord: "","name":"绿城纺织有限公司",contNum: 3,
-	   region:"石狮",type: 1,type1: '布行',contName:"王兴明",contPhone:'13400223325',bangban:'王新有'},
-	   {id:"10",followid: "11",followRecord: "","name":"绿城纺织有限公司",contNum: 3,
-	   region:"厦门",type: 2,type1: '布行',contName:"王兴明",contPhone:'13400223325',bangban:'王新有'},
-	   {id:"11",followid: "11",followRecord: "","name":"绿城纺织有限公司",contNum: 3,
-	   region:"石狮",type: 2,type1: '布行',contName:"王兴明",contPhone:'13400223325',bangban:'王新有'}
-       ],
-	   this.orginalList = this.customerList
-    },
+
     setNavButton:function(val){
 		let pages = getCurrentPages();
 		let page = pages[pages.length-1];
@@ -410,20 +434,32 @@ export default {
 	},
     tapTabTwo: function (e) {
       let index = e.currentTarget.dataset.index;
-
+	  //重新请求已分配客户列表
+      this.isAllocation = 1 
       this.tabTwo = index;
 	  console.log(index);
 	  if (index == 0){
 		  //this.customerList = this.orginalList
 		  this.setNavButton("")
+		  this.isAllocation = -1
 		  this.compileing = false
+		  this.getCustomerList()
 	  }
-      if (index>0){
+      if (index==1){
 		 this.setNavButton("编辑") 
+		 //重新请求已分配客户列表
+		 this.isAllocation = 1
+		 this.pageNum = 1
+		this.getCustomerList(this.pageNum,this.isAllocation)
 	  }
-    
-      // custYN = true;
-      this.getAdminCustomerList();
+	  if(index==2){
+		  //重新请求未分配客户列表
+		 this.setNavButton("编辑")
+		this.isAllocation = 0
+		this.pageNum = 1
+		console.log("分配状态：",this.isAllocation)
+		this.getCustomerList(this.pageNum,this.isAllocation)
+	  }
 	  
     },
     // 点击编辑
@@ -441,27 +477,41 @@ export default {
       let month = newDate.getMonth() + 1;
       month = month < 10 ? "0" + month : month;
       let newTime = newDate.getFullYear() + '-' + month + '-' + newDate.getDate();
-      this.setData({
-        newTime: newTime
-      });
+      // this.setData({
+      //   newTime: newTime
+      // });
+	  this.newTime = newTime
     },
    
   
     // 跳转到选中区域经理页
     toAllotAreaManager: function () {
-      let list = this.customerList,
-          optionList = [];
-	  
-      list.forEach(function(item) {
-        if (item.ischecked) {
-          optionList.push(item.id);
-        }
-      });
       
+	  
+      let optionList = _this.codeValue
+	  let _temp = []
+	  _this.codeValue.forEach((s)=>{
+		  this.customerList.forEach((item)=>{
+		  		  if (item.companyCode == s){
+					  _temp.push(item.buyOrSell)
+				  }
+		  })
+	  })
+	  
+	  if (_temp.includes(1) && _temp.includes(2)){
+		  uni.showToast({
+		  	title: '不能同时选择买家和卖家',
+			icon: 'none'
+		  });
+		  return
+	  }
+	  
+	  let buyOrSell = optionList
+      console.log("optionList===",optionList.length)
       if (optionList.length > 0) {
         optionList = JSON.stringify(optionList);
         uni.navigateTo({
-          url: '/pages/qing-f-c/sales_director/deputy-list?optionList=' + optionList 
+          url: '/pages/qing-f-c/sales_director/manager-list?optionList=' + optionList+ '&buyOrSell=' + _temp[0] 
 		  // url: '/pages/qing-f-c/sales_director/deputy-list?optionList=' + optionList + '&type=1'
         });
       } else {
@@ -471,74 +521,56 @@ export default {
         });
       }
     },
-    // 跳转到选择帮办页
-    toAllotDeputy: function () {
-      let list = this.list1,
-          optionList = [];
-      list.map(function(item) {
-        if (item.isSelected) {
-          optionList.push(item.id);
-        }
-      });
-
-      if (optionList.length > 0) {
-        let ids = optionList.join(",");
-        wx.navigateTo({
-          url: '/pages/jin-suo-yun/admin/select-deputy?ids=' + ids
-        });
-      } else {
-        wx.showToast({
-          title: '至少选择一客户',
-          icon: 'none'
-        });
-      }
-    },
-
+   
+    deleteAllot:function(){
+		let optionList = _this.codeValue
+		let _data={
+			companyCodes:optionList
+		}
+		let url = this.Api.majordomoDel
+		this.myRequest(_data,url,'post').then(res => {
+			if (res.data.status == 0){  
+					wx.showToast({
+					  title: '成功删除分配'
+					});
+					if (this.selectContent[0].id == 0){
+						this.getCustomerList(this.pageNum,this.isAllocation,this.buyOrSell)
+					}else{
+						this.getCustomerList(this.pageNum,this.isAllocation,this.buyOrSell,this.selectContent[0].id)
+					}
+				   
+					
+				}		 
+		
+			
+		 }).catch(err => {
+		   console.log("getBSList=err==", res);
+		 });  
+		
+	},
     
    
     // 跳转到客户详情页
     toClientDetail: function (e) {
-      if (this.compileing) {
-        this.tapPitchOn(e.currentTarget.dataset.index);
-      } else {
-        let id = e.currentTarget.dataset.id;
-        wx.navigateTo({
-          url: '/pages/jin-suo-yun/customer-admin/customer-details?id=' + id
-        });
-      }
+      
+		console.log(e)
+		wx.navigateTo({
+		  url: '/pages/qing-f-c/sellDupty/customer-details?companyCode=' + e
+		});
+      
     },
     
     // 重置时间
-    bindReset: function () {
-      this.setData({
-        startDate: "",
-        endDate: "",
-        inputValue: ''
-      });
-      recordPage = 1;
-      this.getRecordList();
-    },
-    setData: function (obj) {
-      let that = this;
-      let keys = [];
-      let val, data;
-      Object.keys(obj).forEach(function (key) {
-        keys = key.split('.');
-        val = obj[key];
-        data = that.$data;
-        keys.forEach(function (key2, index) {
-          if (index + 1 == keys.length) {
-            that.$set(data, key2, val);
-          } else {
-            if (!data[key2]) {
-              that.$set(data, key2, {});
-            }
-          }
-
-          data = data[key2];
-        });
-      });
-    }
+    // bindReset: function () {
+    //   this.setData({
+    //     startDate: "",
+    //     endDate: "",
+    //     inputValue: ''
+    //   });
+    //   recordPage = 1;
+    //   this.getRecordList();
+    // },
+ 
   }
 };
 </script>
@@ -576,7 +608,7 @@ export default {
   font-weight: bold;
 }
 .line{
-  height: 60upx;
+  height: 45upx;
   width: 2upx;
   background-color: #D3D3D3;
 }
@@ -701,6 +733,7 @@ export default {
 }
 .search_btn{
   width: 210upx;
+  /* background-color: #F2F2F2; */
   background-color: #F2F2F2;
   border-radius: 28upx;
   display: flex;

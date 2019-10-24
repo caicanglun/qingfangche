@@ -3,6 +3,8 @@ const Common = require('utils/common.js');
 const Util = require('utils/util.js');
 const User=require('services/user.js');
 const Es6Promise = require('lib/es6-promise.js');
+
+
 //下拉选择
 //区域列表
 function getRegion() {
@@ -357,6 +359,18 @@ function bsList(data) {
 	 })
    })
 } 
+//销售总监，区域经理客户列表
+
+function dmList(data) {
+   return new Es6Promise(function(resolve, reject) {
+	 let newApi = Api.dmList;
+	 Util.request(newApi, data, 'get').then(res => {
+	   resolve(res);
+	 }).catch(err => {
+	   reject(err);
+	 })
+   })
+} 
 //客户详情
 function cmDetail(data) {
    return new Es6Promise(function(resolve, reject) {
@@ -391,6 +405,85 @@ function dmList(data) {
 	 })
    })
 } 
+//销售总监，区域经理客户数量
+function dmCount(data) {
+   return new Es6Promise(function(resolve, reject) {
+	 let newApi = Api.dmCount;
+	 Util.request(newApi, data, 'get').then(res => {
+	   resolve(res);
+	 }).catch(err => {
+	   reject(err);
+	 })
+   })
+} 
+
+//销售总监删除分配
+function majordomoDel(data) {
+   return new Es6Promise(function(resolve, reject) {
+	 let newApi = Api.majordomoDel;
+	 Util.request(newApi, data, 'get').then(res => {
+	   resolve(res);
+	 }).catch(err => {
+	   reject(err);
+	 })
+   })
+} 
+//区域经理删除分配
+function managerDel(data) {
+   return new Es6Promise(function(resolve, reject) {
+	 let newApi = Api.managerDel;
+	 Util.request(newApi, data, 'get').then(res => {
+	   resolve(res);
+	 }).catch(err => {
+	   reject(err);
+	 })
+   })
+} 
+//销售总监查询区域经理列表
+function managerList(data) {
+   return new Es6Promise(function(resolve, reject) {
+	 let newApi = Api.managerList;
+	 Util.request(newApi, data, 'get').then(res => {
+	   resolve(res);
+	 }).catch(err => {
+	   reject(err);
+	 })
+   })
+} 
+//区域经理查询手下帮办列表
+function deputyList(data) {
+   return new Es6Promise(function(resolve, reject) {
+	 let newApi = Api.deputyList;
+	 Util.request(newApi, data, 'get').then(res => {
+	   resolve(res);
+	 }).catch(err => {
+	   reject(err);
+	 })
+   })
+} 
+//区域经理分配客户给帮办
+function managerAllot(data) {
+   return new Es6Promise(function(resolve, reject) {
+	 let newApi = Api.managerAllot;
+	 Util.request(newApi, data, 'post').then(res => {
+	   resolve(res);
+	 }).catch(err => {
+	   reject(err);
+	 })
+   })
+} 
+//销售总监分配客户给区域经理
+function majordomoAllot(data) {
+   return new Es6Promise(function(resolve, reject) {
+	 let newApi = Api.majordomoAllot;
+	 Util.request(newApi, data, 'post').then(res => {
+	   resolve(res);
+	 }).catch(err => {
+	   reject(err);
+	 })
+   })
+} 
+
 //公司联系人
 function linkMan(data) {
    return new Es6Promise(function(resolve, reject) {
@@ -568,133 +661,8 @@ function rivalAdd(data) {
     })
   } 
   
-  
-  
-// ---------------------------------------------
-
-//新用户注册
 
 
-// function getUserInfo(){
-//   return new Es6Promise(function (resolve, reject) {
-//     let newApi = Api.getAccountInfo;
-//     Util.request(newApi, {}, 'get').then(res => {
-//       resolve(res);
-//     }).catch(err => {
-// 			if(err.statusCode==404){
-// 				wx.clearStorage()
-// 			}
-// 			reject(err);
-//     })
-//   })
-//}
-function getInquiryDetail(id) {
-  return new Es6Promise(function(resolve, reject) {
-    let newApi = Api.getInquiryDetail + '/' + id;
-
-    Util.request(newApi, {}, 'get').then(res => {
-      resolve(res);
-    }).catch(err => {
-      reject(err);
-    })
-  })
-}
-
-function getInquiryList(data) {
-  return new Es6Promise(function(resolve, reject) {
-    let newApi = Api.getInquiryList;
-    Util.request(newApi, data, 'get').then(res => {
-      resolve(res);
-    }).catch(err => {
-      reject(err);
-    })
-  })
-}
-// 获取跟进列表
-function getRecordList(data) {
-  return new Es6Promise(function(resolve, reject) {
-    let newApi = Api.getRecordList;
-    Util.request(newApi, data, 'get').then(res => {
-      resolve(res);
-    }).catch(err => {
-      reject(err);
-    })
-  })
-}
-//获取客户列表
-function getCustomerList(data) {
-  return new Es6Promise(function(resolve, reject) {
-    let newApi = Api.getCustomerList;
-    Util.request(newApi, data, 'get').then(res => {
-      resolve(res);
-    }).catch(err => {
-      reject(err);
-    })
-  })
-}
-// 获取关联客户列表
-function getAssociatedCustomers(data={}) {
-  return new Es6Promise(function(resolve, reject) {
-    let newApi = Api.getAssociatedCustomers;
-    Util.request(newApi, data, 'get').then(res => {
-      resolve(res);
-    }).catch(err => {
-      reject(err);
-    })
-  })
-}
-function getBoundAssociatedCustomers(){
-	return new Es6Promise(function (resolve, reject) {
-		let newApi = Api.getBoundAssociatedCustomers;
-		Util.request(newApi, {}, 'get').then(res => {
-			resolve(res);
-		}).catch(err => {
-			reject(err);
-		})
-	})
-}
-// 新建客户跟进记录
-function addRecord(data) {
-  return new Es6Promise(function(resolve, reject) {
-    let newApi = Api.addRecord;
-    Util.request(newApi, data, 'post').then(res => {
-      resolve(res);
-    }).catch(err => {
-      reject(err);
-    })
-  })
-}
-// 跟进记录详情单条
-function getRecordOne(id) {
-  return new Es6Promise(function(resolve, reject) {
-    let newApi = Api.getRecordOne + "/" + id;
-    Util.request(newApi, {}, 'get').then(res => {
-      resolve(res);
-    }).catch(err => {
-      reject(err);
-    })
-  })
-}
-
-
-
-
-
-
-
-
-// 分析师询价列表
-function getxjAnalysisList(data){
-	return new Es6Promise(function (resolve, reject) {
-		let newApi = Api.getxjAnalysisList;
-		Util.request(newApi, data, 'get').then(res => {
-			resolve(res);
-		}).catch(err => {
-			reject(err);
-		})
-	})
-}
-// 移交客户列表
 
 module.exports = {
   
@@ -749,6 +717,13 @@ module.exports = {
   rivalAdd,
   linkmanDel,
   rivalDel,
-  rivalUpdate
-
+  rivalUpdate,
+  dmList,
+  dmCount,
+  majordomoDel,
+  managerDel,
+  managerList,
+  deputyList,
+  managerAllot,
+  majordomoAllot
 }

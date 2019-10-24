@@ -69,6 +69,7 @@ const JsyServer = require("../../services/jsy-server.js");
 const User = require("../../services/user.js");
 const Api = require("../../services/config/api.js");
 const Server = require("../../services/server.js");
+let _this,_regionCode;
 const a = [[
 	  {
 	  icon: '/static/images/jinsy/kehu.png',
@@ -83,12 +84,12 @@ const a = [[
 	  {
 	    icon: '/static/images/jinsy/kehu.png',
 	    name: '客户管理',
-	    url: '/pages/qing-f-c/sales_director/customer-admin'
+	    url: '/pages/qing-f-c/regionalManager/customer-admin'
 	    },
 		{
 		  icon: '/static/images/jinsy/kehu.png',
 		  name: '客户管理',
-		  url: '/pages/qing-f-c/regionalManager/customer-admin'
+		  url: '/pages/qing-f-c/sales_director/customer-admin'
 		  }	
 ]
 , {
@@ -178,7 +179,7 @@ const arrListBS= [{   //买，卖家共用一个
   url: ''
 }];
 
-let _this;
+
 
 export default {
   data() {
@@ -227,7 +228,7 @@ export default {
 			});
 			let timer = setTimeout(() => {
 			  uni.hideLoading();
-			}, 3000);
+			}, 1000);
 			//用户信息
 			this.userDetails()
 			//获取未读信息
@@ -274,6 +275,7 @@ export default {
 					    case  'REGIONAL_MANAGER':
 							try{
 								uni.setStorageSync('pupDefault','REGIONAL_MANAGER')
+								this.userDetails()
 							}catch(e){
 								//TODO handle the exception
 								uni.showToast({
@@ -283,7 +285,13 @@ export default {
 								return
 							}
 							this.userDetails()
-						    this.arrList = arrListRG;
+							setTimeout(function() {
+								console.log(a[0][2].url)
+								a[0][2].url= a[0][2].url+'?regionCode=' + _regionCode
+								console.log(a[0][2].url)
+								this.arrList = arrListRG;
+							}, 500);
+							
 							this.isSpecial = true
 						    this.isSeller = false;
 							break;
@@ -298,7 +306,7 @@ export default {
 						     	});
 						     	return
 						     }
-							 this.userDetails()
+							this.userDetails()
 						    this.arrList = arrListBuyB; 
 						    this.isSeller = false;
 							this.isSpecial = false
@@ -354,6 +362,8 @@ export default {
 		JsyServer.userDetails(data).then(res => {
 		  console.log(res)
 		  _this.userInfo = res.data.data
+		  _regionCode = res.data.data.regionCode  //区域经理要带的区域代码
+		  console.log("quyudaima",_regionCode)
 		  console.log("userInfo===",_this.userInfo)
 		  this.pupDefault()
 		}).catch(err => {
@@ -441,48 +451,6 @@ export default {
         });
       }
     },
-
-    /**
-    * 获取弹窗广告数据
-    */
-//     popAds: function (e) {
-//       JsyServer.controllShow().then(res => {
-//         console.log("res---", res);
-// 
-//         if (res.data == 1) {
-//           _this.setData({
-//             popAds: true
-//           });
-//         } else {
-//           _this.setData({
-//             popAds: false
-//           });
-//         }
-//       }).catch(err => {
-//         console.log("Err=>", err);
-//       });
-//     },
-    setData: function (obj) {
-      let that = this;
-      let keys = [];
-      let val, data;
-      Object.keys(obj).forEach(function (key) {
-        keys = key.split('.');
-        val = obj[key];
-        data = that.$data;
-        keys.forEach(function (key2, index) {
-          if (index + 1 == keys.length) {
-            that.$set(data, key2, val);
-          } else {
-            if (!data[key2]) {
-              that.$set(data, key2, {});
-            }
-          }
-
-          data = data[key2];
-        });
-      });
-    }
   }
 };
 </script>

@@ -33,7 +33,7 @@
   width: 4rpx;
   height: 15px;
   border-radius: 2rpx;
-  background-color: #FF6000;
+  background-color: #EE603F;
   margin-right: 10rpx;
   margin-left: -14rpx;
 }
@@ -67,7 +67,7 @@
   height: 48rpx;
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
-  border: 1rpx solid #FF6000;
+  border: 1rpx solid #EE603F;
   border-radius: 6rpx;
   line-height: 46rpx;
   text-align: center;
@@ -88,7 +88,7 @@
 }
 .selet_tion {
   color: #fff;
-  background-color: #FF6000;
+  background-color: #EE603F;
 }
 .select_btn {
   width: 50%;
@@ -102,14 +102,14 @@
 .btn_left {
   width: 50%;
   background-color: #fff;
-  color: #FF6000;
+  color: #EE603F;
   border-radius: 0;
   font-size: 16px;
   line-height: 88rpx;
 }
 .btn_right {
   width: 50%;
-  background-color: #FF6000;
+  background-color: #EE603F;
   color: #fff;
   border-radius: 0;
   font-size: 16px;
@@ -147,7 +147,7 @@ button::after {
   width: 80rpx;
   height: 48rpx;
   text-align: center;
-  border: 2rpx solid #FF6000;
+  border: 2rpx solid #EE603F;
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
 }
@@ -163,7 +163,7 @@ button::after {
 }
 .unitselect {
   color: #fff;
-  background-color: #FF6000;
+  background-color: #EE603F;
 }
 .unitunselect {
   color: #888890;
@@ -202,10 +202,10 @@ button::after {
   text-align: center;
   line-height: 56rpx;
   height: 60rpx;
-  border: 2rpx solid #FF6000;
+  border: 2rpx solid #EE603F;
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
-  color: #FF6000;
+  color: #EE603F;
   background-color: #fff;
   font-size: 28rpx;
   margin-left: 20rpx;
@@ -216,7 +216,7 @@ button::after {
   width: 126rpx;
 }
 .type_on {
-  background-color: #FF6000;
+  background-color: #EE603F;
   color: #fff;
 }
 .modal_bottom_btn {
@@ -235,7 +235,7 @@ button::after {
 .isOption {
   width: 250rpx;
   text-align: center;
-  background-color: #FF6000;
+  background-color: #EE603F;
   border-radius: 6rpx;
   line-height: 48rpx;
   color: #fff;
@@ -293,8 +293,8 @@ button::after {
   line-height: 46rpx;
   text-align: center;
   margin-bottom: 20rpx;
-  border: 2rpx solid #FF6000;
-  color: #FF6000;
+  border: 2rpx solid #EE603F;
+  color: #EE603F;
 }
 .typeItem {
   width: 200rpx;

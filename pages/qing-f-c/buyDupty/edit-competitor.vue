@@ -1,41 +1,25 @@
 <template>
 	<view>
+	  
 		<view class="box box_shadow">
 		  <view class="flex_c list">
 		    <view class="line"></view>
 		    <view class="font_we_bold fs_15">基本信息</view>
 		  </view>
-		  <view class="flex_c list" >
+		  <view class="flex_c list fs_14" >
 		    <view class="list_right">公司名称：</view>
 		    <view class="flex_sb_c wid_462">
-		      <input name="companyName" v-model="companyName" 
+		      <input name="companyName" v-model="rivalList.companyName" 
 			  placeholder="请输入" placeholder-class="color_888 fs_14" style="width:350upx;" class="input"></input>
 		    </view>
 		  </view>
-		  <view class="flex_c list">
-		    <view class="list_right">渠道状况：</view>
-		    <picker @change="channelChange" :range="channel" :value="channelIndex">
-		      <view>{{channelIndex==-1?"请选择":channel[channelIndex]}} </view>
-		    </picker>
-			<image src="/static/images/qingfc/arrow.png" class="i-next" mode="aspectFill"></image>
-		  </view>
 		  
-		  <view class="flex_line_sb list">
+		  <myPicker @mychange="channeChange" :items="channel" name="渠道状况" :firstLabel="channelStatusName"></myPicker>
+		  <view class="flex_line_sb list fs_14">
 		    <view class="list_right_280">主营产品类型<text class="pl_10 color_888">(可多选)</text>：</view>
 			<view>
 				
-				<view class="checkgroup">
-					  <label v-for="(item,index) in productType" :key="index" > 
-						<view>
-							<view :class="(arrProduct[index]?'typeItemSelect':'typeItem')" @tap="tapTypeItem(index)"> 
-									<!-- <checkbox :value="index" :checked="item.ischecked"/> -->
-									<text>{{item}}</text>
-							</view>
-							
-					   </view>
-					</label> 
-				</view>	
-				
+				<myCheckboxGroup :items = "mainProduct" @selectChange="tapMainProduct"></myCheckboxGroup>
 			 </view>
 		  </view>
 		 <!-- --------------------------- -->
@@ -45,166 +29,275 @@
 			   <view class="font_we_bold fs_15">采购方式分析</view>
 			 </view>
 			 <view class="fs_15 pl_20" @tap="tapBrokerChange">
-				 <checkbox :value="isBroker" :checked="isBroker" />中间商模式 
+				 <checkbox :value="isMiddleman" :checked="isMiddleman" />中间商模式 
 			 </view>
-			 <view class="flex_c list">
-			   <view class="list_right">规模：</view>
-			   <picker @change="scopeChange" :range="scope" :value="scopeIndex">
-			     <view>{{scopeIndex==-1?"请选择":scope[scopeIndex]}} </view>
-			   </picker>
-			   <image src="/static/images/qingfc/arrow.png" class="i-next" mode="aspectFill"></image>
-			 </view>
-			 <view class="flex_c list">
-			   <view class="list_right">品质定位：</view>
-			   <picker @change="qualityChange" :range="quality" :value="qualityIndex">
-			     <view>{{qualityIndex==-1?"请选择":quality[qualityIndex]}} </view>
-			   </picker>
-			   <image src="/static/images/qingfc/arrow.png" class="i-next" mode="aspectFill"></image>
-			 </view>
-			 <view class="flex_c list">
-			   <view class="list_right">经营模式：</view>
-			   <picker @change="modelChange" :range="model" :value="modelIndex">
-			     <view>{{modelIndex==-1?"请选择":model[modelIndex]}} </view>
-			   </picker>
-			   <image src="/static/images/qingfc/arrow.png" class="i-next" mode="aspectFill"></image>
-			 </view>
+			 
+			 <myPicker @mychange="scaleChange" :items="scale" name="规模" :firstLabel="companyScaleName"></myPicker>
+			
+			 <myPicker @mychange="qualityChange" :items="quality" name="品质定位" :firstLabel="qualityName"></myPicker>
+			 
+			 <myPicker @mychange="businessModelChange" :items="businessModel" name="经营模式" :firstLabel="businessModelName"></myPicker>
 			 <view class="fs_15 pl_20" @tap="tapDirectChange">
-			 		 <checkbox :value="isDirect" :checked="isDirect" />厂家直接采购
+			 		 <checkbox :value="isFactoryDirectSale" :checked="isFactoryDirectSale" />厂家直接采购
 			 </view>
-			 <view class="flex_c list" >
+			 <view class="flex_c list fs_14" >
 				 <view class="list_right">地址：</view>
 				 <view class="flex_sb_c wid_462">
-				   <input name="companyAddr" v-model="companyAddr" 
+				   <input name="companyAddress" v-model="rivalList.companyAddress" 
 				   placeholder="请填写" placeholder-class="color_888 fs_14" style="width:350upx;" class="input"></input>
 				 </view>
 			 </view>
 			 <view class="flex_c list" >
 				 <view class="list_right">机台类型：</view>
 				 <view class="flex_sb_c wid_462">
-				   <input name="machineType" v-model="machineType"
+				   <input name="machineType" v-model="rivalList.machineType"
 				   placeholder="请填写机器类型" placeholder-class="color_888 fs_14" style="width:350upx;" class="input"></input>
 				 </view>
 			 </view>
 			 <view class="flex_c list" >
 				 <view class="list_right">机台数量：</view>
 				 <view class="flex_sb_c wid_462">
-				   <input name="machineNum" v-model="machineNum" 
+				   <input name="machineCount" v-model="rivalList.machineCount" 
 				   placeholder="请填写机器数量" placeholder-class="color_888 fs_14" style="width:350upx;"  cursor-spacing='140' class="input"></input>
 				 </view>
 			 </view>
 		 </view>
-		 <!-- --------------------------- -->
 		</view>	
+		 <!-- --------------------------- -->
+		<view class='placeholder-view'></view>	
 		<view class="fixed_bottom box_shadow_btn">
 		  <button class="btn_left" hover-class="none" @tap="bindCancel">取消</button>
-		  <button class="btn_right" @tap="bindSubmit" hover-class="none">确定</button>
+		  <button class="btn_right" @tap="submit" hover-class="none">确定</button>
 		</view>
+		
 	</view>
 	
 </template>
 
 <script>
+	import myPicker from "@/components/myPicker.vue";
+	import myCheckboxGroup from "@/components/myCheckboxGroup.vue";
+	const JsyServer = require("services/jsy-server.js");
 	let _this,_competitor;
 	export default {
+		components:{
+			myPicker,
+			myCheckboxGroup
+		},
 		data() {
 			return {
-				companyName:'',
-				companyAddr:'',
-				machineType:'',
-				machineNum:'',
-				channel:['渠道宽,优势较大','渠道窄,优势不大'],
-				channelIndex: -1,
-				productType:['梭织化纤面料','梭织棉类面料','经编化纤面料','纬编化纤面料','纬编棉类面料','经编棉类面料','其他面料'],
-				arrProduct:[false,false,false,false,false,false,false],
-				scope:['大客户(年销售5000万及以上)','中型客户(年销售3000-5000万)','小型客户(年销售1500-3000万)','小微客户(年销售1500万-500万)','微型客户(年销售500万以下)'],
-				scopeIndex: -1,
-				quality:['品牌订单','高级订单','一般订单','市场订单'],
-				qualityIndex: -1,
-				model: ['厂家分销','二盘分销','自主采购加工'],
-				modelIndex: -1,
+				rivalList:{},
+				channel:[],
+				channelStatusCode: -1,
+				mainProduct:[],
+				scale:[],
+				companyScaleCode: -1,
+				quality:[],
+				qualityCode: -1,
+				businessModel:[],
+				businessModelCode: -1,
 				purchase:["中间商","厂家直采"],
-				isBroker: false,
-				isDirect: false,
-				competitor:{}
+				isFactoryDirectSale: false,
+				isMiddleman: false,
+				
+				businessModelName:'',
+				channelStatusName:'',
+				companyScaleName:'',
+				qualityName:''
 			};
 		},
 		onLoad:function(options){
-			_this = this;
+			_this = this
 			_competitor = JSON.parse(options.odata)
-			console.log("competior=====",_competitor)
+			console.log("competitor====",_competitor)
+			_this.rivalList = _competitor
+			
+			_this.isFactoryDirectSale = _competitor.isFactoryDirectSale==1?true:false
+			_this.isMiddleman = _competitor.isMiddleman==1?true:false
+			
+			this.getMainProduct()
+			this.getChannel()
+			this.getCompanyScale()
+			this.getQuality()
+			this.getBusinessModel()
 		},
 		onShow:function(){
-			this.competitor = _competitor
-			let competitor = this.competitor
-			this.companyName = competitor.name
-			this.companyAddr = competitor.address
-			this.machineType = competitor.machineType
-			this.machineNum = competitor.machineNum
-			this.scopeIndex = this.returnIndex(competitor.scope,this.scope)
-			this.channelIndex = this.returnIndex(competitor.channel,this.channel)
-			this.qualityIndex = this.returnIndex(competitor.quality,this.quality)
-			this.modelIndex = this.returnIndex(competitor.model,this.model)
-			this.setBroker(competitor.purchase)
-			this.setProductType(competitor.productType)
+			
+			console.log(this == _this)
+			_this.businessModelName = _competitor.businessModelName
+			_this.channelStatusName = _competitor.channelStatusName
+			_this.companyScaleName = _competitor.companyScaleName
+			_this.qualityName = _competitor.qualityName
+	
 		},
 		methods:{
-			setBroker:function(val){
-				if (val.indexOf(this.purchase[0]) != -1){
-					this.isBroker = true
-				}
-				if (val.indexOf(this.purchase[1]) != -1){
-					this.isDirect = true
-				}
+			getMainProduct:function(){
+					JsyServer.getMainProduct().then(res => {
+					  console.log(res);
+					  _this.mainProduct = res.data.data.list
+					  let temp= _competitor.mainProducts
+					  console.log(temp)
+					  temp.forEach((s) =>{
+					  	_this.mainProduct.forEach((item)=>{
+					  		if (item.label == s.label){
+					  			this.$set(item,'isChecked',true)
+					  		}
+					  	})
+					  })
+					}).catch(err => {
+					  wx.showToast({
+					    title: err.data.description,
+					    icon: 'none'
+					  });
+					});
+			},
+			getChannel:function(){
+					JsyServer.getChannel().then(res => {
+					  console.log(res);
+					  _this.channel = res.data.data.list
+					}).catch(err => {
+					  wx.showToast({
+					    title: err.data.description,
+					    icon: 'none'
+					  });
+					});
+			},
+			getCompanyScale:function(){
+					JsyServer.getCompanyScale().then(res => {
+					  console.log(res);
+					  _this.scale = res.data.data.list
+					}).catch(err => {
+					  wx.showToast({
+					    title: err.data.description,
+					    icon: 'none'
+					  });
+					});
+			},
+			getQuality:function(){
+					JsyServer.getQuality().then(res => {
+					  console.log(res);
+					  _this.quality = res.data.data.list
+					}).catch(err => {
+					  wx.showToast({
+					    title: err.data.description,
+					    icon: 'none'
+					  });
+					});
+			},
+			getBusinessModel:function(){
+				JsyServer.getBusinessModel().then(res => {
+				  console.log(res);
+				  _this.businessModel = res.data.data.list
+				}).catch(err => {
+				  wx.showToast({
+				    title: err.data.description,
+				    icon: 'none'
+				  });
+				});
 			},
 			
-			setProductType:function(val){
-				let arrProduct = this.arrProduct
-				if (val){
-					let arr = val.split(" ")
-					arr.forEach((item)=>{
-						let index = this.productType.indexOf(item)
-						this.$set(arrProduct,index,true)
-						
-						
-					})
-				}
-			},
-			returnIndex:function(val,arr){
-				return arr.indexOf(val)
-			},
 			tapDirectChange:function(){
-				this.isDirect = ! this.isDirect
+				this.isFactoryDirectSale = ! this.isFactoryDirectSale
 			},
 			tapBrokerChange:function(){
-				this.isBroker = !this.isBroker
+				this.isMiddleman = !this.isMiddleman
 			},
-			tapTypeItem:function(index){
-				console.log(index)
-				let items = this.arrProduct
-				this.$set(items,index,!items[index])
+			tapMainProduct:function(index){
+				let items = this.mainProduct
+				for (var i = 0, lenI = items.length; i < lenI; ++i) {
+					const item = items[i]
+					if (item.id == index) {
+						this.$set(item,'isChecked',!item.isChecked)
+					}
+				}
 			},
-			channelChange:function(e){
-				let index = e.detail.value
-				this.channelIndex = index
+			channeChange:function(e){
+				console.log(e)
+				this.channelStatusCode = e
 			},
-			scopeChange:function(e){
-				let index = e.detail.value;
-				this.scopeIndex = index;
+			scaleChange:function(e){
+				console.log(e)
+				this.companyScaleCode = e;
 			},
 			qualityChange:function(e){
-				let index = e.detail.value;
-				this.qualityIndex = index;
+				console.log(e)
+				this.qualityCode = e;
 			},
-			modelChange:function(e){
-				let index =e.detail.value;
-				this.modelIndex = index;
+			businessModelChange:function(e){
+				console.log(e)
+				this.businessModelCode = e;
 			},
 			bindCancel:function(){
 				uni.navigateBack({
 					delta: 1
 				});
 			},
-			bindSubmit:function(){
+			submit:function(){
+				let _data={}    //提交参数
+				let _mainProductCodes = [] //多选项目，id组合成数组
+				this.mainProduct.forEach((item)=>{
+					if(item.isChecked == true) {
+						_mainProductCodes.push(item.id)
+					}
+				})
+				if (_mainProductCodes.lengh == 0){
+					uni.showToast({
+						title: '请选择主营产品',
+						icon: 'none'
+					});
+					return;
+				}
+				let before_data = {
+				rivalCode:  _competitor.rivalCode,					//客户编码
+				companyName	:  _competitor.companyName,				//竞争对手名称
+				mainProductCodes: _mainProductCodes,            
+				channelStatusCode: this.channelStatusCode,			//渠道状况编码
+				isMiddleman	:  this.isMiddleman?1:0,				//是否中间商.0否，1是，9未知
+				companyScaleCode:  this.companyScaleCode,			//公司规模编码
+				qualityCode	:  this.qualityCode,		//品质定位编码
+				businessModelCode:  this.businessModelCode,		//经营模式编码
+				isFactoryDirectSale:  this.isFactoryDirectSale?1:0,	    //是否厂家直销.0否，1是，9未知
+				companyAddress:  _competitor.companyAddress,			//公司地址
+				machineType	:  _competitor.machineType,			//机器类型
+				machineCount  : _competitor.machineCount          //机器数量
+				}
+				if (!before_data.companyName){
+					uni.showToast({
+						title: '请输入竞争对手名称',
+						icon: 'none'
+					});
+					return;
+				}
+				
+				//过滤未选中的项目
+				Object.keys(before_data).forEach((key)=>{
+					if (before_data[key] != -1){
+						_data[key] = before_data[key]
+					}
+				})
+				console.log("添加竞争对手：==",_data)
+				JsyServer.rivalUpdate(_data).then(res => {
+				  console.log(res);
+				  uni.showToast({
+				  	title: '添加成功',
+					icon: 'none'
+				  });
+					var pages = getCurrentPages();
+					var currPage = pages[pages.length - 1]; //当前页面
+					var prevPage = pages[pages.length - 3]; //上一个页面
+					//直接调用上一个页面的setData()方法，把数据存到上一个页面中去
+					prevPage.setData({
+							isDoRefresh:true
+					})
+				  uni.navigateBack({
+				  	delta: 2
+				  });
+				}).catch(err => {
+				  wx.showToast({
+				    title: err.data.errMsg,
+				    icon: 'none'
+				  });
+				});		
 				
 			}
 		}

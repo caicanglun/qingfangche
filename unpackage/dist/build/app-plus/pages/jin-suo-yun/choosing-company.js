@@ -1,2 +1,0 @@
-setCssToHead([".",[1],"box{ margin: ",[0,20],"; background-color: #fff; padding: 0 ",[0,20],"; font-size: 16px; font-weight: bold; }\n.",[1],"list{ padding: ",[0,27]," ",[0,10],"; border-bottom: ",[0,1]," solid #ddd; }\n",],undefined,{path:"./pages/jin-suo-yun/choosing-company.wxss"})();
-document.dispatchEvent(new CustomEvent("generateFuncReady", { detail: { generateFunc: $gwx('./pages/jin-suo-yun/choosing-company.wxml') } }));

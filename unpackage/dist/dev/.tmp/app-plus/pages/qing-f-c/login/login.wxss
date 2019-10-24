@@ -44,6 +44,8 @@
   line-height: 88rpx;
   border-bottom: 1rpx solid #ccc;
   color: #333236;
+  margin-left: 30rpx;
+  margin-right: 30rpx;
 }
 .box_input {
   padding-left: 30rpx;

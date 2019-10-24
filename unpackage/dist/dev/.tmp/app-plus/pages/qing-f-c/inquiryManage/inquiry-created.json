@@ -1,0 +1,11 @@
+{
+  "navigationBarTitleText": "买帮办新建询价单",
+  "usingComponents": {
+    "picker-button": "/components/pickerButton",
+    "my-picker": "/components/myPicker",
+    "part-checkbox-group": "/components/partCheckboxGroup",
+    "my-picker-small": "/components/myPickerSmall",
+    "switch-button": "/components/switchButton-s",
+    "uni-popup": "/components/uni-popup"
+  }
+}

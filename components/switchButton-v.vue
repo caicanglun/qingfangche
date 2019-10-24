@@ -8,7 +8,8 @@
 					@tap="buttonChange(item.id)" :data-index="item.id">{{item.label}}</view>
 				 </block>
 		  </view>
-		</view>
+		  </view>
+		
 	</view>
 </template>
 

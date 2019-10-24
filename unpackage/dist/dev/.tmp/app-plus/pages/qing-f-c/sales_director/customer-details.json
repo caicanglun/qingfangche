@@ -1,0 +1,7 @@
+{
+  "navigationBarTitleText": " 销售总监客户详情",
+  "usingComponents": {
+    "list-show": "/components/listShow",
+    "uni-icon": "/components/uni-icons/uni-icons"
+  }
+}

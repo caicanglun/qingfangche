@@ -126,7 +126,7 @@
 													isDoRefresh:true
 											})
 											  uni.navigateBack({
-											  	delta: 1
+											  	delta: 2
 											  });
 							              }
 							              

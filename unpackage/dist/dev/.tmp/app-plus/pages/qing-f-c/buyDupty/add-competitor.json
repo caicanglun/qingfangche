@@ -1,6 +1,7 @@
 {
-  "navigationBarTitleText": "添加竞争对手",
+  "navigationBarTitleText": "买帮办添加竞争对手",
   "usingComponents": {
-    "my-picker": "/components/myPicker"
+    "my-picker": "/components/myPicker",
+    "my-checkbox-group": "/components/myCheckboxGroup"
   }
 }

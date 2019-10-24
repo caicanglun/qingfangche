@@ -10,14 +10,11 @@
   <view class="flex_sb">
     <view class="flex">
       <image src="/static/images/qingfc/application/companyx.png" class="title_img" mode="aspectFit"></image>
-      <view class="fs_18 font_we_bold">{{customerInfo.corporateName||''}}</view>
-	  <view :class="(customerInfo.type==2?'id_btn':'seller_btn')">{{customerInfo.type==2?'买家':'卖家'}}</view>
+      <view class="fs_18 font_we_bold">{{customerInfo.companyName||''}}</view>
+	  <view :class="'ml_20 '+ (customerInfo.buyOrSell==1?'id_btn':'seller_btn')">{{customerInfo.buyOrSell==1?'买家':'卖家'}}</view>
     </view>
-    <!-- <view class="flex" @tap="tapDelete">
-      <view class="ellipsis"></view>
-      <view class="ellipsis"></view>
-      <view class="ellipsis"></view>
-    </view> -->
+
+    
   </view>
   <!-- <view class="flex_right mb_20">
     <view :class="(customerInfo.type==2?'id_btn':'seller_btn')">{{customerInfo.type==2?'买家':'卖家'}}</view>
@@ -29,7 +26,7 @@
     </block>
     <view class="ml_30 fs_12 color_ee603f">查看详情</view>
   </view>
-  <view class="flex_c fs_14 mt_30" v-if="customerInfo.type==2">
+  <view class="flex_c fs_14 mt_30">
     <view class="wid_296 flex_c">
       <view class="wid_140 color_9b">找样需求数</view>
       <view class="wid_156">{{customerInfo.demandNum||0}}</view>
@@ -61,7 +58,7 @@
   </view>
 </view>
  <!-- ---------------------------------- -->
-<view v-if="isDisplay" class="inTabbar box_shadow pt_30" id="inTabbar">
+<view class="inTabbar box_shadow pt_30" id="inTabbar" v-if="isDisplay">
 	<view class="flex_c_c mb_20">客户公司名称</view>
 	<view class="flex_sa">
 		<view class="tabItem"
@@ -83,259 +80,162 @@
       <view class="list_line"></view>
       <view>公司信息</view>
     </view>
-    <image src="/static/images/jinsy/bianji.png" class="bianji_img" mode="aspectFit" @tap="goCustomerCreated"></image>
+    <image src="/static/images/jinsy/bianji.png" class="bianji_img" mode="aspectFit" @tap="goEditCustomer"></image>
   </view>
+ <!-- <view class="flex_c box">
+   <listShow label="客户编号" :content="customerInfo.companyCode"></listShow>
+ </view>
+ -->
+
   <view class="flex_c box_list fs_14">
-    <view :class="(customerInfo.type==2?'list_right':'wid_170')">客户编号</view>
-    <view>{{customerInfo.showId||''}}</view>
+    <view class='list_right'>客户编号</view>
+    <view>{{customerInfo.companyCode||''}}</view>
   </view>
-  <!-- <view class='flex_sb_c box_list fs_14'>
-    <view>联系人</view>
-    <view class='color_888'>{{customerInfo.contName||''}}</view>
-  </view>
-  <view class='flex_sb_c box_list fs_14'>
-    <view>联系方式</view>
-    <view class='color_888'>{{customerInfo.contPhone||''}}</view>
-  </view> -->
+ 
+
   <view class="flex_c box_list fs_14">
-    <view :class="(customerInfo.type==2?'list_right':'wid_170')">所属区域</view>
+    <view class='list_right'>所属区域</view>
     <view>{{customerInfo.region||''}}</view>
   </view>
-  <!-- <view class="flex_c box_list fs_14" v-if="customerInfo.type==4">
-    <view :class="(customerInfo.type==2?'list_right':'wid_170')">工厂地址</view>
-    <view>{{customerInfo.factoryAddress||''}}</view>
-  </view> -->
-  <view class="flex_c box_list fs_14" v-if="customerInfo.type==2">
-    <view :class="(customerInfo.type==2?'list_right':'wid_170')">公司地址</view>
-    <view>{{customerInfo.corporateAddress||''}}</view>
-  </view>
-  <!-- <view class="flex_c box_list fs_14" v-if="customerInfo.type==4">
-    <view :class="(customerInfo.type==2?'list_right':'wid_170')">有无门市部</view>
-    <view>{{customerInfo.isSalesDepart==0?'无':'有'}}</view>
-  </view> -->
-  <!-- <view class="flex_c box_list fs_14" v-if="customerInfo.type==4">
-    <view :class="(customerInfo.type==2?'list_right':'wid_170')">门市部地址</view>
-    <view>{{customerInfo.salesDepart||''}}</view>
-  </view> -->
+  
+  
   <view class="flex_c box_list fs_14">
-    <view :class="(customerInfo.type==2?'list_right':'wid_170')">客户类型</view>
-    <view>{{customerInfo.type1||''}}</view>
+    <view class='list_right'>客户类型</view>
+    <view>{{customerInfo.companyType||''}}</view>
   </view>
-  <view class="flex_c box_list fs_14" v-if="customerInfo.type==2">
-    <view :class="(customerInfo.type==2?'list_right':'wid_170')">客户规模</view>
-    <view>{{customerInfo.lv||''}}</view>
+ <view class="flex_c box_list fs_14">
+    <view class='list_right'>客户规模</view>
+    <view>{{customerInfo.companyScale||''}}</view>
   </view>
   <view class="flex_c box_list fs_14">
-    <view :class="(customerInfo.type==2?'list_right':'wid_170')">客户来源</view>
-    <view>{{customerInfo.source||''}}</view>
+     <view class='list_right'>经营定位</view>
+     <view>{{customerInfo.companyScale||''}}</view>
+   </view>
+  <view class="flex_c box_list fs_14">
+    <view class='list_right'>客户来源</view>
+    <view>{{customerInfo.companySource||''}}</view>
   </view>
   <view class="flex_c box_list fs_14">
-    <view :class="(customerInfo.type==2?'list_right':'wid_170')">合作意向</view>
+    <view class='list_right'>合作意向</view>
     <view>{{customerInfo.cooperationIntention||''}}</view>
   </view>
-  <view class="flex_c box_list fs_14" v-if="customerInfo.type==4">
-    <view class="wid_254">品质保证金认可度</view>
-    <view>{{customerInfo.depositApproval==1?'高':(customerInfo.depositApproval==2?'中':(customerInfo.depositApproval==3?'低':''))}}</view>
-  </view>
-  <view class="flex_c box_list fs_14 no_border" v-if="customerInfo.type==2">
-    <view :class="(customerInfo.type==2?'list_right':'wid_170')">配合度</view>
-    <view>{{customerInfo.concerted||''}}</view>
+  
+  <view class="flex_c box_list fs_14">
+    <view class='list_right'>配合度</view>
+    <view>{{customerInfo.coordinate||''}}</view>
   </view>
 </view>
  <!-- ---------------------------------- -->
 <view class="box box_shadow" id="contact">
-  <view :class="'flex_sb_c box_list ' + (!customerInfo.customerBaseInfo?'no_border':'')">
-    <view :class="'fs_16 font_we_bold ' + (customerInfo.customerBaseInfo?'lh_72':'') + ' flex_c'">
+  <view :class="'flex_sb_c box_list ' + (!linkMan?'no_border':'')">
+    <view :class="'fs_16 font_we_bold ' + (linkMan?'lh_72':'') + ' flex_c'">
       <view class="list_line"></view>
       <view>联系人</view>
     </view>
     <image src="/static/images/qingfc/application/tianjia.png" class="bianji_img" mode="aspectFit" @tap="addContacts"></image>
   </view>
-  <block v-for="(item, index) in customerInfo.customerBaseInfo" :key="index">
-    <view :class="'flex_sb_c box_list fs_14 ' + (customerInfo.customerBaseInfo.length-1==index?'no_border':'')" @tap="addContacts" data-type="1" :data-index="index">
+  <block v-for="(item, index) in linkMan" :key="index">
+    <view :class="'flex_sb_c box_list fs_14 ' + (linkMan.length-1==index?'no_border':'')" @tap="toEditLinkman(item.buyOrSellCode)" data-type="1" :data-index="index">
       <view class="flex_c">
-        <view class="list_right color_000">{{item.contName}}</view>
-        <view>{{item.contPhone}}</view>
+        <view class="list_right color_000">{{item.realName}}</view>
+        <view class="ml_30">{{item.phone}}</view>
       </view>
-      <view class="flex_c">
-        <view class="spot"></view>
-        <view class="spot"></view>
-        <view class="spot"></view>
+      <view class="flex_c" @tap="toEditLinkman(item.buyOrSellCode)">
+        <uniIcon type="arrowright" size="20"></uniIcon>
       </view>
     </view>
   </block>
 </view>
 
-<!-- <view class="box box_shadow" id="character">
-  <view :class="'flex_sb_c box_list ' + (!customerInfo.characteristics?'no_border':'')">
-    <view :class="'fs_16 font_we_bold ' + (customerInfo.characteristics?'lh_72':'') + ' flex_c'">
-      <view class="list_line"></view>
-      <view>经营者特征</view>
-    </view>
-    <image src="/static/images/jinsy/bianji.png" class="bianji_img" mode="aspectFit" @tap="toSetIdentity"></image>
-  </view> -->
-  <!-- <view v-if="customerInfo.characteristics">
-    <view class="flex_c box_list fs_14">
-      <view class="wid_170 color_888">身份</view>
-      <view>{{customerInfo.characteristics.identity||''}}</view>
-    </view>
-    <view class="flex_c box_list fs_14" v-if="customerInfo.type==4">
-      <view class="wid_170 color_888">模式认可度</view>
-      <view>{{customerInfo.characteristics.modelAccreditation||''}}</view>
-    </view>
-    <view class="flex_c box_list fs_14">
-      <view class="wid_170 color_888">性格特点</view>
-      <view class="text-overflow">{{customerInfo.characteristics.characterTraits||''}}</view>
-    </view>
-    <view class="flex_c box_list fs_14">
-      <view class="wid_170 color_888">经营特征</view>
-      <view>{{customerInfo.characteristics.managementState||''}}</view>
-    </view>
-    <view class="flex_c box_list fs_14" v-if="customerInfo.type==4">
-      <view class="wid_170 color_888">产品价格</view>
-      <view>{{customerInfo.characteristics.productPrice||''}}</view>
-    </view>
-    <view class="flex_c box_list fs_14" v-if="customerInfo.type==2">
-      <view class="wid_170 color_888">价格敏感度</view>
-      <view>{{customerInfo.characteristics.priceSensitivity||''}}</view>
-    </view>
-    <view class="flex_c box_list fs_14" v-if="customerInfo.type==2">
-      <view class="wid_170">性价比思维</view>
-      <view>{{customerInfo.characteristics.costEffective||''}}</view>
-    </view>
-    <view class="flex_c box_list fs_14">
-      <view class="wid_170 color_888">渠道状况</view>
-      <view>{{customerInfo.characteristics.channelStatus||''}}</view>
-    </view>
-    <view class="flex_c box_list fs_14 no_border" v-if="customerInfo.type==2">
-      <view class="wid_170 color_888">发展潜力</view>
-      <view class="max_width">{{customerInfo.characteristics.developmentPotential||''}}</view>
-    </view>
-    <view class="flex_c box_list fs_14 no_border" v-if="customerInfo.type==4">
-      <view class="wid_170 color_888">经营理念</view>
-      <view class="max_width">{{customerInfo.characteristics.managementIdea||''}}</view>
-    </view>
-  </view>
-</view> -->
+
  <!-- ---------------------------------- -->
 <view class="box box_shadow" id="condition">
-  <view :class="'flex_sb_c box_list ' + (!customerInfo.operationStatus?'no_border':'')">
-    <view :class="'fs_16 font_we_bold ' + (customerInfo.operationStatus?'lh_72':'') + ' flex_c'">
+  <view :class="'flex_sb_c box_list ' + (!operation?'no_border':'')">
+    <view :class="'fs_16 font_we_bold ' + (operation?'lh_72':'') + ' flex_c'">
       <view class="list_line"></view>
       <view>经营状况</view>
     </view>
-    <image src="/static/images/jinsy/bianji.png" class="bianji_img" mode="aspectFit" @tap="toSetManagementCondition"></image>
+    <image src="/static/images/jinsy/bianji.png" class="bianji_img" mode="aspectFit" @tap="toSetManagementCondition(1)" v-if="operation"></image>
+	<image src="/static/images/qingfc/application/tianjia.png" class="bianji_img" mode="aspectFit" 
+	   @tap="toSetManagementCondition(2)" v-if="!operation"></image>
   </view>
-  <view v-if="customerInfo.operationStatus">
+  <view v-if="operation">
     <view class="flex_c box_list fs_14">
       <view class="wid_198 color_888">旺季时间</view>
-      <view>{{customerInfo.operationStatus.peakSeason||''}}</view>
+      <view>{{operation.highSeasonTime||''}}</view>
     </view>
     <view class="flex_c box_list fs_14">
       <view class="wid_198 color_888">资金状况</view>
-      <view>{{customerInfo.operationStatus.capitalStatus||''}}</view>
+      <view>{{operation.capitalName||''}}</view>
     </view>
-    <view class="flex_c box_list fs_14 no_border" v-if="customerInfo.type==2">
+    <view class="flex_c box_list fs_14 no_border" >
       <view class="wid_198 color_888">信用度</view>
-      <view>{{customerInfo.operationStatus.credit||''}}</view>
+      <view>{{operation.creditName||''}}</view>
     </view>
-	<view class="flex_c box_list fs_14 no_border" v-if="customerInfo.type==2">
-	  <view class="wid_198 color_888">公信度级别</view>
-	  <view>{{customerInfo.operationStatus.level||''}}</view>
+	
+	<view class="flex_c box_list fs_14 no_border">
+	  <view class="wid_198 color_888">口碑</view>
+	  <view>{{operation.womName||''}}</view>
 	</view>
-	<view class="flex_c box_list fs_14 no_border" v-if="customerInfo.type==2">
+	<view class="flex_c box_list fs_14 no_border">
 	  <view class="wid_198 color_888">运营状况</view>
-	  <view>{{customerInfo.operationStatus.condition||''}}</view>
+	  <view>{{operation.operationName||''}}</view>
 	</view>
 	
-    <view v-if="customerInfo.type==4">
-      <view class="flex_c box_list fs_14">
-        <view class="wid_198 color_888">销售方式</view>
-        <view>{{customerInfo.operationStatus.salesMethods||''}}</view>
-      </view>
-      <view class="flex_c box_list fs_14">
-        <view class="wid_198 color_888">销售方式比例</view>
-        <view>{{customerInfo.operationStatus.salesMethodsProportion||''}}%</view>
-      </view>
-      <view class="flex_c box_list fs_14">
-        <view class="wid_198 color_888">采购方式</view>
-        <view>{{customerInfo.operationStatus.procurementMethods||''}}</view>
-      </view>
-      <view class="flex_c box_list fs_14">
-        <view class="wid_198 color_888">采购方式比例</view>
-        <view>{{customerInfo.operationStatus.procurementMethodsProportion||''}}%</view>
-      </view>
-      <view class="flex_c box_list fs_14">
-        <view class="wid_198 color_888">生产方式</view>
-        <view>{{customerInfo.operationStatus.modeProduction||''}}</view>
-      </view>
-      <view class="flex_c box_list fs_14">
-        <view class="wid_198 color_888">生产方式比例</view>
-        <view>{{customerInfo.operationStatus.modeProductionProportion||''}}%</view>
-      </view>
-      <view class="flex_c box_list fs_14">
-        <view class="wid_198 color_888">客户体量</view>
-        <view>{{customerInfo.operationStatus.customerVolume||''}}</view>
-      </view>
-      <view class="flex_c box_list fs_14">
-        <view class="wid_198 color_888">去年产量</view>
-        <view>{{customerInfo.operationStatus.lastyearOutput||''}}{{customerInfo.operationStatus.lastyearOutputUnit||''}}</view>
-      </view>
-      <view class="flex_c box_list fs_14">
-        <view class="wid_198 color_888">去年产值</view>
-        <view>{{customerInfo.operationStatus.lastyearOutputvalue||''}}万元</view>
-      </view>
-    </view>
+   
   </view>
 
 </view>
  <!-- ---------------------------------- -->
   <view class="box box_shadow" id="competitor">
-    <view :class="'flex_sb_c box_list ' + (!customerInfo.customerBaseInfo?'no_border':'')">
-      <view :class="'fs_16 font_we_bold ' + (customerInfo.customerBaseInfo?'lh_72':'') + ' flex_c'">
+    <view :class="'flex_sb_c box_list ' + (!rival?'no_border':'')">
+      <view :class="'fs_16 font_we_bold ' + (rival?'lh_72':'') + ' flex_c'">
         <view class="list_line"></view>
         <view>竞争对手</view>
       </view>
       <image src="/static/images/qingfc/application/tianjia.png" class="bianji_img" mode="aspectFit" @tap="addCompetitor"></image>
     </view>
-    <block v-for="(item, index) in customerInfo.competitor" :key="index">
-      <view :class="'flex_sb_c box_list fs_14 ' + (customerInfo.competitor.length-1==index?'no_border':'')" @tap="detailCompetitor(index)" data-type="1" :data-index="index">
+    <block v-for="(item, index) in rival" :key="index">
+      <view :class="'flex_sb_c box_list fs_14 ' + (rival.length-1==index?'no_border':'')" @tap="detailCompetitor(item.id)" data-type="1" :data-index="index">
         <view class="flex_c">
-          <view class="list_right_280 color_000">{{item.name}}</view>
+          <view class="list_right_280 color_000">{{item.label}}</view>
         </view>
-        <view class="flex_c">
-          <view class="spot"></view>
-          <view class="spot"></view>
-          <view class="spot"></view>
+        <view class="flex_c" @tap="detailCompetitor(item.id)">
+         <uniIcon type="arrowright" size="20"></uniIcon>
         </view>
       </view>
     </block>
   </view>
 <!-- ---------------------------------- --> 
-<!-- 
-<view class='none_btn_box flex_warp fs_16'>
-  <view class='none_btn flex_sb_c ' bindtap='toSetIdentity' wx:if="{{!customerInfo.characteristics}}">
-    <view>身份特征</view>
-    <image class='right_img' src='/images/jinsy/right.png' mode='aspectFit'></image>
-  </view>
-  <view class='none_btn flex_sb_c ' bindtap='toSetManagementCondition' wx:if="{{!customerInfo.operationStatus}}">
-    <view>经营状况</view>
-    <image class='right_img' src='/images/jinsy/right.png' mode='aspectFit'></image>
-  </view>
-</view> -->
+<view style="width:100%;height:950upx;" v-if="placeholdeView"></view>
 
 </view>
 </template>
 
 <script>
+import listShow from '@/components/listShow.vue';
+import uniIcon from '@/components/uni-icons/uni-icons.vue';
 const JsyServer = require("../../../services/jsy-server.js");
-let _this, _id;
+
+let _this, _companyCode;
 
 export default {
+  components:{
+	  listShow,
+	  uniIcon
+	  
+  },
   data() {
     return {
+	placeholdeView:false,
       identity: 2,
       //1为买帮办，2为卖帮办
+	  linkMan:'',
+	  //公司联系人
+	 operation:'',
+	 //经营情况
+	 rival:'',
+	 //竞争对手
       customerInfo: '',
       //客户详情
       isProduct: false,
@@ -343,7 +243,8 @@ export default {
       admin: false, //是否是管理人员
       isDisplay: false,
 	  activeIndex: -1,
-	  items: ['公司信息','联系人','经营状况','竞争对手']
+	  items: ['公司信息','联系人','经营状况','竞争对手'],
+	  isDoRefresh:false
     };
   },
 
@@ -351,15 +252,29 @@ export default {
     this.getCustomerInfo();
   },
   onShow: function () {
-    this.getCustomerInfo();
+	let pages = getCurrentPages();
+    let currPage = pages[pages.length-1];
+   if (currPage.data.isDoRefresh == true){
+	       currPage.data.isDoRefresh = false;
+		   this.getCustomerInfo();
+		   this.getLinkMan()
+		   this.getOperation()
+		   this.getRival()
+	 }
+   
   },
   onLoad: function (options) {
     _this = this;
     //this.setIdentity();
-    _id = options.id;
+	console.log(options)
+    _companyCode = options.companyCode;
+	this.getCustomerInfo();
+	this.getLinkMan()
+	this.getOperation()
+	this.getRival()
   },
   onPageScroll:function(res){
-	 console.log(res.scrollTop)
+	
 	if (res.scrollTop>180){
 		this.isDisplay = true
 	}
@@ -370,7 +285,6 @@ export default {
   components: {},
   props: {},
   methods: {
-	  
 	  tabSwitch:function(index){
 	  	this.activeIndex = index
 	  	switch (index){
@@ -379,16 +293,20 @@ export default {
 				break;
 			case 1:
 			    this.selectorQuery("#outView","#contact");
+				this.placeholdeView = true
 				break;
 			case 2:
 			   this.selectorQuery("#outView","#condition");
+			   this.placeholdeView = true
 			   break;
 			case 3:
 			   this.selectorQuery("#outView","#competitor");
+			   this.placeholdeView = true
 			   break;
 		}
 	  	
 	  },
+	  //下拉出现tabbar条，用于选择
 	  selectorQuery:function(outView,currentView){
 	  	uni.createSelectorQuery().select(outView).boundingClientRect(data=>{
 	  	    uni.createSelectorQuery().select(currentView).boundingClientRect((res)=>{
@@ -410,139 +328,54 @@ export default {
 	  },
     // 设置身份
     
-    getCustomerInfo: function () {
+    getCustomerInfo:function () {
+	  console.log(_companyCode)
+	  let _data = {companyCode: _companyCode}
+      JsyServer.cmDetail(_data).then(res => {
       
-	  this.customerInfo={
-		  characteristics:{
-			  channelStatus: "原有采购渠道较窄,优势不大",
-			  characterTraits: "认真",
-			  costEffective: "以价格为上/质量过关即可",
-			  createdBy: "8a9efd266d38ecab016d3944c82a0308",
-			  createdDate: "2019-10-08T06:30:10Z",
-			  customerId: "B2019100851256123",
-			  developmentPotential: "经营者/老板格局思维一般，公司发展潜力一般",
-			  id: "8a9efd266d7c8aff016daa0f917f15d2",
-			  identity: "雇员",
-			  lastModifiedBy: "8a9efd266d38ecab016d3944c82a0308",
-			  lastModifiedDate: "2019-10-08T06:30:10Z",
-			  managementIdea: null,
-			  managementState: "爱冒险",
-			  modelAccreditation: null,
-			  priceSensitivity: "中",
-			  productPrice: null
-		  },
-	      concerted: "中",
-	      cooperationIntention: "信任",
-	      corporateAddress: "盛泽",
-	      corporateName: "海西纺织有限公司",
-	      createdBy: "8a9efd266d38ecab016d3944c82a0308",
-	      createdDate: "2019-10-08T06:14:16Z",
-		  customerBaseInfo:[
-			  {
-			  	avatar: null,
-			  	contName: "马云",
-			  	contPhone: "13434334434",
-			  	corporateName: "海西纺织有限公司",
-			  	createdBy: "8a9efd266d38ecab016d3944c82a0308",
-			  	createdDate: "2019-10-08T06:14:16Z",
-			  	customerId: "B2019100851256123",
-			  	deputyId: "8a9efd266d38ecab016d3944c82a0308",
-			  	id: "8a9efd266d7c8aff016daa0103bf15c7",
-			  	lastModifiedBy: "8a9efd266d38ecab016d3944c82a0308",
-			  	lastModifiedDate: "2019-10-08T06:14:16Z",
-			  	status: 0,
-			  	type: 2,
-			  	userid: null		 
-			  }
-			  
-		  ],
-		  depositApproval: 0,
-		  depositNum: 0,
-		  deputyId: "8a9efd266d38ecab016d3944c82a0308",
-		  factoryAddress: "",
-		  id: "B2019100851256123",
-		  isSalesDepart: 0,
-		  lastModifiedBy: "8a9efd266d38ecab016d3944c82a0308",
-		  lastModifiedDate: "2019-10-08T06:14:16Z",
-		  lv: "小型客户（年销售1500-3000万）",
-		  ppNum: 0,
-		  productInfo: "",
-		  region: "盛泽",
-		  salesDepart: "",
-		  showId: "SS04357W",
-		  source: "线下",
-		  status: 0,
-		  transactionNum: 0,
-		  type: 2,
-		  type1: "贸易公司",
-		  zyDemandNum: 0,
-		  zyResultNum: 0,
-		  competitor:[{
-			  name:"轻纺车有限公司",
-			  channel: "渠道宽,优势较大",
-			  productType: "梭织化纤面料 纬编化纤面料 纬编棉类面料 梭织化纤面料 梭织棉类面料",
-			  purchase: "中间商+厂家直采",
-			  scope: "大客户(年销售5000万及以上)",
-			  quality: "高级订单",
-			  model: "厂家分销",
-			  address: "盛泽",
-			  machineType: "织布机",
-			  machineNum: "500"
-		      }
-		      ],
-		  operationStatus:{
-			  capitalStatus: "很好",
-			  createdBy: "8a9efd266d38ecab016d3944c82a0308",
-			  createdDate: "2019-10-08T06:34:57Z",
-			  credit: "良",
-			  customerId: "B2019100851256123",
-			  condition: "健康成长",
-			  level: "信任级",
-			  customerVolume: null,
-			  id: "8a9efd266d7c8aff016daa13f2cb15d5",
-			  lastModifiedBy: "8a9efd266d38ecab016d3944c82a0308",
-			  lastModifiedDate: "2019-10-08T06:34:57Z",
-			  lastyearOutput: null,
-			  lastyearOutputUnit: null,
-			  lastyearOutputvalue: null,
-			  modeProduction: null,
-			  modeProductionProportion: null,
-			  peakSeason: "2月,7月",
-			  procurementMethods: null,
-			  procurementMethodsProportion: null,
-			  salesMethods: null,
-			  salesMethodsProportion: null
-		  }
-		 
-	  }
-    },
-    //跳转到新建客户页面
-    goCustomerCreated: function () {
-      let detail = this.customerInfo;
-      let odata = {
-        id: detail.id,
-        corporateName: detail.corporateName,
-        contName: detail.contName,
-        contPhone: detail.contPhone,
-        region: detail.region,
-        corporateAddress: detail.corporateAddress,
-        isSalesDepart: detail.isSalesDepart,
-        salesDepart: detail.salesDepart,
-        factoryAddress: detail.factoryAddress,
-        type1: detail.type1,
-        source: detail.source,
-        lv: detail.lv,
-        cooperationIntention: detail.cooperationIntention,
-        concerted: detail.concerted,
-        depositApproval: detail.depositApproval,
-        isWx: detail.isWx
-      };
-      console.log(odata);
-      odata = JSON.stringify(odata);
-      wx.navigateTo({
-        url: '/pages/jin-suo-yun/customer-admin/customer-created?odata=' + odata + '&type=' + detail.type
+        console.log(res);
+
+        this.customerInfo = res.data.data
+		console.log(this.customerInfo)
+      }).catch(err => {
+        
+        console.log("Err===", err);
       });
+	 
     },
+   //获取公司联系人
+	getLinkMan:function(){
+		let _data = {companyCode: _companyCode}
+		JsyServer.linkMan(_data).then(res => {
+		  console.log(res);
+		  this.linkMan = res.data.data.list
+		}).catch(err => {
+		  console.log("Err===", err);
+		});
+	},
+	//获取经营状况
+	getOperation:function(){
+		let _data = {companyCode: _companyCode}
+		JsyServer.operation(_data).then(res => {
+		  console.log(res);
+		  this.operation = res.data.data
+		}).catch(err => {
+		  console.log("Err===", err);
+		});
+	},
+	//获取竞争对手
+	getRival:function(){
+		let _data = {companyCode: _companyCode}
+		JsyServer.rival(_data).then(res => {
+		  console.log("rival===",res);
+		  this.rival = res.data.data.list
+		  
+		}).catch(err => {
+		  console.log("Err===", err);
+		});
+	},
+	
+   
     // 跳转跟进记录详情（总）
     toRecordDetails: function () {
       let userId = this.customerInfo.id;
@@ -584,9 +417,9 @@ export default {
     },
 	//跳转到添加竞争对手
 	addCompetitor:function(e){
-		let customerId = this.customerInfo.id;
+		let companyCode = this.customerInfo.companyCode;
 		uni.navigateTo({
-			url: '/pages/qing-f-c/buyDupty/add-competitor?customerId=' + customerId,
+			url: '/pages/qing-f-c/buyDupty/add-competitor?companyCode=' + companyCode,
 			success: res => {
 				console.log(res)
 			},
@@ -597,10 +430,10 @@ export default {
 		});
 	},
 	detailCompetitor:function(index){
-		let customerId = this.customerInfo.id;
-		let odata = JSON.stringify(this.customerInfo.competitor[index])
+		let rivalCode = index;
+		
 		uni.navigateTo({
-			url: '/pages/qing-f-c/buyDupty/detail-competitor?competitor=' + odata+"&customerId="+ customerId,
+			url: '/pages/qing-f-c/buyDupty/detail-competitor?rivalCode=' + rivalCode,
 			success: res => {
 				console.log(res)
 			},
@@ -611,112 +444,57 @@ export default {
 		});
 		
 	},
+	goEditCustomer:function(){
+		let companyCode = this.customerInfo.companyCode;
+		
+		uni.navigateTo({
+			url: '/pages/qing-f-c/buyDupty/edit-customer?companyCode=' + companyCode,
+			success: res => {},
+			fail: () => {},
+			complete: () => {}
+		});
+	},
     // 跳转添加联系人
     addContacts: function (e) {
-      let userId = this.customerInfo.id;
+      let companyCode = this.customerInfo.companyCode;
       console.log(e);
-      let type = e.currentTarget.dataset.type;
-      let list = ['编辑联系人', '删除联系人'];
-
-      if (type == 1) {
-        let index = e.currentTarget.dataset.index;
-        let odata = JSON.stringify(this.customerInfo.customerBaseInfo[index]);
-        let id = this.customerInfo.customerBaseInfo[index].id;
-
-        if (this.customerInfo.customerBaseInfo.length == 1) {
-          list = ['编辑联系人'];
-        }
-
-        wx.showActionSheet({
-          itemList: list,
-          success: function (res) {
-            if (!res.cancel) {
-              if (res.tapIndex == 0) {
-                wx.navigateTo({
-                  url: '/pages/jin-suo-yun/customer-admin/add-contacts?userId=' + userId + '&odata=' + odata
-                });
-              } else if (res.tapIndex == 1) {
-                wx.showModal({
-                  title: '删除联系人',
-                  content: '删除联系人后该联系人的信息将作废，确定删除该联系人？',
-
-                  success(res) {
-                    if (res.confirm) {
-                      JsyServer.deleBaseInfo(id).then(res => {
-                        wx.showToast({
-                          title: '删除成功'
-                        });
-
-                        _this.getCustomerInfo();
-                      }).catch(err => {
-                        wx.showToast({
-                          title: '删除失败',
-                          icon: 'none'
-                        });
-                      });
-                    } else if (res.cancel) {
-                      console.log('用户点击取消');
-                    }
-                  }
-
-                });
-              }
-            }
-          }
-        });
-      } else {
-        wx.navigateTo({
-          url: '/pages/jin-suo-yun/customer-admin/add-contacts?userId=' + userId
-        });
-      }
+	  uni.navigateTo({
+	  	url: '/pages/qing-f-c/buyDupty/add-contact?companyCode=' + companyCode,
+	  	success: res => {},
+	  	fail: () => {},
+	  	complete: () => {}
+	  });
+       
     },
+	//跳转编辑联系人
+	toEditLinkman:function(e){
+		let buyOrSellCode = e
+		uni.navigateTo({
+			url: '/pages/qing-f-c/buyDupty/contact-detail?buyOrSellCode=' + buyOrSellCode,
+			success: res => {},
+			fail: () => {},
+			complete: () => {}
+		});
+	},
     //跳转设置经营状况页面
-    toSetManagementCondition: function () {
-      let userId = this.customerInfo.id;
-      let type = this.customerInfo.type;
-      let id = "",
-          data = "";
-
-      if (this.customerInfo.operationStatus) {
-        id = this.customerInfo.operationStatus.id;
-        data = JSON.stringify(this.customerInfo.operationStatus);
-      }
-
-      wx.navigateTo({
-        url: '/pages/jin-suo-yun/customer-admin/set-management-condition?userId=' + userId + "&id=" + id + '&data=' + data + '&type=' + type
-      });
+    toSetManagementCondition: function (e,code) {
+      let _companyCode =  this.customerInfo.companyCode
+	  if (e == 2){
+		  wx.navigateTo({
+		    url: '/pages/qing-f-c/buyDupty/setManagerCondition?companyCode=' + _companyCode
+		  });
+	  }else if (e == 1){
+		  let _data = JSON.stringify(this.operation)
+		  wx.navigateTo({
+		    url: '/pages/qing-f-c/buyDupty/editManagerCondition?data=' + _data
+		  });
+	  }
+      
     },
     // 跳转身份特征页面
-    toSetIdentity: function () {
-      let userId = this.customerInfo.id;
-      let type = this.customerInfo.type;
-      let id = "",
-          data = "";
-
-      if (this.customerInfo.characteristics) {
-        id = this.customerInfo.characteristics.id;
-        data = JSON.stringify(this.customerInfo.characteristics);
-      }
-
-      wx.navigateTo({
-        url: '/pages/jin-suo-yun/customer-admin/set-identity?userId=' + userId + "&id=" + id + '&data=' + data + '&type=' + type
-      });
-    },
+    
     // 产品信息
-    toSetOpi: function () {
-      let userId = this.customerInfo.id;
-      let id = "",
-          data = "";
-
-      if (this.customerInfo.productInfo) {
-        id = this.customerInfo.productInfo.id;
-        data = JSON.stringify(this.customerInfo.productInfo);
-      }
-
-      wx.navigateTo({
-        url: '/pages/jin-suo-yun/customer-admin/set-opi?userId=' + userId + "&id=" + id + '&data=' + data
-      });
-    },
+    
     // 跳转询价管理
     toInquiry: function () {
       wx.navigateTo({
@@ -814,6 +592,12 @@ export default {
 };
 </script>
 <style lang="scss">
+.box{
+    margin: 20upx 20upx 0;
+    padding: 0 20upx;
+    border-radius: 6upx;
+    background-color: #fff;
+   }
 page{
   padding-bottom: 20upx;
 }
@@ -915,12 +699,12 @@ page{
   text-align: center;
   font-weight: bold;
 }
-.box{
-  margin: 20upx 20upx 0;
-  padding: 0 20upx;
-  border-radius: 6upx;
-  background-color: #fff;
-}
+// .box{
+//   margin: 20upx 20upx 0;
+//   padding: 0 20upx;
+//   border-radius: 6upx;
+//   background-color: #fff;
+// }
 .bianji_img{
   width: 34upx;
   height: 34upx;

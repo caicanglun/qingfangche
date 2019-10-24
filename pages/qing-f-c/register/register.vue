@@ -129,7 +129,7 @@
 			},
 			getValidCode:function(){
 				uni.request({
-					url: this.apiServer + '/ul/verification',
+					url: this.Api.verification,
 					method: 'POST',
 					data: {
 						phone:　this.phone
@@ -254,6 +254,8 @@
 	       line-height: 88upx;
 	       border-bottom: 1upx solid #ccc;
 	       color: #333236;
+		   margin-left: 30upx;
+		   margin-right: 30upx;
 	     }
 	     // .box_row:nth-last-child(1){
 	     // 	 border: none;

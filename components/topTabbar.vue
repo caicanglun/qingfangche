@@ -18,13 +18,13 @@
 		props: ["items"],
 		data() {
 			return {
-				
 				activeIndex: 0
 			};
 		},
 		methods: {
 			tapTab(index){
 				this.activeIndex = index
+				this.$emit("change",index)
 			}
 		}
 	}
@@ -38,16 +38,18 @@
 			display: flex;
 			flex-direction: column;
 			.tabText{
-				color: #757576;
+				color: black;
+				font-size: 14px;
 			}
 		}
 		.tabActive{
 			.tabText{
-				color: black;
+				color: #ff6000;
+				font-size: 14px;
 			}
 			.bottomLine {
 				background: red;
-				height: 8upx;
+				height: 4upx;
 				border-radius: 4upx;
 			}
 		}

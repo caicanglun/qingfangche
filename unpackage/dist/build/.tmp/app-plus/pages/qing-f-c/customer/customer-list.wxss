@@ -96,8 +96,17 @@ page{
           box-shadow: 0 4rpx 8rpx 0 rgba(0, 0, 0, 0.1);
 }
 .tab_box{
-  width: 375rpx;
-  text-align: center;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: column;
+      -ms-flex-direction: column;
+          flex-direction: column;
+   width: 375rpx;
+  /* text-align: center; */
 }
 .line{
   width: 1px;

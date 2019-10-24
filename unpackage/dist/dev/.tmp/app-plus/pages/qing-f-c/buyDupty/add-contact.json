@@ -1,5 +1,5 @@
 {
-  "navigationBarTitleText": "买办添加联系人",
+  "navigationBarTitleText": "买帮办办添加联系人",
   "usingComponents": {
     "my-picker": "/components/myPicker",
     "range-button": "/components/rangeButton",

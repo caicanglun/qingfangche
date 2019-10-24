@@ -8,13 +8,13 @@
 		  <view class="flex_c list" >
 		    <view class="list_right color_888" >公司名称：</view>
 		    <view class="flex_sb_c wid_462">
-		      {{competitor.name}}
+		      {{competitor.companyName}}
 		    </view>
 		  </view>
 		  <view class="flex_c list" >
 		    <view class="list_right color_888" >渠道状况：</view>
 		    <view class="flex_sb_c wid_462">
-		      {{competitor.channel}}
+		      {{competitor.channelStatusName}}
 		    </view>
 		  </view>
 		  <view class="flex_c list">
@@ -23,7 +23,7 @@
 		  </view>
 		  <view class="flex_c list" >
 		    <view class="flex_sb_c">
-		      {{competitor.productType}}
+		      {{mainPro}}
 		    </view>
 		  </view>
 		  <view class="flex_c list">
@@ -32,30 +32,30 @@
 		  </view>
 		  <view class="flex_c list" >
 		    <view class="flex_sb_c wid_462">
-		      {{competitor.purchase}}
+		      {{retMidleman}}
 		    </view>
 		  </view>
 		  <view class="flex_c list" >
 		    <view class="list_right color_888">规模：</view>
 		    <view class="flex_sb_c wid_462">
-		      {{competitor.scope}}
+		      {{competitor.companyScaleName}}
 		    </view>
 		  </view><view class="flex_c list" >
 		    <view class="list_right color_888">品质定位：</view>
 		    <view class="flex_sb_c wid_462">
-		      {{competitor.quality}}
+		      {{competitor.qualityName}}
 		    </view>
 		  </view>
 		  <view class="flex_c list" >
 		    <view class="list_right color_888">经营模式：</view>
 		    <view class="flex_sb_c wid_462">
-		      {{competitor.model}}
+		      {{competitor.businessModelName}}
 		    </view>
 		  </view>
 		  <view class="flex_c list" >
 		    <view class="list_right color_888">地址：</view>
 		    <view class="flex_sb_c wid_462">
-		      {{competitor.address}}
+		      {{competitor.companyAddress}}
 		    </view>
 		  </view>
 		  <view class="flex_c list" >
@@ -67,7 +67,7 @@
 		  <view class="flex_c list" >
 		    <view class="list_right color_888">机台数量：</view>
 		    <view class="flex_sb_c wid_462">
-		      {{competitor.machineNum}}
+		      {{competitor.machineCount}}
 		    </view>
 		  </view>
 		  
@@ -80,50 +80,103 @@
 </template>
 
 <script>
-	let _this,_competitor,_customerId;
+	const JsyServer = require("../../../services/jsy-server.js");
+	const Tools = require('services/tools.js');
+	let _this,_competitor;
 	export default {
 		data() {
 			return {
-				// companyName:'',
-				// companyAddr:'',
-				// machineType:'',
-				// machineNum:'',
-				// channel:["渠道宽，优势大",'渠道窄，优势不大'],
-				// channelIndex: -1,
-				// productType:['梭织化纤面料','梭织棉类面料','经编化纤面料','纬编化纤面料','纬编棉类面料','经编棉类面料','其他面料'],
-				// arrProduct:[false,false,false,false,false,false,false],
-				// scope:['大客户(年销售5000万及以上)','中型客户(年销售3000-5000万)','小型客户(年销售1500-3000万)','小微客户(年销售1500万-500万)','微型客户(年销售500万以下)'],
-				// scopeIndex: -1,
-				// quality:['品牌订单','高级订单','一般订单','市场订单'],
-				// qualityIndex: -1,
-				// model: ['厂家分销','二盘分销','自主采购加工'],
-				// modelIndex: -1,
-				// isBroker: false,
-				// isDirect: false
 				competitor: {},
-				
+				mainPro: ''
 			};
 		},
 		onLoad:function(options){
 			_this = this
-			_customerId = options.customerId
-			_competitor = JSON.parse(options.competitor)
+			_competitor = JSON.parse(options.rivalCode)
 			console.log(_competitor)
+			this.getRivalDetails()
 		},
 		onShow:function(){
 		    //获取全局设置的变量
-		    this.competitor = _competitor
-		   
+		   // this.competitor = _competitor
+		  
+		   console.log("competitor==",_competitor)
+  
+		},
+		computed:{
+			retMidleman:function(){
+				let temp=[]
+				temp.push(this.competitor.isMiddleman==1?'中间商':'')
+				temp.push(this.competitor.isFactoryDirectSale==1?'直接采购':'')
+				return temp.join('+')
+			}
 		},
 		methods:{
-			bindDelete:function(){
+			getRivalDetails:function () {
+			  console.log(_competitor)
+			  let _data = {rivalCode: _competitor}
+			  JsyServer.rivalDetails(_data).then(res => {
+			    console.log(res);
+			    _this.competitor = res.data.data
+				let temp = res.data.data.mainProducts
+				_this.mainPro = Tools.list2string(temp)
 				
+				
+				console.log("raivelDetails===",_this.competitor )
+			  }).catch(err => {
+			    console.log("Err===", err);
+			  });
+			 
+			},
+			bindDelete:function(){
+				uni.showModal({
+				    	title: '删除竞争对手',
+				    	content: '确认要删除竞争对手吗？不要请取消',
+				    	showCancel: true,
+				    	cancelText: '返回',
+				    	confirmText: '我要删除',
+				    	success: res => {
+							if (res.confirm) {
+							            let _data ={
+							            	rivalCode: this.competitor.rivalCode
+							            }
+							            JsyServer.rivalDel(_data).then(res => {
+											console.log("返回信息==",res)
+							              if (res.data.status == 0){
+							            	 
+											var pages = getCurrentPages();
+											var currPage = pages[pages.length - 1]; //当前页面
+											var prevPage = pages[pages.length - 2]; //上一个页面
+											//直接调用上一个页面的setData()方法，把数据存到上一个页面中去
+											prevPage.setData({
+													isDoRefresh:true
+											})
+											  uni.navigateBack({
+											  	delta: 1
+											  });
+							              }
+							              
+							            }).catch(err => {
+							              wx.showToast({
+							                title: err.data.msg,
+							                icon: 'none'
+							              });
+							            });
+							        } else if (res.cancel) {
+							           return
+							        }
+	
+						},
+				    	fail: () => {},
+				    	complete: () => {}
+				    });
+	
 			},
 			bindEdit:function(){
-				let customerId = _customerId
 				let odata = JSON.stringify(this.competitor)
+				console.log(odata)
 				uni.navigateTo({
-					url: '/pages/qing-f-c/buyDupty/edit-competitor?customerId='+customerId+"&competitor="+odata,
+					url: '/pages/qing-f-c/sellDupty/edit-competitor?odata=' + odata,
 					success: res => {
 						console.log(res)
 					},

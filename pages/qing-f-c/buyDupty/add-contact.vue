@@ -1,6 +1,6 @@
 <template>
 	<view>
-	   <form @submit="sumbit">
+	   
 		<view class="box box_shadow">
 		  <view class="flex_c list">
 		    <view class="line"></view>
@@ -9,14 +9,14 @@
 		  <view class="flex_c list" >
 		    <view class="list_right">联系人信息：</view>
 		    <view class="flex_sb_c wid_462">
-		      <input name="companyName" v-model="companyName" 
+		      <input name="realName" v-model="realName" 
 			  placeholder="请输入" placeholder-class="color_888 fs_14" style="width:350upx;" class="input"></input>
 		    </view>
 		  </view>
 		  <view class="flex_c list" >
 		    <view class="list_right">电话号码：</view>
 		    <view class="flex_sb_c wid_462">
-		      <input name="phone" v-model="phone" 
+		      <input name="phone" v-model="Phone" 
 		  			  placeholder="请输入" placeholder-class="color_888 fs_14" style="width:350upx;" type="digit" class="input"></input>
 		    </view>
 		  </view>
@@ -31,7 +31,7 @@
 		  <view class="flex_line_sb list">
 		    <view class="list_right_280">性格特征<text class="pl_10 color_888">(可多选)</text>：</view>
 			<view>
-				<myCheckboxGroup @selectChange="tapCharacter" :items="characterFeatures"></myCheckboxGroup>
+				<myCheckboxGroup @selectChange="tapCharacter" :items="characterFeaturesList"></myCheckboxGroup>
 				
 			 </view>
 		  </view>
@@ -41,17 +41,13 @@
 		   <view class="list_right_280">经营特征<text class="pl_10 color_888">(可多选)</text>：</view>
 			<view>
 				
-				<myCheckboxGroup @selectChange="tapManageFeatures" :items="manageFeatures"></myCheckboxGroup>
+				<myCheckboxGroup @selectChange="tapManageFeatures" :items="manageFeaturesList"></myCheckboxGroup>
 			 </view>
 		 </view>
 		</view>
-		
-		
-		
+
 		 <!-- --------------------------- -->
-		
-		
-		 
+
 	     <rangeButton @buttonChange="priceSensitivityChange" :items="priceSensitivity" name="价格敏感度"></rangeButton>
 		 <!-- --------------------------- -->
 		 
@@ -68,9 +64,9 @@
 		
 		<view class="fixed_bottom box_shadow_btn">
 		  <button class="btn_left" hover-class="none" @tap="bindCancel">取消</button>
-		  <button class="btn_right" formType="submit" hover-class="none">确定</button>
+		  <button class="btn_right" @tap="submit" hover-class="none">确定</button>
 		</view>
-		</form>
+	
 	</view>
 	
 </template>
@@ -80,7 +76,7 @@
 	import rangeButton from "@/components/rangeButton.vue";
 	import myCheckboxGroup from "@/components/myCheckboxGroup.vue";
 	const JsyServer = require("services/jsy-server.js");
-	let _this,_customerId;
+	let _this,_companyCode;
 	export default {
 		components:{
 			myPicker,
@@ -89,36 +85,34 @@
 		},
 		data() {
 			return {
-				contactName: '',
-				contactPhone: '',
+				realName: '',
+				phone: '',
 				costPerformance:[], //性价比
-				costPerformanceIndex: -1,
+				costPerformanceCode: -1,
 				identity: [], //身份
-				identityIndex: -1,
-				characterFeatures:[], //性格特征
-				characterFeaturesIndex: -1,
-				manageFeatures:[],  //经营者特征
-				manageFeaturesIndex: -1,
+				identityCode: -1,
+				characterFeaturesList:[], //性格特征
+				manageFeaturesList:[],  //经营者特征
 				priceSensitivity:[], //价格敏感度
-				priceSensitivityIndex: -1,
+				priceSensitivityCode: -1,
 				channe:[], //渠道
-				channeIndex: -1,
+				channelStatusCode: -1,
 				potential:[], //发展潜力
-				potentialIndex: -1
+				potentialCode: -1
 				
 			};
 		},
 		onLoad:function(options){
 			_this = this;
-			// _customerId = options.customerId;
-			// console.log(_customerId )
+			_companyCode = options.companyCode;
+			console.log(_companyCode)
 			this.getCharacterFeatures()
 			this.getCostPerformance()
 			this.getIdentity()
 			this.getManageFeatures()
 			this.getPriceSensitivity()
 			this.getPotential()
-			this.getChanne()
+			this.getChannel()
 			
 		},
 		methods:{
@@ -128,10 +122,10 @@
 			getManageFeatures:function(){
 				JsyServer.getManageFeatures().then(res => {
 				  console.log(res);
-				  _this.manageFeatures = res.data.data.list
+				  _this.manageFeaturesList = res.data.data.list
 				}).catch(err => {
 				  wx.showToast({
-				    title: err.data.description,
+				    title: err.data.errMsg,
 				    icon: 'none'
 				  });
 				});
@@ -143,7 +137,7 @@
 				  _this.identity = res.data.data.list
 				}).catch(err => {
 				  wx.showToast({
-				    title: err.data.description,
+				    title: err.data.errMsg,
 				    icon: 'none'
 				  });
 				});
@@ -151,10 +145,10 @@
 			getCharacterFeatures:function(){
 				JsyServer.getCharacterFeatures().then(res => {
 				  console.log(res);
-				  _this.characterFeatures = res.data.data.list
+				  _this.characterFeaturesList = res.data.data.list
 				}).catch(err => {
 				  wx.showToast({
-				    title: err.data.description,
+				    title: err.data.errMsg,
 				    icon: 'none'
 				  });
 				});
@@ -165,7 +159,7 @@
 				  _this.priceSensitivity = res.data.data.list
 				}).catch(err => {
 				  wx.showToast({
-				    title: err.data.description,
+				    title: err.data.errMsg,
 				    icon: 'none'
 				  });
 				});
@@ -176,7 +170,7 @@
 				  _this.costPerformance = res.data.data.list
 				}).catch(err => {
 				  wx.showToast({
-				    title: err.data.description,
+				    title: err.data.errMsg,
 				    icon: 'none'
 				  });
 				});
@@ -187,18 +181,18 @@
 				  _this.potential = res.data.data.list
 				}).catch(err => {
 				  wx.showToast({
-				    title: err.data.description,
+				    title: err.data.errMsg,
 				    icon: 'none'
 				  });
 				});
 			},
-			getChanne:function(){
-				JsyServer.getChanne().then(res => {
+			getChannel:function(){
+				JsyServer.getChannel().then(res => {
 				  console.log(res);
 				  _this.channe = res.data.data.list
 				}).catch(err => {
 				  wx.showToast({
-				    title: err.data.description,
+				    title: err.data.errMsg,
 				    icon: 'none'
 				  });
 				});
@@ -210,7 +204,7 @@
 			// 	this.$set(items,index,!items[index])
 			// },
 			tapCharacter:function(index){
-				let items = this.characterFeatures
+				let items = this.characterFeaturesList
 				for (var i = 0, lenI = items.length; i < lenI; ++i) {
 					const item = items[i]
 					if (item.id == index) {
@@ -219,7 +213,7 @@
 				}
 			},
 			tapManageFeatures:function(index){
-				let items = this.manageFeatures
+				let items = this.manageFeaturesList
 				for (var i = 0, lenI = items.length; i < lenI; ++i) {
 					const item = items[i]
 					if (item.id == index) {
@@ -230,24 +224,24 @@
 			},
 			identityChange:function(e){
 				
-				this.identityIndex= e
+				this.identityCode= e
 			},
 			
 			costPerformanceChange:function(e){
-				this.costPerformanceIndex= e;
+				this.costPerformanceCode= e;
 			},
 			potentialChange:function(e){
-				this.potentialIndex= e;
+				this.potentialCode= e;
 				
 			},
 			channeChange:function(e){
 				
-				this.channeIndex = e
+				this.channelStatusCode = e
 			},
 			priceSensitivityChange:function(e){
 				
-				this.priceSensitivityIndex = e
-				console.log(this.priceSensitivityIndex)
+				this.priceSensitivityCode = e
+				//console.log(this.priceSensitivityIndex)
 				// this.priceSensitivity.forEach((item)=>{
 				// 	if (item.id == index){
 				// 		console.log(item.label)
@@ -259,7 +253,55 @@
 					delta: 1
 				});
 			},
-			submit:function(e){
+			submit:function(){
+				let data={}
+				let characterFeatures = []
+				let manageFeatures = []
+				this.characterFeaturesList.forEach((item)=>{
+					if (item.isChecked == true){
+						characterFeatures.push(item.id)
+					}
+				})
+				this.manageFeaturesList.forEach((item)=>{
+					if (item.isChecked == true){
+						manageFeatures.push(item.id)
+					}
+				})
+				
+				
+				data.companyCode= _companyCode					//客户编码
+				data.realName= this.realName						//真实姓名
+				data.phone= this.Phone							//电话
+				data.identityCode= this.identityCode					//身份编码
+				data.priceSensitivityCod= this.priceSensitivityCod	//价格敏感度编码
+				data.costPerformanceCode= this.costPerformanceCode			//性价比思维编码
+				data.channelStatusCode= this.channelStatusCode			//渠道状况编码
+				data.potentialCode= this.potentialCode				//发展潜力编码
+				data.characterFeatures = characterFeatures			//性格特点编码数组
+				data.manageFeatures= manageFeatures        //经营者特征
+				
+				JsyServer.linkmanAdd(data).then(res => {
+				  console.log(res);
+				  uni.showToast({
+				  	title: '添加成功',
+					icon: 'none'
+				  });
+					var pages = getCurrentPages();
+					var currPage = pages[pages.length - 1]; //当前页面
+					var prevPage = pages[pages.length - 2]; //上一个页面
+					//直接调用上一个页面的setData()方法，把数据存到上一个页面中去
+					prevPage.setData({
+							isDoRefresh:true
+					})
+				  uni.navigateBack({
+				  	delta: 1
+				  });
+				}).catch(err => {
+				  wx.showToast({
+				    title: err.data.errMsg,
+				    icon: 'none'
+				  });
+				});		
 				
 			}
 		}

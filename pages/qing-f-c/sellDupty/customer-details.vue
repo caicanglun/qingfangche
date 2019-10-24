@@ -11,7 +11,7 @@
     <view class="flex">
       <image src="/static/images/qingfc/application/companyx.png" class="title_img" mode="aspectFit"></image>
       <view class="fs_18 font_we_bold">{{customerInfo.companyName||''}}</view>
-	  <view :class="(customerInfo.buyOrSell==1?'id_btn':'seller_btn')">{{customerInfo.buyOrSell==1?'买家':'卖家'}}</view>
+	  <view :class="'ml_20 '+ (customerInfo.buyOrSell==1?'id_btn':'seller_btn')">{{customerInfo.buyOrSell==1?'买家':'卖家'}}</view>
     </view>
 
     
@@ -92,15 +92,6 @@
     <view>{{customerInfo.companyCode||''}}</view>
   </view>
   
-  <!-- <view class='flex_sb_c box_list fs_14'>
-    <view>联系人</view>
-    <view class='color_888'>{{customerInfo.contName||''}}</view>
-  </view>
-  <view class='flex_sb_c box_list fs_14'>
-    <view>联系方式</view>
-    <view class='color_888'>{{customerInfo.contPhone||''}}</view>
-  </view> -->
-
   <view class="flex_c box_list fs_14">
     <view class='list_right'>所属区域</view>
     <view>{{customerInfo.region||''}}</view>
@@ -212,14 +203,14 @@
         <view class="flex_c">
           <view class="list_right_280 color_000">{{item.label}}</view>
         </view>
-        <view class="flex_c" @tap="toEditRival()">
+        <view class="flex_c" @tap="detailCompetitor(item.id)">
          <uniIcon type="arrowright" size="20"></uniIcon>
         </view>
       </view>
     </block>
   </view>
 <!-- ---------------------------------- --> 
-
+<view style="width:100%;height:950upx;" v-if="placeholdeView"></view>
 
 </view>
 </template>
@@ -239,6 +230,7 @@ export default {
   },
   data() {
     return {
+	  placeholdeView:false,
       identity: 2,
       //1为买帮办，2为卖帮办
 	  linkMan:'',
@@ -301,15 +293,19 @@ export default {
 	  	switch (index){
 			case 0:
 			    this.selectorQuery("#outView","#companyInfo");
+				this.placeholdeView = false
 				break;
 			case 1:
 			    this.selectorQuery("#outView","#contact");
+				this.placeholdeView = true
 				break;
 			case 2:
 			   this.selectorQuery("#outView","#condition");
+			   this.placeholdeView = true
 			   break;
 			case 3:
 			   this.selectorQuery("#outView","#competitor");
+			   this.placeholdeView = true
 			   break;
 		}
 	  	
@@ -531,50 +527,7 @@ export default {
       });
     },
     tapDelete: function () {
-      if (!this.admin) {
-        return;
-      }
-
-      let list = ['删除客户'];
-      let id = this.customerInfo.id;
-      wx.showActionSheet({
-        itemList: list,
-        success: function (res) {
-          wx.showModal({
-            title: '删除客户',
-            content: '删除客户后该客户的信息将作废，确定删除该客户？',
-
-            success(res) {
-              if (res.confirm) {
-                JsyServer.deleteCompany(id).then(res => {
-                  let pages = getCurrentPages();
-                  let prevPage = pages[pages.length - 2];
-                  prevPage.setData({
-                    setOver: true
-                  });
-                  wx.showToast({
-                    title: '删除客户成功'
-                  });
-                  let timer = setTimeout(() => {
-                    wx.navigateBack({});
-                  }, 1000);
-                }).catch(err => {
-                  console.log("删除失败err=>", err);
-                  wx.showToast({
-                    title: "删除客户失败",
-                    icon: 'none'
-                  });
-                });
-              } else if (res.cancel) {
-                console.log('用户点击取消');
-              }
-            }
-
-          });
-          console.log("111Res---", res);
-        }
-      });
-    },
+  },
     setData: function (obj) {
       let that = this;
       let keys = [];

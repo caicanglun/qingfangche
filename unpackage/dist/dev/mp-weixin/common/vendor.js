@@ -484,6 +484,7 @@ function wrapper(methodName, method) {
 var todoApis = Object.create(null);
 
 var TODOS = [
+'onTabBarMidButtonTap',
 'subscribePush',
 'unsubscribePush',
 'onPush',
@@ -1601,6 +1602,1152 @@ function normalizeComponent (
   }
 }
 
+
+/***/ }),
+
+/***/ 15:
+/*!****************************************************!*\
+  !*** /Users/lee/Downloads/备份11/轻纺车网/utils/util.js ***!
+  \****************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(uni) {var Api = __webpack_require__(/*! services/config/api.js */ 16);
+var Es6Promise = __webpack_require__(/*! lib/es6-promise.js */ 17);
+
+
+/**
+                                                 * 封封微信的的request
+                                                 */
+var bool = true;
+function request(url) {var data = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};var method = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "GET";
+  var loginApi = Api.AuthLoginByWeixin;
+  return new Es6Promise(function (resolve, reject) {
+    wx.request({
+      url: url,
+      data: data,
+      method: method,
+      header: {
+        'Content-Type': 'application/json',
+        // 'Authorization': "Bearer "+ wx.getStorageSync('token')
+        'MYTK': wx.getStorageSync('token') },
+
+      success: function success(res) {
+
+        if (res.statusCode >= 200 && res.statusCode < 300) {
+          resolve(res);
+        }
+        // 重新登录
+        // else if (res.statusCode == 401 && url.indexOf(loginApi) == -1) {
+        //   let loginOn = wx.getStorageSync("loginOn");
+
+        // if (!loginOn) {
+        //   wx.setStorageSync("loginOn", true);
+
+        //需要登录后才可以操作
+        // let code = null;
+        // return login().then((res) => {
+        //   code = res.code;
+        //   return getUserInfo();
+        // }).then((userInfo) => {
+
+        //   wx.setStorageSync("rawData", userInfo.rawData)
+        //   wx.setStorageSync("signature", userInfo.signature)
+
+        //   // 重新登录，登录远程服务器
+        //   request(Api.AuthLoginByWeixin, { code: code, userInfo: userInfo }, 'POST').then(res => { 
+        //     wx.setStorageSync("loginOn", false);
+
+        //     if (res.data.code == 200) {
+        //       if (res.data.sessionKey) {
+        //         wx.setStorageSync("sessionKey", res.data.sessionKey);
+        //       }
+
+
+        //     // 获取当前页面的路径
+        //       let getPage = getCurrentPages();
+
+        //       // 拼接当前页面路径
+        //       let pageRoute = `/${getPage[getPage.length-1].route}`;
+        //       let pageOptions = getPage[getPage.length - 1].options;
+        //       let nStr = ``;
+        //       // 当前路径拼接
+        //       for (let attr in pageOptions) {
+        //         nStr += `&${attr}=${pageOptions[attr]}`
+        //       }
+        //       let pageUrl = pageRoute + nStr.replace('&', '?');
+
+        //       if (wx.reLaunch) {
+        //         wx.reLaunch({
+        //           url: pageUrl
+        //         });
+        //       } else {
+        //         wx.switchTab({
+        //           url: '/pages/tab-index/index'
+        //         })
+        //       }
+        //     } else {
+        //       reject(res);
+        //     }
+        //   }).catch((err) => {
+        //     wx.setStorageSync("loginOn", false);
+        //     reject(err);
+        //   });
+
+        // }).catch((err) => {
+        //   wx.setStorageSync("loginOn", false);
+        //   reject(err);
+        // })
+        //}
+        //}
+        // 无权限
+        else if (res.statusCode == 401) {
+            // backIndexPageModal("很抱歉，你没有查看权限");
+
+            uni.navigateTo({
+              url: '/pages/qing-f-c/login/login',
+              success: function success(res) {},
+              fail: function fail() {},
+              complete: function complete() {} });
+
+            return;
+          }
+      },
+      fail: function fail(err) {
+        reject(err);
+
+        if (bool) {
+          bool = false;
+          wx.getNetworkType({
+            success: function success(res) {
+              // 判断有没有网络
+              if (res.networkType == "none") {
+                showModal("网络连接失败，请检测网络是否正常", function () {
+                  bool = true;
+                });
+              } else {
+                if (err.errMsg.indexOf("timeout") != -1) {
+                  showModal("请求超时，请重新请求！", function () {
+                    bool = true;
+                  });
+                } else {
+                  showModal(err.errMsg, function () {
+                    bool = true;
+                  });
+                }
+              }
+            } });
+
+        }
+      } });
+
+  });
+}
+
+/**
+   * banner跳转
+   */
+
+// const bannerJumpRequest = (title,orderNo,picId,type,info,startDate,endDate,status) =>{
+//   var url = Api.bannerJump + ""
+//   var data = {
+//     title:title,
+//     orderNo:orderNo,
+//     picId:picId,
+//     type:type,
+//     info:info,
+//     startDate: startDate,
+//     endDate: endDate,
+//     status: status,
+//   }
+//   request(url,data,"POST")
+// }
+
+// const commentRequest = (url,data={},method="GET") =>{
+//   var url = `${Api.guestComment}?page=1&size=5`
+//   var data = {
+
+//   }
+//   request(url,data,"GET")
+// }
+
+// const jumpMpRequest = (m_appid, headerTokne, contentType, end_method)=>{
+//   var url = Api.tiaozhuan
+//   var data={
+//     m_appid: "wxfa94ddf446523122",
+//     method: "POST",	
+//     headerTokne: "",
+//     contentType: "application/json",
+//     end_method: "/wx/carte/user/receiveData"
+//   }
+//   request(url,data,"POST")
+// }
+var showToast = function showToast(str) {
+  wx.showToast({
+    title: str,
+    image: '/images/icon-alert.png' });
+
+};
+var showLoading = function showLoading(str) {
+  wx.showLoading({
+    title: str,
+    mask: true });
+
+};
+
+
+/**
+    * photo upload 
+    */
+function uploadPic(filePath) {
+  return new Es6Promise(function (resolve, reject) {
+    var uploadTask = wx.uploadFile({
+      url: Api.PicUpload, //仅为示例，非真实的接口地址
+      filePath: filePath,
+      name: 'file',
+      header: {
+        'Authorization': "Bearer " + wx.getStorageSync('token') },
+
+      formData: {
+        'user': 'test' },
+
+      success: function success(res) {
+        resolve(res);
+        var data = res.data;
+
+        //do something
+      },
+      fail: function fail(err) {
+        reject(err);
+      } });
+
+
+    // uploadTask.onProgressUpdate((res) => {
+    //   console.log(filePath+'上传进度', res.progress)
+    //   console.log(filePath+'已经上传的数据长度', res.totalBytesSent)
+    //   console.log(filePath+'预期需要上传的数据总长度', res.totalBytesExpectedToSend)
+    // })
+  });
+
+}
+
+
+/**
+   * 已经选中的图片上传 array
+   */
+function uploadPics(photoList) {
+  return new Es6Promise(function (resolve, reject) {
+    var picArray = photoList;
+    var photoJsonArray = [];
+    if (picArray.length != 0) {
+      for (var i = 0; i < picArray.length; i++) {
+        uploadPic(picArray[i]).then(function (res) {
+          photoJsonArray.push(JSON.parse(res.data));
+          //console.dir(res.data);
+          //console.dir(photoJsonArray);
+          if (photoJsonArray.length == picArray.length) {
+            resolve(photoJsonArray);
+          }
+        }).catch(function (err) {
+          // util.showToast("图片上传失败");
+          reject(err);
+          return;
+        });
+      }
+    } else {
+      resolve([]);
+    }
+  });
+}
+
+/**
+   * 下载图片
+   */
+function downloadFile(imgUrl) {
+  return new Es6Promise(function (resolve, reject) {
+    wx.downloadFile({
+      url: imgUrl,
+      success: function success(res) {
+        if (res.statusCode === 200) {
+          resolve(res.tempFilePath);
+        } else {
+          reject();
+        }
+      },
+      fail: function fail(err) {
+        reject();
+      } });
+
+  });
+}
+
+/**
+   * 检查微信会话是否过期
+   */
+function checkSession() {
+  return new Es6Promise(function (resolve, reject) {
+    wx.checkSession({
+      success: function success() {
+        resolve(true);
+      },
+      fail: function fail() {
+        reject(false);
+      } });
+
+  });
+}
+
+/**
+   * 调用微信登录
+   */
+function login() {
+  return new Es6Promise(function (resolve, reject) {
+    wx.login({
+      success: function success(res) {
+        if (res.code) {
+          //登录远程服务器
+          resolve(res);
+        } else {
+          reject(res);
+        }
+      },
+      fail: function fail(err) {
+        reject(err);
+      } });
+
+  });
+}
+
+/**
+   * 获取微信用户信息
+   */
+function getUserInfo() {
+  return new Es6Promise(function (resolve, reject) {
+    // 查看是否授权
+    // console.log('查看用户是否授权')
+    if (wx.getSetting) {
+      var getPages = getCurrentPages();
+      var page = getPages[getPages.length - 1];
+
+      wx.getSetting({
+        success: function success(getRes) {
+          if (getRes.authSetting['scope.userInfo']) {
+            wx.getUserInfo({
+              withCredentials: true,
+              success: function success(userRes) {
+                resolve(userRes);
+              },
+              fail: function fail(userErr) {
+                console.log(userErr, 'userInfo');
+                reject(err);
+              } });
+
+          } else {
+            page.setData({
+              userAuthor: true });
+
+            // console.log('用户需要授权');
+          }
+        },
+        fail: function fail(err) {
+          page.setData({
+            userAuthor: true });
+
+          console.log("调用 wx.getSetting 方法失败", err);
+        } });
+
+    } else {
+      showModal('当前微信版本暂不支持 wx.getSetting 方法，请升级微信版本！');
+    }
+  });
+}
+
+/**
+   * 重新登录
+   */
+function loginAgain() {
+  var code = null;
+  login().then(function (res) {
+    code = res.code;
+    return getUserInfo();
+  }).then(function (userInfo) {
+
+    wx.setStorageSync("rawData", userInfo.rawData);
+    wx.setStorageSync("signature", userInfo.signature);
+
+    // 重新登录，登录远程服务器
+    request(Api.AuthLoginByWeixin, { code: code, userInfo: userInfo }, 'POST').then(function (res) {
+      if (res.statusCode == 200) {
+        var newData = res.data;
+
+        if (newData.sessionKey) {
+          wx.setStorageSync("sessionKey", newData.sessionKey);
+        }
+
+        // 存储用户信息
+        wx.setStorageSync('userInfo', newData.userInfo);
+        wx.setStorageSync('token', newData.token);
+
+        // 获取当前页面的路径
+        var getPage = getCurrentPages();
+        var nowPage = getPage[getPage.length - 1];
+
+        // 用户已注册
+        if (newData.token && newData.userInfo.company && newData.userInfo.phone) {
+          // 拼接当前页面路径
+          var pageRoute = "/".concat(nowPage.route);
+          var pageOptions = nowPage.options;
+          var nStr = "";
+          // 当前路径拼接
+          for (var attr in pageOptions) {
+            nStr += "&".concat(attr, "=").concat(pageOptions[attr]);
+          }
+          var pageUrl = pageRoute + nStr.replace('&', '?');
+
+          // 执行当前页面的 onLoad 事件
+          // nowPage.onLoad(nowPage.options);
+          if (wx.reLaunch) {
+            wx.reLaunch({
+              url: pageUrl });
+
+          } else {
+            wx.switchTab({
+              url: '/pages/tab-index/index' });
+
+          }
+        }
+        // 用户未注册
+        else if (newData.token) {
+            var AppData = getApp().globalData;
+            AppData.regPage.route = nowPage.route;
+            AppData.regPage.opt = nowPage.options;
+
+            if (wx.reLaunch) {
+              // wx.reLaunch({
+              //   url: '/pages/public/authorize',
+              // })
+            } else {
+                // wx.redirectTo({
+                //   url: '/pages/public/authorize',
+                // })
+              }
+          }
+      } else {
+        showModal("登录服务器失败");
+        // reject(res);
+      }
+    }).catch(function (err) {
+      showModal("登录服务器失败");
+      // reject(err);
+    });
+  }).catch(function (err) {
+    showModal("登录服务器失败");
+  });
+}
+
+/**
+   * 判断是否进入注册页
+   */
+function goRegPage() {
+  var AppData = getApp().globalData;
+  var userInfo = wx.getStorageSync("userInfo");
+
+  // 用户未注册
+  if (!userInfo.company || !userInfo.phone) {
+    // 获取当前页面的路径
+    var getPage = getCurrentPages();
+    var nowPage = getPage[getPage.length - 1];
+
+    AppData.regPage.route = nowPage.route;
+    AppData.regPage.opt = nowPage.options;
+
+    if (wx.reLaunch) {
+      // wx.reLaunch({
+      //   url: '/pages/public/authorize',
+      // })
+    } else {
+        // wx.redirectTo({
+        //   url: '/pages/public/authorize',
+        // })
+      }
+    return false;
+  } else {
+    return true;
+  }
+}
+
+/**
+   * 微信是否授权判断
+   */
+// function scopeWChat() {
+// return new Promise(function (resolve, reject) {
+//   let token = wx.getStorageSync("token");
+//   let scopeLogin = wx.getStorageSync('scopeLogin');
+
+//   if (!token && scopeLogin) {
+//     wx.getSetting({
+//       success: (res) => {
+//         let scopeInfo = res.authSetting['scope.userInfo'];
+
+//         // 是否授权
+//         if (scopeInfo) {
+//           resolve(true)
+//           wx.removeStorageSync("scopeLogin");
+//         } else {
+//           reject(false);
+//         }
+//       }
+//     })
+//   }
+// })
+// }
+
+/**
+ * 获取认证信息
+ */
+function getApproveData() {
+  return new Es6Promise(function (resolve, reject) {
+    var info = wx.getStorageSync('userInfo');
+
+    // 判断用户是否已经注册
+    if (info.phone) {
+      var approveApi = Api.UserApprove;
+
+      request(approveApi, {}, 'get').then(function (res) {
+        resolve(res);
+        wx.setStorageSync("approveInfo", res.data);
+      }).catch(function (err) {
+        wx.hideLoading();
+        showModal("获取认证失败");
+      });
+    }
+  });
+}
+
+/**
+   * 获取支持的银行列表
+   */
+function getSupportBank() {
+  getPaySaveBank();
+  getPayCreditBank();
+  getCashBank();
+}
+
+/**
+   * 获取付款银行列表--储蓄卡
+   */
+function getPaySaveBank() {
+  return new Es6Promise(function (resolve, reject) {
+    var info = wx.getStorageSync('userInfo');
+
+    // 判断用户是否已经注册
+    if (info.phone) {
+      request(Api.UserPaySave).then(function (res) {
+        // 获取银行logo
+        var paySaveData = res.data.map(function (item) {
+          item.logo = item.logo ? "".concat(Api.ShowPic, "/").concat(item.logo, "/download") : null;
+          return item;
+        });
+        resolve(paySaveData);
+        wx.setStorageSync("paySaveList", paySaveData);
+      }).catch(function (err) {
+        wx.hideLoading();
+        showModal("获取付款卡失败");
+      });
+    }
+  });
+}
+
+/**
+   * 获取付款银行列表--信用卡
+   */
+function getPayCreditBank() {
+  return new Es6Promise(function (resolve, reject) {
+    var info = wx.getStorageSync('userInfo');
+
+    // 判断用户是否已经注册
+    if (info.phone) {
+      request(Api.UserPayCredit).then(function (res) {
+        // 获取银行logo
+        var payCreditData = res.data.map(function (item) {
+          item.logo = item.logo ? "".concat(Api.ShowPic, "/").concat(item.logo, "/download") : null;
+          return item;
+        });
+        resolve(payCreditData);
+        wx.setStorageSync("payCreditList", payCreditData);
+      }).catch(function (err) {
+        wx.hideLoading();
+        showModal("获取信用卡失败");
+      });
+    }
+  });
+}
+
+
+/**
+   * 获取收款银行列表
+   */
+function getCashBank() {
+  return new Es6Promise(function (resolve, reject) {
+    var info = wx.getStorageSync('userInfo');
+
+    // 判断用户是否已经注册
+    if (info.phone) {
+      request(Api.UserCashBank).then(function (res) {
+        // 获取银行logo
+        var cashData = res.data.map(function (item) {
+          item.logo = item.logo ? "".concat(Api.ShowPic, "/").concat(item.logo, "/download") : null;
+          return item;
+        });
+        resolve(cashData);
+        wx.setStorageSync("cashBankList", cashData);
+      }).catch(function (err) {
+        wx.hideLoading();
+        showModal("获取收款卡失败");
+      });
+    }
+  });
+}
+
+/**
+   * 自动消失的提示框
+   */
+function showErrorToast(msg) {
+  wx.showToast({
+    title: msg,
+    duration: 2500,
+    image: '../../images/alert.png' });
+
+}
+
+/** 
+   * 功能：modal 提醒框
+   * 参数：
+   *    第一个参数：当无第二个参数，为内容；有第二个参数，为标题
+   *    第二个参数：当参数类型为：string时，为内容；参数类型为function：为成功回调函数，并且不能传入第三个参数
+   *    第三个参数：成功回调的函数
+   * 例子：
+   *    showModal("内容")
+   *    showModal("标题", "内容")
+   *    showModal("内容", function() { console.log("成功回调函数") })
+   *    showModal("标题", "内容", function() { console.log("成功回调函数") })
+   */
+function showModal(oTitle, msg, fn) {
+  var sTitle = "";
+  var oFn = typeof msg == "function" ? msg : fn;
+  var sMsg = "";
+
+  if (msg != undefined && typeof msg == "string") {
+    sTitle = oTitle;
+    sMsg = msg;
+  } else {
+    sTitle = "";
+    sMsg = oTitle;
+  }
+
+  wx.showModal({
+    title: sTitle || "",
+    content: sMsg || "",
+    confirmColor: "#ff8834",
+    showCancel: false,
+    success: function success(res) {
+      oFn && oFn(res);
+    } });
+
+}
+
+/**
+   * 返回首页提醒框
+   */
+function backIndexPageModal(msg) {
+  wx.showModal({
+    content: msg,
+    showCancel: false,
+    confirmText: '确认',
+    confirmColor: "#ff8834",
+    success: function success(res) {
+      // if (res.confirm) {
+      if (wx.reLaunch) {
+        wx.reLaunch({
+          url: '/pages/tab-index/index' });
+
+      } else {
+        wx.switchTab({
+          url: '/pages/tab-index/index' });
+
+      }
+      // }
+    } });
+
+}
+
+/**
+   * 从需要上传的图片中，筛选出已经上传过的图片；并返回需要上传的图片 及 无需上传的图片对象
+   */
+var picUpPic = function picUpPic(picListArr, picListObjArr) {
+  var newArr = [];
+  var oldArr = [];
+  var oldPicArr = [];
+
+  // 从新获图片数组中，筛选出已经上传过的图片
+  picListArr.forEach(function (item) {
+    if (item.indexOf(Api.NewApiRootUrl) == -1) {
+      newArr.push(item); // 未上传图片
+    } else {
+      oldArr.push(item); // 上传图片
+    }
+  });
+
+  // 获取已上传图片的图片对象
+  picListObjArr.forEach(function (item) {
+    oldArr.forEach(function (list) {
+      if (list.indexOf(item.id) != -1) {
+        oldPicArr.push(item);
+      }
+    });
+  });
+
+  return [newArr, oldPicArr];
+};
+
+/**
+    * 版本过低提醒框
+    */
+function versionTip() {
+  showModal("版本提示", "当前版本暂不支持该功能，请升级微信版本！");
+}
+
+//获取当前日期
+function getTime(date) {
+  var year = date.getFullYear();
+  var month = date.getMonth() + 1;
+  var day = date.getDate();
+
+  var hour = date.getHours();
+  var minute = date.getMinutes();
+  var second = date.getSeconds();
+
+  return [year, month, day].map(formatNumber).join('-');
+}
+
+function formatNumber(n) {
+  n = n.toString();
+  return n[1] ? n : '0' + n;
+}
+
+function formatNumber(n) {
+  n = n.toString();
+  return n[1] ? n : '0' + n;
+}
+
+module.exports = {
+  request: request,
+  checkSession: checkSession,
+  login: login,
+  getUserInfo: getUserInfo,
+  goRegPage: goRegPage,
+  // scopeWChat,
+  uploadPic: uploadPic,
+  uploadPics: uploadPics,
+  downloadFile: downloadFile,
+
+  getApproveData: getApproveData,
+  getSupportBank: getSupportBank,
+  getPaySaveBank: getPaySaveBank,
+  getPayCreditBank: getPayCreditBank,
+  getCashBank: getCashBank,
+
+  showErrorToast: showErrorToast,
+  showModal: showModal,
+  showToast: showToast,
+  showLoading: showLoading,
+  versionTip: versionTip,
+  backIndexPageModal: backIndexPageModal,
+
+  getTime: getTime,
+  picUpPic: picUpPic };
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
+
+/***/ }),
+
+/***/ 16:
+/*!*************************************************************!*\
+  !*** /Users/lee/Downloads/备份11/轻纺车网/services/config/api.js ***!
+  \*************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+var _module$exports;function _defineProperty(obj, key, value) {if (key in obj) {Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true });} else {obj[key] = value;}return obj;} //  const ServerUrl = "https://www.144f.com"; // 生产环境
+
+//const ServerUrl = "https://www.qingfangche.net"; // 开发环境
+var ServerUrl = "http://192.168.11.141";
+//const ServerUrl = "http://test.144f.com:8080/qfc-web";
+var ChooseUrl = ServerUrl + '/choose/';
+var VERSION = '3.3.72'; // 小程序版本
+
+module.exports = (_module$exports = {
+  VERSION: VERSION,
+  ChooseUrl: ChooseUrl,
+  //下拉选择
+
+  getRegion: ChooseUrl + "region", //区域
+  getCoordinate: ChooseUrl + "coordinate", //配合度
+  getType: ChooseUrl + "type", //客户类型
+  getCompanyScale: ChooseUrl + "scale", //客户规模
+  getSource: ChooseUrl + "source", //客户来源
+  getBusinessModel: ChooseUrl + "businessModel", //公司经营模式
+  getMainProduct: ChooseUrl + "mainProduct", //主营产品
+  getOperateCapital: ChooseUrl + "operateCapital", //资金状况
+  getOperateCredit: ChooseUrl + "operateCredit", //信用状况
+  getOperateOperation: ChooseUrl + "operateOperation", //运营状况
+  getOperateWom: ChooseUrl + "operateWom", //口碑
+  getQuality: ChooseUrl + "quality", //品质定位
+  getPost: ChooseUrl + "post", //角色
+  getChannel: ChooseUrl + "channe", //渠道
+  getCostPerformance: ChooseUrl + "costPerformance", //性价比
+  getIdentity: ChooseUrl + "identity", //身份
+  getPotential: ChooseUrl + "potential", //发展潜力
+  getPriceSensitivity: ChooseUrl + "priceSensitivity", //用户价格敏感度
+  getCooperationIntention: ChooseUrl + "cooperationIntention", //合作意向
+  getCharacterFeatures: ChooseUrl + "characterFeatures", //性格特点
+  getManageFeatures: ChooseUrl + "manageFeatures", //经营者特征
+  getManagementPosition: ChooseUrl + "managementPosition", //经营定位
+
+
+  //用户登陆注册
+
+  login: ServerUrl + '/ul/login', //用户登陆 post
+  chanage_password: ServerUrl + '/ul/change_password', // 修改密码 post
+  verification: ServerUrl + '/ul/verification', //短信验证码 post
+  registration: ServerUrl + '/ul/registration', //用户注册 post
+  getNewsNum: ServerUrl + '/um/count', //未读信息
+  noReadList: ServerUrl + '/um/list', //未读信息列表 post
+
+  //个人中心
+  userDetails: ServerUrl + '/user/details', //用户个人信息
+  pupList: ServerUrl + '/pup/list', //查询用户职位列表
+  pupDefault: ServerUrl + '/pup/default', //获取默认职位
+  bsList: ServerUrl + '/cm/bsList', //买/卖帮办客户列表
+  dmList: ServerUrl + '/cm/dmList', //销售总监，区域经理客户列表
+
+  cmDetail: ServerUrl + '/cm/details', //客户详情
+  updateCustomer: ServerUrl + '/cm/updateCustomer', //更新联系人
+  linkMan: ServerUrl + '/cm/linkman', //公司联系人
+  linkmanDetails: ServerUrl + '/cm/linkmanDetails', //联系人详情
+  linkmanDel: ServerUrl + '/cm/linkmanDel', //删除联系人
+  linkmanAdd: ServerUrl + '/cm/linkmanAdd', //公司联系人添加 post
+  linkmanUpdate: ServerUrl + '/cm/linkmanUpdate', //更新联系人 post
+  operation: ServerUrl + '/cm/operation', //获取公司经营状况
+  rival: ServerUrl + '/cm/rival', //公司竞争对手列表
+  rivalDetails: ServerUrl + '/cm/rivalDetails', //竞争对手详情
+  rivalDel: ServerUrl + '/cm/rivalDel', //删除竞争对手
+  rivalUpdate: ServerUrl + '/cm/rivalUpdate', //更新竞争对手
+  buyAddCustomer: ServerUrl + '/cm/buyAddCustomer' }, _defineProperty(_module$exports, "updateCustomer",
+ServerUrl + '/cm/updateCustomer'), _defineProperty(_module$exports, "sellCusmterCreated",
+ServerUrl + "/cm/sellAddCustomer"), _defineProperty(_module$exports, "operationUpdate",
+ServerUrl + "/cm/operationUpdate"), _defineProperty(_module$exports, "operationAdd",
+ServerUrl + '/cm/operationAdd'), _defineProperty(_module$exports, "rivalAdd",
+ServerUrl + '/cm/rivalAdd'), _defineProperty(_module$exports, "dmList",
+ServerUrl + '/cm/dmList'), _defineProperty(_module$exports, "dmCount",
+ServerUrl + '/cm/dmCount'), _defineProperty(_module$exports, "majordomoDel",
+ServerUrl + '/cm/majordomoDel'), _defineProperty(_module$exports, "managerDel",
+ServerUrl + '/cm/managerDel'), _defineProperty(_module$exports, "managerList",
+ServerUrl + '/cm/managerList'), _defineProperty(_module$exports, "deputyList",
+ServerUrl + '/cm/deputyList'), _defineProperty(_module$exports, "managerAllot",
+ServerUrl + '/cm/managerAllot'), _defineProperty(_module$exports, "majordomoAllot",
+ServerUrl + '/cm/majordomoAllot'), _module$exports);
+
+/***/ }),
+
+/***/ 17:
+/*!*********************************************************!*\
+  !*** /Users/lee/Downloads/备份11/轻纺车网/lib/es6-promise.js ***!
+  \*********************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(process, global) {var require;!function (t, e) { true ? module.exports = e() : undefined;}(void 0, function () {"use strict";function t(t) {return "function" == typeof t || "object" == typeof t && null !== t;}function e(t) {return "function" == typeof t;}function n(t) {I = t;}function r(t) {J = t;}function o() {return function () {return process.nextTick(a);};}function i() {return "undefined" != typeof H ? function () {H(a);} : c();}function s() {var t = 0,e = new V(a),n = document.createTextNode("");return e.observe(n, { characterData: !0 }), function () {n.data = t = ++t % 2;};}function u() {var t = new MessageChannel();return t.port1.onmessage = a, function () {return t.port2.postMessage(0);};}function c() {var t = setTimeout;return function () {return t(a, 1);};}function a() {for (var t = 0; t < G; t += 2) {var e = $[t],n = $[t + 1];e(n), $[t] = void 0, $[t + 1] = void 0;}G = 0;}function f() {try {var t = require,e = __webpack_require__(!(function webpackMissingModule() { var e = new Error("Cannot find module 'vertx'"); e.code = 'MODULE_NOT_FOUND'; throw e; }()));return H = e.runOnLoop || e.runOnContext, i();} catch (n) {return c();}}function l(t, e) {var n = arguments,r = this,o = new this.constructor(p);void 0 === o[et] && k(o);var i = r._state;return i ? !function () {var t = n[i - 1];J(function () {return x(i, o, t, r._result);});}() : E(r, o, t, e), o;}function h(t) {var e = this;if (t && "object" == typeof t && t.constructor === e) return t;var n = new e(p);return g(n, t), n;}function p() {}function v() {return new TypeError("You cannot resolve a promise with itself");}function d() {return new TypeError("A promises callback cannot return that same promise.");}function _(t) {try {return t.then;} catch (e) {return it.error = e, it;}}function y(t, e, n, r) {try {t.call(e, n, r);} catch (o) {return o;}}function m(t, e, n) {J(function (t) {var r = !1,o = y(n, e, function (n) {r || (r = !0, e !== n ? g(t, n) : S(t, n));}, function (e) {r || (r = !0, j(t, e));}, "Settle: " + (t._label || " unknown promise"));!r && o && (r = !0, j(t, o));}, t);}function b(t, e) {e._state === rt ? S(t, e._result) : e._state === ot ? j(t, e._result) : E(e, void 0, function (e) {return g(t, e);}, function (e) {return j(t, e);});}function w(t, n, r) {n.constructor === t.constructor && r === l && n.constructor.resolve === h ? b(t, n) : r === it ? (j(t, it.error), it.error = null) : void 0 === r ? S(t, n) : e(r) ? m(t, n, r) : S(t, n);}function g(e, n) {e === n ? j(e, v()) : t(n) ? w(e, n, _(n)) : S(e, n);}function A(t) {t._onerror && t._onerror(t._result), T(t);}function S(t, e) {t._state === nt && (t._result = e, t._state = rt, 0 !== t._subscribers.length && J(T, t));}function j(t, e) {t._state === nt && (t._state = ot, t._result = e, J(A, t));}function E(t, e, n, r) {var o = t._subscribers,i = o.length;t._onerror = null, o[i] = e, o[i + rt] = n, o[i + ot] = r, 0 === i && t._state && J(T, t);}function T(t) {var e = t._subscribers,n = t._state;if (0 !== e.length) {for (var r = void 0, o = void 0, i = t._result, s = 0; s < e.length; s += 3) {r = e[s], o = e[s + n], r ? x(n, r, o, i) : o(i);}t._subscribers.length = 0;}}function M() {this.error = null;}function P(t, e) {try {return t(e);} catch (n) {return st.error = n, st;}}function x(t, n, r, o) {var i = e(r),s = void 0,u = void 0,c = void 0,a = void 0;if (i) {if (s = P(r, o), s === st ? (a = !0, u = s.error, s.error = null) : c = !0, n === s) return void j(n, d());} else s = o, c = !0;n._state !== nt || (i && c ? g(n, s) : a ? j(n, u) : t === rt ? S(n, s) : t === ot && j(n, s));}function C(t, e) {try {e(function (e) {g(t, e);}, function (e) {j(t, e);});} catch (n) {j(t, n);}}function O() {return ut++;}function k(t) {t[et] = ut++, t._state = void 0, t._result = void 0, t._subscribers = [];}function Y(t, e) {this._instanceConstructor = t, this.promise = new t(p), this.promise[et] || k(this.promise), B(e) ? (this._input = e, this.length = e.length, this._remaining = e.length, this._result = new Array(this.length), 0 === this.length ? S(this.promise, this._result) : (this.length = this.length || 0, this._enumerate(), 0 === this._remaining && S(this.promise, this._result))) : j(this.promise, q());}function q() {return new Error("Array Methods must be provided an Array");}function F(t) {return new Y(this, t).promise;}function D(t) {var e = this;return new e(B(t) ? function (n, r) {for (var o = t.length, i = 0; i < o; i++) {e.resolve(t[i]).then(n, r);}} : function (t, e) {return e(new TypeError("You must pass an array to race."));});}function K(t) {var e = this,n = new e(p);return j(n, t), n;}function L() {throw new TypeError("You must pass a resolver function as the first argument to the promise constructor");}function N() {throw new TypeError("Failed to construct 'Promise': Please use the 'new' operator, this object constructor cannot be called as a function.");}function U(t) {this[et] = O(), this._result = this._state = void 0, this._subscribers = [], p !== t && ("function" != typeof t && L(), this instanceof U ? C(this, t) : N());}function W() {var t = void 0;if ("undefined" != typeof global) t = global;else if ("undefined" != typeof self) t = self;else try {t = Function("return this")();} catch (e) {throw new Error("polyfill failed because global object is unavailable in this environment");}var n = t.Promise;if (n) {var r = null;try {r = Object.prototype.toString.call(n.resolve());} catch (e) {}if ("[object Promise]" === r && !n.cast) return;}t.Promise = U;}var z = void 0;z = Array.isArray ? Array.isArray : function (t) {return "[object Array]" === Object.prototype.toString.call(t);};var B = z,G = 0,H = void 0,I = void 0,J = function J(t, e) {$[G] = t, $[G + 1] = e, G += 2, 2 === G && (I ? I(a) : tt());},Q = "undefined" != typeof window ? window : void 0,R = Q || {},V = R.MutationObserver || R.WebKitMutationObserver,X = "undefined" == typeof self && "undefined" != typeof process && "[object process]" === {}.toString.call(process),Z = "undefined" != typeof Uint8ClampedArray && "undefined" != typeof importScripts && "undefined" != typeof MessageChannel,$ = new Array(1e3),tt = void 0;tt = X ? o() : V ? s() : Z ? u() : void 0 === Q && "function" == "function" ? f() : c();var et = Math.random().toString(36).substring(16),nt = void 0,rt = 1,ot = 2,it = new M(),st = new M(),ut = 0;return Y.prototype._enumerate = function () {for (var t = this.length, e = this._input, n = 0; this._state === nt && n < t; n++) {this._eachEntry(e[n], n);}}, Y.prototype._eachEntry = function (t, e) {var n = this._instanceConstructor,r = n.resolve;if (r === h) {var o = _(t);if (o === l && t._state !== nt) this._settledAt(t._state, e, t._result);else if ("function" != typeof o) this._remaining--, this._result[e] = t;else if (n === U) {var i = new n(p);w(i, t, o), this._willSettleAt(i, e);} else this._willSettleAt(new n(function (e) {return e(t);}), e);} else this._willSettleAt(r(t), e);}, Y.prototype._settledAt = function (t, e, n) {var r = this.promise;r._state === nt && (this._remaining--, t === ot ? j(r, n) : this._result[e] = n), 0 === this._remaining && S(r, this._result);}, Y.prototype._willSettleAt = function (t, e) {var n = this;E(t, void 0, function (t) {return n._settledAt(rt, e, t);}, function (t) {return n._settledAt(ot, e, t);});}, U.all = F, U.race = D, U.resolve = h, U.reject = K, U._setScheduler = n, U._setAsap = r, U._asap = J, U.prototype = { constructor: U, then: l, "catch": function _catch(t) {return this.then(null, t);} }, U.polyfill = W, U.Promise = U, U.polyfill(), U;});
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../../../../../../Applications/HBuilderX.app/Contents/HBuilderX/plugins/uniapp-cli/node_modules/node-libs-browser/mock/process.js */ 18), __webpack_require__(/*! ./../../../../../../Applications/HBuilderX.app/Contents/HBuilderX/plugins/uniapp-cli/node_modules/webpack/buildin/global.js */ 3)))
+
+/***/ }),
+
+/***/ 18:
+/*!********************************************************!*\
+  !*** ./node_modules/node-libs-browser/mock/process.js ***!
+  \********************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports.nextTick = function nextTick(fn) {
+	setTimeout(fn, 0);
+};
+
+exports.platform = exports.arch = 
+exports.execPath = exports.title = 'browser';
+exports.pid = 1;
+exports.browser = true;
+exports.env = {};
+exports.argv = [];
+
+exports.binding = function (name) {
+	throw new Error('No such module. (Possibly not yet loaded)')
+};
+
+(function () {
+    var cwd = '/';
+    var path;
+    exports.cwd = function () { return cwd };
+    exports.chdir = function (dir) {
+        if (!path) path = __webpack_require__(/*! path */ 19);
+        cwd = path.resolve(dir, cwd);
+    };
+})();
+
+exports.exit = exports.kill = 
+exports.umask = exports.dlopen = 
+exports.uptime = exports.memoryUsage = 
+exports.uvCounters = function() {};
+exports.features = {};
+
+
+/***/ }),
+
+/***/ 19:
+/*!***********************************************!*\
+  !*** ./node_modules/path-browserify/index.js ***!
+  \***********************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+/* WEBPACK VAR INJECTION */(function(process) {// Copyright Joyent, Inc. and other Node contributors.
+//
+// Permission is hereby granted, free of charge, to any person obtaining a
+// copy of this software and associated documentation files (the
+// "Software"), to deal in the Software without restriction, including
+// without limitation the rights to use, copy, modify, merge, publish,
+// distribute, sublicense, and/or sell copies of the Software, and to permit
+// persons to whom the Software is furnished to do so, subject to the
+// following conditions:
+//
+// The above copyright notice and this permission notice shall be included
+// in all copies or substantial portions of the Software.
+//
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
+// OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+// MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN
+// NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM,
+// DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR
+// OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE
+// USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+// resolves . and .. elements in a path array with directory names there
+// must be no slashes, empty elements, or device names (c:\) in the array
+// (so also no leading and trailing slashes - it does not distinguish
+// relative and absolute paths)
+function normalizeArray(parts, allowAboveRoot) {
+  // if the path tries to go above the root, `up` ends up > 0
+  var up = 0;
+  for (var i = parts.length - 1; i >= 0; i--) {
+    var last = parts[i];
+    if (last === '.') {
+      parts.splice(i, 1);
+    } else if (last === '..') {
+      parts.splice(i, 1);
+      up++;
+    } else if (up) {
+      parts.splice(i, 1);
+      up--;
+    }
+  }
+
+  // if the path is allowed to go above the root, restore leading ..s
+  if (allowAboveRoot) {
+    for (; up--; up) {
+      parts.unshift('..');
+    }
+  }
+
+  return parts;
+}
+
+// Split a filename into [root, dir, basename, ext], unix version
+// 'root' is just a slash, or nothing.
+var splitPathRe =
+    /^(\/?|)([\s\S]*?)((?:\.{1,2}|[^\/]+?|)(\.[^.\/]*|))(?:[\/]*)$/;
+var splitPath = function(filename) {
+  return splitPathRe.exec(filename).slice(1);
+};
+
+// path.resolve([from ...], to)
+// posix version
+exports.resolve = function() {
+  var resolvedPath = '',
+      resolvedAbsolute = false;
+
+  for (var i = arguments.length - 1; i >= -1 && !resolvedAbsolute; i--) {
+    var path = (i >= 0) ? arguments[i] : process.cwd();
+
+    // Skip empty and invalid entries
+    if (typeof path !== 'string') {
+      throw new TypeError('Arguments to path.resolve must be strings');
+    } else if (!path) {
+      continue;
+    }
+
+    resolvedPath = path + '/' + resolvedPath;
+    resolvedAbsolute = path.charAt(0) === '/';
+  }
+
+  // At this point the path should be resolved to a full absolute path, but
+  // handle relative paths to be safe (might happen when process.cwd() fails)
+
+  // Normalize the path
+  resolvedPath = normalizeArray(filter(resolvedPath.split('/'), function(p) {
+    return !!p;
+  }), !resolvedAbsolute).join('/');
+
+  return ((resolvedAbsolute ? '/' : '') + resolvedPath) || '.';
+};
+
+// path.normalize(path)
+// posix version
+exports.normalize = function(path) {
+  var isAbsolute = exports.isAbsolute(path),
+      trailingSlash = substr(path, -1) === '/';
+
+  // Normalize the path
+  path = normalizeArray(filter(path.split('/'), function(p) {
+    return !!p;
+  }), !isAbsolute).join('/');
+
+  if (!path && !isAbsolute) {
+    path = '.';
+  }
+  if (path && trailingSlash) {
+    path += '/';
+  }
+
+  return (isAbsolute ? '/' : '') + path;
+};
+
+// posix version
+exports.isAbsolute = function(path) {
+  return path.charAt(0) === '/';
+};
+
+// posix version
+exports.join = function() {
+  var paths = Array.prototype.slice.call(arguments, 0);
+  return exports.normalize(filter(paths, function(p, index) {
+    if (typeof p !== 'string') {
+      throw new TypeError('Arguments to path.join must be strings');
+    }
+    return p;
+  }).join('/'));
+};
+
+
+// path.relative(from, to)
+// posix version
+exports.relative = function(from, to) {
+  from = exports.resolve(from).substr(1);
+  to = exports.resolve(to).substr(1);
+
+  function trim(arr) {
+    var start = 0;
+    for (; start < arr.length; start++) {
+      if (arr[start] !== '') break;
+    }
+
+    var end = arr.length - 1;
+    for (; end >= 0; end--) {
+      if (arr[end] !== '') break;
+    }
+
+    if (start > end) return [];
+    return arr.slice(start, end - start + 1);
+  }
+
+  var fromParts = trim(from.split('/'));
+  var toParts = trim(to.split('/'));
+
+  var length = Math.min(fromParts.length, toParts.length);
+  var samePartsLength = length;
+  for (var i = 0; i < length; i++) {
+    if (fromParts[i] !== toParts[i]) {
+      samePartsLength = i;
+      break;
+    }
+  }
+
+  var outputParts = [];
+  for (var i = samePartsLength; i < fromParts.length; i++) {
+    outputParts.push('..');
+  }
+
+  outputParts = outputParts.concat(toParts.slice(samePartsLength));
+
+  return outputParts.join('/');
+};
+
+exports.sep = '/';
+exports.delimiter = ':';
+
+exports.dirname = function(path) {
+  var result = splitPath(path),
+      root = result[0],
+      dir = result[1];
+
+  if (!root && !dir) {
+    // No dirname whatsoever
+    return '.';
+  }
+
+  if (dir) {
+    // It has a dirname, strip trailing slash
+    dir = dir.substr(0, dir.length - 1);
+  }
+
+  return root + dir;
+};
+
+
+exports.basename = function(path, ext) {
+  var f = splitPath(path)[2];
+  // TODO: make this comparison case-insensitive on windows?
+  if (ext && f.substr(-1 * ext.length) === ext) {
+    f = f.substr(0, f.length - ext.length);
+  }
+  return f;
+};
+
+
+exports.extname = function(path) {
+  return splitPath(path)[3];
+};
+
+function filter (xs, f) {
+    if (xs.filter) return xs.filter(f);
+    var res = [];
+    for (var i = 0; i < xs.length; i++) {
+        if (f(xs[i], i, xs)) res.push(xs[i]);
+    }
+    return res;
+}
+
+// String.prototype.substr - negative index don't work in IE8
+var substr = 'ab'.substr(-1) === 'b'
+    ? function (str, start, len) { return str.substr(start, len) }
+    : function (str, start, len) {
+        if (start < 0) start = str.length + start;
+        return str.substr(start, len);
+    }
+;
+
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../node-libs-browser/mock/process.js */ 18)))
 
 /***/ }),
 
@@ -7567,333 +8714,7 @@ internalMixin(Vue);
 
 /***/ }),
 
-/***/ 21:
-/*!*************************************************************!*\
-  !*** /Users/lee/Downloads/备份11/轻纺车网/services/config/api.js ***!
-  \*************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-var _module$exports;function _defineProperty(obj, key, value) {if (key in obj) {Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true });} else {obj[key] = value;}return obj;} //  const ServerUrl = "https://www.144f.com"; // 生产环境
-
-//const ServerUrl = "https://www.qingfangche.net"; // 开发环境
-var ServerUrl = "http://192.168.11.141";
-var NewApiRootUrl = ServerUrl + '/api/';
-var WXApiRootUrl = ServerUrl + '/wx/';
-var ChooseUrl = ServerUrl + '/choose/';
-var VERSION = '3.3.72'; // 小程序版本
-
-module.exports = (_module$exports = {
-  VERSION: VERSION,
-  NewApiRootUrl: NewApiRootUrl,
-  WXApiRootUrl: WXApiRootUrl,
-  ChooseUrl: ChooseUrl,
-  //下拉选择
-
-  getRegion: ChooseUrl + "region", //区域
-  getCoordinate: ChooseUrl + "coordinate", //配合度
-  getType: ChooseUrl + "type", //客户类型
-  getCompanyScale: ChooseUrl + "scale", //客户规模
-  getSource: ChooseUrl + "source", //客户来源
-  getBusinessModel: ChooseUrl + "businessModel", //公司经营模式
-  getMainProduct: ChooseUrl + "mainProduct", //主营产品
-  getOperateCapital: ChooseUrl + "operateCapital", //资金状况
-  getOperateCredit: ChooseUrl + "operateCredit", //信用状况
-  getOperateOperation: ChooseUrl + "operateOperation", //运营状况
-  getOperateWom: ChooseUrl + "operateWom", //口碑
-  getQuality: ChooseUrl + "quality", //品质定位
-  getPost: ChooseUrl + "post", //角色
-  getChannel: ChooseUrl + "channe", //渠道
-  getCostPerformance: ChooseUrl + "costPerformance", //性价比
-  getIdentity: ChooseUrl + "identity", //身份
-  getPotential: ChooseUrl + "potential", //发展潜力
-  getPriceSensitivity: ChooseUrl + "priceSensitivity", //用户价格敏感度
-  getCooperationIntention: ChooseUrl + "cooperationIntention", //合作意向
-  getCharacterFeatures: ChooseUrl + "characterFeatures", //性格特点
-  getManageFeatures: ChooseUrl + "manageFeatures", //经营者特征
-  getManagementPosition: ChooseUrl + "managementPosition", //经营定位
-
-
-  //用户登陆注册
-
-  login: ServerUrl + '/ul/login', //用户登陆 post
-  chanage_password: ServerUrl + '/ul/change_password', // 修改密码 post
-  verification: ServerUrl + '/ul/verification', //短信验证码 post
-  registration: ServerUrl + '/ul/registration', //用户注册 post
-  getNewsNum: ServerUrl + '/um/count', //未读信息
-  noReadList: ServerUrl + '/um/list', //未读信息列表 post
-
-  //个人中心
-  userDetails: ServerUrl + '/user/details', //用户个人信息
-  pupList: ServerUrl + '/pup/list', //查询用户职位列表
-  pupDefault: ServerUrl + '/pup/default', //获取默认职位
-  bsList: ServerUrl + '/cm/bsList', //买/卖帮办客户列表
-  dmList: ServerUrl + '/cm/dmList', //销售总监，区域经理客户列表
-
-  cmDetail: ServerUrl + '/cm/details', //客户详情
-  updateCustomer: ServerUrl + '/cm/updateCustomer', //更新联系人
-  linkMan: ServerUrl + '/cm/linkman', //公司联系人
-  linkmanDetails: ServerUrl + '/cm/linkmanDetails', //联系人详情
-  linkmanDel: ServerUrl + '/cm/linkmanDel', //删除联系人
-  linkmanAdd: ServerUrl + '/cm/linkmanAdd', //公司联系人添加 post
-  linkmanUpdate: ServerUrl + '/cm/linkmanUpdate', //更新联系人 post
-  operation: ServerUrl + '/cm/operation', //获取公司经营状况
-  rival: ServerUrl + '/cm/rival', //公司竞争对手列表
-  rivalDetails: ServerUrl + '/cm/rivalDetails', //竞争对手详情
-  rivalDel: ServerUrl + '/cm/rivalDel', //删除竞争对手
-  rivalUpdate: ServerUrl + '/cm/rivalUpdate', //更新竞争对手
-  buyAddCustomer: ServerUrl + '/cm/buyAddCustomer' }, _defineProperty(_module$exports, "updateCustomer",
-ServerUrl + '/cm/updateCustomer'), _defineProperty(_module$exports, "sellCusmterCreated",
-ServerUrl + "/cm/sellAddCustomer"), _defineProperty(_module$exports, "operationUpdate",
-ServerUrl + "/cm/operationUpdate"), _defineProperty(_module$exports, "operationAdd",
-ServerUrl + '/cm/operationAdd'), _defineProperty(_module$exports, "rivalAdd",
-ServerUrl + '/cm/rivalAdd'), _module$exports);
-
-/***/ }),
-
-/***/ 215:
-/*!*********************************************************!*\
-  !*** /Users/lee/Downloads/备份11/轻纺车网/services/server.js ***!
-  \*********************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-var Common = __webpack_require__(/*! utils/common.js */ 31);
-var Api = __webpack_require__(/*! services/config/api.js */ 21);
-var Util = __webpack_require__(/*! utils/util.js */ 34);
-var Es6Promise = __webpack_require__(/*! lib/es6-promise.js */ 35);
-
-/*
-                                                 * get 数据
-                                                 */
-function getDataWX(api, data) {
-  return new Es6Promise(function (resolve, reject) {
-    Util.request(api, data, 'get').then(function (res) {
-      if (res.statusCode === 200) {
-        resolve(res);
-      } else {
-        reject(res);
-      }
-    }).catch(function (err) {
-      reject(err);
-    });
-  });
-}
-
-/**
-   * post 数据
-   */
-function postDataWX(api, data) {
-  return new Es6Promise(function (resolve, reject) {
-    Util.request(api, data, 'post').then(function (res) {
-      if (res.statusCode >= 200 && res.statusCode < 300) {
-        resolve(res);
-      } else {
-        reject(res);
-      }
-    }).catch(function (err) {
-      reject(err);
-    });
-  });
-}
-
-
-/**
-   * put 数据
-   */
-function putDataWX(api, data) {
-  return new Es6Promise(function (resolve, reject) {
-    Util.request(api, data, 'put').then(function (res) {
-      if (res.statusCode >= 200 && res.statusCode < 300) {
-        resolve(res);
-      } else {
-        reject(res);
-      }
-    }).catch(function (err) {
-      reject(err);
-    });
-  });
-}
-
-/**
-   * delete 数据
-   */
-function deleteDataWX(api, data) {
-  return new Es6Promise(function (resolve, reject) {
-    Util.request(api, data, 'delete').then(function (res) {
-      if (res.statusCode >= 200 && res.statusCode < 300) {
-        resolve(res);
-      } else {
-        reject(res);
-      }
-    }).catch(function (err) {
-      reject(err);
-    });
-  });
-}
-
-/**
-   * 页面行为记录
-   */
-function setActive(that, data) {
-  var apiStr = Api.userBehavior;
-  var token = wx.getStorageSync("token");
-
-  if (that.data.loadState && token) {
-    postDataWX(apiStr, data).then(function (res) {
-      Common.setLoadTrue(that);
-    }).catch(function (err) {
-      Common.setLoadTrue(that);
-    });
-  }
-}
-
-/**
-   * 获取表单formId
-   */
-function getFormId(e) {
-  var formId = e.detail.formId;
-  var formApi = Common.pinFormId(Api.formID, formId);
-  var token = wx.getStorageSync("token");
-
-  if (token && formId != "the formId is a mock one") {
-    Util.request(formApi, {}, 'get').then(function (res) {}).catch(function (err) {});
-  }
-}
-
-
-/**
-   * 功能：获取二维码
-   * 参数：
-   *    pagePath：页面路径
-   *    id：订单id
-   */
-function getQRCodeUrl(pagePath, id) {
-  return new Es6Promise(function (resolve, reject) {
-    var COdeApi = Api.QRCodeUrl;
-    var pageUrl = id ? "".concat(pagePath, "?id=").concat(id) : pagePath;
-
-    Util.request(COdeApi, pageUrl, 'post').then(function (res) {
-      var picUrl = "".concat(Api.ShowPic, "/").concat(res.data.id, "/download");
-
-      Util.downloadFile(picUrl).then(function (weChatUrl) {
-        resolve(weChatUrl);
-      }).catch(function (err) {
-        showModal("图片下载失败");
-      });
-    }).catch(function (err) {
-      Util.showErrorToast("获取二维码失败");
-    });
-  });
-}
-
-/**
-   * 上传图片
-   * 
-   * 参数：
-   *    photoList：要上传的图片数组
-   *    apiState：控制使用压缩上传的api，还是不压缩上传的api
-   */
-var uploadPics = function uploadPics(photoList) {var apiState = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;
-  return new Es6Promise(function (resolve, reject) {
-    var photoJsonArray = [];
-    if (photoList && photoList.length >= 1) {
-      photoList.forEach(function (item) {
-        wx.uploadFile({
-          url: !apiState ? Api.PicUpload : Api.PicNewUpload,
-          filePath: item,
-          name: 'file',
-          header: {
-            'Authorization': "Bearer " + wx.getStorageSync('token') },
-
-          formData: {
-            'user': 'test' },
-
-          success: function success(res) {
-            photoJsonArray.push(JSON.parse(res.data));
-
-            if (photoJsonArray.length == photoList.length) {
-              resolve(photoJsonArray);
-            }
-          },
-          fail: function fail(err) {
-            reject(err);
-          } });
-
-      });
-    } else {
-      resolve([]);
-    }
-  });
-};
-
-
-
-/**
-    * 功能：采购订单详情--获取用户的 付款银行账户 
-    */
-function createOrder(data) {
-  return new Es6Promise(function (resolve, reject) {
-    var createOrderApi = Api.createOrder;
-
-    Util.request(createOrderApi, data, 'post').then(function (res) {
-      resolve(res);
-    }).catch(function (err) {
-      Util.showModal("新建询价单失败");
-      // reject(err);
-    });
-  });
-}
-
-
-
-module.exports = {
-  getDataWX: getDataWX,
-  postDataWX: postDataWX,
-  putDataWX: putDataWX,
-  deleteDataWX: deleteDataWX,
-  setActive: setActive,
-  getFormId: getFormId,
-  getQRCodeUrl: getQRCodeUrl,
-  uploadPics: uploadPics,
-  createOrder: createOrder };
-
-/***/ }),
-
-/***/ 3:
-/*!***********************************!*\
-  !*** (webpack)/buildin/global.js ***!
-  \***********************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-var g;
-
-// This works in non-strict mode
-g = (function() {
-	return this;
-})();
-
-try {
-	// This works if eval is allowed (see CSP)
-	g = g || new Function("return this")();
-} catch (e) {
-	// This works if the window reference is available
-	if (typeof window === "object") g = window;
-}
-
-// g can still be undefined, but nothing to do about it...
-// We return undefined, instead of nothing here, so it's
-// easier to handle this case. if(!global) { ...}
-
-module.exports = g;
-
-
-/***/ }),
-
-/***/ 30:
+/***/ 26:
 /*!*************************************************************!*\
   !*** /Users/lee/Downloads/备份11/轻纺车网/services/jsy-server.js ***!
   \*************************************************************/
@@ -7901,11 +8722,13 @@ module.exports = g;
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-var _module$exports;function _defineProperty(obj, key, value) {if (key in obj) {Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true });} else {obj[key] = value;}return obj;}var Api = __webpack_require__(/*! services/config/api.js */ 21);
-var Common = __webpack_require__(/*! utils/common.js */ 31);
-var Util = __webpack_require__(/*! utils/util.js */ 34);
-var User = __webpack_require__(/*! services/user.js */ 38);
-var Es6Promise = __webpack_require__(/*! lib/es6-promise.js */ 35);
+var _module$exports;function _defineProperty(obj, key, value) {if (key in obj) {Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true });} else {obj[key] = value;}return obj;}var Api = __webpack_require__(/*! services/config/api.js */ 16);
+var Common = __webpack_require__(/*! utils/common.js */ 27);
+var Util = __webpack_require__(/*! utils/util.js */ 15);
+var User = __webpack_require__(/*! services/user.js */ 30);
+var Es6Promise = __webpack_require__(/*! lib/es6-promise.js */ 17);
+
+
 //下拉选择
 //区域列表
 function getRegion() {
@@ -8260,6 +9083,18 @@ function bsList(data) {
     });
   });
 }
+//销售总监，区域经理客户列表
+
+function dmList(data) {
+  return new Es6Promise(function (resolve, reject) {
+    var newApi = Api.dmList;
+    Util.request(newApi, data, 'get').then(function (res) {
+      resolve(res);
+    }).catch(function (err) {
+      reject(err);
+    });
+  });
+}
 //客户详情
 function cmDetail(data) {
   return new Es6Promise(function (resolve, reject) {
@@ -8294,6 +9129,85 @@ function dmList(data) {
     });
   });
 }
+//销售总监，区域经理客户数量
+function dmCount(data) {
+  return new Es6Promise(function (resolve, reject) {
+    var newApi = Api.dmCount;
+    Util.request(newApi, data, 'get').then(function (res) {
+      resolve(res);
+    }).catch(function (err) {
+      reject(err);
+    });
+  });
+}
+
+//销售总监删除分配
+function majordomoDel(data) {
+  return new Es6Promise(function (resolve, reject) {
+    var newApi = Api.majordomoDel;
+    Util.request(newApi, data, 'get').then(function (res) {
+      resolve(res);
+    }).catch(function (err) {
+      reject(err);
+    });
+  });
+}
+//区域经理删除分配
+function managerDel(data) {
+  return new Es6Promise(function (resolve, reject) {
+    var newApi = Api.managerDel;
+    Util.request(newApi, data, 'get').then(function (res) {
+      resolve(res);
+    }).catch(function (err) {
+      reject(err);
+    });
+  });
+}
+//销售总监查询区域经理列表
+function managerList(data) {
+  return new Es6Promise(function (resolve, reject) {
+    var newApi = Api.managerList;
+    Util.request(newApi, data, 'get').then(function (res) {
+      resolve(res);
+    }).catch(function (err) {
+      reject(err);
+    });
+  });
+}
+//区域经理查询手下帮办列表
+function deputyList(data) {
+  return new Es6Promise(function (resolve, reject) {
+    var newApi = Api.deputyList;
+    Util.request(newApi, data, 'get').then(function (res) {
+      resolve(res);
+    }).catch(function (err) {
+      reject(err);
+    });
+  });
+}
+//区域经理分配客户给帮办
+function managerAllot(data) {
+  return new Es6Promise(function (resolve, reject) {
+    var newApi = Api.managerAllot;
+    Util.request(newApi, data, 'post').then(function (res) {
+      resolve(res);
+    }).catch(function (err) {
+      reject(err);
+    });
+  });
+}
+//销售总监分配客户给区域经理
+function majordomoAllot(data) {
+  return new Es6Promise(function (resolve, reject) {
+    var newApi = Api.majordomoAllot;
+    Util.request(newApi, data, 'post').then(function (res) {
+      resolve(res);
+    }).catch(function (err) {
+      reject(err);
+    });
+  });
+}
+
 //公司联系人
 function linkMan(data) {
   return new Es6Promise(function (resolve, reject) {
@@ -8473,131 +9387,6 @@ function rivalAdd(data) {
 
 
 
-// ---------------------------------------------
-
-//新用户注册
-
-
-// function getUserInfo(){
-//   return new Es6Promise(function (resolve, reject) {
-//     let newApi = Api.getAccountInfo;
-//     Util.request(newApi, {}, 'get').then(res => {
-//       resolve(res);
-//     }).catch(err => {
-// 			if(err.statusCode==404){
-// 				wx.clearStorage()
-// 			}
-// 			reject(err);
-//     })
-//   })
-//}
-function getInquiryDetail(id) {
-  return new Es6Promise(function (resolve, reject) {
-    var newApi = Api.getInquiryDetail + '/' + id;
-
-    Util.request(newApi, {}, 'get').then(function (res) {
-      resolve(res);
-    }).catch(function (err) {
-      reject(err);
-    });
-  });
-}
-
-function getInquiryList(data) {
-  return new Es6Promise(function (resolve, reject) {
-    var newApi = Api.getInquiryList;
-    Util.request(newApi, data, 'get').then(function (res) {
-      resolve(res);
-    }).catch(function (err) {
-      reject(err);
-    });
-  });
-}
-// 获取跟进列表
-function getRecordList(data) {
-  return new Es6Promise(function (resolve, reject) {
-    var newApi = Api.getRecordList;
-    Util.request(newApi, data, 'get').then(function (res) {
-      resolve(res);
-    }).catch(function (err) {
-      reject(err);
-    });
-  });
-}
-//获取客户列表
-function getCustomerList(data) {
-  return new Es6Promise(function (resolve, reject) {
-    var newApi = Api.getCustomerList;
-    Util.request(newApi, data, 'get').then(function (res) {
-      resolve(res);
-    }).catch(function (err) {
-      reject(err);
-    });
-  });
-}
-// 获取关联客户列表
-function getAssociatedCustomers() {var data = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-  return new Es6Promise(function (resolve, reject) {
-    var newApi = Api.getAssociatedCustomers;
-    Util.request(newApi, data, 'get').then(function (res) {
-      resolve(res);
-    }).catch(function (err) {
-      reject(err);
-    });
-  });
-}
-function getBoundAssociatedCustomers() {
-  return new Es6Promise(function (resolve, reject) {
-    var newApi = Api.getBoundAssociatedCustomers;
-    Util.request(newApi, {}, 'get').then(function (res) {
-      resolve(res);
-    }).catch(function (err) {
-      reject(err);
-    });
-  });
-}
-// 新建客户跟进记录
-function addRecord(data) {
-  return new Es6Promise(function (resolve, reject) {
-    var newApi = Api.addRecord;
-    Util.request(newApi, data, 'post').then(function (res) {
-      resolve(res);
-    }).catch(function (err) {
-      reject(err);
-    });
-  });
-}
-// 跟进记录详情单条
-function getRecordOne(id) {
-  return new Es6Promise(function (resolve, reject) {
-    var newApi = Api.getRecordOne + "/" + id;
-    Util.request(newApi, {}, 'get').then(function (res) {
-      resolve(res);
-    }).catch(function (err) {
-      reject(err);
-    });
-  });
-}
-
-
-
-
-
-
-
-
-// 分析师询价列表
-function getxjAnalysisList(data) {
-  return new Es6Promise(function (resolve, reject) {
-    var newApi = Api.getxjAnalysisList;
-    Util.request(newApi, data, 'get').then(function (res) {
-      resolve(res);
-    }).catch(function (err) {
-      reject(err);
-    });
-  });
-}
-// 移交客户列表
 
 module.exports = (_module$exports = {
 
@@ -8652,11 +9441,19 @@ rivalDetails), _defineProperty(_module$exports, "rivalAdd",
 rivalAdd), _defineProperty(_module$exports, "linkmanDel",
 linkmanDel), _defineProperty(_module$exports, "rivalDel",
 rivalDel), _defineProperty(_module$exports, "rivalUpdate",
-rivalUpdate), _module$exports);
+rivalUpdate), _defineProperty(_module$exports, "dmList",
+dmList), _defineProperty(_module$exports, "dmCount",
+dmCount), _defineProperty(_module$exports, "majordomoDel",
+majordomoDel), _defineProperty(_module$exports, "managerDel",
+managerDel), _defineProperty(_module$exports, "managerList",
+managerList), _defineProperty(_module$exports, "deputyList",
+deputyList), _defineProperty(_module$exports, "managerAllot",
+managerAllot), _defineProperty(_module$exports, "majordomoAllot",
+majordomoAllot), _module$exports);
 
 /***/ }),
 
-/***/ 31:
+/***/ 27:
 /*!******************************************************!*\
   !*** /Users/lee/Downloads/备份11/轻纺车网/utils/common.js ***!
   \******************************************************/
@@ -8664,10 +9461,10 @@ rivalUpdate), _module$exports);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-var Api = __webpack_require__(/*! services/config/api.js */ 21);
-var Pipe = __webpack_require__(/*! utils/pipe.js */ 32);
-var Util = __webpack_require__(/*! utils/util.js */ 34);
-var Es6Promise = __webpack_require__(/*! lib/es6-promise.js */ 35);
+var Api = __webpack_require__(/*! services/config/api.js */ 16);
+var Pipe = __webpack_require__(/*! utils/pipe.js */ 28);
+var Util = __webpack_require__(/*! utils/util.js */ 15);
+var Es6Promise = __webpack_require__(/*! lib/es6-promise.js */ 17);
 
 /**
                                                  * 去除前后空格
@@ -9318,7 +10115,7 @@ module.exports = {
 
 /***/ }),
 
-/***/ 32:
+/***/ 28:
 /*!****************************************************!*\
   !*** /Users/lee/Downloads/备份11/轻纺车网/utils/pipe.js ***!
   \****************************************************/
@@ -9341,7 +10138,7 @@ var _require =
 
 
 
-__webpack_require__(/*! ./const.js */ 33),QUALITY = _require.QUALITY,POSITION = _require.POSITION,GLOSS = _require.GLOSS,STOCK_TYPES = _require.STOCK_TYPES,BUY_ORDER = _require.BUY_ORDER,BUY_BACK_ORDER = _require.BUY_BACK_ORDER,SELL_ORDER = _require.SELL_ORDER,COMPLETE = _require.COMPLETE,COST_PERFORMANCE = _require.COST_PERFORMANCE,REAL_RATE = _require.REAL_RATE,BREAK_OUT = _require.BREAK_OUT,STOP_BRIGHT = _require.STOP_BRIGHT,STOP_DIM = _require.STOP_DIM,DARK_STRIP = _require.DARK_STRIP;
+__webpack_require__(/*! ./const.js */ 29),QUALITY = _require.QUALITY,POSITION = _require.POSITION,GLOSS = _require.GLOSS,STOCK_TYPES = _require.STOCK_TYPES,BUY_ORDER = _require.BUY_ORDER,BUY_BACK_ORDER = _require.BUY_BACK_ORDER,SELL_ORDER = _require.SELL_ORDER,COMPLETE = _require.COMPLETE,COST_PERFORMANCE = _require.COST_PERFORMANCE,REAL_RATE = _require.REAL_RATE,BREAK_OUT = _require.BREAK_OUT,STOP_BRIGHT = _require.STOP_BRIGHT,STOP_DIM = _require.STOP_DIM,DARK_STRIP = _require.DARK_STRIP;
 
 function formatTime(date) {
   if (date) {
@@ -9681,7 +10478,217 @@ module.exports = {
 
 /***/ }),
 
-/***/ 33:
+/***/ 280:
+/*!*********************************************************!*\
+  !*** /Users/lee/Downloads/备份11/轻纺车网/services/server.js ***!
+  \*********************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+var Common = __webpack_require__(/*! utils/common.js */ 27);
+var Api = __webpack_require__(/*! services/config/api.js */ 16);
+var Util = __webpack_require__(/*! utils/util.js */ 15);
+var Es6Promise = __webpack_require__(/*! lib/es6-promise.js */ 17);
+
+/*
+                                                 * get 数据
+                                                 */
+function getDataWX(api, data) {
+  return new Es6Promise(function (resolve, reject) {
+    Util.request(api, data, 'get').then(function (res) {
+      if (res.statusCode === 200) {
+        resolve(res);
+      } else {
+        reject(res);
+      }
+    }).catch(function (err) {
+      reject(err);
+    });
+  });
+}
+
+/**
+   * post 数据
+   */
+function postDataWX(api, data) {
+  return new Es6Promise(function (resolve, reject) {
+    Util.request(api, data, 'post').then(function (res) {
+      if (res.statusCode >= 200 && res.statusCode < 300) {
+        resolve(res);
+      } else {
+        reject(res);
+      }
+    }).catch(function (err) {
+      reject(err);
+    });
+  });
+}
+
+
+/**
+   * put 数据
+   */
+function putDataWX(api, data) {
+  return new Es6Promise(function (resolve, reject) {
+    Util.request(api, data, 'put').then(function (res) {
+      if (res.statusCode >= 200 && res.statusCode < 300) {
+        resolve(res);
+      } else {
+        reject(res);
+      }
+    }).catch(function (err) {
+      reject(err);
+    });
+  });
+}
+
+/**
+   * delete 数据
+   */
+function deleteDataWX(api, data) {
+  return new Es6Promise(function (resolve, reject) {
+    Util.request(api, data, 'delete').then(function (res) {
+      if (res.statusCode >= 200 && res.statusCode < 300) {
+        resolve(res);
+      } else {
+        reject(res);
+      }
+    }).catch(function (err) {
+      reject(err);
+    });
+  });
+}
+
+/**
+   * 页面行为记录
+   */
+function setActive(that, data) {
+  var apiStr = Api.userBehavior;
+  var token = wx.getStorageSync("token");
+
+  if (that.data.loadState && token) {
+    postDataWX(apiStr, data).then(function (res) {
+      Common.setLoadTrue(that);
+    }).catch(function (err) {
+      Common.setLoadTrue(that);
+    });
+  }
+}
+
+/**
+   * 获取表单formId
+   */
+function getFormId(e) {
+  var formId = e.detail.formId;
+  var formApi = Common.pinFormId(Api.formID, formId);
+  var token = wx.getStorageSync("token");
+
+  if (token && formId != "the formId is a mock one") {
+    Util.request(formApi, {}, 'get').then(function (res) {}).catch(function (err) {});
+  }
+}
+
+
+/**
+   * 功能：获取二维码
+   * 参数：
+   *    pagePath：页面路径
+   *    id：订单id
+   */
+function getQRCodeUrl(pagePath, id) {
+  return new Es6Promise(function (resolve, reject) {
+    var COdeApi = Api.QRCodeUrl;
+    var pageUrl = id ? "".concat(pagePath, "?id=").concat(id) : pagePath;
+
+    Util.request(COdeApi, pageUrl, 'post').then(function (res) {
+      var picUrl = "".concat(Api.ShowPic, "/").concat(res.data.id, "/download");
+
+      Util.downloadFile(picUrl).then(function (weChatUrl) {
+        resolve(weChatUrl);
+      }).catch(function (err) {
+        showModal("图片下载失败");
+      });
+    }).catch(function (err) {
+      Util.showErrorToast("获取二维码失败");
+    });
+  });
+}
+
+/**
+   * 上传图片
+   * 
+   * 参数：
+   *    photoList：要上传的图片数组
+   *    apiState：控制使用压缩上传的api，还是不压缩上传的api
+   */
+var uploadPics = function uploadPics(photoList) {var apiState = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;
+  return new Es6Promise(function (resolve, reject) {
+    var photoJsonArray = [];
+    if (photoList && photoList.length >= 1) {
+      photoList.forEach(function (item) {
+        wx.uploadFile({
+          url: !apiState ? Api.PicUpload : Api.PicNewUpload,
+          filePath: item,
+          name: 'file',
+          header: {
+            'Authorization': "Bearer " + wx.getStorageSync('token') },
+
+          formData: {
+            'user': 'test' },
+
+          success: function success(res) {
+            photoJsonArray.push(JSON.parse(res.data));
+
+            if (photoJsonArray.length == photoList.length) {
+              resolve(photoJsonArray);
+            }
+          },
+          fail: function fail(err) {
+            reject(err);
+          } });
+
+      });
+    } else {
+      resolve([]);
+    }
+  });
+};
+
+
+
+/**
+    * 功能：采购订单详情--获取用户的 付款银行账户 
+    */
+function createOrder(data) {
+  return new Es6Promise(function (resolve, reject) {
+    var createOrderApi = Api.createOrder;
+
+    Util.request(createOrderApi, data, 'post').then(function (res) {
+      resolve(res);
+    }).catch(function (err) {
+      Util.showModal("新建询价单失败");
+      // reject(err);
+    });
+  });
+}
+
+
+
+module.exports = {
+  getDataWX: getDataWX,
+  postDataWX: postDataWX,
+  putDataWX: putDataWX,
+  deleteDataWX: deleteDataWX,
+  setActive: setActive,
+  getFormId: getFormId,
+  getQRCodeUrl: getQRCodeUrl,
+  uploadPics: uploadPics,
+  createOrder: createOrder };
+
+/***/ }),
+
+/***/ 29:
 /*!*****************************************************!*\
   !*** /Users/lee/Downloads/备份11/轻纺车网/utils/const.js ***!
   \*****************************************************/
@@ -9856,1063 +10863,38 @@ module.exports = {
 
 /***/ }),
 
-/***/ 34:
-/*!****************************************************!*\
-  !*** /Users/lee/Downloads/备份11/轻纺车网/utils/util.js ***!
-  \****************************************************/
+/***/ 3:
+/*!***********************************!*\
+  !*** (webpack)/buildin/global.js ***!
+  \***********************************/
 /*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ (function(module, exports) {
 
-"use strict";
-/* WEBPACK VAR INJECTION */(function(uni) {var Api = __webpack_require__(/*! services/config/api.js */ 21);
-var Es6Promise = __webpack_require__(/*! lib/es6-promise.js */ 35);
+var g;
 
-
-/**
-                                                 * 封封微信的的request
-                                                 */
-var bool = true;
-function request(url) {var data = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};var method = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "GET";
-  var loginApi = Api.AuthLoginByWeixin;
-  return new Es6Promise(function (resolve, reject) {
-    wx.request({
-      url: url,
-      data: data,
-      method: method,
-      header: {
-        'Content-Type': 'application/json',
-        // 'Authorization': "Bearer "+ wx.getStorageSync('token')
-        'MYTK': wx.getStorageSync('token') },
-
-      success: function success(res) {
-
-        if (res.statusCode >= 200 && res.statusCode < 300) {
-          resolve(res);
-        }
-        // 重新登录
-        // else if (res.statusCode == 401 && url.indexOf(loginApi) == -1) {
-        //   let loginOn = wx.getStorageSync("loginOn");
-
-        // if (!loginOn) {
-        //   wx.setStorageSync("loginOn", true);
-
-        //需要登录后才可以操作
-        // let code = null;
-        // return login().then((res) => {
-        //   code = res.code;
-        //   return getUserInfo();
-        // }).then((userInfo) => {
-
-        //   wx.setStorageSync("rawData", userInfo.rawData)
-        //   wx.setStorageSync("signature", userInfo.signature)
-
-        //   // 重新登录，登录远程服务器
-        //   request(Api.AuthLoginByWeixin, { code: code, userInfo: userInfo }, 'POST').then(res => { 
-        //     wx.setStorageSync("loginOn", false);
-
-        //     if (res.data.code == 200) {
-        //       if (res.data.sessionKey) {
-        //         wx.setStorageSync("sessionKey", res.data.sessionKey);
-        //       }
-
-
-        //     // 获取当前页面的路径
-        //       let getPage = getCurrentPages();
-
-        //       // 拼接当前页面路径
-        //       let pageRoute = `/${getPage[getPage.length-1].route}`;
-        //       let pageOptions = getPage[getPage.length - 1].options;
-        //       let nStr = ``;
-        //       // 当前路径拼接
-        //       for (let attr in pageOptions) {
-        //         nStr += `&${attr}=${pageOptions[attr]}`
-        //       }
-        //       let pageUrl = pageRoute + nStr.replace('&', '?');
-
-        //       if (wx.reLaunch) {
-        //         wx.reLaunch({
-        //           url: pageUrl
-        //         });
-        //       } else {
-        //         wx.switchTab({
-        //           url: '/pages/tab-index/index'
-        //         })
-        //       }
-        //     } else {
-        //       reject(res);
-        //     }
-        //   }).catch((err) => {
-        //     wx.setStorageSync("loginOn", false);
-        //     reject(err);
-        //   });
-
-        // }).catch((err) => {
-        //   wx.setStorageSync("loginOn", false);
-        //   reject(err);
-        // })
-        //}
-        //}
-        // 无权限
-        else if (res.statusCode == 401) {
-            // backIndexPageModal("很抱歉，你没有查看权限");
-
-            uni.navigateTo({
-              url: '/pages/qing-f-c/login/login',
-              success: function success(res) {},
-              fail: function fail() {},
-              complete: function complete() {} });
-
-            return;
-          }
-      },
-      fail: function fail(err) {
-        reject(err);
-
-        if (bool) {
-          bool = false;
-          wx.getNetworkType({
-            success: function success(res) {
-              // 判断有没有网络
-              if (res.networkType == "none") {
-                showModal("网络连接失败，请检测网络是否正常", function () {
-                  bool = true;
-                });
-              } else {
-                if (err.errMsg.indexOf("timeout") != -1) {
-                  showModal("请求超时，请重新请求！", function () {
-                    bool = true;
-                  });
-                } else {
-                  showModal(err.errMsg, function () {
-                    bool = true;
-                  });
-                }
-              }
-            } });
-
-        }
-      } });
-
-  });
-}
-
-/**
-   * banner跳转
-   */
-
-// const bannerJumpRequest = (title,orderNo,picId,type,info,startDate,endDate,status) =>{
-//   var url = Api.bannerJump + ""
-//   var data = {
-//     title:title,
-//     orderNo:orderNo,
-//     picId:picId,
-//     type:type,
-//     info:info,
-//     startDate: startDate,
-//     endDate: endDate,
-//     status: status,
-//   }
-//   request(url,data,"POST")
-// }
-
-// const commentRequest = (url,data={},method="GET") =>{
-//   var url = `${Api.guestComment}?page=1&size=5`
-//   var data = {
-
-//   }
-//   request(url,data,"GET")
-// }
-
-// const jumpMpRequest = (m_appid, headerTokne, contentType, end_method)=>{
-//   var url = Api.tiaozhuan
-//   var data={
-//     m_appid: "wxfa94ddf446523122",
-//     method: "POST",	
-//     headerTokne: "",
-//     contentType: "application/json",
-//     end_method: "/wx/carte/user/receiveData"
-//   }
-//   request(url,data,"POST")
-// }
-var showToast = function showToast(str) {
-  wx.showToast({
-    title: str,
-    image: '/images/icon-alert.png' });
-
-};
-var showLoading = function showLoading(str) {
-  wx.showLoading({
-    title: str,
-    mask: true });
-
-};
-
-
-/**
-    * photo upload 
-    */
-function uploadPic(filePath) {
-  return new Es6Promise(function (resolve, reject) {
-    var uploadTask = wx.uploadFile({
-      url: Api.PicUpload, //仅为示例，非真实的接口地址
-      filePath: filePath,
-      name: 'file',
-      header: {
-        'Authorization': "Bearer " + wx.getStorageSync('token') },
-
-      formData: {
-        'user': 'test' },
-
-      success: function success(res) {
-        resolve(res);
-        var data = res.data;
-
-        //do something
-      },
-      fail: function fail(err) {
-        reject(err);
-      } });
-
-
-    // uploadTask.onProgressUpdate((res) => {
-    //   console.log(filePath+'上传进度', res.progress)
-    //   console.log(filePath+'已经上传的数据长度', res.totalBytesSent)
-    //   console.log(filePath+'预期需要上传的数据总长度', res.totalBytesExpectedToSend)
-    // })
-  });
-
-}
-
-
-/**
-   * 已经选中的图片上传 array
-   */
-function uploadPics(photoList) {
-  return new Es6Promise(function (resolve, reject) {
-    var picArray = photoList;
-    var photoJsonArray = [];
-    if (picArray.length != 0) {
-      for (var i = 0; i < picArray.length; i++) {
-        uploadPic(picArray[i]).then(function (res) {
-          photoJsonArray.push(JSON.parse(res.data));
-          //console.dir(res.data);
-          //console.dir(photoJsonArray);
-          if (photoJsonArray.length == picArray.length) {
-            resolve(photoJsonArray);
-          }
-        }).catch(function (err) {
-          // util.showToast("图片上传失败");
-          reject(err);
-          return;
-        });
-      }
-    } else {
-      resolve([]);
-    }
-  });
-}
-
-/**
-   * 下载图片
-   */
-function downloadFile(imgUrl) {
-  return new Es6Promise(function (resolve, reject) {
-    wx.downloadFile({
-      url: imgUrl,
-      success: function success(res) {
-        if (res.statusCode === 200) {
-          resolve(res.tempFilePath);
-        } else {
-          reject();
-        }
-      },
-      fail: function fail(err) {
-        reject();
-      } });
-
-  });
-}
-
-/**
-   * 检查微信会话是否过期
-   */
-function checkSession() {
-  return new Es6Promise(function (resolve, reject) {
-    wx.checkSession({
-      success: function success() {
-        resolve(true);
-      },
-      fail: function fail() {
-        reject(false);
-      } });
-
-  });
-}
-
-/**
-   * 调用微信登录
-   */
-function login() {
-  return new Es6Promise(function (resolve, reject) {
-    wx.login({
-      success: function success(res) {
-        if (res.code) {
-          //登录远程服务器
-          resolve(res);
-        } else {
-          reject(res);
-        }
-      },
-      fail: function fail(err) {
-        reject(err);
-      } });
-
-  });
-}
-
-/**
-   * 获取微信用户信息
-   */
-function getUserInfo() {
-  return new Es6Promise(function (resolve, reject) {
-    // 查看是否授权
-    // console.log('查看用户是否授权')
-    if (wx.getSetting) {
-      var getPages = getCurrentPages();
-      var page = getPages[getPages.length - 1];
-
-      wx.getSetting({
-        success: function success(getRes) {
-          if (getRes.authSetting['scope.userInfo']) {
-            wx.getUserInfo({
-              withCredentials: true,
-              success: function success(userRes) {
-                resolve(userRes);
-              },
-              fail: function fail(userErr) {
-                console.log(userErr, 'userInfo');
-                reject(err);
-              } });
-
-          } else {
-            page.setData({
-              userAuthor: true });
-
-            // console.log('用户需要授权');
-          }
-        },
-        fail: function fail(err) {
-          page.setData({
-            userAuthor: true });
-
-          console.log("调用 wx.getSetting 方法失败", err);
-        } });
-
-    } else {
-      showModal('当前微信版本暂不支持 wx.getSetting 方法，请升级微信版本！');
-    }
-  });
-}
-
-/**
-   * 重新登录
-   */
-function loginAgain() {
-  var code = null;
-  login().then(function (res) {
-    code = res.code;
-    return getUserInfo();
-  }).then(function (userInfo) {
-
-    wx.setStorageSync("rawData", userInfo.rawData);
-    wx.setStorageSync("signature", userInfo.signature);
-
-    // 重新登录，登录远程服务器
-    request(Api.AuthLoginByWeixin, { code: code, userInfo: userInfo }, 'POST').then(function (res) {
-      if (res.statusCode == 200) {
-        var newData = res.data;
-
-        if (newData.sessionKey) {
-          wx.setStorageSync("sessionKey", newData.sessionKey);
-        }
-
-        // 存储用户信息
-        wx.setStorageSync('userInfo', newData.userInfo);
-        wx.setStorageSync('token', newData.token);
-
-        // 获取当前页面的路径
-        var getPage = getCurrentPages();
-        var nowPage = getPage[getPage.length - 1];
-
-        // 用户已注册
-        if (newData.token && newData.userInfo.company && newData.userInfo.phone) {
-          // 拼接当前页面路径
-          var pageRoute = "/".concat(nowPage.route);
-          var pageOptions = nowPage.options;
-          var nStr = "";
-          // 当前路径拼接
-          for (var attr in pageOptions) {
-            nStr += "&".concat(attr, "=").concat(pageOptions[attr]);
-          }
-          var pageUrl = pageRoute + nStr.replace('&', '?');
-
-          // 执行当前页面的 onLoad 事件
-          // nowPage.onLoad(nowPage.options);
-          if (wx.reLaunch) {
-            wx.reLaunch({
-              url: pageUrl });
-
-          } else {
-            wx.switchTab({
-              url: '/pages/tab-index/index' });
-
-          }
-        }
-        // 用户未注册
-        else if (newData.token) {
-            var AppData = getApp().globalData;
-            AppData.regPage.route = nowPage.route;
-            AppData.regPage.opt = nowPage.options;
-
-            if (wx.reLaunch) {
-              // wx.reLaunch({
-              //   url: '/pages/public/authorize',
-              // })
-            } else {
-                // wx.redirectTo({
-                //   url: '/pages/public/authorize',
-                // })
-              }
-          }
-      } else {
-        showModal("登录服务器失败");
-        // reject(res);
-      }
-    }).catch(function (err) {
-      showModal("登录服务器失败");
-      // reject(err);
-    });
-  }).catch(function (err) {
-    showModal("登录服务器失败");
-  });
-}
-
-/**
-   * 判断是否进入注册页
-   */
-function goRegPage() {
-  var AppData = getApp().globalData;
-  var userInfo = wx.getStorageSync("userInfo");
-
-  // 用户未注册
-  if (!userInfo.company || !userInfo.phone) {
-    // 获取当前页面的路径
-    var getPage = getCurrentPages();
-    var nowPage = getPage[getPage.length - 1];
-
-    AppData.regPage.route = nowPage.route;
-    AppData.regPage.opt = nowPage.options;
-
-    if (wx.reLaunch) {
-      // wx.reLaunch({
-      //   url: '/pages/public/authorize',
-      // })
-    } else {
-        // wx.redirectTo({
-        //   url: '/pages/public/authorize',
-        // })
-      }
-    return false;
-  } else {
-    return true;
-  }
-}
-
-/**
-   * 微信是否授权判断
-   */
-// function scopeWChat() {
-// return new Promise(function (resolve, reject) {
-//   let token = wx.getStorageSync("token");
-//   let scopeLogin = wx.getStorageSync('scopeLogin');
-
-//   if (!token && scopeLogin) {
-//     wx.getSetting({
-//       success: (res) => {
-//         let scopeInfo = res.authSetting['scope.userInfo'];
-
-//         // 是否授权
-//         if (scopeInfo) {
-//           resolve(true)
-//           wx.removeStorageSync("scopeLogin");
-//         } else {
-//           reject(false);
-//         }
-//       }
-//     })
-//   }
-// })
-// }
-
-/**
- * 获取认证信息
- */
-function getApproveData() {
-  return new Es6Promise(function (resolve, reject) {
-    var info = wx.getStorageSync('userInfo');
-
-    // 判断用户是否已经注册
-    if (info.phone) {
-      var approveApi = Api.UserApprove;
-
-      request(approveApi, {}, 'get').then(function (res) {
-        resolve(res);
-        wx.setStorageSync("approveInfo", res.data);
-      }).catch(function (err) {
-        wx.hideLoading();
-        showModal("获取认证失败");
-      });
-    }
-  });
-}
-
-/**
-   * 获取支持的银行列表
-   */
-function getSupportBank() {
-  getPaySaveBank();
-  getPayCreditBank();
-  getCashBank();
-}
-
-/**
-   * 获取付款银行列表--储蓄卡
-   */
-function getPaySaveBank() {
-  return new Es6Promise(function (resolve, reject) {
-    var info = wx.getStorageSync('userInfo');
-
-    // 判断用户是否已经注册
-    if (info.phone) {
-      request(Api.UserPaySave).then(function (res) {
-        // 获取银行logo
-        var paySaveData = res.data.map(function (item) {
-          item.logo = item.logo ? "".concat(Api.ShowPic, "/").concat(item.logo, "/download") : null;
-          return item;
-        });
-        resolve(paySaveData);
-        wx.setStorageSync("paySaveList", paySaveData);
-      }).catch(function (err) {
-        wx.hideLoading();
-        showModal("获取付款卡失败");
-      });
-    }
-  });
-}
-
-/**
-   * 获取付款银行列表--信用卡
-   */
-function getPayCreditBank() {
-  return new Es6Promise(function (resolve, reject) {
-    var info = wx.getStorageSync('userInfo');
-
-    // 判断用户是否已经注册
-    if (info.phone) {
-      request(Api.UserPayCredit).then(function (res) {
-        // 获取银行logo
-        var payCreditData = res.data.map(function (item) {
-          item.logo = item.logo ? "".concat(Api.ShowPic, "/").concat(item.logo, "/download") : null;
-          return item;
-        });
-        resolve(payCreditData);
-        wx.setStorageSync("payCreditList", payCreditData);
-      }).catch(function (err) {
-        wx.hideLoading();
-        showModal("获取信用卡失败");
-      });
-    }
-  });
-}
-
-
-/**
-   * 获取收款银行列表
-   */
-function getCashBank() {
-  return new Es6Promise(function (resolve, reject) {
-    var info = wx.getStorageSync('userInfo');
-
-    // 判断用户是否已经注册
-    if (info.phone) {
-      request(Api.UserCashBank).then(function (res) {
-        // 获取银行logo
-        var cashData = res.data.map(function (item) {
-          item.logo = item.logo ? "".concat(Api.ShowPic, "/").concat(item.logo, "/download") : null;
-          return item;
-        });
-        resolve(cashData);
-        wx.setStorageSync("cashBankList", cashData);
-      }).catch(function (err) {
-        wx.hideLoading();
-        showModal("获取收款卡失败");
-      });
-    }
-  });
-}
-
-/**
-   * 自动消失的提示框
-   */
-function showErrorToast(msg) {
-  wx.showToast({
-    title: msg,
-    duration: 2500,
-    image: '../../images/alert.png' });
-
-}
-
-/** 
-   * 功能：modal 提醒框
-   * 参数：
-   *    第一个参数：当无第二个参数，为内容；有第二个参数，为标题
-   *    第二个参数：当参数类型为：string时，为内容；参数类型为function：为成功回调函数，并且不能传入第三个参数
-   *    第三个参数：成功回调的函数
-   * 例子：
-   *    showModal("内容")
-   *    showModal("标题", "内容")
-   *    showModal("内容", function() { console.log("成功回调函数") })
-   *    showModal("标题", "内容", function() { console.log("成功回调函数") })
-   */
-function showModal(oTitle, msg, fn) {
-  var sTitle = "";
-  var oFn = typeof msg == "function" ? msg : fn;
-  var sMsg = "";
-
-  if (msg != undefined && typeof msg == "string") {
-    sTitle = oTitle;
-    sMsg = msg;
-  } else {
-    sTitle = "";
-    sMsg = oTitle;
-  }
-
-  wx.showModal({
-    title: sTitle || "",
-    content: sMsg || "",
-    confirmColor: "#ff8834",
-    showCancel: false,
-    success: function success(res) {
-      oFn && oFn(res);
-    } });
-
-}
-
-/**
-   * 返回首页提醒框
-   */
-function backIndexPageModal(msg) {
-  wx.showModal({
-    content: msg,
-    showCancel: false,
-    confirmText: '确认',
-    confirmColor: "#ff8834",
-    success: function success(res) {
-      // if (res.confirm) {
-      if (wx.reLaunch) {
-        wx.reLaunch({
-          url: '/pages/tab-index/index' });
-
-      } else {
-        wx.switchTab({
-          url: '/pages/tab-index/index' });
-
-      }
-      // }
-    } });
-
-}
-
-/**
-   * 从需要上传的图片中，筛选出已经上传过的图片；并返回需要上传的图片 及 无需上传的图片对象
-   */
-var picUpPic = function picUpPic(picListArr, picListObjArr) {
-  var newArr = [];
-  var oldArr = [];
-  var oldPicArr = [];
-
-  // 从新获图片数组中，筛选出已经上传过的图片
-  picListArr.forEach(function (item) {
-    if (item.indexOf(Api.NewApiRootUrl) == -1) {
-      newArr.push(item); // 未上传图片
-    } else {
-      oldArr.push(item); // 上传图片
-    }
-  });
-
-  // 获取已上传图片的图片对象
-  picListObjArr.forEach(function (item) {
-    oldArr.forEach(function (list) {
-      if (list.indexOf(item.id) != -1) {
-        oldPicArr.push(item);
-      }
-    });
-  });
-
-  return [newArr, oldPicArr];
-};
-
-/**
-    * 版本过低提醒框
-    */
-function versionTip() {
-  showModal("版本提示", "当前版本暂不支持该功能，请升级微信版本！");
-}
-
-//获取当前日期
-function getTime(date) {
-  var year = date.getFullYear();
-  var month = date.getMonth() + 1;
-  var day = date.getDate();
-
-  var hour = date.getHours();
-  var minute = date.getMinutes();
-  var second = date.getSeconds();
-
-  return [year, month, day].map(formatNumber).join('-');
-}
-
-function formatNumber(n) {
-  n = n.toString();
-  return n[1] ? n : '0' + n;
-}
-
-function formatNumber(n) {
-  n = n.toString();
-  return n[1] ? n : '0' + n;
-}
-
-module.exports = {
-  request: request,
-  checkSession: checkSession,
-  login: login,
-  getUserInfo: getUserInfo,
-  goRegPage: goRegPage,
-  // scopeWChat,
-  uploadPic: uploadPic,
-  uploadPics: uploadPics,
-  downloadFile: downloadFile,
-
-  getApproveData: getApproveData,
-  getSupportBank: getSupportBank,
-  getPaySaveBank: getPaySaveBank,
-  getPayCreditBank: getPayCreditBank,
-  getCashBank: getCashBank,
-
-  showErrorToast: showErrorToast,
-  showModal: showModal,
-  showToast: showToast,
-  showLoading: showLoading,
-  versionTip: versionTip,
-  backIndexPageModal: backIndexPageModal,
-
-  getTime: getTime,
-  picUpPic: picUpPic };
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
-
-/***/ }),
-
-/***/ 35:
-/*!*********************************************************!*\
-  !*** /Users/lee/Downloads/备份11/轻纺车网/lib/es6-promise.js ***!
-  \*********************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-/* WEBPACK VAR INJECTION */(function(process, global) {var require;!function (t, e) { true ? module.exports = e() : undefined;}(void 0, function () {"use strict";function t(t) {return "function" == typeof t || "object" == typeof t && null !== t;}function e(t) {return "function" == typeof t;}function n(t) {I = t;}function r(t) {J = t;}function o() {return function () {return process.nextTick(a);};}function i() {return "undefined" != typeof H ? function () {H(a);} : c();}function s() {var t = 0,e = new V(a),n = document.createTextNode("");return e.observe(n, { characterData: !0 }), function () {n.data = t = ++t % 2;};}function u() {var t = new MessageChannel();return t.port1.onmessage = a, function () {return t.port2.postMessage(0);};}function c() {var t = setTimeout;return function () {return t(a, 1);};}function a() {for (var t = 0; t < G; t += 2) {var e = $[t],n = $[t + 1];e(n), $[t] = void 0, $[t + 1] = void 0;}G = 0;}function f() {try {var t = require,e = __webpack_require__(!(function webpackMissingModule() { var e = new Error("Cannot find module 'vertx'"); e.code = 'MODULE_NOT_FOUND'; throw e; }()));return H = e.runOnLoop || e.runOnContext, i();} catch (n) {return c();}}function l(t, e) {var n = arguments,r = this,o = new this.constructor(p);void 0 === o[et] && k(o);var i = r._state;return i ? !function () {var t = n[i - 1];J(function () {return x(i, o, t, r._result);});}() : E(r, o, t, e), o;}function h(t) {var e = this;if (t && "object" == typeof t && t.constructor === e) return t;var n = new e(p);return g(n, t), n;}function p() {}function v() {return new TypeError("You cannot resolve a promise with itself");}function d() {return new TypeError("A promises callback cannot return that same promise.");}function _(t) {try {return t.then;} catch (e) {return it.error = e, it;}}function y(t, e, n, r) {try {t.call(e, n, r);} catch (o) {return o;}}function m(t, e, n) {J(function (t) {var r = !1,o = y(n, e, function (n) {r || (r = !0, e !== n ? g(t, n) : S(t, n));}, function (e) {r || (r = !0, j(t, e));}, "Settle: " + (t._label || " unknown promise"));!r && o && (r = !0, j(t, o));}, t);}function b(t, e) {e._state === rt ? S(t, e._result) : e._state === ot ? j(t, e._result) : E(e, void 0, function (e) {return g(t, e);}, function (e) {return j(t, e);});}function w(t, n, r) {n.constructor === t.constructor && r === l && n.constructor.resolve === h ? b(t, n) : r === it ? (j(t, it.error), it.error = null) : void 0 === r ? S(t, n) : e(r) ? m(t, n, r) : S(t, n);}function g(e, n) {e === n ? j(e, v()) : t(n) ? w(e, n, _(n)) : S(e, n);}function A(t) {t._onerror && t._onerror(t._result), T(t);}function S(t, e) {t._state === nt && (t._result = e, t._state = rt, 0 !== t._subscribers.length && J(T, t));}function j(t, e) {t._state === nt && (t._state = ot, t._result = e, J(A, t));}function E(t, e, n, r) {var o = t._subscribers,i = o.length;t._onerror = null, o[i] = e, o[i + rt] = n, o[i + ot] = r, 0 === i && t._state && J(T, t);}function T(t) {var e = t._subscribers,n = t._state;if (0 !== e.length) {for (var r = void 0, o = void 0, i = t._result, s = 0; s < e.length; s += 3) {r = e[s], o = e[s + n], r ? x(n, r, o, i) : o(i);}t._subscribers.length = 0;}}function M() {this.error = null;}function P(t, e) {try {return t(e);} catch (n) {return st.error = n, st;}}function x(t, n, r, o) {var i = e(r),s = void 0,u = void 0,c = void 0,a = void 0;if (i) {if (s = P(r, o), s === st ? (a = !0, u = s.error, s.error = null) : c = !0, n === s) return void j(n, d());} else s = o, c = !0;n._state !== nt || (i && c ? g(n, s) : a ? j(n, u) : t === rt ? S(n, s) : t === ot && j(n, s));}function C(t, e) {try {e(function (e) {g(t, e);}, function (e) {j(t, e);});} catch (n) {j(t, n);}}function O() {return ut++;}function k(t) {t[et] = ut++, t._state = void 0, t._result = void 0, t._subscribers = [];}function Y(t, e) {this._instanceConstructor = t, this.promise = new t(p), this.promise[et] || k(this.promise), B(e) ? (this._input = e, this.length = e.length, this._remaining = e.length, this._result = new Array(this.length), 0 === this.length ? S(this.promise, this._result) : (this.length = this.length || 0, this._enumerate(), 0 === this._remaining && S(this.promise, this._result))) : j(this.promise, q());}function q() {return new Error("Array Methods must be provided an Array");}function F(t) {return new Y(this, t).promise;}function D(t) {var e = this;return new e(B(t) ? function (n, r) {for (var o = t.length, i = 0; i < o; i++) {e.resolve(t[i]).then(n, r);}} : function (t, e) {return e(new TypeError("You must pass an array to race."));});}function K(t) {var e = this,n = new e(p);return j(n, t), n;}function L() {throw new TypeError("You must pass a resolver function as the first argument to the promise constructor");}function N() {throw new TypeError("Failed to construct 'Promise': Please use the 'new' operator, this object constructor cannot be called as a function.");}function U(t) {this[et] = O(), this._result = this._state = void 0, this._subscribers = [], p !== t && ("function" != typeof t && L(), this instanceof U ? C(this, t) : N());}function W() {var t = void 0;if ("undefined" != typeof global) t = global;else if ("undefined" != typeof self) t = self;else try {t = Function("return this")();} catch (e) {throw new Error("polyfill failed because global object is unavailable in this environment");}var n = t.Promise;if (n) {var r = null;try {r = Object.prototype.toString.call(n.resolve());} catch (e) {}if ("[object Promise]" === r && !n.cast) return;}t.Promise = U;}var z = void 0;z = Array.isArray ? Array.isArray : function (t) {return "[object Array]" === Object.prototype.toString.call(t);};var B = z,G = 0,H = void 0,I = void 0,J = function J(t, e) {$[G] = t, $[G + 1] = e, G += 2, 2 === G && (I ? I(a) : tt());},Q = "undefined" != typeof window ? window : void 0,R = Q || {},V = R.MutationObserver || R.WebKitMutationObserver,X = "undefined" == typeof self && "undefined" != typeof process && "[object process]" === {}.toString.call(process),Z = "undefined" != typeof Uint8ClampedArray && "undefined" != typeof importScripts && "undefined" != typeof MessageChannel,$ = new Array(1e3),tt = void 0;tt = X ? o() : V ? s() : Z ? u() : void 0 === Q && "function" == "function" ? f() : c();var et = Math.random().toString(36).substring(16),nt = void 0,rt = 1,ot = 2,it = new M(),st = new M(),ut = 0;return Y.prototype._enumerate = function () {for (var t = this.length, e = this._input, n = 0; this._state === nt && n < t; n++) {this._eachEntry(e[n], n);}}, Y.prototype._eachEntry = function (t, e) {var n = this._instanceConstructor,r = n.resolve;if (r === h) {var o = _(t);if (o === l && t._state !== nt) this._settledAt(t._state, e, t._result);else if ("function" != typeof o) this._remaining--, this._result[e] = t;else if (n === U) {var i = new n(p);w(i, t, o), this._willSettleAt(i, e);} else this._willSettleAt(new n(function (e) {return e(t);}), e);} else this._willSettleAt(r(t), e);}, Y.prototype._settledAt = function (t, e, n) {var r = this.promise;r._state === nt && (this._remaining--, t === ot ? j(r, n) : this._result[e] = n), 0 === this._remaining && S(r, this._result);}, Y.prototype._willSettleAt = function (t, e) {var n = this;E(t, void 0, function (t) {return n._settledAt(rt, e, t);}, function (t) {return n._settledAt(ot, e, t);});}, U.all = F, U.race = D, U.resolve = h, U.reject = K, U._setScheduler = n, U._setAsap = r, U._asap = J, U.prototype = { constructor: U, then: l, "catch": function _catch(t) {return this.then(null, t);} }, U.polyfill = W, U.Promise = U, U.polyfill(), U;});
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../../../../../../Applications/HBuilderX.app/Contents/HBuilderX/plugins/uniapp-cli/node_modules/node-libs-browser/mock/process.js */ 36), __webpack_require__(/*! ./../../../../../../Applications/HBuilderX.app/Contents/HBuilderX/plugins/uniapp-cli/node_modules/webpack/buildin/global.js */ 3)))
-
-/***/ }),
-
-/***/ 36:
-/*!********************************************************!*\
-  !*** ./node_modules/node-libs-browser/mock/process.js ***!
-  \********************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-exports.nextTick = function nextTick(fn) {
-	setTimeout(fn, 0);
-};
-
-exports.platform = exports.arch = 
-exports.execPath = exports.title = 'browser';
-exports.pid = 1;
-exports.browser = true;
-exports.env = {};
-exports.argv = [];
-
-exports.binding = function (name) {
-	throw new Error('No such module. (Possibly not yet loaded)')
-};
-
-(function () {
-    var cwd = '/';
-    var path;
-    exports.cwd = function () { return cwd };
-    exports.chdir = function (dir) {
-        if (!path) path = __webpack_require__(/*! path */ 37);
-        cwd = path.resolve(dir, cwd);
-    };
+// This works in non-strict mode
+g = (function() {
+	return this;
 })();
 
-exports.exit = exports.kill = 
-exports.umask = exports.dlopen = 
-exports.uptime = exports.memoryUsage = 
-exports.uvCounters = function() {};
-exports.features = {};
+try {
+	// This works if eval is allowed (see CSP)
+	g = g || new Function("return this")();
+} catch (e) {
+	// This works if the window reference is available
+	if (typeof window === "object") g = window;
+}
+
+// g can still be undefined, but nothing to do about it...
+// We return undefined, instead of nothing here, so it's
+// easier to handle this case. if(!global) { ...}
+
+module.exports = g;
 
 
 /***/ }),
 
-/***/ 37:
-/*!***********************************************!*\
-  !*** ./node_modules/path-browserify/index.js ***!
-  \***********************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-/* WEBPACK VAR INJECTION */(function(process) {// Copyright Joyent, Inc. and other Node contributors.
-//
-// Permission is hereby granted, free of charge, to any person obtaining a
-// copy of this software and associated documentation files (the
-// "Software"), to deal in the Software without restriction, including
-// without limitation the rights to use, copy, modify, merge, publish,
-// distribute, sublicense, and/or sell copies of the Software, and to permit
-// persons to whom the Software is furnished to do so, subject to the
-// following conditions:
-//
-// The above copyright notice and this permission notice shall be included
-// in all copies or substantial portions of the Software.
-//
-// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
-// OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
-// MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN
-// NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM,
-// DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR
-// OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE
-// USE OR OTHER DEALINGS IN THE SOFTWARE.
-
-// resolves . and .. elements in a path array with directory names there
-// must be no slashes, empty elements, or device names (c:\) in the array
-// (so also no leading and trailing slashes - it does not distinguish
-// relative and absolute paths)
-function normalizeArray(parts, allowAboveRoot) {
-  // if the path tries to go above the root, `up` ends up > 0
-  var up = 0;
-  for (var i = parts.length - 1; i >= 0; i--) {
-    var last = parts[i];
-    if (last === '.') {
-      parts.splice(i, 1);
-    } else if (last === '..') {
-      parts.splice(i, 1);
-      up++;
-    } else if (up) {
-      parts.splice(i, 1);
-      up--;
-    }
-  }
-
-  // if the path is allowed to go above the root, restore leading ..s
-  if (allowAboveRoot) {
-    for (; up--; up) {
-      parts.unshift('..');
-    }
-  }
-
-  return parts;
-}
-
-// Split a filename into [root, dir, basename, ext], unix version
-// 'root' is just a slash, or nothing.
-var splitPathRe =
-    /^(\/?|)([\s\S]*?)((?:\.{1,2}|[^\/]+?|)(\.[^.\/]*|))(?:[\/]*)$/;
-var splitPath = function(filename) {
-  return splitPathRe.exec(filename).slice(1);
-};
-
-// path.resolve([from ...], to)
-// posix version
-exports.resolve = function() {
-  var resolvedPath = '',
-      resolvedAbsolute = false;
-
-  for (var i = arguments.length - 1; i >= -1 && !resolvedAbsolute; i--) {
-    var path = (i >= 0) ? arguments[i] : process.cwd();
-
-    // Skip empty and invalid entries
-    if (typeof path !== 'string') {
-      throw new TypeError('Arguments to path.resolve must be strings');
-    } else if (!path) {
-      continue;
-    }
-
-    resolvedPath = path + '/' + resolvedPath;
-    resolvedAbsolute = path.charAt(0) === '/';
-  }
-
-  // At this point the path should be resolved to a full absolute path, but
-  // handle relative paths to be safe (might happen when process.cwd() fails)
-
-  // Normalize the path
-  resolvedPath = normalizeArray(filter(resolvedPath.split('/'), function(p) {
-    return !!p;
-  }), !resolvedAbsolute).join('/');
-
-  return ((resolvedAbsolute ? '/' : '') + resolvedPath) || '.';
-};
-
-// path.normalize(path)
-// posix version
-exports.normalize = function(path) {
-  var isAbsolute = exports.isAbsolute(path),
-      trailingSlash = substr(path, -1) === '/';
-
-  // Normalize the path
-  path = normalizeArray(filter(path.split('/'), function(p) {
-    return !!p;
-  }), !isAbsolute).join('/');
-
-  if (!path && !isAbsolute) {
-    path = '.';
-  }
-  if (path && trailingSlash) {
-    path += '/';
-  }
-
-  return (isAbsolute ? '/' : '') + path;
-};
-
-// posix version
-exports.isAbsolute = function(path) {
-  return path.charAt(0) === '/';
-};
-
-// posix version
-exports.join = function() {
-  var paths = Array.prototype.slice.call(arguments, 0);
-  return exports.normalize(filter(paths, function(p, index) {
-    if (typeof p !== 'string') {
-      throw new TypeError('Arguments to path.join must be strings');
-    }
-    return p;
-  }).join('/'));
-};
-
-
-// path.relative(from, to)
-// posix version
-exports.relative = function(from, to) {
-  from = exports.resolve(from).substr(1);
-  to = exports.resolve(to).substr(1);
-
-  function trim(arr) {
-    var start = 0;
-    for (; start < arr.length; start++) {
-      if (arr[start] !== '') break;
-    }
-
-    var end = arr.length - 1;
-    for (; end >= 0; end--) {
-      if (arr[end] !== '') break;
-    }
-
-    if (start > end) return [];
-    return arr.slice(start, end - start + 1);
-  }
-
-  var fromParts = trim(from.split('/'));
-  var toParts = trim(to.split('/'));
-
-  var length = Math.min(fromParts.length, toParts.length);
-  var samePartsLength = length;
-  for (var i = 0; i < length; i++) {
-    if (fromParts[i] !== toParts[i]) {
-      samePartsLength = i;
-      break;
-    }
-  }
-
-  var outputParts = [];
-  for (var i = samePartsLength; i < fromParts.length; i++) {
-    outputParts.push('..');
-  }
-
-  outputParts = outputParts.concat(toParts.slice(samePartsLength));
-
-  return outputParts.join('/');
-};
-
-exports.sep = '/';
-exports.delimiter = ':';
-
-exports.dirname = function(path) {
-  var result = splitPath(path),
-      root = result[0],
-      dir = result[1];
-
-  if (!root && !dir) {
-    // No dirname whatsoever
-    return '.';
-  }
-
-  if (dir) {
-    // It has a dirname, strip trailing slash
-    dir = dir.substr(0, dir.length - 1);
-  }
-
-  return root + dir;
-};
-
-
-exports.basename = function(path, ext) {
-  var f = splitPath(path)[2];
-  // TODO: make this comparison case-insensitive on windows?
-  if (ext && f.substr(-1 * ext.length) === ext) {
-    f = f.substr(0, f.length - ext.length);
-  }
-  return f;
-};
-
-
-exports.extname = function(path) {
-  return splitPath(path)[3];
-};
-
-function filter (xs, f) {
-    if (xs.filter) return xs.filter(f);
-    var res = [];
-    for (var i = 0; i < xs.length; i++) {
-        if (f(xs[i], i, xs)) res.push(xs[i]);
-    }
-    return res;
-}
-
-// String.prototype.substr - negative index don't work in IE8
-var substr = 'ab'.substr(-1) === 'b'
-    ? function (str, start, len) { return str.substr(start, len) }
-    : function (str, start, len) {
-        if (start < 0) start = str.length + start;
-        return str.substr(start, len);
-    }
-;
-
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../node-libs-browser/mock/process.js */ 36)))
-
-/***/ }),
-
-/***/ 38:
+/***/ 30:
 /*!*******************************************************!*\
   !*** /Users/lee/Downloads/备份11/轻纺车网/services/user.js ***!
   \*******************************************************/
@@ -10924,9 +10906,9 @@ var substr = 'ab'.substr(-1) === 'b'
                * 用户相关服务
                */
 
-var Util = __webpack_require__(/*! utils/util.js */ 34);
-var Api = __webpack_require__(/*! services/config/api.js */ 21);
-var Es6Promise = __webpack_require__(/*! lib/es6-promise.js */ 35);
+var Util = __webpack_require__(/*! utils/util.js */ 15);
+var Api = __webpack_require__(/*! services/config/api.js */ 16);
+var Es6Promise = __webpack_require__(/*! lib/es6-promise.js */ 17);
 
 
 /**
@@ -11002,49 +10984,6 @@ function checkLogin() {
 module.exports = {
   loginByWeixin: loginByWeixin,
   checkLogin: checkLogin };
-
-/***/ }),
-
-/***/ 382:
-/*!********************************************************!*\
-  !*** /Users/lee/Downloads/备份11/轻纺车网/services/tools.js ***!
-  \********************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-function filterNull(data) {
-  var temp = {};
-  Object.keys(data).forEach(function (key) {
-    if (data[key] != -1) {
-      temp[key] = data[key];
-    }
-  });
-  return temp;
-}
-function list2code(data) {
-  var temp = [];
-  data.forEach(function (item) {
-    if (item.isChecked == true) {
-      temp.push(item.id);
-    }
-  });
-  return temp;
-}
-function list2string(data) {
-  var temp = [];
-  data.forEach(function (item) {
-    temp.push(item.label);
-  });
-  return temp.join('+');
-}
-
-module.exports = {
-  filterNull: filterNull,
-  list2code: list2code,
-  list2string: list2string };
 
 /***/ }),
 
@@ -11154,7 +11093,10 @@ var getPlatformName = function getPlatformName() {
 var getPackName = function getPackName() {
   var packName = '';
   if (getPlatformName() === 'wx' || getPlatformName() === 'qq') {
-    packName = uni.getAccountInfoSync().miniProgram.appId || '';
+    // 兼容微信小程序低版本基础库
+    if (uni.canIUse('getAccountInfoSync')) {
+      packName = uni.getAccountInfoSync().miniProgram.appId || '';
+    }
   }
   return packName;
 };
@@ -11766,7 +11708,7 @@ Stat = /*#__PURE__*/function (_Util) {_inherits(Stat, _Util);_createClass(Stat, 
     _this6 = _possibleConstructorReturn(this, _getPrototypeOf(Stat).call(this));
     _this6.instance = null;
     // 注册拦截器
-    if (typeof uni.addInterceptor === 'function') {
+    if (typeof uni.addInterceptor === 'function' && "development" !== 'development') {
       _this6.addInterceptorInit();
       _this6.interceptLogin();
       _this6.interceptShare(true);
@@ -11951,7 +11893,7 @@ main();
 /*! exports provided: _from, _id, _inBundle, _integrity, _location, _phantomChildren, _requested, _requiredBy, _resolved, _shasum, _spec, _where, author, bugs, bundleDependencies, deprecated, description, devDependencies, files, gitHead, homepage, license, main, name, repository, scripts, version, default */
 /***/ (function(module) {
 
-module.exports = {"_from":"@dcloudio/uni-stat@next","_id":"@dcloudio/uni-stat@2.0.0-23320190923002","_inBundle":false,"_integrity":"sha512-MnftsvgOac3q1FCOBPzivbFn8GNQFo7D2DY325HeEZyFCWgx5GEwHpGYjT1PQU6v7DaDn0ruxa3ObdpUIYbmZw==","_location":"/@dcloudio/uni-stat","_phantomChildren":{},"_requested":{"type":"tag","registry":true,"raw":"@dcloudio/uni-stat@next","name":"@dcloudio/uni-stat","escapedName":"@dcloudio%2funi-stat","scope":"@dcloudio","rawSpec":"next","saveSpec":null,"fetchSpec":"next"},"_requiredBy":["#USER","/","/@dcloudio/vue-cli-plugin-uni"],"_resolved":"https://registry.npmjs.org/@dcloudio/uni-stat/-/uni-stat-2.0.0-23320190923002.tgz","_shasum":"0c400c140ca0b3c05f52d25f11583cf05a0c4e9a","_spec":"@dcloudio/uni-stat@next","_where":"/Users/fxy/Documents/DCloud/HbuilderX-plugins/release/uniapp-cli","author":"","bugs":{"url":"https://github.com/dcloudio/uni-app/issues"},"bundleDependencies":false,"deprecated":false,"description":"","devDependencies":{"@babel/core":"^7.5.5","@babel/preset-env":"^7.5.5","eslint":"^6.1.0","rollup":"^1.19.3","rollup-plugin-babel":"^4.3.3","rollup-plugin-clear":"^2.0.7","rollup-plugin-commonjs":"^10.0.2","rollup-plugin-copy":"^3.1.0","rollup-plugin-eslint":"^7.0.0","rollup-plugin-json":"^4.0.0","rollup-plugin-node-resolve":"^5.2.0","rollup-plugin-replace":"^2.2.0","rollup-plugin-uglify":"^6.0.2"},"files":["dist","package.json","LICENSE"],"gitHead":"fed4c73fb9142a1b277dd79313939cad90693d3e","homepage":"https://github.com/dcloudio/uni-app#readme","license":"Apache-2.0","main":"dist/index.js","name":"@dcloudio/uni-stat","repository":{"type":"git","url":"git+https://github.com/dcloudio/uni-app.git","directory":"packages/uni-stat"},"scripts":{"build":"NODE_ENV=production rollup -c rollup.config.js","dev":"NODE_ENV=development rollup -w -c rollup.config.js"},"version":"2.0.0-23320190923002"};
+module.exports = {"_from":"@dcloudio/uni-stat@next","_id":"@dcloudio/uni-stat@2.0.0-23620191019001","_inBundle":false,"_integrity":"sha512-gBpkjEOQ/LhTnXBVi266PoTNT5VJtbYoEVy+gZ8/LN9/jKEWeWndd2Lu7vn7hmUySVM5K5UV/Bd5LEVkgXB8mA==","_location":"/@dcloudio/uni-stat","_phantomChildren":{},"_requested":{"type":"tag","registry":true,"raw":"@dcloudio/uni-stat@next","name":"@dcloudio/uni-stat","escapedName":"@dcloudio%2funi-stat","scope":"@dcloudio","rawSpec":"next","saveSpec":null,"fetchSpec":"next"},"_requiredBy":["#USER","/","/@dcloudio/vue-cli-plugin-uni"],"_resolved":"https://registry.npmjs.org/@dcloudio/uni-stat/-/uni-stat-2.0.0-23620191019001.tgz","_shasum":"5c006b903ae7bc407c8b1786de249ffbf72da996","_spec":"@dcloudio/uni-stat@next","_where":"/Users/fxy/Documents/DCloud/HbuilderX-plugins/release/uniapp-cli","author":"","bugs":{"url":"https://github.com/dcloudio/uni-app/issues"},"bundleDependencies":false,"deprecated":false,"description":"","devDependencies":{"@babel/core":"^7.5.5","@babel/preset-env":"^7.5.5","eslint":"^6.1.0","rollup":"^1.19.3","rollup-plugin-babel":"^4.3.3","rollup-plugin-clear":"^2.0.7","rollup-plugin-commonjs":"^10.0.2","rollup-plugin-copy":"^3.1.0","rollup-plugin-eslint":"^7.0.0","rollup-plugin-json":"^4.0.0","rollup-plugin-node-resolve":"^5.2.0","rollup-plugin-replace":"^2.2.0","rollup-plugin-uglify":"^6.0.2"},"files":["dist","package.json","LICENSE"],"gitHead":"bc995d4b43b68e7fe7914ae6b2112117d36e63a8","homepage":"https://github.com/dcloudio/uni-app#readme","license":"Apache-2.0","main":"dist/index.js","name":"@dcloudio/uni-stat","repository":{"type":"git","url":"git+https://github.com/dcloudio/uni-app.git","directory":"packages/uni-stat"},"scripts":{"build":"NODE_ENV=production rollup -c rollup.config.js","dev":"NODE_ENV=development rollup -w -c rollup.config.js"},"version":"2.0.0-23620191019001"};
 
 /***/ }),
 
@@ -11963,7 +11905,7 @@ module.exports = {"_from":"@dcloudio/uni-stat@next","_id":"@dcloudio/uni-stat@2.
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _default = { "pages": { "pages/qing-f-c/login/login": { "navigationStyle": "custom", "usingComponents": { "uni-icon": "/components/uni-icons/uni-icons" } }, "pages/qing-f-c/buyDupty/customer-created": { "navigationBarTitleText": " 买帮办新建客户", "usingComponents": { "my-picker": "/components/myPicker", "range-button": "/components/rangeButton", "swith-button": "/components/switchButton" } }, "pages/qing-f-c/buyDupty/contact-detail/contact-detail": { "navigationBarTitleText": "联系人详情", "usingComponents": { "list-show": "/components/listShow" } }, "pages/qing-f-c/buyDupty/setManagerCondition/setManagerCondition": { "navigationBarTitleText": "买帮办设置经营状况", "usingComponents": { "my-picker": "/components/myPicker", "my-checkbox-group": "/components/myCheckboxGroup", "uni-icon": "/components/uni-icons/uni-icons" } }, "pages/qing-f-c/sellDupty/customer-created": { "navigationBarTitleText": "卖帮办新建客户", "usingComponents": { "my-picker": "/components/myPicker", "range-button": "/components/rangeButton", "swith-button": "/components/switchButton" } }, "pages/qing-f-c/sellDupty/edit-customer": { "navigationBarTitleText": "卖帮办修改客户", "usingComponents": { "my-picker": "/components/myPicker", "range-button": "/components/rangeButton-v", "swith-button": "/components/switchButton" } }, "pages/qing-f-c/sellDupty/customer-details": { "navigationStyle": "custom", "usingComponents": { "list-show": "/components/listShow", "uni-icon": "/components/uni-icons/uni-icons" } }, "pages/qing-f-c/sellDupty/contact-detail": { "navigationBarTitleText": "卖帮办联系人详情", "usingComponents": { "list-show": "/components/listShow" } }, "pages/qing-f-c/sellDupty/setManagerCondition": { "navigationBarTitleText": "卖帮办设置管理者特征", "usingComponents": { "my-picker": "/components/myPicker", "my-checkbox-group": "/components/myCheckboxGroup", "uni-icon": "/components/uni-icons/uni-icons" } }, "pages/qing-f-c/sellDupty/editManagerCondition": { "navigationBarTitleText": "卖帮办编辑管理者特征", "usingComponents": { "my-picker": "/components/myPicker", "my-checkbox-group": "/components/myCheckboxGroup", "uni-icon": "/components/uni-icons/uni-icons" } }, "pages/qing-f-c/sellDupty/add-contact": { "navigationBarTitleText": "卖帮办联系人详情", "usingComponents": { "my-picker": "/components/myPicker", "range-button": "/components/rangeButton", "my-checkbox-group": "/components/myCheckboxGroup" } }, "pages/qing-f-c/sellDupty/edit-contact": { "navigationBarTitleText": "卖帮办修改联系人", "usingComponents": { "my-picker": "/components/myPicker", "range-button": "/components/rangeButton-v", "my-checkbox-group": "/components/myCheckboxGroup" } }, "pages/qing-f-c/sellDupty/add-competitor": { "navigationBarTitleText": "卖帮办添加竞争者", "usingComponents": { "my-picker": "/components/myPicker", "my-checkbox-group": "/components/myCheckboxGroup" } }, "pages/qing-f-c/buyDupty/add-contact": { "navigationBarTitleText": "买办添加联系人", "usingComponents": { "my-picker": "/components/myPicker", "range-button": "/components/rangeButton", "my-checkbox-group": "/components/myCheckboxGroup" } }, "pages/qing-f-c/buyDupty/customer-details": { "navigationStyle": "custom", "usingComponents": {} }, "pages/qing-f-c/buyDupty/detail-competitor": { "navigationBarTitleText": "竞争对手详情", "usingComponents": {} }, "pages/qing-f-c/buyDupty/edit-competitor": { "navigationBarTitleText": "编辑竞争对手", "usingComponents": {} }, "pages/qing-f-c/buyDupty/add-competitor": { "navigationBarTitleText": "添加竞争对手", "usingComponents": { "my-picker": "/components/myPicker" } }, "pages/qing-f-c/buyDupty/set-identity": { "navigationBarTitleText": "设置特征", "usingComponents": {} }, "pages/qing-f-c/buyDupty/customer-admin": { "navigationBarTitleText": "帮办客户管理", "usingComponents": {} }, "pages/qing-f-c/sales_director/customer-admin": { "navigationBarTitleText": "客户管理", "usingComponents": {} }, "pages/qing-f-c/sales_director/deputy-list": { "navigationBarTitleText": "选择区域经理", "usingComponents": {} }, "pages/qing-f-c/customer/customer-list": { "navigationBarTitleText": "客户管理", "usingComponents": {} }, "pages/qing-f-c/index": { "navigationStyle": "custom", "enablePullDownRefresh": true, "usingComponents": { "mpvue-picker": "/components/mpvue-picker/mpvuePicker" } }, "pages/qing-f-c/claimIdentity/claimIdentity": { "navigationBarTitleText": "身份认领", "usingComponents": {} }, "pages/qing-f-c/regionalManager/customer-admin": { "navigationBarTitleText": "区域经理客户管理", "usingComponents": {} }, "pages/qing-f-c/register/register": { "navigationStyle": "custom", "usingComponents": { "uni-icon": "/components/uni-icons/uni-icons" } }, "pages/qing-f-c/register/findPassword": { "navigationStyle": "custom", "usingComponents": { "uni-icon": "/components/uni-icons/uni-icons" } }, "pages/qing-f-c/register/finish": { "navigationBarTitleText": "注册完成", "usingComponents": {} }, "pages/qing-f-c/sellDupty/sellDupty": { "navigationBarTitleText": "买帮办客户管理", "usingComponents": {} }, "pages/qing-f-c/fangzhidao/index/index": { "navigationBarTitleText": "纺织道论坛", "usingComponents": {} }, "pages/qing-f-c/qiugouqu/index/index": { "navigationBarTitleText": "求购区", "usingComponents": {} }, "pages/qing-f-c/xianhuoqu/index/index": { "navigationBarTitleText": "现货区", "usingComponents": {} }, "pages/qing-f-c/temaiqu/index/index": { "navigationBarTitleText": "特卖区", "usingComponents": {} }, "pages/qing-f-c/sellDupty/detail-competitor": { "navigationBarTitleText": "卖帮办竞争对手详情", "usingComponents": {} }, "pages/qing-f-c/sellDupty/customer-admin": { "navigationBarTitleText": "卖帮办客户管理", "usingComponents": {} }, "pages/qing-f-c/sellDupty/edit-competitor": { "navigationBarTitleText": "卖帮办修改竞争者" } }, "globalStyle": { "navigationBarTextStyle": "white", "navigationBarTitleText": "", "navigationBarBackgroundColor": "#FF6000", "backgroundColor": "white" } };exports.default = _default;
+Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _default = { "pages": { "pages/qing-f-c/login/login": { "navigationStyle": "custom" }, "pages/qing-f-c/inquiryManage/inquiryManage": { "navigationBarTitleText": "买办询价管理", "navigationBarBackgroundColor": "#ffffff", "navigationBarTextStyle": "black" }, "pages/qing-f-c/inquiryManage/inquiry-created": { "navigationBarTitleText": "买帮办新建询价单" }, "pages/qing-f-c/regionalManager/customer-admin": { "navigationBarTitleText": "区域经理客户管理" }, "pages/qing-f-c/regionalManager/deputy-list": { "navigationBarTitleText": "区域经理选择卖帮办" }, "pages/qing-f-c/sales_director/customer-details": { "navigationBarTitleText": " 销售总监客户详情" }, "pages/qing-f-c/buyDupty/customer-created": { "navigationBarTitleText": " 买帮办新建客户" }, "pages/qing-f-c/buyDupty/edit-customer": { "navigationBarTitleText": " 买帮办更新客户" }, "pages/qing-f-c/buyDupty/contact-detail": { "navigationBarTitleText": "联系人详情" }, "pages/qing-f-c/buyDupty/setManagerCondition": { "navigationBarTitleText": "买帮办设置经营状况" }, "pages/qing-f-c/sellDupty/customer-admin": { "navigationBarTitleText": "卖帮办客户管理" }, "pages/qing-f-c/sellDupty/customer-created": { "navigationBarTitleText": "卖帮办新建客户" }, "pages/qing-f-c/sellDupty/edit-customer": { "navigationBarTitleText": "卖帮办修改客户" }, "pages/qing-f-c/sellDupty/customer-details": { "navigationStyle": "custom" }, "pages/qing-f-c/sellDupty/contact-detail": { "navigationBarTitleText": "卖帮办联系人详情" }, "pages/qing-f-c/sellDupty/setManagerCondition": { "navigationBarTitleText": "卖帮办设置管理者特征" }, "pages/qing-f-c/sellDupty/editManagerCondition": { "navigationBarTitleText": "卖帮办编辑管理者特征" }, "pages/qing-f-c/sellDupty/add-contact": { "navigationBarTitleText": "卖帮办联系人详情" }, "pages/qing-f-c/sellDupty/edit-contact": { "navigationBarTitleText": "卖帮办修改联系人" }, "pages/qing-f-c/sellDupty/add-competitor": { "navigationBarTitleText": "卖帮办添加竞争者" }, "pages/qing-f-c/sellDupty/edit-competitor": { "navigationBarTitleText": "卖帮办修改竞争者" }, "pages/qing-f-c/sellDupty/detail-competitor": { "navigationBarTitleText": "卖帮办竞争对手详情" }, "pages/qing-f-c/buyDupty/add-contact": { "navigationBarTitleText": "买帮办办添加联系人" }, "pages/qing-f-c/buyDupty/customer-details": { "navigationStyle": "custom" }, "pages/qing-f-c/buyDupty/detail-competitor": { "navigationBarTitleText": "买帮办竞争对手详情" }, "pages/qing-f-c/buyDupty/edit-competitor": { "navigationBarTitleText": "买帮办编辑竞争对手" }, "pages/qing-f-c/buyDupty/add-competitor": { "navigationBarTitleText": "买帮办添加竞争对手" }, "pages/qing-f-c/buyDupty/customer-admin": { "navigationBarTitleText": "买帮办客户管理" }, "pages/qing-f-c/sales_director/customer-admin": { "navigationBarTitleText": "销售总监客户管理" }, "pages/qing-f-c/sales_director/manager-list": { "navigationBarTitleText": "选择区域经理" }, "pages/qing-f-c/customer/customer-list": { "navigationBarTitleText": "客户管理" }, "pages/qing-f-c/index": { "navigationStyle": "custom", "enablePullDownRefresh": true }, "pages/qing-f-c/claimIdentity/claimIdentity": { "navigationBarTitleText": "身份认领" }, "pages/qing-f-c/register/register": { "navigationStyle": "custom" }, "pages/qing-f-c/register/findPassword": { "navigationStyle": "custom" }, "pages/qing-f-c/register/finish": { "navigationBarTitleText": "注册完成" }, "pages/qing-f-c/fangzhidao/index/index": { "navigationBarTitleText": "纺织道论坛" }, "pages/qing-f-c/qiugouqu/index/index": { "navigationBarTitleText": "求购区" }, "pages/qing-f-c/xianhuoqu/index/index": { "navigationBarTitleText": "现货区" }, "pages/qing-f-c/temaiqu/index/index": { "navigationBarTitleText": "特卖区" } }, "globalStyle": { "navigationBarTextStyle": "white", "navigationBarTitleText": "", "navigationBarBackgroundColor": "#FF6000", "backgroundColor": "white" } };exports.default = _default;
 
 /***/ }),
 
@@ -11976,6 +11918,49 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _default = { "appid": "__UNI__85973DE" };exports.default = _default;
+
+/***/ }),
+
+/***/ 87:
+/*!********************************************************!*\
+  !*** /Users/lee/Downloads/备份11/轻纺车网/services/tools.js ***!
+  \********************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+function filterNull(data) {
+  var temp = {};
+  Object.keys(data).forEach(function (key) {
+    if (data[key] != -1) {
+      temp[key] = data[key];
+    }
+  });
+  return temp;
+}
+function list2code(data) {
+  var temp = [];
+  data.forEach(function (item) {
+    if (item.isChecked == true) {
+      temp.push(item.id);
+    }
+  });
+  return temp;
+}
+function list2string(data) {
+  var temp = [];
+  data.forEach(function (item) {
+    temp.push(item.label);
+  });
+  return temp.join('+');
+}
+
+module.exports = {
+  filterNull: filterNull,
+  list2code: list2code,
+  list2string: list2string };
 
 /***/ })
 

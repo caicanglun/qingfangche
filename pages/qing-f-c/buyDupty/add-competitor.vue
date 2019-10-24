@@ -1,6 +1,6 @@
 <template>
 	<view>
-	   <form @submit="sumbit">
+	  
 		<view class="box box_shadow">
 		  <view class="flex_c list">
 		    <view class="line"></view>
@@ -14,20 +14,12 @@
 		    </view>
 		  </view>
 		  
-		  <myPicker @mychange="channeChange" :items="channe" name="渠道状况"></myPicker>
+		  <myPicker @mychange="channeChange" :items="channel" name="渠道状况"></myPicker>
 		  <view class="flex_line_sb list fs_14">
 		    <view class="list_right_280">主营产品类型<text class="pl_10 color_888">(可多选)</text>：</view>
 			<view>
-				<view class="checkgroup fs_12">
-					  <label v-for="item in mainProduct" :key="item.id" > 
-						<view>
-							<view :class="(item.isChecked?'typeItemSelect':'typeItem')" @tap="tapMainProduct(item.id)"> 
-									<!-- <checkbox :value="index" :checked="item.ischecked"/> -->
-									<text>{{item.label}}</text>
-							</view>
-					   </view>
-					</label> 
-				</view>	
+				
+				<myCheckboxGroup :items = "mainProduct" @selectChange="tapMainProduct"></myCheckboxGroup>
 			 </view>
 		  </view>
 		 <!-- --------------------------- -->
@@ -37,7 +29,7 @@
 			   <view class="font_we_bold fs_15">采购方式分析</view>
 			 </view>
 			 <view class="fs_15 pl_20" @tap="tapBrokerChange">
-				 <checkbox :value="isBroker" :checked="isBroker" />中间商模式 
+				 <checkbox :value="isMiddleman" :checked="isMiddleman" />中间商模式 
 			 </view>
 			 
 			 <myPicker @mychange="scaleChange" :items="scale" name="规模"></myPicker>
@@ -46,12 +38,12 @@
 			 
 			 <myPicker @mychange="businessModelChange" :items="businessModel" name="经营模式"></myPicker>
 			 <view class="fs_15 pl_20" @tap="tapDirectChange">
-			 		 <checkbox :value="isDirect" :checked="isDirect" />厂家直接采购
+			 		 <checkbox :value="isFactoryDirectSale" :checked="isFactoryDirectSale" />厂家直接采购
 			 </view>
 			 <view class="flex_c list fs_14" >
 				 <view class="list_right">地址：</view>
 				 <view class="flex_sb_c wid_462">
-				   <input name="companyAddr" v-model="companyAddr" 
+				   <input name="companyAddress" v-model="companyAddress" 
 				   placeholder="请填写" placeholder-class="color_888 fs_14" style="width:350upx;" class="input"></input>
 				 </view>
 			 </view>
@@ -65,7 +57,7 @@
 			 <view class="flex_c list" >
 				 <view class="list_right">机台数量：</view>
 				 <view class="flex_sb_c wid_462">
-				   <input name="machineNum" v-model="machineNum" 
+				   <input name="machineCount" v-model="machineCount" 
 				   placeholder="请填写机器数量" placeholder-class="color_888 fs_14" style="width:350upx;"  cursor-spacing='140' class="input"></input>
 				 </view>
 			 </view>
@@ -75,49 +67,50 @@
 		<view class='placeholder-view'></view>	
 		<view class="fixed_bottom box_shadow_btn">
 		  <button class="btn_left" hover-class="none" @tap="bindCancel">取消</button>
-		  <button class="btn_right" formType="submit" hover-class="none">确定</button>
+		  <button class="btn_right" @tap="submit" hover-class="none">确定</button>
 		</view>
-		</form>
+		
 	</view>
 	
 </template>
 
 <script>
 	import myPicker from "@/components/myPicker.vue";
+	import myCheckboxGroup from "@/components/myCheckboxGroup.vue";
 	const JsyServer = require("services/jsy-server.js");
-	let _this,_customerId;
+	let _this,_companyCode;
 	export default {
 		components:{
-			myPicker
+			myPicker,
+			myCheckboxGroup
 		},
 		data() {
 			return {
 				companyName:'',
-				companyAddr:'',
+				companyAddress:'',
 				machineType:'',
-				machineNum:'',
-				channe:[],
-				channeIndex: -1,
+				machineCount:'',
+				channel:[],
+				channelStatusCode: -1,
 				mainProduct:[],
-				mainProductIndex: -1,
 				scale:[],
-				scaleIndex: -1,
+				companyScaleCode: -1,
 				quality:[],
-				qualityIndex: -1,
+				qualityCode: -1,
 				businessModel:[],
-				businessModelIndex: -1,
+				businessModelCode: -1,
 				purchase:["中间商","厂家直采"],
-				isBroker: false,
-				isDirect: false
+				isFactoryDirectSale: false,
+				isMiddleman: false
 			};
 		},
 		onLoad:function(options){
 			_this = this;
-			_customerId = options.customerId;
-			console.log(_customerId )
+			_companyCode = options.companyCode;
+			console.log(_companyCode )
 			this.getMainProduct()
-			this.getChanne()
-			this.getScale()
+			this.getChannel()
+			this.getCompanyScale()
 			this.getQuality()
 			this.getBusinessModel()
 		},
@@ -133,10 +126,10 @@
 					  });
 					});
 			},
-			getChanne:function(){
-					JsyServer.getChanne().then(res => {
+			getChannel:function(){
+					JsyServer.getChannel().then(res => {
 					  console.log(res);
-					  _this.channe = res.data.data.list
+					  _this.channel = res.data.data.list
 					}).catch(err => {
 					  wx.showToast({
 					    title: err.data.description,
@@ -144,8 +137,8 @@
 					  });
 					});
 			},
-			getScale:function(){
-					JsyServer.getScale().then(res => {
+			getCompanyScale:function(){
+					JsyServer.getCompanyScale().then(res => {
 					  console.log(res);
 					  _this.scale = res.data.data.list
 					}).catch(err => {
@@ -179,10 +172,10 @@
 			},
 			
 			tapDirectChange:function(){
-				this.isDirect = ! this.isDirect
+				this.isFactoryDirectSale = ! this.isFactoryDirectSale
 			},
 			tapBrokerChange:function(){
-				this.isBroker = !this.isBroker
+				this.isMiddleman = !this.isMiddleman
 			},
 			tapMainProduct:function(index){
 				let items = this.mainProduct
@@ -195,26 +188,91 @@
 			},
 			channeChange:function(e){
 				console.log(e)
-				this.channeIndex = e
+				this.channelStatusCode = e
 			},
 			scaleChange:function(e){
 				console.log(e)
-				this.scopeIndex = e;
+				this.companyScaleCode = e;
 			},
 			qualityChange:function(e){
 				console.log(e)
-				this.qualityIndex = e;
+				this.qualityCode = e;
 			},
 			businessModelChange:function(e){
 				console.log(e)
-				this.modelIndex = e;
+				this.businessModelCode = e;
 			},
 			bindCancel:function(){
 				uni.navigateBack({
 					delta: 1
 				});
 			},
-			submit:function(e){
+			submit:function(){
+				let _data={}    //提交参数
+				let _mainProductCodes = [] //多选项目，id组合成数组
+				this.mainProduct.forEach((item)=>{
+					if(item.isChecked == true) {
+						_mainProductCodes.push(item.id)
+					}
+				})
+				if (_mainProductCodes.lengh == 0){
+					uni.showToast({
+						title: '请选择主营产品',
+						icon: 'none'
+					});
+					return;
+				}
+				let before_data = {
+				companyCode:  _companyCode,					//客户编码
+				companyName	:  this.companyName,				//竞争对手名称
+				mainProductCodes: _mainProductCodes,
+				channelStatusCode: this.channelStatusCode,			//渠道状况编码
+				isMiddleman	:  this.isMiddleman?1:0,				//是否中间商.0否，1是，9未知
+				companyScaleCode:  this.companyScaleCode,			//公司规模编码
+				qualityCode	:  this.qualityCode,		//品质定位编码
+				businessModelCode:  this.businessModelCode,		//经营模式编码
+				isFactoryDirectSale:  this.isFactoryDirectSale?1:0,	    //是否厂家直销.0否，1是，9未知
+				companyAddress:  this.companyAddress,			//公司地址
+				machineType	:  this.machineType,			//机器类型
+				machineCount  :  this.machineCount          //机器数量
+				}
+				if (!before_data.companyName){
+					uni.showToast({
+						title: '请输入竞争对手名称',
+						icon: 'none'
+					});
+					return;
+				}
+				
+				//过滤未选中的项目
+				Object.keys(before_data).forEach((key)=>{
+					if (before_data[key] != -1){
+						_data[key] = before_data[key]
+					}
+				})
+				console.log("添加竞争对手：==",_data)
+				JsyServer.rivalAdd(_data).then(res => {
+				  console.log(res);
+				  uni.showToast({
+				  	title: '添加成功',
+					icon: 'none'
+				  });
+					var pages = getCurrentPages();
+					var currPage = pages[pages.length - 1]; //当前页面
+					var prevPage = pages[pages.length - 2]; //上一个页面
+					//直接调用上一个页面的setData()方法，把数据存到上一个页面中去
+					prevPage.setData({
+							isDoRefresh:true
+					})
+				  uni.navigateBack({
+				  	delta: 1
+				  });
+				}).catch(err => {
+				  wx.showToast({
+				    title: err.data.errMsg,
+				    icon: 'none'
+				  });
+				});		
 				
 			}
 		}

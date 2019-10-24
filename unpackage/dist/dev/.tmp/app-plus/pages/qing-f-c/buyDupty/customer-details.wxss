@@ -24,6 +24,12 @@
 /* 垂直间距 */
 /* 透明度 */
 /* 文章场景相关 */
+.box {
+  margin: 20rpx 20rpx 0;
+  padding: 0 20rpx;
+  border-radius: 6rpx;
+  background-color: #fff;
+}
 page {
   padding-bottom: 20rpx;
 }
@@ -138,12 +144,6 @@ page {
   color: #fff;
   text-align: center;
   font-weight: bold;
-}
-.box {
-  margin: 20rpx 20rpx 0;
-  padding: 0 20rpx;
-  border-radius: 6rpx;
-  background-color: #fff;
 }
 .bianji_img {
   width: 34rpx;

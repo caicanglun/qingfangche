@@ -1,24 +1,64 @@
 {
 	"pages": [ //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
+	            {
+	                "path" : "pages/qing-f-c/login/login",
+	                "style" : {
+	            				"navigationStyle":"custom"
+	            								
+	            			 }
+	                  
+	            },
+				{
+					"path" : "pages/qing-f-c/inquiryManage/inquiryManage",
+					"style" : {"navigationBarTitleText": "买办询价管理",
+					            "navigationBarBackgroundColor":"#ffffff",
+								"navigationBarTextStyle": "black"
+								}
+				},
+				{
+					"path" : "pages/qing-f-c/inquiryManage/inquiry-created",
+					"style" : {"navigationBarTitleText": "买帮办新建询价单"}
+				},
+				{
+					"path" : "pages/qing-f-c/regionalManager/customer-admin",
+					"style" : {"navigationBarTitleText": "区域经理客户管理",
+										  "app-plus": {
+											  "titleNView": {
+												  
+												  "buttons": [
+												  {
+													   "float": "right",
+													   "fontSize": "15px",
+													   "text": "" // 字体图标\u 开头，加上字体图标unicode后面四位
+												  }
+												  ]
+											  }
+										   }
+							   }
+				},
+				{
+					"path" : "pages/qing-f-c/regionalManager/deputy-list",
+					"style" : {"navigationBarTitleText": "区域经理选择卖帮办"}
+				},
 	             {
-	                 "path" : "pages/qing-f-c/login/login",
-	                 "style" : {
-	             				"navigationStyle":"custom"
-								
-	             			 }
-	                   
+					 "path" : "pages/qing-f-c/sales_director/customer-details",
+					 "style" : {"navigationBarTitleText": " 销售总监客户详情"}
 	             },
 	             {
-	             			 "path" : "pages/qing-f-c/buyDupty/customer-created",
-	             			 "style" : {"navigationBarTitleText": " 买帮办新建客户"}
+					 "path" : "pages/qing-f-c/buyDupty/customer-created",
+					 "style" : {"navigationBarTitleText": " 买帮办新建客户"}
 	             },
+				 {
+					 "path" : "pages/qing-f-c/buyDupty/edit-customer",
+					 "style" : {"navigationBarTitleText": " 买帮办更新客户"}
+				 },
 	             {
-	                  "path" : "pages/qing-f-c/buyDupty/contact-detail/contact-detail",
+	                  "path" : "pages/qing-f-c/buyDupty/contact-detail",
 	                  "style" : {"navigationBarTitleText": "联系人详情"}
 	              },
 	             
 	             {
-	                 "path" : "pages/qing-f-c/buyDupty/setManagerCondition/setManagerCondition",
+	                 "path" : "pages/qing-f-c/buyDupty/setManagerCondition",
 	                 "style" : {"navigationBarTitleText": "买帮办设置经营状况"}
 	             },
 	             {
@@ -74,7 +114,7 @@
 				},
 	            {
 	                "path" : "pages/qing-f-c/buyDupty/add-contact",
-	                "style" : {"navigationBarTitleText": "买办添加联系人"}
+	                "style" : {"navigationBarTitleText": "买帮办办添加联系人"}
 	            },
 	            	          
 	            
@@ -88,30 +128,30 @@
 	           
 			  {
 			      "path" : "pages/qing-f-c/buyDupty/detail-competitor",
-			      "style" : {"navigationBarTitleText": "竞争对手详情"}
+			      "style" : {"navigationBarTitleText": "买帮办竞争对手详情"}
 			  },
 			  {
 			      "path" : "pages/qing-f-c/buyDupty/edit-competitor",
-			      "style" : {"navigationBarTitleText": "编辑竞争对手"}
+			      "style" : {"navigationBarTitleText": "买帮办编辑竞争对手"}
 			  },
 	         {
 	             "path" : "pages/qing-f-c/buyDupty/add-competitor",
-	             "style" : {"navigationBarTitleText": "添加竞争对手"}
+	             "style" : {"navigationBarTitleText": "买帮办添加竞争对手"}
 	         },
 	        
-			{
-						 "path" : "pages/qing-f-c/buyDupty/set-identity",
-						 "style" : {"navigationBarTitleText": "设置特征"}
-			},
+			// {
+			// 			 "path" : "pages/qing-f-c/buyDupty/set-identity",
+			// 			 "style" : {"navigationBarTitleText": "设置特征"}
+			// },
 	        {
 	        			 "path" : "pages/qing-f-c/buyDupty/customer-admin",
-	        			 "style" : {"navigationBarTitleText": "帮办客户管理"}
+	        			 "style" : {"navigationBarTitleText": "买帮办客户管理"}
 	        },
 			
 	        {
 					 "path" : "pages/qing-f-c/sales_director/customer-admin",
 					  "style" : {
-						  "navigationBarTitleText": "客户管理",
+						  "navigationBarTitleText": "销售总监客户管理",
 						  "app-plus": {
 										  "titleNView": {
 											  
@@ -128,7 +168,7 @@
 						  
 	        },
 			{
-						 "path" : "pages/qing-f-c/sales_director/deputy-list",
+						 "path" : "pages/qing-f-c/sales_director/manager-list",
 						 "style" : {"navigationBarTitleText": "选择区域经理"}
 			},
 	       
@@ -148,10 +188,7 @@
 		       "path" : "pages/qing-f-c/claimIdentity/claimIdentity",
 		       "style" : {"navigationBarTitleText": "身份认领"}
 		   },
-		   {
-		       "path" : "pages/qing-f-c/regionalManager/customer-admin",
-		       "style" : {"navigationBarTitleText": "区域经理客户管理"}
-		   },
+		   
 	      
 	     {
 	         "path" : "pages/qing-f-c/register/register",
@@ -169,12 +206,7 @@
 	     {
 	         "path" : "pages/qing-f-c/register/finish",
 	         "style" : {"navigationBarTitleText": "注册完成"}
-	     },
-        {
-            "path" : "pages/qing-f-c/sellDupty/sellDupty",
-            "style" : {"navigationBarTitleText": "买帮办客户管理"}
-        }
-
+	     }
         
         ,{
             "path" : "pages/qing-f-c/fangzhidao/index/index",
@@ -192,6 +224,7 @@
             "path" : "pages/qing-f-c/temaiqu/index/index",
             "style" : {"navigationBarTitleText": "特卖区"}
         }
+        
     ],
 	"tabBar": {
 	    "list": [

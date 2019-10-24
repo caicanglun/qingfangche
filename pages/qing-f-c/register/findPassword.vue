@@ -37,6 +37,7 @@
 							  maxlength="11"
 							  :type="passType"
 							  @input="showPassClearIcon"
+							  @blur = "showPassClearIcon"
 						  ></input>
 							  <!-- <image v-if="isPassClear" src="../../../static/images/qingfc/close.png" class="i-next"
 								   @tap ="clearPass" >
@@ -49,7 +50,7 @@
 							<uniIcon type="close" size="20" v-if="isPassClear"></uniIcon>
 						 </view>
 						
-					   <view style="padding-left: 10upx;" @tap ="showPass">
+					   <view style="padding-left: 20upx;" @tap ="showPass">
 						   <uniIcon type="eye" size="20" v-if="isPassClear" ></uniIcon>
 					   </view>
 					  
@@ -67,7 +68,7 @@
 						  placeholder-style="color: #ccc;font-size: 14px;" 
 						  maxlength="6"
 					  ></input>
-					  <text style="color: #ff6000;font-size: 13px;" @tap="getValidCode">获取验证码</text>
+					  <text style="color: #ff6000;font-size: 13px;" @tap="getValidCode">{{countdown}}</text>
 					  
 					</view>
 					<button class="login_btn" formType="submit">重设密码</button>
@@ -94,7 +95,9 @@
 				passType: 'password',
 				isPhoneClear: false,
 				isPassClear: false,
-				
+				countdown:'获取验证码',
+				isDisplay: true,
+				disabled:true
 			};
 			
 			},
@@ -146,6 +149,7 @@
 				  	title: '验证码已发送',
 					icon: 'none'
 				  });
+				  
 					
 				}).catch(err => {
 				  wx.showToast({
@@ -154,6 +158,17 @@
 				  });
 				});		
 			},
+			countDown(){
+                var that = this;
+                if(!that.countdown){                    
+                    that.disabled = false;
+                    that.timestatus = false;
+                    that.countdown = '获取验证码';
+                    clearInterval(that.clear);
+                }else{
+                    --that.countdown;
+                }
+            },
 			formSubmit: function(e){
 				let data = e.detail.value;
 				let code = data.code;
@@ -238,6 +253,9 @@
 	       line-height: 88upx;
 	       border-bottom: 1upx solid #ccc;
 	       color: #333236;
+		   margin-left: 30upx;
+		   margin-right: 30upx;
+		   
 	     }
 	     // .box_row:nth-last-child(1){
 	     // 	 border: none;
@@ -245,7 +263,7 @@
 	     
 	     .box_input {
 		   padding-left: 30upx;
-	       width: 400upx;
+	       width: 350upx;
 		   
 	     }
 	     .code_input{

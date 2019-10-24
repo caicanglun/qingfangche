@@ -24,7 +24,8 @@
             <image src="/static/images/qingfc/application/companyx.png" class="title_img" mode="aspectFit"></image>
             <view class="fs_16 font_we_bold wid_510">{{item.companyName||''}}</view>
           </view>
-          <view :class="(item.type==2?'id_btn':'seller_btn')">{{item.type==2?'买家':'卖家'}}</view>
+          <!-- <view :class="(item.buyOrsell==1?'id_btn':'seller_btn')">{{item.buyOrsell==1?'买家':'卖家'}}</view> -->
+		  <view :class="(item.buyOrSell==1?'id_btn':'seller_btn')">{{item.buyOrSell==1?'买家':'卖家'}}</view>
         </view>
         <view class="flex_c mt_20">
           <image src="/static/images/qingfc/application/list.png" class="title_img" mode="aspectFit"></image>
@@ -145,9 +146,10 @@ export default {
     },
     bindSearch: function (e) {
       recordPage = 1;
-      this.setData({
-        inputValue: e.detail.value
-      });
+      // this.setData({
+      //   inputValue: e.detail.value
+      // });
+	  this.inputValue = e.detail.value
       this.getRecordList();
     },
     // 点开搜索下拉选项
@@ -184,14 +186,17 @@ export default {
     },
     // 获取客户列表
     getCustomerList: function (keyword,pageNum,pageSize) {
+		let _postCode = uni.getStorageSync('pupDefault')
 	    let _data= {
 			keyword: keyword,
 			pageNum: pageNum,
-			pageSize: pageSize
+			pageSize: pageSize,
+			postCode: _postCode
 		}
        JsyServer.bsList(_data).then(res => {
          console.log(res)
          _this.customerList = res.data.data.list
+		 console.log("买卖家===",_this.customerList[0].buyOrSell)
        }).catch(err => {
          console.log("getBSList=err==", res);
        });
@@ -243,37 +248,25 @@ export default {
     
     //跳转到新建客户页面
     goCustomerCreated: function () {
-	  if(_this.pupDef == "BUY_DEPUTY"){
+	  
 		  wx.navigateTo({
 		    url: '/pages/qing-f-c/buyDupty/customer-created'
 		  });
-	  }else{
-		  wx.navigateTo({
-		    url: '/pages/qing-f-c/sellDupty/customer-created'
-		  });
-	  }
      
     },
     //跳转到新增跟进记录页
    
     // 跳转到客户详情页
     toClientDetail: function (e) {
-      if (this.compileing) {
-        this.tapPitchOn(e.currentTarget.dataset.index);
-      } else {
+      // if (this.compileing) {
+      //   this.tapPitchOn(e.currentTarget.dataset.index);
+      // } else {
         let id = e.currentTarget.dataset.id;
-		
-		if (this.pupDef == 'SELL_DEPUTY'){
-			uni.navigateTo({
-			  url: '/pages/qing-f-c/sellDupty/customer-details?companyCode=' + id
-			});
-		}else {
-			uni.navigateTo({
-			  url: '/pages/qing-f-c/buyDupty/customer-details?companyCode=' + id
-			});
-		}
-        
-      }
+
+		uni.navigateTo({
+		  url: '/pages/qing-f-c/buyDupty/customer-details?companyCode=' + id
+		});
+    
     },
     
     // 重置时间

@@ -24,7 +24,7 @@
             <image src="/static/images/qingfc/application/companyx.png" class="title_img" mode="aspectFit"></image>
             <view class="fs_16 font_we_bold wid_510">{{item.companyName||''}}</view>
           </view>
-          <view :class="(item.type==2?'id_btn':'seller_btn')">{{item.type==2?'买家':'卖家'}}</view>
+          <view :class="(item.buyOrSell==1?'id_btn':'seller_btn')">{{item.buyOrSell==1?'买家':'卖家'}}</view>
         </view>
         <view class="flex_c mt_20">
           <image src="/static/images/qingfc/application/list.png" class="title_img" mode="aspectFit"></image>
@@ -184,10 +184,12 @@ export default {
     },
     // 获取客户列表
     getCustomerList: function (keyword,pageNum,pageSize) {
+		let _postCode = uni.getStorageSync('pupDefault')
 	    let _data= {
 			keyword: keyword,
 			pageNum: pageNum,
-			pageSize: pageSize
+			pageSize: pageSize,
+			postCode: _postCode
 		}
        JsyServer.bsList(_data).then(res => {
          console.log(res)
@@ -243,16 +245,9 @@ export default {
     
     //跳转到新建客户页面
     goCustomerCreated: function () {
-	  if(_this.pupDef == "BUY_DEPUTY"){
-		  wx.navigateTo({
-		    url: '/pages/qing-f-c/buyDupty/customer-created'
-		  });
-	  }else{
 		  wx.navigateTo({
 		    url: '/pages/qing-f-c/sellDupty/customer-created'
-		  });
-	  }
-     
+		  })
     },
     //跳转到新增跟进记录页
    

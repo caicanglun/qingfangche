@@ -4,44 +4,43 @@
 		  <view class="box box_shadow">
 				<view class="list flex_c">
 				  <view class="list_right ml-14">
-					<text style="color:#FF6000">*</text>客户公司名称：
+					<text style="color:#EE603F">*</text>客户公司名称：
 				  </view>
-				  <input class="input" name="companyName" v-model="postData.companyName" placeholder="请输入"></input>
+				  <input class="input" name="companyName" v-model="companyName" placeholder="请输入"></input>
 				</view>
 				
 				
-				<myPicker @mychange="tapPickerEvent('region',$event)" :items="region" name="所属区域" star="true"></myPicker>
+				<myPicker @mychange="regionChange" :items="region" name="所属区域" star="true"></myPicker>
 				
 				<view class="list flex_c">
 				  <view class="list_right ml-14">
-					<text style="color:#FFFFFF">*</text>公司地址：
+					公司地址：
 				  </view>
-				  <input class="input" name="companyAddress" v-model="postData.companyAddress" placeholder="请输入"></input>
+				  <input class="input" name="companyAddress" v-model="companyAddress" placeholder="请输入"></input>
 				  <image src="/static/images/qingfc/position.png" class="i-position" mode="aspectFill" @tap="addrPosition(1)"></image>
 				</view>
-	
-				
-				<myPicker @mychange="tapPickerEvent('companyType',$event)" :items="companyType" name="客户类型" star="true"></myPicker>
-				<myPicker @mychange="tapPickerEvent('managementPosition',$event)" :items="managementPosition" name="经营定位"></myPicker>
-				<myPicker @mychange="tapPickerEvent('companyScale',$event)" :items="companyScale" name="客户规模"></myPicker>
-				<myPicker @mychange="tapPickerEvent('companySource',$event)" :items="companySource" name="客户来源" star="true"></myPicker>
+			
 				
 				
-				<rangeButton @buttonChange="tapPickerEvent('cooperationIntention',$event)" :items="cooperationIntention" name="合作意向"></rangeButton>
+				<myPicker @mychange="companyTypeChange" :items="companyType" name="客户类型" star="true"></myPicker>
+				<myPicker @mychange="companySourceChange" :items="companySource" name="客户来源" star="true"></myPicker>
+				<myPicker @mychange="companyScaleChange" :items="companyScale" name="客户规模"></myPicker>
+				<myPicker @mychange="managementPositionChange" :items="managementPosition" name="经营定位"></myPicker>
+				<rangeButton @buttonChange="cooperationIntentionChange" :items="cooperationIntention" name="合作意向"></rangeButton>
 				
-				<rangeButton @buttonChange="tapPickerEvent('coordinate',$event)" :items="coordinate" name="保证金配合度"></rangeButton>
+				<rangeButton @buttonChange="coordinateChange" :items="coordinate" name="保证金配合度"></rangeButton>
 				<view class="title">高：有合作会交保证金；中：有合作考虑或者多次合作后交保证金；低：不接受保证金</view>
 				<view class="list flex_c">
 				  <view class="list_right ml-14">
-					<text style="color:#FF6000">*</text>联系人：
+					<text style="color:#EE603F">*</text>联系人：
 				  </view>
-				  <input class="input" name="companyName" v-model="postData.realName" placeholder="请输入"></input>
+				  <input class="input" name="companyName" v-model="realName" placeholder="请输入"></input>
 				</view>
 				<view class="list flex_c">
 				  <view class="list_right ml-14">
-					<text style="color:#FF6000">*</text>电话号码：
+					<text style="color:#EE603F">*</text>电话号码：
 				  </view>
-				  <input class="input" name="companyName" v-model="postData.phone" placeholder="请输入" type="digit" maxlength="11"></input>
+				  <input class="input" name="companyName" v-model="phone" placeholder="请输入"></input>
 				</view>
 		  </view>
 		  <view class="fixed_bottom box_shadow_btn">
@@ -69,44 +68,64 @@
 		},
 		data() {
 			return {
-				postData:{
-					companyName:'', //  客户名
-					companyAddress:'', //  地址
-					companyLongitude:'', //  经度
-					companyLatitude:'', //  纬度
-					regionCode: -1, //  区域编码
-					companyTypeCode: -1, //  客户类型编码
-					companyScaleCod: -1, //  客户规模编码
-					companySourceCode: -1, //  客户来源编码
-					cooperationIntentionCode: -1, // 合作意向
-					coordinateCode: -1, //  配合度
-					managementPositionCode: -1, // 经营定位
-					realName:'', //  姓名
-					phone:'', // 电话
-				},
-				region:[],
+				companyName: '',//客户名
+				companyAddress: '',//  地址
+				companyLongitude: '',//  经度
+				companyLatitude: '',//  纬度
+				region:[],//区域列表
+				regionCode: '',//  区域编码
 				companyType:[],
+				companyTypeCode: '',//  客户类型编码
 				companyScale:[],
+				companyScaleCode: '',//  客户规模编码
 				companySource:[],
+				companySourceCode: '',//  客户来源编码
 				cooperationIntention:[],
+				cooperationIntentionCode: '',// 合作意向
 				coordinate:[],
+				coordinateCode: '',//  配合度
 				managementPosition:[],
-
+				managementPositionCode: '',// 经营定位
+				realName: '',//  姓名
+				phone: '',// 电话
 				
 			};
 		},
 		onLoad:function(){
 			_this = this
 			this.getRegion()
+			this.getCoordinate()
 			this.getSource()
 			this.getType()
 			this.getCooperationIntention()
 			this.getManagementPosition()
-			this.getCoordinate()
-			this.getScale()
+			this.getCompanyScale()
 			
 		},
 		methods:{
+			getCompanyScale:function(){
+				JsyServer.getCompanyScale().then(res => {
+				  console.log(res);
+				  _this.companyScale = res.data.data.list
+				}).catch(err => {
+				  wx.showToast({
+				    title: err.data.description,
+				    icon: 'none'
+				  });
+				});
+			},
+			
+			getManagementPosition:function(){
+				JsyServer.getManagementPosition().then(res => {
+				  console.log(res);
+				  _this.managementPosition = res.data.data.list
+				}).catch(err => {
+				  wx.showToast({
+				    title: err.data.description,
+				    icon: 'none'
+				  });
+				});
+			},
 			getRegion:function(){
 				JsyServer.getRegion().then(res => {
 				  console.log(res);
@@ -162,63 +181,33 @@
 				  });
 				});
 			},
-			getScale:function(){
-				JsyServer.getScale().then(res => {
-				  console.log(res);
-				  _this.companyScale = res.data.data.list
-				}).catch(err => {
-				  wx.showToast({
-				    title: err.data.description,
-				    icon: 'none'
-				  });
-				})
-			},
-			getManagementPosition:function(){
-				JsyServer.getManagementPosition().then(res => {
-				  console.log(res);
-				  _this.managementPosition = res.data.data.list
-				}).catch(err => {
-				  wx.showToast({
-				    title: err.data.description,
-				    icon: 'none'
-				  });
-				});
-			},
-		
 			
-            tapPickerEvent:function(arrName,id){
-            	switch (arrName){
-					case "region":
-					    console.log(id)
-					    this.postData.regionCode = id
-					    break;
-            		case "companyType":
-            		    console.log(id)
-            		    this.postData.companyTypeCode = id
-            		    break;
-				    case "companyScale":
-				        console.log(id)
-				        this.postData.companyScaleCode = id
-				        break;
-					case "companySource":
-					    console.log(id)
-					    this.postData.companySourceCode = id
-					    break;
-					case "cooperationIntention":
-					    console.log(id)
-					    this.postData.cooperationIntentionCode = id
-					    break;
-					case "coordinate":
-					    console.log(id)
-					    this.postData.coordinateCode =id
-						break;
-					case "managementPosition":
-					    console.log(id)
-					    this.postData.managementPositionCode =id
-						break;
-            	}
-            },
-			
+
+			companyScaleChange:function(e){
+				this.companyScaleCode = e
+			},
+			managementPositionChange:function(e){
+				this.managementPositionCode = e
+			},
+			regionChange:function(e){
+			    this.regionCode =e
+				console.log(e)
+			},
+			companyTypeChange:function(e){
+				this.companyTypeCode = e
+			},
+			companySourceChange:function(e){
+				this.companySourceCode = e
+			},
+			cooperationIntentionChange:function(e){
+				this.cooperationIntentionCode =e
+			},
+			coordinateChange:function(e){
+				this.coordinateCode = e
+			},
+			sellroomChange:function(e){
+				this.hasSalesroom = e
+			},
 			
 			addrPosition:function(index){
 				console.log("here")
@@ -226,17 +215,16 @@
 					uni.chooseLocation({
 					    success: function (res) {
 					       
-							_this.postData.companyAddress = res.address
+							_this.companyAddress = res.address
 					        console.log('详细地址：' + res.address);
-							_this.postData.companyLatitude = res.latitude
+							_this.companyLatitude = res.latitude
 					        console.log('纬度：' + res.latitude);
-							_this.postData.companyLongitude = res.longitude
+							_this.companyLongitude = res.longitude
 					        console.log('经度：' + res.longitude);
 					    }
 					});
 				}
-				
-				
+
 			},
 			
 			bindCancel:function(){
@@ -245,11 +233,39 @@
 				});
 			},
 			formSubmit:function(e){
-				let data =this.postData
-				console.log(this.postData)
-				console.log(uni.getStorageSync('token'))
-                JsyServer.sellCusmterCreated(data).then(res => {
+				let data = {}
+				if (!this.companyName){
+					uni.showToast({
+						title: '公司名称不能为空',
+						icon: 'none'
+					});
+					return
+				}
+				data.companyName = this.companyName
+				data.regionCode = this.regionCode //  区域编码
+				data.companyAddress = this.companyAddress // 公司地址
+				data.companyLongitude = this.companyLongitude // 经度
+				data.companyLongitude=  this.companyLatitude //纬度
+				
+				data.companyTypeCode=  this.companyTypeCode //客户类型编码
+				data.companySourceCode = this.companySourceCode //客户来源编码
+				data.cooperationIntentionCode= this.cooperationIntentionCode //合作意向
+				data.coordinateCode= this.coordinateCode //配合度
+				data.managementPositionCode = this.managementPositionCode //经营定位
+				data.companyScaleCode = this.companyScaleCode
+				data.realName = this.realName //姓名
+				data.phone= this.phone //电话
+				console.log(data)
+                JsyServer.buyAddCustomer(data).then(res => {
                   console.log(res);
+				  if (res.data.status == 0){
+					  
+					 uni.navigateBack({
+					 	delta: 1
+					 });
+				  }else{
+					  return
+				  }
                 }).catch(err => {
                   wx.showToast({
                     title: err.data.description,
@@ -272,7 +288,7 @@
  	width: 4upx;
  	height: 15px;
  	border-radius: 2upx;
- 	background-color: #FF6000;
+ 	background-color: #EE603F;
  	margin-right: 10upx;
  	margin-left: -14upx;
  }
@@ -305,7 +321,7 @@
    width: 96upx;
    height: 48upx;
    box-sizing: border-box;
-   border: 1upx solid #FF6000;
+   border: 1upx solid #EE603F;
    border-radius: 6upx;
    line-height: 46upx;
    text-align: center;
@@ -326,7 +342,7 @@
  }
  .selet_tion{
    color:#fff;
-   background-color: #FF6000;
+   background-color: #EE603F;
  }
  .select_btn {
    width: 50%;
@@ -340,14 +356,14 @@
  .btn_left{
    width: 50%;
    background-color: #fff;
-   color: #FF6000;
+   color: #EE603F;
    border-radius: 0;
    font-size: 16px;
    line-height: 88upx;
  }
  .btn_right{
    width: 50%;
-   background-color: #FF6000;
+   background-color: #EE603F;
    color: #fff;
    border-radius: 0;
    font-size: 16px;
@@ -381,7 +397,7 @@
    width: 80upx;
    height: 48upx;
    text-align: center;
-   border: 2upx solid #FF6000;
+   border: 2upx solid #EE603F;
    box-sizing: border-box;
  }
  .borderright{
@@ -396,7 +412,7 @@
  }
  .unitselect{
    color: #fff;
-   background-color: #FF6000;
+   background-color: #EE603F;
  }
  .unitunselect{
    color: #888890;
@@ -435,9 +451,9 @@
  	text-align: center;
  	line-height: 56upx;
  	height: 60upx;
- 	border: 2upx solid #FF6000;
+ 	border: 2upx solid #EE603F;
  	box-sizing: border-box;
- 	color: #FF6000;
+ 	color: #EE603F;
  	background-color: #fff;
  	font-size: 28upx;
  	margin-left:20upx;
@@ -448,7 +464,7 @@
  	width: 126upx
  }
  .type_on{
- 	background-color: #FF6000;
+ 	background-color: #EE603F;
  	color: #fff;
  }
  .modal_bottom_btn{
@@ -467,7 +483,7 @@
  .isOption{
  	width: 250upx;
  	text-align: center;
- 	background-color: #FF6000;
+ 	background-color: #EE603F;
  	border-radius: 6upx;
  	line-height: 48upx;
  	color: #fff;
@@ -510,8 +526,8 @@
 	 line-height: 46upx;
 	 text-align: center;
 	 margin-bottom: 20upx;
-	 border: 2upx solid #FF6000;
-	 color: #FF6000;
+	 border: 2upx solid #EE603F;
+	 color: #EE603F;
 	 }
 .typeItem{
 	 	 width: 200upx;

@@ -2,15 +2,12 @@
 
 //const ServerUrl = "https://www.qingfangche.net"; // 开发环境
 const ServerUrl = "http://192.168.11.141"; 
-const NewApiRootUrl = ServerUrl + '/api/';
-const WXApiRootUrl = ServerUrl + '/wx/';
+//const ServerUrl = "http://test.144f.com:8080/qfc-web";
 const ChooseUrl = ServerUrl + '/choose/';
 const VERSION = '3.3.72'; // 小程序版本
 
 module.exports = {
   VERSION: VERSION,
-  NewApiRootUrl,
-  WXApiRootUrl,
   ChooseUrl,
   //下拉选择
 
@@ -71,5 +68,14 @@ module.exports = {
   sellCusmterCreated: ServerUrl + "/cm/sellAddCustomer", //卖帮办创建客户 post
   operationUpdate: ServerUrl + "/cm/operationUpdate", //更新经营状况
   operationAdd: ServerUrl +'/cm/operationAdd'  ,//添加经营状况
-  rivalAdd: ServerUrl + '/cm/rivalAdd' //添加竞争对手
+  rivalAdd: ServerUrl + '/cm/rivalAdd' ,//添加竞争对手
+  dmList: ServerUrl + '/cm/dmList' ,//销售总监，区域经理客户列表
+  dmCount: ServerUrl + '/cm/dmCount', //销售总监/区域经理客户数量
+  majordomoDel : ServerUrl + '/cm/majordomoDel',   //销售总监删除分配
+  managerDel: ServerUrl + '/cm/managerDel',   //区域经理删除分配
+  managerList: ServerUrl + '/cm/managerList',   //销售总监查询区域经理列表
+  deputyList: ServerUrl + '/cm/deputyList',   //区域经理查询手下帮办列表
+  managerAllot: ServerUrl + '/cm/managerAllot',   //区域经理分配客户给帮办
+  majordomoAllot: ServerUrl + '/cm/majordomoAllot' //销售总监分配客户给区域经理
+
 };

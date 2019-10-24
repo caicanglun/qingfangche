@@ -9,7 +9,6 @@
 				  <view class="box">
 					<!-- 手机输入框 -->
 					<view class="flex_c box_row">
-					  
 					  <!-- <image src="../../../static/images/qingfc/user.png" class="i-next-login" mode="aspectFill"></image> -->
 					  <uniIcon type="phone" size="20"></uniIcon>
 					  <input name="contPhone" v-model="contPhone" class="box_input" 
@@ -45,7 +44,7 @@
 					       class="i-next i-padding" 
 						   mode="aspectFit" 
 						   @tap="showPass"></image> -->
-						   <view style="padding-left: 10upx;">
+						   <view style="padding-left: 20upx;">
 							   <uniIcon type="eye" size="20" v-if="isPassClear" @tap ="showPass"></uniIcon>
 						   </view>
 						   
@@ -86,7 +85,19 @@
 		methods:{
 			getPupDefault:function(){
 				JsyServer.pupDefault().then(res => {
-						uni.setStorageSync("pupDefault",res.data.data.msg);	
+					    if (res.data.status == 0){
+							console.log(res.data.data.msg)
+							uni.setStorageSync("pupDefault",res.data.data.msg);
+							
+						}else {
+							uni.showToast({
+								title: '没有认领身份，请联系帮办',
+								icon: 'none',
+								duration: 2000
+							});
+						
+						}
+							
 					}).catch(err => {
 					  console.log("currentIdentity=err==", res);
 					});
@@ -158,9 +169,17 @@
 						if (res.data.status=== 0){
 							uni.setStorageSync("token",res.data.data.msg);
 							this.getPupDefault()
-							uni.switchTab({
-								url:"/pages/qing-f-c/index"
-							})
+							setTimeout(function() {
+								if (uni.getStorageSync('pupDefault')){
+									uni.switchTab({
+										url:"/pages/qing-f-c/index"
+									})	
+								}
+							}, 500);
+							
+								
+						}else {
+							return
 						}
 						if (res.data.status === 1){
 							uni.showToast({
@@ -219,6 +238,8 @@
 	       line-height: 88upx;
 	       border-bottom: 1upx solid #ccc;
 	       color: #333236;
+		   margin-left: 30upx;
+		   margin-right: 30upx;
 	     }
 	     // .box_row:nth-last-child(1){
 	     // 	 border: none;

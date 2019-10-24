@@ -1,0 +1,1 @@
+<view class="list flex_c"><view class="list_right ml-14 color_888">{{''+label+''}}</view><view>{{content}}</view></view>
