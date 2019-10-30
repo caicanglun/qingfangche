@@ -326,7 +326,7 @@ button::after {
   border: 2rpx solid #DCDCDC;
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
-  border-radius: 20rpx;
+  border-radius: 30rpx;
   color: #fff;
   background-color: #FF6000;
   margin-left: 10rpx;
@@ -350,7 +350,7 @@ button::after {
   border: 2rpx solid #DCDCDC;
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
-  border-radius: 20rpx;
+  border-radius: 30rpx;
   color: black;
   background-color: #FFFFFF;
   margin-left: 10rpx;
@@ -360,6 +360,21 @@ button::after {
   height: 140rpx;
   width: 450rpx;
   padding-right: 20rpx;
-  background-color: #E6E6E6;
+  background-color: #F7F7F7;
+}
+.Clipboard {
+  text-align: center;
+  width: 100rpx;
+  height: 40rpx;
+  background-color: #FF6000;
+  color: white;
+  line-height: 40rpx;
+  border-radius: 20rpx;
+}
+.justify-content {
+  -webkit-box-pack: justify;
+  -webkit-justify-content: space-between;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
 }
 

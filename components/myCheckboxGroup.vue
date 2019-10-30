@@ -6,7 +6,7 @@
 					<view :class="(item.isChecked?'typeItemSelect':'typeItem')" @tap="tapItem(item.id)"> 
 							<!-- <checkbox :value="index" :checked="item.ischecked"/> -->
 							<text>{{item.label}}</text>
-							<uni-icon type="checkbox-filled" color="#EE603F" size="22" class="icon-position" v-if="item.isChecked"></uni-icon>
+							<uni-icon type="checkbox-filled" color="#FF6000" size="22" class="icon-position" v-if="item.isChecked"></uni-icon>
 					</view>
 			   </view>
 			</label> 
@@ -54,8 +54,8 @@
 	 line-height: 46upx;
 	 text-align: center;
 	 margin-bottom: 20upx;
-	 border: 2upx solid #EE603F;
-	 color: #EE603F;
+	 border: 2upx solid #FF6000;
+	 color: #FF6000;
 	 position:relative;
 	 }
 .typeItem{
@@ -72,5 +72,6 @@
 	position: absolute;
 	right: -10upx;
 	top: -15upx;
+	z-index: 99;
 }
 </style>

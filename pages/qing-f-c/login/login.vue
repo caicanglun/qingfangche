@@ -17,6 +17,7 @@
 						  maxlength="11"
 						  @input="showCloseIcon"
 						  
+						  
 					  ></input>
 					  <!-- <image v-if="isPhoneClear" src="../../../static/images/qingfc/close.png" class="i-next-login" mode="aspectFill" @tap="clearPhone"></image> -->
 					  <view style="width: 40upx;padding-left: 20upx;"  @tap="clearPhone">
@@ -44,7 +45,7 @@
 					       class="i-next i-padding" 
 						   mode="aspectFit" 
 						   @tap="showPass"></image> -->
-						   <view style="padding-left: 20upx;">
+						   <view style="margin-left: 20upx;">
 							   <uniIcon type="eye" size="20" v-if="isPassClear" @tap ="showPass"></uniIcon>
 						   </view>
 						   
@@ -53,7 +54,7 @@
 					<button class="login_btn" formType="submit">登录</button>
 					<view class="login-footer">
 						<navigator url="/pages/qing-f-c/register/findPassword" open-type="navigate">找回密码</navigator>
-						<text>|</text>
+						
 						<navigator url="/pages/qing-f-c/register/register" open-type="navigate">注册账号</navigator>
 					</view>
 				  </view>
@@ -128,6 +129,17 @@
 					this.isPassClear = false
 				}
 				
+			},
+			examineCount:function(){
+				
+				if(!(/^1(3|4|5|6|7|8|9)\d{9}$/.test(this.phone))){
+					uni.showToast({
+						title: '请输入正确电话号码！',
+						icon: 'none',
+						duration: 2000
+					});
+					return ;
+			    }
 			},
 			
 			formSubmit:function(e){

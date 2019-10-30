@@ -5,7 +5,7 @@
 	  <view class="flex_sb height_56">
 		<view class="flex_c search_left " style="width:100%">
 		  <icon type="search" size="14" style="height:14px;margin-left:40upx;"></icon>
-		  <input class="search_left_input" :value="inputValueOne" placeholder="请输入搜索内容" 
+		  <input class="search_left_input" v-model="inputValueOne" placeholder="请输入搜索内容" 
 		  @input="blurInput" confirm-type="search" @confirm="tapSearch"></input>
 		</view>
 	  </view>
@@ -19,14 +19,14 @@
 			<view>({{numOne}})</view>
 		  </view>
 		</view>
-		<view class="line mt_10"></view>
+		<view class="line"></view>
 		<view :class="'tab_208 flex_c_c ' + (tabTwo==1?'tab_on':'')" @tap="tapTabTwo" data-index="1">
 		  <view :class="(tabTwo==1?'text_on':'') + ' ptb_20'">
 			<view>已分配</view>
 			<view>({{numTwo}})</view>
 		  </view>
 		</view>
-		<view class="line mt_10"></view>
+		<view class="line"></view>
 		<view :class="'tab_208 flex_c_c ' + (tabTwo==2?'tab_on':'')" @tap="tapTabTwo" data-index="2">
 		  <view :class="(tabTwo==2?'text_on':'') + ' ptb_20'">
 			<view>未分配</view>
@@ -41,11 +41,13 @@
 			<view class="flex selection ">
 			  <view>
 				<block v-for="(item, index) in selectContent" :key="index">
-				  <view :class="'fs_14 ' + (index>0?'lh_62':'color_ee603f')" @tap="bindSelectContent" 
+				  <view :class="'fs_14 ' + (index>0?'lh_62':'color_FF6000')" @tap="bindSelectContent" 
 				  :data-index="index">{{item.label}}</view>
 				</block>
 			  </view>
-			  <image src="/static/images/qingfc/application/select_bind.png" mode="aspectFit"></image>
+			  <!-- <image src="/static/images/qingfc/application/select_bind.png" mode="aspectFit"></image> -->
+			  <uniIcon type='arrowdown' size='20' color='#FF6000' v-if='!bindSelect'></uniIcon>
+			  <uniIcon type='arrowup' size='20' color='#FF6000' v-if='bindSelect'></uniIcon>
 			</view>
 		  </view>
 		  <view :class="isFilterBuyer?'box_shadow filter_btn_select fs_14':'box_shadow filter_btn fs_14'"
@@ -93,8 +95,8 @@
 			  <view class="fs_14 ">所属帮办: {{ item.deputyRealName||'' }}</view>
 		  </view>
 		  <view v-if="tabTwo==0">
-				  <image src="/static/images/qingfc/application/exit2x.png" class="title_img" mode="aspectFit"></image>
-				  <image src="/static/images/qingfc/application/swap2x.png" class="title_img" mode="aspectFit"></image>
+				  <image src="/static/images/qingfc/application/exit2x.png" class="title_img" mode="aspectFit" @click.stop='delSingleAllo(item.companyCode)'></image>
+				  <image src="/static/images/qingfc/application/swap2x.png" class="title_img" mode="aspectFit" @click.stop='toSingleAllo(item.companyCode)'></image>
 		  </view>
 		</view>
 		
@@ -177,11 +179,14 @@
 </template>
 
 <script>
-
+import uniIcon from "@/components/uni-icons/uni-icons.vue";
 let pageSize = 20
 let _this,_postCode
  const JsyServer = require("@/services/jsy-server.js");
 export default {
+	components:{
+		uniIcon
+	},
   data() {
     return {
    
@@ -233,7 +238,7 @@ export default {
 		   currPage.data.isDoRefresh = false;
 		   this.pageNum =1
 		   this.getCustomerList(this.pageNum,this.isAllocation);
-		   this.dmCount()
+		   
      	 }
    },
    onLoad: function (options) {
@@ -243,7 +248,7 @@ export default {
   	if (this.checkLogin()){
 		this.getCustomerList(this.pageNum,this.isAllocation)
 		this.getRegionCode()
-		this.dmCount()
+		
   	    //获取职位
   	
   	}
@@ -255,15 +260,15 @@ export default {
 	  
 	    
   },
-  components: {},
-  props: {},
+ 
+
   methods: {
 	  getRegionCode:function(){
 		  let url = this.Api.getRegion
 		  this.myRequest({},url,'get').then(res => {
 			 console.log("regionCode",res)
 		     _this.selectContent = res.data.data.list
-			 _this.selectContent.unshift({id: 0 ,label:'区域'})
+			 _this.selectContent.unshift({id: 0 ,label:'全部区域'})
 		  	console.log("regionCode===",_this.selectContent)
 		  	
 		   }).catch(err => {
@@ -292,24 +297,25 @@ export default {
 				console.log("最后一页",_this.isLastPage)
 			 }).catch(err => {
 			   console.log("getBSList=err==", res);
-			 });  
+			 }); 
+			  
+			  let __data={
+				  keyword:keyword,		//关键词
+				  regionCode:regionCode,   //区域编码
+				  buyOrSell: buyOrSell,  //买卖家
+				  postCode: _postCode
+			   }
+			  JsyServer.dmCount(__data).then(res => {
+			     console.log("客户数量===",res)
+			     _this.numOne = res.data.data.all
+				_this.numTwo = res.data.data.isAllocation
+				_this.numThree = res.data.data.notAllocation
+			   }).catch(err => {
+			     console.log("getBSList=err==", res);
+			   }); 
 	  },
 	  
-	  dmCount:function(){
-		  let _data ={
-			  keyword:'',		//关键词
-			  regionCode:'',   //区域编码
-			  buyOrSell: -1   //买卖家
-		  }
-		 JsyServer.dmCount(_data).then(res => {
-		    console.log("客户数量===",res)
-            _this.numOne = res.data.data.all
-			_this.numTwo = res.data.data.isAllocation
-			_this.numThree = res.data.data.notAllocation
-		  }).catch(err => {
-		    console.log("getBSList=err==", res);
-		  }); 
-	  },
+	  
 	  checkboxChange: function (e) {
 			
 			this.codeValue = e.detail.value
@@ -412,7 +418,11 @@ export default {
       uni.showLoading({
         title: '搜索中...'
       });
-      this.getCustomerList('','','','',this.inputValueOne);
+	  let pageNum=1,
+	     isAllocation=-1,
+	     buyOrSell=-1,
+	     regionCode=''
+      this.getCustomerList(pageNum,isAllocation,buyOrSell,regionCode,this.inputValueOne);
       setTimeout(function() {
       		  uni.hideLoading();
       }, 1000);
@@ -465,7 +475,11 @@ export default {
     // 点击编辑
     tapCompile: function () {
       this.compileing = !this.compileing;
-	  
+	  if (this.compileing){
+		  this.setNavButton('完成')
+	  }else {
+		  this.setNavButton('编辑')
+	  }
     },
     // 点击全部
     
@@ -483,7 +497,16 @@ export default {
 	  this.newTime = newTime
     },
    
-  
+    toSingleAllo:function(companyCode){
+		_this.codeValue = []
+		_this.codeValue.push(companyCode)
+		this.toAllotAreaManager()
+	},
+	delSingleAllo:function(companyCode){
+		_this.codeValue = []
+		_this.codeValue.push(companyCode)
+		this.deleteAllot()
+	},
     // 跳转到选中区域经理页
     toAllotAreaManager: function () {
       
@@ -523,29 +546,45 @@ export default {
     },
    
     deleteAllot:function(){
-		let optionList = _this.codeValue
-		let _data={
-			companyCodes:optionList
-		}
-		let url = this.Api.majordomoDel
-		this.myRequest(_data,url,'post').then(res => {
-			if (res.data.status == 0){  
-					wx.showToast({
-					  title: '成功删除分配'
-					});
-					if (this.selectContent[0].id == 0){
-						this.getCustomerList(this.pageNum,this.isAllocation,this.buyOrSell)
-					}else{
-						this.getCustomerList(this.pageNum,this.isAllocation,this.buyOrSell,this.selectContent[0].id)
-					}
-				   
-					
-				}		 
+		uni.showModal({
+			title: '移除分配',
+			content: '确认要移除该客户分配吗？不要请返回',
+			showCancel: true,
+			cancelText: '返回',
+			confirmText: '我要移除',
+			success: res => {
+				if (res.confirm) {
+				        let optionList = _this.codeValue
+				        let _data={
+				        	companyCodes:optionList
+				        }
+				        let url = this.Api.majordomoDel
+				        this.myRequest(_data,url,'post').then(res => {
+				        	if (res.data.status == 0){  
+				        			wx.showToast({
+				        			  title: '成功删除分配'
+				        			});
+				        			if (this.selectContent[0].id == 0){
+				        				this.getCustomerList(this.pageNum,this.isAllocation,this.buyOrSell)
+				        			}else{
+				        				this.getCustomerList(this.pageNum,this.isAllocation,this.buyOrSell,this.selectContent[0].id)
+				        			}
+	
+				        		}		 
+	
+				         }).catch(err => {
+				           console.log("getBSList=err==", res);
+				         });  
+				        } else if (res.cancel) {
+				           return
+				        }
+	
+			},
+			fail: () => {},
+			complete: () => {}
+		});
 		
-			
-		 }).catch(err => {
-		   console.log("getBSList=err==", res);
-		 });  
+		
 		
 	},
     
@@ -555,7 +594,7 @@ export default {
       
 		console.log(e)
 		wx.navigateTo({
-		  url: '/pages/qing-f-c/sellDupty/customer-details?companyCode=' + e
+		  url: '/pages/qing-f-c/sales_director/customer-details?companyCode=' + e
 		});
       
     },
@@ -604,24 +643,25 @@ export default {
 }
 
 .tab_on{
-  color: #EE603F;
+  color: #FF6000;
   font-weight: bold;
 }
 .line{
-  height: 45upx;
-  width: 2upx;
-  background-color: #D3D3D3;
+  height: 48upx;
+  width: 1upx;
+  background-color: #E5E5E5;
+  margin-top: 20upx;
 }
 .tab_text{
   display: inline-block;
   padding: 24upx 0;
 }
 .text_on{
-  border-bottom: 4upx solid #EE603F;
+  border-bottom: 4upx solid #FF6000;
 }
 .tab_bj{
   font-size: 24upx;
-  color: #EE603F;
+  color: #FF6000;
   font-weight: bold;
   text-align: center;
   width: 114upx;
@@ -692,7 +732,7 @@ export default {
   height: 100upx;
   width: 100upx;
   border-radius: 100upx;
-  background-color: #EE603F;
+  background-color: #FF6000;
   color: #fff;
   font-size: 28upx;
   text-align: center;
@@ -716,7 +756,7 @@ export default {
   width: 222upx;
   height: 56upx;
   box-sizing: border-box;
-  background-color: #EE603F;
+  background-color: #FF6000;
   color: #fff;
   font-size: 14px;
   text-align: center;
@@ -749,7 +789,7 @@ export default {
 }
 .bind_searach{
   /* height: 192upx; */
-  height: 350upx;
+  height: 300upx;
 }
 .selection{
   line-height: 56upx;
@@ -812,7 +852,7 @@ export default {
   margin: 11upx 32upx;
 }
 .reset{
-	color: #EE603F;
+	color: #FF6000;
 	font-weight: bold;
 	line-height: 56upx;
 	padding-left: 40upx;
@@ -842,6 +882,7 @@ checkbox .wx-checkbox-input {
 checkbox .wx-checkbox-input.wx-checkbox-input-checked {
 		background: #FF6000;
 		color: #fff !important;
+		border: none;
 	}
 .checkboxSty {
 		display: flex;
@@ -850,7 +891,7 @@ checkbox .wx-checkbox-input.wx-checkbox-input-checked {
 	}
 .btn_right_director{
 		width: 20%;
-		background-color: #EE603F;
+		background-color: #FF6000;
 		color: #fff;
 		border-radius: 0;
 		font-weight: bold;
@@ -860,7 +901,7 @@ checkbox .wx-checkbox-input.wx-checkbox-input-checked {
 	}
 .btn_right_director_1{
 		width: 40%;
-		background-color: #EE603F;
+		background-color: #FF6000;
 		color: #fff;
 		border-radius: 0;
 		font-weight: bold;
@@ -896,7 +937,7 @@ checkbox .wx-checkbox-input.wx-checkbox-input-checked {
 }
 .btn_right_tapTwo{
 	width: 30%;
-	background-color: #EE603F;
+	background-color: #FF6000;
 	color: #fff;
 	border-radius: 0;
 	font-weight: bold;

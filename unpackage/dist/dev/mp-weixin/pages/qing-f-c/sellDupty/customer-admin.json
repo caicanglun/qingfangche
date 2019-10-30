@@ -1,4 +1,6 @@
 {
   "navigationBarTitleText": "卖帮办客户管理",
-  "usingComponents": {}
+  "usingComponents": {
+    "top-search": "/components/topSearch"
+  }
 }

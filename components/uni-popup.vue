@@ -86,6 +86,7 @@
 	@charset "UTF-8";
 
 	.uni-popup {
+		
 		position: fixed;
 		top: 0;
 		top: 0;

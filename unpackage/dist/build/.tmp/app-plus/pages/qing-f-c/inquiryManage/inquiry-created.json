@@ -6,6 +6,7 @@
     "part-checkbox-group": "/components/partCheckboxGroup",
     "my-picker-small": "/components/myPickerSmall",
     "switch-button": "/components/switchButton-s",
-    "uni-popup": "/components/uni-popup"
+    "uni-popup": "/components/uni-popup",
+    "picker-input": "/components/pickerInput"
   }
 }

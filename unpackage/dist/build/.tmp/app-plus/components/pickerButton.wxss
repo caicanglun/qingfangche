@@ -50,7 +50,7 @@
 .borderright {
   border-top-right-radius: 6rpx;
   border-bottom-right-radius: 6rpx;
-  border-right: 2rpx solid #EE603F;
+  border-right: 2rpx solid #FF6000;
 }
 .borderleft {
   border-top-left-radius: 6rpx;

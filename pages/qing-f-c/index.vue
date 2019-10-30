@@ -2,38 +2,49 @@
 <view>
 	<view v-if="isIdentity">
 	  <view class="hand_box">
-		 <view class="flex mt_50">
+		 <view class="flex-row-reverse mt_50" @tap="navNewsPage">
+		 		 
+		 		<view class="widgit">
+		 			<image src="/static/images/jinsy/xiaoxi@2x.png" class="xiaoxi_img" mode="aspectFit"></image>
+		 			<view class="xiaoxi_text" v-if="newsNum>0">{{newsNum|| ''}}</view>
+		 		</view>
+		 		<view style="padding-right: 20upx;">
+		 				<image src="/static/images/jinsy/setting@2x.png" class="setting_img" mode="aspectFit"></image>
+		 		</view>
+		 		
+		 </view>
+		 <view style="display:flex;margin-top: 100upx;margin-left: 15upx;">
 			 <view>
-				 <image :src="userInfo.avatar" class="hand_img" mode="aspectFilt"></image>
+				 <image :src="userInfo.avatar" class="hand_img" mode="aspectFit"></image>
 			 </view>
 			
 			<view class="hand_content">
-			  <view class="fs_15 mb_40 mt_10">{{userInfo.nickName}}</view>
-			  <view class="fs_14 color_cf">{{userInfo.realName}}</view>
-			  <view class="fs_12 color_cf mt_20">{{userInfo.phone}}</view>
+			  <view class="fs_15 font_we_bold  mt_10">{{userInfo.nickName || ''}}</view>
+			  <view class="fs_14 font_we_bold color_cf mt_30">{{userInfo.realName|| ''}}</view>
+			  <view class="fs_12 font_we_bold color_cf mt_20">{{userInfo.phone|| ''}}</view>
 			</view>
 			
-			<view class="flex_column ml_30">
-					<view class="flex-row-reverse" @tap="navNewsPage">
+			<view style="display: flex;flex-direction: column-reverse;">
+					<!-- <view class="flex-row-reverse" @tap="navNewsPage">
 							 
 							<view class="widgit">
-								<image src="/static/images/jinsy/xiaoxi@2x.png" class="xiaoxi_img" mode="aspectFilt"></image>
-								<view class="xiaoxi_text" v-if="newsNum>0">{{newsNum}}</view>
+								<image src="/static/images/jinsy/xiaoxi@2x.png" class="xiaoxi_img" mode="aspectFit"></image>
+								<view class="xiaoxi_text" v-if="newsNum>0">{{newsNum|| ''}}</view>
 							</view>
 							<view style="padding-right: 20upx;">
-									<image src="/static/images/jinsy/setting@2x.png" class="setting_img" mode="aspectFilt"></image>
+									<image src="/static/images/jinsy/setting@2x.png" class="setting_img" mode="aspectFit"></image>
 							</view>
 							
-					</view>
+					</view> -->
 				
-					<view class="flex mt_50">
+					<view class="flex pb_20">
 						<!-- <view class="hand_btn" v-if="regionalManager">区域经理</view> -->
 						<!-- <view class="hand_btn" v-if="!isSpecial">{{userInfo.postName}}</view> -->
 						<view class="hand_btn ml_20" @tap="showSinglePicker">
-							   {{userInfo.postName}}
+							   {{userInfo.postName|| ''}}
 						</view>
 						
-						<view class="hand_btn ml_20" v-if="userInfo.regionName">{{userInfo.regionName}}</view>
+						<view class="hand_btn ml_20">{{userInfo.regionName||'区域'}}</view>
 
 					</view>
 			
@@ -41,18 +52,30 @@
 		  </view>
 	  </view>
 
-	  <view class="box box_shadow">
-		<block v-for="(item, index) in arrList" :key="index">
-		  <navigator :url="(!popAds&&item.url=='/pages/user-order/order'?'':item.url)" hover-class="none">
-			<view :class="'mb_30 ' + (index==1||index==4||index==7?'mar_131':'')" @tap="toJump" :data-url="item.url">
-			  <view :class="(isSeller?'icon_blue':'icon_orange')"><image :src="item.icon" mode="aspectFilt" class="icon_img"></image></view>
-			  <view class="fs_12 text_algin_c">{{item.name}}</view>
-			</view>
-		  </navigator>
-		</block>
+	  <!-- 九宫格插件显示 -->
+	     <view class="box_1 box_shadow">
+			 <view style="padding: 30upx 0;">
+				 <uni-grid :column="3" :show-border="false" :square="false">
+				 
+				 	    <uni-grid-item v-for="(item, index) in arrList" :key="index" >
+				 			<navigator :url="item.url" hover-class="none">
+				 							<view class='image_back'>
+				 								<image :src="item.icon" mode="aspectFill" class="icon_img"></image>
+				 							</view>
+				 
+				 	        </navigator>
+				 			<view class="fs_12 text_algin_c">{{item.name|| ''}}</view>
+				 	    </uni-grid-item>
+				 	
+				 	    
+				 </uni-grid>
+			 </view>
+			 
+		 </view>
 			
-	  </view>
-      <image src="/static/images/jinsy/erweima.png" mode="aspectFilt" class="er_img" @tap="scanCode" v-if="identityName!='已冻结'"></image>
+
+	  
+      <image src="/static/images/jinsy/erweima.png" mode="aspectFit" class="er_img" @tap="scanCode" v-if="identityName!='已冻结'"></image>
 
 	</view>
 	<!-- <view @tap="showSinglePicker" v-if="shopList.length != 0">门店:{{shopList[index].label}}</view> -->
@@ -65,120 +88,242 @@
 
 <script>
 import mpvuePicker from '@/components/mpvue-picker/mpvuePicker.vue';
+import uniGrid from "@/components/uni-grid/uni-grid.vue"
+import uniGridItem from "@/components/uni-grid-item/uni-grid-item.vue"
+
 const JsyServer = require("../../services/jsy-server.js");
-const User = require("../../services/user.js");
 const Api = require("../../services/config/api.js");
 const Server = require("../../services/server.js");
 let _this,_regionCode;
-const a = [[
-	  {
-	  icon: '/static/images/jinsy/kehu.png',
-	  name: '客户管理',
-	  url: '/pages/qing-f-c/buyDupty/customer-admin'
-	  },
-	  {
-	   icon: '/static/images/jinsy/kehu.png',
-	   name: '客户管理',
-	   url: '/pages/qing-f-c/sellDupty/customer-admin'
-	   },
-	  {
-	    icon: '/static/images/jinsy/kehu.png',
-	    name: '客户管理',
-	    url: '/pages/qing-f-c/regionalManager/customer-admin'
-	    },
+
+
+const arrListBuyB = [
+	{
+	icon: '/static/images/jinsy/buy-deputy/kehu.png',
+	name: '客户管理',
+	url: '/pages/qing-f-c/buyDupty/customer-admin'
+	},
+	{
+	  icon: '/static/images/jinsy/buy-deputy/jiaoyi.png',
+	  name: '交易管理',
+	  url: '/pages/user-order/order'
+	}, {
+	  icon: '/static/images/jinsy/buy-deputy/xunjia.png',
+	  name: '询价管理',
+	  url: '/pages/jin-suo-yun/deputy/inquiry-management-list'
+	}, 
+	{
+	  icon: '/static/images/jinsy/buy-deputy/genjin.png',
+	  name: '跟进记录',
+	  url: '/pages/jin-suo-yun/deputy/sample-many-search'
+    }, 
+	{
+	  icon: '/static/images/jinsy/buy-deputy/wuliu.png',
+	  name: '物流信息',
+	  url: '',
+	},
+	{
+	  icon: '/static/images/jinsy/buy-deputy/renling.png',
+	  name: '身份认领',
+	  url: ''}
+  ];  //买办
+const arrListSellB = [
+	{
+	icon: '/static/images/jinsy/sell-deputy/kehu.png',
+	name: '客户管理',
+	url: '/pages/qing-f-c/sellDupty/customer-admin'
+	},
+	{
+	  icon: '/static/images/jinsy/sell-deputy/jiaoyi.png',
+	  name: '交易管理',
+	  url: '/pages/user-order/order'
+	}, {
+	  icon: '/static/images/jinsy/sell-deputy/xunjia.png',
+	  name: '询价管理',
+	  url: '/pages/jin-suo-yun/deputy/inquiry-management-list'
+	}, 
+	{
+	  icon: '/static/images/jinsy/sell-deputy/genjin.png',
+	  name: '跟进记录',
+	  url: '/pages/jin-suo-yun/deputy/sample-many-search'
+	}, 
+	{
+	  icon: '/static/images/jinsy/sell-deputy/wuliu.png',
+	  name: '物流信息',
+	  url: '',
+	},
+	{
+	  icon: '/static/images/jinsy/sell-deputy/renling.png',
+	  name: '身份认领',
+	  url: ''}
+];   //卖办
+const arrListRGbuy = [
+	{
+		icon: '/static/images/jinsy/buy-region/kehu.png',
+		name: '客户管理',
+		url: '/pages/qing-f-c/regionalManager/customer-admin'
+		},
+		
 		{
-		  icon: '/static/images/jinsy/kehu.png',
-		  name: '客户管理',
-		  url: '/pages/qing-f-c/sales_director/customer-admin'
-		  }	
-]
-, {
-  icon: '/static/images/jinsy/jiaoyi.png',
-  name: '交易管理',
-  url: '/pages/user-order/order'
-}, {
-  icon: '/static/images/jinsy/xunjia.png',
-  name: '询价管理',
-  url: '/pages/jin-suo-yun/deputy/inquiry-management-list'
-}, {
-  icon: '/static/images/jinsy/genjin.png',
-  name: '跟进记录',
-  url: '/pages/jin-suo-yun/deputy/sample-many-search'
-}, 
-{
-  icon: '/static/images/jinsy/wuliu.png',
-  name: '物流信息',
-  url: '',
-},
-{
-  icon: '/static/images/jinsy/fenxi.png',
-  name: '分析单管理',
-  url: ''
-}, 
-{
-  icon: '/static/images/jinsy/tongji.png',
-  name: '报表统计',
-  url: ''
-},
-{
-  icon: '/static/images/jinsy/admin.png',
-  name: '帮办管理',
-  url: ''
-}, 
-{
-  icon: '/static/images/jinsy/examine.png',
-  name: '审核管理',
-  url: ''
-},
-{
-  icon: '/static/images/jinsy/renling.png',
-  name: '身份认领',
-  url: ''
-}];
-const arrListBuyB = [a[0][0],a[1],a[2],a[3],a[4],a[9]];  //买办
-const arrListSellB = [a[0][1],a[1],a[2],a[3],a[4],a[9]];   //卖办
-const arrListRG = [a[0][2],a[3],a[6],a[7],a[8],a[9]];      //区域经理
-const arrListGM= [a[0][3],a[3],a[6],a[7],a[8],a[9]];     //销售总监
-const arrListAN= [a[6],a[5]];     //分析师
-const arrListBS= [{   //买，卖家共用一个
-  icon: '/static/images/jinsy/woxunjia.png',
+		  icon: '/static/images/jinsy/buy-region/genjin.png',
+		  name: '跟进记录',
+		  url: '/pages/jin-suo-yun/regionalManager/sample-many-search'
+	    }, 
+	
+		{
+		  icon: '/static/images/jinsy/buy-region/tongji.png',
+		  name: '报表统计',
+		  url: ''
+		},
+		{
+		  icon: '/static/images/jinsy/buy-region/admin.png',
+		  name: '帮办管理',
+		  url: ''
+		}, 
+		{
+		  icon: '/static/images/jinsy/buy-region/examine.png',
+		  name: '审核管理',
+		  url: ''
+		},
+		{
+		  icon: '/static/images/jinsy/buy-region/renling.png',
+		  name: '身份认领',
+		  url: ''}
+];      //买办区域经理
+
+const arrListRGsell = [
+	{
+		icon: '/static/images/jinsy/sell-region/kehu.png',
+		name: '客户管理',
+		url: '/pages/qing-f-c/regionalManager/customer-admin'
+		},
+		
+		{
+		  icon: '/static/images/jinsy/sell-region/genjin.png',
+		  name: '跟进记录',
+		  url: '/pages/jin-suo-yun/regionalManager/sample-many-search'
+	    }, 
+	
+		{
+		  icon: '/static/images/jinsy/sell-region/tongji.png',
+		  name: '报表统计',
+		  url: ''
+		},
+		{
+		  icon: '/static/images/jinsy/sell-region/admin.png',
+		  name: '帮办管理',
+		  url: ''
+		}, 
+		{
+		  icon: '/static/images/jinsy/sell-region/examine.png',
+		  name: '审核管理',
+		  url: ''
+		},
+		{
+		  icon: '/static/images/jinsy/sell-region/renling.png',
+		  name: '身份认领',
+		  url: ''}
+];      //卖办区域经理
+const arrListGM= [
+	{
+		icon: '/static/images/jinsy/sales-director/kehu.png',
+		name: '客户管理',
+		url: '/pages/qing-f-c/sales_director/customer-admin'
+		},
+		
+		{
+		  icon: '/static/images/jinsy/sales-director/genjin.png',
+		  name: '跟进记录',
+		  url: '/pages/jin-suo-yun/sales_director/sample-many-search'
+	    }, 
+	
+		{
+		  icon: '/static/images/jinsy/sales-director/tongji.png',
+		  name: '报表统计',
+		  url: ''
+		},
+		{
+		  icon: '/static/images/jinsy/sales-director/admin.png',
+		  name: '帮办管理',
+		  url: ''
+		}, 
+		{
+		  icon: '/static/images/jinsy/sales-director/examine.png',
+		  name: '审核管理',
+		  url: ''
+		},
+		{
+		  icon: '/static/images/jinsy/sales-director/renling.png',
+		  name: '身份认领',
+		  url: ''}
+];     //销售总监
+const arrListAN= [];     //分析师
+const arrListBuyer= [
+	{   //买，卖家共用一个
+  icon: '/static/images/jinsy/buyer/xunjia.png',
   name: '我的询价',
   url: '/pages/jin-suo-yun/deputy/sample-many-search'
-}, {
-  icon: '/static/images/jinsy/wojiaoyi.png',
+ }, {
+  icon: '/static/images/jinsy/buyer/jiaoyi.png',
   name: '我的交易',
   url: ''
-}, {
-  icon: '/static/images/jinsy/wolianxi.png',
+ }, {
+  icon: '/static/images/jinsy/buyer/lianxi.png',
   name: '联系帮办',
-  url: '/pages/jin-suo-yun/analysis-list'
-},
-{
-  icon: '/static/images/jinsy/woweidian.png',
-  name: '我的微店',
-  url: ''
-},
-{
-  icon: '/static/images/jinsy/womingpian.png',
-  name: '采购名片',
-  url: ''
-},
-{
-  icon: '/static/images/jinsy/renling.png',
-  name: '身份认领',
-  url: ''
-},
-{
-  icon: '/static/images/jinsy/woguanzhu.png',
+  url: '/pages/jin-suo-yun/buyer/analysis-list'
+ },
+ {
+  icon: '/static/images/jinsy/buyer/guanzhu.png',
   name: '我的关注',
   url: '/pages/jin-suo-yun/analysis-list'
-},
-{
-  icon: '/static/images/jinsy/womingpian.png',
+ },
+ {
+  icon: '/static/images/jinsy/buyer/mingpian.png',
+  name: '采购名片',
+  url: '',
+  },
+ ]
+  
+const arrListSeller= [
+	{   //买，卖家共用一个
+  icon: '/static/images/jinsy/seller/xunjia.png',
+  name: '我的询价',
+  url: '/pages/jin-suo-yun/deputy/sample-many-search'
+  },
+  {
+  icon: '/static/images/jinsy/seller/jiaoyi.png',
+  name: '我的交易',
+  url: ''
+  }, {
+  icon: '/static/images/jinsy/seller/lianxi.png',
+  name: '联系帮办',
+  url: '/pages/jin-suo-yun/buyer/analysis-list'
+  },
+  {
+  icon: '/static/images/jinsy/seller/weidian.png',
+  name: '我的微店',
+  url: ''
+  },
+  {
+  icon: '/static/images/jinsy/seller/mingpian.png',
   name: '采购名片',
   url: ''
-}];
-
+  },
+ {
+  icon: '/static/images/jinsy/seller/renling.png',
+  name: '身份认领',
+  url: ''
+  },
+  {
+  icon: '/static/images/jinsy/seller/guanzhu.png',
+  name: '我的关注',
+  url: '/pages/jin-suo-yun/analysis-list'
+ },
+  {
+  icon: '/static/images/jinsy/seller/mingpian.png',
+  name: '采购名片',
+  url: ''
+ }];
 
 
 export default {
@@ -243,7 +388,9 @@ export default {
 
   },
   components: {
-	  mpvuePicker
+	  mpvuePicker,
+	  uniGrid,
+	  uniGridItem
   },
   props: {},
   methods: {
@@ -286,10 +433,10 @@ export default {
 							}
 							this.userDetails()
 							setTimeout(function() {
-								console.log(a[0][2].url)
-								a[0][2].url= a[0][2].url+'?regionCode=' + _regionCode
-								console.log(a[0][2].url)
-								this.arrList = arrListRG;
+								let temp = arrListRGbuy
+								temp[0].url = temp[0].url+'?regionCode=' + _regionCode
+								console.log(temp[0].url)
+								this.arrList = temp;
 							}, 500);
 							
 							this.isSpecial = true
@@ -394,13 +541,13 @@ export default {
 				     _this.arrList = arrListGM
 					 break;
 				case "REGIONAL_MANAGER":
-				     _this.arrList = arrListRG
+				     _this.arrList = arrListRGbuy
 					 break;
 				case "BUYER":
-				     _this.arrList = arrListBS
+				     _this.arrList = arrListBuyer
 					 break;
 				case "SELLER":
-				     _this.arrList = arrListBS
+				     _this.arrList = arrListSeller
 					 break;
 			}
 		
@@ -475,7 +622,7 @@ page{
   background-repeat:no-repeat;
   background-position:center top;
   background-size:cover;
-  height: 300upx;
+  height: 420upx;
   color:#fff;
   padding: 30upx 24upx 100upx;
 }
@@ -521,22 +668,34 @@ page{
   z-index: 95;
 }
 .box{
-  padding: 30upx 50upx 0;
-  margin:0 24upx;
-  position: relative;
-  bottom: 130upx;
-  background-color: #fff;
-  border-radius: 8upx;
-  display: flex;
-  flex-wrap: wrap;
+	 padding: 30upx 50upx 0;
+	 margin:0 24upx;
+	 position: relative;
+	 bottom: 60upx;
+	 background-color: #fff;
+	 border-radius: 8upx;
+	 display: flex;
+	 flex-wrap: wrap;
+}
+.box_1{
+	 /* padding: 30upx 50upx 0; */
+	 margin:0 30upx;
+	 position: relative;
+	 bottom: 120upx;
+	 background-color: #fff;
+	 border-radius: 8upx;
+	
 }
 .mar_131{
   margin: 0 91upx;
 }
-.text_algin_c{
+/* .text_algin_c{
   text-align: center;
   width: 140upx;
-  white-space: nowrap
+  white-space: nowrap;
+} */
+.text_algin_c{
+   margin-top: 10upx;
 }
 .icon_blue{
 	width: 100upx;
@@ -561,12 +720,17 @@ page{
 	align-items: center;
 }
 .icon_img{
-  width:45upx;
-  height: 52upx;
-  /* position: relative;
-  top: 20upx;
-  left: 20upx; */
- /*  */
+ /* width:100upx;
+ height: 100upx; */
+ width: 100upx;
+ height: 100upx;
+/* margin: 14upx 20upx 0; */
+}
+.image_back{
+	width: 100upx;
+	height: 100upx;
+	border-radius: 50%;
+	box-shadow:5px 5px 10px -4px rgba(0,0,0,0.1);
 }
 
 .er_img{
@@ -595,7 +759,7 @@ page{
   width: 406upx;
   line-height: 96upx;
   color:#fff;
-  background-color: #EE603F;
+  background-color: #FF6000;
   border-radius: 6upx;
   margin: 160upx auto 40upx;
   font-size: 18px;

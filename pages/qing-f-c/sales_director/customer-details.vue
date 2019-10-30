@@ -11,7 +11,7 @@
     <view class="flex">
       <image src="/static/images/qingfc/application/companyx.png" class="title_img" mode="aspectFit"></image>
       <view class="fs_18 font_we_bold">{{customerInfo.companyName||''}}</view>
-	  <view :class="(customerInfo.buyOrSell==1?'id_btn':'seller_btn')">{{customerInfo.buyOrSell==1?'买家':'卖家'}}</view>
+	  <view :class="'ml_20 '+ (customerInfo.buyOrSell==1?'id_btn':'seller_btn')">{{customerInfo.buyOrSell==1?'买家':'卖家'}}</view>
     </view>
 
     
@@ -24,7 +24,7 @@
     <block v-for="(item, index) in [1,2,3,4,5]" :key="index">
       <image src="/static/images/shixinStar.png" class="stars_img" mode="aspectFit"></image>
     </block>
-    <view class="ml_30 fs_12 color_ee603f">查看详情</view>
+    <view class="ml_30 fs_12 color_FF6000">查看详情</view>
   </view>
   <view class="flex_c fs_14 mt_30">
     <view class="wid_296 flex_c">
@@ -52,16 +52,26 @@
     </view>
   </view>
   <view class="flex_sb mt_30">
-    <view class="hand_bottom_btn" @tap="toRecordDetails">跟进记录</view>
-    <view class="hand_bottom_btn" @tap="toProductPage">产品展示</view>
-    <view class="hand_bottom_btn" @tap="toBondDetail">保证金</view>
+    <view class="hand_bottom_btn" @tap="toRecordDetails">
+  		<view>跟进记录</view>
+  		<view class="counter">36条</view>
+  	</view>
+    <view class="hand_bottom_btn" @tap="toProductPage">
+  		<view>产品展示</view>
+  		<view class="counter">12个</view>
+  		
+  	</view>
+    <view class="hand_bottom_btn" @tap="toBondDetail">
+  		<view>保证金</view>
+  		<view class="counter">20000元</view>
+  	</view>
   </view>
 </view>
  <!-- ---------------------------------- -->
 <view class="inTabbar box_shadow pt_30" id="inTabbar" v-if="isDisplay">
-	<view class="flex_c_c mb_20">客户公司名称</view>
+	<view class="flex_c_c mb_20">{{customerInfo.companyName||''}}</view>
 	<view class="flex_sa">
-		<view class="tabItem"
+		<view class="tabItem fs_15"
 			v-for="(item,index) of items" 
 			:key= "index" 
 			:class= "activeIndex==index?'active':''"
@@ -73,14 +83,20 @@
 	</view>
 	
 </view>
+
+<!-- ----------------------- -->
+<view style="background-color: #f4f4f4;">             <!-- 背景颜色 -->
+
+
  <!-- ---------------------------------- -->
-<view class="box box_shadow" id="companyInfo">
+<view class="box" id="companyInfo">
   <view class="flex_sb_c box_list">
     <view class="fs_16 font_we_bold lh_72 flex_c">
       <view class="list_line"></view>
       <view>公司信息</view>
     </view>
-    <image src="/static/images/jinsy/bianji.png" class="bianji_img" mode="aspectFit" @tap="goEditCustomer"></image>
+   <!-- <image src="/static/images/jinsy/bianji.png" class="bianji_img" mode="aspectFit" @tap="goEditCustomer"></image> -->
+    <image src="/static/images/jinsy/bianji.png" class="bianji_img" mode="aspectFit"></image>
   </view>
  <!-- <view class="flex_c box">
    <listShow label="客户编号" :content="customerInfo.companyCode"></listShow>
@@ -96,7 +112,10 @@
     <view class='list_right'>所属区域</view>
     <view>{{customerInfo.region||''}}</view>
   </view>
-  
+  <view class="flex_c box_list fs_14">
+    <view class='list_right'>公司地址</view>
+    <view>{{customerInfo.companyAddress||''}}</view>
+  </view>
   <view class="flex_c box_list fs_14">
     <view class='list_right'>工厂地址</view>
     <view>{{customerInfo.factoryAddress||''}}</view>
@@ -110,10 +129,10 @@
     <view class='list_right'>客户类型</view>
     <view>{{customerInfo.companyType||''}}</view>
   </view>
- <!-- <view class="flex_c box_list fs_14">
+ <view class="flex_c box_list fs_14">
     <view class='list_right'>客户规模</view>
     <view>{{customerInfo.companyScale||''}}</view>
-  </view> -->
+  </view>
   <view class="flex_c box_list fs_14">
     <view class='list_right'>客户来源</view>
     <view>{{customerInfo.companySource||''}}</view>
@@ -127,6 +146,10 @@
     <view class='list_right'>配合度</view>
     <view>{{customerInfo.coordinate||''}}</view>
   </view>
+  <view class="flex_c box_list fs_14 no_border">
+    <view class='list_right'>公司定位</view>
+    <view>{{customerInfo.managementPosition||''}}</view>
+  </view>
 </view>
  <!-- ---------------------------------- -->
 <view class="box box_shadow" id="contact">
@@ -135,7 +158,8 @@
       <view class="list_line"></view>
       <view>联系人</view>
     </view>
-    <image src="/static/images/qingfc/application/tianjia.png" class="bianji_img" mode="aspectFit" @tap="addContacts"></image>
+    <!-- <image src="/static/images/qingfc/application/tianjia.png" class="bianji_img" mode="aspectFit" @tap="addContacts"></image> -->
+	<image src="/static/images/qingfc/application/tianjia.png" class="bianji_img" mode="aspectFit"></image>
   </view>
   <block v-for="(item, index) in linkMan" :key="index">
     <view :class="'flex_sb_c box_list fs_14 ' + (linkMan.length-1==index?'no_border':'')" @tap="toEditLinkman(item.buyOrSellCode)" data-type="1" :data-index="index">
@@ -143,9 +167,9 @@
         <view class="list_right color_000">{{item.realName}}</view>
         <view class="ml_30">{{item.phone}}</view>
       </view>
-      <view class="flex_c" @tap="toEditLinkman(item.buyOrSellCode)">
+      <!-- <view class="flex_c" @tap="toEditLinkman(item.buyOrSellCode)">
         <uniIcon type="arrowright" size="20"></uniIcon>
-      </view>
+      </view> -->
     </view>
   </block>
 </view>
@@ -158,9 +182,10 @@
       <view class="list_line"></view>
       <view>经营状况</view>
     </view>
-    <image src="/static/images/jinsy/bianji.png" class="bianji_img" mode="aspectFit" @tap="toSetManagementCondition(1)" v-if="operation"></image>
+    <!-- <image src="/static/images/jinsy/bianji.png" class="bianji_img" mode="aspectFit" 
+	   @tap="toSetManagementCondition(1)" v-if="operation"></image>
 	<image src="/static/images/qingfc/application/tianjia.png" class="bianji_img" mode="aspectFit" 
-	   @tap="toSetManagementCondition(2)" v-if="!operation"></image>
+	   @tap="toSetManagementCondition(2)" v-if="!operation"></image> -->
   </view>
   <view v-if="operation">
     <view class="flex_c box_list fs_14">
@@ -171,12 +196,12 @@
       <view class="wid_198 color_888">资金状况</view>
       <view>{{operation.capitalName||''}}</view>
     </view>
-    <view class="flex_c box_list fs_14 no_border" >
+    <view class="flex_c box_list fs_14 " >
       <view class="wid_198 color_888">信用度</view>
       <view>{{operation.creditName||''}}</view>
     </view>
 	
-	<view class="flex_c box_list fs_14 no_border">
+	<view class="flex_c box_list fs_14 ">
 	  <view class="wid_198 color_888">口碑</view>
 	  <view>{{operation.womName||''}}</view>
 	</view>
@@ -196,21 +221,23 @@
         <view class="list_line"></view>
         <view>竞争对手</view>
       </view>
-      <image src="/static/images/qingfc/application/tianjia.png" class="bianji_img" mode="aspectFit" @tap="addCompetitor"></image>
+      <!-- <image src="/static/images/qingfc/application/tianjia.png" class="bianji_img" mode="aspectFit" @tap="addCompetitor"></image> -->
     </view>
     <block v-for="(item, index) in rival" :key="index">
       <view :class="'flex_sb_c box_list fs_14 ' + (rival.length-1==index?'no_border':'')" @tap="detailCompetitor(item.id)" data-type="1" :data-index="index">
         <view class="flex_c">
           <view class="list_right_280 color_000">{{item.label}}</view>
         </view>
-        <view class="flex_c" @tap="detailCompetitor(item.id)">
+       <!-- <view class="flex_c" @tap="detailCompetitor(item.id)">
          <uniIcon type="arrowright" size="20"></uniIcon>
-        </view>
+        </view> -->
       </view>
     </block>
   </view>
 <!-- ---------------------------------- --> 
 
+<view style="width:100%;height:950upx;" v-if="placeholdeView"></view>
+</view>   <!-- 背景色 -->
 
 </view>
 </template>
@@ -246,7 +273,8 @@ export default {
       isDisplay: false,
 	  activeIndex: -1,
 	  items: ['公司信息','联系人','经营状况','竞争对手'],
-	  isDoRefresh:false
+	  isDoRefresh:false,
+	  placeholdeView:false
     };
   },
 
@@ -282,6 +310,7 @@ export default {
 	}
 	else {	
 		this.isDisplay = false
+		this.placeholdeView = false
 	}
   },
   components: {},
@@ -289,6 +318,7 @@ export default {
   methods: {
 	  tabSwitch:function(index){
 	  	this.activeIndex = index
+		this.placeholdeView = true
 	  	switch (index){
 			case 0:
 			    this.selectorQuery("#outView","#companyInfo");
@@ -592,10 +622,13 @@ export default {
 </script>
 <style lang="scss">
 .box{
-    margin: 20upx 20upx 0;
-    padding: 0 20upx;
-    border-radius: 6upx;
-    background-color: #fff;
+  margin-top: 20upx;
+  padding-left: 40upx;
+  padding-right: 20upx;
+  background-color: #fff;
+  // box-shadow:5px 5px 10px -4px rgba(0,0,0,0.1);
+  
+  box-shadow: 0px 5px 10px -5px rgba(0,0,0,0.05);
    }
 page{
   padding-bottom: 20upx;
@@ -639,7 +672,7 @@ page{
 .border_btn{
   width: 175upx;
   box-sizing: border-box;
-  background-color: #EE603F;
+  background-color: #FF6000;
   color: #fff;
   border-radius: 6upx;
   text-align: center;
@@ -673,30 +706,35 @@ page{
   width: 4upx;
   height: 28upx;
   border-radius: 2upx;
-  background-color: #EE603F;
+  background-color: #FF6000;
   margin:0 27upx;
 }
 .list_line{
-	width: 4upx;
-	height: 15px;
-	border-radius: 2upx;
-	background-color: #EE603F;
-	margin-right: 10upx;
-	margin-left: -14upx;
+	// width: 4upx;
+	// height: 15px;
+	// border-radius: 2upx;
+	// background-color: #FF6000;
+	// margin-right: 10upx;
+	// margin-left: -14upx;
 }
 .hand_bottom{
 	margin: 30upx 20upx 0;
 }
 .hand_bottom_btn{
   height: 90upx;
-  line-height: 82upx;
-  background-color: #EE603F;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items:center;
+  background-color: #FF6000;
   width: 190upx;
   font-size: 15px;
-  border-radius: 4upx;
+  border-radius: 10upx;
   color: #fff;
-  text-align: center;
-  font-weight: bold;
+  .counter{
+  	  font-size: 13px;
+  	  padding-top: 4upx;
+  }
 }
 // .box{
 //   margin: 20upx 20upx 0;
@@ -732,7 +770,7 @@ page{
   line-height: 97upx;
   padding: 0 40upx 0 30upx;
   color: #fff;
-  background-color: #EE603F;
+  background-color: #FF6000;
   border-radius: 6upx;
   box-sizing: border-box;
   margin-top: 31upx;
@@ -782,7 +820,7 @@ page{
 	width: 7upx;
 	height: 7upx;
 	border-radius: 7upx;
-	background-color: #EE603F;
+	background-color: #FF6000;
 	margin-left: 6upx;
 }
 .wid_198{
@@ -863,6 +901,8 @@ page{
 		.tabItem {
 			display: flex;
 			flex-direction: column;
+			justify-content: center;
+			align-items: center;
 			.tabText{
 				color: black;
 			}
@@ -878,6 +918,7 @@ page{
 				background: red;
 				height: 6upx;
 				border-radius: 4upx;
+				width: 60upx;
 			}
 		}
 		

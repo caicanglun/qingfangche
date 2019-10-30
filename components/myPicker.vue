@@ -38,9 +38,13 @@
 		
 		methods:{
 			itemChange:function(e){
+				
 				let index = e.detail.value
 				this.index = index
-				this.$emit("mychange",this.items[index].id)
+				if (this.index == -1){
+					this.index = 0
+				}
+				this.$emit("mychange",this.items[this.index].id)
 			}
 		}
 	}

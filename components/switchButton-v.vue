@@ -53,14 +53,14 @@
    width: 80upx;
    height: 48upx;
    text-align: center;
-   border: 2upx solid #EE603F;
+   border: 2upx solid #FF6000;
    box-sizing: border-box;
    border-right:none;
  }
  .borderright{
    border-top-right-radius: 6upx;
    border-bottom-right-radius: 6upx;
-   border-right: 2upx solid #EE603F;
+   border-right: 2upx solid #FF6000;
  }
  .borderleft{
    border-top-left-radius: 6upx;
@@ -69,7 +69,7 @@
  }
  .unitselect{
    color: #fff;
-   background-color: #EE603F;
+   background-color: #FF6000;
  }
  .unitunselect{
    color: #888890;

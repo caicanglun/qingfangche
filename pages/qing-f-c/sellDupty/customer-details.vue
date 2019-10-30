@@ -24,7 +24,7 @@
     <block v-for="(item, index) in [1,2,3,4,5]" :key="index">
       <image src="/static/images/shixinStar.png" class="stars_img" mode="aspectFit"></image>
     </block>
-    <view class="ml_30 fs_12 color_ee603f">查看详情</view>
+    <view class="ml_30 fs_12 color_FF6000">查看详情</view>
   </view>
   <view class="flex_c fs_14 mt_30">
     <view class="wid_296 flex_c">
@@ -52,16 +52,26 @@
     </view>
   </view>
   <view class="flex_sb mt_30">
-    <view class="hand_bottom_btn" @tap="toRecordDetails">跟进记录</view>
-    <view class="hand_bottom_btn" @tap="toProductPage">产品展示</view>
-    <view class="hand_bottom_btn" @tap="toBondDetail">保证金</view>
+    <view class="hand_bottom_btn" @tap="toRecordDetails">
+  		<view>跟进记录</view>
+  		<view class="counter">36条</view>
+  	</view>
+    <view class="hand_bottom_btn" @tap="toProductPage">
+  		<view>产品展示</view>
+  		<view class="counter">12个</view>
+  		
+  	</view>
+    <view class="hand_bottom_btn" @tap="toBondDetail">
+  		<view>保证金</view>
+  		<view class="counter">20000元</view>
+  	</view>
   </view>
 </view>
  <!-- ---------------------------------- -->
 <view class="inTabbar box_shadow pt_30" id="inTabbar" v-if="isDisplay">
-	<view class="flex_c_c mb_20">客户公司名称</view>
+	<view class="flex_c_c mb_20">{{customerInfo.companyName||''}}</view>
 	<view class="flex_sa">
-		<view class="tabItem"
+		<view class="tabItem fs_15"
 			v-for="(item,index) of items" 
 			:key= "index" 
 			:class= "activeIndex==index?'active':''"
@@ -73,8 +83,13 @@
 	</view>
 	
 </view>
+<!-- ----------------------- -->
+<view style="background-color: #f4f4f4;">             <!-- 背景颜色 -->
+	
+     
  <!-- ---------------------------------- -->
-<view class="box box_shadow" id="companyInfo">
+ 
+<view class="box" id="companyInfo">
   <view class="flex_sb_c box_list">
     <view class="fs_16 font_we_bold lh_72 flex_c">
       <view class="list_line"></view>
@@ -123,7 +138,7 @@
     <view>{{customerInfo.cooperationIntention||''}}</view>
   </view>
   
-  <view class="flex_c box_list fs_14">
+  <view class="flex_c box_list fs_14 no_border">
     <view class='list_right'>配合度</view>
     <view>{{customerInfo.coordinate||''}}</view>
   </view>
@@ -171,12 +186,12 @@
       <view class="wid_198 color_888">资金状况</view>
       <view>{{operation.capitalName||''}}</view>
     </view>
-    <view class="flex_c box_list fs_14 no_border" >
+    <view class="flex_c box_list fs_14" >
       <view class="wid_198 color_888">信用度</view>
       <view>{{operation.creditName||''}}</view>
     </view>
 	
-	<view class="flex_c box_list fs_14 no_border">
+	<view class="flex_c box_list fs_14">
 	  <view class="wid_198 color_888">口碑</view>
 	  <view>{{operation.womName||''}}</view>
 	</view>
@@ -210,7 +225,10 @@
     </block>
   </view>
 <!-- ---------------------------------- --> 
+
 <view style="width:100%;height:950upx;" v-if="placeholdeView"></view>
+
+</view>   <!-- 背景色 -->
 
 </view>
 </template>
@@ -283,6 +301,7 @@ export default {
 	}
 	else {	
 		this.isDisplay = false
+		this.placeholdeView = false
 	}
   },
   components: {},
@@ -290,22 +309,19 @@ export default {
   methods: {
 	  tabSwitch:function(index){
 	  	this.activeIndex = index
+		this.placeholdeView = true
 	  	switch (index){
 			case 0:
 			    this.selectorQuery("#outView","#companyInfo");
-				this.placeholdeView = false
 				break;
 			case 1:
 			    this.selectorQuery("#outView","#contact");
-				this.placeholdeView = true
 				break;
 			case 2:
 			   this.selectorQuery("#outView","#condition");
-			   this.placeholdeView = true
 			   break;
 			case 3:
 			   this.selectorQuery("#outView","#competitor");
-			   this.placeholdeView = true
 			   break;
 		}
 	  	
@@ -554,10 +570,13 @@ export default {
 </script>
 <style lang="scss">
 .box{
-    margin: 20upx 20upx 0;
-    padding: 0 20upx;
-    border-radius: 6upx;
-    background-color: #fff;
+   margin-top: 20upx;
+   padding-left: 40upx;
+   padding-right: 20upx;
+   background-color: #fff;
+   // box-shadow:5px 5px 10px -4px rgba(0,0,0,0.1);
+   
+   box-shadow: 0px 5px 10px -5px rgba(0,0,0,0.05);
    }
 page{
   padding-bottom: 20upx;
@@ -601,7 +620,7 @@ page{
 .border_btn{
   width: 175upx;
   box-sizing: border-box;
-  background-color: #EE603F;
+  background-color: #FF6000;
   color: #fff;
   border-radius: 6upx;
   text-align: center;
@@ -632,33 +651,38 @@ page{
   border-radius: 4upx;
 }
 .line{
-  width: 4upx;
-  height: 28upx;
-  border-radius: 2upx;
-  background-color: #EE603F;
-  margin:0 27upx;
+  // width: 4upx;
+  // height: 28upx;
+  // border-radius: 2upx;
+  // background-color: #FF6000;
+  // margin:0 27upx;
 }
 .list_line{
-	width: 4upx;
-	height: 15px;
-	border-radius: 2upx;
-	background-color: #EE603F;
-	margin-right: 10upx;
-	margin-left: -14upx;
+	// width: 4upx;
+	// height: 15px;
+	// border-radius: 2upx;
+	// background-color: #FF6000;
+	// margin-right: 10upx;
+	// margin-left: -14upx;
 }
 .hand_bottom{
 	margin: 30upx 20upx 0;
 }
 .hand_bottom_btn{
   height: 90upx;
-  line-height: 82upx;
-  background-color: #EE603F;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items:center;
+  background-color: #FF6000;
   width: 190upx;
   font-size: 15px;
-  border-radius: 4upx;
+  border-radius: 10upx;
   color: #fff;
-  text-align: center;
-  font-weight: bold;
+  .counter{
+  	  font-size: 13px;
+  	  padding-top: 4upx;
+  }
 }
 // .box{
 //   margin: 20upx 20upx 0;
@@ -673,7 +697,7 @@ page{
 }
 .box_list{
   padding:0 10upx; 
-  border-bottom: 2upx solid rbga(221,221,221,0.3);
+  border-bottom: 1upx solid rgba(221, 221, 221, 0.3);
   line-height: 87upx;
 }
 .lh_72{
@@ -694,7 +718,7 @@ page{
   line-height: 97upx;
   padding: 0 40upx 0 30upx;
   color: #fff;
-  background-color: #EE603F;
+  background-color: #FF6000;
   border-radius: 6upx;
   box-sizing: border-box;
   margin-top: 31upx;
@@ -744,7 +768,7 @@ page{
 	width: 7upx;
 	height: 7upx;
 	border-radius: 7upx;
-	background-color: #EE603F;
+	background-color: #FF6000;
 	margin-left: 6upx;
 }
 .wid_198{
@@ -825,6 +849,8 @@ page{
 		.tabItem {
 			display: flex;
 			flex-direction: column;
+			justify-content: center;
+			align-items: center;
 			.tabText{
 				color: black;
 			}
@@ -838,8 +864,9 @@ page{
 			}
 			.bottomLine{
 				background: red;
-				height: 6upx;
+				height: 4upx;
 				border-radius: 4upx;
+				width: 80upx;
 			}
 		}
 		

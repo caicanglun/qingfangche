@@ -26,24 +26,25 @@
   width: 208rpx;
 }
 .tab_on{
-  color: #EE603F;
+  color: #FF6000;
   font-weight: bold;
 }
 .line{
-  height: 45rpx;
-  width: 2rpx;
-  background-color: #D3D3D3;
+  height: 48rpx;
+  width: 1rpx;
+  background-color: #E5E5E5;
+  margin-top: 20rpx;
 }
 .tab_text{
   display: inline-block;
   padding: 24rpx 0;
 }
 .text_on{
-  border-bottom: 4rpx solid #EE603F;
+  border-bottom: 4rpx solid #FF6000;
 }
 .tab_bj{
   font-size: 24rpx;
-  color: #EE603F;
+  color: #FF6000;
   font-weight: bold;
   text-align: center;
   width: 114rpx;
@@ -115,7 +116,7 @@
   height: 100rpx;
   width: 100rpx;
   border-radius: 100rpx;
-  background-color: #EE603F;
+  background-color: #FF6000;
   color: #fff;
   font-size: 28rpx;
   text-align: center;
@@ -141,7 +142,7 @@
   height: 56rpx;
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
-  background-color: #EE603F;
+  background-color: #FF6000;
   color: #fff;
   font-size: 14px;
   text-align: center;
@@ -183,7 +184,7 @@
 }
 .bind_searach{
   /* height: 192upx; */
-  height: 350rpx;
+  height: 300rpx;
 }
 .selection{
   line-height: 56rpx;
@@ -246,7 +247,7 @@
   margin: 11rpx 32rpx;
 }
 .reset{
-	color: #EE603F;
+	color: #FF6000;
 	font-weight: bold;
 	line-height: 56rpx;
 	padding-left: 40rpx;
@@ -276,6 +277,7 @@ checkbox .wx-checkbox-input {
 checkbox .wx-checkbox-input.wx-checkbox-input-checked {
 		background: #FF6000;
 		color: #fff !important;
+		border: none;
 }
 .checkboxSty {
 		display: -webkit-box;
@@ -290,7 +292,7 @@ checkbox .wx-checkbox-input.wx-checkbox-input-checked {
 }
 .btn_right_director{
 		width: 20%;
-		background-color: #EE603F;
+		background-color: #FF6000;
 		color: #fff;
 		border-radius: 0;
 		font-weight: bold;
@@ -299,7 +301,7 @@ checkbox .wx-checkbox-input.wx-checkbox-input-checked {
 }
 .btn_right_director_1{
 		width: 40%;
-		background-color: #EE603F;
+		background-color: #FF6000;
 		color: #fff;
 		border-radius: 0;
 		font-weight: bold;
@@ -335,7 +337,7 @@ checkbox .wx-checkbox-input.wx-checkbox-input-checked {
 }
 .btn_right_tapTwo{
 	width: 30%;
-	background-color: #EE603F;
+	background-color: #FF6000;
 	color: #fff;
 	border-radius: 0;
 	font-weight: bold;

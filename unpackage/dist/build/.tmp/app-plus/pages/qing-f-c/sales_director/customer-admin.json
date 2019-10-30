@@ -9,5 +9,7 @@
       }
     ]
   },
-  "usingComponents": {}
+  "usingComponents": {
+    "uni-icon": "/components/uni-icons/uni-icons"
+  }
 }

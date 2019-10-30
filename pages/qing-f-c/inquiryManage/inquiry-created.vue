@@ -62,12 +62,20 @@
 		<view class="form_box box_shadow">
 			<view class="flex_c list_part">
 			  <view>规格</view>
+			 
 			</view>
-			<view class="flex_c list_right_content">
-			  <view class="fs_13">经:</view>
-			  <input placeholder-class="color_888 fs_13" class="input" 
-			  placeholder="例如T50d/72Ffdy+t50d/72Ffdy" 
-			  name="spec_longitude" v-model="spec_longitude"></input>
+			<view>
+				
+			</view>
+			<view class="flex_c list_right_content justify-content">
+			  <view class="flex_c">
+				  <view class="fs_13">经:</view>
+				  <input placeholder-class="color_888 fs_13" class="input" 
+				  placeholder="例如T50d/72Ffdy+t50d/72Ffdy" 
+				  name="spec_longitude" v-model="spec_longitude"></input>
+			  </view>
+			 
+			   <view class="Clipboard" @tap="tapPaste">复制</view>
 			</view>
 			<view class="flex_c list_right_content">
 			  <view class="fs_13">纬:</view>
@@ -80,7 +88,8 @@
 	
 			<view class="form_box box_shadow">
 
-				<myPickerSmall @mychange="tabSwitchChange('styleChange',$event)" :items="styleSerial" name="风格"></myPickerSmall>
+				<!-- <myPickerSmall @mychange="tabSwitchChange('styleChange',$event)" :items="styleSerial" name="风格"></myPickerSmall> -->
+				<pickerInput @mychange="tabSwitchChange('styleChange',$event)" :items="styleSerial" name="风格"></pickerInput>
 				<view class="flex_c list_right_content">
 				  <view class="fs_13">组织:</view>
 				  <input placeholder-class="color_888 fs_13" class="input" 
@@ -194,6 +203,7 @@
 	import myPickerSmall from "@/components/myPickerSmall.vue";
 	import switchButton from "@/components/switchButton-s.vue";
 	import uniPopup from "@/components/uni-popup.vue";
+	import pickerInput from "@/components/pickerInput.vue";
 	export default {
 		components:{
 			pickerButton,
@@ -201,7 +211,8 @@
 			partCheckboxGroup,
 			myPickerSmall,
 			switchButton,
-			uniPopup
+			uniPopup,
+			pickerInput
 		},
 	   data(){
 		return{
@@ -259,7 +270,8 @@
 			
 			sampleType:[{id: 1,label: "坯布"},{id: 0,label: "成品"}], //布样类型
 			sampleTypeIndex: 1 ,
-			newPartText:''           //新增成分
+			newPartText:'',            //新增成分
+			styleSerialValue:''        //风格输入选择框返回内容
 			
 		};
 	  },
@@ -325,6 +337,11 @@
 		  tapNewPartLong:function(){
 			  
 		  },
+		  tapPaste:function(){
+			  uni.setClipboardData({
+			  	data: this.spec_longitude
+			  })
+		  },
 		  tabSwitchChange:function(label,event){
 			  switch (label){
 				  case 'sampleType':
@@ -340,8 +357,11 @@
 					 console.log(this.buyerIndex)
 					 break;
 				  case 'styleChange':
-				     this.styleSerialIndex = event
+				     console.log(event)
+				     this.styleSerialIndex = event[1]
+					 this.styleSerialValue = event[0]
 					 console.log(this.styleSerialIndex)
+					 console.log(this.styleSerialValue)
 					 break;
 				  case 'productSerial':
 				   this.productSerialIndex = event
@@ -604,7 +624,7 @@
 	    bottom: 0;  
 	    background-color: #fff;  
 	    width: 100%;  
-	    padding: 16rpx 10rpx;  
+	    padding: 16upx 10upx;  
 	    border-top: 1px solid $uni-border-color;  
 	}  
 	.buttonWrapper{  
@@ -619,25 +639,26 @@
 	    display: flex;  
 	    flex-direction: column;
 	    justify-content: space-between;  
+		
 	    input{  
 	        border: 1px solid $uni-border-color;  
-	        border-radius: 40rpx;  
-	        padding-left: 20rpx;  
+	        border-radius: 40upx;  
+	        padding-left: 20upx;  
 	        width: 70%;  
 	    }
 	}
 	.newPart{
 		display: flex;
 		font-size: 14px;
-		// line-height: 40upx;
+		
 		width: 170upx;
 		height: 60upx;
 		justify-content: center;
 		align-items: center;
-		// text-align: center;
+		
 		border: 2upx solid #DCDCDC;
 		box-sizing: border-box;
-		border-radius: 20upx;
+		border-radius: 30upx;
 		color: #fff;
 		background-color: #FF6000;
 		margin-left: 10upx;
@@ -645,15 +666,15 @@
 	.newPartCancel{
 		display: flex;
 		font-size: 14px;
-		// line-height: 40upx;
+		
 		width: 170upx;
 		height: 60upx;
 		justify-content: center;
 		align-items: center;
-		// text-align: center;
+		
 		border: 2upx solid #DCDCDC;
 		box-sizing: border-box;
-		border-radius: 20upx;
+		border-radius: 30upx;
 		color: black;
 		background-color: #FFFFFF;
 		margin-left: 10upx;
@@ -663,6 +684,19 @@
 		height: 140upx;
 		width: 450upx;
 		padding-right: 20upx;
-		background-color:#E6E6E6;
+		background-color:#F7F7F7;
+	}
+	.Clipboard{
+		text-align: center;
+		width: 100upx;
+		height: 40upx;
+		background-color: #FF6000;
+		color: white;
+		line-height: 40upx;
+		border-radius: 20upx;
+		
+	}
+	.justify-content{
+		justify-content: space-between;
 	}
 </style>

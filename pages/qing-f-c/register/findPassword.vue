@@ -37,7 +37,7 @@
 							  maxlength="11"
 							  :type="passType"
 							  @input="showPassClearIcon"
-							  @blur = "showPassClearIcon"
+							  @blur = "examineCount"
 						  ></input>
 							  <!-- <image v-if="isPassClear" src="../../../static/images/qingfc/close.png" class="i-next"
 								   @tap ="clearPass" >
@@ -68,7 +68,10 @@
 						  placeholder-style="color: #ccc;font-size: 14px;" 
 						  maxlength="6"
 					  ></input>
-					  <text style="color: #ff6000;font-size: 13px;" @tap="getValidCode">{{countdown}}</text>
+					  <!-- <view style="color: #ff6000;font-size: 13px;" :disabled="disabled" @tap="getValidCode">{{countdown}}<text v-show="timestatus">s重新获取 </text></view> -->
+					<button @click="getValidCode" :disabled="disabled" class="get-vcode">
+					                 {{countdown}} <text v-show="timestatus">秒重新获取</text>
+					             </button>
 					  
 					</view>
 					<button class="login_btn" formType="submit">重设密码</button>
@@ -97,7 +100,9 @@
 				isPassClear: false,
 				countdown:'获取验证码',
 				isDisplay: true,
-				disabled:true
+				disabled:false,
+				timestatus:false,
+				clear:''
 			};
 			
 			},
@@ -129,26 +134,49 @@
 				}else {
 					this.isPassClear = false
 				}
-				
 			},
-			
+			examineCount:function(){
+				
+				if(!(/^1(3|4|5|6|7|8|9)\d{9}$/.test(this.phone))){
+					uni.showToast({
+						title: '请输入正确电话号码！',
+						icon: 'none',
+						duration: 2000
+					});
+					return ;
+			    }
+			},
 			getValidCode:function(){
-				if (!this.phone){
+				var that = this;
+				if (!that.phone){
 					uni.showToast({
 						title: '请输入手机号码',
 						icon: 'none'
 					});
 					return;
 				}
+				
+				that.disabled = true
 				let _data ={
-					phone: this.phone
+					phone: that.phone
 				}
+				uni.showToast({
+					title: '验证码已发送',
+									icon: 'none'
+				});
+				
+				
 				JsyServer.verification(_data).then(res => {
+				  
 				  console.log(res);
-				  uni.showToast({
-				  	title: '验证码已发送',
-					icon: 'none'
-				  });
+				  if(res.data.status == 0){
+					 that.timestatus = true
+					 that.countdown = 60
+					 that.clear = setInterval(that.countDown,1000)
+				  }else{
+					  that.disabled = false
+				  }
+				 
 				  
 					
 				}).catch(err => {
@@ -230,6 +258,7 @@
 </script>
 
 <style lang="scss">
+	      
 	      .content{
 			  
 			  width: 100%;
@@ -271,7 +300,7 @@
 	     }
 	     .code_btn{
 	       width: 200upx;
-	       background-color: #ee603f;
+	       background-color: #FF6000;
 	       color: #fff;
 	       text-align: center;
 	     	line-height: 48upx;
@@ -430,6 +459,13 @@
 			display: flex;
 			justify-content: center;
 			align-items: center;
+		}
+		.get-vcode{
+			height: 60upx;
+			width: 300upx;
+			color: #FF6000;
+			line-height:60upx;
+			font-size: 13px;
 		}
 		
 </style>

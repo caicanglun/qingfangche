@@ -1,7 +1,7 @@
 <template>
 	<view>
 		<view class="list flex_c">
-		  <view class="list_right fs_14">{{name}}：</view>
+		  <view class="list_right fs_14"><text style="color:#FF6000">{{star}}</text>{{name}}：</view>
 		  <view class="flex_c">
 					 <block v-for="item in items" :key="item.id">
 					   <view :class="'unit ' + (item.id==1?'borderleft':'') + ' ' + (item.id==0?'borderright':'') + ' ' + (index==item.id?'unitselect':'unitunselect')"
@@ -21,6 +21,10 @@
 			name:{
 				type: String,
 				default: '测试'
+			},
+			star:{
+				type: String,
+				default:''
 			}
 		},
 		data() {
@@ -53,14 +57,14 @@
    width: 80upx;
    height: 48upx;
    text-align: center;
-   border: 2upx solid #EE603F;
+   border: 2upx solid #FF6000;
    box-sizing: border-box;
    border-right:none;
  }
  .borderright{
    border-top-right-radius: 6upx;
    border-bottom-right-radius: 6upx;
-   border-right: 2upx solid #EE603F;
+   border-right: 2upx solid #FF6000;
  }
  .borderleft{
    border-top-left-radius: 6upx;
@@ -69,7 +73,7 @@
  }
  .unitselect{
    color: #fff;
-   background-color: #EE603F;
+   background-color: #FF6000;
  }
  .unitunselect{
    color: #888890;

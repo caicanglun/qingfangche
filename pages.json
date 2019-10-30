@@ -1,24 +1,44 @@
 {
 	"pages": [ //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
-	            {
-	                "path" : "pages/qing-f-c/login/login",
-	                "style" : {
-	            				"navigationStyle":"custom"
-	            								
-	            			 }
-	                  
-	            },
+	             {
+	                 "path" : "pages/qing-f-c/inquiryManage/setQuotePrice/setQuotePrice",
+	                 "style" : {"navigationBarTitleText": "设置报价"}
+	             },
+	             {
+	                 "path" : "pages/qing-f-c/inquiryManage/quotedPrice/quotedPrice",
+	                 "style" : {"navigationBarTitleText": "报价详情"}
+	             },
+	             {
+	                 "path" : "pages/qing-f-c/login/login",
+	                 "style" : {
+	             				"navigationStyle":"custom"
+	             								
+	             			 }
+	                   
+	             },
+	            
+				{
+					"path" : "pages/qing-f-c/inquiryManage/inquiry-details",
+					"style" : {
+									"navigationStyle":"custom"
+													}
+				},
+		
+	             {
+	             	"path" : "pages/qing-f-c/inquiryManage/inquiry-created",
+	             	"style" : {"navigationBarTitleText": "买帮办新建询价单"}
+	             },
+
+	           
+				
 				{
 					"path" : "pages/qing-f-c/inquiryManage/inquiryManage",
 					"style" : {"navigationBarTitleText": "买办询价管理",
-					            "navigationBarBackgroundColor":"#ffffff",
+								"navigationBarBackgroundColor":"#ffffff",
 								"navigationBarTextStyle": "black"
 								}
 				},
-				{
-					"path" : "pages/qing-f-c/inquiryManage/inquiry-created",
-					"style" : {"navigationBarTitleText": "买帮办新建询价单"}
-				},
+
 				{
 					"path" : "pages/qing-f-c/regionalManager/customer-admin",
 					"style" : {"navigationBarTitleText": "区域经理客户管理",
@@ -39,6 +59,10 @@
 				{
 					"path" : "pages/qing-f-c/regionalManager/deputy-list",
 					"style" : {"navigationBarTitleText": "区域经理选择卖帮办"}
+				},
+				{
+					"path" : "pages/qing-f-c/regionalManager/customer-details",
+					"style" : {"navigationBarTitleText": "区域经理客户详情"}
 				},
 	             {
 					 "path" : "pages/qing-f-c/sales_director/customer-details",
@@ -111,6 +135,10 @@
 				{
 				    "path" : "pages/qing-f-c/sellDupty/detail-competitor",
 				    "style" : {"navigationBarTitleText": "卖帮办竞争对手详情"}
+				},
+				{
+				    "path" : "pages/qing-f-c/buyDupty/editManagerCondition",
+				    "style" : {"navigationBarTitleText": "买帮办编辑管理者特征"}
 				},
 	            {
 	                "path" : "pages/qing-f-c/buyDupty/add-contact",
@@ -196,6 +224,7 @@
 	         			"navigationStyle":"custom"
 	         		 }
 	     },
+
 	     {
 	         "path" : "pages/qing-f-c/register/findPassword",
 	         "style" : {
@@ -225,6 +254,16 @@
             "style" : {"navigationBarTitleText": "特卖区"}
         }
         
+        ,{
+            "path" : "pages/qing-f-c/register/protocol/protocol",
+            "style" : {"navigationBarTitleText": "轻纺车网服务协议"}
+        }
+        ,{
+            "path" : "pages/qing-f-c/inquiryManage/recentPrice/recentPrice",
+            "style" : {"navigationBarTitleText": "最近报价"}
+        }
+        
+       
     ],
 	"tabBar": {
 	    "list": [
@@ -261,7 +300,7 @@
 	    ],
 	    "color": "#333",
 	    "position": "bottom",
-	    "selectedColor": "#ee603f",
+	    "selectedColor": "#FF6000",
 	    "backgroundColor": "#f8f8f8"
 	  },
 	"globalStyle": {

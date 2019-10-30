@@ -1,17 +1,7 @@
 <template>
 <view>
-<view class="search_top_box">
- 
-  <view class="flex_sb" >
-    <view class="flex_c search_left">
-      <icon type="search" size="14" style="height:14px;margin-left:40upx;"></icon>
-      <input class="search_left_input" :value="inputValueOne" placeholder="请输入搜索内容" @input="blurInput"></input>
-    </view>
-    <button class="searcb_right_btn" @tap="tapSearch">搜索</button>
-  </view>
 
-</view>
-
+<topSearch @search='tapSearch'></topSearch>
 
 <view>
   <block v-for="(item, index) in customerList" :key="index">
@@ -66,7 +56,11 @@
 let pageSize = 20
 let _this
 const JsyServer = require("@/services/jsy-server.js");
+import topSearch from "@/components/topSearch.vue";
 export default {
+  components: {
+	  topSearch
+  },
   data() {
     return {
       tabOne: 0,
@@ -104,7 +98,8 @@ export default {
 	  pupDef:'',
 	  //客户列表
 	  customerList: [],
-	  pageNum: 1
+	  pageNum: 1,
+	  isDoRefresh:false
     };
   },
 
@@ -122,7 +117,12 @@ export default {
     
   },
   onShow: function () {
-    
+    let pages = getCurrentPages();
+    let currPage = pages[pages.length-1];
+    if (currPage.data.isDoRefresh == true){
+	   currPage.data.isDoRefresh = false;
+	   this.getCustomerList('',this.pageNum,pageSize);
+    }
     this.getCustomerList('',this.pageNum,pageSize);
     
   },
@@ -137,7 +137,7 @@ export default {
   }
      
   ,
-  components: {},
+
   props: {},
   methods: {
     blurInput: function (e) {
@@ -174,11 +174,12 @@ export default {
       }
     },
     // 点击搜索
-    tapSearch: function () {
+    tapSearch: function (value) {
 	  uni.showLoading({
 	    title: '搜索中...'
 	  });
-      this.getCustomerList(this.inputValueOne,1,pageSize);
+	  console.log("suosuo==",value)
+      this.getCustomerList(value,1,pageSize);
 	  setTimeout(function() {
 	  		  uni.hideLoading();
 	  }, 2000);
@@ -332,7 +333,7 @@ export default {
 }
 
 .tab_on{
-  color: #EE603F;
+  color: #FF6000;
   font-weight: bold;
 }
 .line{
@@ -345,11 +346,11 @@ export default {
   padding: 24upx 0;
 }
 .text_on{
-  border-bottom: 4upx solid #EE603F;
+  border-bottom: 4upx solid #FF6000;
 }
 .tab_bj{
   font-size: 24upx;
-  color: #EE603F;
+  color: #FF6000;
   font-weight: bold;
   text-align: center;
   width: 114upx;
@@ -420,7 +421,7 @@ export default {
   height: 100upx;
   width: 100upx;
   border-radius: 100upx;
-  background-color: #EE603F;
+  background-color: #FF6000;
   color: #fff;
   font-size: 28upx;
   text-align: center;
@@ -444,7 +445,7 @@ export default {
   width: 222upx;
   height: 56upx;
   box-sizing: border-box;
-  background-color: #EE603F;
+  background-color: #FF6000;
   color: #fff;
   font-size: 14px;
   text-align: center;
@@ -534,7 +535,7 @@ export default {
   margin: 11upx 32upx;
 }
 .reset{
-	color: #EE603F;
+	color: #FF6000;
 	font-weight: bold;
 	line-height: 56upx;
 	padding-left: 40upx;
@@ -558,4 +559,6 @@ export default {
 	width: 510upx;
 	line-height: 1.1
 }
+
+
 </style>

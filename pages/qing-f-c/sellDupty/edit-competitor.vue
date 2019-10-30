@@ -311,12 +311,12 @@
  	margin-bottom: 20upx
  }
  .line{
- 	width: 4upx;
- 	height: 15px;
- 	border-radius: 2upx;
- 	background-color: #EE603F;
- 	margin-right: 10upx;
- 	margin-left: -14upx;
+ 	// width: 4upx;
+ 	// height: 15px;
+ 	// border-radius: 2upx;
+ 	// background-color: #FF6000;
+ 	// margin-right: 10upx;
+ 	// margin-left: -14upx;
  }
  .list{
    margin: 0 30upx;
@@ -340,7 +340,7 @@
    width: 96upx;
    height: 48upx;
    box-sizing: border-box;
-   border: 1upx solid #EE603F;
+   border: 1upx solid #FF6000;
    border-radius: 6upx;
    line-height: 46upx;
    text-align: center;
@@ -361,7 +361,7 @@
  }
  .selet_tion{
    color:#fff;
-   background-color: #EE603F;
+   background-color: #FF6000;
  }
  .select_btn {
    width: 50%;
@@ -375,14 +375,14 @@
  .btn_left{
    width: 50%;
    background-color: #fff;
-   color: #EE603F;
+   color: #FF6000;
    border-radius: 0;
    font-size: 16px;
    line-height: 88upx;
  }
  .btn_right{
    width: 50%;
-   background-color: #EE603F;
+   background-color: #FF6000;
    color: #fff;
    border-radius: 0;
    font-size: 16px;
@@ -416,7 +416,7 @@
    width: 80upx;
    height: 48upx;
    text-align: center;
-   border: 2upx solid #EE603F;
+   border: 2upx solid #FF6000;
    box-sizing: border-box;
  }
  .borderright{
@@ -429,7 +429,7 @@
  }
  .unitselect{
    color: #fff;
-   background-color: #EE603F;
+   background-color: #FF6000;
  }
  .unitunselect{
    color: #888890;
@@ -468,9 +468,9 @@
  	text-align: center;
  	line-height: 56upx;
  	height: 60upx;
- 	border: 2upx solid #EE603F;
+ 	border: 2upx solid #FF6000;
  	box-sizing: border-box;
- 	color: #EE603F;
+ 	color: #FF6000;
  	background-color: #fff;
  	font-size: 28upx;
  	margin-left:20upx;
@@ -481,7 +481,7 @@
  	width: 126upx
  }
  .type_on{
- 	background-color: #EE603F;
+ 	background-color: #FF6000;
  	color: #fff;
  }
  .modal_bottom_btn{
@@ -500,7 +500,7 @@
  .isOption{
  	width: 250upx;
  	text-align: center;
- 	background-color: #EE603F;
+ 	background-color: #FF6000;
  	border-radius: 6upx;
  	line-height: 48upx;
  	color: #fff;
@@ -543,8 +543,8 @@
 	 line-height: 46upx;
 	 text-align: center;
 	 margin-bottom: 20upx;
-	 border: 2upx solid #EE603F;
-	 color: #EE603F;
+	 border: 2upx solid #FF6000;
+	 color: #FF6000;
 	 }
 .typeItem{
 	 	 width: 200upx;

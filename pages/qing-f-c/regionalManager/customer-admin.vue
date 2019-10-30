@@ -5,7 +5,7 @@
 	  <view class="flex_sb height_56">
 		<view class="flex_c search_left " style="width:100%">
 		  <icon type="search" size="14" style="height:14px;margin-left:40upx;"></icon>
-		  <input class="search_left_input" :value="inputValueOne" placeholder="请输入搜索内容" 
+		  <input class="search_left_input" v-model="inputValueOne" placeholder="请输入搜索内容" 
 		  @input="blurInput" confirm-type="search" @confirm="tapSearch"></input>
 		</view>
 	  </view>
@@ -41,7 +41,7 @@
 			<view class="flex selection ">
 			  <view>
 				<block v-for="(item, index) in selectContent" :key="index">
-				  <view :class="'fs_14 ' + (index>0?'lh_62':'color_ee603f')" @tap="bindSelectContent" 
+				  <view :class="'fs_14 ' + (index>0?'lh_62':'color_FF6000')" @tap="bindSelectContent" 
 				  :data-index="index">{{item.label}}</view>
 				</block>
 			  </view>
@@ -93,8 +93,8 @@
 			  <view class="fs_14 ">所属帮办: {{ item.deputyRealName||'' }}</view>
 		  </view>
 		  <view v-if="tabTwo==0">
-				  <image src="/static/images/qingfc/application/exit2x.png" class="title_img" mode="aspectFit"></image>
-				  <image src="/static/images/qingfc/application/swap2x.png" class="title_img" mode="aspectFit"></image>
+			  <image src="/static/images/qingfc/application/exit2x.png" class="title_img" mode="aspectFit" @click.stop='delSingleAllo(item.companyCode)'></image>
+			  <image src="/static/images/qingfc/application/swap2x.png" class="title_img" mode="aspectFit" @click.stop='toSingleAllo(item.companyCode)'></image>
 		  </view>
 		</view>
 		
@@ -244,7 +244,7 @@ export default {
   	if (this.checkLogin()){
 		this.getCustomerList(this.pageNum,this.isAllocation)
 		//this.getRegionCode()
-		this.dmCount()
+		//this.dmCount()
   	    //获取职位
   	
   	}
@@ -270,7 +270,7 @@ export default {
 			 	pageSize: pageSize,             // 页面大小
 			 	postCode: _postCode             //职位
 			 }
-		    console.log(_data)
+		    console.log('客户请求参数',_data)
 	    
 			JsyServer.dmList(_data).then(res => {
 			   console.log("客户信息===",res)
@@ -280,24 +280,24 @@ export default {
 				console.log("最后一页",_this.isLastPage)
 			 }).catch(err => {
 			   console.log("getBSList=err==", res);
-			 });  
+			 }); 
+			  let __data={
+				  keyword:keyword,		//关键词
+				  regionCode:_regionCode,   //区域编码
+				  buyOrSell: buyOrSell,  //买卖家
+				  postCode: _postCode
+			  }
+			 JsyServer.dmCount(__data).then(res => {
+			    console.log("客户数量===",res)
+			    _this.numOne = res.data.data.all
+			 			_this.numTwo = res.data.data.isAllocation
+			 			_this.numThree = res.data.data.notAllocation
+			  }).catch(err => {
+			    console.log("getBSList=err==", res);
+			  }); 
 	  },
 	  
-	  dmCount:function(){
-		  let _data ={
-			  keyword:'',		//关键词
-			  regionCode:'',   //区域编码
-			  buyOrSell: -1   //买卖家
-		  }
-		 JsyServer.dmCount(_data).then(res => {
-		    console.log("客户数量===",res)
-            _this.numOne = res.data.data.all
-			_this.numTwo = res.data.data.isAllocation
-			_this.numThree = res.data.data.notAllocation
-		  }).catch(err => {
-		    console.log("getBSList=err==", res);
-		  }); 
-	  },
+	  
 	  checkboxChange: function (e) {
 			
 			this.codeValue = e.detail.value
@@ -320,8 +320,8 @@ export default {
 		 
 	  },
     blurInput: function (e) {
-      console.log(this.tabOne, e.detail.value);
-
+      console.log(this.inputValueOne, e.detail.value);
+      
   //     if (this.tabOne == 0) {
   //       // this.setData({
   //       //   inputValueOne: e.detail.value
@@ -356,6 +356,7 @@ export default {
 			regionCode = this.selectContent[0].id
 		}
 		this.getCustomerList(this.pageNum,this.isAllocation,this.buyOrSell,regionCode)
+		
 	},
     bindSearch: function (e) {
     
@@ -396,7 +397,11 @@ export default {
       uni.showLoading({
         title: '搜索中...'
       });
-      this.getCustomerList('','','','',this.inputValueOne);
+	  this.pageNum = 1
+	  this.isAllocation = -1
+	  this.buyOrSell = -1
+      this.getCustomerList(this.pageNum,this.isAllocation,this.buyOrSell,this.inputValueOne);
+	  
       setTimeout(function() {
       		  uni.hideLoading();
       }, 1000);
@@ -427,6 +432,7 @@ export default {
 		  this.isAllocation = -1
 		  this.compileing = false
 		  this.getCustomerList(this.pageNum,this.isAllocation)
+		  
 	  }
       if (index==1){
 		 this.setNavButton("编辑") 
@@ -448,6 +454,11 @@ export default {
     // 点击编辑
     tapCompile: function () {
       this.compileing = !this.compileing;
+	  if (this.compileing){
+	  		  this.setNavButton('完成')
+	  }else {
+	  		  this.setNavButton('编辑')
+	  }
 	  
     },
     // 点击全部
@@ -465,7 +476,17 @@ export default {
       // });
 	  this.newTime = newTime
     },
-   
+   toSingleAllo:function(companyCode){
+   	_this.codeValue = []
+   	_this.codeValue.push(companyCode)
+   	this.toAllotAreaManager()
+   },
+   delSingleAllo:function(companyCode){
+	  
+   	_this.codeValue = []
+   	_this.codeValue.push(companyCode)
+   	this.deleteAllot()
+   },
   
     // 跳转到选中区域经理页
     toAllotAreaManager: function () {
@@ -506,24 +527,42 @@ export default {
     },
    
     deleteAllot:function(){
-		let optionList = _this.codeValue
-		let _data={
-			companyCodes:optionList
-		}
-		let url = this.Api.managerDel
-		this.myRequest(_data,url,'post').then(res => {
-			console.log("区域经理删除分配",res)
-			if (res.data.status == 0){  
-					wx.showToast({
-					  title: '成功删除分配'
-					});
-					this.getCustomerList(this.pageNum,this.isAllocation)
-				}		 
+		uni.showModal({
+			title: '移除分配',
+			content: '确认要移除该分配吗？不要请返回',
+			showCancel: true,
+			cancelText: '返回',
+			confirmText: '我要移除',
+			success: res => {
+				if (res.confirm) {
+				         let optionList = _this.codeValue
+				         let _data={
+				         	companyCodes:optionList
+				         }
+				         let url = this.Api.managerDel
+				         this.myRequest(_data,url,'post').then(res => {
+				         	console.log("区域经理删除分配",res)
+				         	if (res.data.status == 0){  
+				         			wx.showToast({
+				         			  title: '成功删除分配'
+				         			});
+				         			this.getCustomerList(this.pageNum,this.isAllocation)
+				         		}		 
+				         
+				         	
+				          }).catch(err => {
+				            console.log("getBSList=err==", res);
+				          });     
+				        } else if (res.cancel) {
+				           return
+				        }
+				
+				
+			},
+			fail: () => {},
+			complete: () => {}
+		});
 		
-			
-		 }).catch(err => {
-		   console.log("getBSList=err==", res);
-		 });  
 		
 	},
     
@@ -533,7 +572,7 @@ export default {
       
 		console.log(e)
 		wx.navigateTo({
-		  url: '/pages/qing-f-c/sales_director/customer-details?companyCode=' + e
+		  url: '/pages/qing-f-c/regionalManager/customer-details?companyCode=' + e
 		});
       
     },
@@ -582,7 +621,7 @@ export default {
 }
 
 .tab_on{
-  color: #EE603F;
+  color: #FF6000;
   font-weight: bold;
 }
 .line{
@@ -595,11 +634,11 @@ export default {
   padding: 24upx 0;
 }
 .text_on{
-  border-bottom: 4upx solid #EE603F;
+  border-bottom: 4upx solid #FF6000;
 }
 .tab_bj{
   font-size: 24upx;
-  color: #EE603F;
+  color: #FF6000;
   font-weight: bold;
   text-align: center;
   width: 114upx;
@@ -670,7 +709,7 @@ export default {
   height: 100upx;
   width: 100upx;
   border-radius: 100upx;
-  background-color: #EE603F;
+  background-color: #FF6000;
   color: #fff;
   font-size: 28upx;
   text-align: center;
@@ -694,7 +733,7 @@ export default {
   width: 222upx;
   height: 56upx;
   box-sizing: border-box;
-  background-color: #EE603F;
+  background-color: #FF6000;
   color: #fff;
   font-size: 14px;
   text-align: center;
@@ -790,7 +829,7 @@ export default {
   margin: 11upx 32upx;
 }
 .reset{
-	color: #EE603F;
+	color: #FF6000;
 	font-weight: bold;
 	line-height: 56upx;
 	padding-left: 40upx;
@@ -820,6 +859,7 @@ checkbox .wx-checkbox-input {
 checkbox .wx-checkbox-input.wx-checkbox-input-checked {
 		background: #FF6000;
 		color: #fff !important;
+		border: none;
 	}
 .checkboxSty {
 		display: flex;
@@ -828,7 +868,7 @@ checkbox .wx-checkbox-input.wx-checkbox-input-checked {
 	}
 .btn_right_director{
 		width: 20%;
-		background-color: #EE603F;
+		background-color: #FF6000;
 		color: #fff;
 		border-radius: 0;
 		font-weight: bold;
@@ -838,7 +878,7 @@ checkbox .wx-checkbox-input.wx-checkbox-input-checked {
 	}
 .btn_right_director_1{
 		width: 40%;
-		background-color: #EE603F;
+		background-color: #FF6000;
 		color: #fff;
 		border-radius: 0;
 		font-weight: bold;
@@ -874,7 +914,7 @@ checkbox .wx-checkbox-input.wx-checkbox-input-checked {
 }
 .btn_right_tapTwo{
 	width: 30%;
-	background-color: #EE603F;
+	background-color: #FF6000;
 	color: #fff;
 	border-radius: 0;
 	font-weight: bold;

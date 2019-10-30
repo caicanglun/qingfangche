@@ -63,7 +63,7 @@
  .borderright{
    border-top-right-radius: 6upx;
    border-bottom-right-radius: 6upx;
-   border-right: 2upx solid #EE603F;
+   border-right: 2upx solid #FF6000;
  }
  .borderleft{
    border-top-left-radius: 6upx;

@@ -4,7 +4,7 @@
 		  <view class="box box_shadow">
 				<view class="list flex_c">
 				  <view class="list_right ml-14">
-					<text style="color:#EE603F">*</text>客户公司名称：
+					<text style="color:#FF6000">*</text>客户公司名称：
 				  </view>
 				  <input class="input" name="companyName" v-model="customerInfo.companyName" placeholder="请输入"></input>
 				</view>
@@ -38,20 +38,20 @@
 				<view class="title">高：有合作会交保证金；中：有合作考虑或者多次合作后交保证金；低：不接受保证金</view>
 				<!-- <view class="list flex_c">
 				 <view class="list_right ml-14">
-					<text style="color:#EE603F">*</text>联系人：
+					<text style="color:#FF6000">*</text>联系人：
 				  </view>
 				  <input class="input" name="companyName" v-model="realName" placeholder="请输入"></input>
 				</view>
 				<view class="list flex_c">
 				  <view class="list_right ml-14">
-					<text style="color:#EE603F">*</text>电话号码：
+					<text style="color:#FF6000">*</text>电话号码：
 				  </view>
 				  <input class="input" name="companyName" v-model="phone" placeholder="请输入"></input>
 				</view> -->
 		  </view>
 		  <view class="fixed_bottom box_shadow_btn">
 		    <button class="btn_left" hover-class="none" @tap="bindCancel">取消</button>
-		    <button class="btn_right" formType="submit" hover-class="none">编辑</button>
+		    <button class="btn_right" formType="submit" hover-class="none">确定</button>
 		  </view>
 		  
 		</form>
@@ -341,12 +341,12 @@
  	margin-bottom: 20upx
  }
  .line{
- 	width: 4upx;
- 	height: 15px;
- 	border-radius: 2upx;
- 	background-color: #EE603F;
- 	margin-right: 10upx;
- 	margin-left: -14upx;
+ 	// width: 4upx;
+ 	// height: 15px;
+ 	// border-radius: 2upx;
+ 	// background-color: #FF6000;
+ 	// margin-right: 10upx;
+ 	// margin-left: -14upx;
  }
  .list{
    margin: 0 20upx;
@@ -377,7 +377,7 @@
    width: 96upx;
    height: 48upx;
    box-sizing: border-box;
-   border: 1upx solid #EE603F;
+   border: 1upx solid #FF6000;
    border-radius: 6upx;
    line-height: 46upx;
    text-align: center;
@@ -398,7 +398,7 @@
  }
  .selet_tion{
    color:#fff;
-   background-color: #EE603F;
+   background-color: #FF6000;
  }
  .select_btn {
    width: 50%;
@@ -412,14 +412,14 @@
  .btn_left{
    width: 50%;
    background-color: #fff;
-   color: #EE603F;
+   color: #FF6000;
    border-radius: 0;
    font-size: 16px;
    line-height: 88upx;
  }
  .btn_right{
    width: 50%;
-   background-color: #EE603F;
+   background-color: #FF6000;
    color: #fff;
    border-radius: 0;
    font-size: 16px;
@@ -453,7 +453,7 @@
    width: 80upx;
    height: 48upx;
    text-align: center;
-   border: 2upx solid #EE603F;
+   border: 2upx solid #FF6000;
    box-sizing: border-box;
  }
  .borderright{
@@ -468,7 +468,7 @@
  }
  .unitselect{
    color: #fff;
-   background-color: #EE603F;
+   background-color: #FF6000;
  }
  .unitunselect{
    color: #888890;
@@ -507,9 +507,9 @@
  	text-align: center;
  	line-height: 56upx;
  	height: 60upx;
- 	border: 2upx solid #EE603F;
+ 	border: 2upx solid #FF6000;
  	box-sizing: border-box;
- 	color: #EE603F;
+ 	color: #FF6000;
  	background-color: #fff;
  	font-size: 28upx;
  	margin-left:20upx;
@@ -520,7 +520,7 @@
  	width: 126upx
  }
  .type_on{
- 	background-color: #EE603F;
+ 	background-color: #FF6000;
  	color: #fff;
  }
  .modal_bottom_btn{
@@ -539,7 +539,7 @@
  .isOption{
  	width: 250upx;
  	text-align: center;
- 	background-color: #EE603F;
+ 	background-color: #FF6000;
  	border-radius: 6upx;
  	line-height: 48upx;
  	color: #fff;
@@ -582,8 +582,8 @@
 	 line-height: 46upx;
 	 text-align: center;
 	 margin-bottom: 20upx;
-	 border: 2upx solid #EE603F;
-	 color: #EE603F;
+	 border: 2upx solid #FF6000;
+	 color: #FF6000;
 	 }
 .typeItem{
 	 	 width: 200upx;

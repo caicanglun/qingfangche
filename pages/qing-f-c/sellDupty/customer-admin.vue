@@ -1,67 +1,50 @@
 <template>
 <view>
-<view class="search_top_box">
- 
-  <view class="flex_sb" >
-    <view class="flex_c search_left">
-      <icon type="search" size="14" style="height:14px;margin-left:40upx;"></icon>
-      <input class="search_left_input" :value="inputValueOne" placeholder="请输入搜索内容" @input="blurInput"></input>
-    </view>
-    <button class="searcb_right_btn" @tap="tapSearch">搜索</button>
-  </view>
 
-</view>
+    <topSearch @search='tapSearch'></topSearch>
 
-
-<view>
-  <block v-for="(item, index) in customerList" :key="index">
-    <view class="list flex_c box_shadow" @click.stop="toClientDetail" :data-id="item.companyCode" :data-index="index">
-      
-      <!-- <image src="/images/jinsy/pitch_on.png"  mode="aspectFill" class="pitch_on"></image> -->
-      <view :class="(compileing?'wid_610':'wid_670')">
-        <view class="flex_sb mt_10">
-          <view class="flex">
-            <image src="/static/images/qingfc/application/companyx.png" class="title_img" mode="aspectFit"></image>
-            <view class="fs_16 font_we_bold wid_510">{{item.companyName||''}}</view>
-          </view>
-          <view :class="(item.buyOrSell==1?'id_btn':'seller_btn')">{{item.buyOrSell==1?'买家':'卖家'}}</view>
-        </view>
-        <view class="flex_c mt_20">
-          <image src="/static/images/qingfc/application/list.png" class="title_img" mode="aspectFit"></image>
-          <view class="fs_14 ">
-            <text class="mr_60">{{item.regionName||''}}</text>
-            <text class="mr_60">{{item.companyTypeName||''}}</text>
-            <text>{{item.linkmanCount||0}}个联系人</text>
-          </view>
-        </view>
-        <view class="flex_c mt_20">
-			  <image src="/static/images/qingfc/application/contacts.png" class="title_img" mode="aspectFit"></image>
-			  <view class="fs_14">{{item.deputyRealName||''}} {{item.deputyPhone||""}}</view>
-        </view>
-		<!-- <view class="flex_sb mt_20">
-		  <view class="flex">
-			  <image src="/static/images/qingfc/application/organize.png" class="title_img" mode="aspectFit"></image>
-			  <view class="fs_14 ">所属帮办: {{ item.deputyRealName||'' }}</view>
-		  </view>
+	<view>
+	  <block v-for="(item, index) in customerList" :key="index">
+		<view class="list flex_c box_shadow" @click.stop="toClientDetail" :data-id="item.companyCode" :data-index="index">
 		  
-		</view> -->
-		
-      </view>
-    </view>
-  </block>
-  <view class="bottom_title fff_50" v-if="loading">加载中...</view>
-</view>
+		  
+		  <view :class="(compileing?'wid_610':'wid_670')">
+			<view class="flex_sb mt_10">
+			  <view class="flex">
+				<image src="/static/images/qingfc/application/companyx.png" class="title_img" mode="aspectFit"></image>
+				<view class="fs_16 font_we_bold wid_510">{{item.companyName||''}}</view>
+			  </view>
+			  <view :class="(item.buyOrSell==1?'id_btn':'seller_btn')">{{item.buyOrSell==1?'买家':'卖家'}}</view>
+			</view>
+			<view class="flex_c mt_20">
+			  <image src="/static/images/qingfc/application/list.png" class="title_img" mode="aspectFit"></image>
+			  <view class="fs_14 ">
+				<text class="mr_60">{{item.regionName||''}}</text>
+				<text class="mr_60">{{item.companyTypeName||''}}</text>
+				<text>{{item.linkmanCount||0}}个联系人</text>
+			  </view>
+			</view>
+			<view class="flex_c mt_20">
+				  <image src="/static/images/qingfc/application/contacts.png" class="title_img" mode="aspectFit"></image>
+				  <view class="fs_14">{{item.deputyRealName||''}} {{item.deputyPhone||""}}</view>
+			</view>
+			
+		  </view>
+		</view>
+	  </block>
+	  <view class="bottom_title fff_50" v-if="loading">加载中...</view>
+	</view>
 
-<view class="fixed_right_bottom box_shadow"  @tap="goCustomerCreated">
-  <view>新建</view>
-  <view>客户</view>
-</view>
+	<view class="fixed_right_bottom box_shadow"  @tap="goCustomerCreated">
+	  <view>新建</view>
+	  <view>客户</view>
+	</view>
 
 </view>
 </template>
 
 <script>
-
+import topSearch from "@/components/topSearch.vue";
 let pageSize = 20
 let _this
 const JsyServer = require("@/services/jsy-server.js");
@@ -103,7 +86,8 @@ export default {
 	  pupDef:'',
 	  //客户列表
 	  customerList: [],
-	  pageNum: 1
+	  pageNum: 1,
+	  isDoRefresh:false
     };
   },
 
@@ -121,7 +105,13 @@ export default {
     
   },
   onShow: function () {
-    
+    let pages = getCurrentPages();
+    let currPage = pages[pages.length-1];
+    if (currPage.data.isDoRefresh == true){
+    	       currPage.data.isDoRefresh = false;
+    		   this.getCustomerList('',this.pageNum,pageSize);
+    	 }
+	
     this.getCustomerList('',this.pageNum,pageSize);
     
   },
@@ -136,7 +126,9 @@ export default {
   }
      
   ,
-  components: {},
+  components: {
+	  topSearch
+  },
   props: {},
   methods: {
     blurInput: function (e) {
@@ -172,11 +164,11 @@ export default {
       }
     },
     // 点击搜索
-    tapSearch: function () {
+    tapSearch: function (value) {
 	  uni.showLoading({
 	    title: '搜索中...'
 	  });
-      this.getCustomerList(this.inputValueOne,1,pageSize);
+      this.getCustomerList(value,1,pageSize);
 	  setTimeout(function() {
 	  		  uni.hideLoading();
 	  }, 2000);
@@ -327,7 +319,7 @@ export default {
 }
 
 .tab_on{
-  color: #EE603F;
+  color: #FF6000;
   font-weight: bold;
 }
 .line{
@@ -340,11 +332,11 @@ export default {
   padding: 24upx 0;
 }
 .text_on{
-  border-bottom: 4upx solid #EE603F;
+  border-bottom: 4upx solid #FF6000;
 }
 .tab_bj{
   font-size: 24upx;
-  color: #EE603F;
+  color: #FF6000;
   font-weight: bold;
   text-align: center;
   width: 114upx;
@@ -415,7 +407,7 @@ export default {
   height: 100upx;
   width: 100upx;
   border-radius: 100upx;
-  background-color: #EE603F;
+  background-color: #FF6000;
   color: #fff;
   font-size: 28upx;
   text-align: center;
@@ -439,7 +431,7 @@ export default {
   width: 222upx;
   height: 56upx;
   box-sizing: border-box;
-  background-color: #EE603F;
+  background-color: #FF6000;
   color: #fff;
   font-size: 14px;
   text-align: center;
@@ -529,7 +521,7 @@ export default {
   margin: 11upx 32upx;
 }
 .reset{
-	color: #EE603F;
+	color: #FF6000;
 	font-weight: bold;
 	line-height: 56upx;
 	padding-left: 40upx;

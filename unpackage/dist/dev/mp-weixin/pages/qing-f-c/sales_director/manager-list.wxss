@@ -1,6 +1,6 @@
 
 .search{
-  background-color: #EE603F;
+  background-color: #FF6000;
   height: 74rpx;
   padding: 18rpx 20rpx 0 30rpx;
 }
@@ -91,7 +91,7 @@
   width: 200rpx;
 }
 .border_text{
-  border: 1rpx solid #EE603F;
+  border: 1rpx solid #FF6000;
   line-height: 38rpx;
   height: 38rpx;
   width: 136rpx;
@@ -99,7 +99,7 @@
   -webkit-box-sizing: 38rpx;
           box-sizing: 38rpx;
   border-radius: 38rpx;
-  color: #EE603F;
+  color: #FF6000;
 }
 .width_490{
   width:490rpx;

@@ -54,8 +54,8 @@
   line-height: 46rpx;
   text-align: center;
   margin-bottom: 20rpx;
-  border: 2rpx solid #EE603F;
-  color: #EE603F;
+  border: 2rpx solid #FF6000;
+  color: #FF6000;
   position: relative;
 }
 .typeItem {
@@ -73,5 +73,6 @@
   position: absolute;
   right: -10rpx;
   top: -15rpx;
+  z-index: 99;
 }
 

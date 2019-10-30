@@ -4,7 +4,7 @@
 		  <view class="box box_shadow">
 				<view class="list flex_c">
 				  <view class="list_right ml-14">
-					<text style="color:#EE603F">*</text>客户公司名称：
+					<text style="color:#FF6000">*</text>客户公司名称：
 				  </view>
 				  <input class="input" name="companyName" v-model="companyName" placeholder="请输入"></input>
 				</view>
@@ -28,17 +28,17 @@
 				<myPicker @mychange="managementPositionChange" :items="managementPosition" name="经营定位"></myPicker>
 				<rangeButton @buttonChange="cooperationIntentionChange" :items="cooperationIntention" name="合作意向"></rangeButton>
 				
-				<rangeButton @buttonChange="coordinateChange" :items="coordinate" name="保证金配合度"></rangeButton>
-				<view class="title">高：有合作会交保证金；中：有合作考虑或者多次合作后交保证金；低：不接受保证金</view>
+				<!-- <rangeButton @buttonChange="coordinateChange" :items="coordinate" name="保证金配合度"></rangeButton>
+				<view class="title">高：有合作会交保证金；中：有合作考虑或者多次合作后交保证金；低：不接受保证金</view> -->
 				<view class="list flex_c">
 				  <view class="list_right ml-14">
-					<text style="color:#EE603F">*</text>联系人：
+					<text style="color:#FF6000">*</text>联系人：
 				  </view>
 				  <input class="input" name="companyName" v-model="realName" placeholder="请输入"></input>
 				</view>
 				<view class="list flex_c">
 				  <view class="list_right ml-14">
-					<text style="color:#EE603F">*</text>电话号码：
+					<text style="color:#FF6000">*</text>电话号码：
 				  </view>
 				  <input class="input" name="companyName" v-model="phone" placeholder="请输入"></input>
 				</view>
@@ -250,7 +250,7 @@
 				data.companyTypeCode=  this.companyTypeCode //客户类型编码
 				data.companySourceCode = this.companySourceCode //客户来源编码
 				data.cooperationIntentionCode= this.cooperationIntentionCode //合作意向
-				data.coordinateCode= this.coordinateCode //配合度
+				data.coordinateCode= '' //买家不需要配合度
 				data.managementPositionCode = this.managementPositionCode //经营定位
 				data.companyScaleCode = this.companyScaleCode
 				data.realName = this.realName //姓名
@@ -258,14 +258,30 @@
 				console.log(data)
                 JsyServer.buyAddCustomer(data).then(res => {
                   console.log(res);
-				  if (res.data.status == 0){
-					  
-					 uni.navigateBack({
-					 	delta: 1
-					 });
-				  }else{
-					  return
-				  }
+				  if (res.data.status==0){
+					  uni.showToast({
+						title: '客户创建成功',
+						icon: 'none'
+					  });
+						var pages = getCurrentPages();
+						var currPage = pages[pages.length - 1]; //当前页面
+						var prevPage = pages[pages.length - 2]; //上一个页面
+						//直接调用上一个页面的setData()方法，把数据存到上一个页面中去
+						prevPage.setData({
+						   isDoRefresh:true
+						})
+					  uni.navigateBack({
+						delta: 1
+					  });
+					}
+				   if (res.data.status == 1)  {
+					   uni.showToast({
+						title: res.data.message,
+						icon: 'none'
+					   });
+					   return
+				   }
+				  
                 }).catch(err => {
                   wx.showToast({
                     title: err.data.description,
@@ -288,7 +304,7 @@
  	width: 4upx;
  	height: 15px;
  	border-radius: 2upx;
- 	background-color: #EE603F;
+ 	background-color: #FF6000;
  	margin-right: 10upx;
  	margin-left: -14upx;
  }
@@ -321,7 +337,7 @@
    width: 96upx;
    height: 48upx;
    box-sizing: border-box;
-   border: 1upx solid #EE603F;
+   border: 1upx solid #FF6000;
    border-radius: 6upx;
    line-height: 46upx;
    text-align: center;
@@ -342,7 +358,7 @@
  }
  .selet_tion{
    color:#fff;
-   background-color: #EE603F;
+   background-color: #FF6000;
  }
  .select_btn {
    width: 50%;
@@ -356,14 +372,14 @@
  .btn_left{
    width: 50%;
    background-color: #fff;
-   color: #EE603F;
+   color: #FF6000;
    border-radius: 0;
    font-size: 16px;
    line-height: 88upx;
  }
  .btn_right{
    width: 50%;
-   background-color: #EE603F;
+   background-color: #FF6000;
    color: #fff;
    border-radius: 0;
    font-size: 16px;
@@ -397,7 +413,7 @@
    width: 80upx;
    height: 48upx;
    text-align: center;
-   border: 2upx solid #EE603F;
+   border: 2upx solid #FF6000;
    box-sizing: border-box;
  }
  .borderright{
@@ -412,7 +428,7 @@
  }
  .unitselect{
    color: #fff;
-   background-color: #EE603F;
+   background-color: #FF6000;
  }
  .unitunselect{
    color: #888890;
@@ -451,9 +467,9 @@
  	text-align: center;
  	line-height: 56upx;
  	height: 60upx;
- 	border: 2upx solid #EE603F;
+ 	border: 2upx solid #FF6000;
  	box-sizing: border-box;
- 	color: #EE603F;
+ 	color: #FF6000;
  	background-color: #fff;
  	font-size: 28upx;
  	margin-left:20upx;
@@ -464,7 +480,7 @@
  	width: 126upx
  }
  .type_on{
- 	background-color: #EE603F;
+ 	background-color: #FF6000;
  	color: #fff;
  }
  .modal_bottom_btn{
@@ -483,7 +499,7 @@
  .isOption{
  	width: 250upx;
  	text-align: center;
- 	background-color: #EE603F;
+ 	background-color: #FF6000;
  	border-radius: 6upx;
  	line-height: 48upx;
  	color: #fff;
@@ -526,8 +542,8 @@
 	 line-height: 46upx;
 	 text-align: center;
 	 margin-bottom: 20upx;
-	 border: 2upx solid #EE603F;
-	 color: #EE603F;
+	 border: 2upx solid #FF6000;
+	 color: #FF6000;
 	 }
 .typeItem{
 	 	 width: 200upx;

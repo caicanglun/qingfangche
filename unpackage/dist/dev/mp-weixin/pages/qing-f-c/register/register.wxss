@@ -42,7 +42,7 @@
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
   line-height: 88rpx;
-  border-bottom: 1rpx solid #ccc;
+  border-bottom: 1rpx solid #CCCCCC;
   color: #333236;
   margin-left: 30rpx;
   margin-right: 30rpx;
@@ -229,5 +229,12 @@
   -webkit-align-items: center;
       -ms-flex-align: center;
           align-items: center;
+}
+.get-vcode {
+  height: 60rpx;
+  width: 300rpx;
+  color: #FF6000;
+  line-height: 60rpx;
+  font-size: 13px;
 }
 

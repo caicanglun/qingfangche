@@ -216,12 +216,7 @@
      	margin-bottom: 20upx
      }
      .line{
-     	width: 4upx;
-     	height: 15px;
-     	border-radius: 2upx;
-     	background-color: #FF6000;
-     	margin-right: 10upx;
-     	margin-left: -14upx;
+     	
      }
      .list{
        margin: 0 30upx;

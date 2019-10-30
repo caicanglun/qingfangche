@@ -50,7 +50,7 @@ page{
 	top: 0;
 	width:100%;
 }
-.color_ee603f{
+.color_FF6000{
   color:#FF6000;
 }
 .color_888{
@@ -412,8 +412,7 @@ button::after{
 }
 .seller_btn{
 	width: 80rpx;
-	line-height: 32rpx;
-	font-weight: bold;
+	line-height: 36rpx;
 	text-align: center;
 	border-radius: 36rpx;
 	color: #FFF;

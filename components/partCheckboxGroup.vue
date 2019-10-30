@@ -33,10 +33,18 @@
 		},
 		methods:{
 			 tapItem:function(id){
-				 let index= this.selectList.indexOf(id)
+				 let index= this.selectList.indexOf(id)  //查找是否已经在数组里面了
+				 
 				 if (index > -1){
 					 this.selectList.splice(index,1)
 				 }else{
+					 if (this.selectList.length== 4){
+						 uni.showToast({
+							title: '不能超过四个',
+							icon: 'none'
+						 });
+						 return;
+					 }
 					 this.selectList.push(id)
 				 }
 				 console.log("zujian==",this.selectList)

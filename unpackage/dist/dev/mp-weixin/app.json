@@ -1,10 +1,14 @@
 {
   "pages": [
+    "pages/qing-f-c/inquiryManage/setQuotePrice/setQuotePrice",
+    "pages/qing-f-c/inquiryManage/quotedPrice/quotedPrice",
     "pages/qing-f-c/login/login",
-    "pages/qing-f-c/inquiryManage/inquiryManage",
+    "pages/qing-f-c/inquiryManage/inquiry-details",
     "pages/qing-f-c/inquiryManage/inquiry-created",
+    "pages/qing-f-c/inquiryManage/inquiryManage",
     "pages/qing-f-c/regionalManager/customer-admin",
     "pages/qing-f-c/regionalManager/deputy-list",
+    "pages/qing-f-c/regionalManager/customer-details",
     "pages/qing-f-c/sales_director/customer-details",
     "pages/qing-f-c/buyDupty/customer-created",
     "pages/qing-f-c/buyDupty/edit-customer",
@@ -22,6 +26,7 @@
     "pages/qing-f-c/sellDupty/add-competitor",
     "pages/qing-f-c/sellDupty/edit-competitor",
     "pages/qing-f-c/sellDupty/detail-competitor",
+    "pages/qing-f-c/buyDupty/editManagerCondition",
     "pages/qing-f-c/buyDupty/add-contact",
     "pages/qing-f-c/buyDupty/customer-details",
     "pages/qing-f-c/buyDupty/detail-competitor",
@@ -39,7 +44,9 @@
     "pages/qing-f-c/fangzhidao/index/index",
     "pages/qing-f-c/qiugouqu/index/index",
     "pages/qing-f-c/xianhuoqu/index/index",
-    "pages/qing-f-c/temaiqu/index/index"
+    "pages/qing-f-c/temaiqu/index/index",
+    "pages/qing-f-c/register/protocol/protocol",
+    "pages/qing-f-c/inquiryManage/recentPrice/recentPrice"
   ],
   "subPackages": [],
   "window": {
@@ -83,8 +90,9 @@
     ],
     "color": "#333",
     "position": "bottom",
-    "selectedColor": "#ee603f",
+    "selectedColor": "#FF6000",
     "backgroundColor": "#f8f8f8"
   },
-  "usingComponents": {}
+  "usingComponents": {},
+  "sitemapLocation": "sitemap78.json"
 }

@@ -9,7 +9,7 @@
     <view class="flex selection ">
       <view>
         <block v-for="(item, index) in selectContent" :key="index">
-          <view :class="(index>0?'lh_44':'color_ee603f font_we_bold')" @tap="bindSelectContent" :data-index="index">{{item.name}}</view>
+          <view :class="(index>0?'lh_44':'color_FF6000 font_we_bold')" @tap="bindSelectContent" :data-index="index">{{item.name}}</view>
         </block>
       </view>
       <image src="/static/images/qingfc/application/select_bind.png" mode="aspectFit"></image>
@@ -205,7 +205,7 @@ export default {
 </script>
 <style>
 .search{
-  background-color: #EE603F;
+  background-color: #FF6000;
   height: 74rpx;
   padding: 18rpx 20rpx 0 30rpx;
 }
@@ -285,14 +285,14 @@ export default {
   width: 200rpx;
 }
 .border_text{
-  border: 1rpx solid #EE603F;
+  border: 1rpx solid #FF6000;
   line-height: 38rpx;
   height: 38rpx;
   width: 136rpx;
   text-align: center;
   box-sizing: 38rpx;
   border-radius: 38rpx;
-  color: #EE603F;
+  color: #FF6000;
 }
 .width_490{
   width:490rpx;

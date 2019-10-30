@@ -1,4 +1,6 @@
 {
   "navigationBarTitleText": "销售总监客户管理",
-  "usingComponents": {}
+  "usingComponents": {
+    "uni-icon": "/components/uni-icons/uni-icons"
+  }
 }

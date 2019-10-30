@@ -1177,6 +1177,8 @@ function parseBaseApp(vm, _ref3)
 
 
       this.$vm.$scope = this;
+      // vm 上也挂载 globalData
+      this.$vm.globalData = this.globalData;
 
       this.$vm._isMounted = true;
       this.$vm.__call_hook('mounted', args);
@@ -1495,6 +1497,49 @@ wx.createComponent = createComponent;
 var uni$1 = uni;var _default =
 
 uni$1;exports.default = _default;
+
+/***/ }),
+
+/***/ 103:
+/*!********************************************************!*\
+  !*** /Users/lee/Downloads/备份11/轻纺车网/services/tools.js ***!
+  \********************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+function filterNull(data) {
+  var temp = {};
+  Object.keys(data).forEach(function (key) {
+    if (data[key] != -1) {
+      temp[key] = data[key];
+    }
+  });
+  return temp;
+}
+function list2code(data) {
+  var temp = [];
+  data.forEach(function (item) {
+    if (item.isChecked == true) {
+      temp.push(item.id);
+    }
+  });
+  return temp;
+}
+function list2string(data) {
+  var temp = [];
+  data.forEach(function (item) {
+    temp.push(item.label);
+  });
+  return temp.join('+');
+}
+
+module.exports = {
+  filterNull: filterNull,
+  list2code: list2code,
+  list2string: list2string };
 
 /***/ }),
 
@@ -2382,8 +2427,8 @@ module.exports = {
 var _module$exports;function _defineProperty(obj, key, value) {if (key in obj) {Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true });} else {obj[key] = value;}return obj;} //  const ServerUrl = "https://www.144f.com"; // 生产环境
 
 //const ServerUrl = "https://www.qingfangche.net"; // 开发环境
-var ServerUrl = "http://192.168.11.141";
-//const ServerUrl = "http://test.144f.com:8080/qfc-web";
+//const ServerUrl = "http://192.168.11.141"; 
+var ServerUrl = "http://test.144f.com:8080/qfc-web";
 var ChooseUrl = ServerUrl + '/choose/';
 var VERSION = '3.3.72'; // 小程序版本
 
@@ -8714,7 +8759,260 @@ internalMixin(Vue);
 
 /***/ }),
 
-/***/ 26:
+/***/ 3:
+/*!***********************************!*\
+  !*** (webpack)/buildin/global.js ***!
+  \***********************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+var g;
+
+// This works in non-strict mode
+g = (function() {
+	return this;
+})();
+
+try {
+	// This works if eval is allowed (see CSP)
+	g = g || new Function("return this")();
+} catch (e) {
+	// This works if the window reference is available
+	if (typeof window === "object") g = window;
+}
+
+// g can still be undefined, but nothing to do about it...
+// We return undefined, instead of nothing here, so it's
+// easier to handle this case. if(!global) { ...}
+
+module.exports = g;
+
+
+/***/ }),
+
+/***/ 304:
+/*!*********************************************************!*\
+  !*** /Users/lee/Downloads/备份11/轻纺车网/services/server.js ***!
+  \*********************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+var Common = __webpack_require__(/*! utils/common.js */ 43);
+var Api = __webpack_require__(/*! services/config/api.js */ 16);
+var Util = __webpack_require__(/*! utils/util.js */ 15);
+var Es6Promise = __webpack_require__(/*! lib/es6-promise.js */ 17);
+
+/*
+                                                 * get 数据
+                                                 */
+function getDataWX(api, data) {
+  return new Es6Promise(function (resolve, reject) {
+    Util.request(api, data, 'get').then(function (res) {
+      if (res.statusCode === 200) {
+        resolve(res);
+      } else {
+        reject(res);
+      }
+    }).catch(function (err) {
+      reject(err);
+    });
+  });
+}
+
+/**
+   * post 数据
+   */
+function postDataWX(api, data) {
+  return new Es6Promise(function (resolve, reject) {
+    Util.request(api, data, 'post').then(function (res) {
+      if (res.statusCode >= 200 && res.statusCode < 300) {
+        resolve(res);
+      } else {
+        reject(res);
+      }
+    }).catch(function (err) {
+      reject(err);
+    });
+  });
+}
+
+
+/**
+   * put 数据
+   */
+function putDataWX(api, data) {
+  return new Es6Promise(function (resolve, reject) {
+    Util.request(api, data, 'put').then(function (res) {
+      if (res.statusCode >= 200 && res.statusCode < 300) {
+        resolve(res);
+      } else {
+        reject(res);
+      }
+    }).catch(function (err) {
+      reject(err);
+    });
+  });
+}
+
+/**
+   * delete 数据
+   */
+function deleteDataWX(api, data) {
+  return new Es6Promise(function (resolve, reject) {
+    Util.request(api, data, 'delete').then(function (res) {
+      if (res.statusCode >= 200 && res.statusCode < 300) {
+        resolve(res);
+      } else {
+        reject(res);
+      }
+    }).catch(function (err) {
+      reject(err);
+    });
+  });
+}
+
+/**
+   * 页面行为记录
+   */
+function setActive(that, data) {
+  var apiStr = Api.userBehavior;
+  var token = wx.getStorageSync("token");
+
+  if (that.data.loadState && token) {
+    postDataWX(apiStr, data).then(function (res) {
+      Common.setLoadTrue(that);
+    }).catch(function (err) {
+      Common.setLoadTrue(that);
+    });
+  }
+}
+
+/**
+   * 获取表单formId
+   */
+function getFormId(e) {
+  var formId = e.detail.formId;
+  var formApi = Common.pinFormId(Api.formID, formId);
+  var token = wx.getStorageSync("token");
+
+  if (token && formId != "the formId is a mock one") {
+    Util.request(formApi, {}, 'get').then(function (res) {}).catch(function (err) {});
+  }
+}
+
+
+/**
+   * 功能：获取二维码
+   * 参数：
+   *    pagePath：页面路径
+   *    id：订单id
+   */
+function getQRCodeUrl(pagePath, id) {
+  return new Es6Promise(function (resolve, reject) {
+    var COdeApi = Api.QRCodeUrl;
+    var pageUrl = id ? "".concat(pagePath, "?id=").concat(id) : pagePath;
+
+    Util.request(COdeApi, pageUrl, 'post').then(function (res) {
+      var picUrl = "".concat(Api.ShowPic, "/").concat(res.data.id, "/download");
+
+      Util.downloadFile(picUrl).then(function (weChatUrl) {
+        resolve(weChatUrl);
+      }).catch(function (err) {
+        showModal("图片下载失败");
+      });
+    }).catch(function (err) {
+      Util.showErrorToast("获取二维码失败");
+    });
+  });
+}
+
+/**
+   * 上传图片
+   * 
+   * 参数：
+   *    photoList：要上传的图片数组
+   *    apiState：控制使用压缩上传的api，还是不压缩上传的api
+   */
+var uploadPics = function uploadPics(photoList) {var apiState = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;
+  return new Es6Promise(function (resolve, reject) {
+    var photoJsonArray = [];
+    if (photoList && photoList.length >= 1) {
+      photoList.forEach(function (item) {
+        wx.uploadFile({
+          url: !apiState ? Api.PicUpload : Api.PicNewUpload,
+          filePath: item,
+          name: 'file',
+          header: {
+            'Authorization': "Bearer " + wx.getStorageSync('token') },
+
+          formData: {
+            'user': 'test' },
+
+          success: function success(res) {
+            photoJsonArray.push(JSON.parse(res.data));
+
+            if (photoJsonArray.length == photoList.length) {
+              resolve(photoJsonArray);
+            }
+          },
+          fail: function fail(err) {
+            reject(err);
+          } });
+
+      });
+    } else {
+      resolve([]);
+    }
+  });
+};
+
+
+
+/**
+    * 功能：采购订单详情--获取用户的 付款银行账户 
+    */
+function createOrder(data) {
+  return new Es6Promise(function (resolve, reject) {
+    var createOrderApi = Api.createOrder;
+
+    Util.request(createOrderApi, data, 'post').then(function (res) {
+      resolve(res);
+    }).catch(function (err) {
+      Util.showModal("新建询价单失败");
+      // reject(err);
+    });
+  });
+}
+
+
+
+module.exports = {
+  getDataWX: getDataWX,
+  postDataWX: postDataWX,
+  putDataWX: putDataWX,
+  deleteDataWX: deleteDataWX,
+  setActive: setActive,
+  getFormId: getFormId,
+  getQRCodeUrl: getQRCodeUrl,
+  uploadPics: uploadPics,
+  createOrder: createOrder };
+
+/***/ }),
+
+/***/ 4:
+/*!*************************************************!*\
+  !*** /Users/lee/Downloads/备份11/轻纺车网/pages.json ***!
+  \*************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+/***/ }),
+
+/***/ 42:
 /*!*************************************************************!*\
   !*** /Users/lee/Downloads/备份11/轻纺车网/services/jsy-server.js ***!
   \*************************************************************/
@@ -8723,9 +9021,9 @@ internalMixin(Vue);
 
 "use strict";
 var _module$exports;function _defineProperty(obj, key, value) {if (key in obj) {Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true });} else {obj[key] = value;}return obj;}var Api = __webpack_require__(/*! services/config/api.js */ 16);
-var Common = __webpack_require__(/*! utils/common.js */ 27);
+var Common = __webpack_require__(/*! utils/common.js */ 43);
 var Util = __webpack_require__(/*! utils/util.js */ 15);
-var User = __webpack_require__(/*! services/user.js */ 30);
+var User = __webpack_require__(/*! services/user.js */ 46);
 var Es6Promise = __webpack_require__(/*! lib/es6-promise.js */ 17);
 
 
@@ -9453,7 +9751,7 @@ majordomoAllot), _module$exports);
 
 /***/ }),
 
-/***/ 27:
+/***/ 43:
 /*!******************************************************!*\
   !*** /Users/lee/Downloads/备份11/轻纺车网/utils/common.js ***!
   \******************************************************/
@@ -9462,7 +9760,7 @@ majordomoAllot), _module$exports);
 
 "use strict";
 var Api = __webpack_require__(/*! services/config/api.js */ 16);
-var Pipe = __webpack_require__(/*! utils/pipe.js */ 28);
+var Pipe = __webpack_require__(/*! utils/pipe.js */ 44);
 var Util = __webpack_require__(/*! utils/util.js */ 15);
 var Es6Promise = __webpack_require__(/*! lib/es6-promise.js */ 17);
 
@@ -10115,7 +10413,7 @@ module.exports = {
 
 /***/ }),
 
-/***/ 28:
+/***/ 44:
 /*!****************************************************!*\
   !*** /Users/lee/Downloads/备份11/轻纺车网/utils/pipe.js ***!
   \****************************************************/
@@ -10138,7 +10436,7 @@ var _require =
 
 
 
-__webpack_require__(/*! ./const.js */ 29),QUALITY = _require.QUALITY,POSITION = _require.POSITION,GLOSS = _require.GLOSS,STOCK_TYPES = _require.STOCK_TYPES,BUY_ORDER = _require.BUY_ORDER,BUY_BACK_ORDER = _require.BUY_BACK_ORDER,SELL_ORDER = _require.SELL_ORDER,COMPLETE = _require.COMPLETE,COST_PERFORMANCE = _require.COST_PERFORMANCE,REAL_RATE = _require.REAL_RATE,BREAK_OUT = _require.BREAK_OUT,STOP_BRIGHT = _require.STOP_BRIGHT,STOP_DIM = _require.STOP_DIM,DARK_STRIP = _require.DARK_STRIP;
+__webpack_require__(/*! ./const.js */ 45),QUALITY = _require.QUALITY,POSITION = _require.POSITION,GLOSS = _require.GLOSS,STOCK_TYPES = _require.STOCK_TYPES,BUY_ORDER = _require.BUY_ORDER,BUY_BACK_ORDER = _require.BUY_BACK_ORDER,SELL_ORDER = _require.SELL_ORDER,COMPLETE = _require.COMPLETE,COST_PERFORMANCE = _require.COST_PERFORMANCE,REAL_RATE = _require.REAL_RATE,BREAK_OUT = _require.BREAK_OUT,STOP_BRIGHT = _require.STOP_BRIGHT,STOP_DIM = _require.STOP_DIM,DARK_STRIP = _require.DARK_STRIP;
 
 function formatTime(date) {
   if (date) {
@@ -10478,217 +10776,7 @@ module.exports = {
 
 /***/ }),
 
-/***/ 280:
-/*!*********************************************************!*\
-  !*** /Users/lee/Downloads/备份11/轻纺车网/services/server.js ***!
-  \*********************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-var Common = __webpack_require__(/*! utils/common.js */ 27);
-var Api = __webpack_require__(/*! services/config/api.js */ 16);
-var Util = __webpack_require__(/*! utils/util.js */ 15);
-var Es6Promise = __webpack_require__(/*! lib/es6-promise.js */ 17);
-
-/*
-                                                 * get 数据
-                                                 */
-function getDataWX(api, data) {
-  return new Es6Promise(function (resolve, reject) {
-    Util.request(api, data, 'get').then(function (res) {
-      if (res.statusCode === 200) {
-        resolve(res);
-      } else {
-        reject(res);
-      }
-    }).catch(function (err) {
-      reject(err);
-    });
-  });
-}
-
-/**
-   * post 数据
-   */
-function postDataWX(api, data) {
-  return new Es6Promise(function (resolve, reject) {
-    Util.request(api, data, 'post').then(function (res) {
-      if (res.statusCode >= 200 && res.statusCode < 300) {
-        resolve(res);
-      } else {
-        reject(res);
-      }
-    }).catch(function (err) {
-      reject(err);
-    });
-  });
-}
-
-
-/**
-   * put 数据
-   */
-function putDataWX(api, data) {
-  return new Es6Promise(function (resolve, reject) {
-    Util.request(api, data, 'put').then(function (res) {
-      if (res.statusCode >= 200 && res.statusCode < 300) {
-        resolve(res);
-      } else {
-        reject(res);
-      }
-    }).catch(function (err) {
-      reject(err);
-    });
-  });
-}
-
-/**
-   * delete 数据
-   */
-function deleteDataWX(api, data) {
-  return new Es6Promise(function (resolve, reject) {
-    Util.request(api, data, 'delete').then(function (res) {
-      if (res.statusCode >= 200 && res.statusCode < 300) {
-        resolve(res);
-      } else {
-        reject(res);
-      }
-    }).catch(function (err) {
-      reject(err);
-    });
-  });
-}
-
-/**
-   * 页面行为记录
-   */
-function setActive(that, data) {
-  var apiStr = Api.userBehavior;
-  var token = wx.getStorageSync("token");
-
-  if (that.data.loadState && token) {
-    postDataWX(apiStr, data).then(function (res) {
-      Common.setLoadTrue(that);
-    }).catch(function (err) {
-      Common.setLoadTrue(that);
-    });
-  }
-}
-
-/**
-   * 获取表单formId
-   */
-function getFormId(e) {
-  var formId = e.detail.formId;
-  var formApi = Common.pinFormId(Api.formID, formId);
-  var token = wx.getStorageSync("token");
-
-  if (token && formId != "the formId is a mock one") {
-    Util.request(formApi, {}, 'get').then(function (res) {}).catch(function (err) {});
-  }
-}
-
-
-/**
-   * 功能：获取二维码
-   * 参数：
-   *    pagePath：页面路径
-   *    id：订单id
-   */
-function getQRCodeUrl(pagePath, id) {
-  return new Es6Promise(function (resolve, reject) {
-    var COdeApi = Api.QRCodeUrl;
-    var pageUrl = id ? "".concat(pagePath, "?id=").concat(id) : pagePath;
-
-    Util.request(COdeApi, pageUrl, 'post').then(function (res) {
-      var picUrl = "".concat(Api.ShowPic, "/").concat(res.data.id, "/download");
-
-      Util.downloadFile(picUrl).then(function (weChatUrl) {
-        resolve(weChatUrl);
-      }).catch(function (err) {
-        showModal("图片下载失败");
-      });
-    }).catch(function (err) {
-      Util.showErrorToast("获取二维码失败");
-    });
-  });
-}
-
-/**
-   * 上传图片
-   * 
-   * 参数：
-   *    photoList：要上传的图片数组
-   *    apiState：控制使用压缩上传的api，还是不压缩上传的api
-   */
-var uploadPics = function uploadPics(photoList) {var apiState = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;
-  return new Es6Promise(function (resolve, reject) {
-    var photoJsonArray = [];
-    if (photoList && photoList.length >= 1) {
-      photoList.forEach(function (item) {
-        wx.uploadFile({
-          url: !apiState ? Api.PicUpload : Api.PicNewUpload,
-          filePath: item,
-          name: 'file',
-          header: {
-            'Authorization': "Bearer " + wx.getStorageSync('token') },
-
-          formData: {
-            'user': 'test' },
-
-          success: function success(res) {
-            photoJsonArray.push(JSON.parse(res.data));
-
-            if (photoJsonArray.length == photoList.length) {
-              resolve(photoJsonArray);
-            }
-          },
-          fail: function fail(err) {
-            reject(err);
-          } });
-
-      });
-    } else {
-      resolve([]);
-    }
-  });
-};
-
-
-
-/**
-    * 功能：采购订单详情--获取用户的 付款银行账户 
-    */
-function createOrder(data) {
-  return new Es6Promise(function (resolve, reject) {
-    var createOrderApi = Api.createOrder;
-
-    Util.request(createOrderApi, data, 'post').then(function (res) {
-      resolve(res);
-    }).catch(function (err) {
-      Util.showModal("新建询价单失败");
-      // reject(err);
-    });
-  });
-}
-
-
-
-module.exports = {
-  getDataWX: getDataWX,
-  postDataWX: postDataWX,
-  putDataWX: putDataWX,
-  deleteDataWX: deleteDataWX,
-  setActive: setActive,
-  getFormId: getFormId,
-  getQRCodeUrl: getQRCodeUrl,
-  uploadPics: uploadPics,
-  createOrder: createOrder };
-
-/***/ }),
-
-/***/ 29:
+/***/ 45:
 /*!*****************************************************!*\
   !*** /Users/lee/Downloads/备份11/轻纺车网/utils/const.js ***!
   \*****************************************************/
@@ -10863,38 +10951,7 @@ module.exports = {
 
 /***/ }),
 
-/***/ 3:
-/*!***********************************!*\
-  !*** (webpack)/buildin/global.js ***!
-  \***********************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-var g;
-
-// This works in non-strict mode
-g = (function() {
-	return this;
-})();
-
-try {
-	// This works if eval is allowed (see CSP)
-	g = g || new Function("return this")();
-} catch (e) {
-	// This works if the window reference is available
-	if (typeof window === "object") g = window;
-}
-
-// g can still be undefined, but nothing to do about it...
-// We return undefined, instead of nothing here, so it's
-// easier to handle this case. if(!global) { ...}
-
-module.exports = g;
-
-
-/***/ }),
-
-/***/ 30:
+/***/ 46:
 /*!*******************************************************!*\
   !*** /Users/lee/Downloads/备份11/轻纺车网/services/user.js ***!
   \*******************************************************/
@@ -10984,18 +11041,6 @@ function checkLogin() {
 module.exports = {
   loginByWeixin: loginByWeixin,
   checkLogin: checkLogin };
-
-/***/ }),
-
-/***/ 4:
-/*!*************************************************!*\
-  !*** /Users/lee/Downloads/备份11/轻纺车网/pages.json ***!
-  \*************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
 
 /***/ }),
 
@@ -11893,7 +11938,7 @@ main();
 /*! exports provided: _from, _id, _inBundle, _integrity, _location, _phantomChildren, _requested, _requiredBy, _resolved, _shasum, _spec, _where, author, bugs, bundleDependencies, deprecated, description, devDependencies, files, gitHead, homepage, license, main, name, repository, scripts, version, default */
 /***/ (function(module) {
 
-module.exports = {"_from":"@dcloudio/uni-stat@next","_id":"@dcloudio/uni-stat@2.0.0-23620191019001","_inBundle":false,"_integrity":"sha512-gBpkjEOQ/LhTnXBVi266PoTNT5VJtbYoEVy+gZ8/LN9/jKEWeWndd2Lu7vn7hmUySVM5K5UV/Bd5LEVkgXB8mA==","_location":"/@dcloudio/uni-stat","_phantomChildren":{},"_requested":{"type":"tag","registry":true,"raw":"@dcloudio/uni-stat@next","name":"@dcloudio/uni-stat","escapedName":"@dcloudio%2funi-stat","scope":"@dcloudio","rawSpec":"next","saveSpec":null,"fetchSpec":"next"},"_requiredBy":["#USER","/","/@dcloudio/vue-cli-plugin-uni"],"_resolved":"https://registry.npmjs.org/@dcloudio/uni-stat/-/uni-stat-2.0.0-23620191019001.tgz","_shasum":"5c006b903ae7bc407c8b1786de249ffbf72da996","_spec":"@dcloudio/uni-stat@next","_where":"/Users/fxy/Documents/DCloud/HbuilderX-plugins/release/uniapp-cli","author":"","bugs":{"url":"https://github.com/dcloudio/uni-app/issues"},"bundleDependencies":false,"deprecated":false,"description":"","devDependencies":{"@babel/core":"^7.5.5","@babel/preset-env":"^7.5.5","eslint":"^6.1.0","rollup":"^1.19.3","rollup-plugin-babel":"^4.3.3","rollup-plugin-clear":"^2.0.7","rollup-plugin-commonjs":"^10.0.2","rollup-plugin-copy":"^3.1.0","rollup-plugin-eslint":"^7.0.0","rollup-plugin-json":"^4.0.0","rollup-plugin-node-resolve":"^5.2.0","rollup-plugin-replace":"^2.2.0","rollup-plugin-uglify":"^6.0.2"},"files":["dist","package.json","LICENSE"],"gitHead":"bc995d4b43b68e7fe7914ae6b2112117d36e63a8","homepage":"https://github.com/dcloudio/uni-app#readme","license":"Apache-2.0","main":"dist/index.js","name":"@dcloudio/uni-stat","repository":{"type":"git","url":"git+https://github.com/dcloudio/uni-app.git","directory":"packages/uni-stat"},"scripts":{"build":"NODE_ENV=production rollup -c rollup.config.js","dev":"NODE_ENV=development rollup -w -c rollup.config.js"},"version":"2.0.0-23620191019001"};
+module.exports = {"_from":"@dcloudio/uni-stat@next","_id":"@dcloudio/uni-stat@2.0.0-23720191024001","_inBundle":false,"_integrity":"sha512-vJEk493Vdb8KueNzR2otzDi23rfyRcQBo/t1R41MwNGPk+AUB94gh10+HVLo98DRcvMzkuVofz3KXTAfEx24iw==","_location":"/@dcloudio/uni-stat","_phantomChildren":{},"_requested":{"type":"tag","registry":true,"raw":"@dcloudio/uni-stat@next","name":"@dcloudio/uni-stat","escapedName":"@dcloudio%2funi-stat","scope":"@dcloudio","rawSpec":"next","saveSpec":null,"fetchSpec":"next"},"_requiredBy":["#USER","/","/@dcloudio/vue-cli-plugin-uni"],"_resolved":"https://registry.npmjs.org/@dcloudio/uni-stat/-/uni-stat-2.0.0-23720191024001.tgz","_shasum":"18272814446a9bc6053bc92666ec7064a1767588","_spec":"@dcloudio/uni-stat@next","_where":"/Users/fxy/Documents/DCloud/HbuilderX-plugins/release/uniapp-cli","author":"","bugs":{"url":"https://github.com/dcloudio/uni-app/issues"},"bundleDependencies":false,"deprecated":false,"description":"","devDependencies":{"@babel/core":"^7.5.5","@babel/preset-env":"^7.5.5","eslint":"^6.1.0","rollup":"^1.19.3","rollup-plugin-babel":"^4.3.3","rollup-plugin-clear":"^2.0.7","rollup-plugin-commonjs":"^10.0.2","rollup-plugin-copy":"^3.1.0","rollup-plugin-eslint":"^7.0.0","rollup-plugin-json":"^4.0.0","rollup-plugin-node-resolve":"^5.2.0","rollup-plugin-replace":"^2.2.0","rollup-plugin-uglify":"^6.0.2"},"files":["dist","package.json","LICENSE"],"gitHead":"a725c04ef762e5df78a9a69d140c2666e0de05fc","homepage":"https://github.com/dcloudio/uni-app#readme","license":"Apache-2.0","main":"dist/index.js","name":"@dcloudio/uni-stat","repository":{"type":"git","url":"git+https://github.com/dcloudio/uni-app.git","directory":"packages/uni-stat"},"scripts":{"build":"NODE_ENV=production rollup -c rollup.config.js","dev":"NODE_ENV=development rollup -w -c rollup.config.js"},"version":"2.0.0-23720191024001"};
 
 /***/ }),
 
@@ -11905,7 +11950,7 @@ module.exports = {"_from":"@dcloudio/uni-stat@next","_id":"@dcloudio/uni-stat@2.
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _default = { "pages": { "pages/qing-f-c/login/login": { "navigationStyle": "custom" }, "pages/qing-f-c/inquiryManage/inquiryManage": { "navigationBarTitleText": "买办询价管理", "navigationBarBackgroundColor": "#ffffff", "navigationBarTextStyle": "black" }, "pages/qing-f-c/inquiryManage/inquiry-created": { "navigationBarTitleText": "买帮办新建询价单" }, "pages/qing-f-c/regionalManager/customer-admin": { "navigationBarTitleText": "区域经理客户管理" }, "pages/qing-f-c/regionalManager/deputy-list": { "navigationBarTitleText": "区域经理选择卖帮办" }, "pages/qing-f-c/sales_director/customer-details": { "navigationBarTitleText": " 销售总监客户详情" }, "pages/qing-f-c/buyDupty/customer-created": { "navigationBarTitleText": " 买帮办新建客户" }, "pages/qing-f-c/buyDupty/edit-customer": { "navigationBarTitleText": " 买帮办更新客户" }, "pages/qing-f-c/buyDupty/contact-detail": { "navigationBarTitleText": "联系人详情" }, "pages/qing-f-c/buyDupty/setManagerCondition": { "navigationBarTitleText": "买帮办设置经营状况" }, "pages/qing-f-c/sellDupty/customer-admin": { "navigationBarTitleText": "卖帮办客户管理" }, "pages/qing-f-c/sellDupty/customer-created": { "navigationBarTitleText": "卖帮办新建客户" }, "pages/qing-f-c/sellDupty/edit-customer": { "navigationBarTitleText": "卖帮办修改客户" }, "pages/qing-f-c/sellDupty/customer-details": { "navigationStyle": "custom" }, "pages/qing-f-c/sellDupty/contact-detail": { "navigationBarTitleText": "卖帮办联系人详情" }, "pages/qing-f-c/sellDupty/setManagerCondition": { "navigationBarTitleText": "卖帮办设置管理者特征" }, "pages/qing-f-c/sellDupty/editManagerCondition": { "navigationBarTitleText": "卖帮办编辑管理者特征" }, "pages/qing-f-c/sellDupty/add-contact": { "navigationBarTitleText": "卖帮办联系人详情" }, "pages/qing-f-c/sellDupty/edit-contact": { "navigationBarTitleText": "卖帮办修改联系人" }, "pages/qing-f-c/sellDupty/add-competitor": { "navigationBarTitleText": "卖帮办添加竞争者" }, "pages/qing-f-c/sellDupty/edit-competitor": { "navigationBarTitleText": "卖帮办修改竞争者" }, "pages/qing-f-c/sellDupty/detail-competitor": { "navigationBarTitleText": "卖帮办竞争对手详情" }, "pages/qing-f-c/buyDupty/add-contact": { "navigationBarTitleText": "买帮办办添加联系人" }, "pages/qing-f-c/buyDupty/customer-details": { "navigationStyle": "custom" }, "pages/qing-f-c/buyDupty/detail-competitor": { "navigationBarTitleText": "买帮办竞争对手详情" }, "pages/qing-f-c/buyDupty/edit-competitor": { "navigationBarTitleText": "买帮办编辑竞争对手" }, "pages/qing-f-c/buyDupty/add-competitor": { "navigationBarTitleText": "买帮办添加竞争对手" }, "pages/qing-f-c/buyDupty/customer-admin": { "navigationBarTitleText": "买帮办客户管理" }, "pages/qing-f-c/sales_director/customer-admin": { "navigationBarTitleText": "销售总监客户管理" }, "pages/qing-f-c/sales_director/manager-list": { "navigationBarTitleText": "选择区域经理" }, "pages/qing-f-c/customer/customer-list": { "navigationBarTitleText": "客户管理" }, "pages/qing-f-c/index": { "navigationStyle": "custom", "enablePullDownRefresh": true }, "pages/qing-f-c/claimIdentity/claimIdentity": { "navigationBarTitleText": "身份认领" }, "pages/qing-f-c/register/register": { "navigationStyle": "custom" }, "pages/qing-f-c/register/findPassword": { "navigationStyle": "custom" }, "pages/qing-f-c/register/finish": { "navigationBarTitleText": "注册完成" }, "pages/qing-f-c/fangzhidao/index/index": { "navigationBarTitleText": "纺织道论坛" }, "pages/qing-f-c/qiugouqu/index/index": { "navigationBarTitleText": "求购区" }, "pages/qing-f-c/xianhuoqu/index/index": { "navigationBarTitleText": "现货区" }, "pages/qing-f-c/temaiqu/index/index": { "navigationBarTitleText": "特卖区" } }, "globalStyle": { "navigationBarTextStyle": "white", "navigationBarTitleText": "", "navigationBarBackgroundColor": "#FF6000", "backgroundColor": "white" } };exports.default = _default;
+Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _default = { "pages": { "pages/qing-f-c/inquiryManage/inquiry-details": { "navigationStyle": "custom", "usingComponents": {} }, "pages/qing-f-c/inquiryManage/inquiry-created": { "navigationBarTitleText": "买帮办新建询价单", "usingComponents": { "picker-button": "/components/pickerButton", "my-picker": "/components/myPicker", "part-checkbox-group": "/components/partCheckboxGroup", "my-picker-small": "/components/myPickerSmall", "switch-button": "/components/switchButton-s", "uni-popup": "/components/uni-popup", "picker-input": "/components/pickerInput" } }, "pages/qing-f-c/login/login": { "navigationStyle": "custom", "usingComponents": { "uni-icon": "/components/uni-icons/uni-icons" } }, "pages/qing-f-c/inquiryManage/inquiryManage": { "navigationBarTitleText": "买办询价管理", "navigationBarBackgroundColor": "#ffffff", "navigationBarTextStyle": "black", "usingComponents": { "uni-icon": "/components/uni-icons/uni-icons", "top-tabbar": "/components/topTabbar", "filter-button": "/components/filterButton", "inquire-list": "/components/inquireList" } }, "pages/qing-f-c/regionalManager/customer-admin": { "navigationBarTitleText": "区域经理客户管理", "usingComponents": {} }, "pages/qing-f-c/regionalManager/deputy-list": { "navigationBarTitleText": "区域经理选择卖帮办", "usingComponents": {} }, "pages/qing-f-c/regionalManager/customer-details": { "navigationBarTitleText": "区域经理客户详情", "usingComponents": { "list-show": "/components/listShow", "uni-icon": "/components/uni-icons/uni-icons" } }, "pages/qing-f-c/sales_director/customer-details": { "navigationBarTitleText": " 销售总监客户详情", "usingComponents": { "list-show": "/components/listShow", "uni-icon": "/components/uni-icons/uni-icons" } }, "pages/qing-f-c/buyDupty/customer-created": { "navigationBarTitleText": " 买帮办新建客户", "usingComponents": { "my-picker": "/components/myPicker", "range-button": "/components/rangeButton", "swith-button": "/components/switchButton" } }, "pages/qing-f-c/buyDupty/edit-customer": { "navigationBarTitleText": " 买帮办更新客户", "usingComponents": { "my-picker": "/components/myPicker", "range-button": "/components/rangeButton-v", "swith-button": "/components/switchButton" } }, "pages/qing-f-c/buyDupty/contact-detail": { "navigationBarTitleText": "联系人详情", "usingComponents": { "list-show": "/components/listShow" } }, "pages/qing-f-c/buyDupty/setManagerCondition": { "navigationBarTitleText": "买帮办设置经营状况", "usingComponents": { "my-picker": "/components/myPicker", "my-checkbox-group": "/components/myCheckboxGroup", "uni-icon": "/components/uni-icons/uni-icons" } }, "pages/qing-f-c/sellDupty/customer-admin": { "navigationBarTitleText": "卖帮办客户管理", "usingComponents": { "top-search": "/components/topSearch" } }, "pages/qing-f-c/sellDupty/customer-created": { "navigationBarTitleText": "卖帮办新建客户", "usingComponents": { "my-picker": "/components/myPicker", "range-button": "/components/rangeButton", "swith-button": "/components/switchButton" } }, "pages/qing-f-c/sellDupty/edit-customer": { "navigationBarTitleText": "卖帮办修改客户", "usingComponents": { "my-picker": "/components/myPicker", "range-button": "/components/rangeButton-v", "swith-button": "/components/switchButton" } }, "pages/qing-f-c/sellDupty/customer-details": { "navigationStyle": "custom", "usingComponents": { "list-show": "/components/listShow", "uni-icon": "/components/uni-icons/uni-icons" } }, "pages/qing-f-c/sellDupty/contact-detail": { "navigationBarTitleText": "卖帮办联系人详情", "usingComponents": { "list-show": "/components/listShow" } }, "pages/qing-f-c/sellDupty/setManagerCondition": { "navigationBarTitleText": "卖帮办设置管理者特征", "usingComponents": { "my-picker": "/components/myPicker", "my-checkbox-group": "/components/myCheckboxGroup", "uni-icon": "/components/uni-icons/uni-icons" } }, "pages/qing-f-c/sellDupty/editManagerCondition": { "navigationBarTitleText": "卖帮办编辑管理者特征", "usingComponents": { "my-picker": "/components/myPicker", "my-checkbox-group": "/components/myCheckboxGroup", "uni-icon": "/components/uni-icons/uni-icons" } }, "pages/qing-f-c/sellDupty/add-contact": { "navigationBarTitleText": "卖帮办联系人详情", "usingComponents": { "my-picker": "/components/myPicker", "range-button": "/components/rangeButton", "my-checkbox-group": "/components/myCheckboxGroup" } }, "pages/qing-f-c/sellDupty/edit-contact": { "navigationBarTitleText": "卖帮办修改联系人", "usingComponents": { "my-picker": "/components/myPicker", "range-button": "/components/rangeButton-v", "my-checkbox-group": "/components/myCheckboxGroup" } }, "pages/qing-f-c/sellDupty/add-competitor": { "navigationBarTitleText": "卖帮办添加竞争者", "usingComponents": { "my-picker": "/components/myPicker", "my-checkbox-group": "/components/myCheckboxGroup" } }, "pages/qing-f-c/sellDupty/edit-competitor": { "navigationBarTitleText": "卖帮办修改竞争者", "usingComponents": { "my-picker": "/components/myPicker", "my-checkbox-group": "/components/myCheckboxGroup" } }, "pages/qing-f-c/sellDupty/detail-competitor": { "navigationBarTitleText": "卖帮办竞争对手详情", "usingComponents": {} }, "pages/qing-f-c/buyDupty/editManagerCondition": { "navigationBarTitleText": "买帮办编辑管理者特征", "usingComponents": { "my-picker": "/components/myPicker", "my-checkbox-group": "/components/myCheckboxGroup", "uni-icon": "/components/uni-icons/uni-icons" } }, "pages/qing-f-c/buyDupty/add-contact": { "navigationBarTitleText": "买帮办办添加联系人", "usingComponents": { "my-picker": "/components/myPicker", "range-button": "/components/rangeButton", "my-checkbox-group": "/components/myCheckboxGroup" } }, "pages/qing-f-c/buyDupty/customer-details": { "navigationStyle": "custom", "usingComponents": { "list-show": "/components/listShow", "uni-icon": "/components/uni-icons/uni-icons" } }, "pages/qing-f-c/buyDupty/detail-competitor": { "navigationBarTitleText": "买帮办竞争对手详情", "usingComponents": {} }, "pages/qing-f-c/buyDupty/edit-competitor": { "navigationBarTitleText": "买帮办编辑竞争对手", "usingComponents": { "my-picker": "/components/myPicker", "my-checkbox-group": "/components/myCheckboxGroup" } }, "pages/qing-f-c/buyDupty/add-competitor": { "navigationBarTitleText": "买帮办添加竞争对手", "usingComponents": { "my-picker": "/components/myPicker", "my-checkbox-group": "/components/myCheckboxGroup" } }, "pages/qing-f-c/buyDupty/customer-admin": { "navigationBarTitleText": "买帮办客户管理", "usingComponents": { "top-search": "/components/topSearch" } }, "pages/qing-f-c/sales_director/customer-admin": { "navigationBarTitleText": "销售总监客户管理", "usingComponents": { "uni-icon": "/components/uni-icons/uni-icons" } }, "pages/qing-f-c/sales_director/manager-list": { "navigationBarTitleText": "选择区域经理", "usingComponents": {} }, "pages/qing-f-c/customer/customer-list": { "navigationBarTitleText": "客户管理", "usingComponents": {} }, "pages/qing-f-c/index": { "navigationStyle": "custom", "enablePullDownRefresh": true, "usingComponents": { "mpvue-picker": "/components/mpvue-picker/mpvuePicker", "uni-grid": "/components/uni-grid/uni-grid", "uni-grid-item": "/components/uni-grid-item/uni-grid-item" } }, "pages/qing-f-c/claimIdentity/claimIdentity": { "navigationBarTitleText": "身份认领", "usingComponents": {} }, "pages/qing-f-c/register/register": { "navigationStyle": "custom", "usingComponents": { "uni-icon": "/components/uni-icons/uni-icons" } }, "pages/qing-f-c/register/findPassword": { "navigationStyle": "custom", "usingComponents": { "uni-icon": "/components/uni-icons/uni-icons" } }, "pages/qing-f-c/register/finish": { "navigationBarTitleText": "注册完成", "usingComponents": {} }, "pages/qing-f-c/fangzhidao/index/index": { "navigationBarTitleText": "纺织道论坛", "usingComponents": {} }, "pages/qing-f-c/qiugouqu/index/index": { "navigationBarTitleText": "求购区", "usingComponents": {} }, "pages/qing-f-c/xianhuoqu/index/index": { "navigationBarTitleText": "现货区", "usingComponents": {} }, "pages/qing-f-c/temaiqu/index/index": { "navigationBarTitleText": "特卖区", "usingComponents": {} }, "pages/qing-f-c/register/protocol/protocol": { "navigationBarTitleText": "轻纺车网服务协议", "usingComponents": {} }, "pages/qing-f-c/inquiryManage/recentPrice/recentPrice": { "navigationBarTitleText": "最近报价", "usingComponents": {} }, "pages/qing-f-c/inquiryManage/quotedPrice/quotedPrice": { "navigationBarTitleText": "报价详情", "usingComponents": { "uni-icon": "/components/uni-icons/uni-icons" } }, "pages/qing-f-c/inquiryManage/setQuotePrice/setQuotePrice": { "navigationBarTitleText": "设置报价", "usingComponents": {} } }, "globalStyle": { "navigationBarTextStyle": "white", "navigationBarTitleText": "", "navigationBarBackgroundColor": "#FF6000", "backgroundColor": "white" } };exports.default = _default;
 
 /***/ }),
 
@@ -11918,49 +11963,6 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _default = { "appid": "__UNI__85973DE" };exports.default = _default;
-
-/***/ }),
-
-/***/ 87:
-/*!********************************************************!*\
-  !*** /Users/lee/Downloads/备份11/轻纺车网/services/tools.js ***!
-  \********************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-function filterNull(data) {
-  var temp = {};
-  Object.keys(data).forEach(function (key) {
-    if (data[key] != -1) {
-      temp[key] = data[key];
-    }
-  });
-  return temp;
-}
-function list2code(data) {
-  var temp = [];
-  data.forEach(function (item) {
-    if (item.isChecked == true) {
-      temp.push(item.id);
-    }
-  });
-  return temp;
-}
-function list2string(data) {
-  var temp = [];
-  data.forEach(function (item) {
-    temp.push(item.label);
-  });
-  return temp.join('+');
-}
-
-module.exports = {
-  filterNull: filterNull,
-  list2code: list2code,
-  list2string: list2string };
 
 /***/ })
 
