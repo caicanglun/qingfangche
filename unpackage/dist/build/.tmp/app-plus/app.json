@@ -1,9 +1,31 @@
 {
   "pages": [
+    "pages/qing-f-c/index",
+    "pages/qing-f-c/inquiryManage/sampleInquiry/buyDeputy/inquiry-details-result",
+    "pages/qing-f-c/inquiryManage/sampleInquiry/analyst/setSampleResult",
     "pages/qing-f-c/login/login",
-    "pages/qing-f-c/inquiryManage/quotedPrice/quotedPrice",
-    "pages/qing-f-c/inquiryManage/inquiry-details",
+    "pages/qing-f-c/inquiryManage/sales_director/modifyPrice",
+    "pages/qing-f-c/inquiryManage/sampleInquiry/sales_director/modifyPrice",
+    "pages/qing-f-c/inquiryManage/sampleInquiry/sales_director/inquiry-details",
+    "pages/qing-f-c/inquiryManage/sampleInquiry/buyDeputy/inquiry-details",
+    "pages/qing-f-c/inquiryManage/sampleInquiry/analyst/inquiry-details-result",
+    "pages/qing-f-c/inquiryManage/sampleInquiry/analyst/modifySampleResult",
+    "pages/qing-f-c/inquiryManage/sampleInquiry/sellDeputy/inquiry-details",
+    "pages/qing-f-c/inquiryManage/sellDeputy/inquiry-details",
+    "pages/qing-f-c/inquiryManage/sales_director/inquiry-details",
+    "pages/qing-f-c/inquiryManage/sampleInquiry/analyst/inquiryManage",
+    "pages/qing-f-c/inquiryManage/sampleInquiry/analyst/analyst-input",
     "pages/qing-f-c/inquiryManage/inquiry-created",
+    "pages/qing-f-c/inquiryManage/priceTrend/priceTrend",
+    "pages/qing-f-c/inquiryManage/inquiry-details",
+    "pages/qing-f-c/inquiryManage/sellDeputy/startQuote",
+    "pages/qing-f-c/inquiryManage/setQuotePrice/setQuotePrice",
+    "pages/qing-f-c/inquiryManage/directorQuotePrice",
+    "pages/qing-f-c/test/test",
+    "pages/qing-f-c/inquiryManage/sales_director/quotation-detail",
+    "pages/qing-f-c/inquiryManage/quotedPrice/quotedPrice",
+    "pages/qing-f-c/inquiryManage/sellDeputy/inquiryManage",
+    "pages/qing-f-c/inquiryManage/sales_director/inquiryManage",
     "pages/qing-f-c/inquiryManage/inquiryManage",
     "pages/qing-f-c/regionalManager/customer-admin",
     "pages/qing-f-c/regionalManager/deputy-list",
@@ -35,7 +57,6 @@
     "pages/qing-f-c/sales_director/customer-admin",
     "pages/qing-f-c/sales_director/manager-list",
     "pages/qing-f-c/customer/customer-list",
-    "pages/qing-f-c/index",
     "pages/qing-f-c/claimIdentity/claimIdentity",
     "pages/qing-f-c/register/register",
     "pages/qing-f-c/register/findPassword",
@@ -45,7 +66,12 @@
     "pages/qing-f-c/xianhuoqu/index/index",
     "pages/qing-f-c/temaiqu/index/index",
     "pages/qing-f-c/register/protocol/protocol",
-    "pages/qing-f-c/inquiryManage/recentPrice/recentPrice"
+    "pages/qing-f-c/inquiryManage/recentPrice/recentPrice",
+    "pages/qing-f-c/inquiryManage/selectBuyer",
+    "pages/qing-f-c/inquiryManage/sellDeputy/selectSeller",
+    "pages/qing-f-c/inquiryManage/sampleInquiry/sales_director/find-result",
+    "pages/qing-f-c/inquiryManage/sellDeputy/quotation-detail",
+    "pages/qing-f-c/sales_director/approved"
   ],
   "window": {
     "navigationBarTextStyle": "white",
@@ -57,32 +83,32 @@
     "list": [
       {
         "pagePath": "pages/qing-f-c/fangzhidao/index/index",
-        "iconPath": "/static/images/tab/i-index.png",
-        "selectedIconPath": "/static/images/tab/i-index-end.png",
+        "iconPath": "/static/images/tab/fangzhidao.png",
+        "selectedIconPath": "/static/images/tab/fangzhidao-end.png",
         "text": "纺织道"
       },
       {
         "pagePath": "pages/qing-f-c/qiugouqu/index/index",
-        "iconPath": "/static/images/tab/i-buy.png",
-        "selectedIconPath": "/static/images/tab/i-buy-end.png",
+        "iconPath": "/static/images/tab/qiugou.png",
+        "selectedIconPath": "/static/images/tab/qiugou-end.png",
         "text": "求购区"
       },
       {
         "pagePath": "pages/qing-f-c/xianhuoqu/index/index",
-        "iconPath": "/static/images/tab/i-goods.png",
-        "selectedIconPath": "/static/images/tab/i-goods-end.png",
+        "iconPath": "/static/images/tab/xianhuo.png",
+        "selectedIconPath": "/static/images/tab/xianhuo-end.png",
         "text": "现货区"
       },
       {
         "pagePath": "pages/qing-f-c/temaiqu/index/index",
-        "iconPath": "/static/images/tab/i-on-sell.png",
-        "selectedIconPath": "/static/images/tab/i-on-sell-end.png",
+        "iconPath": "/static/images/tab/temai.png",
+        "selectedIconPath": "/static/images/tab/temai-end.png",
         "text": "特卖区"
       },
       {
         "pagePath": "pages/qing-f-c/index",
-        "iconPath": "/static/images/tab/i-user.png",
-        "selectedIconPath": "/static/images/tab/i-user-end.png",
+        "iconPath": "/static/images/tab/wode.png",
+        "selectedIconPath": "/static/images/tab/wode-end.png",
         "text": "我的"
       }
     ],
@@ -91,13 +117,13 @@
     "selectedColor": "#FF6000",
     "backgroundColor": "#f8f8f8"
   },
-  "nvueCompiler": "weex",
+  "nvueCompiler": "uni-app",
   "renderer": "auto",
   "splashscreen": {
     "alwaysShowBeforeRender": true,
     "autoclose": false
   },
   "appname": "轻纺车网",
-  "compilerVersion": "2.3.7",
+  "compilerVersion": "2.4.2",
   "usingComponents": {}
 }

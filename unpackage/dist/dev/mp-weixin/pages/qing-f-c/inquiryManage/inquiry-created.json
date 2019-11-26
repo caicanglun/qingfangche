@@ -2,11 +2,12 @@
   "navigationBarTitleText": "买帮办新建询价单",
   "usingComponents": {
     "picker-button": "/components/pickerButton",
-    "my-picker": "/components/myPicker",
+    "my-picker": "/components/myPicker-inquiry",
     "part-checkbox-group": "/components/partCheckboxGroup",
     "my-picker-small": "/components/myPickerSmall",
-    "switch-button": "/components/switchButton-s",
-    "uni-popup": "/components/uni-popup",
-    "picker-input": "/components/pickerInput"
+    "switch-button": "/components/switchButton-auto",
+    "picker-input": "/components/pickerInput",
+    "uni-icon": "/components/uni-icons/uni-icons",
+    "popup-me": "/components/popupMe"
   }
 }

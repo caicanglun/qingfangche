@@ -15,6 +15,8 @@
 		  </view>
 		  
 		  <myPicker @mychange="channeChange" :items="channel" name="渠道状况" :firstLabel="channelStatusName"></myPicker>
+		  <myPicker @mychange="purchaseChange" :items="purchaseMode" name="采购方式" 
+		  :firstLabel="isFactoryDirectSale?'中间商+厂家直采':'中间商'"></myPicker>
 		  <view class="flex_line_sb list fs_14">
 		    <view class="list_right_280">主营产品类型<text class="pl_10 color_888">(可多选)</text>：</view>
 			<view>
@@ -28,39 +30,43 @@
 			   <view class="line"></view>
 			   <view class="font_we_bold fs_15">采购方式分析</view>
 			 </view>
-			 <view class="fs_15 pl_20" @tap="tapBrokerChange">
+			 <!-- <view class="fs_15 pl_20" @tap="tapBrokerChange">
 				 <checkbox :value="isMiddleman" :checked="isMiddleman" />中间商模式 
-			 </view>
+			 </view> -->
 			 
 			 <myPicker @mychange="scaleChange" :items="scale" name="规模" :firstLabel="companyScaleName"></myPicker>
 			
 			 <myPicker @mychange="qualityChange" :items="quality" name="品质定位" :firstLabel="qualityName"></myPicker>
 			 
 			 <myPicker @mychange="businessModelChange" :items="businessModel" name="经营模式" :firstLabel="businessModelName"></myPicker>
-			 <view class="fs_15 pl_20" @tap="tapDirectChange">
+			<!-- <view class="fs_15 pl_20" @tap="tapDirectChange">
 			 		 <checkbox :value="isFactoryDirectSale" :checked="isFactoryDirectSale" />厂家直接采购
-			 </view>
-			 <view class="flex_c list fs_14" >
-				 <view class="list_right">地址：</view>
-				 <view class="flex_sb_c wid_462">
-				   <input name="companyAddress" v-model="rivalList.companyAddress" 
-				   placeholder="请填写" placeholder-class="color_888 fs_14" style="width:350upx;" class="input"></input>
+			 </view> -->
+			 
+			 
+			 <view v-if='isFactoryDirectSale'>
+				 <view class="flex_c list fs_14" >
+					 <view class="list_right">地址：</view>
+					 <view class="flex_sb_c wid_462">
+					   <input name="companyAddress" v-model="rivalList.companyAddress" 
+					   placeholder="请填写" placeholder-class="color_888 fs_14" style="width:350upx;" class="input"></input>
+					 </view>
 				 </view>
-			 </view>
-			 <view class="flex_c list" >
-				 <view class="list_right">机台类型：</view>
-				 <view class="flex_sb_c wid_462">
-				   <input name="machineType" v-model="rivalList.machineType"
-				   placeholder="请填写机器类型" placeholder-class="color_888 fs_14" style="width:350upx;" class="input"></input>
+				 <view class="flex_c list" >
+					 <view class="list_right">机台类型：</view>
+					 <view class="flex_sb_c wid_462">
+					   <input name="machineType" v-model="rivalList.machineType"
+					   placeholder="请填写机器类型" placeholder-class="color_888 fs_14" style="width:350upx;" class="input"></input>
+					 </view>
 				 </view>
-			 </view>
-			 <view class="flex_c list" >
-				 <view class="list_right">机台数量：</view>
-				 <view class="flex_sb_c wid_462">
-				   <input name="machineCount" v-model="rivalList.machineCount" 
-				   placeholder="请填写机器数量" placeholder-class="color_888 fs_14" style="width:350upx;"  cursor-spacing='140' class="input"></input>
+				 <view class="flex_c list" >
+					 <view class="list_right">机台数量：</view>
+					 <view class="flex_sb_c wid_462">
+					   <input name="machineCount" v-model="rivalList.machineCount" 
+					   placeholder="请填写机器数量" placeholder-class="color_888 fs_14" style="width:350upx;"  cursor-spacing='140' class="input"></input>
+					 </view>
 				 </view>
-			 </view>
+			</view>    <!-- 厂家直采 -->
 		 </view>
 		</view>	
 		 <!-- --------------------------- -->
@@ -99,7 +105,7 @@
 				purchase:["中间商","厂家直采"],
 				isFactoryDirectSale: false,
 				isMiddleman: false,
-				
+				purchaseMode: [{id:'zjs',label:'中间商为主'},{id:'cjzc',label:'中间商+厂家直采'}],
 				businessModelName:'',
 				channelStatusName:'',
 				companyScaleName:'',
@@ -211,6 +217,16 @@
 					}
 				}
 			},
+			purchaseChange:function(e){
+				console.log(e)
+				if (e == 'zjs'){
+					this.isMiddleman = true;
+					this.isFactoryDirectSale = false;
+				}else if(e == 'cjzc'){
+					this.isMiddleman = true;
+					this.isFactoryDirectSale = true;
+				}
+			},
 			channeChange:function(e){
 				console.log(e)
 				this.channelStatusCode = e
@@ -246,6 +262,11 @@
 						icon: 'none'
 					});
 					return;
+				}
+				if(_this.isFactoryDirectSale == false){
+					  _this.companyAddress = ''		//公司地址
+				      _this.machineType = ''			//机器类型
+					  _this.machineCount = ''
 				}
 				let before_data = {
 				rivalCode:  _competitor.rivalCode,					//客户编码

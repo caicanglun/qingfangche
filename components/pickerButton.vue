@@ -1,6 +1,6 @@
 <template>
 	<view>
-		<view class="list flex_c">
+		<view class="pickButtonPicklist flex_c">
 		  <view class="list_right fs_14">{{name}}：</view>
 		  <view class="flex_c">
 				 <block v-for="item in items" :key="item.id">
@@ -38,8 +38,8 @@
 </script>
 
 <style lang="scss">
- .list{
-   margin: 0 30upx;
+ .pickButtonPicklist{
+   margin: 0 20upx;
    padding:0 10upx;
    border-bottom: 1upx solid rgba(221, 221, 221, 0.3);
    line-height: 87upx;
@@ -48,6 +48,8 @@
    width:250upx;
  }
  .unit{
+   display: flex;
+   align-items: center;
    font-size: 14px;
    // line-height: 40upx;
    width: 170upx;
@@ -73,6 +75,7 @@
  .unitselect{
    color: #fff;
    background-color: #FF6000;
+   border: 2upx solid #FF6000;
  }
  .unitunselect{
    color: black;

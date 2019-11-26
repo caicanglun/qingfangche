@@ -43,6 +43,7 @@
     -webkit-flex-direction: column;
         -ms-flex-direction: column;
             flex-direction: column;
+    position: relative;
 }
 .topTabbar .tabItem .tabText {
       color: black;
@@ -53,8 +54,20 @@
     font-size: 14px;
 }
 .topTabbar .tabActive .bottomLine {
-    background: red;
+    background: #ff6000;
     height: 4rpx;
     border-radius: 4rpx;
+}
+.icon-position {
+  font-size: 13px;
+  position: absolute;
+  background-color: red;
+  color: #ffffff;
+  line-height: 30rpx;
+  width: 30rpx;
+  height: 30rpx;
+  border-radius: 50%;
+  right: -30rpx;
+  top: -10rpx;
 }
 

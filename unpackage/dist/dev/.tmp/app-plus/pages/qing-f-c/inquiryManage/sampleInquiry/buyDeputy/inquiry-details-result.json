@@ -1,0 +1,9 @@
+{
+  "navigationStyle": "custom",
+  "usingComponents": {
+    "popup-me": "/components/popupMe",
+    "uni-icon": "/components/uni-icons/uni-icons",
+    "chanpinyaosu": "/components/inquiry/chanpinyaosu",
+    "baojia-list": "/components/inquiry/baojia-list"
+  }
+}

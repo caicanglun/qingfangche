@@ -2,7 +2,8 @@
 	
 		<view>
 			<view class="login_top">
-				 <image src='https://api.qingfangche.net/api/common/picture/201904221111002/png/images/download' mode='aspectFill' class='login_img'></image>
+				 <!-- <image src='https://api.qingfangche.net/api/common/picture/201904221111002/png/images/download' mode='aspectFill' class='login_img'></image> -->
+				 <image src='/static/images/qingfc/logo.png' mode='aspectFit' class='login_img'></image>
 			</view>
 			<view class="content">
 				<form @submit="formSubmit" report-submit="true">
@@ -191,6 +192,11 @@
 							
 								
 						}else {
+							uni.showToast({
+								title: res.data.message,
+								icon: 'none',
+								duration: 1000
+							});
 							return
 						}
 						if (res.data.status === 1){
@@ -230,7 +236,7 @@
 <style lang="scss">
 	      .content{ 
 			  width: 100%;
-			  margin-top: -160upx;
+			  margin-top: -177upx;
 			  padding: 0 40upx;
 		  }
 	     .box {
@@ -321,16 +327,18 @@
           height: 612upx;
           width: 750upx;
           box-sizing: border-box;
-          background-image:url(https://api.qingfangche.net/api/common/picture/hand_back/png/images/download);
+          background-image:url('~@/static/images/qingfc/login-back.jpeg');
           background-repeat:no-repeat;
           background-position:center top;
           background-size:cover;
-          text-align: center;
+          display:flex;
+		  justify-content: center;
+		 
         }
 		.login_img{
-		  width: 336upx;
-		  height: 128upx;
-		  margin: 138upx auto;
+		  width: 350upx;
+		  height: 110upx;
+		  margin: 178upx auto;
 		}
 		.login_btn{
 		  width: 620upx;

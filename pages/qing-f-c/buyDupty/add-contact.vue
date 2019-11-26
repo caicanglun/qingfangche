@@ -279,7 +279,10 @@
 				data.potentialCode= this.potentialCode				//发展潜力编码
 				data.characterFeatures = characterFeatures			//性格特点编码数组
 				data.manageFeatures= manageFeatures        //经营者特征
-				
+				uni.showLoading({
+						mask: true,   
+						title: '正在加载'  
+								});  
 				JsyServer.linkmanAdd(data).then(res => {
 				  console.log(res);
 				  if (res.data.status ==0){
@@ -294,6 +297,7 @@
 						prevPage.setData({
 								isDoRefresh:true
 						})
+					uni.hideLoading();
 					uni.navigateBack({
 						delta: 1
 					});  

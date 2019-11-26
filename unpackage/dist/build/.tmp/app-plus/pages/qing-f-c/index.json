@@ -4,6 +4,7 @@
   "usingComponents": {
     "mpvue-picker": "/components/mpvue-picker/mpvuePicker",
     "uni-grid": "/components/uni-grid/uni-grid",
-    "uni-grid-item": "/components/uni-grid-item/uni-grid-item"
+    "uni-grid-item": "/components/uni-grid-item/uni-grid-item",
+    "widgit": "/components/widgit"
   }
 }

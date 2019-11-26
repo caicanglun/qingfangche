@@ -15,6 +15,7 @@
 		  </view>
 		  
 		  <myPicker @mychange="channeChange" :items="channel" name="渠道状况"></myPicker>
+		  <myPicker @mychange="purchaseChange" :items="purchaseMode" name="采购方式"></myPicker>
 		  <view class="flex_line_sb list fs_14">
 		    <view class="list_right_280">主营产品类型<text class="pl_10 color_888">(可多选)</text>：</view>
 			<view>
@@ -28,39 +29,42 @@
 			   <view class="line"></view>
 			   <view class="font_we_bold fs_15">采购方式分析</view>
 			 </view>
-			 <view class="fs_15 pl_40" @tap="tapBrokerChange">
+			 <!-- <view class="fs_15 pl_40" @tap="tapBrokerChange">
 				 <checkbox :value="isMiddleman" :checked="isMiddleman" />中间商模式 
-			 </view>
+			 </view> -->
 			 
 			 <myPicker @mychange="scaleChange" :items="scale" name="规模"></myPicker>
 			
 			 <myPicker @mychange="qualityChange" :items="quality" name="品质定位"></myPicker>
 			 
 			 <myPicker @mychange="businessModelChange" :items="businessModel" name="经营模式"></myPicker>
-			 <view class="fs_15 pl_40" @tap="tapDirectChange">
+			 <!-- <view class="fs_15 pl_40" @tap="tapDirectChange">
 			 		 <checkbox :value="isFactoryDirectSale" :checked="isFactoryDirectSale" />厂家直接采购
+			 </view> -->
+			 <view v-if='isFactoryDirectSale'>
+				   <view class="flex_c list fs_14" >
+				   					 <view class="list_right">地址：</view>
+				   					 <view class="flex_sb_c wid_462">
+				   					   <input name="companyAddress" v-model="companyAddress" 
+				   					   placeholder="请填写" placeholder-class="color_888 fs_14" style="width:350upx;" class="input"></input>
+				   					 </view>
+				   </view>
+				   <view class="flex_c list" >
+				   					 <view class="list_right">机台类型：</view>
+				   					 <view class="flex_sb_c wid_462">
+				   					   <input name="machineType" v-model="machineType"
+				   					   placeholder="请填写机器类型" placeholder-class="color_888 fs_14" style="width:350upx;" class="input"></input>
+				   					 </view>
+				   </view>
+				   <view class="flex_c list" >
+				   					 <view class="list_right">机台数量：</view>
+				   					 <view class="flex_sb_c wid_462">
+				   					   <input name="machineCount" v-model="machineCount" 
+				   					   placeholder="请填写机器数量" placeholder-class="color_888 fs_14" style="width:350upx;"  cursor-spacing='140' class="input"></input>
+				   					 </view>
+				   </view>
 			 </view>
-			 <view class="flex_c list fs_14" >
-				 <view class="list_right">地址：</view>
-				 <view class="flex_sb_c wid_462">
-				   <input name="companyAddress" v-model="companyAddress" 
-				   placeholder="请填写" placeholder-class="color_888 fs_14" style="width:350upx;" class="input"></input>
-				 </view>
-			 </view>
-			 <view class="flex_c list" >
-				 <view class="list_right">机台类型：</view>
-				 <view class="flex_sb_c wid_462">
-				   <input name="machineType" v-model="machineType"
-				   placeholder="请填写机器类型" placeholder-class="color_888 fs_14" style="width:350upx;" class="input"></input>
-				 </view>
-			 </view>
-			 <view class="flex_c list" >
-				 <view class="list_right">机台数量：</view>
-				 <view class="flex_sb_c wid_462">
-				   <input name="machineCount" v-model="machineCount" 
-				   placeholder="请填写机器数量" placeholder-class="color_888 fs_14" style="width:350upx;"  cursor-spacing='140' class="input"></input>
-				 </view>
-			 </view>
+				 
 		 </view>
 		</view>	
 		 <!-- --------------------------- -->
@@ -99,6 +103,7 @@
 				qualityCode: -1,
 				businessModel:[],
 				businessModelCode: -1,
+				purchaseMode: [{id:'zjs',label:'中间商为主'},{id:'cjzc',label:'中间商+厂家直采'}],
 				purchase:["中间商","厂家直采"],
 				isFactoryDirectSale: false,
 				isMiddleman: false
@@ -171,12 +176,12 @@
 				});
 			},
 			
-			tapDirectChange:function(){
-				this.isFactoryDirectSale = ! this.isFactoryDirectSale
-			},
-			tapBrokerChange:function(){
-				this.isMiddleman = !this.isMiddleman
-			},
+			// tapDirectChange:function(){
+			// 	this.isFactoryDirectSale = ! this.isFactoryDirectSale
+			// },
+			// tapBrokerChange:function(){
+			// 	this.isMiddleman = !this.isMiddleman
+			// },
 			tapMainProduct:function(index){
 				let items = this.mainProduct
 				for (var i = 0, lenI = items.length; i < lenI; ++i) {
@@ -184,6 +189,16 @@
 					if (item.id == index) {
 						this.$set(item,'isChecked',!item.isChecked)
 					}
+				}
+			},
+			purchaseChange:function(e){
+				console.log(e)
+				if (e == 'zjs'){
+					this.isMiddleman = true;
+					this.isFactoryDirectSale = false;
+				}else if(e == 'cjzc'){
+					this.isMiddleman = true;
+					this.isFactoryDirectSale = true;
 				}
 			},
 			channeChange:function(e){
@@ -222,6 +237,11 @@
 					});
 					return;
 				}
+				if(this.isFactoryDirectSale == false){
+					  this.companyAddress = ''		//公司地址
+				      this.machineType = ''			//机器类型
+					  this.machineCount = ''
+				}
 				let before_data = {
 				companyCode:  _companyCode,					//客户编码
 				companyName	:  this.companyName,				//竞争对手名称
@@ -244,6 +264,7 @@
 					return;
 				}
 				
+				
 				//过滤未选中的项目
 				Object.keys(before_data).forEach((key)=>{
 					if (before_data[key] != -1){
@@ -251,9 +272,15 @@
 					}
 				})
 				console.log("添加竞争对手：==",_data)
+				uni.showLoading({
+									mask: true,   
+									title: '正在加载'  
+								});  
 				JsyServer.rivalAdd(_data).then(res => {
+					
 				  console.log(res);
 				  if (res.data.status ==0){
+					uni.hideLoading();
 					uni.showToast({
 						title: '添加成功',
 						icon: 'none'
@@ -265,6 +292,7 @@
 						prevPage.setData({
 								isDoRefresh:true
 						})
+					
 					uni.navigateBack({
 						delta: 1
 					});  

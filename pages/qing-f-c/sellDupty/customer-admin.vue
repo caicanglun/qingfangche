@@ -32,9 +32,9 @@
 		  </view>
 		</view>
 	  </block>
-	  <view class="bottom_title fff_50" v-if="loading">加载中...</view>
+	  
 	</view>
-
+    <uniLoadMore :status="loadingType"></uniLoadMore>
 	<view class="fixed_right_bottom box_shadow"  @tap="goCustomerCreated">
 	  <view>新建</view>
 	  <view>客户</view>
@@ -45,12 +45,14 @@
 
 <script>
 import topSearch from "@/components/topSearch.vue";
+import uniLoadMore from "@/components/uni-load-more/uni-load-more.vue";
 let pageSize = 20
-let _this
+let _this,timer
 const JsyServer = require("@/services/jsy-server.js");
 export default {
   data() {
     return {
+	  loadingType: 'more',
       tabOne: 0,
       //是否全部选中
       list: [{
@@ -87,33 +89,35 @@ export default {
 	  //客户列表
 	  customerList: [],
 	  pageNum: 1,
-	  isDoRefresh:false
+	  isDoRefresh:false,
+	  totalPage: ''
     };
   },
 
   onReachBottom: function () {
-	// this.pageNum = this.pageNum + 1
- //    this.getCustomerList('',this.pageNum,pageSize);
+	 if (timer != null) {
+	            clearTimeout(timer);
+	        }
+	   timer = setTimeout(function() {
+	        _this.getMoreCustomer('',_this.pageNum,pageSize);
+	    }, 1000);
+
+	  
+	 
 
   },
   onPullDownRefresh: function () {
-	if (this.pageNum < 2){
-		this.pageNum == 1
-	}
-	this.pageNum --
-    this.getCustomerList('',this.pageNum,pageSize);
-    
+	
+	_this.getCustomerList('',_this.pageNum,pageSize);
+
   },
   onShow: function () {
     let pages = getCurrentPages();
     let currPage = pages[pages.length-1];
     if (currPage.data.isDoRefresh == true){
-    	       currPage.data.isDoRefresh = false;
-    		   this.getCustomerList('',this.pageNum,pageSize);
+		   currPage.data.isDoRefresh = false;
+		   _this.getCustomerList('',_this.pageNum,pageSize);
     	 }
-	
-    this.getCustomerList('',this.pageNum,pageSize);
-    
   },
   onLoad: function (options) {
     _this = this;
@@ -121,16 +125,52 @@ export default {
 	if (this.checkLogin()){
 	    this.pupDefault()
 	    //获取职位列表
+		_this.getCustomerList('',_this.pageNum,pageSize);
 	
 	}
   }
      
   ,
   components: {
-	  topSearch
+	  topSearch,
+	  uniLoadMore
   },
   props: {},
   methods: {
+	getMoreCustomer:function(keyword,pageNum,pageSize){
+		    if (_this.loadingType !== 'more') {//loadingType!='more';直接返回
+		    	return false;
+		    }
+			_this.loadingType = 'loading';
+			uni.showNavigationBarLoading();//显示加载动画
+			
+		    let _postCode = uni.getStorageSync('pupDefault')
+		    let _data= {
+				keyword: keyword,
+				pageNum: pageNum,
+				pageSize: pageSize,
+				postCode: _postCode
+			}
+		   JsyServer.bsList(_data).then(res => {
+			  if (res.data.data.list.length == 0) {//没有数据
+			      console.log("no data")
+			  	_this.loadingType = '';
+			  	uni.hideNavigationBarLoading();//关闭加载动画
+			  	return;
+			 }
+			  _this.pageNum++;//每触底一次 page +1
+		     console.log(res)
+		     _this.customerList = _this.customerList.concat(res.data.data.list)
+			_this.loadingType = 'more';//将loadingType归0重置
+			uni.hideNavigationBarLoading();//关闭加载动画
+			
+		   }).catch(err => {
+			  
+		     console.log("getBSList=err==", err);
+		   });
+		  
+	},
+	  
     blurInput: function (e) {
       console.log(e.detail.value);
       this.inputValueOne = e.detail.value
@@ -176,19 +216,27 @@ export default {
     },
     // 获取客户列表
     getCustomerList: function (keyword,pageNum,pageSize) {
+		_this.pageNum = 1
+		_this.loadingType = 'more';
+		uni.showNavigationBarLoading();
+		
 		let _postCode = uni.getStorageSync('pupDefault')
 	    let _data= {
 			keyword: keyword,
-			pageNum: pageNum,
+			pageNum: _this.pageNum,
 			pageSize: pageSize,
 			postCode: _postCode
 		}
        JsyServer.bsList(_data).then(res => {
+		   _this.pageNum++;
          console.log(res)
          _this.customerList = res.data.data.list
+		 _this.totalPage = res.data.data.totalPage
        }).catch(err => {
          console.log("getBSList=err==", res);
        });
+	   uni.hideNavigationBarLoading();
+	   uni.stopPullDownRefresh();//得到数据后停止下拉刷新
     },
 	pupDefault:function(){
 		JsyServer.pupDefault().then(res => {

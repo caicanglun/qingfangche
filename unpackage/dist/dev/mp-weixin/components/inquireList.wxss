@@ -26,13 +26,20 @@
 /* 文章场景相关 */
 .list {
   margin: 20rpx 20rpx 0 20rpx;
-  padding: 20rpx 10rpx;
   background-color: #fff;
   border-radius: 6rpx;
+  color: #333333;
+}
+.list-wrap {
+  padding-left: 22rpx;
+  padding-top: 20rpx;
+  padding-right: 20rpx;
 }
 .title_padding {
-  padding-left: 10rpx;
-  padding-bottom: 20rpx;
+  height: 48rpx;
+}
+.height_48 {
+  height: 48rpx;
 }
 .lh_1 {
   line-height: 1;
@@ -46,16 +53,20 @@
 .line {
   height: 1rpx;
   background-color: rgba(221, 221, 221, 0.3);
+  margin-right: 20rpx;
 }
 .color_9b {
   color: #9B9B9B;
 }
+.color_333 {
+  color: #333333;
+}
 .cc_label {
-  color: #fff;
-  padding: 0 10rpx;
-  background-color: #FF6000;
-  border-radius: 6rpx;
-  line-height: 34rpx;
+  color: #FF6000;
+  width: 114rpx;
+  height: 32rpx;
+  background: rgba(255, 96, 0, 0.1);
+  border-radius: 8rpx;
   margin-left: 50rpx;
   font-size: 12px;
 }
@@ -89,7 +100,7 @@
   padding-right: 30rpx;
 }
 .fs_28r {
-  font-size: 28rpx;
+  font-size: 14px;
   font-weight: bold;
   line-height: 1.1;
 }
@@ -99,6 +110,9 @@
 .wid_360 {
   width: 360rpx;
   word-break: break-all;
+}
+.wid_250 {
+  width: 250rpx;
 }
 .wid_320 {
   width: 320rpx;

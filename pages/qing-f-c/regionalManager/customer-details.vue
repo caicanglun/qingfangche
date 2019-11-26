@@ -26,32 +26,52 @@
     </block>
     <view class="ml_30 fs_12 color_FF6000">查看详情</view>
   </view>
-  <view class="flex_c fs_14 mt_30">
-    <view class="wid_296 flex_c">
-      <view class="wid_140 color_9b">找样需求数</view>
-      <view class="wid_156">{{customerInfo.demandNum||0}}</view>
-    </view>
-    <view class="line"></view>
-    <view class="wid_296 flex_c">
-      <view class="wid_140 color_9b">总交易次数</view>
-      <view class="wid_156">{{customerInfo.transactionNum||0}}</view>
-    </view>
+  
+  <view v-if='customerInfo.buyOrSell==1'>     <!-- 买家找样需求 -->
+  	  <view class="flex_c fs_14 mt_30">
+  	    <view class="wid_296 flex_c">
+  	      <view class="wid_140 color_9b">找样需求数</view>
+  	      <view class="wid_156">{{customerInfo.demandNum||0}}</view>
+  	    </view>
+  	    <view class="line"></view>
+  	    <view class="wid_296 flex_c">
+  	      <view class="wid_140 color_9b">总交易次数</view>
+  	      <view class="wid_156">{{customerInfo.transactionNum||0}}</view>
+  	    </view>
+  	  </view>
   </view>
-  <view class="fs_14" v-if="customerInfo.type==4">
-    <view class="flex_c mt_30 color_9b">
-      <view class="wid_168">找样结果数</view>
-      <view class="line"></view>
-      <view class="wind_193 text_c">匹配确认数</view>
-      <view class="line"></view>
-      <view class="wid_168 text_right">总交易次数</view>
-    </view>
-    <view class="flex_c text_c">
-      <view class="wid_168">0</view>
-      <view class="wind_193 mlr_58">0</view>
-      <view class="wid_168">0</view>
-    </view>
+  <view v-if='customerInfo.buyOrSell==2'>
+  	  <view class="flex_c fs_14 mt_30">
+  	    <view class="wid_168 flex_c">
+  	      <view class="wid_140 color_9b">找样结果数</view>
+  	      <view class="wid_156">{{customerInfo.demandNum||0}}</view>
+  	    </view>
+  	  	<view class="line"></view>
+  	  	<view class="wid_168 flex_c">
+  	  	  <view class="wid_140 color_9b">匹配确认数</view>
+  	  	  <view class="wid_156">{{customerInfo.demandNum||0}}</view>
+  	  	</view>
+  	    <view class="line"></view>
+  	    <view class="wid_168 flex_c">
+  	      <view class="wid_140 color_9b">总交易次数</view>
+  	      <view class="wid_156">{{customerInfo.transactionNum||0}}</view>
+  	    </view>
+  	  </view>
+  	  
   </view>
-  <view class="flex_sb mt_30">
+  <!-- 买家没有保证金 -->
+  <view class="flex_sb mt_30 " v-if="customerInfo.buyOrSell == 1">
+    <view class="hand_bottom_btn wid_300" @tap="toRecordDetails">
+  		<view>跟进记录</view>
+  		<view class="counter">36条</view>
+  	</view>
+    <view class="hand_bottom_btn wid_300" @tap="toProductPage">
+  		<view>产品展示</view>
+  		<view class="counter">12个</view>
+  	</view>
+  </view>
+  <!-- 卖家有保证金 -->
+  <view class="flex_sb mt_30" v-if="customerInfo.buyOrSell == 2">
     <view class="hand_bottom_btn" @tap="toRecordDetails">
   		<view>跟进记录</view>
   		<view class="counter">36条</view>
@@ -71,15 +91,27 @@
 <view class="inTabbar box_shadow pt_30" id="inTabbar" v-if="isDisplay">
 	<view class="flex_c_c mb_20">{{customerInfo.companyName||''}}</view>
 	<view class="flex_sa">
+		<!-- 卖家没有竞争对手 -->
+		<view class="tabItem fs_15"
+			v-for="(item,index) of itemsSell" 
+			:key= "index" 
+			:class= "activeIndex==index?'active':''"
+			 @tap= "tabSwitch(index)"
+		    :data-index='activeIndex' v-if="customerInfo.buyOrSell == 2">
+			<text class= "tabText">{{item}}</text>
+			<view class= "bottomLine"></view>
+		</view>
+		<!-- 买家有竞争对手，引用不用的数组items itemsSell -->
 		<view class="tabItem fs_15"
 			v-for="(item,index) of items" 
 			:key= "index" 
 			:class= "activeIndex==index?'active':''"
 			 @tap= "tabSwitch(index)"
-		    :data-index='activeIndex'>
+		    :data-index='activeIndex' v-if="customerInfo.buyOrSell == 1">
 			<text class= "tabText">{{item}}</text>
 			<view class= "bottomLine"></view>
 		</view>
+		
 	</view>
 	
 </view>
@@ -94,7 +126,7 @@
       <view>公司信息</view>
     </view>
    <!-- <image src="/static/images/jinsy/bianji.png" class="bianji_img" mode="aspectFit" @tap="goEditCustomer"></image> -->
-    <image src="/static/images/jinsy/bianji.png" class="bianji_img" mode="aspectFit"></image>
+    <!-- <image src="/static/images/jinsy/bianji.png" class="bianji_img" mode="aspectFit"></image> -->
   </view>
  <!-- <view class="flex_c box">
    <listShow label="客户编号" :content="customerInfo.companyCode"></listShow>
@@ -157,7 +189,7 @@
       <view>联系人</view>
     </view>
     <!-- <image src="/static/images/qingfc/application/tianjia.png" class="bianji_img" mode="aspectFit" @tap="addContacts"></image> -->
-	<image src="/static/images/qingfc/application/tianjia.png" class="bianji_img" mode="aspectFit"></image>
+	<!-- <image src="/static/images/qingfc/application/tianjia.png" class="bianji_img" mode="aspectFit"></image> -->
   </view>
   <block v-for="(item, index) in linkMan" :key="index">
     <view :class="'flex_sb_c box_list fs_14 ' + (linkMan.length-1==index?'no_border':'')" @tap="toEditLinkman(item.buyOrSellCode)" data-type="1" :data-index="index">
@@ -213,7 +245,7 @@
 
 </view>
  <!-- ---------------------------------- -->
-  <view class="box box_shadow" id="competitor">
+  <view class="box box_shadow" id="competitor" v-if="customerInfo.buyOrSell == 1">
     <view :class="'flex_sb_c box_list ' + (!rival?'no_border':'')">
       <view :class="'fs_16 font_we_bold ' + (rival?'lh_72':'') + ' flex_c'">
         <view class="list_line"></view>
@@ -271,6 +303,7 @@ export default {
       isDisplay: false,
 	  activeIndex: -1,
 	  items: ['公司信息','联系人','经营状况','竞争对手'],
+	  itemsSell: ['公司信息','联系人','经营状况'],
 	  isDoRefresh:false
     };
   },
@@ -732,13 +765,12 @@ page{
   	  font-size: 13px;
   	  padding-top: 4upx;
   }
+  
 }
-// .box{
-//   margin: 20upx 20upx 0;
-//   padding: 0 20upx;
-//   border-radius: 6upx;
-//   background-color: #fff;
-// }
+.wid_300{
+	  width: 300upx;
+  }
+
 .bianji_img{
   width: 34upx;
   height: 34upx;
@@ -875,7 +907,7 @@ page{
           height: 378upx;
           width: 750upx;
           box-sizing: border-box;
-          background-image:url(https://api.qingfangche.net/api/common/picture/hand_back/png/images/download);
+          background-image:url('~@/static/images/qingfc/customer-back.png');
           background-repeat:no-repeat;
           background-position:center top;
           background-size:cover;

@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText": "修改报价",
+  "usingComponents": {
+    "switch-button": "/components/switchButton-auto"
+  }
+}

@@ -27,6 +27,19 @@ _vue.default.prototype.myRequest = function (data, url, method) {
     });
   });
 };
+_vue.default.prototype.refreshBack = function () {var pageNum = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 2;
+  var pages = getCurrentPages();
+  var currPage = pages[pages.length - 1]; //当前页面
+  var prevPage = pages[pages.length - pageNum]; //上一个页面
+  //直接调用上一个页面的setData()方法，把数据存到上一个页面中去
+  prevPage.setData({
+    isDoRefresh: true });
+
+  uni.navigateBack({
+    delta: 1 });
+
+};
+
 _vue.default.prototype.checkLogin = function () {
   var TOKEN = uni.getStorageSync('token');
   var pupDefault = uni.getStorageSync('pupDefault');

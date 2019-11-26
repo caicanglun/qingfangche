@@ -256,20 +256,23 @@
 				data.realName = this.realName //姓名
 				data.phone= this.phone //电话
 				console.log(data)
+				uni.showLoading({  
+					mask: true,   
+					title: '正在加载'  
+				});  
                 JsyServer.buyAddCustomer(data).then(res => {
                   console.log(res);
 				  if (res.data.status==0){
-					  uni.showToast({
-						title: '客户创建成功',
-						icon: 'none'
-					  });
+					    
 						var pages = getCurrentPages();
 						var currPage = pages[pages.length - 1]; //当前页面
 						var prevPage = pages[pages.length - 2]; //上一个页面
 						//直接调用上一个页面的setData()方法，把数据存到上一个页面中去
+						
 						prevPage.setData({
 						   isDoRefresh:true
 						})
+						uni.hideLoading();
 					  uni.navigateBack({
 						delta: 1
 					  });

@@ -1,5 +1,6 @@
 {
   "navigationBarTitleText": "销售总监客户管理",
+  "enablePullDownRefresh": true,
   "titleNView": {
     "buttons": [
       {
@@ -10,6 +11,7 @@
     ]
   },
   "usingComponents": {
-    "uni-icon": "/components/uni-icons/uni-icons"
+    "uni-icon": "/components/uni-icons/uni-icons",
+    "uni-load-more": "/components/uni-load-more/uni-load-more"
   }
 }

@@ -29,7 +29,7 @@
 <script>
 	import listShow from "@/components/listShow.vue";
 	const JsyServer = require("services/jsy-server.js");
-	let _this,_buyOrSellCode
+	let _this,_buyOrSellCode,_totalCount
 	export default {
 		components:{
 			listShow
@@ -54,6 +54,7 @@
 			_this = this
 			console.log(options)
 			_buyOrSellCode = options.buyOrSellCode
+			_totalCount = options.totalCount
 			this.getLinkmanDetails()
 			
 		},
@@ -103,6 +104,14 @@
 				
 			},
 			bindCancel:function(){
+				    if (_totalCount ==1){
+						uni.showToast({
+							title: '联系人最少为一个',
+							icon: 'none',
+							duration: 500,
+						});
+						return
+					}
 				    uni.showModal({
 				    	title: '删除联系人',
 				    	content: '确认要删除该联系人吗？不要请取消',

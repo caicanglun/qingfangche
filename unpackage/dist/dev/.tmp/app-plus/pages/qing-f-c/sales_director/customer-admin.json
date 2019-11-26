@@ -1,5 +1,6 @@
 {
   "navigationBarTitleText": "销售总监客户管理",
+  "enablePullDownRefresh": true,
   "titleNView": {
     "buttons": [
       {

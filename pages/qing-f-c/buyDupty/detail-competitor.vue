@@ -1,10 +1,10 @@
 <template>
 	<view>
 		<view class="box box_shadow">
-		  <view class="flex_c list">
+		  <!-- <view class="flex_c list">
 		    <view class="line"></view>
 		    <view class="font_we_bold fs_15">基本信息</view>
-		  </view>
+		  </view> -->
 		  <view class="flex_c list" >
 		    <view class="list_right color_888" >公司名称：</view>
 		    <view class="flex_sb_c wid_462">
@@ -17,22 +17,17 @@
 		      {{competitor.channelStatusName}}
 		    </view>
 		  </view>
-		  <view class="flex_c list">
-		    <view class="line"></view>
-		    <view class="font_we_bold fs_15">主营产品类型</view>
-		  </view>
 		  <view class="flex_c list" >
-		    <view class="flex_sb_c">
-		      {{mainPro}}
+		    <view class="list_right color_888" >采购方式：</view>
+		    <view class="flex_sb_c wid_462">
+		      {{competitor.isFactoryDirectSale?"中间商+厂家直采":"中间商为主"}}
 		    </view>
 		  </view>
-		  <view class="flex_c list">
-		    <view class="line"></view>
-		    <view class="font_we_bold fs_15">采购方式分析</view>
-		  </view>
+		  
 		  <view class="flex_c list" >
+		    <view class="list_right color_888" >主营产品类型：</view>
 		    <view class="flex_sb_c wid_462">
-		      {{retMidleman}}
+		      {{mainPro}}
 		    </view>
 		  </view>
 		  <view class="flex_c list" >
@@ -176,7 +171,7 @@
 				let odata = JSON.stringify(this.competitor)
 				console.log(odata)
 				uni.navigateTo({
-					url: '/pages/qing-f-c/sellDupty/edit-competitor?odata=' + odata,
+					url: '/pages/qing-f-c/buyDupty/edit-competitor?odata=' + odata,
 					success: res => {
 						console.log(res)
 					},
@@ -204,6 +199,9 @@
 	  padding:0 10upx;
 	  border-bottom: 1upx solid rgba(221, 221, 221, 0.3);
 	  line-height: 87upx;
+	}
+	.list_right{
+	  width:200upx;
 	}
 	.list_right{
 	  width:200upx;

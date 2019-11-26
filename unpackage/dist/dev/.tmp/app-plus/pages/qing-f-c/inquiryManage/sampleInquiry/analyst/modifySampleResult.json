@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText": "修改找样结果",
+  "usingComponents": {
+    "range-button": "/components/rangeButton-single"
+  }
+}

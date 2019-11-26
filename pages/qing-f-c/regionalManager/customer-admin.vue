@@ -207,23 +207,33 @@ export default {
 	  isAllocation: -1,   //-1全部，1已分配，0未分配
 	  isLastPage: false   ,//是否最后一页面
 	  codeValue:[],
-	  isDoRefresh:false
+	  isDoRefresh:false,
+	  totalPage:''
 	  
     };
   },
 
   onReachBottom: function () {
 
-     if (!this.isLastPage){
-	   this.pageNum = this.pageNum + 1
+     if (_this.pageNum < _this.totalPage){
+       console.log('当前页',_this.pageNum)
+       _this.pageNum = _this.pageNum + 1
 	   
-	   this.getCustomerList(this.pageNum,this.isAllocation)
+	   this.getCustomerList(_this.pageNum,_this.isAllocation)
       }
 
    },
    onPullDownRefresh: function () {
-  	 this.pageNum =1
-     this.getCustomerList(this.pageNum,this.isAllocation); 
+	 if (this.pageNum == 1){
+		 this.getCustomerList(this.pageNum,this.isAllocation); 
+		 
+	 }else{
+		 this.pageNum = this.pageNum -1
+		 this.getCustomerList(this.pageNum,this.isAllocation);
+	 }
+	 uni.stopPullDownRefresh();
+	
+  	 
    },
    onShow: function () {
 	   
@@ -275,11 +285,12 @@ export default {
 			JsyServer.dmList(_data).then(res => {
 			   console.log("客户信息===",res)
 			   _this.customerList = res.data.data.list
-				console.log("customerlist===",_this.customerList)
+				
 				_this.isLastPage = res.data.data.isLastPage
-				console.log("最后一页",_this.isLastPage)
+				_this.totalPage = res.data.data.totalPage
+				
 			 }).catch(err => {
-			   console.log("getBSList=err==", res);
+			   console.log("getBSList=err==", err.Msg);
 			 }); 
 			  let __data={
 				  keyword:keyword,		//关键词
@@ -859,7 +870,7 @@ checkbox .wx-checkbox-input {
 checkbox .wx-checkbox-input.wx-checkbox-input-checked {
 		background: #FF6000;
 		color: #fff !important;
-		border: none;
+		border: 2upx solid #FF6000;
 	}
 .checkboxSty {
 		display: flex;

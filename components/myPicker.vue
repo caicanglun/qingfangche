@@ -3,8 +3,8 @@
 		<view class="flex_c list fs_14">
 		  <view class="list_right"><text :class="(star=='true'?'star':'starInvisible')">*</text>{{name}}：</view>
 		  <picker @change="itemChange" :range="items" range-key="label" :value="index">
-		    <view :class="(index==-1?'color_888 wid_400':'wid_400')" v-if="!firstLabel">{{index==-1?"请选择":items[index].label}} </view>
-			<view :class="(index==-1?'color_888 wid_400':'wid_400')" v-if="firstLabel">{{index==-1?firstLabel:items[index].label}} </view>
+		    <view :class="(index==-1?'color_909090 wid_400':'wid_400')" v-if="!firstLabel">{{index==-1?"请选择":items[index].label}} </view>
+			<view :class="(index==-1?'color_909090 wid_400':'wid_400')" v-if="firstLabel">{{index==-1?firstLabel:items[index].label}} </view>
 			
 		  </picker>
 				<image src="/static/images/qingfc/arrow.png" class="i-next" mode="aspectFill"></image>
@@ -13,7 +13,10 @@
 </template>
 
 <script>
+	
+	
 	export default {
+		
 		props:{
 			items:{
 				type: Array
@@ -72,5 +75,9 @@
 }
 .starInvisible{
 	color: white;
+}
+.color_909090{
+	color: #909090;
+	font-size: 13px;
 }
 </style>

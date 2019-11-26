@@ -3,7 +3,7 @@
 		<view class="checkgroup">
 			  <label v-for="item in items" :key="item.id" > 
 				<view>
-					<view :class="(item.isChecked?'typeItemSelect':'typeItem')" @tap="tapItem(item.label)"> 
+					<view :class="(item.isChecked?'typeItemSelect':'typeItem')" @tap="tapItem(item.label,item.id)"> 
 							<!-- <checkbox :value="index" :checked="item.ischecked"/> -->
 							<text>{{item.label}}</text>
 							<!-- <uni-icon type="checkbox-filled" color="#FF6000" size="22" class="icon-position" v-if="item.isChecked"></uni-icon> -->
@@ -28,15 +28,17 @@
 		},
 		data() {
 			return {
-				selectList:[]
+				selectList:[],
+				selectId: []
 			};
 		},
 		methods:{
-			 tapItem:function(id){
-				 let index= this.selectList.indexOf(id)  //查找是否已经在数组里面了
+			 tapItem:function(label,id){
+				 let index= this.selectList.indexOf(label)  //查找是否已经在数组里面了
 				 
 				 if (index > -1){
 					 this.selectList.splice(index,1)
+					 this.selectId.splice(index,1)
 				 }else{
 					 if (this.selectList.length== 4){
 						 uni.showToast({
@@ -45,10 +47,12 @@
 						 });
 						 return;
 					 }
-					 this.selectList.push(id)
+					 this.selectList.push(label)
+					 this.selectId.push(id)
 				 }
+				 
 				 console.log("zujian==",this.selectList)
-				 this.$emit("selectChange",this.selectList)
+				 this.$emit("selectChange",this.selectList,this.selectId)
 			 }
 		}
 	}
@@ -58,7 +62,7 @@
 .checkgroup{
 	 display: flex;
 	 flex-direction: row;
-	 justify-content: space-between;
+	 //justify-content: space-between;
 	 align-content: flex-start;
 	 flex-wrap: wrap;
  }

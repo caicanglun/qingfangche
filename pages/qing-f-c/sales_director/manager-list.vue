@@ -2,10 +2,10 @@
 <view>
 <view class="search flex_sb fs_12">
   <view class="flex_c search_input">
-    <icon type="search" size="14" style="height:14px;margin-left:40rpx;"></icon>
+    <icon type="search" size="14" style="height:14px;margin-left:40upx;"></icon>
     <input placeholder="搜索" placeholder-style="color:#9B9B9B" confirm-type="search" @confirm="bindSearch"></input>
   </view>
-  <view :class="'box_shadow search_btn ' + (bindSelect?'bind_searach':'')" @tap="tapBindSelect" :style="'height:' + (bindSelect?(selectContent.length-1)*46+56:56) + 'rpx'">
+  <!-- <view :class="'box_shadow search_btn ' + (bindSelect?'bind_searach':'')" @tap="tapBindSelect" :style="'height:' + (bindSelect?(selectContent.length-1)*46+56:56) + 'upx'">
     <view class="flex selection ">
       <view>
         <block v-for="(item, index) in selectContent" :key="index">
@@ -14,7 +14,7 @@
       </view>
       <image src="/static/images/qingfc/application/select_bind.png" mode="aspectFit"></image>
     </view>
-  </view>
+  </view> -->
 </view>
 
 <block v-for="(item, index) in list" :key="index">
@@ -206,28 +206,28 @@ export default {
 <style>
 .search{
   background-color: #FF6000;
-  height: 74rpx;
-  padding: 18rpx 20rpx 0 30rpx;
+  height: 74upx;
+  padding: 18upx 20upx 0 30upx;
 }
 .search_input{
   background-color: #fff;
-  width: 466rpx;
-  height: 56rpx;
-  border-radius: 28rpx;
-  line-height: 56rpx;
+  width: 100%;
+  height: 56upx;
+  border-radius: 28upx;
+  line-height: 56upx;
 }
 .search_input>input{
-  margin-left: 18rpx;
-  width: 350rpx;
+  margin-left: 18upx;
+  width: 350upx;
 }
 .search_btn{
-  width: 194rpx;
+  width: 194upx;
   background-color: #fff;
-  border-radius: 28rpx;
+  border-radius: 28upx;
   display: flex;
   justify-content: center;
   color:#9B9B9B;
-  height: 56rpx;
+  height: 56upx;
   flex-wrap: wrap;
   position: relative;
   z-index: 99;
@@ -235,66 +235,66 @@ export default {
   transition: 0.2s
 }
 .bind_searach{
-  height: 148rpx;
+  height: 148upx;
 }
 .selection{
-  line-height: 56rpx;
+  line-height: 56upx;
 }
 .search_btn image{
-  width: 18rpx;
-  height: 28rpx;
-  margin-left: 16rpx;
-  margin-top: 14rpx
+  width: 18upx;
+  height: 28upx;
+  margin-left: 16upx;
+  margin-top: 14upx
 }
 .lh_44{
-  line-height: 44rpx;
+  line-height: 44upx;
 }
 .box{
   background-color: #fff;
-  margin: 20rpx;
-  padding:  10rpx 20rpx;
-  border-radius: 6rpx;
+  margin: 20upx;
+  padding:  10upx 20upx;
+  border-radius: 6upx;
   font-size: 12px;
 }
 .no_pitch{
-   width: 40rpx;
-   height: 40rpx;
-   border-radius: 40rpx;
-   border: 1rpx solid #979797;
+   width: 40upx;
+   height: 40upx;
+   border-radius: 40upx;
+   border: 1upx solid #979797;
    background-color: #fff;
-   margin-right: 20rpx;
+   margin-right: 20upx;
    box-sizing: border-box;
 }
 .pitch_on{
-  width: 40rpx;
-  height: 40rpx;
-  border-radius: 40rpx;
-  margin-right: 20rpx;
+  width: 40upx;
+  height: 40upx;
+  border-radius: 40upx;
+  margin-right: 20upx;
 }
 .list_img{
-  width: 100rpx;
-  height: 100rpx;
-  border-radius: 100rpx;
-  margin-right: 20rpx;
+  width: 100upx;
+  height: 100upx;
+  border-radius: 100upx;
+  margin-right: 20upx;
 }
 .height_100{
-  height: 100rpx;
+  height: 100upx;
 }
 .width_200{
   display: inline-block;
-  width: 200rpx;
+  width: 200upx;
 }
 .border_text{
-  border: 1rpx solid #FF6000;
-  line-height: 38rpx;
-  height: 38rpx;
-  width: 136rpx;
+  border: 1upx solid #FF6000;
+  line-height: 38upx;
+  height: 38upx;
+  width: 136upx;
   text-align: center;
-  box-sizing: 38rpx;
-  border-radius: 38rpx;
+  box-sizing: 38upx;
+  border-radius: 38upx;
   color: #FF6000;
 }
 .width_490{
-  width:490rpx;
+  width:490upx;
 }
 </style>

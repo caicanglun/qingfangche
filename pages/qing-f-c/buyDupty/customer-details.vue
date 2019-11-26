@@ -37,20 +37,7 @@
       <view class="wid_156">{{customerInfo.transactionNum||0}}</view>
     </view>
   </view>
-  <view class="fs_14" v-if="customerInfo.type==4">
-    <view class="flex_c mt_30 color_9b">
-      <view class="wid_168">找样结果数</view>
-      <view class="line"></view>
-      <view class="wind_193 text_c">匹配确认数</view>
-      <view class="line"></view>
-      <view class="wid_168 text_right">总交易次数</view>
-    </view>
-    <view class="flex_c text_c">
-      <view class="wid_168">0</view>
-      <view class="wind_193 mlr_58">0</view>
-      <view class="wid_168">0</view>
-    </view>
-  </view>
+  
   
   <view class="flex_sb mt_30">
     <view class="hand_bottom_btn" @tap="toRecordDetails">
@@ -62,10 +49,10 @@
 		<view class="counter">12个</view>
 		
 	</view>
-    <view class="hand_bottom_btn" @tap="toBondDetail">
+    <!-- <view class="hand_bottom_btn" @tap="toBondDetail">
 		<view>保证金</view>
 		<view class="counter">20000元</view>
-	</view>
+	</view> -->
   </view>
   
 </view>
@@ -255,6 +242,8 @@ export default {
       //1为买帮办，2为卖帮办
 	  linkMan:'',
 	  //公司联系人
+	  totalCount:'',
+	  //公司联系人数量
 	 operation:'',
 	 //经营情况
 	 rival:'',
@@ -375,6 +364,7 @@ export default {
 		JsyServer.linkMan(_data).then(res => {
 		  console.log(res);
 		  this.linkMan = res.data.data.list
+		  _this.totalCount = res.data.data.totalCount
 		}).catch(err => {
 		  console.log("Err===", err);
 		});
@@ -496,7 +486,7 @@ export default {
 	toEditLinkman:function(e){
 		let buyOrSellCode = e
 		uni.navigateTo({
-			url: '/pages/qing-f-c/buyDupty/contact-detail?buyOrSellCode=' + buyOrSellCode,
+			url: '/pages/qing-f-c/buyDupty/contact-detail?buyOrSellCode=' + buyOrSellCode+'&totalCount='+_this.totalCount,
 			success: res => {},
 			fail: () => {},
 			complete: () => {}
@@ -704,11 +694,11 @@ page{
   border-radius: 4upx;
 }
 .line{
-  // width: 4upx;
-  // height: 28upx;
-  // border-radius: 2upx;
-  // background-color: #FF6000;
-  // margin:0 27upx;
+  width: 4upx;
+  height: 28upx;
+  border-radius: 2upx;
+  background-color: #FF6000;
+  margin:0 27upx;
 }
 .list_line{
 	// width: 4upx;
@@ -728,7 +718,7 @@ page{
   justify-content: center;
   align-items:center;
   background-color: #FF6000;
-  width: 190upx;
+  width: 300upx;
   font-size: 15px;
   border-radius: 10upx;
   color: #fff;
@@ -881,7 +871,7 @@ page{
           height: 378upx;
           width: 750upx;
           box-sizing: border-box;
-          background-image:url(https://api.qingfangche.net/api/common/picture/hand_back/png/images/download);
+          background-image:url('~@/static/images/qingfc/customer-back.png');
           background-repeat:no-repeat;
           background-position:center top;
           background-size:cover;

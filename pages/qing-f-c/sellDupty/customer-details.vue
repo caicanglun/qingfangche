@@ -27,12 +27,17 @@
     <view class="ml_30 fs_12 color_FF6000">查看详情</view>
   </view>
   <view class="flex_c fs_14 mt_30">
-    <view class="wid_296 flex_c">
-      <view class="wid_140 color_9b">找样需求数</view>
+    <view class="wid_168 flex_c">
+      <view class="wid_140 color_9b">找样结果数</view>
       <view class="wid_156">{{customerInfo.demandNum||0}}</view>
     </view>
+	<view class="line"></view>
+	<view class="wid_168 flex_c">
+	  <view class="wid_140 color_9b">匹配确认数</view>
+	  <view class="wid_156">{{customerInfo.demandNum||0}}</view>
+	</view>
     <view class="line"></view>
-    <view class="wid_296 flex_c">
+    <view class="wid_168 flex_c">
       <view class="wid_140 color_9b">总交易次数</view>
       <view class="wid_156">{{customerInfo.transactionNum||0}}</view>
     </view>
@@ -204,8 +209,8 @@
   </view>
 
 </view>
- <!-- ---------------------------------- -->
-  <view class="box box_shadow" id="competitor">
+ <!-- ------------------------卖家没有竞争对手---------- -->
+ <!-- <view class="box box_shadow" id="competitor">
     <view :class="'flex_sb_c box_list ' + (!rival?'no_border':'')">
       <view :class="'fs_16 font_we_bold ' + (rival?'lh_72':'') + ' flex_c'">
         <view class="list_line"></view>
@@ -223,7 +228,7 @@
         </view>
       </view>
     </block>
-  </view>
+  </view> -->
 <!-- ---------------------------------- --> 
 
 <view style="width:100%;height:950upx;" v-if="placeholdeView"></view>
@@ -253,6 +258,8 @@ export default {
       //1为买帮办，2为卖帮办
 	  linkMan:'',
 	  //公司联系人
+	  totalCount: '',
+	  //联系人数量
 	 operation:'',
 	 //经营情况
 	 rival:'',
@@ -264,7 +271,8 @@ export default {
       admin: false, //是否是管理人员
       isDisplay: false,
 	  activeIndex: -1,
-	  items: ['公司信息','联系人','经营状况','竞争对手'],
+	  items: ['公司信息','联系人','经营状况'],
+	  
 	  isDoRefresh:false
     };
   },
@@ -320,9 +328,9 @@ export default {
 			case 2:
 			   this.selectorQuery("#outView","#condition");
 			   break;
-			case 3:
-			   this.selectorQuery("#outView","#competitor");
-			   break;
+			// case 3:
+			//    this.selectorQuery("#outView","#competitor");
+			//    break;
 		}
 	  	
 	  },
@@ -369,6 +377,8 @@ export default {
 		JsyServer.linkMan(_data).then(res => {
 		  console.log(res);
 		  this.linkMan = res.data.data.list
+		  this.totalCount = res.data.data.totalCount
+		  console.log('联系人数量==',this.totalCount)
 		}).catch(err => {
 		  console.log("Err===", err);
 		});
@@ -490,7 +500,7 @@ export default {
 	toEditLinkman:function(e){
 		let buyOrSellCode = e
 		uni.navigateTo({
-			url: '/pages/qing-f-c/sellDupty/contact-detail?buyOrSellCode=' + buyOrSellCode,
+			url: '/pages/qing-f-c/sellDupty/contact-detail?buyOrSellCode=' + buyOrSellCode+'&totalCount='+_this.totalCount,
 			success: res => {},
 			fail: () => {},
 			complete: () => {}
@@ -651,11 +661,11 @@ page{
   border-radius: 4upx;
 }
 .line{
-  // width: 4upx;
-  // height: 28upx;
-  // border-radius: 2upx;
-  // background-color: #FF6000;
-  // margin:0 27upx;
+  width: 4upx;
+  height: 28upx;
+  border-radius: 2upx;
+  background-color: #FF6000;
+  margin:0 27upx;
 }
 .list_line{
 	// width: 4upx;
@@ -826,7 +836,7 @@ page{
           height: 378upx;
           width: 750upx;
           box-sizing: border-box;
-          background-image:url(https://api.qingfangche.net/api/common/picture/hand_back/png/images/download);
+          background-image:url('~@/static/images/qingfc/customer-back.png');
           background-repeat:no-repeat;
           background-position:center top;
           background-size:cover;

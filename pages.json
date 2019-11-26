@@ -1,47 +1,183 @@
 {
 	"pages": [ //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
-	             {
-	                 "path" : "pages/qing-f-c/inquiryManage/setQuotePrice/setQuotePrice",
-	                 "style" : {"navigationBarTitleText": "设置报价"}
-	             },
-	             {
-	                 "path" : "pages/qing-f-c/inquiryManage/quotedPrice/quotedPrice",
-	                 "style" : {"navigationBarTitleText": "报价详情"}
-	             },
-	             {
-	                 "path" : "pages/qing-f-c/login/login",
-	                 "style" : {
-	             				"navigationStyle":"custom"
-	             								
-	             			 }
-	                   
-	             },
-	            
-				{
-					"path" : "pages/qing-f-c/inquiryManage/inquiry-details",
-					"style" : {
+	                {
+	                			 "path" : "pages/qing-f-c/index",
+	                			 "style" : {
+	                			 	            "navigationStyle":"custom",
+	                							"enablePullDownRefresh": true
+	                			 	        }
+	                },
+	                {
+	                     "path" : "pages/qing-f-c/inquiryManage/sampleInquiry/buyDeputy/inquiry-details-result",
+	                     "style" : {
+	                     			"navigationStyle":"custom"
+	                     							
+	                     		 } 
+	                },
+	                {
+	                    "path" : "pages/qing-f-c/inquiryManage/sampleInquiry/analyst/setSampleResult",
+	                    "style" : {"navigationBarTitleText": "设置找样结果"}
+	                },
+	                
+					{
+						"path" : "pages/qing-f-c/login/login",
+						"style" : {
 									"navigationStyle":"custom"
-													}
-				},
-		
-	             {
-	             	"path" : "pages/qing-f-c/inquiryManage/inquiry-created",
-	             	"style" : {"navigationBarTitleText": "买帮办新建询价单"}
-	             },
+													
+								 } 
+					},
+	                {
+	                    "path" : "pages/qing-f-c/inquiryManage/sales_director/modifyPrice",
+	                    "style" : {"navigationBarTitleText": "修改报价"}
+	                },
+	                {
+	                    "path" : "pages/qing-f-c/inquiryManage/sampleInquiry/sales_director/modifyPrice",
+	                    "style" : {"navigationBarTitleText": "修改报价价格"}
+	                },
+	               
+	                
+					
+	                {
+	                	"path" : "pages/qing-f-c/inquiryManage/sampleInquiry/sales_director/inquiry-details",
+	                	"style" : {
+	                				"navigationStyle":"custom"
+	                								
+	                			 } 
+	                },
+					
+					{
+					     "path" : "pages/qing-f-c/inquiryManage/sampleInquiry/buyDeputy/inquiry-details",
+					     "style" : {
+					     			"navigationStyle":"custom"
+					     							
+					     		 } 
+					},
+					{
+					    "path" : "pages/qing-f-c/inquiryManage/sampleInquiry/analyst/inquiry-details-result",
+					    "style" : {
+					    			"navigationStyle":"custom"
+					    							
+					    		 } 
+					},
+					{
+					    "path" : "pages/qing-f-c/inquiryManage/sampleInquiry/analyst/modifySampleResult",
+					    "style" : {"navigationBarTitleText": "修改找样结果"}
+					},
+	                
+	               
+					
+					
+					{
+						"path" : "pages/qing-f-c/inquiryManage/sampleInquiry/sellDeputy/inquiry-details",
+						"style" : {
+									"navigationStyle":"custom"
+													
+								 } 
+					},
+					{
+						"path" : "pages/qing-f-c/inquiryManage/sellDeputy/inquiry-details",
+						 "style" : {
+										"navigationStyle":"custom"
+														}
+					},
+	                
+	                      
+	                      {
+	                          "path" : "pages/qing-f-c/inquiryManage/sales_director/inquiry-details",
+	                          "style" : {
+	                          			"navigationStyle":"custom"
+	                          							
+	                          		 } 
+	                      },
+	                      
+	                      {
+	                          "path" : "pages/qing-f-c/inquiryManage/sampleInquiry/analyst/inquiryManage",
+	                          "style" : {"navigationBarTitleText": "分析师询价管理"}
+	                      },
 
-	           
-				
-				{
-					"path" : "pages/qing-f-c/inquiryManage/inquiryManage",
-					"style" : {"navigationBarTitleText": "买办询价管理",
-								"navigationBarBackgroundColor":"#ffffff",
-								"navigationBarTextStyle": "black"
-								}
-				},
+	                      {
+	                          "path" : "pages/qing-f-c/inquiryManage/sampleInquiry/analyst/analyst-input",
+	                          "style" : {"navigationBarTitleText": "录入分析结果"}
+	                      },
+
+	                   
+	                    {
+	                    	"path" : "pages/qing-f-c/inquiryManage/inquiry-created",
+	                    	"style" : {"navigationBarTitleText": "买帮办新建询价单"}
+	                    },
+	                    
+	                    {
+	                        "path" : "pages/qing-f-c/inquiryManage/priceTrend/priceTrend",
+	                        "style" : {"navigationBarTitleText": "价格趋势"}
+	                    },
+						
+						
+						
+	                  {
+	                  	"path" : "pages/qing-f-c/inquiryManage/inquiry-details",
+	                  	"style" : {
+	                  					"navigationStyle":"custom"
+	                  									}
+	                  },
+	                  {
+	                  	"path" : "pages/qing-f-c/inquiryManage/sellDeputy/startQuote",
+	                  	"style" : {"navigationBarTitleText": "卖帮办发起报价"}
+	                  },
+	                  {
+	                      "path" : "pages/qing-f-c/inquiryManage/setQuotePrice/setQuotePrice",
+	                      "style" : {"navigationBarTitleText": "设置报价"}
+	                  },
+					  {
+					      "path" : "pages/qing-f-c/inquiryManage/directorQuotePrice",
+					      "style" : {"navigationBarTitleText": "直接报价"}
+					  },
+	                   
+	                  {
+	                      "path" : "pages/qing-f-c/test/test",
+	                      "style" : {}
+	                  },
+
+	                
+	               
+                    {
+                        "path" : "pages/qing-f-c/inquiryManage/sales_director/quotation-detail",
+                        "style" : {"navigationBarTitleText": "报价单详情"}
+                    },
+	                {
+	                    "path" : "pages/qing-f-c/inquiryManage/quotedPrice/quotedPrice",
+	                    "style" : {"navigationBarTitleText": "报价详情"}
+	                },
+
+	                {
+	                	"path" : "pages/qing-f-c/inquiryManage/sellDeputy/inquiryManage",
+	                	"style" : {"navigationBarTitleText": "卖办询价管理",
+	                				"navigationBarBackgroundColor":"#ffffff",
+	                				"navigationBarTextStyle": "black",
+									"enablePullDownRefresh": true
+	                				}
+	                },
+					{
+						"path" : "pages/qing-f-c/inquiryManage/sales_director/inquiryManage",
+						"style" : {"navigationBarTitleText": "询价管理",
+									"navigationBarBackgroundColor":"#ffffff",
+									"navigationBarTextStyle": "black",
+									"enablePullDownRefresh": true
+									}
+					},
+
+					{
+						"path" : "pages/qing-f-c/inquiryManage/inquiryManage",
+						"style" : {"navigationBarTitleText": "买办询价管理",
+									"navigationBarBackgroundColor":"#ffffff",
+									"navigationBarTextStyle": "black",
+									"enablePullDownRefresh": true
+									}
+					},
 
 				{
 					"path" : "pages/qing-f-c/regionalManager/customer-admin",
 					"style" : {"navigationBarTitleText": "区域经理客户管理",
+					           "enablePullDownRefresh": true,
 										  "app-plus": {
 											  "titleNView": {
 												  
@@ -62,11 +198,15 @@
 				},
 				{
 					"path" : "pages/qing-f-c/regionalManager/customer-details",
-					"style" : {"navigationBarTitleText": "区域经理客户详情"}
+					"style" : {
+						           	"navigationStyle":"custom"
+						           					}
 				},
 	             {
 					 "path" : "pages/qing-f-c/sales_director/customer-details",
-					 "style" : {"navigationBarTitleText": " 销售总监客户详情"}
+					 "style" : {
+					 	           	"navigationStyle":"custom"
+					 	           					}
 	             },
 	             {
 					 "path" : "pages/qing-f-c/buyDupty/customer-created",
@@ -87,7 +227,9 @@
 	             },
 	             {
 	                 "path" : "pages/qing-f-c/sellDupty/customer-admin",
-	                 "style" : {"navigationBarTitleText": "卖帮办客户管理"}
+	                 "style" : {"navigationBarTitleText": "卖帮办客户管理",
+					            "enablePullDownRefresh": true
+					 }
 	             },
 	              
 	             {
@@ -142,7 +284,7 @@
 				},
 	            {
 	                "path" : "pages/qing-f-c/buyDupty/add-contact",
-	                "style" : {"navigationBarTitleText": "买帮办办添加联系人"}
+	                "style" : {"navigationBarTitleText": "买帮办添加联系人"}
 	            },
 	            	          
 	            
@@ -173,13 +315,16 @@
 			// },
 	        {
 	        			 "path" : "pages/qing-f-c/buyDupty/customer-admin",
-	        			 "style" : {"navigationBarTitleText": "买帮办客户管理"}
+	        			 "style" : {"navigationBarTitleText": "买帮办客户管理",
+						            "enablePullDownRefresh": true
+						 }
 	        },
 			
 	        {
 					 "path" : "pages/qing-f-c/sales_director/customer-admin",
 					  "style" : {
 						  "navigationBarTitleText": "销售总监客户管理",
+						  "enablePullDownRefresh": true,
 						  "app-plus": {
 										  "titleNView": {
 											  
@@ -204,13 +349,7 @@
 						 "path" : "pages/qing-f-c/customer/customer-list",
 						 "style" : {"navigationBarTitleText": "客户管理"}
 			},
-			{
-						 "path" : "pages/qing-f-c/index",
-						 "style" : {
-						 	            "navigationStyle":"custom",
-										"enablePullDownRefresh": true
-						 	        }
-			},
+		
 	       
 		   {
 		       "path" : "pages/qing-f-c/claimIdentity/claimIdentity",
@@ -262,39 +401,67 @@
             "path" : "pages/qing-f-c/inquiryManage/recentPrice/recentPrice",
             "style" : {"navigationBarTitleText": "最近报价"}
         }
-        
        
+
+        ,{
+            "path" : "pages/qing-f-c/inquiryManage/selectBuyer",
+            "style" : {"navigationBarTitleText": "选择买家",
+			           "enablePullDownRefresh": true
+			}
+        },
+		{
+		    "path" : "pages/qing-f-c/inquiryManage/sellDeputy/selectSeller",
+		    "style" : {"navigationBarTitleText": "选择卖家",
+			           "enablePullDownRefresh": true
+			}
+		}
+        ,{
+            "path" : "pages/qing-f-c/inquiryManage/sampleInquiry/sales_director/find-result",
+            "style" : {
+            			"navigationStyle":"custom"
+            		 }
+        },
+		
+        {
+            "path" : "pages/qing-f-c/inquiryManage/sellDeputy/quotation-detail",
+            "style" : {"navigationBarTitleText": "报价详情"}
+        }
+        ,{
+            "path" : "pages/qing-f-c/sales_director/approved",
+            "style" : {"navigationBarTitleText": "审核管理"}
+        }
+        
     ],
 	"tabBar": {
 	    "list": [
 	      {
 	        "pagePath": "pages/qing-f-c/fangzhidao/index/index",
-	        "iconPath": "/static/images/tab/i-index.png",
-	        "selectedIconPath": "/static/images/tab/i-index-end.png",
+	        "iconPath": "/static/images/tab/fangzhidao.png",
+	        "selectedIconPath": "/static/images/tab/fangzhidao-end.png",
 	        "text": "纺织道"
 	      },
 	      {
 	        "pagePath": "pages/qing-f-c/qiugouqu/index/index",
-	        "iconPath": "/static/images/tab/i-buy.png",
-	        "selectedIconPath": "/static/images/tab/i-buy-end.png",
+	        "iconPath": "/static/images/tab/qiugou.png",
+	        "selectedIconPath": "/static/images/tab/qiugou-end.png",
 	        "text": "求购区"
 	      },
 	      {
 	        "pagePath": "pages/qing-f-c/xianhuoqu/index/index",
-	        "iconPath": "/static/images/tab/i-goods.png",
-	        "selectedIconPath": "/static/images/tab/i-goods-end.png",
+	        "iconPath": "/static/images/tab/xianhuo.png",
+	        "selectedIconPath": "/static/images/tab/xianhuo-end.png",
 	        "text": "现货区"
 	      },
 	      {
 	        "pagePath": "pages/qing-f-c/temaiqu/index/index",
-	        "iconPath": "/static/images/tab/i-on-sell.png",
-	        "selectedIconPath": "/static/images/tab/i-on-sell-end.png",
+	        "iconPath": "/static/images/tab/temai.png",
+	        "selectedIconPath": "/static/images/tab/temai-end.png",
 	        "text": "特卖区"
 	      },
 	      {
 	        "pagePath": "pages/qing-f-c/index",
-	        "iconPath": "/static/images/tab/i-user.png",
-	        "selectedIconPath": "/static/images/tab/i-user-end.png",
+	        "iconPath": "/static/images/tab/wode.png",
+	        "selectedIconPath": "/static/images/tab/wode-end.png",
 	        "text": "我的"
 	      }
 	    ],

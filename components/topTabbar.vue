@@ -8,14 +8,25 @@
 	    >
 			<text class="tabText">{{item}}</text>
 			<view class="bottomLine"></view>
-			
+			<view style="height:10upx;"></view>
+			<view class="icon-position flex_c_c" v-if="directorReviewCount>0&&index==0">{{directorReviewCount}}</view>
 		</view>
 	</view>
 </template>
 
 <script>
 	export default {
-		props: ["items"],
+		props: {
+			"items":{
+				type: Array
+			},
+			
+			directorReviewCount:{
+				type: Number,
+				default: 0
+			}
+		},
+		
 		data() {
 			return {
 				activeIndex: 0
@@ -37,6 +48,7 @@
 		.tabItem{
 			display: flex;
 			flex-direction: column;
+			position: relative;
 			.tabText{
 				color: black;
 				font-size: 14px;
@@ -48,11 +60,25 @@
 				font-size: 14px;
 			}
 			.bottomLine {
-				background: red;
-				height: 4upx;
+
+				background: #ff6000;
+				height: 2upx;
 				border-radius: 4upx;
+				
 			}
 		}
+	}
+	.icon-position{
+		font-size: 13px;
+		position: absolute;
+		background-color: red;
+		color: #ffffff;
+		line-height: 30upx;
+		width: 30upx;
+		height: 30upx;
+		border-radius: 50%;
+		right: -30upx;
+		top: -10upx;
 	}
     
 </style>

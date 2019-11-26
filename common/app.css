@@ -38,6 +38,9 @@ page{
 .color_FF6000{
   color:#FF6000;
 }
+.color_999{
+  color:#999999;
+}
 .color_888{
 	color: #888890;
 }
@@ -61,6 +64,12 @@ page{
 }
 .fs_12{
   font-size: 12px;
+}
+.fs_11{
+  font-size: 11px;
+}
+.fs_10{
+  font-size: 10px;
 }
 .flex{
   display: flex;
@@ -356,3 +365,8 @@ button::after{
 .color_FF6000{
 	color: #FF6000;
 }
+.remark-content{
+		font-weight: bold;
+		color: red;
+		font-size: 14px;
+	}

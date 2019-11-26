@@ -1,0 +1,12 @@
+{
+  "navigationBarTitleText": "询价管理",
+  "navigationBarBackgroundColor": "#ffffff",
+  "navigationBarTextStyle": "black",
+  "enablePullDownRefresh": true,
+  "usingComponents": {
+    "uni-icon": "/components/uni-icons/uni-icons",
+    "top-tabbar": "/components/topTabbar",
+    "filter-button": "/components/filterButton",
+    "inquire-list": "/components/inquireList"
+  }
+}

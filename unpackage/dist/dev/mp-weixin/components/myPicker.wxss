@@ -45,4 +45,8 @@
 .starInvisible {
   color: white;
 }
+.color_909090 {
+  color: #909090;
+  font-size: 13px;
+}
 

@@ -2,27 +2,37 @@
 <view>
 	<view class="form_box box_shadow">
 		<view class="flex_c list">
-		  <view class="line"></view>
+		  <!-- <view class="line"></view> -->
 		  <view class="font_we_bold fs_16">询价单基本信息 </view>
 		</view>
 		
-		 <pickerButton :items="inquiryType" name="询价类型" @buttonChange="tabSwitchChange('inquiryType',$event)"></pickerButton>
-		 <myPicker @mychange="tabSwitchChange('productSerial',$event)" :items="productSerial" name="产品系列"></myPicker>
+		<pickerButton :items="inquiryType" name="询价类型" @buttonChange="tabSwitchChange('inquiryType',$event)"></pickerButton>
+		<myPicker @mychange="tabSwitchChange('productSerial',$event)" :items="productSerial" name="产品系列"></myPicker>
+		
+		 
 			 
 		<view class="flex_c list">
-		  <view class="list_right">品名（别名）:</view>
-		  <input placeholder-class="color_888 fs_14" class="input" placeholder="请填写品名" name="name" :value="name"></input>
+		  <view class="list_right">品名（别名）：</view>
+		  <input placeholder-class="color_909090 fs_14" class="input" placeholder="请填写品名" name="tradeName" v-model="tradeName"></input>
 		</view>
-		<myPicker @mychange="tabSwitchChange('buyerChange',$event)" :items="productSerial" name="买家"></myPicker>
+		<!-- <myPicker @mychange="tabSwitchChange('buyerChange',$event)" :items="productSerial" name="买家"></myPicker>-->
+		<view class="flex_c list" @tap="selectBuyer">
+		  <view class="list_right">买家：</view>
+		  <view :class="(buyer==''?'color_909090 wid_400':'wid_400')">{{buyer==''?"请选择":buyer}}</view>
+		  <view><uniIcon type="forward" size="20" color="#ACACAC"></uniIcon></view>
+		</view>
 	</view>
-	
+	<!-- ------弹窗---- -->
+	<popupMe ref="latiPart" @input="getContent('lati',$event)" title="新增经纱成份"></popupMe>
+	<popupMe ref="longtiPart" @input="getContent('longti',$event)" title="新增纬纱成份"></popupMe>
+	<!-- ------弹窗---- -->
 	<view class="form_box box_shadow">
 		<view class="flex_c list">
-		  <view class="line"></view>
+		  <!-- <view class="line"></view> -->
 		  <view class="font_we_bold fs_16">产品要素 </view>
 		</view>
 		<view class="flex_c list_part">
-		  <view>成分<text class='fs_12 color_888 pl_20'>(可多选,按顺序勾选,可手动添加属性)</text></view>
+		  <view>成份<text class='fs_12 color_909090 pl_20'>(可多选,按顺序勾选,可手动添加属性)</text></view>
 		</view>
 		<view class="flex_sb list_part">
 		  <view class="fs_13 wid_550 box-borer">经：
@@ -31,9 +41,11 @@
 			</block>
 		  </view>
 		  <view class="fs_13 color_FF6000" @tap="tapNewPart">
-			  +新增加
+			  +新增
 		  </view>
+
 		</view>
+		
 		<view class="flex_c list">
 		  <partCheckboxGroup :items="partList" @selectChange="tapPartSelect"></partCheckboxGroup>
 		</view>
@@ -45,15 +57,15 @@
 			</block>
 		  </view>
 		  <view class="fs_13 color_FF6000" @tap="tapNewPartLong">
-			  +新增加
+			  +新增
 		  </view>
 		</view>
 		<view class="flex_c list">
 		  <partCheckboxGroup :items="partListLong" @selectChange="tapPartLongSelect"></partCheckboxGroup>
 		</view>
 		<view class="flex_c list_right_content">
-		  <view class="fs_13">含量:</view>
-		  <input placeholder-class="color_888 fs_13" class="input" 
+		  <view class="fs_13">含量：</view>
+		  <input placeholder-class="color_909090 fs_13" class="input" 
 		  placeholder="请输入，例如涤75%/氨10%/棉5%" 
 		  name="content" v-model="content"></input>
 		</view>
@@ -69,8 +81,8 @@
 			</view>
 			<view class="flex_c list_right_content justify-content">
 			  <view class="flex_c">
-				  <view class="fs_13">经:</view>
-				  <input placeholder-class="color_888 fs_13" class="input" 
+				  <view class="fs_13">经：</view>
+				  <input placeholder-class="color_909090 fs_13" class="input" 
 				  placeholder="例如T50d/72Ffdy+t50d/72Ffdy" 
 				  name="spec_longitude" v-model="spec_longitude"></input>
 			  </view>
@@ -78,8 +90,8 @@
 			   <view class="Clipboard" @tap="tapPaste">复制</view>
 			</view>
 			<view class="flex_c list_right_content">
-			  <view class="fs_13">纬:</view>
-			  <input placeholder-class="color_888 fs_13" class="input" 
+			  <view class="fs_13">纬：</view>
+			  <input placeholder-class="color_909090 fs_13" class="input" 
 			  placeholder="例如T50d/72Ffdy+t50d/72Ffdy" 
 			  name="spec_latitude" v-model="spec_latitude"></input>
 			</view>
@@ -89,10 +101,11 @@
 			<view class="form_box box_shadow">
 
 				<!-- <myPickerSmall @mychange="tabSwitchChange('styleChange',$event)" :items="styleSerial" name="风格"></myPickerSmall> -->
-				<pickerInput @mychange="tabSwitchChange('styleChange',$event)" :items="styleSerial" name="风格"></pickerInput>
+			    <pickerInput @mychange="tabSwitchChange('styleChange',$event)" 
+				:items="styleSerial" name="风格"></pickerInput>
 				<view class="flex_c list_right_content">
-				  <view class="fs_13">组织:</view>
-				  <input placeholder-class="color_888 fs_13" class="input" 
+				  <view class="fs_13">组织：</view>
+				  <input placeholder-class="color_909090 fs_13" class="input" 
 				  placeholder="请输入风格的组织，如2*1" 
 				  name="organize" v-model="organize"></input>
 				</view>
@@ -101,25 +114,25 @@
 		<view class="form_box box_shadow">
 		   <pickerButton :items="sampleType" name="布样类型" @buttonChange="tabSwitchChange('sampleType',$event)"></pickerButton>
 		   <view class="flex_c list_part">
-			  <view>密度<text class="pl_20">({{sampleTypeIndex?'坯布':'成品'}})</text></view>
+			  <view>密度<text class="pl_20">({{sampleTypeIndex==1?'坯布':'成品'}})</text></view>
 			</view>	
 			<view class="flex_c list_right_content">
 			  <view class="fs_13">经:</view>
-			  <input placeholder-class="color_888 fs_13" class="input-half-width" 
+			  <input placeholder-class="color_909090 fs_13" class="input-half-width" 
 			  placeholder="请输入数量" 
-			  name="density_longitude" v-model="density_longitude"></input>
-			  <view class="fs_13">纬:</view>
-			  <input placeholder-class="color_888 fs_13" class="input-half-width" 
+			  name="density_longitude" v-model="density_longitude" type="number"></input>
+			  <view class="fs_13">纬：</view>
+			  <input placeholder-class="color_909090 fs_13" class="input-half-width" 
 			  placeholder="请输入数量" 
-			  name="density_latitude" v-model="density_latitude"></input>
-			  <switchButton :items='tiaoshuo' @buttonChange="tabSwitchChange('tiaoshuo',$event)"></switchButton>
+			  name="density_latitude" v-model="density_latitude" type="number"></input>
+			  <switchButton :items='densityUnit' @buttonChange="tabSwitchChange('densityUnit',$event)"></switchButton>
 			</view>
 			<view class="flex_sb list_right_content">
 			  <view class="flex_c">
-				  <view class="fs_13">克重:<text class="pl_20">({{sampleTypeIndex?'坯布':'成品'}})</text></view>
-				  <input placeholder-class="color_888 fs_13" class="input_300" 
+				  <view class="fs_13">克重<text class="pl_20">({{sampleTypeIndex==1?'坯布':'成品'}})：</text></view>
+				  <input placeholder-class="color_909090 fs_13" class="input_300" 
 				  placeholder="请输入数量" 
-				  name="grammage" v-model="grammage"></input>
+				  name="grammage" v-model="grammage" type="number"></input>
 			  </view>
 			  <view class="flex_c">
 				  <switchButton :items='grammageUnit' @buttonChange="tabSwitchChange('grammageUnit',$event)"></switchButton>
@@ -127,10 +140,10 @@
 			</view>
 			<view class="flex_sb list_right_content">
 			  <view class="flex_c">
-				  <view class="fs_13">幅宽:<text class="pl_20">({{sampleTypeIndex?'坯布':'成品'}})</text></view>
-				  <input placeholder-class="color_888 fs_13" class="input_300" 
+				  <view class="fs_13">幅宽<text class="pl_20">({{sampleTypeIndex==1?'坯布':'成品'}})：</text></view>
+				  <input placeholder-class="color_909090 fs_13" class="input_300" 
 				  placeholder="请输入数量" 
-				  name="fukuan" v-model="fukuan"></input>
+				  name="clothBreadth" v-model="clothBreadth" type="number"></input>
 			  </view>
 			  <view>cm</view>
 			</view>
@@ -142,10 +155,10 @@
 			<myPickerSmall @mychange="tabSwitchChange('qualityPosition',$event)" :items="qualityPosition" name="品质定位"></myPickerSmall>
 			<view class="flex_sb list_right_content">
 			  <view class="flex_c">
-				  <view class="fs_13">克重:<text class="pl_20">({{sampleTypeIndex?'坯布':'成品'}})</text></view>
-				  <input placeholder-class="color_888 fs_13" class="input_300" 
+				  <view class="fs_13">购买数量：</view>
+				  <input placeholder-class="color_909090 fs_13" class="input_300" 
 				  placeholder="请输入数量" 
-				  name="grammage" v-model="grammage"></input>
+				  name="purchaseQuantity" v-model="purchaseQuantity" type="number"></input>
 			  </view>
 			  <view class="flex_c">
 				  <switchButton :items='lengthUnit' @buttonChange="tabSwitchChange('lengthUnit',$event)"></switchButton>
@@ -153,42 +166,45 @@
 			</view>
 			<view class="flex_sb list_right_content">
 			  <view class="flex_c">
-				  <view class="fs_13">挂码率:<text class="pl_20">({{sampleTypeIndex?'坯布':'成品'}})</text></view>
-				  <input placeholder-class="color_888 fs_13" class="input_300" 
+				  <view class="fs_13">挂码率：</view>
+				  <input placeholder-class="color_909090 fs_13" class="input_300" 
 				  placeholder="请输入" 
-				  name="fukuan" v-model="fukuan"></input>
+				  name="guamalv" v-model="guamalv" type="number"></input>
 			  </view>
 			  <view>%</view>
 			</view>
 			<view class="flex_c list_right_content">
-			  <view class="fs_13">备注:</view>
-			  <input placeholder-class="color_888 fs_13" class="input" 
+			  <view class="fs_13">备注：</view>
+			  <input placeholder-class="color_909090 fs_13" class="input" 
 			  placeholder="非必填" 
-			  name="remark" v-model="remark"></input>
+			  name="remarks" v-model="remarks"></input>
 			</view>
-			
-		</view>
-		<view class='placeholder-view'></view>
-		<uni-popup ref="popup" type="center">  
-		            <view class="publishWrapper"> 
-					     <view class="flex_c_c fs_15">
-							 <text>新增成分</text>
-						 </view>
+			<view class="uploadFile list_right_content" v-if="inquiryTypeIndex == 2">
+				 <view><text class="fs_14;">布样照片</text><text class="smallFont">（最多可上传9张）</text></view>
+				 <view class="flex_wrap">
+					 <block v-for="(item,index) in pictures" :key="index">
 						 <view>
-							 <!-- <input type="text" confirm-type='done' v-model="newPartText"
-							 placeholder='输入新成分' :focus='setFocus' cursor-spacing='14px' placeholder-class="color_888 fs_14 " />  
-							 <view class="newPart" @tap="handleNewPart">新增</view> -->
-							 <textarea v-model="newPartText" class="textarea_border" placeholder-style="color: #B3B3B3;font-size: 13px;" placeholder="请输入新的成分"/>
+							 <image :src="item" mode="aspectFill" class="picture_style"></image>
 						 </view>
-						 <view class="flex_sa mt_20">
-							 <view class="newPartCancel" @tap="handleCancelNewPart">取消</view>
-							 <view class="newPart" @tap="handleNewPart">确定</view>
-						 </view>
-						 
-		                
-		            </view>  
+					 </block>
+					  <view class="IconStyle" @tap="pickImage">
+					 	 <view class="iconCenter">
+					 		 
+					 		 <view>
+					 			 <uniIcon type="plus" color="#CECECE" size="30"></uniIcon>
+					 		 </view>
+					 		 <view style="margin-top: -40upx;"><text style="font-size:14px;color:#B1B1B1;">添加图片</text></view>
+					 	 </view>
+					  </view>
+				 </view>
+				
+				 <view style="height: 80upx;width:100%;color:#FFFFFF;"></view>
+			</view>
+		</view>
 		
-		 </uni-popup>  
+		<view class='placeholder-view'></view>
+	
+		  
 		<view class="fixed_bottom box_shadow_btn">
 		  <button class="btn_left" hover-class="none" @tap="bindCancel">取消</button>
 		  <button class="btn_right" @tap="submit" hover-class="none">确定</button>
@@ -198,12 +214,14 @@
 
 <script>
 	import  pickerButton from "@/components/pickerButton.vue";
-	import myPicker from "@/components/myPicker.vue";
+	import myPicker from "@/components/myPicker-inquiry.vue";
 	import partCheckboxGroup from "@/components/partCheckboxGroup.vue";
 	import myPickerSmall from "@/components/myPickerSmall.vue";
-	import switchButton from "@/components/switchButton-s.vue";
-	import uniPopup from "@/components/uni-popup.vue";
+	import switchButton from "@/components/switchButton-auto.vue";
 	import pickerInput from "@/components/pickerInput.vue";
+	import uniIcon from "@/components/uni-icons/uni-icons.vue";
+	import popupMe from "@/components/popupMe.vue";
+	var _this
 	export default {
 		components:{
 			pickerButton,
@@ -211,11 +229,14 @@
 			partCheckboxGroup,
 			myPickerSmall,
 			switchButton,
-			uniPopup,
-			pickerInput
+			pickerInput,
+			uniIcon,
+			popupMe
 		},
 	   data(){
 		return{
+			clothBreadth:'',  //幅宽
+			tradeName:'',   //品名
 			content:'',  //含量
 			spec_longitude:'',  //规格中的经纱
 			spec_latitude: '', //规格中的纬纱
@@ -224,62 +245,64 @@
 			grammage:'',  //克重
 			density_latitude: '', //纬密
 			density_longitude: '',  //经密
-			inquiryType: [{id: 1,label: "常规询价"},{id: 0,label: "找样询价"}],
+			purchaseQuantity:'',   //购买数量
+			guamalv: '',            //挂码率
+			remarks:'',             //备注
+			inquiryType: [],
 			inquiryTypeIndex: 1,           //询价类型
-			tiaoshuo:[{id: 1,label: "梭"},{id: 0,label: "条"}],
-			tiaoshuoIndex:  1,
-			grammageUnit:[{id: 1,label: "g/m"},{id: 0,label: "g/m²"}],
-			grammageUnitIndex: 1,
-			lengthUnit: [{id: 1,label: "米"},{id: 0,label: "码"}],
-			lengthUnitIndex: 1,
-			productSerial:[{id: 'tsl',label: "塔丝隆"},{id: 'dl',label: "涤纶"},{id: 'smt',label: "四面弹"},{id: 'gt',label: "高弹"}],
-			productSerialIndex: -1,
-			buyer:[{id: 'mj1',label: "布行11"},{id: 'mj2',label: "布行222"},{id: 'mj3',label:'布行'}],
-			buyerIndex: -1,
-			styleSerial:[{id: 'fg1',label: "风格111"},{id: 'fg2',label: "风格222"},{id: 'fg3',label:'风格333'}],
-			styleSerialIndex: -1,
-			qualityPosition: [{id: 'gj',label: "高级订单"},{id: 'yb',label: "一般订单"},{id: 'sc',label: "市场单"}],
-			qualityPositionIndex: -1,
-			part:[],
-			partList:[{id:'jl',label:'锦纶'},
-			{id:'dl',label:'涤纶'},
-			{id:'al',label:'氨纶'},
-			{id:'rm',label:'人棉'},
-			{id:'rs',label:'人丝'},
-			{id:'tc',label:'t/c混纺'},
-			{id:'ma',label:'麻'},
-			{id:'mian',label:'棉'},
-			{id:'mder',label:'莫代尔'},
-			{id:'tr',label:'T/R涤粘'},
-			{id:'cvc',label:'CVC混纺'}
-			],
+			densityUnit:[],
+			densityUnitIndex:  1,          //密度单位： 条或梭
+			grammageUnit:[],
+			grammageUnitIndex: 1,          //克重单位
+			lengthUnit: [],
+			lengthUnitIndex: 1,           //长度单位
+			productSerial:[],
+			productSerialIndex: '',       //产品系列
+			buyer:'',
+			buyerCode: '',
 			
-			partListLong:[{id:'jl',label:'锦纶'},
-			{id:'dl',label:'涤纶'},
-			{id:'al',label:'氨纶'},
-			{id:'rm',label:'人棉'},
-			{id:'rs',label:'人丝'},
-			{id:'tc',label:'t/c混纺'},
-			{id:'ma',label:'麻'},
-			{id:'mian',label:'棉'},
-			{id:'mder',label:'莫代尔'},
-			{id:'tr',label:'T/R涤粘'},
-			{id:'cvc',label:'CVC混纺'}
-			],
-			partLong:[]  ,//纬成分选中列表
+			styleSerial:[],
+			styleSerialIndex: '',         //风格类型
+			styleSerialValue:''        ,//风格输入选择框返回内容
 			
-			sampleType:[{id: 1,label: "坯布"},{id: 0,label: "成品"}], //布样类型
+			qualityPosition: [],
+			qualityPositionIndex: '',     //品质定位
+			
+			part:[],   //经成分选中label
+			partID:[],  //经成分选中ID
+			partList:[], //经成分列表
+						 		 
+			partListLong:[],  //纬成分列表
+			partLong:[]  ,//纬成分选中label
+			partLongID:[], //纬成分选中ID
+			
+			sampleType:[], //布样类型
 			sampleTypeIndex: 1 ,
-			newPartText:'',            //新增成分
-			styleSerialValue:''        //风格输入选择框返回内容
+			
+			newPartText:'',            //新增经成分
+			newPartLongText: '',       //新增纬成分
+			
+			styleCode: '',
+			pictures: [],              //上传图片数组
+			tempFiles: []
 			
 		};
 	  },
 	  onLoad:function(){
+		  _this = this
 	  	 console.log(this.Api.getChannel)
-		 this.test()
+		 
+		 this.getAllSelect()
 	  },
 	  methods:{
+		  selectBuyer:function(){
+			  uni.navigateTo({
+			  	url: '/pages/qing-f-c/inquiryManage/selectBuyer',
+			  	success: res => {},
+			  	fail: () => {},
+			  	complete: () => {}
+			  });
+		  },
 		  test:function(){
 			  let url= 'http://show.jkfb.net.cn:8080/aiwc-show/show/city?cityCode=yuyao'
 			  let data={}
@@ -292,51 +315,194 @@
 			    });
 			  });
 		  },
-		 
-		  tapPartSelect:function(values){
+		  getAllSelect:function(){
+			  //请求类型
+			  let url= this.Api.inquiryType
+			  let data={}
+			  this.myRequest(data,url,'get').then(res => {
+			    console.log(res);
+				_this.inquiryType = res.data.data.list
+			   }).catch(err => {
+			    wx.showToast({
+			      title: err.data.errMsg,
+			      icon: 'none'
+			    });
+			  });
+			  //产品系列选项
+			  url = this.Api.series
+			  data = {}
+			  this.myRequest(data,url,'get').then(res => {
+			    console.log(res);
+			    _this.productSerial = res.data.data.list
+			  }).catch(err => {
+			    wx.showToast({
+			      title: err.data.errMsg,
+			      icon: 'none'
+			    });
+			  });
+			  //风格选项
+			  url = this.Api.style
+			  data = {}
+			  this.myRequest(data,url,'get').then(res => {
+			    console.log(res);
+			    _this.styleSerial = res.data.data.list
+			  }).catch(err => {
+			    wx.showToast({
+			      title: err.data.errMsg,
+			      icon: 'none'
+			    });
+			  });
+			  //布样类型
+			  url = this.Api.clothType
+			  data = {}
+			  this.myRequest(data,url,'get').then(res => {
+			    console.log(res);
+			    _this.sampleType = res.data.data.list
+			  }).catch(err => {
+			    wx.showToast({
+			      title: err.data.errMsg,
+			      icon: 'none'
+			    });
+			  });
+			  //密度单位选择数据
+			  url = this.Api.densityUnit
+			  data = {}
+			  this.myRequest(data,url,'get').then(res => {
+			    console.log(res);
+			    _this.densityUnit = res.data.data.list
+			  }).catch(err => {
+			    wx.showToast({
+			      title: err.data.errMsg,
+			      icon: 'none'
+			    });
+			  });
+			  //克重单位选择数据
+			  url = this.Api.gramWeightUnit
+			  data = {}
+			  this.myRequest(data,url,'get').then(res => {
+			    console.log(res);
+			    _this.grammageUnit = res.data.data.list
+			  }).catch(err => {
+			    wx.showToast({
+			      title: err.data.errMsg,
+			      icon: 'none'
+			    });
+			  });
+			  //购买数量单位选择数据
+			  url = this.Api.quantityUnit
+			  data = {}
+			  this.myRequest(data,url,'get').then(res => {
+			    console.log(res);
+			    _this.lengthUnit = res.data.data.list
+			  }).catch(err => {
+			    wx.showToast({
+			      title: err.data.errMsg,
+			      icon: 'none'
+			    });
+			  });
+			  //获取经成分元素多选数据
+			  url = this.Api.atom
+			  data = {}
+			  this.myRequest(data,url,'get').then(res => {
+			    console.log(res);
+			    _this.partList = res.data.data.list
+				
+			  }).catch(err => {
+			    wx.showToast({
+			      title: err.data.errMsg,
+			      icon: 'none'
+			    });
+			  });
+			  //获取纬成分元素多选数据
+			  this.myRequest(data,url,'get').then(res => {
+			    console.log(res);
+			    _this.partListLong = res.data.data.list
+			  				
+			  }).catch(err => {
+			    wx.showToast({
+			      title: err.data.errMsg,
+			      icon: 'none'
+			    });
+			  });
+			  //品质定位
+			  url = this.Api.getQuality
+			  data = {}
+			  this.myRequest(data,url,'get').then(res => {
+			    console.log(res);
+			    _this.qualityPosition = res.data.data.list
+			  				
+			  }).catch(err => {
+			    wx.showToast({
+			      title: err.data.errMsg,
+			      icon: 'none'
+			    });
+			  });
+			  
+			  
+			  
+		  },
+		  
+		  tapPartSelect:function(labelArr,idArr){
 			  let items = this.partList
-			  this.part= values
+			  this.part= labelArr
+			  this.partID = idArr
 			//从组件发射过来的数组，遍历成分数组对象，如果对象label，在数组中就设置为true，否则就设置为false
 			//用，includes方法
 			 for (var i = 0, lenI = items.length; i < lenI; ++i) {
 			 	const item = items[i]
-			  	if(values.includes(item.label)){
+			  	if(labelArr.includes(item.label)){
 			  		this.$set(item,'isChecked',true)	
 			    } else{
 					this.$set(item,'isChecked',false)
 				}
 			}
+			console.log(this.partID)
+			
 		  },
 		
-		  tapPartLongSelect:function(values){
+		  tapPartLongSelect:function(labelArr,idArr){
 			  let items = this.partListLong
-			    this.partLong= values
-			
+			    this.partLong= labelArr
+			    this.partLongID = idArr
 			   for (var i = 0, lenI = items.length; i < lenI; ++i) {
 			   	const item = items[i]
-			    	if(values.includes(item.label)){
+			    	if(labelArr.includes(item.label)){
 			    		this.$set(item,'isChecked',true)	
 			      } else{
 			  		this.$set(item,'isChecked',false)
 			  	}
 			  }
+			  console.log(this.partLongID)
 		  },
-		  handleCancelNewPart:function(){
-			  this.$refs.popup.close()
-			  this.newPartText=''
-		  },
-		  handleNewPart:function(){
-			 console.log("新增成分")
+		  // ---  弹窗新增经度处理
+		 tapNewPart:function(){
+			this.$refs.latiPart.show()
+		 },
+		 tapNewPartLong:function(){
+		 	this.$refs.longtiPart.show()
+		 },
+		 getContent:function(label,content){
+			 this.newPartText = content
 			 console.log(this.newPartText)
-			 this.$refs.popup.close()
-		  },
-		  tapNewPart:function(){
-			  this.newPartText = ''
-			  this.$refs.popup.open() 
-		  },
-		  tapNewPartLong:function(){
-			  
-		  },
+			 let url = this.Api.atomAdd
+			 let data = {
+				 atomName: this.newPartText
+			  }
+			 this.myRequest(data,url,'get').then(res => {
+			   console.log(res)
+			   if (res.data.status == 0){
+				   this.getAllSelect()
+				 }
+				 }).catch(err => {
+				 wx.showToast({
+					 title: err.data.errMsg,
+					 icon: 'none'
+			   })
+			   })
+		 },
+		 
+		  // ---  弹窗新增纬度处理
+
 		  tapPaste:function(){
 			  uni.setClipboardData({
 			  	data: this.spec_longitude
@@ -352,13 +518,10 @@
 				     this.inquiryTypeIndex = event
 					 console.log(this.inquiryTypeIndex)
 					 break;
-				  case 'buyerChange':
-				     this.buyerIndex = event
-					 console.log(this.buyerIndex)
-					 break;
+				  
 				  case 'styleChange':
 				     console.log(event)
-				     this.styleSerialIndex = event[1]
+				     this.styleSerialIndex = event[1] || -1
 					 this.styleSerialValue = event[0]
 					 console.log(this.styleSerialIndex)
 					 console.log(this.styleSerialValue)
@@ -367,9 +530,9 @@
 				   this.productSerialIndex = event
 					 console.log(this.productSerialIndex)
 					 break;	 
-				  case 'tiaoshuo':
-					  this.tiaoshuoIndex = event
-					 console.log(this.tiaoshuoIndex)
+				  case 'densityUnit':
+					  this.densityUnitIndex = event
+					 console.log(this.densityUnitIndex)
 					 break;	
 				  case 'grammageUnit':
 					  this.grammageUnitIndex = event
@@ -383,15 +546,133 @@
 					  this.lengthUnitIndex = event
 					 console.log(this.lengthUnitIndex)
 					 break; 
-					 
-					 lengthUnit
+					
 			  }
+		  },
+		  pickImage:function(){
+			  uni.chooseImage({
+				  sizeType: ['compressed'],
+			      success: (chooseImageRes) => {
+			          const tempFilePaths = chooseImageRes.tempFilePaths;
+                      _this.pictures = []
+					  for (let i=0 ;i<tempFilePaths.length;i++){
+						  uni.uploadFile({
+						      url: _this.Api.upload, 
+							  filePath: tempFilePaths[i],
+							  name:'file',
+						      success: (uploadFileRes) => {
+						          console.log(uploadFileRes);	
+								  _this.pictures.push(JSON.parse(uploadFileRes.data).data.msg)
+								  uni.showToast({
+								  	title: '上传成功',
+									icon:'none',
+									duration: 1000
+								  });
+						      }
+						  });
+					  }
+					 
+					  
+			          
+			      }
+			  });
+		  },
+		  bindCancel:function(){
+			  uni.navigateBack({
+			  	delta: 1
+			  });
+		  },
+		  submit:function(){
+			  
+			 
+			  //判断风格输入内容跟选择编号是否一致，不一致设置为-1
+			  
+			  _this.styleSerial.forEach((item)=>{
+				  if (item.id == _this.styleSerialIndex){
+					  if (item.label != _this.styleSerialValue){
+						  this.styleSerialIndex = -1
+					  }
+				  }
+			  })
+			  
+			  let _data={
+				  inquiryType:	 _this.inquiryTypeIndex			,	//询价类型
+				  buyOrSellCode:	_this.buyerCode		,	//买家编码
+				  purchaseQuantity:	 _this.purchaseQuantity,  //购买数量
+				  quantityUnit:		_this.lengthUnitIndex	    , //购买数量单位
+				  hangBitRate:	   _this.guamalv			, //挂码率
+				  remarks:	_this.remarks				,   //备注
+				  tradeName:	_this.tradeName			,	//品名
+				  seriesCode:	_this.productSerialIndex			,	//产品系列编码
+				  ingredientLongitudes: _this.partID ,    //成分经数组
+				  ingredientLatitudes:	_this.partLongID	,  //成分纬数组
+				  content:	_this.content				,  //含量
+				  specificationLongitude: _this.spec_longitude	,     //规格经
+				  specificationLatitude:	_this.spec_latitude,	//规格纬
+				  styleCode:		_this.styleSerialIndex	,//风格编码
+				  styleName	:	   _this.styleSerialValue	,//风格名称
+				  organization:		_this.organize		,//组织
+				  clothType:			_this.sampleTypeIndex	,	//布样类型
+				  densityLongitude:		_this.density_longitude	,//密度经
+				  densityLatitude:	     _this.density_latitude   ,//密度纬
+				  densityUnit:			  _this.densityUnitIndex , //密度单位
+				  gramWeight:			  _this.grammage ,     //克重
+				  gramWeightUnit:		  _this.grammageUnitIndex ,    // 克重单位
+				  clothBreadth:		      _this.clothBreadth , //幅宽
+				  qualityCode:			 _this.qualityPositionIndex ,//品质定位编码
+				  pictures:	             _this.pictures  //图片数组
+				  
+			  }
+			  
+			  console.log(_data)
+			  let url = this.Api.addInquiry
+			  this.myRequest(_data,url,'post').then(res => {
+			    console.log(res);
+				
+			    if (res.data.status== 0){
+					uni.showToast({
+						title: '询价单创建成功',
+						icon: 'none',
+						duration: 500
+					});
+					var pages = getCurrentPages();
+					var currPage = pages[pages.length - 1]; //当前页面
+					var prevPage = pages[pages.length - 2]; //上一个页面
+					//直接调用上一个页面的setData()方法，把数据存到上一个页面中去
+					prevPage.setData({
+					   isDoRefresh:true
+					})
+					uni.redirectTo({
+					
+						url: '/pages/qing-f-c/inquiryManage/inquiry-details?inquiryNumber='+ res.data.data.msg,
+						success: res => {},
+						fail: () => {},
+						complete: () => {}
+					});
+				}else{
+					uni.showToast({
+						title: res.data.message,
+						icon: 'none'
+					});
+					return
+				}
+			  				
+			  }).catch(err => {
+			    wx.showToast({
+			      title: err.data.errMsg,
+			      icon: 'none'
+			    });
+			  });
+			
 		  }
 	  }
 	}
 </script>
 
 <style lang='scss'>
+	page{
+		background: #F4F4F4;
+	}
 	.form_box{
 	  background-color:#fff; 
 	  font-size: 14px;
@@ -399,7 +680,7 @@
 	}
 	.list{
 	  margin: 0 30upx;
-	  padding:0 10upx;
+	  /* padding:0 10upx; */
 	  border-bottom: 1upx solid rgba(221, 221, 221, 0.3);
 	  line-height: 87upx;
 	  color: #333236;
@@ -686,6 +967,16 @@
 		padding-right: 20upx;
 		background-color:#F7F7F7;
 	}
+	.iconClose{
+		position:absolute;
+		top: 2upx;
+		right: 2upx;
+	}
+	.popTitle{
+		display: flex;
+		justify-content: center;
+		align-items: center;
+	}
 	.Clipboard{
 		text-align: center;
 		width: 100upx;
@@ -699,4 +990,40 @@
 	.justify-content{
 		justify-content: space-between;
 	}
+	.color_909090{
+		color: #909090;
+	}
+	.uploadFile{
+		display: flex;
+		flex-direction: column;
+		margin-bottom: 100upx;
+		
+	}
+	.IconStyle {
+		height: 200upx;
+		width: 200upx;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		background: #EFEFEF;
+		
+	}
+	.iconCenter{
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		height: 100upx;
+	}
+	.smallFont{
+	    color: #999999;
+		font-size: 12px;
+	}
+	.picture_style{
+		margin: 0upx 20upx;
+		width: 180upx;
+		height: 180upx;
+		
+	}
+	
+	
 </style>

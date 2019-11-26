@@ -17,6 +17,19 @@ Vue.prototype.myRequest= function(data,url,method){
 	  })
 	})
 }
+Vue.prototype.refreshBack= function(pageNum=2){
+	var pages = getCurrentPages();
+	var currPage = pages[pages.length - 1]; //当前页面
+	var prevPage = pages[pages.length - pageNum]; //上一个页面
+	//直接调用上一个页面的setData()方法，把数据存到上一个页面中去
+	prevPage.setData({
+	   isDoRefresh:true
+	})
+	uni.navigateBack({
+		delta: 1
+	});
+}
+
 Vue.prototype.checkLogin = function(){
 	var TOKEN = uni.getStorageSync('token');
 	var pupDefault = uni.getStorageSync('pupDefault')

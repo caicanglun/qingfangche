@@ -48,8 +48,8 @@
     -webkit-align-items: center;
         -ms-flex-align: center;
             align-items: center;
-    border-radius: 20rpx;
-    background-color: #c9c9c9;
+    border-radius: 28rpx;
+    background-color: #E7E7E7;
     font-size: 13px;
 }
 .topTabbar .tabItem .tabText {
@@ -70,7 +70,7 @@
     -webkit-align-items: center;
         -ms-flex-align: center;
             align-items: center;
-    border-radius: 20rpx;
+    border-radius: 28rpx;
     background-color: #FF6000;
     font-size: 13px;
 }

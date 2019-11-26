@@ -4,13 +4,13 @@
 		  <view><text style="color:#FF6000" v-if="star !=''">{{star}}</text>{{star}}{{name}}：</view>
 		  <input v-model="inputValue" class="wid_400 pl_10"
 		  						  placeholder="请输入或者选择" 
-		  						  placeholder-style="color: #ccc;font-size: 13px;"
+		  						  placeholder-style="color: #909090;font-size: 13px;"
 		  						  @blur = "inputFinish"
 		    ></input>
 			
 				<picker @change="itemChange" :range="items" range-key="label" :value="index">
 					  
-					<image src="/static/images/qingfc/arrow.png" class="i-next" mode="aspectFill"></image>
+					<view class="picker-image"><image src="/static/images/qingfc/arrow.png" class="i-next" mode="aspectFill"></image></view>
 					 
 				</picker>
 			
@@ -45,7 +45,8 @@
 		data() {
 			return {
 				index: -1,
-				inputValue:''
+				inputValue:'',
+				code: -1
 			};
 		},
 		
@@ -62,6 +63,7 @@
 				}
 				this.inputValue = this.items[this.index].label
 				this.code = this.items[this.index].id
+				
 				this.$emit("mychange",[this.inputValue,this.code])
 			}
 		}
@@ -90,5 +92,10 @@
 }
 .starInvisible{
 	color: white;
+}
+.picker-image{
+	width: 50upx;
+	display: flex;
+	justify-content: flex-end;
 }
 </style>

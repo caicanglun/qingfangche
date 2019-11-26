@@ -6,17 +6,29 @@
 			:class = "activeIndex==index? 'tabActive': 'tabItem'"
 			@tap = "tapTab(index)"
 	    >
-			<text class="tabText">{{item}}</text>
+			
+				<text class="tabText">{{item}}</text>
+			
+			
 		</view>
 	</view>
 </template>
 
 <script>
 	export default {
-		props: ["items"],
+		props: {
+			items:{
+				type:Array
+			},
+			index:{
+				type: Number,
+				default: -1
+			}
+			
+		},
 		data() {
 			return {
-				activeIndex: 0
+				activeIndex: this.index
 			};
 		},
 		methods: {
@@ -38,8 +50,8 @@
 			height: 56upx;
 			justify-content: center;
 			align-items: center;
-			border-radius: 20upx;
-			background-color: #c9c9c9;
+			border-radius: 28upx;
+			background-color: #E7E7E7;
 			font-size: 13px;
 			.tabText{
 				color: black;
@@ -50,7 +62,7 @@
 			height: 56upx;
 			justify-content: center;
 			align-items: center;
-			border-radius: 20upx;
+			border-radius: 28upx;
 			background-color: #FF6000;
 			font-size: 13px;
 			.tabText{
@@ -58,5 +70,6 @@
 			}
 		}
 	}
+	
     
 </style>

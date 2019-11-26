@@ -1,4 +1,5 @@
 {
   "navigationBarTitleText": "区域经理客户管理",
+  "enablePullDownRefresh": true,
   "usingComponents": {}
 }

@@ -59,10 +59,11 @@
 				 
 				 	    <uni-grid-item v-for="(item, index) in arrList" :key="index" >
 				 			<navigator :url="item.url" hover-class="none">
-				 							<view class='image_back'>
-				 								<image :src="item.icon" mode="aspectFill" class="icon_img"></image>
-				 							</view>
-				 
+								    
+									<view class='image_back' @tap="prompt(item.url)">
+										<image :src="item.icon" mode="aspectFill" class="icon_img"></image>
+									</view>
+				                    <widgit :count="directorReviewCount" v-if="item.name=='审核管理'&&(directorReviewCount>0)"></widgit>
 				 	        </navigator>
 				 			<view class="fs_12 text_algin_c">{{item.name|| ''}}</view>
 				 	    </uni-grid-item>
@@ -90,7 +91,7 @@
 import mpvuePicker from '@/components/mpvue-picker/mpvuePicker.vue';
 import uniGrid from "@/components/uni-grid/uni-grid.vue"
 import uniGridItem from "@/components/uni-grid-item/uni-grid-item.vue"
-
+import widgit from "@/components/widgit.vue";
 const JsyServer = require("../../services/jsy-server.js");
 const Api = require("../../services/config/api.js");
 const Server = require("../../services/server.js");
@@ -106,16 +107,16 @@ const arrListBuyB = [
 	{
 	  icon: '/static/images/jinsy/buy-deputy/jiaoyi.png',
 	  name: '交易管理',
-	  url: '/pages/user-order/order'
+	  url: ''
 	}, {
 	  icon: '/static/images/jinsy/buy-deputy/xunjia.png',
 	  name: '询价管理',
-	  url: '/pages/jin-suo-yun/deputy/inquiry-management-list'
+	  url: '/pages/qing-f-c/inquiryManage/inquiryManage'
 	}, 
 	{
 	  icon: '/static/images/jinsy/buy-deputy/genjin.png',
 	  name: '跟进记录',
-	  url: '/pages/jin-suo-yun/deputy/sample-many-search'
+	  url: ''
     }, 
 	{
 	  icon: '/static/images/jinsy/buy-deputy/wuliu.png',
@@ -136,16 +137,16 @@ const arrListSellB = [
 	{
 	  icon: '/static/images/jinsy/sell-deputy/jiaoyi.png',
 	  name: '交易管理',
-	  url: '/pages/user-order/order'
+	  url: ''
 	}, {
 	  icon: '/static/images/jinsy/sell-deputy/xunjia.png',
 	  name: '询价管理',
-	  url: '/pages/jin-suo-yun/deputy/inquiry-management-list'
+	  url: '/pages/qing-f-c/inquiryManage/sellDeputy/inquiryManage'
 	}, 
 	{
 	  icon: '/static/images/jinsy/sell-deputy/genjin.png',
 	  name: '跟进记录',
-	  url: '/pages/jin-suo-yun/deputy/sample-many-search'
+	  url: ''
 	}, 
 	{
 	  icon: '/static/images/jinsy/sell-deputy/wuliu.png',
@@ -167,7 +168,7 @@ const arrListRGbuy = [
 		{
 		  icon: '/static/images/jinsy/buy-region/genjin.png',
 		  name: '跟进记录',
-		  url: '/pages/jin-suo-yun/regionalManager/sample-many-search'
+		  url: ''
 	    }, 
 	
 		{
@@ -201,7 +202,7 @@ const arrListRGsell = [
 		{
 		  icon: '/static/images/jinsy/sell-region/genjin.png',
 		  name: '跟进记录',
-		  url: '/pages/jin-suo-yun/regionalManager/sample-many-search'
+		  url: ''
 	    }, 
 	
 		{
@@ -234,7 +235,7 @@ const arrListGM= [
 		{
 		  icon: '/static/images/jinsy/sales-director/genjin.png',
 		  name: '跟进记录',
-		  url: '/pages/jin-suo-yun/sales_director/sample-many-search'
+		  url: ''
 	    }, 
 	
 		{
@@ -250,14 +251,24 @@ const arrListGM= [
 		{
 		  icon: '/static/images/jinsy/sales-director/examine.png',
 		  name: '审核管理',
-		  url: ''
+		  url: '/pages/qing-f-c/sales_director/approved'
 		},
 		{
 		  icon: '/static/images/jinsy/sales-director/renling.png',
 		  name: '身份认领',
 		  url: ''}
 ];     //销售总监
-const arrListAN= [];     //分析师
+const arrListAN= [
+	{
+		  icon: '/static/images/jinsy/sales-director/tongji.png',
+		  name: '报表统计',
+		  url: ''
+		},
+    {
+		icon: '/static/images/jinsy/analyist/fenxi.png',
+		name: '分析管理',
+		url: ''
+	}];     //分析师
 const arrListBuyer= [
 	{   //买，卖家共用一个
   icon: '/static/images/jinsy/buyer/xunjia.png',
@@ -270,12 +281,12 @@ const arrListBuyer= [
  }, {
   icon: '/static/images/jinsy/buyer/lianxi.png',
   name: '联系帮办',
-  url: '/pages/jin-suo-yun/buyer/analysis-list'
+  url: ''
  },
  {
   icon: '/static/images/jinsy/buyer/guanzhu.png',
   name: '我的关注',
-  url: '/pages/jin-suo-yun/analysis-list'
+  url: ''
  },
  {
   icon: '/static/images/jinsy/buyer/mingpian.png',
@@ -288,7 +299,7 @@ const arrListSeller= [
 	{   //买，卖家共用一个
   icon: '/static/images/jinsy/seller/xunjia.png',
   name: '我的询价',
-  url: '/pages/jin-suo-yun/deputy/sample-many-search'
+  url: ''
   },
   {
   icon: '/static/images/jinsy/seller/jiaoyi.png',
@@ -297,7 +308,7 @@ const arrListSeller= [
   }, {
   icon: '/static/images/jinsy/seller/lianxi.png',
   name: '联系帮办',
-  url: '/pages/jin-suo-yun/buyer/analysis-list'
+  url: ''
   },
   {
   icon: '/static/images/jinsy/seller/weidian.png',
@@ -346,6 +357,8 @@ export default {
 	  identList:[],
 	  index:[0],
 	  mode: 'selector',
+	  directorReviewCount:''  ,//待审核计数图标
+	  isDoRefresh: false
 	  
     };
   },
@@ -359,11 +372,19 @@ export default {
 	  this.pupDefault()
 	  //获取职位列表
 	  this.pupList()
+	  //待审核计数
+	  this.reviewCount()
+	  uni.stopPullDownRefresh();
     
   },
 
   onShow: function (e) {
-	  
+	  let pages = getCurrentPages();
+	  let currPage = pages[pages.length-1];
+	  if (currPage.data.isDoRefresh == true){
+	  	       currPage.data.isDoRefresh = false;
+	  		   this.reviewCount()
+	  	 }
   },
   onLoad: function (options) {
         _this = this;
@@ -382,6 +403,7 @@ export default {
 			this.pupDefault()
 			//获取职位列表
 			this.pupList()
+			this.reviewCount()
 			
 		}
 		
@@ -390,10 +412,25 @@ export default {
   components: {
 	  mpvuePicker,
 	  uniGrid,
-	  uniGridItem
+	  uniGridItem,
+	  widgit
   },
   props: {},
   methods: {
+	  reviewCount:function(){
+	  	let data={}
+	  	let url= this.Api.directorReviewCount
+	  	this.myRequest(data,url,'get').then(res => {
+	  	  console.log(res);
+	  	  _this.directorReviewCount= res.data.data.msg
+	  	  console.log(_this.directorReviewCount)
+	  	}).catch(err => {
+	  	  wx.showToast({
+	  	    title: err.data.errMsg,
+	  	    icon: 'none'
+	  	  });
+	  	});
+	  },
     showPicker() {
     			  this.$refs.mpvuePicker.show();
     			},
@@ -587,7 +624,16 @@ export default {
         return;
       }
     },
-
+	prompt:function(url){
+           if (url == ''){
+			   uni.showToast({
+			   	title: '开发中...',
+				icon:'none',
+				duration: 1000
+			   });
+			   return
+		   }
+	},
     toJump: function (e) {
       let url = e.currentTarget.dataset.url;
 
@@ -618,7 +664,7 @@ page{
   color:#cfcfcf
 }
 .hand_box{
-  background-image:url(https://api.qingfangche.net/api/common/picture/hand_back/png/images/download);
+  background-image:url('~@/static/images/qingfc/login-back.jpeg');
   background-repeat:no-repeat;
   background-position:center top;
   background-size:cover;

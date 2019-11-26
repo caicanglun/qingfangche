@@ -1,0 +1,7 @@
+{
+  "navigationBarTitleText": "选择卖家",
+  "enablePullDownRefresh": true,
+  "usingComponents": {
+    "top-search": "/components/topSearch"
+  }
+}

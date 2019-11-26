@@ -1,0 +1,7 @@
+{
+  "navigationBarTitleText": "直接报价",
+  "usingComponents": {
+    "switch-button": "/components/switchButton-auto",
+    "my-picker-part": "/components/myPickerPart"
+  }
+}

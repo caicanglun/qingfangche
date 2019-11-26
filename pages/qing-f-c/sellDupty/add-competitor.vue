@@ -251,6 +251,10 @@
 					}
 				})
 				console.log("添加竞争对手：==",_data)
+				uni.showLoading({
+									mask: true,   
+									title: '正在加载'  
+								});  
 				JsyServer.rivalAdd(_data).then(res => {
 				  console.log(res);
 				 if (res.data.status ==0){
@@ -265,6 +269,7 @@
 						prevPage.setData({
 								isDoRefresh:true
 						})
+					uni.hideLoading();
 					uni.navigateBack({
 						delta: 1
 					});  

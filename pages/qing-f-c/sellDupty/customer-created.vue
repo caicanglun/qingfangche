@@ -244,6 +244,10 @@
 				data.phone= this.phone //电话
 				console.log(data)
 				console.log(uni.getStorageSync('token'))
+				uni.showLoading({
+					mask: true,   
+					title: '正在加载'  
+				});  
                 JsyServer.sellCusmterCreated(data).then(res => {
 				  if (res.data.status==0){
 					  uni.showToast({
@@ -257,7 +261,8 @@
 						prevPage.setData({
 						   isDoRefresh:true
 						})
-					  uni.navigateBack({
+						uni.hideLoading();
+					    uni.navigateBack({
 					  	delta: 1
 					  });
 					}
