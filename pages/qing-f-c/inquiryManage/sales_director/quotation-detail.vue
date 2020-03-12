@@ -4,31 +4,34 @@
 			
 			<view class="baojia-wrap">
 				<view class='baojiaTitle'>报价产品要素</view>
+				<view class='baojiaTitle'>
+					品名(别名)：{{quotationInfo.tradeName||''}}</view>
 				<chanpinyaosu :inquiryInfo="quotationInfo"></chanpinyaosu> 
 			</view>
 		</view>		
-		
+		<popupBack ref="auditReject" @input="getContent('auditReject',$event)" title="产品驳回理由"></popupBack>
 		<view class="baojia-details">
 			<view class="baojia-wrap">
-				<view v-if="quotationInfo.hasSalesDirectorQuotation">
-					<view class='baojiaTitle'>销售总监报价信息</view>
+				<view>
+					<view class='baojiaTitle'>审核报价信息</view>
 					<view class="content-box">
-						<view class='subItem'><text class="label">报价：</text><text class="color_FF6000">{{quotationInfo.salesDirectorUnitPrice}}</text></view>
-						<view class='subItem'><text class="label">备注：</text><text class="remark-content">{{quotationInfo.salesDirectorRemarks}}</text></view>
-						<view class='subItemTime'><text>报价时间：</text><text>{{quotationInfo.salesDirectorCreateTime}}</text></view>
+						<view class='subItem'><text class="label">报价：</text><text class="color_FF6000">{{quotationInfo.salesDirectorUnitPrice||''}}</text></view>
+						<view class='subItem'><text class="label">备注：</text><text class="remark-content">{{quotationInfo.salesDirectorRemarks||''}}</text></view>
+						<view class='subItemTime'><text>报价时间：</text><text>{{quotationInfo.salesDirectorCreateTime||''}}</text></view>
 					</view>
 				</view>
-				<view class="baojia_line mt_20 mb_20" v-if="quotationInfo.hasSalesDirectorQuotation"></view>
-				<view class='baojiaTitle'>卖帮办报价信息</view>
+				<view class="baojia_line mt_20 mb_20" ></view>
+				<view class='baojiaTitle'>出厂价信息</view>
 				<baojiaDetail :item="quotationInfo"></baojiaDetail>
 		
 			</view>
 		</view>
+		
 		<!-- 买办推送报价 -->
 		<view class="details-box" v-if="quotationInfo.buyDeputyQuotationBuyDeputyCode!==null">
 			<view class='wrap-box'>
 				<view class="details-title">
-					 推送报价
+					 销售价
 				</view>
 				<baojiaDetailSell :item="quotationInfo"></baojiaDetailSell>
 			</view>
@@ -62,19 +65,34 @@
 			</view>
 			
 		</view>  <!-- 关闭原因 -->
+		<!-- <view class="uploadFile list_right_content" v-if="topList.hasGoAnalysisSample">
+				 <view><text class="fs_14;">布样照片</text></view>
+				 <view class="flex_wrap">
+					 <block v-for="(item,index) in pictures" :key="index">
+						 <view>
+							 <image :src="item" mode="aspectFill" class="picture_style"></image>
+						 </view>
+					 </block>
+					  
+				 </view>	
+		</view> -->
+		
+		
 		<view class='placeholder-view'></view>
-		<!-- 不匹配，关闭的报价单，不需要修改 -->
-		<view class="fixed_bottom box_shadow_btn" 
-		v-if="(!quotationInfo.hasSalesDirectorQuotation)&&(quotationInfo.quotationStatus!=9)&&(quotationInfo.quotationStatus!=5)&&(quotationInfo.sellDeputyRealName!='直接报价')" >
-		  <button class="btn_left" hover-class="none" @tap="modifyQuote">修改报价</button>
-		  <button class="btn_right"  hover-class="none"  @tap="submit">确定并推送</button>
+		<!-- (!topList.hasQuotationDirector)&&(quotationInfo.quotationStatus!=9)&&(quotationInfo.quotationStatus!=5)&&(quotationInfo.sellDeputyRealName!='直接报价')" -->
+		<view class="fixed_bottom box_shadow_btn" v-if="!quotationInfo.hasSalesDirectorQuotation">
+		  <!-- <button class="btn_left" hover-class="none" @tap="modifyQuote">修改报价</button> -->
+		  <button class="btn_left" hover-class="none" @tap="reject">产品驳回</button>
+		  <button class="btn_right"  hover-class="none"  @tap="modifyQuote">价格审核</button>
 		</view>
+		
 	</view>
 </template>
 
 <script>
+	import popupBack from "@/components/popupMeArea.vue";
 	import chanpinyaosu from "@/components/inquiry/chanpinyaosu-quote.vue";
-	import baojiaDetail from "@/components/inquiry/baojia-detail-buy.vue";
+	import baojiaDetail from "@/components/inquiry/baojia-detail.vue";
 	import sellerInfo from "@/components/inquiry/sellerInfo.vue";
 	import baojiaDetailSell from "@/components/inquiry/baojiaDetail-sell.vue";
 	let _this,_quotationNumber
@@ -83,12 +101,16 @@
 			chanpinyaosu,
 			baojiaDetail,
 			sellerInfo,
-			baojiaDetailSell
+			baojiaDetailSell,
+			popupBack
 		},
 		data() {
 			return {
 				quotationInfo:'',
-				isDoRefresh:false
+				isDoRefresh:false,
+				pictures:[],
+				topList:'',
+				rejectReason:''
 			};
 		},
 		onShow:function(){
@@ -97,16 +119,20 @@
 			if (currPage.data.isDoRefresh == true){
 				       currPage.data.isDoRefresh = false;
 					   this.getInquiryInfo()
+					  // this.getInquiryInfoPicture()
 				 }
+			 this.getInquiryInfo()
 		},
 	    onLoad:function(options) {
 			_this = this
 	    	_quotationNumber = options.quoteNumber
 			console.log(_quotationNumber)
+			//this.getInquiryInfo()
 			this.getInquiryInfo()
 	    },
 		methods:{
 			getInquiryInfo: function(){
+				
 				let data={
 					quotationNumber: _quotationNumber,  //	报价单号
 				}
@@ -122,10 +148,36 @@
 				  });
 				});
 			},
+			reject:function(){
+				this.$refs.auditReject.show()
+			},
+			// getInquiryInfo:function(){
+			// 	let temp= _quotationNumber.split('-')[0]
+			// 	console.log(temp)
+			// 	let url = this.Api.zyDetails
+			// 	let data ={
+			// 		inquiryNumber: temp
+			// 	}
+			// 	this.myRequest(data,url,'get').then(res => {
+				  
+			// 	  if (res.data.status == 0){
+			// 		  console.log(res)
+			// 		  _this.pictures = res.data.data.goInitialPictures
+			// 		 _this.topList = res.data.data
+			// 		 _this.quotationInfo = res.data.data.quotation
+					
+			// 	  }
+			// 	}).catch(err => {
+			// 	  wx.showToast({
+			// 	    title: err.data.errMsg,
+			// 	    icon: 'none'
+			// 	  });
+			// 	});
+			// },
 			modifyQuote:function(){
 				console.log("daozheli")
 				uni.navigateTo({
-					url: '/pages/qing-f-c/inquiryManage/sales_director/modifyPrice?quotationNumber=' + _quotationNumber + '&unitPrice=' + _this.quotationInfo.unitPrice,
+					url: '/pages/qing-f-c/inquiryManage/sales_director/modifyPrice?quotationNumber=' + _quotationNumber + '&unitPrice=' + _this.quotationInfo.unitPrice+'&unitPriceDecimal=' + _this.quotationInfo.unitPriceDecimal,
 					success: res => {
 						console.log(res)
 					},
@@ -137,41 +189,44 @@
 					}
 				});
 			},
+			getContent:function(label,content){
+				
+				this.rejectReason = content
+				console.log(this.rejectReason)
+			},
 			
 			submit:function(){
 				let data={
 					quotationNumber:  _quotationNumber ,			//报价单号
-					directorUnitPrice:   parseInt(_this.quotationInfo.unitPrice ) ,		//价格
-					remarks:   	_this.quotationInfo.remarks		//备注
+					directorUnitPrice:   _this.quotationInfo.unitPriceDecimal ,		//价格
+					remarks:   	''	//备注
 				
 				}
 				let url = this.Api.directorModifyPrice
+				
+				
 				this.myRequest(data,url,'get').then(res => {
 				  console.log(res);
 				  if (res.data.status == 0){
+					  
 					  var pages = getCurrentPages();
 					  var currPage = pages[pages.length - 1]; //当前页面
 					  var prevPage = pages[pages.length - 2]; //上一个页面
-					  var pprevPage = pages[pages.length - 3];
-					  var ppprevPage = pages[pages.length - 5];
-					  
+					
 					  
 					  
 					  //直接调用上一个页面的setData()方法，把数据存到上一个页面中去
 					  prevPage.setData({
 					     isDoRefresh:true
 					  })
-					  pprevPage.setData({
-					     isDoRefresh:true
-					  })
-					  ppprevPage.setData({
-					     isDoRefresh:true
-					  })
+					  this.getInquiryInfo()
 					  
-					  uni.navigateBack({
-					  	delta: 1
-					  });
 					  
+				  }else{
+					 uni.showToast({
+					 	title:  res.data.message,
+						icon: 'none'
+					 });
 				  }
 				}).catch(err => {
 				  wx.showToast({
@@ -308,4 +363,34 @@
   			color: #999999;
   		}	
   	}
+	.uploadFile{
+		
+		display: flex;
+		flex-direction: column;
+		
+		border-radius: 6upx;
+		background: #FFFFFF;
+		margin: 20upx 30upx;
+		padding:0 10upx;
+		
+		
+	}
+	
+	.iconCenter{
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		height: 100upx;
+	}
+	.smallFont{
+	    color: #999999;
+		font-size: 12px;
+	}
+	.picture_style{
+		margin: 0upx 20upx;
+		width: 180upx;
+		height: 180upx;
+		
+	}
+	
 </style>

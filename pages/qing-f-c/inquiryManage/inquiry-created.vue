@@ -7,14 +7,17 @@
 		</view>
 		
 		<pickerButton :items="inquiryType" name="询价类型" @buttonChange="tabSwitchChange('inquiryType',$event)"></pickerButton>
-		<myPicker @mychange="tabSwitchChange('productSerial',$event)" :items="productSerial" name="产品系列"></myPicker>
 		
-		 
-			 
+		<!-- <myPicker @mychange="tabSwitchChange('productSerial',$event)" :items="productSerial" name="产品系列"></myPicker> -->
+		<pickerInput @mychange="tabSwitchChange('productSerial',$event)"
+		:items="productSerial" name="产品系列" fontSize="font-size:14px;"></pickerInput>
+		
 		<view class="flex_c list">
 		  <view class="list_right">品名（别名）：</view>
-		  <input placeholder-class="color_909090 fs_14" class="input" placeholder="请填写品名" name="tradeName" v-model="tradeName"></input>
+		  <input placeholder-class="color_909090 fs_13" class="input" placeholder="请填写品名" name="tradeName" v-model="tradeName"></input>
 		</view>
+		<myPicker @mychange="tabSwitchChange('productType',$event)" name="产品类型" :items="productType" :firstLabel="productType[0].label"></myPicker> 
+		
 		<!-- <myPicker @mychange="tabSwitchChange('buyerChange',$event)" :items="productSerial" name="买家"></myPicker>-->
 		<view class="flex_c list" @tap="selectBuyer">
 		  <view class="list_right">买家：</view>
@@ -66,7 +69,7 @@
 		<view class="flex_c list_right_content">
 		  <view class="fs_13">含量：</view>
 		  <input placeholder-class="color_909090 fs_13" class="input" 
-		  placeholder="请输入，例如涤75%/氨10%/棉5%" 
+		  placeholder="例如75%涤20%氨5%棉" 
 		  name="content" v-model="content"></input>
 		</view>
 		</view>
@@ -83,7 +86,7 @@
 			  <view class="flex_c">
 				  <view class="fs_13">经：</view>
 				  <input placeholder-class="color_909090 fs_13" class="input" 
-				  placeholder="例如T50d/72Ffdy+t50d/72Ffdy" 
+				  placeholder="例如50D/96FDTY半光+75D/144FFDY消光" 
 				  name="spec_longitude" v-model="spec_longitude"></input>
 			  </view>
 			 
@@ -92,7 +95,7 @@
 			<view class="flex_c list_right_content">
 			  <view class="fs_13">纬：</view>
 			  <input placeholder-class="color_909090 fs_13" class="input" 
-			  placeholder="例如T50d/72Ffdy+t50d/72Ffdy" 
+			  placeholder="例如50D/96FDTY半光+75D/144FFDY消光" 
 			  name="spec_latitude" v-model="spec_latitude"></input>
 			</view>
 		</view>
@@ -102,11 +105,11 @@
 
 				<!-- <myPickerSmall @mychange="tabSwitchChange('styleChange',$event)" :items="styleSerial" name="风格"></myPickerSmall> -->
 			    <pickerInput @mychange="tabSwitchChange('styleChange',$event)" 
-				:items="styleSerial" name="风格"></pickerInput>
+				:items="styleSerial" name="风格" fontSize="font-size:13px;"></pickerInput>
 				<view class="flex_c list_right_content">
 				  <view class="fs_13">组织：</view>
 				  <input placeholder-class="color_909090 fs_13" class="input" 
-				  placeholder="请输入风格的组织，如2*1" 
+				  placeholder="例如2/1" 
 				  name="organize" v-model="organize"></input>
 				</view>
 			</view>
@@ -135,7 +138,7 @@
 				  name="grammage" v-model="grammage" type="number"></input>
 			  </view>
 			  <view class="flex_c">
-				  <switchButton :items='grammageUnit' @buttonChange="tabSwitchChange('grammageUnit',$event)"></switchButton>
+				  <switchButtonEdit :items='grammageUnit' @buttonChange="tabSwitchChange('grammageUnit',$event)"></switchButtonEdit>
 			  </view>
 			</view>
 			<view class="flex_sb list_right_content">
@@ -213,11 +216,12 @@
 </template>
 
 <script>
-	import  pickerButton from "@/components/pickerButton.vue";
+	import pickerButton from "@/components/pickerButton-edit.vue";
 	import myPicker from "@/components/myPicker-inquiry.vue";
 	import partCheckboxGroup from "@/components/partCheckboxGroup.vue";
 	import myPickerSmall from "@/components/myPickerSmall.vue";
 	import switchButton from "@/components/switchButton-auto.vue";
+	import switchButtonEdit from "@/components/switchButton-edit.vue";
 	import pickerInput from "@/components/pickerInput.vue";
 	import uniIcon from "@/components/uni-icons/uni-icons.vue";
 	import popupMe from "@/components/popupMe.vue";
@@ -231,7 +235,8 @@
 			switchButton,
 			pickerInput,
 			uniIcon,
-			popupMe
+			popupMe,
+			switchButtonEdit
 		},
 	   data(){
 		return{
@@ -253,14 +258,18 @@
 			densityUnit:[],
 			densityUnitIndex:  1,          //密度单位： 条或梭
 			grammageUnit:[],
-			grammageUnitIndex: 1,          //克重单位
+			grammageUnitIndex: 2,          //克重单位
 			lengthUnit: [],
 			lengthUnitIndex: 1,           //长度单位
 			productSerial:[],
 			productSerialIndex: '',       //产品系列
+			productSerialValue:'',       //产品系列值
+			
+			
 			buyer:'',
 			buyerCode: '',
-			
+			productType:'',     //产品类型
+			productTypeIndex: 1,
 			styleSerial:[],
 			styleSerialIndex: '',         //风格类型
 			styleSerialValue:''        ,//风格输入选择框返回内容
@@ -284,14 +293,23 @@
 			
 			styleCode: '',
 			pictures: [],              //上传图片数组
-			tempFiles: []
+			tempFiles: [],
+			
 			
 		};
 	  },
-	  onLoad:function(){
+	  onLoad:function(options){
 		  _this = this
-	  	 console.log(this.Api.getChannel)
+	  	 if (options.inquiryType){
+			 this.inquiryTypeIndex = options.inquiryType
+		 }else {
+			 this.inquiryTypeIndex = 2
+		 }
+		 if (options.number){
+			 this.number = options.number
+		 }
 		 
+		 console.log(this.inquiryTypeIndex)
 		 this.getAllSelect()
 	  },
 	  methods:{
@@ -316,12 +334,29 @@
 			  });
 		  },
 		  getAllSelect:function(){
-			  //请求类型
-			  let url= this.Api.inquiryType
+			  //产品类型
+			  let url= this.Api.getMainProduct
 			  let data={}
 			  this.myRequest(data,url,'get').then(res => {
 			    console.log(res);
+			  		_this.productType = res.data.data.list
+			   }).catch(err => {
+			    wx.showToast({
+			      title: err.data.errMsg,
+			      icon: 'none'
+			    });
+			  });
+			  //请求类型
+			  url= this.Api.inquiryType
+			  data={}
+			  this.myRequest(data,url,'get').then(res => {
+			    console.log(res);
 				_this.inquiryType = res.data.data.list
+				_this.inquiryType.forEach((item)=>{
+					if (item.id == _this.inquiryTypeIndex){
+						this.$set(item,'isChecked',true)
+					}
+				})
 			   }).catch(err => {
 			    wx.showToast({
 			      title: err.data.errMsg,
@@ -358,6 +393,7 @@
 			  this.myRequest(data,url,'get').then(res => {
 			    console.log(res);
 			    _this.sampleType = res.data.data.list
+				_this.sampleType = this.setIsChecked(_this.sampleType,_this.sampleTypeIndex)
 			  }).catch(err => {
 			    wx.showToast({
 			      title: err.data.errMsg,
@@ -370,6 +406,7 @@
 			  this.myRequest(data,url,'get').then(res => {
 			    console.log(res);
 			    _this.densityUnit = res.data.data.list
+				_this.densityUnit = this.setIsChecked(_this.densityUnit,_this.densityUnitIndex)
 			  }).catch(err => {
 			    wx.showToast({
 			      title: err.data.errMsg,
@@ -382,6 +419,9 @@
 			  this.myRequest(data,url,'get').then(res => {
 			    console.log(res);
 			    _this.grammageUnit = res.data.data.list
+				
+				_this.grammageUnit = this.setIsChecked(_this.grammageUnit,_this.grammageUnitIndex)
+				console.log(_this.grammageUnit)
 			  }).catch(err => {
 			    wx.showToast({
 			      title: err.data.errMsg,
@@ -394,6 +434,7 @@
 			  this.myRequest(data,url,'get').then(res => {
 			    console.log(res);
 			    _this.lengthUnit = res.data.data.list
+				_this.lengthUnit = this.setIsChecked(_this.lengthUnit,_this.lengthUnitIndex)
 			  }).catch(err => {
 			    wx.showToast({
 			      title: err.data.errMsg,
@@ -488,8 +529,13 @@
 			 let data = {
 				 atomName: this.newPartText
 			  }
+			  uni.showLoading({
+			  	title: '创建中',
+			  	mask: true
+			  });
 			 this.myRequest(data,url,'get').then(res => {
 			   console.log(res)
+			   uni.hideLoading()
 			   if (res.data.status == 0){
 				   this.getAllSelect()
 				 }
@@ -504,18 +550,33 @@
 		  // ---  弹窗新增纬度处理
 
 		  tapPaste:function(){
-			  uni.setClipboardData({
-			  	data: this.spec_longitude
-			  })
+			  // uni.setClipboardData({
+			  // 	data: this.spec_longitude
+			  // })
+			  this.spec_latitude = this.spec_longitude
 		  },
 		  tabSwitchChange:function(label,event){
 			  switch (label){
 				  case 'sampleType':
 				     this.sampleTypeIndex = event
+					 this.sampleType.forEach((item)=>{
+						 if(item.id == this.sampleTypeIndex){
+							 this.$set(item,'isChecked',true)
+						 }else{
+							 this.$set(item,'isChecked',false)
+						 }
+					 })
 					 console.log(this.sampleTypeIndex)
 					 break;
 				  case 'inquiryType':
 				     this.inquiryTypeIndex = event
+					 this.inquiryType.forEach((item)=>{
+						 if(item.id == this.inquiryTypeIndex){
+							 this.$set(item,'isChecked',true)
+						 }else{
+							 this.$set(item,'isChecked',false)
+						 }
+					 })
 					 console.log(this.inquiryTypeIndex)
 					 break;
 				  
@@ -523,30 +584,45 @@
 				     console.log(event)
 				     this.styleSerialIndex = event[1] || -1
 					 this.styleSerialValue = event[0]
-					 console.log(this.styleSerialIndex)
-					 console.log(this.styleSerialValue)
+					if (this.styleSerialValue=='平纹'){
+						 this.organize = '1/1'
+					}
+					 
 					 break;
 				  case 'productSerial':
-				   this.productSerialIndex = event
-					 console.log(this.productSerialIndex)
-					 break;	 
+					  this.productSerialIndex = event[1] || -1
+					  this.productSerialValue = event[0]
+				      
+					  console.log(this.productSerialIndex)
+					  console.log(this.productSerialValue)
+					  break;	 
 				  case 'densityUnit':
 					  this.densityUnitIndex = event
 					 console.log(this.densityUnitIndex)
 					 break;	
 				  case 'grammageUnit':
 					  this.grammageUnitIndex = event
+					  this.grammageUnit.forEach((item)=>{
+							 if(item.id == this.grammageUnitIndex){
+								 this.$set(item,'isChecked',true)
+							 }else{
+								 this.$set(item,'isChecked',false)
+							 }
+					  })
 					 console.log(this.grammageUnitIndex)
 					 break;		  
 				  case 'qualityPosition':
 					  this.qualityPositionIndex = event
 					 console.log(this.qualityPositionIndex)
 					 break;
-				case 'lengthUnit':
+				  case 'lengthUnit':
 					  this.lengthUnitIndex = event
 					 console.log(this.lengthUnitIndex)
 					 break; 
-					
+				  case 'productType':
+						  this.productTypeIndex = event
+						 console.log(this.productTypeIndex)
+						 break; 
 			  }
 		  },
 		  pickImage:function(){
@@ -594,19 +670,30 @@
 					  }
 				  }
 			  })
+			  _this.productSerial.forEach((item)=>{
+			  				  if (item.id == _this.productSerialIndex){
+			  					  if (item.label != _this.productSerialValue){
+			  						  this.productSerialIndex = -1
+			  					  }
+			  				  }
+			  })
 			  
 			  let _data={
+				  number: _this.number,    //二维码生成编码
 				  inquiryType:	 _this.inquiryTypeIndex			,	//询价类型
 				  buyOrSellCode:	_this.buyerCode		,	//买家编码
 				  purchaseQuantity:	 _this.purchaseQuantity,  //购买数量
 				  quantityUnit:		_this.lengthUnitIndex	    , //购买数量单位
 				  hangBitRate:	   _this.guamalv			, //挂码率
+				  
 				  remarks:	_this.remarks				,   //备注
 				  tradeName:	_this.tradeName			,	//品名
-				  seriesCode:	_this.productSerialIndex			,	//产品系列编码
+				  seriesCode:	_this.productSerialIndex,	//产品系列编码
+				  seriesName:   _this.productSerialValue,      //产品系列值
 				  ingredientLongitudes: _this.partID ,    //成分经数组
 				  ingredientLatitudes:	_this.partLongID	,  //成分纬数组
 				  content:	_this.content				,  //含量
+				  mainProduct: _this.productTypeIndex,    //产品类型
 				  specificationLongitude: _this.spec_longitude	,     //规格经
 				  specificationLatitude:	_this.spec_latitude,	//规格纬
 				  styleCode:		_this.styleSerialIndex	,//风格编码
@@ -623,12 +710,25 @@
 				  pictures:	             _this.pictures  //图片数组
 				  
 			  }
-			  
+			  if(_this.grammageUnitIndex ==1){
+				  if (_this.clothBreadth== 0){
+					  uni.showToast({
+					  	title: '幅宽必填',
+						icon: 'none',
+						duration: 500
+					  });
+					  return
+				  }
+			  }
 			  console.log(_data)
+			  uni.showLoading({
+			  	title: '加载中',
+			  	mask: true
+			  });
 			  let url = this.Api.addInquiry
 			  this.myRequest(_data,url,'post').then(res => {
 			    console.log(res);
-				
+				uni.hideLoading()
 			    if (res.data.status== 0){
 					uni.showToast({
 						title: '询价单创建成功',
@@ -642,13 +742,24 @@
 					prevPage.setData({
 					   isDoRefresh:true
 					})
-					uni.redirectTo({
+					if (_this.inquiryTypeIndex == 1){
+						uni.redirectTo({
+						
+							url: '/pages/qing-f-c/inquiryManage/inquiry-details?inquiryNumber='+ res.data.data.msg,
+							success: res => {},
+							fail: () => {},
+							complete: () => {}
+						});
+					}else{
+						uni.redirectTo({
+						
+							url: '/pages/qing-f-c/inquiryManage/sampleInquiry/buyDeputy/inquiry-details?inquiryNumber='+ res.data.data.msg,
+							success: res => {},
+							fail: () => {},
+							complete: () => {}
+						});
+					}
 					
-						url: '/pages/qing-f-c/inquiryManage/inquiry-details?inquiryNumber='+ res.data.data.msg,
-						success: res => {},
-						fail: () => {},
-						complete: () => {}
-					});
 				}else{
 					uni.showToast({
 						title: res.data.message,
@@ -723,7 +834,7 @@
 	  width: 192upx;
 	}
 	.input{
-	  width: 446upx;
+	  width: 500upx;
 	  background-color: #fff;
 	  font-size: 14px;
 	  padding-left: 30upx;
@@ -1000,8 +1111,8 @@
 		
 	}
 	.IconStyle {
-		height: 200upx;
-		width: 200upx;
+		height: 180upx;
+		width: 180upx;
 		display: flex;
 		justify-content: center;
 		align-items: center;

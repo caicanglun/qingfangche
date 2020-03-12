@@ -112,7 +112,7 @@
 				let url =  this.Api.buyerList
 				let data ={
 					keyword: this.keyword,  //	搜索关键字
-					pageNum: this.pageNum,		   //当前页数
+					pageNum: 1,		   //当前页数
 					pageSize: _pageSize
 				}
 				this.myRequest(data,url,'get').then(res => {

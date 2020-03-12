@@ -3,6 +3,8 @@
   "usingComponents": {
     "uni-icon": "/components/uni-icons/uni-icons",
     "chanpinyaosu": "/components/inquiry/chanpinyaosu-quote",
-    "baojia-detail": "/components/inquiry/baojia-detail-buy"
+    "baojia-detail": "/components/inquiry/baojia-detail-buy",
+    "seller-info": "/components/inquiry/sellerInfo",
+    "baojia-detail-sell": "/components/inquiry/baojiaDetail-sell"
   }
 }

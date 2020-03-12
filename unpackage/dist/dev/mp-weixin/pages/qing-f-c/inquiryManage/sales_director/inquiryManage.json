@@ -6,7 +6,7 @@
   "usingComponents": {
     "uni-icon": "/components/uni-icons/uni-icons",
     "top-tabbar": "/components/topTabbar-inquiry",
-    "filter-button": "/components/filterButton",
+    "filter-button": "/components/filterButton-status",
     "inquire-list": "/components/inquireList",
     "uni-load-more": "/components/uni-load-more/uni-load-more"
   }

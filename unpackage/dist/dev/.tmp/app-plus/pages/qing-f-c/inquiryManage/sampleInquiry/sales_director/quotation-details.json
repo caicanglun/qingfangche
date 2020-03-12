@@ -1,0 +1,9 @@
+{
+  "navigationBarTitleText": "销售总监报价详情",
+  "usingComponents": {
+    "baojia-detail-tuisong": "/components/sample-inquiry/baojia-detail-tuisong",
+    "seller-info": "/components/sample-inquiry/sellerInfo",
+    "chanpinyaosu": "/components/sample-inquiry/chanpinyaosu-quote",
+    "baojia-detail": "/components/sample-inquiry/baojia-detail-buy"
+  }
+}

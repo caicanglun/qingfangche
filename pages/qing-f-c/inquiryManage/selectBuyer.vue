@@ -10,7 +10,7 @@
 		        <view class="flex_sb mt_10">
 		          <view class="flex">
 		            <image src="/static/images/qingfc/application/companyx.png" class="title_img" mode="aspectFit"></image>
-		            <view class="fs_16 font_we_bold wid_510">公司名称:{{item.companyName||''}}</view>
+		            <view class="fs_16 font_we_bold wid_510">{{item.companyName||''}}</view>
 		          </view>
 		          <!-- <view :class="(item.buyOrsell==1?'id_btn':'seller_btn')">{{item.buyOrsell==1?'买家':'卖家'}}</view> -->
 				 
@@ -113,7 +113,7 @@
 				let url =  this.Api.buyerList
 				let data ={
 					keyword: this.keyword,  //	搜索关键字
-					pageNum: this.pageNum,		   //当前页数
+					pageNum: 1,		   //当前页数
 					pageSize: _pageSize
 				}
 				this.myRequest(data,url,'get').then(res => {
@@ -136,7 +136,8 @@
 				let data ={
 					keyword: '',  //	搜索关键字
 					pageNum: this.pageNum,		   //当前页数
-					pageSize: _pageSize
+					pageSize: _pageSize,
+					
 				}
 				this.myRequest(data,url,'get').then(res => {
 				  _this.pageNum++;

@@ -2,14 +2,14 @@
 <view>
 	<view v-if="isIdentity">
 	  <view class="hand_box">
-		 <view class="flex-row-reverse mt_50" @tap="navNewsPage">
+		 <view class="flex-row-reverse mt_50">
 		 		 
 		 		<view class="widgit">
-		 			<image src="/static/images/jinsy/xiaoxi@2x.png" class="xiaoxi_img" mode="aspectFit"></image>
+		 			<image src="/static/images/jinsy/xiaoxi@2x.png" @tap="navNewsPage" class="xiaoxi_img" mode="aspectFit"></image>
 		 			<view class="xiaoxi_text" v-if="newsNum>0">{{newsNum|| ''}}</view>
 		 		</view>
 		 		<view style="padding-right: 20upx;">
-		 				<image src="/static/images/jinsy/setting@2x.png" class="setting_img" mode="aspectFit"></image>
+		 				<image src="/static/images/jinsy/setting@2x.png" @tap="toSetting" class="setting_img" mode="aspectFit"></image>
 		 		</view>
 		 		
 		 </view>
@@ -63,7 +63,7 @@
 									<view class='image_back' @tap="prompt(item.url)">
 										<image :src="item.icon" mode="aspectFill" class="icon_img"></image>
 									</view>
-				                    <widgit :count="directorReviewCount" v-if="item.name=='审核管理'&&(directorReviewCount>0)"></widgit>
+				                    <widgit :count="parseInt(directorReviewCount)+parseInt(auditCount)" v-if="item.name=='审核管理'&&(parseInt(directorReviewCount)+parseInt(auditCount)>0)"></widgit>
 				 	        </navigator>
 				 			<view class="fs_12 text_algin_c">{{item.name|| ''}}</view>
 				 	    </uni-grid-item>
@@ -181,11 +181,11 @@ const arrListRGbuy = [
 		  name: '帮办管理',
 		  url: ''
 		}, 
-		{
-		  icon: '/static/images/jinsy/buy-region/examine.png',
-		  name: '审核管理',
-		  url: ''
-		},
+		// {
+		//   icon: '/static/images/jinsy/buy-region/examine.png',
+		//   name: '审核管理',
+		//   url: ''
+		// },
 		{
 		  icon: '/static/images/jinsy/buy-region/renling.png',
 		  name: '身份认领',
@@ -215,11 +215,11 @@ const arrListRGsell = [
 		  name: '帮办管理',
 		  url: ''
 		}, 
-		{
-		  icon: '/static/images/jinsy/sell-region/examine.png',
-		  name: '审核管理',
-		  url: ''
-		},
+		// {
+		//   icon: '/static/images/jinsy/sell-region/examine.png',
+		//   name: '审核管理',
+		//   url: ''
+		// },
 		{
 		  icon: '/static/images/jinsy/sell-region/renling.png',
 		  name: '身份认领',
@@ -267,8 +267,14 @@ const arrListAN= [
     {
 		icon: '/static/images/jinsy/analyist/fenxi.png',
 		name: '分析管理',
-		url: ''
-	}];     //分析师
+		url: '/pages/qing-f-c/inquiryManage/sampleInquiry/analyst/inquiryManage'
+	},
+	{
+	  icon: '/static/images/jinsy/sales-director/examine.png',
+	  name: '审核管理',
+	  url: '/pages/qing-f-c/analyist/analyist'
+	}
+	];     //分析师
 const arrListBuyer= [
 	{   //买，卖家共用一个
   icon: '/static/images/jinsy/buyer/xunjia.png',
@@ -357,9 +363,14 @@ export default {
 	  identList:[],
 	  index:[0],
 	  mode: 'selector',
-	  directorReviewCount:''  ,//待审核计数图标
-	  isDoRefresh: false
-	  
+	  directorReviewCount:0,//待审核计数图标
+	  isDoRefresh: false,
+	  qrUrl:'',
+	  detailUrl:'',
+	  numberStatus:'',
+	  quotationlUrl:'',
+	  auditCount:0,
+	  totalCount:0
     };
   },
 
@@ -374,6 +385,7 @@ export default {
 	  this.pupList()
 	  //待审核计数
 	  this.reviewCount()
+	  this.getAuditCount()
 	  uni.stopPullDownRefresh();
     
   },
@@ -385,6 +397,13 @@ export default {
 	  	       currPage.data.isDoRefresh = false;
 	  		   this.reviewCount()
 	  	 }
+	  this.userDetails()
+	  this.reviewCount()
+	  this.getAuditCount()
+	  this.pupList()
+	  this.pupDefault()
+	  this.getNewsNum()
+	  
   },
   onLoad: function (options) {
         _this = this;
@@ -403,7 +422,9 @@ export default {
 			this.pupDefault()
 			//获取职位列表
 			this.pupList()
-			this.reviewCount()
+			this.reviewCount()    //待审核询价单数量
+			this.getAuditCount()  //待审核产品数量
+			
 			
 		}
 		
@@ -417,12 +438,32 @@ export default {
   },
   props: {},
   methods: {
+	  getAuditCount:function(){
+	  	let data={}
+	  	let url= this.Api.auditCount
+	  	this.myRequest(data,url,'get').then(res => {
+	  	  console.log(res);
+	  	  _this.auditCount= res.data.data.msg
+		 
+	  	  console.log(_this.auditCount)
+	  	}).catch(err => {
+	  	  wx.showToast({
+	  	    title: err.data.errMsg,
+	  	    icon: 'none'
+	  	  });
+	  	});
+	  },
 	  reviewCount:function(){
 	  	let data={}
 	  	let url= this.Api.directorReviewCount
 	  	this.myRequest(data,url,'get').then(res => {
 	  	  console.log(res);
-	  	  _this.directorReviewCount= res.data.data.msg
+		  if (uni.getStorageSync('pupDefault')=='SALES_DIRECTOR'){
+			  _this.directorReviewCount = res.data.data.msg
+		  }else{
+			  _this.directorReviewCount = 0
+		  }
+	  	  
 	  	  console.log(_this.directorReviewCount)
 	  	}).catch(err => {
 	  	  wx.showToast({
@@ -469,13 +510,7 @@ export default {
 								return
 							}
 							this.userDetails()
-							setTimeout(function() {
-								let temp = arrListRGbuy
-								temp[0].url = temp[0].url+'?regionCode=' + _regionCode
-								console.log(temp[0].url)
-								this.arrList = temp;
-							}, 500);
-							
+
 							this.isSpecial = true
 						    this.isSeller = false;
 							break;
@@ -510,6 +545,22 @@ export default {
 						    this.arrList = arrListSellB;
 							this.isSpecial = false
 						    this.isSeller = true; 
+							break;
+						case 'ANALYST':
+						    try{
+						    	uni.setStorageSync('pupDefault','ANALYST')
+						    }catch(e){
+						    	//TODO handle the exception
+						    	uni.showToast({
+						    		title: '缓存出错',
+						    		icon: 'none'
+						    	});
+						    	return
+						    }
+							this.userDetails()
+						    this.arrList = arrListAN ;
+							this.isSpecial = false
+						    this.isSeller = false; 
 							break;
 					}		
     			},
@@ -546,8 +597,9 @@ export default {
 		JsyServer.userDetails(data).then(res => {
 		  console.log(res)
 		  _this.userInfo = res.data.data
-		  _regionCode = res.data.data.regionCode  //区域经理要带的区域代码
-		  console.log("quyudaima",_regionCode)
+		  this.$store.dispatch('regionCodeFun',res.data.data.regionCode) //区域经理要带的区域代码
+		  _regionCode = res.data.data.regionCode  
+		 // console.log("quyudaima",_regionCode)
 		  console.log("userInfo===",_this.userInfo)
 		  this.pupDefault()
 		}).catch(err => {
@@ -567,12 +619,26 @@ export default {
 			switch (pupDefault){
 				case "BUY_DEPUTY":
 				     _this.arrList = arrListBuyB
+					 _this.qrUrl = '/pages/qing-f-c/inquiryManage/inquiry-created?number='
+					 _this.detailUrl = '/pages/qing-f-c/inquiryManage/sampleInquiry/buyDeputy/inquiry-details?inquiryNumber='
+					 
+					 _this.quotationlUrl = '/pages/qing-f-c/inquiryManage/sampleInquiry/buyDeputy/quotationDetails/quotationDetails?number='
+					 console.log(_this.qrUrl)
+					 console.log(_this.detailUrl)
+					 console.log(_this.quotationlUrl)
+					 
 					 break;
 				case "SELL_DEPUTY":
 				     _this.arrList = arrListSellB
+					 _this.qrUrl = ''
+					 _this.detailUrl = '/pages/qing-f-c/inquiryManage/sampleInquiry/sellDeputy/inquiry-details?inquiryNumber='
+					 _this.quotationlUrl = '/pages/qing-f-c/inquiryManage/sampleInquiry/sellDeputy/quotationDetails?number='
 				     break;
 				case "ANALYST":
 				     _this.arrList = arrListAN
+					 _this.qrUrl = ''
+					 _this.detailUrl = '/pages/qing-f-c/inquiryManage/sampleInquiry/analyst/inquiry-details?inquiryNumber='
+					 _this.quotationlUrl = '/pages/qing-f-c/inquiryManage/sampleInquiry/analyst/inquiry-details?inquiryNumber='
 				     break;
 				case "SALES_DIRECTOR":
 				     _this.arrList = arrListGM
@@ -593,32 +659,113 @@ export default {
     pupList:function(){
 		JsyServer.pupList().then(res=>{
 			console.log("身份列表",res)
-			_this.identList = res.data.data.list
+			if (res.data.status == 0){
+				_this.identList = res.data.data.list
+			}
+			if (res.data.status == 80){
+				uni.redirectTo({
+					url: '/pages/qing-f-c/login/login'
+				});
+			}
+			
 			 
 		}).catch(err =>{
 			console.log("pupList=err==", res)
 		})
 	},
+	isExist:function(number,orderType){
+		let url= this.Api.isExist
+		
+		let data={
+			number: number,		  
+		}
+		
+		this.myRequest(data,url,'get').then(res => {
+		  console.log(res.data.data.msg);
+          _this.numberStatus = res.data.data.msg
+		  console.log(_this.numberStatus)
+		  if (_this.numberStatus=='false'){
+			  console.log('xiangdeng')
+			  uni.navigateTo({
+			    url: _this.qrUrl+ number,
+			    success: res => {},
+		        fail: () => {},
+			    complete: () => {}
+			  });
+		  }else{
+			
+			 if (orderType == 1){
+				uni.navigateTo({
+				  url: _this.detailUrl+ number,
+				  success: res => {},
+				  fail: (err) => {
+					  uni.showToast({
+					  	title: err,
+						duration: 3000
+					  });
+				  },
+				  complete: () => {}
+				}); 
+			 }else {
+				 uni.navigateTo({
+				   url: _this.quotationlUrl+ number+'&orderType='+orderType,
+				   success: res => {},
+				   fail: (err) => {
+					   uni.showModal({
+						  content: err
+					   })
+				   },
+				   complete: () => {}
+				 }); 
+			 }
+			 
+		  }
+		 }).catch(err => {
+		  wx.showToast({
+		    title: err.data.errMsg,
+		    icon: 'none'
+		  });
+		});
+	},
     // 扫描二维码
     scanCode: function () {
-      var that = this;
-      wx.scanCode({
+	  
+      uni.scanCode({
         success: function (res) {
-          console.log("code---", res);
-          console.log("path---", res.path);
-          wx.navigateTo({
-            url: "/" + res.path
-          });
+          let number = res.result.split('#')[2]
+		  let orderType = res.result.split('#')[0]
+			 // uni.navigateTo({
+				// url: _this.detailUrl+ number,
+				// success: res => {},
+				// fail: () => {},
+				// complete: () => {}
+			 // });
+		  _this.isExist(number,orderType)
+		 
         },
-        fail: function (res) {}
+        fail: function (res) {
+			uni.showLoading({
+				title: res,
+				mask: false
+			});
+			return
+		}
       });
     },
     navNewsPage: function () {
       console.log("跳转到消息页");
-      wx.navigateTo({
-        url: '/pages/jin-suo-yun/news'
+      uni.navigateTo({
+        url: '/pages/qing-f-c/message/messageList'
       });
     },
+	toSetting:function(){
+		uni.navigateTo({
+			url: './setting/setting',
+			success: res => {},
+			fail: (err) => { console.log(err)},
+			complete: () => {}
+		});
+	},
     toChoicePage: function () {
       if (!wx.getStorageSync("token")) {
         return;

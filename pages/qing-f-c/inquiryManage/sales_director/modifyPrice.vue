@@ -21,7 +21,7 @@
 			
 		</view>
 		<view class="fixed_bottom box_shadow_btn">
-		  <button class="btn_right" @tap="submit" hover-class="none">确定修改并推送</button>
+		  <button class="btn_right" @tap="submit" hover-class="none">推送</button>
 		</view>
 	</view>
 </template>
@@ -39,13 +39,15 @@
 				remark:'',
 				unitIndex: 1,
 				unitPrice:'',
-				unit: ''
+				unit: '',
+				unitPriceDecimal:''
 			};
 		},
 		onLoad:function(options){
 			_this = this
 			_quoteNumber =  options.quotationNumber
 			this.unitPrice  = options.unitPrice
+			this.newPrice = options.unitPriceDecimal
 			this.unit = this.unitPrice.substring(this.unitPrice.length -3)
 		},
 		methods:{
@@ -54,6 +56,13 @@
 				console.log(this.unitIndex)
 			},
 			submit:function(){
+				if (_this.newPrice<0 || _this.newPrice==''){
+					uni.showToast({
+						title: '价格不能小于零',
+						icon: 'none'
+					});
+					return
+				}
 				let data={
 					quotationNumber: _quoteNumber    ,			//报价单号
 					directorUnitPrice:  _this.newPrice   ,		//价格
@@ -61,29 +70,23 @@
 
 				}
 				let url = this.Api.directorModifyPrice
+				uni.showLoading({
+					title:"提交中",
+								mask: true
+				})
 				this.myRequest(data,url,'get').then(res => {
 				  console.log(res);
 				  if (res.data.status == 0){
+					  uni.hideLoading()
 					  var pages = getCurrentPages();
 					  var currPage = pages[pages.length - 1]; //当前页面
 					  var prevPage = pages[pages.length - 2]; //上一个页面
 					  //直接调用上一个页面的setData()方法，把数据存到上一个页面中去
-					  var pprevPage =pages[pages.length - 3];
-					  var ppprevPage = pages[pages.length - 4];
-					  var pppprevPage = pages[pages.length - 6];
 					  
 					  prevPage.setData({
 					     isDoRefresh:true
 					  })
-					  pprevPage.setData({
-					     isDoRefresh:true
-					  })
-					  ppprevPage.setData({
-					     isDoRefresh:true
-					  })
-					  pppprevPage.setData({
-					     isDoRefresh:true
-					  })
+					 
 					  
 					  uni.navigateBack({
 					  	delta: 1

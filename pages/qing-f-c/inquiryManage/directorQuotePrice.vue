@@ -1,48 +1,19 @@
 <template>
 	<view>
-		<!-- <view class='wrap-box'> -->
-			<!-- <view class="top-box">
-				<view class="top-title">
-					卖办报价基本信息
-				</view>
-			    <view class='mt_20'>
-					<view class="top-content">
-					      <text class='fs_14'>报价：</text><text class='fs_14 color_FF6000'> 3.2元/米 </text>
-					</view>
-					 <view class="top-content fs_14">
-					        <text>不含税</text><text class='ml_30'> 不含运费 </text><text class='color_999 ml_30'>交货地：</text><text>盛泽</text>
-					 </view>
-					 <view class="top-content fs_13">
-					       <text class="color_999">卖帮办：</text><text> 高斌丰</text>
-					 </view>
-					 <view class="top-content fs_13">
-					       <text class="color_999">卖家：</text><text> JS02175M </text>
-					 </view>
-					 <view class="top-content fs_13">
-					       <text class="color_999">库存状态：</text><text> 全部现货 </text>
-					 </view>
-					
-					<view class="top-content fs_11">
-					      <text class="color_999">报价时间：2019-08-22 10:08:23</text>
-					</view>
-					        
-				</view>
-				
-			</view> -->
-		<!-- </view> --> <!-- 顶部框 -->
+		
 		
 		<view class='quote-regular'>
 			<view class='wrap-quote'>
 				
-				<view class="quote-content">
+				<!-- <view class="quote-content">
 					<view class="fs_13">
 						计算规则：
 					</view>
 					<view>
 						<switchButton :items='brokerage' @buttonChange="switchChange('brokerage',$event)"></switchButton>
 					</view>
-				</view>
-				<view class="quote-content">
+				</view> -->
+				<!-- <view class="quote-content">
 					<view class="quote-content-left">
 						<view class="wid_241 fs_13">
 							报价：
@@ -54,7 +25,39 @@
 						<switchButton :items='unit' @buttonChange="switchChange('unit',$event)"></switchButton>
 					</view>
 					
+				</view> -->
+				<view class="quote-content">
+					 <view class="quote-content-left">
+						 <view class="wid_241 fs_13">
+							 挂码率：
+						 </view>
+						 <input placeholder="请输入" type='number' class="input" placeholder-style="font-size: 13px;" v-model="hangBitRate"></input>
+					 </view>
+   
+					<view class="fs_13">
+						%
+					</view>
 				</view>
+				
+				<view class="quote-content">
+					 <view class="quote-content-left">
+						 <view class="wid_241 fs_13">
+								库存状态：
+						 </view>
+						<myPickerPart :items="inventory" @mychange="pickerChange('storeStatus',$event)"></myPickerPart>
+					 </view>
+				
+				</view>
+				<view class="quote-content">
+					 <view class="quote-content-left">
+						 <view class="wid_241 fs_13">
+								交货地：
+						 </view>
+						<myPickerPart :items="placeOfDelivery" @mychange="pickerChange('placeOfDelivery',$event)"></myPickerPart>
+					 </view>
+				
+				</view>
+				
 				<view class="quote-content no_border">
 					<view class="fs_14">
 						税：
@@ -76,13 +79,13 @@
 					</view>
 				</view>
 				
-				<view class="quote-content" v-if="carriageIndex == 0">
+				<view class="quote-content" v-if="carriageIndex == 1">
 					<view class="quote-content-left">
 						<view class="wid_241 fs_13">
 							运费单价：
 						</view>
 						<input placeholder="请输入"  type='number' 
-						class="input" placeholder-style="font-size: 13px;" v-model="carriageContent" @input="carriageFunc"></input>
+						class="input" placeholder-style="font-size: 13px;" v-model="carriageContent"></input>
 					</view>
 	 
 					<view class="fs_13">
@@ -90,7 +93,7 @@
 					</view>
 					
 				</view>
-			   <view class="quote-content">
+			  <!-- <view class="quote-content">
 					 <view class="quote-content-left">
 						 <view class="wid_241 fs_13">
 							 交货地：
@@ -98,21 +101,11 @@
 						 <input placeholder="请输入" class="input" placeholder-style="font-size: 13px;" v-model="deliveryPlace"></input>
 					 </view>
 			   
-			   </view>
+			   </view> -->
 			   
-			   <view class="quote-content">
-					 <view class="quote-content-left">
-						 <view class="wid_241 fs_13">
-							 挂码率：
-						 </view>
-						 <input placeholder="请输入" type='number' class="input" placeholder-style="font-size: 13px;" v-model="hangBitRate" @input="rule1"></input>
-					 </view>
-   
-					<view class="fs_13">
-						%
-					</view>
-			   </view>
-			   <view class="quote-content">
+			   
+			   
+			   <!-- <view class="quote-content">
 					 <view class="quote-content-left">
 						 <view class="wid_241 fs_13">
 							 佣金比例：
@@ -123,39 +116,32 @@
 					<view class="fs_13">
 						%
 					</view>
-			   </view>
-			   <view class="quote-content">
-					 <view class="quote-content-left">
-						 <view class="wid_241 fs_13">
-						 		库存状态：
-						 </view>
-						<myPickerPart :items="inventory" @mychange="pickerChange('storeStatus',$event)"></myPickerPart>
-					 </view>
-			   
-			   </view>
-			   <view class="quote-content">
-				 <view class="quote-content-left">
-					 <view class="wid_241 fs_13">
-						 备注：
-					 </view>
-					 <input placeholder="请输入" class="input" placeholder-style="font-size: 13px;" v-model="remark"></input>
-				 </view>
-
-			   </view>
+			   </view> -->
+			  
+			  
 			   
 				
 				<view class="quote-content">
 					<view class="quote-content-left">
 						<view class="wid_241 fs_13">
-							最终报价：
+							直接报价：
 						</view>
-						<input placeholder="请输入"  type='number' class="input" placeholder-style="font-size: 13px;" v-model="finalPrice" @input="rule2"></input>
+						<input placeholder="请输入"  type='number' class="input" placeholder-style="font-size: 13px;" v-model="finalPrice"></input>
 					</view>
 					
 					<view class="fs_13">
 						{{returnLabel}}
 					</view>
 					
+				</view>
+				<view class="quote-content">
+								 <view class="quote-content-left">
+									 <view class="wid_241 fs_13">
+										 备注：
+									 </view>
+									 <input placeholder="请输入" class="input" placeholder-style="font-size: 13px;" v-model="remark"></input>
+								 </view>
+				
 				</view>
 				
 			</view>
@@ -212,6 +198,8 @@
 				includeTaxes: 0.92,
 				carriageContent: '',
 				deliveryPlace:'' ,//交货地
+				placeOfDelivery:'',  //交货地
+				placeOfDeliveryIndex:'',  //交货地ID
 				hangBitRate: '' , //挂码率
 				inventoryCode: '', //库存状态码
 				inventory:[]  //库存选项
@@ -236,39 +224,44 @@
 						console.log(this.inventoryCode)
 						break;
 					}
+					case 'placeOfDelivery':{
+						this.placeOfDeliveryIndex = index
+						console.log(this.placeOfDeliveryIndex)
+						break;
+					}
 				}
 			},
-			carriageFunc:function(){
-				this.carriagePrice = this.carriageContent
-				if(this.brokerageIndex==1){
-				  this.rule1()
-				}else{
-				  this.rule2()
-				}
-			},
-			rule1:function(){
-				//最终报价 = （报价/税比例 + 运费）*（1+佣金比例）
-				console.log('报价',this.quotePrice)
-				console.log('佣金',this.brokerageRate)
-				console.log('含税',this.includeTaxes)
-				console.log('运费单价1',this.carriagePrice)
-			    if(this.brokerageIndex==1){
-					this.finalPrice = ((this.quotePrice/this.includeTaxes + this.carriagePrice/1)*(1+this.brokerageRate/100)*_this.unitRate).toFixed(2)
-				}
+			// carriageFunc:function(){
+			// 	this.carriagePrice = this.carriageContent
+			// 	if(this.brokerageIndex==1){
+			// 	  this.rule1()
+			// 	}else{
+			// 	  this.rule2()
+			// 	}
+			// },
+			// rule1:function(){
+			// 	//最终报价 = （报价/税比例 + 运费）*（1+佣金比例）
+			// 	console.log('报价',this.quotePrice)
+			// 	console.log('佣金',this.brokerageRate)
+			// 	console.log('含税',this.includeTaxes)
+			// 	console.log('运费单价1',this.carriagePrice)
+			//     if(this.brokerageIndex==1){
+			// 		this.finalPrice = ((this.quotePrice/this.includeTaxes + this.carriagePrice/1)*(1+this.brokerageRate/100)*_this.unitRate).toFixed(2)
+			// 	}
 				
-			},
-			rule2:function(){
-				console.log('报价',this.quotePrice)
-				console.log('佣金',this.brokerageRate)
-				console.log('含税',this.includeTaxes)
-				console.log('运费单价1',this.carriagePrice)
-				if(this.brokerageIndex==2){
-					console.log("daozheli")
-					this.brokerageRate = ((this.finalPrice/(this.quotePrice/this.includeTaxes + this.carriagePrice/1)-1)*100*_this.unitRate).toFixed(2)
-				}
+			// },
+			// rule2:function(){
+			// 	console.log('报价',this.quotePrice)
+			// 	console.log('佣金',this.brokerageRate)
+			// 	console.log('含税',this.includeTaxes)
+			// 	console.log('运费单价1',this.carriagePrice)
+			// 	if(this.brokerageIndex==2){
+			// 		console.log("daozheli")
+			// 		this.brokerageRate = ((this.finalPrice/(this.quotePrice/this.includeTaxes + this.carriagePrice/1)-1)*100*_this.unitRate).toFixed(2)
+			// 	}
 				
 				
-			},
+			// },
 			getSelect:function(){
 				let data={}
 				let url=this.Api.computationRule
@@ -314,6 +307,18 @@
 					  icon: 'none'
 					});
 				});
+				//交货地
+				url = this.Api.placeOfDelivery
+				data = {}
+				this.myRequest(data,url,'get').then(res => {
+				  console.log(res);
+				  _this.placeOfDelivery = res.data.data.list
+				}).catch(err => {
+				  wx.showToast({
+				    title: err.data.errMsg,
+				    icon: 'none'
+				  });
+				});
 				//库存状态
 				url= this.Api.inventory
 				this.myRequest(data,url,'get').then(res => {
@@ -331,40 +336,41 @@
 				switch (label){
 					case 'unit':
 					    this.unitIndex = index;
-						if (this.unitIndex == 1){
-							this.unitRate =1
-						}else{
-							this.unitRate = 0.9144
-						}
+						// if (this.unitIndex == 1){
+						// 	this.unitRate =1
+						// }else{
+						// 	this.unitRate = 0.9144
+						// }
 						console.log(this.unitIndex)
 						break;
 					case 'carriage':
 					    this.carriageIndex = index;
 						console.log(this.carriageIndex)
-						this.carriageSwitch = !this.carriageSwitch
-						if (this.carriageIndex== 0){
-							this.carriagePrice = ''
-						}
-						if(this.brokerageIndex==1){
-						  this.rule1()
-					    }else{
-						  this.rule2()
-						}
+						// this.carriageSwitch = !this.carriageSwitch
+						// if (this.carriageIndex== 0){
+						// 	this.carriagePrice = ''
+						// 	this.carriageContent = ''
+						// }
+						// if(this.brokerageIndex==1){
+						//   this.rule1()
+					 //    }else{
+						//   this.rule2()
+						// }
 						break;
 					case 'taxes':
 					    this.taxedIndex = index;
-						console.log(this.taxedIndex)
-						if (this.taxedIndex == 1){
-							this.includeTaxes = 0.92
+						// console.log(this.taxedIndex)
+						// if (this.taxedIndex == 1){
+						// 	this.includeTaxes = 0.92
 							
-						}else {
-							this.includeTaxes = 1
-						}
-						if(this.brokerageIndex==1){
-						  this.rule1()
-						}else{
-						  this.rule2()
-						}
+						// }else {
+						// 	this.includeTaxes = 1
+						// }
+						// if(this.brokerageIndex==1){
+						//   this.rule1()
+						// }else{
+						//   this.rule2()
+						// }
 						break;
 					case 'brokerage':
 					    this.brokerageIndex = index;
@@ -373,25 +379,32 @@
 				}
 			},
 			submit:function(){
+				
 				let data={
 					    inquiryNumber: _inquiryNumber,      //询价单号
-						basicsPrice: _this.quotePrice    ,			//基础价格
-						computationRule: _this.brokerageIndex    ,	//计算规则
+						basicsPrice: _this.finalPrice,			//基础价格
+						computationRule: 1    ,	//计算规则
 						isIcash: _this.carriageIndex    ,				//是否含运费
 						isPlusDuty: _this.taxedIndex    ,			//是否含税
+						// freight: 0  ,				//运费
 						freight: _this.carriagePrice   ,				//运费
 						freightUnit: _this.unitIndex    ,			//运费单位
-						commissionRate: _this.brokerageRate    ,		//佣金比例
+						commissionRate: 0,		//佣金比例
 						remarks: _this.remark    ,				//备注
 						finalPrice: _this.finalPrice    ,			//最终价格
 						finalPriceUnit: _this.unitIndex    ,	//最终价格单位
-						placeOfDelivery: _this.deliveryPlace ,//交货地
+						placeOfDelivery: _this.placeOfDeliveryIndex ,//交货地
 						hangBitRate: _this.hangBitRate , //挂码率
 						inventoryCode: _this.inventoryCode, //库存状态码
 				}
 				let url = this.Api.buyDeputyDirectPrice
+				uni.showLoading({
+					title: '提交中',
+					mask: true
+				});
 				this.myRequest(data,url,'post').then(res => {
 						console.log(res);
+						uni.hideLoading()
 						if (res.data.status == 0){
 						   uni.showToast({
 						   	title: '报价成功',
@@ -399,6 +412,12 @@
 							duration: 1000
 						   });
 						   this.refreshBack();
+						}else{
+							uni.showToast({
+								title: res.data.message,
+								icon: 'none',
+								duration: 1000
+							});
 						}
 				 }).catch(err => {
 					wx.showToast({

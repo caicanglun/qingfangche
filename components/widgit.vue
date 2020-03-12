@@ -11,6 +11,7 @@
 				type: String,
 				default: ''
 			}
+			
 		},
 		data() {
 			return {
@@ -30,7 +31,7 @@
    	width: 40upx;
    	height: 40upx;
    	border-radius: 50%;
-   	right: 50upx;
+    right: 50upx;
    	top: 20upx;
    }
 </style>

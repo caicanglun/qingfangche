@@ -1,0 +1,13 @@
+{
+  "navigationBarTitleText": "修改分析结果",
+  "usingComponents": {
+    "picker-button": "/components/pickerButton",
+    "my-picker": "/components/myPicker",
+    "part-checkbox-group": "/components/partCheckboxGroup",
+    "my-picker-small": "/components/myPickerSmall",
+    "switch-button": "/components/switchButton-edit",
+    "picker-input": "/components/pickerInput",
+    "uni-icon": "/components/uni-icons/uni-icons",
+    "popup-me": "/components/popupMe"
+  }
+}

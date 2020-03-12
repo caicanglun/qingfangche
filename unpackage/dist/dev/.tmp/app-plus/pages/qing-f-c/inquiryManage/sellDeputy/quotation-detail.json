@@ -2,6 +2,7 @@
   "navigationBarTitleText": "报价详情",
   "usingComponents": {
     "chanpinyaosu": "/components/inquiry/chanpinyaosu-quote",
-    "baojia-detail": "/components/inquiry/baojia-detail"
+    "baojia-detail": "/components/inquiry/baojia-detail-buy",
+    "seller-info": "/components/inquiry/sellerInfo"
   }
 }

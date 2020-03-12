@@ -6,11 +6,12 @@
 				</view> -->
 				<view class="bingpai">
 					<view class="details-content">
-						<text class='title'>产品系列：</text><text>{{inquiryInfo.seriesName||''}}</text>
+						<text class='title'>产品类型：</text><text>{{inquiryInfo.mainProduct||''}}</text>
 					</view>
 					<view class="details-content">
-						<text class='title'>品质定位：</text><text>{{inquiryInfo.qualityName||''}}</text>
+						<text class='title'>产品系列：</text><text>{{inquiryInfo.seriesName||''}}</text>
 					</view>
+					
 				</view>
 				<view class="details-content">
 					<text class='title'>规格：</text><text>{{inquiryInfo.specification||''}}</text>
@@ -38,6 +39,7 @@
 					</view>
 					<view class="details-content">
 						<text class='title'>克重：</text><text> {{inquiryInfo.gramWeight||''}} </text>
+						<text> {{inquiryInfo.gramWeightUnitName||''}} </text>
 					</view>
 				</view>
 				<view class='bingpai'>
@@ -48,13 +50,18 @@
 						<text class='title'>幅宽：</text><text>{{inquiryInfo.clothBreadth||''}}</text>
 					</view>
 				</view>
-		
-				<view class="details-content">
-					<text class='title'>购买数量：</text><text>{{inquiryInfo.purchaseQuantity||''}}</text>
+				<view class='bingpai'> 
+					<view class="details-content">
+						<text class='title'>品质定位：</text><text>{{inquiryInfo.qualityName||''}}</text>
+					</view>
+					<view class="details-content">
+						<text class='title'>购买数量：</text><text>{{inquiryInfo.purchaseQuantity||''}}</text>
+					</view>
 				</view>
-				<view class="details-content">
+		        
+				<!-- <view class="details-content">
 					<text class='remark-title'>备注：</text><text class="remark-content">{{inquiryInfo.remarks||''}}</text>
-				</view>
+				</view> -->
 				
 				<view class='recentPrice' v-if="isDisplayRecent">
 					<navigator url="/pages/qing-f-c/inquiryManage/recentPrice/recentPrice">查看近期价格>></navigator>
@@ -66,7 +73,9 @@
 </template>
 
 <script>
+	
 	export default {
+		
 		props:{
 			inquiryInfo:{
 				type: Object

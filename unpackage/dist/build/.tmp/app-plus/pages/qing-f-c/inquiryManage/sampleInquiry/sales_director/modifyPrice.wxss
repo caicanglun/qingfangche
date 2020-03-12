@@ -32,43 +32,60 @@
 .content-box {
   display: -webkit-box;
   display: -webkit-flex;
-  display: -ms-flexbox;
   display: flex;
   -webkit-box-pack: justify;
   -webkit-justify-content: space-between;
-      -ms-flex-pack: justify;
           justify-content: space-between;
   -webkit-box-align: center;
   -webkit-align-items: center;
-      -ms-flex-align: center;
           align-items: center;
+  border-bottom: 1rpx solid #ededed;
+  height: 65rpx;
+}
+.content-box-1 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+          align-items: center;
+  border-bottom: 1rpx solid #ededed;
+  height: 65rpx;
+}
+.content-box-2 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+          align-items: center;
+  -webkit-box-pack: justify;
+  -webkit-justify-content: space-between;
+          justify-content: space-between;
   border-bottom: 1rpx solid #ededed;
   height: 65rpx;
 }
 .content-bottom {
   display: -webkit-box;
   display: -webkit-flex;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-box-pack: justify;
-  -webkit-justify-content: space-between;
-      -ms-flex-pack: justify;
-          justify-content: space-between;
   -webkit-box-align: center;
   -webkit-align-items: center;
-      -ms-flex-align: center;
           align-items: center;
   height: 65rpx;
 }
 .baojia_price {
   color: #333236;
   font-size: 14px;
+  width: 200rpx;
 }
 .input {
   width: 250rpx;
+  font-size: 28rpx;
 }
 .input_two {
   width: 480rpx;
+  font-size: 14px;
 }
 .fixed_bottom {
   width: 100%;
@@ -76,7 +93,6 @@
   bottom: 0;
   display: -webkit-box;
   display: -webkit-flex;
-  display: -ms-flexbox;
   display: flex;
   z-index: 999;
 }

@@ -44,7 +44,8 @@
 		</view>
 		<!-- - - - 对比结果- - - -- -->
 		 <view class="details-box">
-		 	<view class='wrap-box-result'>
+			 <sampleResult :resultList="topList.snalyseContrast" ></sampleResult>
+		 	<!-- <view class='wrap-box-result'>
 		 		<view class="result-banner">
 		 			<view>对比结果</view>
 				</view>
@@ -81,12 +82,7 @@
 					</view>
 					 
 				</view>
-				<!-- <view class="result-dan">
-					<view class="flex">
-						<view class="result-title">特性：</view>
-						<view class="result-button">相同</view> 
-					</view>
-				</view> -->
+				
 				<view class="result-dan">
 					<view class="flex">
 						<view class="result-title">布样类型：</view>
@@ -94,10 +90,21 @@
 					</view>
 				</view>
 		 			
-		 	</view>   <!-- wrap -->
+		 	</view>  -->
 		 	
-		 </view>  <!-- 详情detail-box -->
+		 </view>  
+		 
+		<view class="details-box">
+			<view class='wrap-box-1'>
+				<view class="details-title">
+					<view>品名（别名）：T20D400T半光春亚纺</view>
+					<view>原样初始数据</view>
+				</view>
+				<chanpinyaosu></chanpinyaosu>         <!-- 产品要素 -->
 		
+			</view>   <!-- wrap -->
+			
+		</view>  <!-- 详情detail-box -->
 		
 		<!-- - - - - - - -- -->
 		<view class="details-box">
@@ -170,14 +177,19 @@
 	import popupMe from "@/components/popupMe.vue";
 	import uniIcon from "@/components/uni-icons/uni-icons.vue";
 	import chanpinyaosu from "@/components/inquiry/chanpinyaosu.vue";
+	import sampleResult from "@/components/sampleResult.vue";
+	let _this,_orderType,_inquiryNumber
 	export default {
 		components:{
 			popupMe,
 			uniIcon,
-			chanpinyaosu
+			chanpinyaosu,
+			sampleResult
 		},
 		data(){
 			return {
+				topList:'',
+				
 				isMatch: true,
 				unMatch: '',
 				closing: '',
@@ -186,7 +198,37 @@
 				isAnaly: false
 			};
 		},
+		onShow:function(){
+			
+		},
+		onLoad:function(options){
+			
+			_this = this
+			_inquiryNumber = options.inquiryNumber
+			_orderType = options.number
+			this.getInquiryInfo()
+			
+		},
 		methods:{
+			getInquiryInfo:function(){
+				let url = this.Api.analystDetails
+				let data ={
+					number: _inquiryNumber,		//询价/报价单号
+					orderType: _orderType	   //类型 1询价单，2报价单
+				}
+				this.myRequest(data,url,'get').then(res => {
+				  
+				  if (res.data.status == 0){
+					 _this.topList = res.data.data
+					 console.log(_this.topList)
+				  }
+				}).catch(err => {
+				  wx.showToast({
+				    title: err.data.errMsg,
+				    icon: 'none'
+				  });
+				});
+			},
 			swtichDisplay:function(){
 				this.isDisplayOrginal = !this.isDisplayOrginal
 			},

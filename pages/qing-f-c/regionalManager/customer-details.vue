@@ -13,7 +13,9 @@
       <view class="fs_18 font_we_bold">{{customerInfo.companyName||''}}</view>
 	  <view :class="'ml_20 '+ (customerInfo.buyOrSell==1?'id_btn':'seller_btn')">{{customerInfo.buyOrSell==1?'买家':'卖家'}}</view>
     </view>
-
+    <view>
+		<image src="/static/images/qingfc/del@2x.png"  style="width:36upx;height:36upx;" mode="aspectFit" @tap="delCustomer"></image>
+	</view>
     
   </view>
   <!-- <view class="flex_right mb_20">
@@ -474,6 +476,53 @@ export default {
         });
       }
     },
+	//删除客户
+	delCustomer:function(){
+		uni.showModal({
+		    title: '提示',
+		    content: '确认删除该客户吗？',
+		    success: function (res) {
+		        if (res.confirm) {
+		            let data={
+						companyCode: _companyCode
+					}
+					let url = _this.Api.delCustomer
+					uni.showLoading({
+						title: '删除中',
+						mask: true
+					});
+					_this.myRequest(data,url,'get').then(res => {
+					  console.log(res);
+					  if (res.data.status == 0){
+						  uni.hideLoading();
+						  
+						  uni.showToast({
+						  	title: '删除成功'
+						  });
+						  setTimeout(function() {
+							  uni.navigateBack({
+							  	delta: -1
+							  });
+						  }, 1000);
+						  
+					  }else {
+						  uni.showToast({
+						  	title: res.data.message
+						  });
+					  }
+					  
+					}).catch(err => {
+					  wx.showToast({
+					    title: err.data.errMsg,
+					    icon: 'none'
+					  });
+					});
+		        } else if (res.cancel) {
+		            console.log('用户点击取消');
+		        }
+		    }
+		});
+	},
 	//跳转到添加竞争对手
 	addCompetitor:function(e){
 		let companyCode = this.customerInfo.companyCode;

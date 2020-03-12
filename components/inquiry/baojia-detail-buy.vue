@@ -6,6 +6,7 @@
 				<view class='subItem'><text class="label">税：</text>{{item.isPlusDuty ||''}}</view>
 				<view class='subItem'><text class="label">运费：</text>{{item.isIcash ||''}}</view>
 			</view>
+			<view class='subItem' v-if='item.buyDeputyIsIcash ==1'><text class="label">运费单价：</text>{{item.buyDeputyFreight ||''}}{{item.buyDeputyFinalPriceUnitName ||''}}</view>	
 			<view class="bingpai">
 				<view class='subItem'><text class="label">卖帮办：</text>{{item.sellDeputyRealName ||''}}</view>
 				<view class='subItem'><text class="label">交货地：</text>{{item.placeOfDelivery ||''}}</view>

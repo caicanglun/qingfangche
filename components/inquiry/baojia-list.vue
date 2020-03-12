@@ -1,9 +1,23 @@
 <template>
 	<view>
 		<view class="baojiaList-box" v-if="status04.includes(item.quotationStatusCode)">
-			<view class='baojia-row'>
+			<view class='baojia-row' v-if="item.directorUnitPrice!=null">
 				<view class="title">
-					报价： <text class='color_FF6000'>{{item.unitPrice||''}}</text>
+					审核价： <text :class="item.directorUnitPrice==item.unitPrice?'color_FF6000':'color_FF0000'">{{item.directorUnitPrice||''}}</text>
+				</view>
+				<view class='tax_button'>
+					{{item.isIcash||''}}
+				</view>
+				<view class='tax_button'>
+					{{item.isPlusDuty||''}}
+				</view>
+				<view class="buttonStyle">
+					{{item.quotationStatus||''}}
+				</view>
+			</view>
+			<view class='baojia-row' style="border-bottom: none;">
+				<view class="title">
+					出厂价： <text class='color_FF6000'>{{item.unitPrice||''}}</text>
 				</view>
 				<view class='tax_button'>
 					{{item.isIcash||''}}
@@ -15,6 +29,22 @@
 					{{item.quotationStatus||''}}
 				</view>
 			</view>
+			<view class='baojia-row' style="border-bottom: none;" v-if="item.buyDeputyUnitPrice!=null">
+				<view class="title">
+					销售价： <text class='color_FF6000'>{{item.buyDeputyUnitPrice||''}}</text>
+				</view>
+				<view class='tax_button'>
+					{{item.buyDeputyIsIcash||''}}
+				</view>
+				<view class='tax_button'>
+					{{item.buyDeputyIsPlusDuty||''}}
+				</view>
+				<view class="buttonStyle">
+					
+				</view>
+			</view>
+			
+			
 			<view class="baojia-content">
 			  <text class='title'>卖帮办：</text><text>{{item.sellDeputyRealName||''}}</text>
 			</view>
@@ -26,7 +56,7 @@
 					<text>报价时间：</text><text>{{item.quotationCreateTime||''}}</text>
 				</view>
 			   <view class='baojia_button' >
-				   <view class='baojia_Clipboard' @tap.stop="handleEvent('closing',item.quotationNumber)" v-if="item.quotationStatusCode==0&&!isSaleDirector">关闭</view>
+				   <view class='baojia_Clipboard' @tap.stop="handleEvent('closing',item.quotationNumber)" v-if="item.operatingAuthorization&&item.quotationStatusCode==0&&!isSaleDirector">关闭</view>
 				   <view class='baojia_Clipboard' @tap.stop="handleEvent('verify',item.quotationNumber)" v-if="item.quotationStatusCode==0&&isSaleDirector">去审核</view>
 			   </view>
 		
@@ -36,9 +66,23 @@
 		<!-- ---------------- 报价记录---------------- -->
 				<view class="baojiaList-box" v-if="status02.includes(item.quotationStatusCode)">
 					<view class="unmatch-wrap">
+						<view class='baojia-row' style="border-bottom: none;" v-if="item.directorUnitPrice!=null">
+							<view class="title">
+								审核价： <text class='color_FF6000'>{{item.directorUnitPrice||''}}</text>
+							</view>
+							<view class='tax_button'>
+								{{item.isIcash||''}}
+							</view>
+							<view class='tax_button'>
+								{{item.isPlusDuty||''}}
+							</view>
+							<view class="buttonStyle">
+								
+							</view>
+						</view>
 						<view class='box-row'>
 							<view class="title">
-								报价： <text class='color_FF6000'>{{item.unitPrice||''}}</text>
+								出厂价： <text class='color_FF6000'>{{item.unitPrice||''}}</text>
 							</view>
 							<view class='tax_button'>
 								{{item.isIcash||''}}
@@ -50,13 +94,31 @@
 								{{item.quotationStatus||''}}
 							</view>
 						</view>
-						<view class="baojia-content">
-						  <text class='title'>卖帮办：</text><text>{{item.sellDeputyRealName||''}}</text>
+						<view class='baojia-row' style="border-bottom: none;" v-if="item.buyDeputyUnitPrice!=null">
+							<view class="title">
+								销售价： <text class='color_FF6000'>{{item.buyDeputyUnitPrice||''}}</text>
+							</view>
+							<view class='tax_button'>
+								{{item.buyDeputyIsIcash||''}}
+							</view>
+							<view class='tax_button'>
+								{{item.buyDeputyIsPlusDuty||''}}
+							</view>
+							<view class="buttonStyle">
+								
+							</view>
 						</view>
-						<view class="baojia-content">
-						  <text class='title'>卖家：</text><text>{{item.companyCode||''}}</text>
+						
+						<view class="flex_sb">
+							<view class="baojia-content">
+							  <text class='title'>卖帮办：</text><text>{{item.sellDeputyRealName||''}}</text>
+							</view>
+							<view class="baojia-content">
+							  <text class='title'>卖家：</text><text>{{item.companyCode||''}}</text>
+							</view>
 						</view>
-						<view class="baojia-bottom-spec">
+						
+						<view class="box-contentSmall">
 							<view class="baojia_time">
 								<text>报价时间：</text><text>{{item.quotationCreateTime||''}}</text>
 							</view>
@@ -70,9 +132,23 @@
 				<!-- ---------------- 报价记录---------------- -->
 						<view class="baojia-box baojia-close" v-if="status03.includes(item.quotationStatusCode)">
 							<view class="closing-wrap-box">
+								<view class='box-row' style="border-bottom: none;" v-if="item.directorUnitPrice!=null">
+									<view class="title">
+										审核价：<text class="num color_999">{{item.directorUnitPrice||''}}</text>
+									</view>
+									<view class='tax_button_closing'>
+										{{item.isIcash||''}}
+									</view>
+									<view class='tax_button_closing'>
+										{{item.isPlusDuty||''}}
+									</view>
+									<view class="state-unMatch color_999 fs_13">
+										
+									</view>
+								</view>
 								<view class='box-row'>
 									<view class="title">
-										报价：<text class="num color_999">2.5元/米</text>
+										出厂价：<text class="num color_999">{{item.unitPrice||''}}</text>
 									</view>
 									
 									<view class='tax_button_closing'>
@@ -81,19 +157,33 @@
 									<view class='tax_button_closing'>
 										{{item.isPlusDuty||''}}
 									</view>
-									
-									
+
 									<view class="state-unMatch color_999 fs_13">
 										{{item.quotationStatus||''}}
 									</view>
 								</view>
+								<view class='box-row' style="border-bottom: none;" v-if="item.buyDeputyUnitPrice!=null">
+									<view class="title">
+										销售价：<text class="num color_999">{{item.buyDeputyUnitPrice||''}}</text>
+									</view>
+									<view class='tax_button_closing'>
+										{{item.buyDeputyIsIcash||''}}
+									</view>
+									<view class='tax_button_closing'>
+										{{item.buyDeputyIsPlusDuty||''}}
+									</view>
+									<view class="state-unMatch color_999 fs_13">
+										
+									</view>
+								</view>
+								
 								<view class="baojia-content">
 								  <text class='title'>卖帮办：</text><text>{{item.sellDeputyRealName||''}}</text>
 								</view>
 								<view class="baojia-content">
 								  <text class='title'>卖家：</text><text>{{item.companyCode||''}}</text>
 								</view>
-								<view class="baojia-bottom-spec">
+								<view class="box-contentSmall">
 									<view class="baojia_time">
 										<text>报价时间：</text><text>{{item.quotationCreateTime||''}}</text>
 									</view>
@@ -117,6 +207,7 @@
 				type: Boolean,
 				default: false
 			}
+			
 		},
 		data() {
 			return {
@@ -143,7 +234,9 @@
 		flex-direction: column;
 		
 	}
-	
+	.color_FF0000{
+		color:#4487FD;
+	}
 .baojia-row{
 		display:flex;
 		justify-content: space-between;
@@ -152,6 +245,9 @@
 		width: 100%;
 		border-bottom: 1upx solid #F3F3F3;
 		.buttonStyle{
+			width:100upx;
+			display: flex;
+			justify-content: flex-end;
 			color: #FF6000;
 		}
 		.state-unMatch{
@@ -171,6 +267,7 @@
 		}
 		.title{
 			font-size:14px;
+			width: 220upx;
 			font-weight: bold;
 			.num{
 				color: #FF6000;
@@ -181,11 +278,8 @@
 		display: flex;
 		align-items: center;
 		width: 100%;
-		font-size: 13px;
-		height: 56upx;
-		.title{
-			color: #8D8D8D;
-		}
+		font-size: 12px;
+		height: 69upx;
 	}
 .baojia-content-spec{
 		display: flex;
@@ -194,6 +288,7 @@
 		font-size: 12px;
 		height: 69upx;
 	}
+
 .box-contentSmall{
 		display: flex;
 		align-items: center;
@@ -201,6 +296,9 @@
 		font-size: 11px;
 		height: 50upx;
 		color: #8D8D8D;
+		// .baojia_time{
+		// 	font-size: 10px;
+		// }
 }
 
 
@@ -231,9 +329,7 @@
 				border-radius:4upx;
 			}
 		}
-		.baojia_time{
-			font-size: 10px;
-		}
+	
 }
 .box-row{
 		display:flex;

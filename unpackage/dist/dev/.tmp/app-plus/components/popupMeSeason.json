@@ -1,0 +1,7 @@
+{
+  "component": true,
+  "usingComponents": {
+    "uni-icon": "/components/uni-icons/uni-icons",
+    "my-checkbox-group": "/components/myCheckboxGroupPop"
+  }
+}

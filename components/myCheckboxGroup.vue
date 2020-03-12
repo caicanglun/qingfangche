@@ -72,6 +72,6 @@
 	position: absolute;
 	right: -10upx;
 	top: -15upx;
-	z-index: 99;
+	z-index: 98;
 }
 </style>

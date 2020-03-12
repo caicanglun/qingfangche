@@ -17,14 +17,16 @@
 			<view>
 				<topTabbar @change="tabSwitch()" :items="items"  :directorReviewCount="directorReviewCount"></topTabbar>
 			</view>
+			<view  style="background: #FFFFFF;">
+					 <filterButton @change="filterButtonChange" :items="filterButton" :index="fitlerButtonIndex"></filterButton>
+			</view>
+			<view style="background:#FFFFFF;height:20upx;width:100%;"></view>
 		</view>
-		<view style="height: 140upx;width:100%;"></view>
+		<view style="height: 180upx;width:100%; margin-top:40upx;"></view>
 		
 	<!-- ---------------------------------------- -->
 	<view class="content">
-		<view class="pt_20 pb_20">
-			<filterButton @change="filterButtonChange" :items="filterButton"></filterButton>
-		</view>
+		
 		<!-- <view class="counter"> {{filterButton[fitlerButtonIndex]}}<text class="pl_20">未报价发起{{count}}条</text></view> -->
 
 		<inquireList @change="toDetail" :items="lists" :isDisplayType="activeIndex==0?true:''" isSellDeputy="salesDirector"></inquireList>
@@ -47,7 +49,7 @@
 <script>
 	import uniIcon from "@/components/uni-icons/uni-icons.vue";
 	import topTabbar from "@/components/topTabbar-inquiry.vue";
-	import filterButton from "@/components/filterButton.vue";
+	import filterButton from "@/components/filterButton-status.vue";
 	import inquireList from "@/components/inquireList.vue";
 	import uniLoadMore from "@/components/uni-load-more/uni-load-more.vue";
 	let _this,timer;
@@ -66,8 +68,8 @@
 				inputValueOne:'',
 				items: ['待审核','常规询价','找样询价'],
 				activeIndex: 0,
-				filterButton:['近3天','近7天','近15天','一个月内'],
-				fitlerButtonIndex: 0,
+				filterButton:[],
+				fitlerButtonIndex: '',
 				count: 0,
 				lists:[],
 				totalPage:0,   //总页数
@@ -76,7 +78,7 @@
 				keyword : '',			//搜索关键字
 				affiliation	 : 1,	//1我的，2非我的
 				inquiryType : 0,		//0全部，1常规，2找样
-				time : 3,				//天为单位
+				inquiryStatus : -1,				//天为单位
 				pageNum	 : 1,		//当前页数
 				pageSize : 6 		,//每页记录数
 				waitForReview: 1   //待审核
@@ -100,8 +102,7 @@
 			
 			this.getInquiryList();
 			this.reviewCount();
-				
-			
+
 			
 		},
 		onShow: function () {
@@ -112,14 +113,37 @@
 		  		   this.getInquiryList();
 				   this.reviewCount();
 		  	 }
-		  
+		  _this.getInquiryStatus()
+		  _this.reviewCount()
+		  _this.getInquiryList()
 		},
 		onLoad:function(){
 			_this = this
 			_this.getInquiryList()
 			_this.reviewCount()
+			_this.getInquiryStatus()
 		},
 		methods:{
+			getInquiryStatus:function(){
+				
+				let postCode = uni.getStorageSync('pupDefault')
+				let url = this.Api.inquiryStatus2
+				let data = {
+					postCode: postCode
+							
+				}
+				this.myRequest(data,url,'get').then(res => {
+				  console.log(res);
+				   _this.filterButton = res.data.data.list
+				   this.setIsChecked(_this.filterButton,_this.inquiryStatus)
+				   console.log(_this.filterButton)
+				}).catch(err => {
+				  wx.showToast({
+				    title: err.data.errMsg,
+				    icon: 'none'
+				  });
+				});
+			},
 			getmoreInquiry: function() {
 				if (_this.loadingType !== 'more') {//loadingType!=0;直接返回
 					return false;
@@ -130,7 +154,7 @@
 					keyword : _this.keyword,			//搜索关键字
 					waitForReview:  _this.waitForReview,     //1待审核，2非待审核
 					inquiryType :  _this.inquiryType,		//1常规，2找样
-					time : _this.time,				//天为单位
+					inquiryStatus : _this.inquiryStatus,				//天为单位
 					pageNum	 : _this.pageNum,		//当前页数
 					pageSize : _this.pageSize 		//每页记录数
 					
@@ -179,7 +203,7 @@
 					keyword : _this.keyword,			//搜索关键字
 					waitForReview:  _this.waitForReview,     //1待审核，2非待审核
 					inquiryType :  _this.inquiryType,		//1常规，2找样
-					time : _this.time,				//天为单位
+					inquiryStatus : _this.inquiryStatus,				//天为单位
 					pageNum	 : _this.pageNum,		//当前页数
 					pageSize : _this.pageSize 		//每页记录数
 					
@@ -204,12 +228,22 @@
 			toDetail:function(arr){
 				let id = arr[0]
 				let type = arr[1]
-				uni.navigateTo({
-					url: '/pages/qing-f-c/inquiryManage/sales_director/inquiry-details?inquiryNumber='+ id,
-					success: res => {},
-					fail: () => {},
-					complete: () => {}
-				});
+				if (type == 1){
+					uni.navigateTo({
+						url: '/pages/qing-f-c/inquiryManage/sales_director/inquiry-details?inquiryNumber='+ id,
+						success: res => {},
+						fail: () => {},
+						complete: () => {}
+					});
+				}else {
+					uni.navigateTo({
+						url: '/pages/qing-f-c/inquiryManage/sampleInquiry/sales_director/inquiry-details?inquiryNumber='+ id,
+						success: res => {},
+						fail: (err) => {console.log(err)},
+						complete: () => {}
+					});
+				}
+				
 			},
 			tabSwitch:function(index){
 				this.activeIndex = index
@@ -219,6 +253,8 @@
 					   this.waitForReview = 1  
 					   this.inquiryType = 0
 					   this.pageNum = 1
+					   this.inquiryStatus = -1
+					   this.getInquiryStatus()
 					   this.getInquiryList()
 					   uni.pageScrollTo({
 					   	duration: 0,
@@ -229,6 +265,8 @@
 					   this.waitForReview = 2
 					   this.inquiryType = 1
 					   this.pageNum = 1
+					   this.inquiryStatus = -1
+					   this.getInquiryStatus()
 					   this.getInquiryList()
 					   uni.pageScrollTo({
 					   	duration: 0,
@@ -239,6 +277,8 @@
 					   this.waitForReview = 2
 					   this.inquiryType = 2
 					   this.pageNum = 1
+					   this.inquiryStatus = -1
+					   this.getInquiryStatus()
 					   this.getInquiryList()
 					   uni.pageScrollTo({
 					   	duration: 0,
@@ -248,30 +288,18 @@
 				}
 			},
 			filterButtonChange:function(index){
-				this.fitlerButtonIndex = index
-				switch(index){
-					case 0:
-					    this.time = 3
-						this.pageNum = 1
-					    break  
-					case 1:
-					    this.time = 7
-						this.pageNum =1
-					   break
-					case 2:
-					    this.time = 15
-						this.pageNum = 1
-					   break 
-					case 3:
-					    this.time= 30
-						this.pageNum = 1
-					   break 
-				}
+				
+					
+				this.inquiryStatus = index
+				this.setIsChecked(this.filterButton,this.inquiryStatus)
+				
+				this.pageNum = 1
 				this.getInquiryList()
 				console.log("fiterButtonIndex",this.fitlerButtonIndex)
 			},
 			blurInput:function(e){
 				//搜索询价单
+				this.keyword = this.inputValueOne
 			},
 			toNewBuild:function(){
 				uni.navigateTo({
@@ -286,11 +314,10 @@
 			},
 			tapSearch:function() {
 				
-				this.keyword = this.inputValueOne
+				
 				console.log(this.keyword)
 				this.getInquiryList()
-				this.inputValueOne = ''
-				this.keyword = ''
+				
 			}
 		}
 	}

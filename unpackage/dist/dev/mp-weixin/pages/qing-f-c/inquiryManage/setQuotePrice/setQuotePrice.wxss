@@ -42,11 +42,9 @@ page {
 .top-box .top-content {
   display: -webkit-box;
   display: -webkit-flex;
-  display: -ms-flexbox;
   display: flex;
   -webkit-box-align: center;
   -webkit-align-items: center;
-      -ms-flex-align: center;
           align-items: center;
   height: 56rpx;
 }
@@ -60,38 +58,6 @@ page {
   font-weight: bold;
   height: 65rpx;
 }
-.quote-content {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-align: center;
-  -webkit-align-items: center;
-      -ms-flex-align: center;
-          align-items: center;
-  -webkit-box-pack: justify;
-  -webkit-justify-content: space-between;
-      -ms-flex-pack: justify;
-          justify-content: space-between;
-  height: 65rpx;
-  border-bottom: 1rpx solid #EDEDED;
-}
-.quote-content-82 {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-align: center;
-  -webkit-align-items: center;
-      -ms-flex-align: center;
-          align-items: center;
-  -webkit-box-pack: justify;
-  -webkit-justify-content: space-between;
-      -ms-flex-pack: justify;
-          justify-content: space-between;
-  height: 82rpx;
-  border-bottom: 1rpx solid #EDEDED;
-}
 .no_border {
   border: none;
 }
@@ -99,14 +65,25 @@ page {
   width: 250rpx;
   font-size: 14px;
 }
-.quote-content-left {
+.quote-content {
   display: -webkit-box;
   display: -webkit-flex;
-  display: -ms-flexbox;
   display: flex;
   -webkit-box-align: center;
   -webkit-align-items: center;
-      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: justify;
+  -webkit-justify-content: space-between;
+          justify-content: space-between;
+  height: 65rpx;
+  border-bottom: 1rpx solid #EDEDED;
+}
+.quote-content-left {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
           align-items: center;
 }
 .wid_241 {
@@ -118,7 +95,6 @@ page {
   bottom: 0;
   display: -webkit-box;
   display: -webkit-flex;
-  display: -ms-flexbox;
   display: flex;
   z-index: 999;
 }

@@ -181,7 +181,7 @@
 <script>
 import uniIcon from "@/components/uni-icons/uni-icons.vue";
 import uniLoadMore from "@/components/uni-load-more/uni-load-more.vue";
-let pageSize = 10
+let pageSize = 20
 let _this,_postCode,timer
  const JsyServer = require("@/services/jsy-server.js");
 export default {
@@ -215,7 +215,10 @@ export default {
 	  isLastPage: false   ,//是否最后一页面
 	  codeValue:[],
 	  isDoRefresh:false,
-	  totalPage:''
+	  totalPage:'',
+	  regionCode:'',
+	  
+	  
 	  
     };
   },
@@ -225,7 +228,7 @@ export default {
                   clearTimeout(timer);
               }
          timer = setTimeout(function() {
-              _this.getMoreCustomer(_this.pageNum,_this.isAllocation);
+              _this.getMoreCustomer();
           }, 1000);
 	   
       
@@ -233,7 +236,7 @@ export default {
    },
    onPullDownRefresh: function () {
 	 
-		  _this.getCustomerList(_this.pageNum,_this.isAllocation);
+		  _this.getCustomerList();
 
    },
    onShow: function () {
@@ -243,9 +246,10 @@ export default {
       if (currPage.data.isDoRefresh == true){
 		   currPage.data.isDoRefresh = false;
 		   _this.pageNum =1
-		   _this.getCustomerList(_this.pageNum,_this.isAllocation);
+		   _this.getCustomerList();
 		   
      	 }
+	  _this.getCustomerList();
    },
    onLoad: function (options) {
      _this = this;
@@ -269,19 +273,19 @@ export default {
  
 
   methods: {
-	  getMoreCustomer:function(pageNum=1,isAllocation=-1,buyOrSell=-1,regionCode='',keyword=''){
+	  getMoreCustomer:function(){
+		     
 	  	    if (_this.loadingType !== 'more') {//loadingType!='more';直接返回
 	  	    	return false;
 	  	    }
 	  		_this.loadingType = 'loading';
 	  		uni.showNavigationBarLoading();//显示加载动画
-	  		
-	  	    let _postCode = uni.getStorageSync('pupDefault')
+
 	  	    let _data= {
-	  			keyword:keyword,		//搜索关键字
-	  			regionCode: regionCode,	//区域编码，空为全部区域
-	  			buyOrSell: buyOrSell,			//-1全部，0未知，1买家，2卖家
-	  			isAllocation: isAllocation,		//是否已分配买/卖帮办。-1全部，1已分配，0未分配
+	  			keyword: _this.inputValueOne,		//搜索关键字
+	  			regionCode: _this.regionCode,	//区域编码，空为全部区域
+	  			buyOrSell: _this.buyOrSell,			//-1全部，0未知，1买家，2卖家
+	  			isAllocation: _this.isAllocation,		//-1全部，1已分配，0未分配
 	  			pageNum: _this.pageNum,			//当前页
 	  			pageSize: pageSize,             // 页面大小
 	  			postCode: _postCode   
@@ -319,16 +323,16 @@ export default {
 		  
 		  
 	  },
-	  getCustomerList:function(pageNum=1,isAllocation=-1,buyOrSell=-1,regionCode='',keyword=''){
+	  getCustomerList:function(){
 		    _this.pageNum = 1
 		    _this.loadingType = 'more';
 		    uni.showNavigationBarLoading();
 			
 			let _data={
-			 	keyword:keyword,		//搜索关键字
-			 	regionCode: regionCode,	//区域编码，空为全部区域
-			 	buyOrSell: buyOrSell,			//-1全部，0未知，1买家，2卖家
-			 	isAllocation: isAllocation,		//是否已分配买/卖帮办。-1全部，1已分配，0未分配
+			 	keyword:_this.inputValueOne,		//搜索关键字
+			 	regionCode: _this.regionCode,	//区域编码，空为全部区域
+			 	buyOrSell: _this.buyOrSell,			//-1全部，0未知，1买家，2卖家
+			 	isAllocation: _this.isAllocation,		//是否已分配买/卖帮办。-1全部，1已分配，0未分配
 			 	pageNum: _this.pageNum,			//当前页
 			 	pageSize: pageSize,             // 页面大小
 			 	postCode: _postCode             //职位
@@ -336,7 +340,7 @@ export default {
 		    console.log(_data)
 	    
 			JsyServer.dmList(_data).then(res => {
-			     _this.pageNum++;
+			    _this.pageNum++;
 			   _this.customerList = res.data.data.list
 				
 				_this.isLastPage = res.data.data.isLastPage
@@ -347,9 +351,9 @@ export default {
 			 }); 
 			  
 			  let __data={
-				  keyword:keyword,		//关键词
-				  regionCode:regionCode,   //区域编码
-				  buyOrSell: buyOrSell,  //买卖家
+				  keyword: _this.inputValueOne,		//关键词
+				  regionCode:_this.regionCode,   //区域编码
+				  buyOrSell: _this.buyOrSell,  //买卖家
 				  postCode: _postCode
 			   }
 			  JsyServer.dmCount(__data).then(res => {
@@ -368,8 +372,7 @@ export default {
 	  checkboxChange: function (e) {
 			
 			this.codeValue = e.detail.value
-			
-						
+		
 	  },
 	  tabAllPitchOn:function(){
 		  this.allPitchOn = !this.allPitchOn;
@@ -378,7 +381,7 @@ export default {
 		  if (this.allPitchOn){
 			 
 			 this.customerList.forEach((item)=>{
-			 			  temp.push(item.companyCode)
+			 		temp.push(item.companyCode)
 			 })
 			 _this.codeValue = temp 
 		  }else {
@@ -406,13 +409,14 @@ export default {
 		this.buyOrSell = 1
 		this.isFilterBuyer = true
 		this.isFilterSeller = false
-		let regionCode 
+		
 		if(this.selectContent[0].id == 0){
-			regionCode = ''
+			_this.regionCode = ''
 		}else {
-			regionCode = this.selectContent[0].id
+			_this.regionCode = this.selectContent[0].id
 		}
-		this.getCustomerList(this.pageNum,this.isAllocation,this.buyOrSell,regionCode)
+		_this.pageNum = 1
+		this.getCustomerList()
 		
 		
 	},
@@ -420,13 +424,14 @@ export default {
 		this.buyOrSell = 2
 		this.isFilterBuyer = false
 		this.isFilterSeller = true
-		let regionCode
+		
 		if(this.selectContent[0].id == 0){
-			regionCode = ''
+			_this.regionCode = ''
 		}else {
-			regionCode = this.selectContent[0].id
+			_this.regionCode = this.selectContent[0].id
 		}
-		this.getCustomerList(this.pageNum,this.isAllocation,this.buyOrSell,regionCode)
+		_this.pageNum = 1
+		this.getCustomerList()
 	},
     bindSearch: function (e) {
     
@@ -450,16 +455,13 @@ export default {
       selectContent[0] = selectContent[index];
       selectContent[index] = obj;
 	  if (this.selectContent[0].id == 0){
-		  this.getCustomerList(this.pageNum,this.isAllocation,this.buyOrSell)
+		  _this.regionCode = ''
+		  this.getCustomerList()
 	  }else{
-		  this.getCustomerList(this.pageNum,this.isAllocation,this.buyOrSell,this.selectContent[0].id)
+		  this.regionCode = this.selectContent[0].id
 	  }
-	  
-	  
       
-	 
-	  
-     
+	  this.getCustomerList()
     },
     // 点击搜索
     tapSearch: function () {
@@ -467,13 +469,10 @@ export default {
       uni.showLoading({
         title: '搜索中...'
       });
-	  let pageNum=1,
-	     isAllocation=-1,
-	     buyOrSell=-1,
-	     regionCode=''
-      this.getCustomerList(pageNum,isAllocation,buyOrSell,regionCode,this.inputValueOne);
+	  _this.pageNum = 1
+      this.getCustomerList();
       setTimeout(function() {
-      		  uni.hideLoading();
+      		 uni.hideLoading();
       }, 1000);
 	  
 	  
@@ -502,24 +501,22 @@ export default {
 		  this.setNavButton("")
 		  this.isAllocation = -1
 		  this.compileing = false
-		  this.getCustomerList()
-	  }
-      if (index==1){
+		  
+	  }else if (index==1){
 		 this.setNavButton("编辑") 
 		 //重新请求已分配客户列表
 		 this.isAllocation = 1
 		 this.pageNum = 1
-		this.getCustomerList(this.pageNum,this.isAllocation)
-	  }
-	  if(index==2){
+		
+	  }else if(index==2){
 		  //重新请求未分配客户列表
 		 this.setNavButton("编辑")
 		this.isAllocation = 0
 		this.pageNum = 1
 		console.log("分配状态：",this.isAllocation)
-		this.getCustomerList(this.pageNum,this.isAllocation)
+		
 	  }
-	  
+	  this.getCustomerList()
     },
     // 点击编辑
     tapCompile: function () {

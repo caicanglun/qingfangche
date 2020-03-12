@@ -40,8 +40,7 @@ page {
   color: #333236;
 }
 .box-borer {
-  -webkit-box-sizing: border-box;
-          box-sizing: border-box;
+  box-sizing: border-box;
 }
 .list_part {
   margin: 0 20rpx;
@@ -64,8 +63,7 @@ page {
 .select_btn {
   padding: 0 20rpx;
   height: 48rpx;
-  -webkit-box-sizing: border-box;
-          box-sizing: border-box;
+  box-sizing: border-box;
   border: 2rpx solid #EE603F;
   border-radius: 6rpx;
   line-height: 46rpx;
@@ -75,7 +73,7 @@ page {
   width: 192rpx;
 }
 .input {
-  width: 446rpx;
+  width: 500rpx;
   background-color: #fff;
   font-size: 14px;
   padding-left: 30rpx;
@@ -135,7 +133,6 @@ button::after {
   bottom: 0;
   display: -webkit-box;
   display: -webkit-flex;
-  display: -ms-flexbox;
   display: flex;
   z-index: 999;
 }
@@ -149,8 +146,7 @@ button::after {
 .bottom_img {
   width: 48rpx;
   height: 48rpx;
-  -webkit-box-shadow: 0 4rpx 8rpx 0 rgba(0, 0, 0, 0.2);
-          box-shadow: 0 4rpx 8rpx 0 rgba(0, 0, 0, 0.2);
+  box-shadow: 0 4rpx 8rpx 0 rgba(0, 0, 0, 0.2);
 }
 .textareBox {
   width: 670rpx;
@@ -158,8 +154,7 @@ button::after {
   background-color: #F4F4F4;
   border-radius: 6rpx;
   padding: 20rpx;
-  -webkit-box-sizing: border-box;
-          box-sizing: border-box;
+  box-sizing: border-box;
 }
 .textareBox > textarea {
   background-color: #F4F4F4;
@@ -177,19 +172,15 @@ button::after {
 .flexend130 {
   display: -webkit-box;
   display: -webkit-flex;
-  display: -ms-flexbox;
   display: flex;
   -webkit-box-flex: 0;
   -webkit-flex: 0 0 130rpx;
-      -ms-flex: 0 0 130rpx;
           flex: 0 0 130rpx;
   -webkit-box-align: center;
   -webkit-align-items: center;
-      -ms-flex-align: center;
           align-items: center;
   -webkit-box-pack: end;
   -webkit-justify-content: flex-end;
-      -ms-flex-pack: end;
           justify-content: flex-end;
 }
 .unit {
@@ -199,8 +190,7 @@ button::after {
   height: 48rpx;
   text-align: center;
   border: 2rpx solid #EE603F;
-  -webkit-box-sizing: border-box;
-          box-sizing: border-box;
+  box-sizing: border-box;
 }
 .borderright {
   border-top-right-radius: 6rpx;
@@ -276,15 +266,12 @@ button::after {
   text-align: center;
   display: -webkit-box;
   display: -webkit-flex;
-  display: -ms-flexbox;
   display: flex;
   -webkit-box-pack: center;
   -webkit-justify-content: center;
-      -ms-flex-pack: center;
           justify-content: center;
   -webkit-box-align: center;
   -webkit-align-items: center;
-      -ms-flex-align: center;
           align-items: center;
   font-size: 28rpx;
   color: #333;
@@ -292,16 +279,13 @@ button::after {
 .publishWrapper {
   display: -webkit-box;
   display: -webkit-flex;
-  display: -ms-flexbox;
   display: flex;
   -webkit-box-orient: vertical;
   -webkit-box-direction: normal;
   -webkit-flex-direction: column;
-      -ms-flex-direction: column;
           flex-direction: column;
   -webkit-box-pack: justify;
   -webkit-justify-content: space-between;
-      -ms-flex-pack: justify;
           justify-content: space-between;
 }
 .publishWrapper input {
@@ -313,22 +297,18 @@ button::after {
 .newPart {
   display: -webkit-box;
   display: -webkit-flex;
-  display: -ms-flexbox;
   display: flex;
   font-size: 14px;
   width: 170rpx;
   height: 60rpx;
   -webkit-box-pack: center;
   -webkit-justify-content: center;
-      -ms-flex-pack: center;
           justify-content: center;
   -webkit-box-align: center;
   -webkit-align-items: center;
-      -ms-flex-align: center;
           align-items: center;
   border: 2rpx solid #DCDCDC;
-  -webkit-box-sizing: border-box;
-          box-sizing: border-box;
+  box-sizing: border-box;
   border-radius: 30rpx;
   color: #fff;
   background-color: #FF6000;
@@ -337,22 +317,18 @@ button::after {
 .newPartCancel {
   display: -webkit-box;
   display: -webkit-flex;
-  display: -ms-flexbox;
   display: flex;
   font-size: 14px;
   width: 170rpx;
   height: 60rpx;
   -webkit-box-pack: center;
   -webkit-justify-content: center;
-      -ms-flex-pack: center;
           justify-content: center;
   -webkit-box-align: center;
   -webkit-align-items: center;
-      -ms-flex-align: center;
           align-items: center;
   border: 2rpx solid #DCDCDC;
-  -webkit-box-sizing: border-box;
-          box-sizing: border-box;
+  box-sizing: border-box;
   border-radius: 30rpx;
   color: black;
   background-color: #FFFFFF;
@@ -373,15 +349,12 @@ button::after {
 .popTitle {
   display: -webkit-box;
   display: -webkit-flex;
-  display: -ms-flexbox;
   display: flex;
   -webkit-box-pack: center;
   -webkit-justify-content: center;
-      -ms-flex-pack: center;
           justify-content: center;
   -webkit-box-align: center;
   -webkit-align-items: center;
-      -ms-flex-align: center;
           align-items: center;
 }
 .Clipboard {
@@ -396,7 +369,6 @@ button::after {
 .justify-content {
   -webkit-box-pack: justify;
   -webkit-justify-content: space-between;
-      -ms-flex-pack: justify;
           justify-content: space-between;
 }
 .color_909090 {
@@ -405,45 +377,37 @@ button::after {
 .uploadFile {
   display: -webkit-box;
   display: -webkit-flex;
-  display: -ms-flexbox;
   display: flex;
   -webkit-box-orient: vertical;
   -webkit-box-direction: normal;
   -webkit-flex-direction: column;
-      -ms-flex-direction: column;
           flex-direction: column;
   margin-bottom: 100rpx;
 }
 .IconStyle {
-  height: 200rpx;
-  width: 200rpx;
+  height: 180rpx;
+  width: 180rpx;
   display: -webkit-box;
   display: -webkit-flex;
-  display: -ms-flexbox;
   display: flex;
   -webkit-box-pack: center;
   -webkit-justify-content: center;
-      -ms-flex-pack: center;
           justify-content: center;
   -webkit-box-align: center;
   -webkit-align-items: center;
-      -ms-flex-align: center;
           align-items: center;
   background: #EFEFEF;
 }
 .iconCenter {
   display: -webkit-box;
   display: -webkit-flex;
-  display: -ms-flexbox;
   display: flex;
   -webkit-box-orient: vertical;
   -webkit-box-direction: normal;
   -webkit-flex-direction: column;
-      -ms-flex-direction: column;
           flex-direction: column;
   -webkit-box-align: center;
   -webkit-align-items: center;
-      -ms-flex-align: center;
           align-items: center;
   height: 100rpx;
 }

@@ -1,5 +1,8 @@
 {
   "navigationBarTitleText": "区域经理客户管理",
   "enablePullDownRefresh": true,
-  "usingComponents": {}
+  "usingComponents": {
+    "uni-icon": "/components/uni-icons/uni-icons",
+    "uni-load-more": "/components/uni-load-more/uni-load-more"
+  }
 }

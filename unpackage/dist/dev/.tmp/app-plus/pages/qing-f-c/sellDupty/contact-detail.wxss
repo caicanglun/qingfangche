@@ -65,7 +65,6 @@ button::after {
   bottom: 0;
   display: -webkit-box;
   display: -webkit-flex;
-  display: -ms-flexbox;
   display: flex;
   z-index: 999;
 }

@@ -12,7 +12,7 @@
 					<text class='title'>品质定位：</text><text>{{inquiryInfo.quality||''}}</text>
 				</view>
 				
-				<view class="details-content">
+				<view class=".details-content-guige">
 					<text class='title'>规格：</text><text>{{inquiryInfo.specification||''}}</text>
 				</view>
 				<view class='bingpai'>
@@ -40,6 +40,8 @@
 					</view>
 					<view class="details-content">
 						<text class='title'>克重：</text><text> {{inquiryInfo.gramWeight||''}} </text>
+						
+						<text> {{inquiryInfo.gramWeightUnitName||''}} </text>
 					</view>
 				</view>
 				<view class='bingpai'>
@@ -104,12 +106,13 @@
    	font-size: 14px;
    	font-weight: bold;	
    }
-   .details-content{
+   .details-content-guige{
    	display: flex;
    	align-items: center;
    	width: 100%;
    	font-size: 13px;
    	height: 56upx;
+	line-height: 60upx;
    	.title{
    		color: #999999;
    	}	

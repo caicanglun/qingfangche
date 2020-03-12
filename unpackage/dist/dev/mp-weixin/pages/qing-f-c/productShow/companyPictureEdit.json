@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText": "编辑公司图片",
+  "usingComponents": {
+    "uni-icon": "/components/uni-icons/uni-icons"
+  }
+}

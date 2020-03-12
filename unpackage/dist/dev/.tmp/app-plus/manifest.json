@@ -7,8 +7,8 @@
   "id": "__UNI__85973DE",
   "name": "轻纺车网",
   "version": {
-    "name": "1.0.0",
-    "code": "100"
+    "name": "1.0.5",
+    "code": 105
   },
   "description": "",
   "launch_path": "__uniappview.html",
@@ -34,7 +34,7 @@
     "splashscreen": {
       "target": "id:1",
       "autoclose": true,
-      "waiting": true,
+      "waiting": false,
       "delay": 0
     },
     "popGesture": "close",
@@ -82,6 +82,23 @@
           }
         }
       },
+      "splashscreen": {
+        "android": {
+          "hdpi": "",
+          "xhdpi": "",
+          "xxhdpi": ""
+        },
+        "ios": {
+          "iphone": {
+            "portrait-896h@3x": "",
+            "landscape-896h@3x": "",
+            "portrait-896h@2x": "",
+            "landscape-896h@2x": "",
+            "iphonex": "",
+            "iphonexl": ""
+          }
+        }
+      },
       "google": {
         "permissions": [
           "<uses-feature android:name=\"android.hardware.camera\"/>",
@@ -113,6 +130,8 @@
       "apple": {},
       "plugins": {
         "maps": {},
+        "ad": null,
+        "push": {},
         "audio": {
           "mp3": {
             "description": "Android平台录音支持MP3格式文件"
@@ -128,7 +147,7 @@
       }
     },
     "uni-app": {
-      "compilerVersion": "2.4.2",
+      "compilerVersion": "2.6.1",
       "control": "v8",
       "nvueCompiler": "uni-app",
       "renderer": "auto",
@@ -180,5 +199,6 @@
       ],
       "selected": 4
     }
-  }
+  },
+  "usingComponents": {}
 }

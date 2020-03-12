@@ -38,6 +38,9 @@
 				<view class="details-title">
 					品名（别名）：{{inquiryInfo.tradeName||''}}
 				</view>
+				<view class="details-title" style="height: 60upx;" v-if="inquiryInfo.inquiryTypeCode ==2">
+					原样分析数据
+				</view>
 				<chanpinyaosu :inquiryInfo = "inquiryInfo"></chanpinyaosu>
 				
 			</view>
@@ -59,7 +62,11 @@
 		<!-- <view class="fixed_bottom box_shadow_btn">
 		  <button class="btn_all" @tap="submit" hover-class="none">发起报价</button>
 		</view> -->
-		
+		<!-- <view class="fixed_bottom box_shadow_btn"
+		v-if="(!quotationInfo.hasSalesDirectorQuotation)&&(quotationInfo.quotationStatus!=9)&&(quotationInfo.quotationStatus!=5)&&(quotationInfo.sellDeputyRealName!='直接报价')" >
+		  <button class="btn_left" hover-class="none" @tap="modifyQuote">修改报价</button>
+		  <button class="btn_right"  hover-class="none"  @tap="submit">确定并推送</button>
+		</view> -->
 	</view>
 </template>
 
@@ -102,6 +109,8 @@
 				   this.getInquiryInfo(_inquiryNumber)
 		  		   this.getDeputyQuotation()
 		  	 }
+		   this.getInquiryInfo(_inquiryNumber)
+		   this.getDeputyQuotation()
 		  
 		},
 		methods:{
@@ -439,7 +448,7 @@
 		padding-left: 24upx;
 		display:flex;
 		align-items: center;
-		height: 72upx;
+		height: 65upx;
 		width: 100%;
 		font-size: 15px;
 		font-weight: bold;	

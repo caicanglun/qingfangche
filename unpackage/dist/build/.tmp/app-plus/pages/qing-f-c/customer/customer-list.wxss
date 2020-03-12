@@ -32,8 +32,7 @@ page{
 .time_btn{
   width: 222rpx;
   height: 56rpx;
-  -webkit-box-sizing: border-box;
-          box-sizing: border-box;
+  box-sizing: border-box;
   background-color: #EE603F;
   color: #fff;
   font-size: 14px;
@@ -52,22 +51,18 @@ page{
   border-radius: 28rpx;
   display: -webkit-box;
   display: -webkit-flex;
-  display: -ms-flexbox;
   display: flex;
   -webkit-box-pack: center;
   -webkit-justify-content: center;
-      -ms-flex-pack: center;
           justify-content: center;
   color:#9B9B9B;
   height: 56rpx;
   -webkit-flex-wrap: wrap;
-      -ms-flex-wrap: wrap;
           flex-wrap: wrap;
   position: relative;
   z-index: 99;
   overflow: hidden;
   -webkit-transition: 0.2s;
-  -o-transition: 0.2s;
   transition: 0.2s
 }
 .bind_searach{
@@ -92,18 +87,15 @@ page{
   background-color: #fff;
   line-height: 80rpx;
   font-weight: 300;
-  -webkit-box-shadow: 0 4rpx 8rpx 0 rgba(0, 0, 0, 0.1);
-          box-shadow: 0 4rpx 8rpx 0 rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4rpx 8rpx 0 rgba(0, 0, 0, 0.1);
 }
 .tab_box{
   display: -webkit-box;
   display: -webkit-flex;
-  display: -ms-flexbox;
   display: flex;
   -webkit-box-orient: vertical;
   -webkit-box-direction: normal;
   -webkit-flex-direction: column;
-      -ms-flex-direction: column;
           flex-direction: column;
    width: 375rpx;
   /* text-align: center; */
@@ -123,7 +115,6 @@ page{
   background-color: #EE603F;
   margin-left: 507rpx;
   -webkit-transition: 0.2s;
-  -o-transition: 0.2s;
   transition: 0.2s
 }
 .lits_box{
@@ -131,8 +122,7 @@ page{
   padding: 20rpx 30rpx 20rpx 20rpx;
   border-radius: 6rpx;
   background-color: #fff;
-  -webkit-box-shadow: 0 4rpx 8rpx 0 rgba(0, 0, 0, 0.1);
-          box-shadow: 0 4rpx 8rpx 0 rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4rpx 8rpx 0 rgba(0, 0, 0, 0.1);
   line-height: 1
 }
 .list_hand_img{
@@ -144,16 +134,13 @@ page{
 .flex_col_sb{
   display: -webkit-box;
   display: -webkit-flex;
-  display: -ms-flexbox;
   display: flex;
   -webkit-box-orient: vertical;
   -webkit-box-direction: normal;
   -webkit-flex-direction: column;
-      -ms-flex-direction: column;
           flex-direction: column;
   -webkit-box-pack: justify;
   -webkit-justify-content: space-between;
-      -ms-flex-pack: justify;
           justify-content: space-between;
   height: 100rpx;
   width: 510rpx;
@@ -173,16 +160,14 @@ page{
   font-size: 28rpx;
   text-align: center;
   line-height: 1;
-  -webkit-box-sizing: border-box;
-          box-sizing: border-box;
+  box-sizing: border-box;
   padding-top:22rpx; 
   font-weight: bold;
 }
 .text_over{
   white-space: nowrap;
   overflow: hidden;
-  -o-text-overflow: ellipsis;
-     text-overflow: ellipsis;
+  text-overflow: ellipsis;
   max-width: 280rpx;
 }
 .wid_370{

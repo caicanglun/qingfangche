@@ -18,13 +18,28 @@
 				<switchButton :items='carriage' @buttonChange="switchChange('carriage',$event)"></switchButton>
 			</view>
 			
+			<view class="content-1" style="justify-content: space-between;" v-if="carriageIndex == 1">
+				<view class='label'>运费单价：</view>
+				<view><input v-model="carriageContent" type="number" placeholder="请输入运费单价" placeholder-style="color:#909090;font-size:13px;" /></view>
+			    <view class="fs_13">
+			    	{{returnLabel}}
+			    </view>
+			</view>
+			
             <view class="content">
 				<view>税：</view>
 				<switchButton :items='taxes' @buttonChange="switchChange('taxes',$event)"></switchButton>
 			</view>
-			<view class="content-1">
+			<!-- <view class="content-1">
 				<view class='label'>交货地：</view>
 				<view><input v-model="placeOfDelivery" placeholder="请输入交货地" placeholder-style="color:#909090;font-size:13px;" /></view>
+			</view> -->
+			<view class="content-1">
+				<view class='label'>交货地点：</view>
+				<view class='items'>
+					<myPickerPart :items="placeOfDelivery" @mychange="pickerChange('placeOfDelivery',$event)"></myPickerPart>
+				</view>
+				
 			</view>
 			<view class="content-1">
 				<view class='label'>库存状态：</view>
@@ -183,6 +198,7 @@
 					</view>
 				</view>
 				
+				
 				<view class='placeholder-view-1'></view>
 
 				<view class="fixed_bottom box_shadow_btn">
@@ -204,6 +220,7 @@
 	import popupMe from "@/components/popupMe.vue";
 	import uniIcon from "@/components/uni-icons/uni-icons.vue";
 	
+	
 	let _this,_inquiryNumber
 	export default{
 		components:{
@@ -215,7 +232,9 @@
 			switchButtonS,
 			popupMe,
 			uniIcon
+		
 		},
+		
 		data(){
 			return{
 				content:'',  //含量
@@ -247,6 +266,7 @@
 				qualityPositionIndex: '',
 				unitPrice:'',  //报价价格
 				placeOfDelivery:'',  //交货地
+				placeOfDeliveryIndex:'',  //交货地ID
 				guamalv:'',   //挂码率
 				remarks:'',    //备注
 				sampleType:[], //布样类型
@@ -264,7 +284,8 @@
 				newPartLongText:''  ,// 新增纬度成分
 				
 				clothBreadth: ''   ,//幅宽
-				pictures: []
+				pictures: [],
+				returnLabel:''
 				
 			}
 		},
@@ -282,6 +303,11 @@
 				  this.myRequest(data,url,'get').then(res => {
 					console.log(res);
 					_this.lengthUnit = res.data.data.list
+					_this.lengthUnit.forEach((item)=>{
+						if (item.id == _this.lengthUnitIndex){
+							_this.returnLabel = item.label
+						}
+					})
 				   }).catch(err => {
 					wx.showToast({
 					  title: err.data.errMsg,
@@ -327,6 +353,18 @@
 				 this.myRequest(data,url,'get').then(res => {
 				   console.log(res);
 				   _this.sampleType = res.data.data.list
+				 }).catch(err => {
+				   wx.showToast({
+				     title: err.data.errMsg,
+				     icon: 'none'
+				   });
+				 });
+				 //交货地
+				 url = this.Api.placeOfDelivery
+				 data = {}
+				 this.myRequest(data,url,'get').then(res => {
+				   console.log(res);
+				   _this.placeOfDelivery = res.data.data.list
 				 }).catch(err => {
 				   wx.showToast({
 				     title: err.data.errMsg,
@@ -527,6 +565,11 @@
 				switch (label){
 					case 'lengthUnit':
 					    this.lengthUnitIndex = index;
+						_this.lengthUnit.forEach((item)=>{
+							if (item.id == _this.lengthUnitIndex){
+								_this.returnLabel = item.label
+							}
+						})
 						console.log(this.lengthUnitIndex)
 						break;
 					case 'carriage':
@@ -541,6 +584,11 @@
 			},
 			pickerChange:function(label,index){
 				switch (label){
+					case 'placeOfDelivery':{
+						this.placeOfDeliveryIndex = index
+						console.log(this.placeOfDeliveryIndex)
+						break;
+					}
 					case 'sellers':{
 						//this.sellersIndex = index
 						break;
@@ -569,7 +617,26 @@
 								  }
 							  }
 					  })
-							  
+						if(_this.carriageIndex == 1){
+							if(_this.carriagePrice<=0){
+								uni.showToast({
+									title: '运费还没填',
+									icon:'none',
+									duration: 1000
+								});
+								return
+							}
+						}
+						  if(_this.unitPrice <=0){
+							
+								uni.showToast({
+									title: '报价不能为零',
+									icon:'none',
+									duration: 1000
+								});
+								return
+							
+						  }
 					  let _data={
 						  inquiryNumber: _inquiryNumber,			 //询价单号
 						  buyOrSellCode:	_this.sellerCode		,	//买家编码
@@ -577,7 +644,7 @@
 						  priceUnit: _this.lengthUnitIndex,    //	价格单位
 						  isIcash: 	_this.carriageIndex,  //是否含运费
 						  isPlusDuty: _this.taxedIndex ,	//是否含税
-						  placeOfDelivery: _this.placeOfDelivery,   //交货地
+						  placeOfDelivery: _this.placeOfDeliveryIndex,   //交货地
 						  inventoryCode: _this.storeStatusIndex	, //库存状态编码
 						  purchaseQuantity:	 '',  //购买数量
 						  hangBitRate:	   _this.guamalv			, //挂码率
@@ -605,9 +672,15 @@
 					  }
 					  console.log(_data)
 					  let url = this.Api.quotationAdd
+					  uni.showLoading({
+					  	title:'',
+						mask: true
+					  })
 					  this.myRequest(_data,url,'post').then(res => {
 						console.log(res);
 						if (res.data.status== 0){
+							uni.hideLoading()   
+							
 							uni.showToast({
 								title: '报价创建成功',
 								icon: 'none',
@@ -616,15 +689,13 @@
 							var pages = getCurrentPages();
 							var currPage = pages[pages.length - 1]; //当前页面
 							var prevPage = pages[pages.length - 2]; //上一个页面
-							var pprevPage = pages[pages.length - 3]; //上一个页面
+							
 							//直接调用上一个页面的setData()方法，把数据存到上一个页面中去
 							
 							prevPage.setData({
 							   isDoRefresh:true
 							})
-							pprevPage.setData({
-							   isDoRefresh:true
-							})
+							
 							uni.navigateBack({
 								delta: 1
 							});
@@ -1048,4 +1119,19 @@
 		   position: absolute;
 		   right: 60upx;
 		  }
+		  
+	.quote-content{
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		height: 65upx;
+		border-bottom: 1upx solid #EDEDED;
+	}
+	.quote-content-82{
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		height: 82upx;
+		border-bottom: 1upx solid #EDEDED;
+	}
 </style>

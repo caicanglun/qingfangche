@@ -31,11 +31,11 @@ page {
   margin-top: 30rpx;
   display: -webkit-box;
   display: -webkit-flex;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-justify-content: space-around;
-      -ms-flex-pack: distribute;
-          justify-content: space-around;
+  -webkit-flex-wrap: wrap;
+          flex-wrap: wrap;
+  -webkit-align-content: flex-start;
+          align-content: flex-start;
 }
 .approved-image {
   width: 330rpx;
@@ -43,6 +43,7 @@ page {
 }
 .img-wrap {
   position: relative;
+  margin-left: 30rpx;
 }
 .icon-position {
   position: absolute;

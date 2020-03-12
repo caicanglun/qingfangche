@@ -2,7 +2,7 @@
 		<view class="picker_list fs_13">
 		  <picker @change="itemChange" :range="items" range-key="label" :value="index">
 		    <view :class="(index==-1?'color_888 wid_400':'wid_400')" v-if="!firstLabel">{{index==-1?"请选择":items[index].label}} </view>
-			<view :class="(index==-1?'color_888 wid_400':'wid_400')" v-if="firstLabel">{{index==-1?firstLabel:items[index].label}} </view>
+			<view :class="(index==-1?'wid_400':'wid_400')" v-if="firstLabel">{{index==-1?firstLabel:items[index].label}} </view>
 			
 		  </picker>
 		  <!-- <image src="/static/images/qingfc/arrow.png" class="i-next" mode="aspectFill"></image> -->

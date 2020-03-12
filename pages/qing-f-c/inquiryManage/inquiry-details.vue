@@ -8,32 +8,32 @@
 			<view class="wrap-box">
 				<view class='box-row'>
 					<view>
-						询价单号: {{inquiryInfo.inquiryNumber ||''}}
+						询价单号: {{inquiry.inquiryNumber ||''}}
 					</view>
 					<!-- <view class="buttonStyle">
 						 复制
 					</view> -->
 					<view class="buttonStyle">
-						{{inquiryInfo.inquiryStatus ||''}}
+						{{inquiry.inquiryStatus ||''}}
 					</view>
 				</view>
 				<view class="box-content">
-				  <text class='title'>买帮办：</text><text>{{inquiryInfo.buyDeputyRealName ||''}}</text>
+				  <text class='title'>买帮办：</text><text>{{inquiry.buyDeputyRealName ||''}}</text>
 				</view>
 				<view class="box-content">
-				  <text class='title'>买家：</text><text>{{inquiryInfo.companyName||''}}</text>
+				  <text class='title'>买家：</text><text>{{inquiry.companyName||''}}</text>
 				</view>
 				<view class="box-contentSmall">
-						<text>询价类型：</text><text>{{inquiryInfo.inquiryTypeCode==1?'常规询价':'找样询价'}}</text>
+						<text>询价类型：</text><text>{{inquiry.inquiryTypeCode==1?'常规询价':'找样询价'}}</text>
 				</view>
 				<view class="box-contentBottom">
 					<view class="created_time">
-						<text>建立时间：</text><text>{{inquiryInfo.inquiryCreateTime ||''}}</text>
+						<text>建立时间：</text><text>{{inquiry.createTime ||''}}</text>
 					</view>
 				   <view class='button'>
-					   <view class='Clipboard'>复制</view>
+					   <view class='Clipboard' @tap="toCopyInquiry">复制</view>
 					   
-					   <view :class="(inquiryInfo.inquiryStatusCode != 4&&inquiryInfo.inquiryStatusCode !=9)?'Clipboard':'Clipboard_close'" @tap="tapClosing">关闭</view>
+					   <view :class="(inquiry.inquiryStatusCode != 4&&inquiry.inquiryStatusCode !=9)?'Clipboard':'Clipboard_close'" @tap="tapClosing">关闭</view>
 				   </view>
 
 				</view>
@@ -41,63 +41,17 @@
 			</view>
 		</view>
 		<!-- ------弹窗---- -->
-		<popupMe ref="unMatchRef" @input="getContent('unMatchRef',$event)" title="不匹配原因"></popupMe>
-		<popupMe ref="closingRef" @input="getContent('closingRef',$event)" title="关闭原因"></popupMe>
+		<popupMeUnmatch ref="unMatchRef" :propItems="items"  @input="getContent('unMatchRef',$event)" title="不匹配原因"></popupMeUnmatch>
+		<popupMeUnmatch ref="closingRef" :propItems="closeItems" @input="getContent('closingRef',$event)" title="关闭原因"></popupMeUnmatch>
+		<popupCopy ref="copyInquiry" @input="getContent('toCopyInquiry',$event)" title="提示"></popupCopy>
 		<!-- ------弹窗---- -->
 		<view class="details-box">
-			<view class='wrap-box'>
+			<view class='wrap-box-1'>
 				<view class="details-title">
 					品名（别名）：{{inquiryInfo.tradeName||''}}
 				</view>
-				<view class="bingpai">
-					<view class="details-content">
-						<text class='title'>产品系列：</text><text>{{inquiryInfo.seriesName||''}}</text>
-					</view>
-					<view class="details-content">
-						<text class='title'>品质定位：</text><text>{{inquiryInfo.qualityName||''}}</text>
-					</view>
-				</view>
-					
-				<view class="details-content">
-					<text class='title'>成份：</text><text>{{inquiryInfo.ingredient||''}}</text>
-				</view>
-				<view class="details-content">
-					<text class='title'>含量：</text><text>{{inquiryInfo.content||''}}</text>
-				</view>
-				<view class="details-content">
-					<text class='title'>规格：</text><text>{{inquiryInfo.specification||''}}</text>
-				</view>
-				
-				<view class='bingpai'>
-					<view class="details-content">
-						<text class='title'>风格：</text><text>{{inquiryInfo.styleName||''}}</text>
-					</view>
-					<view class="details-content">
-						<text class='title'>密度：</text><text>{{inquiryInfo.density||''}}</text>
-					</view>
-				</view>
-				<view class='bingpai'>
-					<view class="details-content">
-						<text class='title'>组织：</text><text>{{inquiryInfo.organization||''}}</text>
-					</view>
-					<view class="details-content">
-						<text class='title'>克重：</text><text> {{inquiryInfo.gramWeight||''}} </text>
-					</view>
-				</view>
-				<view class='bingpai'>
-					<view class="details-content">
-						<text class='title'>挂码率：</text><text>{{inquiryInfo.hangBitRate||''}}</text>
-					</view>
-					<view class="details-content">
-						<text class='title'>幅宽：</text><text>{{inquiryInfo.clothBreadth||''}}</text>
-					</view>
-				</view>
-
-				<view class="details-content">
-					<text class='title'>购买数量：</text><text>{{inquiryInfo.purchaseQuantity||''}}</text>
-				</view>
-				<view class="details-content">
-					<text class='title'>备注：</text><text>{{inquiryInfo.remarks||''}}</text>
+				<view style="padding-left:24upx;">
+					<chanpinyaosu :inquiryInfo="inquiryInfo"></chanpinyaosu>
 				</view>
 				
 				<view class='recentPrice'>
@@ -121,12 +75,12 @@
 			</view>
 			<block v-for="(item,index) in directQuotion" :key="index">
 				<view class="baojia-box">
-					<baojiaListDirect :item="item" @handleEvent="handleEvent" :isDisplayButton="!(inquiryInfo.inquiryStatusCode == 4 ||inquiryInfo.inquiryStatusCode == 9)"></baojiaListDirect>
+					<baojiaListDirect :item="item" @handleEvent="handleEvent" :isDisplayButton="!(inquiry.inquiryStatusCode == 4 ||inquiry.inquiryStatusCode == 9)"></baojiaListDirect>
 				</view>
 			</block>
 			<view class='placeholder-view'></view>
 			
-			<view class="fixed_bottom box_shadow_btn" v-if="inquiryInfo.inquiryStatusCode != 4&&inquiryInfo.inquiryStatusCode !=9">
+			<view class="fixed_bottom box_shadow_btn" v-if="inquiry.inquiryStatusCode != 4&&inquiry.inquiryStatusCode !=9">
 			    
 			    <button class="btn_all" @tap="submit" hover-class="none" >直接报价</button>
 			  
@@ -138,51 +92,96 @@
 			</view>
 			<block v-for="(item,index) in quotationList" :key="index">
 				<view class="baojia-box" @tap="toDetail(item.quotationNumber)">
-					<baojiaList :item="item" @handleEvent="handleEvent" :isDisplayButton="!(inquiryInfo.inquiryStatusCode == 4 ||inquiryInfo.inquiryStatusCode == 9)"></baojiaList>
+					<baojiaList :item="item" @handleEvent="handleEvent" :isDisplayButton="!(inquiry.inquiryStatusCode == 4 ||inquiry.inquiryStatusCode == 9)"></baojiaList>
 				</view>
 			</block>
 			<view class='placeholder-view'></view>
 			
-			<view class="fixed_bottom box_shadow_btn" v-if="inquiryInfo.inquiryStatusCode ==2 ">
+			<view class="fixed_bottom box_shadow_btn" v-if="inquiry.inquiryStatusCode ==2 ">
 			  <button class="btn_all" hover-class="none" @tap="pushSellerQuote" v-if="quotationList.length ==0">推送卖帮办报价</button>
 
 			</view>
 			
 			
-			<view class="fixed_bottom box_shadow_btn" v-if="inquiryInfo.inquiryStatusCode ==3 ">
+			<view class="fixed_bottom box_shadow_btn" v-if="inquiry.inquiryStatusCode ==3 ">
 			    <button class="btn_all" hover-class="none" @tap="bindCancel" >催单报价</button>
 
 			</view>
 		</view>
-		
-	
 
-   
-		
-	
-		
 	</view>
 </template>
 
 <script>
 	import popupMe from "@/components/popupMe.vue";
+	import popupMeUnmatch from "@/components/popupMeUnmatch.vue"
 	import uniIcon from "@/components/uni-icons/uni-icons.vue";
 	import baojiaList from "@/components/inquiry/baojia-list-buy.vue";
 	import baojiaListDirect from "@/components/inquiry/baojia-list-direct.vue";
+	import chanpinyaosu from "@/components/sample-inquiry/chanpinyaosu-quote.vue";
+	import popupCopy from "@/components/popupMe-copy.vue";
 	let _this,_inquiryNumber
 	export default {
 		components:{
 			popupMe,
 			uniIcon,
 			baojiaList,
-			baojiaListDirect
+			baojiaListDirect,
+			chanpinyaosu,
+			popupCopy,
+			popupMeUnmatch
 		},
 		data(){
 			return {
+				items: [{
+						id: '1',
+						label: '品质问题'
+					},
+					{
+						id: '2',
+						label: '价格因素'
+						
+					},
+					{
+						id: '3',
+						label: '货期原因'
+					},
+					{
+						id: '4',
+						label: '其他'
+					},
+					],
+				closeItems: [{
+						id: '1',
+						label: '价格高'
+					},
+					{
+						id: '2',
+						label: '货期不符'
+						
+					},
+					{
+						id: '3',
+						label: '品质不匹配'
+					},
+					{
+						id: '4',
+						label: '客户以丢单'
+					},
+					{
+						id: '5',
+						label: '录入错误'
+					},
+					{
+						id: '6',
+						label: '其他'
+					},
+					],	
 				isMatch: true,
 				unMatch: '',
 				closing: '',
 				inquiryInfo:'',
+				inquiry:'',
 				quotationList:[],
 				directQuotion:[],
 				isDoRefresh:false,
@@ -202,7 +201,9 @@
 		  		   _this.getDeputyQuotation()
 				   _this.getDirectQuotation()
 		  	 }
-		  
+		  _this.getInquiryInfo(_inquiryNumber)
+		  _this.getDeputyQuotation()
+		  _this.getDirectQuotation()
 		},
 		onLoad:function(options){
 			_this = this
@@ -212,6 +213,7 @@
 			_this.getDirectQuotation()
 		},
 		methods:{
+			
 			getDirectQuotation:function(){
 					let data={
 						inquiryNumber:_inquiryNumber,  //		询价单号
@@ -235,10 +237,12 @@
 				let data={
 					inquiryNumber: inquiryNumber
 				}
-				let url = this.Api.deputyDetails
+				//let url = this.Api.deputyDetails
+				let url = this.Api.zyDetails
 				this.myRequest(data,url,'get').then(res => {
 				  console.log(res);
-				  _this.inquiryInfo = res.data.data
+				  _this.inquiryInfo = res.data.data.goInitialSample
+				  _this.inquiry = res.data.data.inquiry
 				  console.log(_this.inquiryInfo)
 				}).catch(err => {
 				  wx.showToast({
@@ -277,6 +281,7 @@
 				this.$refs.unMatchRef.show()
 			},
 			getContent:function(label,content){
+				        console.log(content)
 						switch (label){
 							case 'unMatchRef':
 								 this.unMatch = content
@@ -288,13 +293,24 @@
 								 this.closingInquiry()
 								 console.log(this.closing)
 								 break
+							case 'toCopyInquiry':
+							    let data = JSON.stringify(_this.inquiryInfo)
+								 uni.navigateTo({
+								 	url: '/pages/qing-f-c/inquiryManage/inquiry-created-copy?data='+data+'&inquiryType=1',
+								 	success: res => {},
+								 	fail: () => {},
+								 	complete: () => {}
+								 });
+								
+								 break
 						}
 						
 			},
 			closingInquiry:function(params){
+				let closingReason = _this.closeItems[_this.closing].label
 				let data={
-					inquiryNumber:_this.inquiryInfo.inquiryNumber,  //		询价单号
-					buyDeputyRemarks:_this.closing
+					inquiryNumber:_inquiryNumber,  //		询价单号
+					buyDeputyRemarks: closingReason
 				}
 				let url = this.Api.buyDeputyClose
 				this.myRequest(data,url,'get').then(res => {
@@ -311,6 +327,13 @@
 				  });
 				});
 		    },
+			toCopyInquiry:function(){
+				// uni.showToast({
+				// 	title: '待开发',
+				// 	icon: 'none'
+				// });
+				this.$refs.copyInquiry.show()
+			},
 			toDetail:function(e){
 				console.log(e)
 				uni.navigateTo({
@@ -331,10 +354,15 @@
 			},
 			pushSellerQuote:function(){
 				let data={
-					 inquiryNumber:_this.inquiryInfo.inquiryNumber
+					 inquiryNumber:_this.inquiry.inquiryNumber
 				}
 				let url = this.Api.push
+				uni.showLoading({
+					title: '提交中',
+					mask: true
+				});
 				this.myRequest(data,url,'get').then(res => {
+				  uni.hideLoading()
 				  console.log(res);
 				  if (res.data.status == 0){
 					  uni.showToast({
@@ -343,6 +371,12 @@
 					  });
 				     _this.getInquiryInfo(_inquiryNumber)
 					 _this.getDeputyQuotation()
+				  }else{
+					  uni.showToast({
+					  	title: res.data.message,
+						icon:'none'
+					  });
+					  return
 				  }
 				}).catch(err => {
 				  wx.showToast({
@@ -358,7 +392,12 @@
 					sellDeputyRemarks:_this.closing
 				}
 				let url = this.Api.buyDeputySuited
+				uni.showLoading({
+					title: '提交中',
+					mask: true
+				});
 				this.myRequest(data,url,'get').then(res => {
+					uni.hideLoading()
 				  console.log(res);
 				  if (res.data.status == 0){
 					  _this.getInquiryInfo(_inquiryNumber)
@@ -373,14 +412,21 @@
 			},
 			//买办设置不匹配
 			unMatchFunc:function(params){
+				let unMatchLabel= _this.items[_this.unMatch].label
 				let data={
 					quotationNumber:_this.quotationNumber,  //		报价单号
-					buyDeputyRemarks:_this.unMatch
+					buyDeputyRemarks:unMatchLabel
 				}
 				let url = this.Api.buyDeputyUnsuited
+				uni.showLoading({
+					title: '提交中',
+					mask: true
+				});
 				this.myRequest(data,url,'get').then(res => {
+				  uni.hideLoading()
 				  console.log(res);
 				  if (res.data.status == 0){
+					  
 					  _this.getInquiryInfo(_inquiryNumber)
 					  _this.getDeputyQuotation()
 				  }
@@ -401,7 +447,12 @@
 							quotationNumber: _this.quotationNumber
 						}
 						let url = this.Api.buyDeputySuited
+						uni.showLoading({
+							title: '提交中',
+							mask: true
+						});
 						this.myRequest(data,url,'get').then(res => {
+							uni.hideLoading()
 						  console.log(res);
 						  if (res.data.status == 0){
 							  _this.getInquiryInfo(_inquiryNumber)
@@ -420,23 +471,28 @@
 						
 					    break
 					case 'trade':
-						let _data ={
-							inquiryNumber: _inquiryNumber,
-							quotationNumber: _this.quotationNumber
-						}
-						let _url = this.Api.buyDeputyAddOrder
-						this.myRequest(_data,_url,'get').then(res => {
-						  console.log(res);
-						  if (res.data.status == 0){
-							  _this.getInquiryInfo(_inquiryNumber)
-							  _this.getDeputyQuotation()
-						  }
-						}).catch(err => {
-						  wx.showToast({
-						    title: err.data.errMsg,
-						    icon: 'none'
-						  });
-						});
+					    uni.showToast({
+					    	title: '开发中',
+							icon: 'none',
+							duration: 1000
+					    });
+						// let _data ={
+						// 	inquiryNumber: _inquiryNumber,
+						// 	quotationNumber: _this.quotationNumber
+						// }
+						// let _url = this.Api.buyDeputyAddOrder
+						// this.myRequest(_data,_url,'get').then(res => {
+						//   console.log(res);
+						//   if (res.data.status == 0){
+						// 	  _this.getInquiryInfo(_inquiryNumber)
+						// 	  _this.getDeputyQuotation()
+						//   }
+						// }).catch(err => {
+						//   wx.showToast({
+						//     title: err.data.errMsg,
+						//     icon: 'none'
+						//   });
+						// });
 						break
 					case 'closing':
 					    this.closing()
@@ -462,7 +518,10 @@
 				});
 			},
 			bindCancel:function(){
-				
+				uni.showToast({
+					title: '待开发',
+					icon: 'none'
+				});
 			}
 	}
 	}
@@ -504,7 +563,14 @@
 		flex-direction: column;
 		
 	}
-	
+	.wrap-box-1{
+		//padding-left: 24upx;
+		padding-right: 20upx;
+		font-size: 13px;
+		display: flex;
+		flex-direction: column;
+		
+	}
 	.box-row{
 		display:flex;
 		justify-content: space-between;
@@ -677,6 +743,7 @@
 		background-color: #fff; 
 	 }
 	.details-title{
+		padding-left: 24upx;
 		display:flex;
 		align-items: center;
 		height: 72upx;

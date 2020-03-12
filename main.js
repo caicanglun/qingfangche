@@ -4,6 +4,8 @@ const Util = require('utils/util.js');
 const Es6Promise = require('lib/es6-promise.js');
 const Api = require("services/config/api.js");
 
+import store from './store/store';
+
 
 Vue.config.productionTip = false
 Vue.prototype.Api = Api
@@ -16,6 +18,16 @@ Vue.prototype.myRequest= function(data,url,method){
 	    reject(err);
 	  })
 	})
+}
+Vue.prototype.setIsChecked = function(items,index){
+	items.forEach((item)=>{
+		if(item.id == index){
+			this.$set(item,'isChecked',true)
+		}else{
+			this.$set(item,'isChecked',false)
+		}
+	})
+	return items
 }
 Vue.prototype.refreshBack= function(pageNum=2){
 	var pages = getCurrentPages();
@@ -53,6 +65,7 @@ Vue.prototype.checkLogin = function(){
 App.mpType = 'app'
 
 const app = new Vue({
+	store,
     ...App
 })
 app.$mount()

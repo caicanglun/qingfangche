@@ -1,0 +1,1 @@
+<view class="an-box"><view class="an-content-box" style="{{(lineColor==''?'':'border: 1px dashed '+lineColor)}}"><view class="an-content"><slot></slot></view></view></view>

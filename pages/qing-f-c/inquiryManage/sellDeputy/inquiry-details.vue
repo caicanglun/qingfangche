@@ -32,7 +32,10 @@
 				</view>
 			</view>
 		</view>
+		<popupMe ref="unMatchRef" @input="getContent('unMatchRef',$event)" title="不匹配原因"></popupMe>
 		<popupMe ref="closingRef" @input="getContent('closingRef',$event)" title="关闭原因"></popupMe>
+		<popupMe ref="systemUnMatchRef" @input="getContent('systemUnMatchRef',$event)" title="系统不匹配原因"></popupMe>
+		
 		<view class="details-box">
 			<view class='wrap-box-1'>
 				<view class="details-title">
@@ -44,19 +47,52 @@
 			
 		</view>  <!-- 详情 -->
 		
-		<view class="banner" v-if="quotationList.length>0">
+		<!-- <view class="banner" v-if="quotationList.length>0">
 			 报价记录 <text class="pl_20">({{quotationList.length}})</text>
-		</view>
-		<block v-for="(item,index) in quotationList" :key="index">
-			<view class="baojia-box" @tap="toDetail(item.quotationNumber)">
-				<baojiaList :item="item" @handleEvent="handleEvent"></baojiaList>
+		</view> -->
+		<view class='banner'>
+			<view :class="(!isMatch?'btn':'unSelect')" @tap="swtichMatch(1)">
+				系统匹配<view><text class="fs_12">（{{quotationInfo.length}}）</text></view>
 			</view>
-		</block>
-
-        <view class='placeholder-view'></view>
-		<view class="fixed_bottom box_shadow_btn" v-if="inquiryInfo.inquiryStatusCode != 4&&inquiryInfo.inquiryStatusCode != 9">
-		  <button class="btn_all" @tap="submit" hover-class="none">发起报价</button>
+		    <view :class="(isMatch?'btn':'unSelect')" @tap="swtichMatch(2)">
+		    	卖帮办报价<view><text class="fs_12">（{{quotationList.length}}）</text></view>
+		    </view>
 		</view>
+		<view v-if="!isMatch">
+			<view class='no_baojia' v-if="quotationInfo.length == 0">
+				暂无相关报价信息
+			</view>
+			<view v-if="quotationInfo.length >0" style="font-size:13px;height:65upx;" class="flex_c_c">
+				匹配{{quotationInfo.length}}家，待报价<text style="color: #FF0000">{{waitQuotation}}</text>家
+			</view>
+			<block v-for="(item,index) in quotationInfo" :key="index">
+				<view class="baojia-box" @tap="toMatchDetail(item.matchCode)">
+					<sellerMatch :quotationInfo="item" @handleEvent="handleEvent"></sellerMatch>
+				</view>
+			</block>
+			<view class='placeholder-view'></view>
+			
+			
+		</view>
+		<view v-if="isMatch">
+			<view class='no_baojia' v-if="quotationList.length == 0">
+				暂无相关报价信息
+			</view>
+			
+			<block v-for="(item,index) in quotationList" :key="index">
+				<view class="baojia-box" @tap="toDetail(item.quotationNumber)">
+					<baojiaList :item="item" @handleEvent="handleEvent"></baojiaList>
+				</view>
+			</block>
+			<view class='placeholder-view'></view>
+			<view class="fixed_bottom box_shadow_btn" v-if="inquiryInfo.inquiryStatusCode != 4&&inquiryInfo.inquiryStatusCode != 9">
+			  <button class="btn_all" @tap="submit" hover-class="none">发起报价</button>
+			</view>
+			
+		</view>
+		
+
+       
 		
 	</view>
 </template>
@@ -65,25 +101,31 @@
 	import baojiaList from "@/components/inquiry/baojia-list.vue";
 	import chanpinyaosu from "@/components/inquiry/chanpinyaosu.vue";
 	import popupMe from "@/components/popupMe.vue";
+	import sellerMatch from "@/components/sellerMatch.vue"
 	let _this,_inquiryNumber
 	export default {
 		components:{
 			baojiaList,
 			chanpinyaosu,
-			popupMe
+			popupMe,
+			sellerMatch
 		},
 		data(){
 			return {
+				matchCode:'',
+				quotationInfo:'',
 				isMatch: true,
 				unMatch:'',
 				closing: '',
+				systemUnMatch:'',
 				inquiryInfo:'',
 				pageNum: 1,
 				pageSize: 10,
 				quotationList:[],
 				isDoRefresh:false,
 				quotationNumber:'',
-				totalPage:''
+				totalPage:'',
+			    waitQuotation:0
 				
 			};
 		},
@@ -92,6 +134,7 @@
 			_inquiryNumber = options.inquiryNumber
 			this.getInquiryInfo(_inquiryNumber)
 			this.getDeputyQuotation()
+			this.matchList1()
 		},
 		onShow: function () {
 		  let pages = getCurrentPages();
@@ -101,9 +144,42 @@
 				   this.getInquiryInfo(_inquiryNumber)
 		  		   this.getDeputyQuotation()
 		  	 }
-		  
+		  this.getInquiryInfo(_inquiryNumber)
+		  this.getDeputyQuotation()
+		  this.matchList1()
 		},
 		methods:{
+			//系统匹配
+			matchList1:function(){
+				let data={
+					inquiryNumber: _inquiryNumber
+				}
+				let url = this.Api.matchList1
+				this.myRequest(data,url,'get').then(res => {
+				  console.log(res);
+				  _this.quotationInfo = res.data.data.list
+				  console.log(_this.quotationInfo)
+				  _this.waitQuotation = 0
+				  _this.quotationInfo.forEach((item)=>{
+					  if (item.matchStatusCode==1){
+						  _this.waitQuotation +=1
+					  }
+				  })
+				}).catch(err => {
+				  wx.showToast({
+				    title: err.data.errMsg,
+				    icon: 'none'
+				  });
+				});
+			},
+			toMatchDetail:function(matchCode){
+				uni.navigateTo({
+					url: '/pages/qing-f-c/inquiryManage/systemMatch/systemMatchDetail?matchCode='+ matchCode,
+					success: res => {},
+					fail: (err) => { console.log()},
+					complete: () => {}
+				});
+			},
 			backto:function(){
 					  uni.navigateBack({
 						delta: 1
@@ -168,8 +244,29 @@
 				this.myRequest(data,url,'get').then(res => {
 				  console.log(res);
 				  if (res.data.status == 0){
-					  _this.getInquiryInfo(_inquiryNumber)
+					  _this.getInquiryInfo()
 					  _this.getDeputyQuotation()
+				  }
+				}).catch(err => {
+				  wx.showToast({
+				    title: err.data.errMsg,
+				    icon: 'none'
+				  });
+				});
+			},
+			//系统不匹配报价单
+			systemUnMatchQuote:function(){
+				let data={
+					matchCode:_this.matchCode,  //		报价单号
+					remarks:_this.systemUnMatch
+				}
+				let url = this.Api.systemNoMatch
+				this.myRequest(data,url,'get').then(res => {
+				  console.log(res);
+				  if (res.data.status == 0){
+					  _this.getInquiryInfo()
+					  _this.getDeputyQuotation()
+					  _this.matchList1()
 				  }
 				}).catch(err => {
 				  wx.showToast({
@@ -186,20 +283,31 @@
 					    _this.quotationNumber = params[1]
 					    this.tapClosing()
 					    break
-					case 'verify':
+					case 'unMatch':
+					   _this.quotationNumber = params[1]
+					   this.tapUnmatch()
 					    break
+					case 'systemUnMatch':
+					   _this.matchCode = params[1]
+					   this.tapSystemUnmatch()
+					   break
 				}
+			},
+			
+			tapUnmatch:function(){
+				this.$refs.unMatchRef.show()
 			},
 			tapClosing:function(){
 				this.$refs.closingRef.show()
 			},
-			tapUnmatch:function(){
-				this.$refs.unMatchRef.show()
+			tapSystemUnmatch:function(){
+				this.$refs.systemUnMatchRef.show()
 			},
 			getContent:function(label,content){
 				switch (label){
 					case 'unMatchRef':
 						 this.unMatch = content
+						 this.unMatchQuote()
 						 console.log(this.unMatch)
 						 break
 					case 'closingRef':
@@ -207,14 +315,26 @@
 						 this.closingQuote()
 						 console.log(this.closing)
 						 break
+					case 'systemUnMatchRef':
+						 this.systemUnMatch = content
+						 this.systemUnMatchQuote()
+						 console.log(this.systemUnMatchQuote)
+						 break
 				}
 						
 			},
 			submit:function(){
+				// uni.navigateTo({
+				// 	url: './startQuote?inquiryNumber='+ _inquiryNumber,
+				// 	success: res => {},
+				// 	fail: () => {},
+				// 	complete: () => {}
+				// });
+				this.$store.dispatch('copeFun',_inquiryNumber)
 				uni.navigateTo({
-					url: '/pages/qing-f-c/inquiryManage/sellDeputy/startQuote?inquiryNumber='+ _inquiryNumber,
+					url: '/pages/qing-f-c/inquiryManage/comQuotation/selectCustomer?inquiryNumber='+ _inquiryNumber,
 					success: res => {},
-					fail: () => {},
+					fail: (err) => {console.log(err)},
 					complete: () => {}
 				});
 			}
@@ -460,11 +580,19 @@
 		justify-content: space-around;
 		font-size: 14px;
 		color: white;
+		.unSelect{
+			display:flex;
+			justify-content: center;
+			align-items: center;
+			width: 250upx;
+			height:60upx;
+			
+		}
 		.btn{
 			display:flex;
 			justify-content: center;
 			align-items: center;
-			width:250upx;
+			width: 250upx;
 			height:60upx;
 			background:rgba(255,255,255,0.2);
 			border-radius:30upx;	

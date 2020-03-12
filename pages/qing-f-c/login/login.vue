@@ -69,6 +69,7 @@
 	import uniIcon from "@/components/uni-icons/uni-icons.vue";
 	const JsyServer = require("services/jsy-server.js");
 	const Api = require('services/config/api.js');
+	let _this
 	export default {
 		components:{
 			uniIcon
@@ -82,7 +83,9 @@
 				isPassClear: false
 			};
 		},
-	
+	   onLoad:function(){
+	   	  _this = this
+	   },
 		
 		methods:{
 			getPupDefault:function(){
@@ -147,7 +150,7 @@
 				let data = e.detail.value;
 				console.log(data);
 				
-				if(!(/^1(3|4|5|6|7|8|9)\d{9}$/.test(data.contPhone))){
+				if(!(/^1(3|4|5|6|7|8|9)\d{9}$/.test(_this.contPhone))){
 					uni.showToast({
 						title: '请输入正确电话号码',
 						icon: 'none',
@@ -155,7 +158,7 @@
 					});
 					return ;
 				}
-				if(!data.contPass || data.contPass.length<6){
+				if(!_this.contPass || _this.contPass.length<6){
 					uni.showToast({
 						title: '请输入至少六位密码',
 						icon: 'none',
@@ -174,8 +177,8 @@
 						'content-type': 'application/json'
 					},
 					data: {
-						phone: data.contPhone,
-						password: data.contPass
+						phone: _this.contPhone,
+						password: _this.contPass
 					},
 					success: res => {
 						console.log(res.data);

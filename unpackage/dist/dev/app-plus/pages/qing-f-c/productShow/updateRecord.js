@@ -1,0 +1,2 @@
+setCssToHead(["@charset \x22UTF-8\x22;\nbody { background: #F4F4F4; font-size: 13px; }\n",],undefined,{path:"./pages/qing-f-c/productShow/updateRecord.wxss"})();
+document.dispatchEvent(new CustomEvent("generateFuncReady", { detail: { generateFunc: $gwx('./pages/qing-f-c/productShow/updateRecord.wxml') } }));

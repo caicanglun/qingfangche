@@ -31,17 +31,17 @@
 				<view class="fs_12 flex_sb_c height_48" v-if="isSellDeputy=='buyDeputy'">
 				  <view>收到报价<text class="color_FF6000 pl_10"> {{item.quotationCount||0}}</text>
 				   </view>
-				  <view>处理结果<text class='color_FF6000 pl_10'> {{item.processed||0}}</text> 
+				  <view>已推送<text class='color_FF6000 pl_10'> {{item.processed||0}}</text> 
 					</view>
 				  <view>未处理<text class="color_FF6000 pl_10"> {{item.untreated||0}}</text> 
 				  </view>
 				</view>
-				<!-- --------买卖帮办底下计数不同--------- -->
+				<!-- --------卖帮办底下计数不同--------- -->
 				<view class="fs_12 flex_sb_c height_48" v-if="isSellDeputy=='sellDeputy'">
 				  <view>已报价
 					<text class="color_FF6000 pl_10"> {{item.quotationCount||0}}</text>
 				   </view>
-				  <view>处理结果
+				  <view>已推送
 					<text class='color_FF6000 pl_10'> {{item.processed||0}}</text> 
 					</view>
 				  <view  style="width:250upx;">

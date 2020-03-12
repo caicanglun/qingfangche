@@ -1,0 +1,2 @@
+setCssToHead(["@charset \x22UTF-8\x22;\n.",[1],"show_class { width: ",[0,700],"; height: ",[0,900],"; }\n",],undefined,{path:"./pages/qing-f-c/pictureShow/pictureShow.wxss"})();
+document.dispatchEvent(new CustomEvent("generateFuncReady", { detail: { generateFunc: $gwx('./pages/qing-f-c/pictureShow/pictureShow.wxml') } }));

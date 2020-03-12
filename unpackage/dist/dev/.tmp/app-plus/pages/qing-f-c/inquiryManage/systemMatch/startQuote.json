@@ -1,0 +1,14 @@
+{
+  "usingComponents": {
+    "my-picker-part": "/components/myPickerPart",
+    "switch-button": "/components/switchButton-auto",
+    "picker-button": "/components/pickerButton",
+    "part-checkbox-group": "/components/partCheckboxGroup",
+    "picker-input": "/components/pickerInput",
+    "switch-button-s": "/components/switchButton-s",
+    "popup-me": "/components/popupMe",
+    "uni-icon": "/components/uni-icons/uni-icons",
+    "picture": "/components/pictures",
+    "switch-button-e": "/components/switchButton-edit"
+  }
+}

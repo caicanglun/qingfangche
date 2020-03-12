@@ -2,6 +2,7 @@
   "navigationBarTitleText": "选择买家",
   "enablePullDownRefresh": true,
   "usingComponents": {
-    "top-search": "/components/topSearch"
+    "top-search": "/components/topSearch",
+    "uni-load-more": "/components/uni-load-more/uni-load-more"
   }
 }

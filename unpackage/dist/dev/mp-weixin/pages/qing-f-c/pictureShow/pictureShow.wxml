@@ -1,0 +1,1 @@
+<view class="flex_c_c mt_50"><image class="show_class" src="{{url}}" mode="aspectFill"></image></view>

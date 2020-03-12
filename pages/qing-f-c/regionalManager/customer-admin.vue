@@ -146,7 +146,7 @@
       </view>
   	 </label> 
    </checkbox-group>
-  <view class="bottom_title fff_50" v-if="loading">加载中...</view>
+  <uniLoadMore :status="loadingType"></uniLoadMore>
 </view>
 
 <!-- <view class="flex_c all_list" v-if="compileing" @tap="tabAllPitchOn">
@@ -177,12 +177,18 @@
 </template>
 
 <script>
-
+import uniIcon from "@/components/uni-icons/uni-icons.vue";
+import uniLoadMore from "@/components/uni-load-more/uni-load-more.vue";
 let pageSize = 20
-let _this,_postCode,_regionCode
- const JsyServer = require("@/services/jsy-server.js");
+let _this,_postCode,_regionCode,timer
+const JsyServer = require("@/services/jsy-server.js");
+
 export default {
-  data() {
+	components:{
+		uniIcon,
+		uniLoadMore
+	},
+    data() {
     return {
    
       tabTwo: 0,
@@ -195,6 +201,7 @@ export default {
       selectContent: [],
       bindSelect: false,
       //是否点开搜素类别
+	  loadingType:'more',
       loading: false,
       numOne: 0,
       numTwo: 0,
@@ -208,32 +215,26 @@ export default {
 	  isLastPage: false   ,//是否最后一页面
 	  codeValue:[],
 	  isDoRefresh:false,
-	  totalPage:''
+	  totalPage:'',
+	  
 	  
     };
   },
 
   onReachBottom: function () {
-
-     if (_this.pageNum < _this.totalPage){
-       console.log('当前页',_this.pageNum)
-       _this.pageNum = _this.pageNum + 1
-	   
-	   this.getCustomerList(_this.pageNum,_this.isAllocation)
-      }
+    if (timer != null) {
+               clearTimeout(timer);
+           }
+      timer = setTimeout(function() {
+           _this.getMoreCustomer();
+       }, 1000);
+    
+     
 
    },
    onPullDownRefresh: function () {
-	 if (this.pageNum == 1){
-		 this.getCustomerList(this.pageNum,this.isAllocation); 
-		 
-	 }else{
-		 this.pageNum = this.pageNum -1
-		 this.getCustomerList(this.pageNum,this.isAllocation);
-	 }
-	 uni.stopPullDownRefresh();
-	
-  	 
+	   _this.getCustomerList();
+	      
    },
    onShow: function () {
 	   
@@ -245,11 +246,12 @@ export default {
 		   this.getCustomerList(this.pageNum,this.isAllocation);
 		   this.dmCount()
      	 }
+	this.getCustomerList();
    },
    onLoad: function (options) {
      _this = this;
 	 _postCode = uni.getStorageSync('pupDefault')
-	 _regionCode = options.regionCode
+	 _regionCode = this.$store.state.regionCode
 	
   	if (this.checkLogin()){
 		this.getCustomerList(this.pageNum,this.isAllocation)
@@ -269,14 +271,52 @@ export default {
   components: {},
   props: {},
   methods: {
+	  getMoreCustomer:function(){
+	  		 
+	  	    if (_this.loadingType !== 'more') {//loadingType!='more';直接返回
+	  	    	return false;
+	  	    }
+	  		_this.loadingType = 'loading';
+	  		uni.showNavigationBarLoading();//显示加载动画
 	  
-	  getCustomerList:function(pageNum=1,isAllocation=-1,buyOrSell=-1,keyword=''){
+	  	    let _data= {
+	  			keyword: _this.inputValueOne,		//搜索关键字
+	  			regionCode: _this.regionCode,	//区域编码，空为全部区域
+	  			buyOrSell: _this.buyOrSell,			//-1全部，0未知，1买家，2卖家
+	  			isAllocation: _this.isAllocation,		//-1全部，1已分配，0未分配
+	  			pageNum: _this.pageNum,			//当前页
+	  			pageSize: pageSize,             // 页面大小
+	  			postCode: _postCode   
+	  		}
+	  	   JsyServer.dmList(_data).then(res => {
+	  		  if (res.data.data.list.length == 0) {//没有数据
+	  		      console.log("no data")
+	  		  	_this.loadingType = '';
+	  		  	uni.hideNavigationBarLoading();//关闭加载动画
+	  		  	return;
+	  		 }
+	  		  _this.pageNum++;//每触底一次 page +1
+	  	     console.log(res)
+	  	     _this.customerList = _this.customerList.concat(res.data.data.list)
+	  		_this.loadingType = 'more';//将loadingType归0重置
+	  		uni.hideNavigationBarLoading();//关闭加载动画
+	  		
+	  	   }).catch(err => {
+	  		  
+	  	     console.log("getBSList=err==", err);
+	  	   });
+	  	  
+	  },
+	  getCustomerList:function(){
+		  _this.pageNum = 1
+		  _this.loadingType = 'more';
+		  uni.showNavigationBarLoading();
 			let _data={
-			 	keyword:keyword,		//搜索关键字
+			 	keyword:_this.inputValueOne,		//搜索关键字
 			 	regionCode: _regionCode,	//区域编码，空为全部区域
-			 	buyOrSell: buyOrSell,			//-1全部，0未知，1买家，2卖家
-			 	isAllocation: isAllocation,		//是否已分配买/卖帮办。-1全部，1已分配，0未分配
-			 	pageNum: pageNum,			//当前页
+			 	buyOrSell: _this.buyOrSell,			//-1全部，0未知，1买家，2卖家
+			 	isAllocation: _this.isAllocation,		//是否已分配买/卖帮办。-1全部，1已分配，0未分配
+			 	pageNum: _this.pageNum,			//当前页
 			 	pageSize: pageSize,             // 页面大小
 			 	postCode: _postCode             //职位
 			 }
@@ -284,6 +324,7 @@ export default {
 	    
 			JsyServer.dmList(_data).then(res => {
 			   console.log("客户信息===",res)
+			   _this.pageNum++;//每触底一次 page +1
 			   _this.customerList = res.data.data.list
 				
 				_this.isLastPage = res.data.data.isLastPage
@@ -293,19 +334,21 @@ export default {
 			   console.log("getBSList=err==", err.Msg);
 			 }); 
 			  let __data={
-				  keyword:keyword,		//关键词
+				  keyword:_this.inputValueOne,		//关键词
 				  regionCode:_regionCode,   //区域编码
-				  buyOrSell: buyOrSell,  //买卖家
+				  buyOrSell: _this.buyOrSell,  //买卖家
 				  postCode: _postCode
 			  }
 			 JsyServer.dmCount(__data).then(res => {
 			    console.log("客户数量===",res)
-			    _this.numOne = res.data.data.all
+			            _this.numOne = res.data.data.all
 			 			_this.numTwo = res.data.data.isAllocation
 			 			_this.numThree = res.data.data.notAllocation
 			  }).catch(err => {
 			    console.log("getBSList=err==", res);
 			  }); 
+			  _this.loadingType = 'more';//将loadingType归0重置
+			  uni.hideNavigationBarLoading();//关闭加载动画
 	  },
 	  
 	  
@@ -383,25 +426,7 @@ export default {
       // });
 	  this.bindSelect = !this.bindSelect
     },
-    // 点击选项
-    bindSelectContent: function (e) {
-      let index = e.currentTarget.dataset.index;
-      let selectContent = this.selectContent;
-      let obj = selectContent[0];
-      selectContent[0] = selectContent[index];
-      selectContent[index] = obj;
-	  if (this.selectContent[0].id == 0){
-		  this.getCustomerList(this.pageNum,this.isAllocation,this.buyOrSell)
-	  }else{
-		  this.getCustomerList(this.pageNum,this.isAllocation,this.buyOrSell,this.selectContent[0].id)
-	  }
-	  
-	  
-      
-	 
-	  
-     
-    },
+   
     // 点击搜索
     tapSearch: function () {
       
@@ -411,7 +436,7 @@ export default {
 	  this.pageNum = 1
 	  this.isAllocation = -1
 	  this.buyOrSell = -1
-      this.getCustomerList(this.pageNum,this.isAllocation,this.buyOrSell,this.inputValueOne);
+      this.getCustomerList();
 	  
       setTimeout(function() {
       		  uni.hideLoading();
@@ -442,7 +467,7 @@ export default {
 		  this.setNavButton("")
 		  this.isAllocation = -1
 		  this.compileing = false
-		  this.getCustomerList(this.pageNum,this.isAllocation)
+		  
 		  
 	  }
       if (index==1){
@@ -450,7 +475,7 @@ export default {
 		 //重新请求已分配客户列表
 		 this.isAllocation = 1
 		 this.pageNum = 1
-		this.getCustomerList(this.pageNum,this.isAllocation)
+		
 	  }
 	  if(index==2){
 		  //重新请求未分配客户列表
@@ -458,9 +483,9 @@ export default {
 		this.isAllocation = 0
 		this.pageNum = 1
 		console.log("分配状态：",this.isAllocation)
-		this.getCustomerList(this.pageNum,this.isAllocation)
+		
 	  }
-	  
+	  this.getCustomerList()
     },
     // 点击编辑
     tapCompile: function () {

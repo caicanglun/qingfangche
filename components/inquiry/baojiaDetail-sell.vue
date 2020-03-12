@@ -4,7 +4,7 @@
 			<view class='subItem'><text class="label">推送报价：</text>{{item.buyDeputyFinalPrice ||''}}{{item.buyDeputyFinalPriceUnitName ||''}}</view>
 			<view class='subItem'><text class="label">税：</text>{{item.buyDeputyIsPlusDutyName ||''}}</view>
 			<view class='subItem'><text class="label">运费：</text>{{item.buyDeputyIsIcashName ||''}}</view>
-			<view class='subItem' v-if='item.buyDeputyIsIcash ==0'><text class="label">运费单价：</text>{{item.buyDeputyFreight ||''}}{{item.buyDeputyFinalPriceUnitName ||''}}</view>	
+			<view class='subItem' v-if='item.buyDeputyIsIcash ==1'><text class="label">运费单价：</text>{{item.buyDeputyFreight ||''}}{{item.buyDeputyFinalPriceUnitName ||''}}</view>	
 			<view class='subItem'><text class="label">佣金比例：</text>{{item.buyDeputyCommissionRate ||''}}%</view>
 			<view class='subItem'><text class="label">买帮办：</text>{{item.buyDeputyRealName ||''}}</view>
 			<view class='subItem'><text class="label">买帮办备注：</text>{{item.qBuyDeputyRemarks ||''}}</view>

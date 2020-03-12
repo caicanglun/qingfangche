@@ -1,0 +1,1 @@
+<view class="topTabbar"><block wx:for="{{items}}" wx:for-item="item" wx:for-index="index" wx:key="id"><view data-event-opts="{{[['tap',[['tapTab',['$0'],[[['items','id',item.id,'id']]]]]]]}}" class="{{['box_shadow_btn',item.isChecked?'tabActive':'tabItem']}}" bindtap="__e"><text class="tabText">{{item.label}}</text></view></block></view>

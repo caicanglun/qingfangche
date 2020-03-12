@@ -10,9 +10,10 @@
 		  <input placeholder-class="color_909090 fs_14" class="input" placeholder="请填写品名" name="tradeName" v-model="tradeName"></input>
 		</view>
 		<!-- <pickerButton :items="inquiryType" name="询价类型" @buttonChange="tabSwitchChange('inquiryType',$event)"></pickerButton> -->
-		 <myPicker @mychange="tabSwitchChange('productType',$event)" :items="productType" name="产品类型"></myPicker>
-		 <myPicker @mychange="tabSwitchChange('productSerial',$event)" :items="productSerial" name="产品系列"></myPicker>
-			 
+		 <myPicker @mychange="tabSwitchChange('productType',$event)" :items="productType" name="产品类型" :firstLabel="productType[0].label"></myPicker>
+		 <!-- <myPicker @mychange="tabSwitchChange('productSerial',$event)" :items="productSerial" name="产品系列"></myPicker> -->
+		 <pickerInput @mychange="tabSwitchChange('productSerial',$event)"
+		:items="productSerial" :firstLabel="productSerialValue" name="产品系列" fontSize="font-size:14px;"></pickerInput> 
 		
 		
 		<!-- <view class="flex_c list" @tap="selectBuyer">
@@ -55,9 +56,9 @@
 				<text class="pl_10">{{index+1}}、{{item}}</text>
 			</block>
 		  </view>
-		  <!-- <view class="fs_13 color_FF6000" @tap="tapNewPartLong">
+		  <view class="fs_13 color_FF6000" @tap="tapNewPartLong">
 			  +新增加
-		  </view> -->
+		  </view>
 		</view>
 		<view class="flex_c list">
 		  <partCheckboxGroup :items="partListLong" @selectChange="tapPartLongSelect"></partCheckboxGroup>
@@ -65,7 +66,7 @@
 		<view class="flex_c list_right_content">
 		  <view class="fs_13">含量:</view>
 		  <input placeholder-class="color_909090 fs_13" class="input" 
-		  placeholder="请输入，例如涤75%/氨10%/棉5%" 
+		  placeholder="例如75%涤20%氨5%棉"
 		  name="content" v-model="content"></input>
 		</view>
 		</view>
@@ -82,7 +83,7 @@
 			  <view class="flex_c">
 				  <view class="fs_13">经:</view>
 				  <input placeholder-class="color_909090 fs_13" class="input" 
-				  placeholder="例如T50d/72Ffdy+t50d/72Ffdy" 
+				  placeholder="例如50D/96FDTY半光+75D/144FFDY消光" 
 				  name="spec_longitude" v-model="spec_longitude"></input>
 			  </view>
 			 
@@ -91,7 +92,7 @@
 			<view class="flex_c list_right_content">
 			  <view class="fs_13">纬:</view>
 			  <input placeholder-class="color_909090 fs_13" class="input" 
-			  placeholder="例如T50d/72Ffdy+t50d/72Ffdy" 
+			  placeholder="例如50D/96FDTY半光+75D/144FFDY消光" 
 			  name="spec_latitude" v-model="spec_latitude"></input>
 			</view>
 		</view>
@@ -100,11 +101,11 @@
 			<view class="form_box box_shadow">
 
 				<!-- <myPickerSmall @mychange="tabSwitchChange('styleChange',$event)" :items="styleSerial" name="风格"></myPickerSmall> -->
-				<pickerInput @mychange="tabSwitchChange('styleChange',$event)" :items="styleSerial" name="风格"></pickerInput>
+				<pickerInput @mychange="tabSwitchChange('styleChange',$event)" :firstLabel="styleSerialValue" :items="styleSerial" name="风格"></pickerInput>
 				<view class="flex_c list_right_content">
 				  <view class="fs_13">组织:</view>
 				  <input placeholder-class="color_909090 fs_13" class="input" 
-				  placeholder="请输入风格的组织，如2*1" 
+				  placeholder="例如2/1" 
 				  name="organize" v-model="organize"></input>
 				</view>
 			</view>
@@ -112,7 +113,7 @@
 		<view class="form_box box_shadow">
 		   <pickerButton :items="sampleType" name="布样类型" @buttonChange="tabSwitchChange('sampleType',$event)"></pickerButton>
 		   <view class="flex_c list_part">
-			  <view>密度<text class="pl_20">({{sampleTypeIndex?'坯布':'成品'}})</text></view>
+			  <view>密度<text class="pl_20">({{sampleTypeIndex==1?'坯布':'成品'}})</text></view>
 			</view>	
 			<view class="flex_c list_right_content">
 			  <view class="fs_13">经:</view>
@@ -127,7 +128,7 @@
 			</view>
 			<view class="flex_sb list_right_content">
 			  <view class="flex_c">
-				  <view class="fs_13">克重:<text class="pl_20">({{sampleTypeIndex?'坯布':'成品'}})</text></view>
+				  <view class="fs_13">克重:<text class="pl_20">({{sampleTypeIndex==1?'坯布':'成品'}})</text></view>
 				  <input placeholder-class="color_909090 fs_13" class="input_300" 
 				  placeholder="请输入数量" 
 				  name="grammage" v-model="grammage" type="number"></input>
@@ -138,38 +139,12 @@
 			</view>
 			<view class="flex_sb list_right_content">
 			  <view class="flex_c">
-				  <view class="fs_13">幅宽:<text class="pl_20">({{sampleTypeIndex?'坯布':'成品'}})</text></view>
+				  <view class="fs_13">幅宽:<text class="pl_20">({{sampleTypeIndex==1?'坯布':'成品'}})</text></view>
 				  <input placeholder-class="color_909090 fs_13" class="input_300" 
 				  placeholder="请输入数量" 
 				  name="clothBreadth" v-model="clothBreadth" type="number"></input>
 			  </view>
 			  <view>cm</view>
-			</view>
-		</view>
-		<!-- ------------------------------------------------ -->
-		
-		<view class="form_box box_shadow">
-		
-			<myPickerSmall @mychange="tabSwitchChange('qualityPosition',$event)" :items="qualityPosition" name="品质定位"></myPickerSmall>
-			<view class="flex_sb list_right_content">
-			  <view class="flex_c">
-				  <view class="fs_13">购买数量:</view>
-				  <input placeholder-class="color_909090 fs_13" class="input_300" 
-				  placeholder="请输入数量" 
-				  name="purchaseQuantity" v-model="purchaseQuantity" type="number"></input>
-			  </view>
-			  <view class="flex_c">
-				  <switchButton :items='lengthUnit' @buttonChange="tabSwitchChange('lengthUnit',$event)"></switchButton>
-			  </view>
-			</view>
-			<view class="flex_sb list_right_content">
-			  <view class="flex_c">
-				  <view class="fs_13">挂码率:</view>
-				  <input placeholder-class="color_909090 fs_13" class="input_300" 
-				  placeholder="请输入" 
-				  name="guamalv" v-model="guamalv" type="number"></input>
-			  </view>
-			  <view>%</view>
 			</view>
 			<view class="flex_c list_right_content">
 			  <view class="fs_13">备注:</view>
@@ -177,22 +152,14 @@
 			  placeholder="非必填" 
 			  name="remarks" v-model="remarks"></input>
 			</view>
-			<view class="uploadFile list_right_content">
-				 <view><text class="fs_14;">布样照片</text><text class="smallFont">（最多克上传9张）</text></view>
-				 <view class="IconStyle" @tap="pickImage">
-					 <view class="iconCenter">
-						 <view>
-							 <uniIcon type="plus" color="#CECECE" size="30"></uniIcon>
-						 </view>
-						 <view style="margin-top: -40upx;"><text style="font-size:14px;color:#B1B1B1;">添加图片</text></view>
-					 </view>
-		
-				 </view>
-				 <view style="height: 80upx;width:100%;color:#FFFFFF;"></view>
-			</view>
 		</view>
+		<!-- ------------------------------------------------ -->
 		
-		<!-- <view class='placeholder-view'></view> -->
+	
+		
+		
+		
+		<view class='placeholder-view'></view>
 	
 		  
 		<view class="fixed_bottom box_shadow_btn">
@@ -222,6 +189,7 @@
 			pickerInput,
 			uniIcon,
 			popupMe
+			
 		},
 	   data(){
 		return{
@@ -245,11 +213,15 @@
 			grammageUnit:[],
 			grammageUnitIndex: 1,          //克重单位
 			lengthUnit: [],
-			lengthUnitIndex: 1,           //长度单位
+			lengthUnitIndex: 1, 
+					  //长度单位
 			productSerial:[],
-			productSerialIndex: -1,       //产品系列
+			productSerialIndex: '',       //产品系列
+			productSerialValue:'',       //产品系列值
+			
 			productType:[],
-			productTypeIndex: -1,        //产品类型
+			productTypeIndex: 1,        //产品类型
+			
 			buyer:'',
 			buyerCode: '',
 			
@@ -258,7 +230,7 @@
 			styleSerialValue:''        ,//风格输入选择框返回内容
 			
 			qualityPosition: [],
-			qualityPositionIndex: -1,     //品质定位
+			qualityPositionIndex: '',     //品质定位
 			
 			part:[],   //经成分选中label
 			partID:[],  //经成分选中ID
@@ -274,13 +246,49 @@
 			newPartText:'',            //新增经成分
 			newPartLongText: '',       //新增纬成分
 			
-			styleCode: -1
-			
+			styleCode: -1,
+			number: '',
+			orderType:'',
+			pictures:[]
 		};
 	  },
-	  onLoad:function(){
+	  onLoad:function(options){
 		  _this = this
-	  	 console.log(this.Api.getChannel)
+	  	 console.log(options)
+		 this.number = options.number
+		 console.log(this.number)
+		 this.orderType = options.orderType
+		 this.qualityPositionIndex = options.qualityPosition
+		 if (options.data){
+			 let data = JSON.parse(options.data)
+			  _this.productSerialIndex    =  data.seriesCode ||1
+			  _this.productSerialValue     = data.seriesName
+			  _this.styleSerialIndex  = data.styleCode || -1
+			  _this.styleSerialValue   = data.styleName
+			 _this.clothBreadth = data.clothBreadth
+			 _this.tradeName = data.tradeName
+			 _this.content   = data.content
+			 _this.spec_longitude = data.specificationLongitude
+			 _this.spec_latitude = data.specificationLatitude
+			 _this.organize = data.organization
+			 _this.grammage = data.gramWeight
+			 _this.density_latitude = data.densityLatitude
+			 _this.density_longitude = data.densityLongitude
+			 _this.densityUnitIndex = data.densityUnitCode ||1
+			 _this.grammageUnitIndex = data.gramWeightUnitCode ||1
+			 _this.productSerialIndex = data.seriesCode
+			 _this.productSerialValue = data.seriesName
+			 
+			 _this.productTypeIndex = data.mainProductCode||1
+			 _this.mainProductName = data.mainProductName
+			 				
+			 _this.qualityPositionIndex = data.qualityCode
+			 _this.sampleTypeIndex = data.clothTypeCode ||1
+				
+			 
+			 
+		 }
+		 
 		 
 		 this.getAllSelect()
 	  },
@@ -293,22 +301,24 @@
 			  	complete: () => {}
 			  });
 		  },
-		  test:function(){
-			  let url= 'http://show.jkfb.net.cn:8080/aiwc-show/show/city?cityCode=yuyao'
+		  
+		  getAllSelect:function(){
+			  
+			  //产品类型
+			  let url= this.Api.getMainProduct
 			  let data={}
 			  this.myRequest(data,url,'get').then(res => {
 			    console.log(res);
-			  }).catch(err => {
+			  		_this.productType = res.data.data.list
+			   }).catch(err => {
 			    wx.showToast({
 			      title: err.data.errMsg,
 			      icon: 'none'
 			    });
 			  });
-		  },
-		  getAllSelect:function(){
 			  //请求类型
-			  let url= this.Api.inquiryType
-			  let data={}
+			   url= this.Api.inquiryType
+			   data={}
 			  this.myRequest(data,url,'get').then(res => {
 			    console.log(res);
 				_this.inquiryType = res.data.data.list
@@ -360,6 +370,7 @@
 			  this.myRequest(data,url,'get').then(res => {
 			    console.log(res);
 			    _this.densityUnit = res.data.data.list
+				_this.densityUnit = this.setIsChecked(_this.densityUnit,_this.densityUnitIndex)
 			  }).catch(err => {
 			    wx.showToast({
 			      title: err.data.errMsg,
@@ -372,6 +383,7 @@
 			  this.myRequest(data,url,'get').then(res => {
 			    console.log(res);
 			    _this.grammageUnit = res.data.data.list
+				_this.grammageUnit = this.setIsChecked(_this.grammageUnit,_this.grammageUnitIndex)
 			  }).catch(err => {
 			    wx.showToast({
 			      title: err.data.errMsg,
@@ -502,9 +514,10 @@
 		  // ---  弹窗新增纬度处理
 
 		  tapPaste:function(){
-			  uni.setClipboardData({
-			  	data: this.spec_longitude
-			  })
+			  // uni.setClipboardData({
+			  // 	data: this.spec_longitude
+			  // })
+			  this.spec_latitude = this.spec_longitude
 		  },
 		  tabSwitchChange:function(label,event){
 			  switch (label){
@@ -521,11 +534,15 @@
 				     console.log(event)
 				     this.styleSerialIndex = event[1] || -1
 					 this.styleSerialValue = event[0]
-					 console.log(this.styleSerialIndex)
-					 console.log(this.styleSerialValue)
+					if (this.styleSerialValue=='平纹'){
+						 this.organize = '1/1'
+					}
+					
 					 break;
 				  case 'productSerial':
-				   this.productSerialIndex = event
+				   
+				   this.productSerialIndex = event[1] || -1
+				   this.productSerialValue = event[0]
 					 console.log(this.productSerialIndex)
 					 break;	
 				  case 'productType':
@@ -552,23 +569,30 @@
 					
 			  }
 		  },
-		  pickImage:function(){
-			  uni.chooseImage({
-			      success: (chooseImageRes) => {
-			          const tempFilePaths = chooseImageRes.tempFilePaths;
-			          uni.uploadFile({
-			              url: 'https://www.example.com/upload', //仅为示例，非真实的接口地址
-			              filePath: tempFilePaths[0],
-			              name: 'file',
-			              formData: {
-			                  'user': 'test'
-			              },
-			              success: (uploadFileRes) => {
-			                  console.log(uploadFileRes.data);
-			              }
-			          });
-			      }
-			  });
+		 pickImage:function(){
+		 			  uni.chooseImage({
+		 				  sizeType: ['compressed'],
+		 			      success: (chooseImageRes) => {
+		 			          const tempFilePaths = chooseImageRes.tempFilePaths;
+		             _this.pictures = []
+		 					  for (let i=0 ;i<tempFilePaths.length;i++){
+		 						  uni.uploadFile({
+		 						      url: _this.Api.upload, 
+		 							  filePath: tempFilePaths[i],
+		 							  name:'file',
+		 						      success: (uploadFileRes) => {
+		 						          console.log(uploadFileRes);	
+		 								  _this.pictures.push(JSON.parse(uploadFileRes.data).data.msg)
+		 								  uni.showToast({
+		 								  	title: '上传成功',
+		 									icon:'none',
+		 									duration: 1000
+		 								  });
+		 						      }
+		 						  });
+		 					  }  
+		 			      }
+		 			  });
 		  },
 		  bindCancel:function(){
 			  uni.navigateBack({
@@ -587,16 +611,20 @@
 					  }
 				  }
 			  })
-			  
+			  _this.productSerial.forEach((item)=>{
+			  				  if (item.id == _this.productSerialIndex){
+			  					  if (item.label != _this.productSerialValue){
+			  						  this.productSerialIndex = -1
+			  					  }
+			  				  }
+			  })
 			  let _data={
-				  inquiryType:	 _this.inquiryTypeIndex			,	//询价类型
-				  buyOrSellCode:	_this.buyerCode		,	//买家编码
-				  purchaseQuantity:	 _this.purchaseQuantity,  //购买数量
-				  quantityUnit:		_this.lengthUnitIndex	    , //购买数量单位
-				  hangBitRate:	   _this.guamalv			, //挂码率
-				  remarks:	_this.remarks				,   //备注
+				  number:_this.number,					//单号
+				  orderType: _this.orderType,			        //询价/报价（来样或回样）
+				  mainProductCode: _this.productTypeIndex,  //产品类型编码
 				  tradeName:	_this.tradeName			,	//品名
 				  seriesCode:	_this.productSerialIndex			,	//产品系列编码
+				  seriesName:   _this.productSerialValue,      //产品系列值
 				  ingredientLongitudes: _this.partID ,    //成分经数组
 				  ingredientLatitudes:	_this.partLongID	,  //成分纬数组
 				  content:	_this.content				,  //含量
@@ -613,19 +641,46 @@
 				  gramWeightUnit:		  _this.grammageUnitIndex ,    // 克重单位
 				  clothBreadth:		      _this.clothBreadth , //幅宽
 				  qualityCode:			 _this.qualityPositionIndex ,//品质定位编码
-				  pictures:	[]  //图片数组
+				  remarks:	_this.remarks				,   //备注
+				  pictures:	_this.pictures //图片数组
 				  
 			  }
+			  if(_this.grammageUnitIndex ==1){
+				  if (_this.clothBreadth== 0){
+					  uni.showToast({
+						title: '幅宽必填',
+						icon: 'none',
+						duration: 500
+					  });
+					  return
+			  	}
+			  }
+			 
+			  let url = this.Api.analystAdd
 			  console.log(_data)
-			  let url = this.Api.addInquiry
+			  uni.showLoading({
+			  	title: '正在提交',
+			  	mask: true
+			  });
 			  this.myRequest(_data,url,'post').then(res => {
 			    console.log(res);
 			    if (res.data.status== 0){
+					uni.hideLoading()
 					uni.showToast({
-						title: '询价单创建成功',
+						title: '录入分析成功',
 						icon: 'none',
 						duration: 500
 					});
+					var pages = getCurrentPages();
+					var currPage = pages[pages.length - 1]; //当前页面
+					var prevPage = pages[pages.length - 2]; //上一个页面
+						 
+					//直接调用上一个页面的setData()方法，把数据存到上一个页面中去
+					
+					prevPage.setData({
+					   isDoRefresh:true
+					})
+					
 					uni.navigateBack({
 						delta: 1
 					});
@@ -703,7 +758,7 @@
 	  width: 192upx;
 	}
 	.input{
-	  width: 446upx;
+	  width: 500upx;
 	  background-color: #fff;
 	  font-size: 14px;
 	  padding-left: 30upx;
@@ -978,6 +1033,7 @@
 		flex-direction: column;
 		margin-bottom: 100upx;
 		
+		
 	}
 	.IconStyle {
 		height: 200upx;
@@ -997,6 +1053,12 @@
 	.smallFont{
 	    color: #999999;
 		font-size: 12px;
+	}
+	.picture_style{
+		margin: 0upx 20upx;
+		width: 180upx;
+		height: 180upx;
+		
 	}
 	
 	

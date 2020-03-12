@@ -5,9 +5,9 @@
 		  <picker @change="itemChange" :range="items" range-key="label" :value="index">
 		    <view :class="(index==-1?'color_888 wid_400':'wid_400')">{{index==-1?"请选择":items[index].label}} </view>
 			<!-- <view :class="(index==-1?'color_888 wid_400':'wid_400')" v-if="firstLabel">{{index==-1?firstLabel:items[index].label}} </view> -->
-			
+			<image src="/static/images/qingfc/arrow.png" class="i-next" mode="aspectFill"></image>
 		  </picker>
-				<image src="/static/images/qingfc/arrow.png" class="i-next" mode="aspectFill"></image>
+				
 		</view>
 
 </template>
@@ -18,14 +18,7 @@
 			items:{
 				type: Array
 			},
-			name:{
-				type: String,
-				default: '测试'
-			},
-			star:{
-				type: String,
-				default: 'false'
-			},
+			
 			firstLabel:{
 				type: String,
 				default: '-1'
@@ -33,10 +26,12 @@
 		},
 		data() {
 			return {
-				index: this.firstLabel
+				index: -1
 			};
 		},
-		
+		onReady:function(){
+			this.index = this.firstLabel
+		},
 		methods:{
 			itemChange:function(e){
 				

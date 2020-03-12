@@ -27,29 +27,23 @@
 .checkgroup {
   display: -webkit-box;
   display: -webkit-flex;
-  display: -ms-flexbox;
   display: flex;
   -webkit-box-orient: horizontal;
   -webkit-box-direction: normal;
   -webkit-flex-direction: row;
-      -ms-flex-direction: row;
           flex-direction: row;
   -webkit-box-pack: justify;
   -webkit-justify-content: space-between;
-      -ms-flex-pack: justify;
           justify-content: space-between;
   -webkit-align-content: flex-start;
-      -ms-flex-line-pack: start;
           align-content: flex-start;
   -webkit-flex-wrap: wrap;
-      -ms-flex-wrap: wrap;
           flex-wrap: wrap;
 }
 .typeItemSelect {
   width: 200rpx;
   height: 50rpx;
-  -webkit-box-sizing: border-box;
-          box-sizing: border-box;
+  box-sizing: border-box;
   border-radius: 6rpx;
   line-height: 46rpx;
   text-align: center;
@@ -61,8 +55,7 @@
 .typeItem {
   width: 200rpx;
   height: 50rpx;
-  -webkit-box-sizing: border-box;
-          box-sizing: border-box;
+  box-sizing: border-box;
   border-radius: 6rpx;
   line-height: 46rpx;
   text-align: center;
@@ -73,6 +66,6 @@
   position: absolute;
   right: -10rpx;
   top: -15rpx;
-  z-index: 99;
+  z-index: 98;
 }
 

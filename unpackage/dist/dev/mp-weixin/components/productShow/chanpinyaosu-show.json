@@ -1,0 +1,6 @@
+{
+  "component": true,
+  "usingComponents": {
+    "an-text-area-tip": "/components/an-textarea-tip/an-textarea-tip"
+  }
+}

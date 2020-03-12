@@ -59,8 +59,7 @@
    border: 1rpx solid #979797;
    background-color: #fff;
    margin-right: 20rpx;
-   -webkit-box-sizing: border-box;
-           box-sizing: border-box;
+   box-sizing: border-box;
 }
 .pitch_on{
   width: 40rpx;
@@ -120,8 +119,7 @@
   font-size: 28rpx;
   text-align: center;
   line-height: 1;
-  -webkit-box-sizing: border-box;
-          box-sizing: border-box;
+  box-sizing: border-box;
   padding-top:22rpx; 
   font-weight: bold;
 }
@@ -139,8 +137,7 @@
 .time_btn{
   width: 222rpx;
   height: 56rpx;
-  -webkit-box-sizing: border-box;
-          box-sizing: border-box;
+  box-sizing: border-box;
   background-color: #FF6000;
   color: #fff;
   font-size: 14px;
@@ -161,22 +158,18 @@
   border-radius: 28rpx;
   display: -webkit-box;
   display: -webkit-flex;
-  display: -ms-flexbox;
   display: flex;
   -webkit-box-pack: center;
   -webkit-justify-content: center;
-      -ms-flex-pack: center;
           justify-content: center;
   color:#9B9B9B;
   height: 56rpx;
   -webkit-flex-wrap: wrap;
-      -ms-flex-wrap: wrap;
           flex-wrap: wrap;
   position: relative;
   z-index: 99;
   overflow: hidden;
   -webkit-transition: 0.2s;
-  -o-transition: 0.2s;
   transition: 0.2s
 }
 .bind_searach{

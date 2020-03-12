@@ -1,16 +1,16 @@
 <template>
 	
-		<view class="flex_c list fs_13">
-		  <view><text style="color:#FF6000" v-if="star !=''">{{star}}</text>{{star}}{{name}}：</view>
-		  <input v-model="inputValue" class="wid_400 pl_10"
+		<view class="flex_c list" :style="fontSize">
+		  <view><text style="color:#FF6000;" v-if="star !=''">{{star}}</text>{{star}}{{name}}：</view>
+		  <input class="wid_300 pl_10" v-model="inputValue"
 		  						  placeholder="请输入或者选择" 
 		  						  placeholder-style="color: #909090;font-size: 13px;"
-		  						  @blur = "inputFinish"
+		  						  @blur = "inputFinish" 
 		    ></input>
 			
 				<picker @change="itemChange" :range="items" range-key="label" :value="index">
 					  
-					<view class="picker-image"><image src="/static/images/qingfc/arrow.png" class="i-next" mode="aspectFill"></image></view>
+					<view class="picker-image" style="width:150upx;"><image src="/static/images/qingfc/arrow.png" class="i-next" mode="aspectFill"></image></view>
 					 
 				</picker>
 			
@@ -34,30 +34,38 @@
 				type: String,
 				default: '测试'
 			},
+			fontSize:{
+				type: String,
+				default: ''
+			},
 			star:{
 				type: String,
 				default: ''
 			},
 			firstLabel:{
-				type: String
+				type: String,
+				default: ''
 			}
+			
 		},
 		data() {
 			return {
 				index: -1,
-				inputValue:'',
+				inputValue: '',
 				code: -1
 			};
 		},
-		
+		onReady:function(){
+			this.inputValue = this.firstLabel
+		},
 		methods:{
-			inputFinish:function(){
+			inputFinish:function(e){
+				
 				this.$emit("mychange",[this.inputValue,this.code])
 			},
 			itemChange:function(e){
-				
-				let index = e.detail.value
-				this.index = index
+
+				this.index = e.detail.value
 				if (this.index == -1){
 					this.index = 0
 				}
@@ -94,8 +102,13 @@
 	color: white;
 }
 .picker-image{
-	width: 50upx;
+	width: 150upx;
+	height: 65upx;
 	display: flex;
+	align-items: center;
 	justify-content: flex-end;
+}
+.wid_300{
+	width: 400upx;
 }
 </style>

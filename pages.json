@@ -1,12 +1,85 @@
 {
 	"pages": [ //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
-	                {
-	                			 "path" : "pages/qing-f-c/index",
-	                			 "style" : {
-	                			 	            "navigationStyle":"custom",
-	                							"enablePullDownRefresh": true
-	                			 	        }
-	                },
+	           
+	            {
+	             "path" : "pages/qing-f-c/index",
+	             "style" : {
+	             	            "navigationStyle":"custom",
+	            				"enablePullDownRefresh": true
+	             	        }
+	              },
+				  {
+				      "path" : "pages/qing-f-c/message/messageList",
+				      "style" :{"navigationBarTitleText": "消息"}
+				  },
+	            {
+	                 "path" : "pages/qing-f-c/followRecord/addFollowRecord",
+	                 "style" : {"navigationBarTitleText": "新增跟进记录"}
+	             },
+	            {
+	                "path" : "pages/qing-f-c/inquiryManage/comQuotation/startQuotation",
+	                "style" : {"navigationBarTitleText": "发起报价"}
+	            },
+				{
+				    "path" : "pages/qing-f-c/inquiryManage/comQuotation/selectCustomer",
+				    "style" : {"navigationBarTitleText": "选择客户"}
+				},
+	            {
+	                "path" : "pages/qing-f-c/inquiryManage/comQuotation/selectProduct",
+	                "style" : {"navigationBarTitleText": "选择产品"}
+	            },
+	            
+	            {
+	                "path" : "pages/qing-f-c/inquiryManage/systemMatch/systemMatchDetail",
+	                "style" : {"navigationBarTitleText": "匹配结果"}
+	            },
+
+				  {
+				      "path" : "pages/qing-f-c/productShow/examineProduct",
+				      "style" : {"navigationBarTitleText": "产品审核"}
+				  },
+				  {
+	                  "path" : "pages/qing-f-c/productShow/manageConditionEdit",
+	                  "style" : {"navigationBarTitleText": "编辑经营概况"}
+	              },
+				  {
+	                  "path" : "pages/qing-f-c/productShow/productUpdate",
+	                  "style" : {"navigationBarTitleText": "编辑产品"}
+	              },
+				  {
+	                  "path" : "pages/qing-f-c/productShow/product-created",
+	                  "style" : {"navigationBarTitleText": "新增产品"}
+	              },
+				  {
+	                  "path" : "pages/qing-f-c/productShow/mainShow",
+	                  "style" : {
+	              		"navigationBarTitleText": "产品展示",
+	              		"enablePullDownRefresh": true,
+	              		"app-plus": {
+	              						  "titleNView": {
+	              							  
+	              							  "buttons": [
+	              							  {
+	              								   "color": "#FFFFFF",
+	              								   "float": "right",
+	              								   "fontSize": "15px",
+	              								   "text": "编辑" // 字体图标\u 开头，加上字体图标unicode后面四位
+	              							  }
+	              							  ]
+	              						  }
+	              					   }
+	              	    }
+	              	},
+				  {
+	                  "path" : "pages/qing-f-c/productShow/productDetail",
+	                  "style" : {"navigationBarTitleText": "产品详情"}
+	              },
+
+	               
+					{
+						"path" : "pages/qing-f-c/inquiryManage/priceTrend/priceTrend",
+						"style" : {"navigationBarTitleText": "价格趋势"}
+					},
 	                {
 	                     "path" : "pages/qing-f-c/inquiryManage/sampleInquiry/buyDeputy/inquiry-details-result",
 	                     "style" : {
@@ -38,10 +111,10 @@
 	                
 					
 	                {
-	                	"path" : "pages/qing-f-c/inquiryManage/sampleInquiry/sales_director/inquiry-details",
+	                	"path" : "pages/qing-f-c/inquiryManage/sampleInquiry/sales_director/quotation-details",
 	                	"style" : {
-	                				"navigationStyle":"custom"
-	                								
+	                				
+	                				"navigationBarTitleText": "销售总监报价详情"				
 	                			 } 
 	                },
 					
@@ -54,6 +127,20 @@
 					},
 					{
 					    "path" : "pages/qing-f-c/inquiryManage/sampleInquiry/analyst/inquiry-details-result",
+					    "style" : {
+					    			"navigationStyle":"custom"
+					    							
+					    		 } 
+					},
+					{
+					    "path" : "pages/qing-f-c/inquiryManage/sampleInquiry/analyst/inquiry-details-1",
+					    "style" : {
+					    			"navigationStyle":"custom"
+					    							
+					    		 } 
+					},
+					{
+					    "path" : "pages/qing-f-c/inquiryManage/sampleInquiry/analyst/inquiry-details",
 					    "style" : {
 					    			"navigationStyle":"custom"
 					    							
@@ -89,6 +176,13 @@
 	                          							
 	                          		 } 
 	                      },
+						  {
+						      "path" : "pages/qing-f-c/inquiryManage/sampleInquiry/sales_director/inquiry-details",
+						      "style" : {
+						      			"navigationStyle":"custom"
+						      							
+						      		 } 
+						  },
 	                      
 	                      {
 	                          "path" : "pages/qing-f-c/inquiryManage/sampleInquiry/analyst/inquiryManage",
@@ -107,8 +201,8 @@
 	                    },
 	                    
 	                    {
-	                        "path" : "pages/qing-f-c/inquiryManage/priceTrend/priceTrend",
-	                        "style" : {"navigationBarTitleText": "价格趋势"}
+	                    	"path" : "pages/qing-f-c/inquiryManage/inquiry-created-copy",
+	                    	"style" : {"navigationBarTitleText": "买帮办复制询价单"}
 	                    },
 						
 						
@@ -123,6 +217,10 @@
 	                  	"path" : "pages/qing-f-c/inquiryManage/sellDeputy/startQuote",
 	                  	"style" : {"navigationBarTitleText": "卖帮办发起报价"}
 	                  },
+					  {
+					  	"path" : "pages/qing-f-c/inquiryManage/sampleInquiry/sellDeputy/startQuote",
+					  	"style" : {"navigationBarTitleText": "卖帮办发起报价"}
+					  },
 	                  {
 	                      "path" : "pages/qing-f-c/inquiryManage/setQuotePrice/setQuotePrice",
 	                      "style" : {"navigationBarTitleText": "设置报价"}
@@ -429,6 +527,107 @@
         ,{
             "path" : "pages/qing-f-c/sales_director/approved",
             "style" : {"navigationBarTitleText": "审核管理"}
+        }
+        
+        ,{
+            "path" : "pages/qing-f-c/inquiryManage/sampleInquiry/buyDeputy/quotationDetails/quotationDetails",
+            "style" : {
+            			"navigationStyle":"custom"
+            		 }
+        }
+        ,{
+            "path" : "pages/qing-f-c/inquiryManage/sampleInquiry/sellDeputy/quotationDetails",
+            "style" : {
+            			"navigationStyle":"custom"
+            		 }
+        }
+        ,{
+            "path" : "pages/qing-f-c/inquiryManage/sampleInquiry/buyDeputy/quotationDetails/quotationDetails-1",
+            "style" : {"navigationBarTitleText": "报价单详情"}
+        }
+		,{
+		    "path" : "pages/qing-f-c/inquiryManage/sampleInquiry/sellDeputy/quotationDetails-1",
+		    "style" : {"navigationBarTitleText": "报价单详情"}
+		}
+        ,{
+            "path" : "pages/qing-f-c/pictureShow/pictureShow",
+            "style" : {}
+        }
+        ,{
+            "path" : "pages/qing-f-c/printer/printer",
+            "style" : {"navigationBarTitleText": "生成二维码打印"}
+        }
+        ,{
+            "path" : "pages/qing-f-c/inquiryManage/sampleInquiry/analyst/updateAnalyistResult",
+            "style" : {"navigationBarTitleText": "修改分析结果"}
+        }
+        
+       
+        ,{
+            "path" : "pages/qing-f-c/inquiryManage/sampleInquiry/common/quotation-detail-common",
+            "style" : {"navigationBarTitleText": "报价单详情"}
+        }
+        
+        ,{
+            "path" : "pages/qing-f-c/inquiryManage/sampleInquiry/analyst/updateSampleResult",
+            "style" : {"navigationBarTitleText": "修改对比结果"}
+        }
+        ,{
+            "path" : "pages/qing-f-c/inquiryManage/sampleInquiry/common/sampleModifyRecord",
+            "style" : {"navigationBarTitleText": "分析样修改记录"}
+        }
+        ,{
+            "path" : "pages/qing-f-c/printer/printContent",
+            "style" : {"navigationBarTitleText": "打印二维码内容"}
+        }
+        ,{
+            "path" : "pages/qing-f-c/setting/setting",
+            "style" : {"navigationBarTitleText": "设置"}
+        }
+        
+        
+        
+       
+        ,{
+            "path" : "pages/qing-f-c/productShow/companyPictureEdit",
+            "style" : {"navigationBarTitleText": "编辑公司图片"}
+        }
+       
+        ,{
+            "path" : "pages/qing-f-c/productShow/auditProduct",
+            "style" : {"navigationBarTitleText": "产品审核"}
+        }
+        ,{
+            "path" : "pages/qing-f-c/productShow/auditProductDetail",
+            "style" : {"navigationBarTitleText": "产品详情"}
+        }
+        ,{
+            "path" : "pages/qing-f-c/productShow/updateRecord",
+            "style" : {"navigationBarTitleText": "更新记录"}
+        }
+        ,{
+            "path" : "pages/qing-f-c/analyist/analyist",
+            "style" : {"navigationBarTitleText": "产品审核"}
+        }
+        
+        ,{
+            "path" : "pages/qing-f-c/inquiryManage/systemMatch/quotationDetail",
+            "style" : {}
+        }
+        ,{
+            "path" : "pages/qing-f-c/inquiryManage/systemMatch/startQuote",
+            "style" : {}
+        }
+        ,{
+            "path" : "pages/qing-f-c/inquiryManage/systemMatch/singleProduct",
+            "style" : {}
+        }
+        
+       
+        
+        ,{
+            "path" : "pages/qing-f-c/inquiryManage/comQuotation/productDetail",
+            "style" : {}
         }
         
     ],

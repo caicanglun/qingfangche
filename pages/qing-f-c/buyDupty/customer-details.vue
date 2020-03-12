@@ -45,7 +45,7 @@
 		<view class="counter">36条</view>
 	</view>
     <view class="hand_bottom_btn" @tap="toProductPage">
-		<view>产品展示</view>
+		<view>产品需求</view>
 		<view class="counter">12个</view>
 		
 	</view>
@@ -520,16 +520,16 @@ export default {
     },
     // 跳转到产品展示
     toProductPage: function () {
-      let isProduct = this.customerInfo.productInfo;
-      let url;
+      // let isProduct = this.customerInfo.productInfo;
+      // let url="/pages/qing-f-c/productShow/mainShow";
+      
+      // if (isProduct) {
+      //   url = '/pages/jin-suo-yun/customer-admin/product-display?customerId=' + _id;
+      // } else {
+      //   url = '/pages/jin-suo-yun/customer-admin/add-productpage?type=' + this.customerInfo.type + '&customerid=' + _id;
+      // }
 
-      if (isProduct) {
-        url = '/pages/jin-suo-yun/customer-admin/product-display?customerId=' + _id;
-      } else {
-        url = '/pages/jin-suo-yun/customer-admin/add-productpage?type=' + this.customerInfo.type + '&customerid=' + _id;
-      }
-
-      wx.navigateTo({
+      uni.navigateTo({
         url: url
       });
     },

@@ -10,9 +10,22 @@
 				</veiw>
 			</view>
 		
-			<view class="flex_c_c">
+			<!-- <view class="flex_c_c">
 				<textarea v-model="content" placeholder="请输入" placeholder-style="color: #b3b3b3;font-size: 13px;" class="textarea-borer"></textarea>
+			</view> -->
+			<view class="input-wrap">
+				<input v-model="content" placeholder="请输入" placeholder-style="color: #b3b3b3;font-size: 13px;" class="input-class"/>
 			</view>
+			<!-- <view style="uni-list">
+				<radio-group @change="radioChange">
+					<label class="uni-list-cell uni-list-cell-pd" v-for="(item, index) in items" :key="item.id">
+						<view>
+							<radio :value="item.id" :checked="index === current" />
+						</view>
+						<view>{{item.label}}</view>
+					</label>
+				</radio-group>
+			</view> -->
 			
 			<view class="flex_sa mt_20 mb_20">
 				 <view class="newPartCancel" @tap="closeBanner">取消</view>
@@ -40,11 +53,35 @@
 		},
 		data() {
 			return {
+				items: [{
+						id: 'USA',
+						label: '价格太高'
+					},
+					{
+						id: 'CHN',
+						label: '布面不干净'
+						
+					},
+					{
+						id: 'BRA',
+						label: '买家不满意'
+					}],
+				current: 0,
 				bannerShow:false,
 				content: ''
 			};
 		},
 		methods:{
+			radioChange:function(evt) {
+				for (let i = 0; i < this.items.length; i++) {
+					if (this.items[i].id === evt.target.id) {
+						this.current = i;
+						this.content = this.items[i].label
+						break;
+					}
+				}
+				
+			},
 			closeBanner:function(){
 				this.bannerShow=false;
 			},
@@ -52,7 +89,12 @@
 				this.bannerShow=true;
 			},
 			confirmBanner:function(){
-				this.$emit('input',this.content)
+				if (this.content !==''){
+					this.$emit('input',this.content)
+				}else{
+					this.$emit('input',this.items[0].name)
+				}
+				
 				this.bannerShow = false
 			}
 		}
@@ -131,6 +173,33 @@
 			position:absolute;
 			top: 2upx;
 			right: 2upx;
+		}
+		.input-wrap{
+			margin: 0 30upx;
+			background-color:#F7F7F7;
+			border-radius: 10upx;
+			height: 80upx;
+			display: flex;
+			align-items: center;
+		}
+		.input-class{
+			padding-left: 10upx;
+			background-color:#F7F7F7;
+		}
+		.uni-list-cell {
+			display: flex;
+			
+			justify-content: flex-start
+		}
+		.uni-list-cell-pd {
+			padding: 22upx 30upx;
+		}
+		.uni-list {
+			background-color: #FFFFFF;
+			position: relative;
+			width: 100%;
+			display: flex;
+			flex-direction: column;
 		}
      
 </style>

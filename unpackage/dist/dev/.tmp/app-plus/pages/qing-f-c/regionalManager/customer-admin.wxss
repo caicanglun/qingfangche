@@ -59,8 +59,7 @@
    border: 1rpx solid #979797;
    background-color: #fff;
    margin-right: 20rpx;
-   -webkit-box-sizing: border-box;
-           box-sizing: border-box;
+   box-sizing: border-box;
 }
 .pitch_on{
   width: 40rpx;
@@ -120,8 +119,7 @@
   font-size: 28rpx;
   text-align: center;
   line-height: 1;
-  -webkit-box-sizing: border-box;
-          box-sizing: border-box;
+  box-sizing: border-box;
   padding-top:22rpx; 
   font-weight: bold;
 }
@@ -139,8 +137,7 @@
 .time_btn{
   width: 222rpx;
   height: 56rpx;
-  -webkit-box-sizing: border-box;
-          box-sizing: border-box;
+  box-sizing: border-box;
   background-color: #FF6000;
   color: #fff;
   font-size: 14px;
@@ -162,23 +159,19 @@
   border-radius: 28rpx;
   display: -webkit-box;
   display: -webkit-flex;
-  display: -ms-flexbox;
   display: flex;
   -webkit-box-pack: center;
   -webkit-justify-content: center;
-      -ms-flex-pack: center;
           justify-content: center;
  /* color:#9B9B9B; */
   color:#333;
   height: 56rpx;
   -webkit-flex-wrap: wrap;
-      -ms-flex-wrap: wrap;
           flex-wrap: wrap;
   position: relative;
   z-index: 99;
   overflow: hidden;
   -webkit-transition: 0.2s;
-  -o-transition: 0.2s;
   transition: 0.2s
 }
 .bind_searach{
@@ -281,11 +274,9 @@ checkbox .wx-checkbox-input.wx-checkbox-input-checked {
 .checkboxSty {
 		display: -webkit-box;
 		display: -webkit-flex;
-		display: -ms-flexbox;
 		display: flex;
 		-webkit-box-align: center;
 		-webkit-align-items: center;
-		    -ms-flex-align: center;
 		        align-items: center;
 		padding-left:15rpx;
 }
@@ -347,8 +338,7 @@ checkbox .wx-checkbox-input.wx-checkbox-input-checked {
   background-color: #fff;
   padding:16rpx 30rpx 20rpx;
 	/* height: 92upx; */
-  -webkit-box-sizing: border-box;
-          box-sizing: border-box;
+  box-sizing: border-box;
 }
 .filter_btn{
 	  width: 210rpx;
@@ -358,15 +348,12 @@ checkbox .wx-checkbox-input.wx-checkbox-input-checked {
 	  height: 56rpx;
 	  display: -webkit-box;
 	  display: -webkit-flex;
-	  display: -ms-flexbox;
 	  display: flex;
 	  -webkit-box-pack: center;
 	  -webkit-justify-content: center;
-	      -ms-flex-pack: center;
 	          justify-content: center;
 	  -webkit-box-align: center;
 	  -webkit-align-items: center;
-	      -ms-flex-align: center;
 	          align-items: center;
 }
 .filter_btn_select{
@@ -377,15 +364,12 @@ checkbox .wx-checkbox-input.wx-checkbox-input-checked {
   	  height: 56rpx;
   	  display: -webkit-box;
   	  display: -webkit-flex;
-  	  display: -ms-flexbox;
   	  display: flex;
   	  -webkit-box-pack: center;
   	  -webkit-justify-content: center;
-  	      -ms-flex-pack: center;
   	          justify-content: center;
   	  -webkit-box-align: center;
   	  -webkit-align-items: center;
-  	      -ms-flex-align: center;
   	          align-items: center;
 }
 

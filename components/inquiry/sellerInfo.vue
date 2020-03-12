@@ -1,6 +1,6 @@
 <template>
 	<view>
-		<view class="details-box">
+		<view class="details-box-seller">
 			<view class='wrap-box'>
 				<view class="details-title">
 					 卖家信息
@@ -63,7 +63,7 @@
 </script>
 
 <style lang="scss">
-   .details-box{
+   .details-box-seller{
    		margin: 20upx 30upx 0 30upx;
    		border-radius: 6upx;
    		line-height: 1;

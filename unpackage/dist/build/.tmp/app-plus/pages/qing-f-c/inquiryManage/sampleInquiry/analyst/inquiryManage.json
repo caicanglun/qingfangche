@@ -2,8 +2,9 @@
   "navigationBarTitleText": "分析师询价管理",
   "usingComponents": {
     "uni-icon": "/components/uni-icons/uni-icons",
-    "top-tabbar": "/components/topTabbar",
-    "filter-button": "/components/filterButton",
-    "inquire-list": "/components/inquireList"
+    "top-tabbar": "/components/topTabbar-inquiry",
+    "filter-button": "/components/filterButton-status",
+    "inquire-list": "/components/sample-inquiry/inquireList",
+    "uni-load-more": "/components/uni-load-more/uni-load-more"
   }
 }

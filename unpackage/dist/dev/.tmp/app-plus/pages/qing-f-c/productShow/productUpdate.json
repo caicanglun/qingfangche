@@ -1,0 +1,8 @@
+{
+  "navigationBarTitleText": "编辑产品",
+  "usingComponents": {
+    "picker-input": "/components/pickerInput",
+    "picker-button": "/components/pickerButton-edit",
+    "switch-button-edit": "/components/switchButton-edit"
+  }
+}

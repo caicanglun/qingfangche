@@ -2,40 +2,39 @@
 	<view>
 		<view class="top-nav-fixed">
 			<view class="search_top_box_gray">
-			  <view class="flex_sb height_56">
-				<uniIcon type="scan" size="24" ></uniIcon>
+			  <view class="flex height_56">
+				<uniIcon type="scan" size="24" @tap="scanQR"></uniIcon>
 				<view class="flex_c search_left_gray">
 				  <icon type="search" size="14" style="height:14px;margin-left:40upx;"></icon>
 				  <input class="search_left_input" v-model="inputValueOne" placeholder="搜索" 
 				  @input="blurInput" confirm-type="search" @confirm="tapSearch"></input>
 				</view>
-				<view class="moban" @tap="toModelSearch">
-					模板搜索
-				</view>
+				
 			  </view>
 			</view>
 			<view>
 				<topTabbar @change="tabSwitch()" :items="items" ></topTabbar>
 			</view>
 			
-			
+			<view  style="background: #FFFFFF;">
+					 <filterButton @change="filterButtonChange" :items="filterButton" ></filterButton>
+			</view>
+			<view style="background:#FFFFFF;height:20upx;width:100%;"></view>
 		</view>
-		<view style="height: 140upx;width:100%;"></view>
+		<view style="height: 100upx;width:100%;"></view>
 	<!-- ---------------------------------------- -->
 	<view class="content">
 		
-	   <view class="pt_20 pb_20">
-		<filterButton @change="filterButtonChange" :items="filterButton" :index="fitlerButtonIndex"></filterButton>
-	   </view>
-	   <view class="counter" v-if="activeIndex==0"> {{filterButton[fitlerButtonIndex] || ''}}<text class="pl_20">发起{{count}}条</text></view>
-	   
-		<inquireList @change="toDetail" :items="lists" :isDisplayType="activeIndex==0?true:''" isSellDeputy="buyDeputy"></inquireList>
+	 
+	   <view class="counter" style="margin-top:110upx;padding-top:10upx;"  v-if="activeIndex<2"> {{filterButton[fitlerButtonIndex].label || ''}}<text class="pl_20">发起{{count}}条</text></view>
+	   <view style="height:120upx;width:100%;" v-if="activeIndex>1"></view>
+		<inquireList @change="toDetail" :items="lists" :isDisplayType="activeIndex<2?true:''" isSellDeputy="buyDeputy"></inquireList>
         <uniLoadMore :status="loadingType"></uniLoadMore>
-		<view class="new_build font_we_bold box_shadow_btn child1" @tap="toNewBuild" v-if="activeIndex==1">
+		<view class="new_build font_we_bold box_shadow_btn child1" @tap="toNewBuild" v-if="activeIndex>1">
 		  <view>新建</view>
 		  <view>询价单</view>
 		</view>
-		<view class="new_build font_we_bold box_shadow_btn child2" @tap="toPrinter" v-if="activeIndex==2">
+		<view class="new_build font_we_bold box_shadow_btn child2" @tap="toPrinter" v-if="activeIndex==3">
 		  <view>生成</view>
 		  <view>二维码</view>
 		</view>
@@ -47,7 +46,7 @@
 <script>
 	import uniIcon from "@/components/uni-icons/uni-icons.vue";
 	import topTabbar from "@/components/topTabbar-inquiry.vue";
-	import filterButton from "@/components/filterButton.vue";
+	import filterButton from "@/components/filterButton-status.vue";
 	import inquireList from "@/components/inquireList.vue";
 	import uniLoadMore from "@/components/uni-load-more/uni-load-more.vue";
 	let _this,timer;
@@ -65,18 +64,18 @@
 				loadingType: 'more',
 				
 				inputValueOne:'',
-				items: ['我的询价','常规询价','找样询价'],
+				items: ['我的常规','我的找样','常规询价','找样询价'],
 				activeIndex: 0,
-				filterButton:['近3天','近7天','近15天','一个月内'],
-				fitlerButtonIndex: -1,
+				filterButton:[],
+				fitlerButtonIndex:-1,
 				count: 0,
 				lists:[],
 				totalPage:'',   //总页数
 				
 				keyword : '',			//搜索关键字
 				affiliation	 : 1,	//1我的，2非我的
-				inquiryType : 0,		//0全部，1常规，2找样
-				time : 0,				//天为单位
+				inquiryType : 1,		//0全部，1常规，2找样
+				inquiryStatus : -1,				//状态
 				pageNum	 : 1,		//当前页数
 				pageSize : 20 		,//每页记录数
 				isDoRefresh:false
@@ -105,12 +104,52 @@
 				       currPage.data.isDoRefresh = false;
 					   this.getInquiryList();
 				 }
+			this.getInquiryList()
+			//this.getInquiryStatus()
 		},
 		onLoad:function(){
 			_this = this
 			this.getInquiryList()
+			this.getInquiryStatus()
 		},
 		methods:{
+			// getInquiryStatus:function(){
+				
+			// 	let url = this.Api.inquiryStatus
+			// 	let data = {
+			// 		listType: _this.inquiryType
+
+			// 	}
+			// 	this.myRequest(data,url,'get').then(res => {
+			// 	  console.log(res);
+			// 	   _this.filterButton = res.data.data.list
+			// 	   console.log(_this.filterButton)
+			// 	}).catch(err => {
+			// 	  wx.showToast({
+			// 	    title: err.data.errMsg,
+			// 	    icon: 'none'
+			// 	  });
+			// 	});
+			// },
+			getInquiryStatus:function(){
+				let postCode = uni.getStorageSync('pupDefault')
+				let url = this.Api.inquiryStatus2
+				let data = {
+					postCode: postCode
+			
+				}
+				this.myRequest(data,url,'get').then(res => {
+				  console.log(res);
+				   _this.filterButton = res.data.data.list
+				   this.setIsChecked(_this.filterButton,_this.inquiryStatus)
+				   console.log(_this.filterButton)
+				}).catch(err => {
+				  wx.showToast({
+				    title: err.data.errMsg,
+				    icon: 'none'
+				  });
+				});
+			},
 			 getmoreInquiry: function() {
 					if (_this.loadingType !== 'more') {//loadingType!=0;直接返回
 						return false;
@@ -121,7 +160,7 @@
 						keyword : _this.keyword,			//搜索关键字
 						affiliation	 : _this.affiliation,	//1我的，2非我的
 						inquiryType :  _this.inquiryType,		//1常规，2找样
-						time : _this.time,				//天为单位
+						inquiryStatus : _this.inquiryStatus,				//天为单位
 						pageNum	 : _this.pageNum,		//当前页数
 						pageSize : _this.pageSize 		//每页记录数
 						
@@ -158,7 +197,7 @@
 					keyword : _this.keyword,			//搜索关键字
 					affiliation	 : _this.affiliation,	//1我的，2非我的
 					inquiryType :  _this.inquiryType,		//1常规，2找样
-					time : _this.time,				//天为单位
+					inquiryStatus : _this.inquiryStatus,				//天为单位
 					pageNum	 : _this.pageNum,		//当前页数
 					pageSize : _this.pageSize 		//每页记录数
 					
@@ -203,13 +242,16 @@
 					})
 				}
 			},
+			
 			tabSwitch:function(index){
 				this.activeIndex = index
 				console.log('activeIndex',this.activeIndex)
 				switch (this.activeIndex){
 					case 0: 
 					   this.affiliation = 1  
-					   this.inquiryType = 0
+					   this.inquiryType = 1
+					   this.inquiryStatus = -1
+					   this.getInquiryStatus()
 					   this.getInquiryList()
 					   uni.pageScrollTo({
 					   	duration: 0,
@@ -217,8 +259,10 @@
 					   })
 					   break;
 					case 1: 
-					   this.affiliation = 2
-					   this.inquiryType = 1
+					   this.affiliation = 1
+					   this.inquiryType = 2
+					   this.inquiryStatus = -1
+					   this.getInquiryStatus()
 					   this.getInquiryList()
 					   uni.pageScrollTo({
 					   	duration: 0,
@@ -227,46 +271,59 @@
 					   break
 					case 2: 
 					   this.affiliation = 2
-					   this.inquiryType = 2
+					   this.inquiryType = 1
+					   this.inquiryStatus = -1
+					   this.getInquiryStatus()
 					   this.getInquiryList()
 					   uni.pageScrollTo({
 					   	duration: 0,
 					   	scrollTop: 0
 					   })
 					   break
+					  case 3:
+					      this.affiliation = 2
+					      this.inquiryType = 2
+					      this.inquiryStatus = -1
+					      this.getInquiryStatus()
+					      this.getInquiryList()
+					      uni.pageScrollTo({
+					      	duration: 0,
+					      	scrollTop: 0
+					      })
+					      break
 				}
 			},
 			filterButtonChange:function(index){
-				this.fitlerButtonIndex = index
-				switch(index){
-					case 0:
-					    this.time = 3
-						this.pageNum =1
-					    break  
-					case 1:
-					    this.time = 7
-						this.pageNum =1
-					   break
-					case 2:
-					    this.time = 15
-						this.pageNum =1
-					   break 
-					case 3:
-					    this.time= 30
-						this.pageNum =1
-					   break 
-				}
+				this.inquiryStatus = index
+				
+				this.setIsChecked(this.filterButton,this.inquiryStatus)
+				
+				this.pageNum = 1
 				this.getInquiryList()
 				console.log("fiterButtonIndex",this.fitlerButtonIndex)
+				
+				this.pageNum = 1
+				this.getInquiryList()
+				
 			},
 			blurInput:function(e){
 				//搜索询价单
+				this.keyword = this.inputValueOne
 			},
 			toNewBuild:function(){
 				uni.navigateTo({
-					url: '/pages/qing-f-c/inquiryManage/inquiry-created',
+					url: '/pages/qing-f-c/inquiryManage/inquiry-created?inquiryType='+_this.inquiryType,
 					success: res => {},
 					fail: () => {},
+					complete: () => {}
+				});
+			},
+			toPrinter:function(){
+				let data = 1
+				uni.navigateTo({
+					url: '/pages/qing-f-c/printer/printer?number='+'&orderType='+ data,
+					success: res => {},
+					fail: (err) => {console.log(err)},
 					complete: () => {}
 				});
 			},
@@ -274,12 +331,10 @@
 				
 			},
 			tapSearch:function() {
-				
-				this.keyword = this.inputValueOne
+
 				console.log(this.keyword)
 				this.getInquiryList()
-				this.inputValueOne = ''
-				this.keyword = ''
+
 			}
 		}
 	}
@@ -307,7 +362,8 @@
   height: 54upx;
   box-sizing: border-box;
   border-radius: 26upx; 
-  width: 448upx;
+  margin-left: 20upx;
+  width: 90%;
 }
 .height_56{
   height: 56upx

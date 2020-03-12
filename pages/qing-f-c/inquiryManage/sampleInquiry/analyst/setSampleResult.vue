@@ -14,10 +14,10 @@
 				<view class="content-right">
 					<view class="content-text">
 						<view class="text-up">
-							<view>涤棉</view><view>涤棉</view>
+							<view>{{list.inquiryIngredient}}</view><view>{{list.quotationIngredient}}</view>
 						</view>
 						<view>
-							<rangeButton @buttonChange="compareChange" :items="items"></rangeButton>
+							<rangeButton @buttonChange="compareChange('ingredient',$event)" :items="items"></rangeButton>
 						</view>
 					</view>
 					<view></view>
@@ -32,32 +32,16 @@
 				<view class="content-right">
 					<view class="content-text-1">
 						<view class="text-up">
-							<view>T75DDTY*T150DDTY</view><view>T75DDTY*T150DDTY</view>
+							<view class="seller">{{list.inquirySpecification}}</view><view class="seller" style="margin-left:10upx;">{{list.quotationSpecification}}</view>
 						</view>
 						<view>
-							<rangeButton @buttonChange="compareChange" :items="items"></rangeButton>
+							<rangeButton @buttonChange="compareChange('specification',$event)" :items="items"></rangeButton>
 						</view>
 					</view>
 					<view></view>
 				</view>
 			</view>
-			<!-- --------------- -->
-			<!-- <view class="content">
-				<view class="content-left">
-					特性
-				</view>
-				<view class="content-right">
-					<view class="content-text">
-						<view class="text-up">
-							<view>消光</view><view>半消光</view>
-						</view>
-						<view>
-							<rangeButton @buttonChange="compareChange" :items="items"></rangeButton>
-						</view>
-					</view>
-					<view></view>
-				</view>
-			</view> -->
+			
 			<!-- --------------- -->
 			<view class="content">
 				<view class="content-left">
@@ -66,10 +50,10 @@
 				<view class="content-right">
 					<view class="content-text">
 						<view class="text-up">
-							<view>小提花</view><view>小提花</view>
+							<view>{{list.inquiryStyle}}</view><view>{{list.quotationStyle}}</view>
 						</view>
 						<view>
-							<rangeButton @buttonChange="compareChange" :items="items"></rangeButton>
+							<rangeButton @buttonChange="compareChange('style',$event)" :items="items"></rangeButton>
 						</view>
 					</view>
 					<view></view>
@@ -84,10 +68,10 @@
 				<view class="content-right">
 					<view class="content-text">
 						<view class="text-up">
-							<view>坯布</view><view>坯布</view>
+							<view>{{list.inquiryClothType}}</view><view>{{list.quotationClothType}}</view>
 						</view>
 						<view>
-							<rangeButton @buttonChange="compareChange" :items="bigButtons" wid="wid_240"></rangeButton>
+							<rangeButton @buttonChange="compareChange('clothType',$event)" :items="bigButtons" wid="wid_240"></rangeButton>
 						</view>
 					</view>
 					<view></view>
@@ -102,10 +86,10 @@
 				<view class="content-right">
 					<view class="content-text">
 						<view class="text-up">
-							<view>113</view><view>114</view>
+							<view>{{list.inquiryDensity}}</view><view>{{list.quotationDensity}}</view>
 						</view>
 						<view>
-							<rangeButton @buttonChange="compareChange" :items="items"></rangeButton>
+							<rangeButton @buttonChange="compareChange('density',$event)" :items="items"></rangeButton>
 						</view>
 					</view>
 					<view></view>
@@ -120,10 +104,10 @@
 				<view class="content-right">
 					<view class="content-text">
 						<view class="text-up">
-							<view>126</view><view>136</view>
+							<view>{{list.inquiryGramWeight}}</view><view>{{list.quotationGramWeight}}</view>
 						</view>
 						<view>
-							<rangeButton @buttonChange="compareChange" :items="items"></rangeButton>
+							<rangeButton @buttonChange="compareChange('gramWeight',$event)" :items="items"></rangeButton>
 						</view>
 					</view>
 					<view></view>
@@ -138,10 +122,10 @@
 				<view class="content-right">
 					<view class="content-text">
 						<view class="text-up">
-							<view>150</view><view>160</view>
+							<view>{{list.inquiryClothBreadth}}</view><view>{{list.quotationClothBreadth}}</view>
 						</view>
 						<view>
-							<rangeButton @buttonChange="compareChange" :items="items"></rangeButton>
+							<rangeButton @buttonChange="compareChange('clothBreadth',$event)" :items="items"></rangeButton>
 						</view>
 					</view>
 					<view></view>
@@ -161,28 +145,124 @@
 
 <script>
 	import rangeButton from "@/components/rangeButton-single.vue";
+	let _this
 	export default {
 		components:{
 			rangeButton
 		},
 		data() {
 			return {
-				items:[{id:'xt',label:'相同'},{id:'xs',label:'相似'},{id:'bt',label:'不同'}],
+				// SAME(1, "相同"),
+				//  SIMILARITY(2, "相似"),
+				//  DIFFERENT(3, "不同");
+				items:[{id:1,label:'相同'},{id:2,label:'相似'},{id:3,label:'不同'}],
 				partCompare:'',
-				bigButtons: [{id:'xt',label:'相同'},{id:'bt',label:'不同'}]
+				bigButtons: [{id:1,label:'相同'},{id:3,label:'不同'}],
+				list:'',
+				form:{
+						inquiryAnalysisSampleCode:'',	    //询价分析数据编码
+					    quotationAnalysisSampleCode:'',	//报价分析数据编码
+					    ingredient:'',						//成分
+						specification:'',				//规格
+						style:'',							//风格
+						clothType:	'',				//布样类型
+						density:'',							//密度
+						gramWeight:	'',					//克重
+						clothBreadth:''	,				//幅宽
+					
+				},
+				quotationNumber:''
+				
 			};
 		},
+		onLoad:function(options){
+			_this =this
+			this.quotationNumber = options.quotationNumber
+			console.log(this.quotationNumber)
+			this.contrastDetails()
+		},
 		methods:{
-			compareChange:function(e){
-				this.partCompare = e
+			compareChange:function(label,e){
+				switch(label){
+					case 'ingredient':
+					   _this.form.ingredient = e
+					   break
+					case 'specification':
+					   _this.form.specification = e
+					    break
+					case 'style':
+					   _this.form.style = e
+					    break
+					case 'clothType':
+					   _this.form.clothType = e
+					    break
+					case 'density':
+					   _this.form.density = e
+					    break
+					case 'gramWeight':
+					   _this.form.gramWeight = e
+					    break
+					case 'clothBreadth':
+					   _this.form.clothBreadth = e
+					    break
+				}
+				console.log(e)
+				
 			},
+			contrastDetails:function(){
+				let url = this.Api.contrastDetails
+				let data = {
+					quotationNumber: _this.quotationNumber
+				}
+				
+				this.myRequest(data,url,'get').then(res => {
+				  console.log(res)
+				  if (res.data.status == 0){
+					 _this.list = res.data.data
+				  }
+				  console.log(_this.list)
+				}).catch(err => {
+				  wx.showToast({
+				    title: err.data.errMsg,
+				    icon: 'none'
+				  });
+				});
+			},
+			
 			bindCancel:function(){
 				uni.navigateBack({
 					delta: 1
 				});
 			},
 			confirm:function(){
+				let url = this.Api.contrastAdd
+				_this.form.inquiryAnalysisSampleCode  = _this.list.inquiryAnalysisSampleCode
+				_this.form.quotationAnalysisSampleCode = _this.list.quotationAnalysisSampleCode
+				let data = _this.form
 				
+				this.myRequest(data,url,'post').then(res => {
+				  console.log(res)
+				  if (res.data.status == 0){
+					  var pages = getCurrentPages();
+					  var currPage = pages[pages.length - 1]; //当前页面
+					  var prevPage = pages[pages.length - 2]; //上一个页面
+					 
+					  //直接调用上一个页面的setData()方法，把数据存到上一个页面中去
+					  
+					  prevPage.setData({
+					     isDoRefresh:true
+					  })
+					  
+					  uni.navigateBack({
+					  	delta: 1
+					  });
+				  }
+				}).catch(err => {
+				  wx.showToast({
+				    title: err.data.errMsg,
+				    icon: 'none'
+				  });
+				});
 			}
 		}
 	}
@@ -278,6 +358,15 @@
 	    border-radius: 0;
 	    font-size: 16px;
 	    line-height: 88upx;
+	  }
+	  .seller{
+	  	max-height: 130upx;
+	  	overflow: hidden;
+	  	word-break: break-all;  /* break-all(允许在单词内换行。) */
+	  	text-overflow: ellipsis;  /* 超出部分省略号 */
+	  	display: -webkit-box; /** 对象作为伸缩盒子模型显示 **/
+	  	-webkit-box-orient: vertical; /** 设置或检索伸缩盒对象的子元素的排列方式 **/
+	  	-webkit-line-clamp: 3; /** 显示的行数 **/	
 	  }
   }
 </style>

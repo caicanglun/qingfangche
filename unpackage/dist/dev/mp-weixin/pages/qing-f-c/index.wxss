@@ -35,7 +35,6 @@ page{
 }
 .align-c{
 	-webkit-align-content: space-between;
-	    -ms-flex-line-pack: justify;
 	        align-content: space-between;
 }
 .widgit{
@@ -74,10 +73,8 @@ page{
 	 border-radius: 8rpx;
 	 display: -webkit-box;
 	 display: -webkit-flex;
-	 display: -ms-flexbox;
 	 display: flex;
 	 -webkit-flex-wrap: wrap;
-	     -ms-flex-wrap: wrap;
 	         flex-wrap: wrap;
 }
 .box_1{
@@ -102,45 +99,37 @@ page{
 .icon_blue{
 	width: 100rpx;
 	height: 100rpx;
-	background: -webkit-gradient(linear, left top, right top, from(#4487FD), to(#40adfa));
-	background: -o-linear-gradient(left, #4487FD, #40adfa);
+	background: -webkit-linear-gradient(left, #4487FD, #40adfa);
 	background: linear-gradient(to right, #4487FD, #40adfa);
 	z-index: -1;
 	border-radius: 50%;
 	margin: 14rpx 20rpx 0;
 	display: -webkit-box;
 	display: -webkit-flex;
-	display: -ms-flexbox;
 	display: flex;
 	-webkit-box-pack: center;
 	-webkit-justify-content: center;
-	    -ms-flex-pack: center;
 	        justify-content: center;
 	-webkit-box-align: center;
 	-webkit-align-items: center;
-	    -ms-flex-align: center;
 	        align-items: center;
 }
 .icon_orange{
 	width: 100rpx;
 	height: 100rpx;
-	background: -webkit-gradient(linear, left top, right top, from(#FF6000), to(#FFA24F));
-	background: -o-linear-gradient(left, #FF6000, #FFA24F);
+	background: -webkit-linear-gradient(left, #FF6000, #FFA24F);
 	background: linear-gradient(to right, #FF6000, #FFA24F);
 	z-index: -1;
 	border-radius: 50%;
 	margin: 14rpx 20rpx 0;
 	display: -webkit-box;
 	display: -webkit-flex;
-	display: -ms-flexbox;
 	display: flex;
 	-webkit-box-pack: center;
 	-webkit-justify-content: center;
-	    -ms-flex-pack: center;
 	        justify-content: center;
 	-webkit-box-align: center;
 	-webkit-align-items: center;
-	    -ms-flex-align: center;
 	        align-items: center;
 }
 .icon_img{
@@ -154,8 +143,7 @@ page{
 	width: 100rpx;
 	height: 100rpx;
 	border-radius: 50%;
-	-webkit-box-shadow:5px 5px 10px -4px rgba(0,0,0,0.1);
-	        box-shadow:5px 5px 10px -4px rgba(0,0,0,0.1);
+	box-shadow:5px 5px 10px -4px rgba(0,0,0,0.1);
 }
 .er_img{
   position: absolute;
@@ -167,8 +155,7 @@ page{
 .login_top{
   height: 404rpx;
   width: 750rpx;
-  -webkit-box-sizing: border-box;
-          box-sizing: border-box;
+  box-sizing: border-box;
   background-image:url(https://api.qingfangche.net/api/common/picture/hand_back/png/static/images/download);
   background-repeat:no-repeat;
   background-position:center top;
@@ -217,7 +204,6 @@ page{
 .bottom_img{
 	width: 20rpx;
 	height: 20rpx;
-	-webkit-box-shadow: 0 4rpx 8rpx 0 rgba(0, 0, 0, 0.2);
-	        box-shadow: 0 4rpx 8rpx 0 rgba(0, 0, 0, 0.2);
+	box-shadow: 0 4rpx 8rpx 0 rgba(0, 0, 0, 0.2);
 }
 

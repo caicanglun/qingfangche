@@ -1,4 +1,6 @@
 {
   "navigationBarTitleText": "审核管理",
-  "usingComponents": {}
+  "usingComponents": {
+    "widgit": "/components/widgit-menu"
+  }
 }

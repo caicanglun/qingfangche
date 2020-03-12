@@ -32,6 +32,7 @@
 				}
 			},
 			buttonChange:function(id){
+				
 				this.$emit("buttonChange",id)
 			}
 		}

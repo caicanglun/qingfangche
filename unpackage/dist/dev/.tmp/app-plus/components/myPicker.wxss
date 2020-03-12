@@ -49,4 +49,8 @@
   color: #909090;
   font-size: 13px;
 }
+.color_000 {
+  color: #000000;
+  font-size: 13px;
+}
 

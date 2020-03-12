@@ -78,7 +78,7 @@
 					</view>
 				</view>
 				
-				<view class="quote-content" v-if="carriageIndex == 0">
+				<view class="quote-content" v-if="carriageIndex == 1">
 					<view class="quote-content-left">
 						<view class="wid_241 fs_14">
 							运费单价：
@@ -98,7 +98,11 @@
 						 <view class="wid_241 fs_14">
 							 佣金比例：
 						 </view>
-						 <input placeholder="请输入" type='number' class="input" placeholder-style="font-size: 13px;" v-model="brokerageRate" @input="rule1"></input>
+						 <view v-if="brokerageIndex==2">{{brokerageRate}}</view>
+						 <view v-else>
+							 <input placeholder="请输入" type='number' class="input" placeholder-style="font-size: 13px;" v-model="brokerageRate" @input="rule1">
+						 </view>
+						 
 					 </view>
 
 					<view class="fs_14">
@@ -121,7 +125,10 @@
 						<view class="wid_241 fs_14">
 							最终报价：
 						</view>
-						<input placeholder="请输入"  type='number' class="input" placeholder-style="font-size: 13px;" v-model="finalPrice" @input="rule2"></input>
+						<view v-if="brokerageIndex==1">{{finalPrice}}</view>
+						<view v-else>
+							<input placeholder="请输入"  type='number' class="input" placeholder-style="font-size: 13px;" v-model="finalPrice" @input="rule2"></input>
+						</view>
 					</view>
 					
 					<view>
@@ -173,7 +180,7 @@
 				taxes:[],
 				taxedIndex: 1,    //是否含税
 				carriage:[],
-				carriageIndex: 1,  //是否含运费
+				carriageIndex: 0,  //是否含运费
 				unit:[],
 				unitIndex: 1,      //价格单位
 				upUnit:1,
@@ -369,6 +376,7 @@
 						this.carriageSwitch = !this.carriageSwitch
 						if (this.carriageIndex== 0){
 							this.carriagePrice = ''
+							this.carriageContent = ''
 						}
 						if(this.brokerageIndex==1){
 						  this.rule1()
@@ -402,13 +410,33 @@
 				}
 			},
 			submit:function(){
+				if(_this.carriageIndex == 1){
+					if(_this.carriagePrice<=0){
+						uni.showToast({
+							title: '运费不能为零',
+							icon:'none',
+							duration: 1000
+						});
+						return
+					}
+				}
+				if(_this.finalPrice <=0){
+					
+					uni.showToast({
+						title: '报价不能为零',
+						icon:'none',
+						duration: 1000
+					});
+					return
+					
+				}
 				let data={
 					    quotationNumber:   _this.quoteList.quotationNumber ,	//询价单号
 						basicsPrice: _this.quotePrice    ,			//基础价格
 						computationRule: _this.brokerageIndex    ,	//计算规则
 						isIcash: _this.carriageIndex    ,				//是否含运费
 						isPlusDuty: _this.taxedIndex    ,			//是否含税
-						freight: _this.carriagePrice   ,				//运费
+						freight: _this.carriagePrice||0  ,				//运费
 						freightUnit: _this.unitIndex    ,			//运费单位
 						commissionRate: _this.brokerageRate    ,		//佣金比例
 						remarks: _this.remark    ,				//备注
@@ -416,15 +444,29 @@
 						finalPriceUnit: _this.unitIndex    ,	//最终价格单位
 				}
 				let url = this.Api.buyDeputySetPrice
+				uni.showLoading({
+					title:'',
+					mask: true
+				})
 				this.myRequest(data,url,'post').then(res => {
+					    uni.hideLoading()
+						
 						console.log(res);
 						if (res.data.status == 0){
+						   
 						   uni.showToast({
 						   	title: '报价成功',
 							icon: 'none',
 							duration: 1000
 						   });
 						   this.refreshBack();
+						}else{
+							uni.showToast({
+								title: res.data.message,
+								icon: 'none',
+								duration: 1000
+							});
+							return
 						}
 				 }).catch(err => {
 					wx.showToast({
@@ -477,26 +519,20 @@
 		font-weight: bold;
 		height: 65upx;
 	}
-	.quote-content{
-		display: flex;
-		align-items: center;
-		justify-content: space-between;
-		height: 65upx;
-		border-bottom: 1upx solid #EDEDED;
-	}
-	.quote-content-82{
-		display: flex;
-		align-items: center;
-		justify-content: space-between;
-		height: 82upx;
-		border-bottom: 1upx solid #EDEDED;
-	}
+	
 	.no_border{
 		border: none;
 	}
 	.input{
 		width: 250upx;
 		font-size: 14px;
+	}
+	.quote-content{
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		height: 65upx;
+		border-bottom: 1upx solid #EDEDED;
 	}
 	.quote-content-left{
 		display: flex;

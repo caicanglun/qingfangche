@@ -1,8 +1,9 @@
 //  const ServerUrl = "https://www.144f.com"; // 生产环境
 
 //const ServerUrl = "https://www.qingfangche.net"; // 开发环境
-//const ServerUrl = "http://192.168.11.141"; 
+//const ServerUrl = "http://192.168.11.125"; 
 const ServerUrl = "http://test.144f.com:8080/qfc-web";
+//const ServerUrl = "http://apps.144f.com/qfc-web"; 
 const ChooseUrl = ServerUrl + '/choose/';
 const VERSION = '3.3.72'; // 小程序版本
 
@@ -33,6 +34,8 @@ module.exports = {
   getCharacterFeatures: ChooseUrl + "characterFeatures", //性格特点
   getManageFeatures: ChooseUrl + "manageFeatures", //经营者特征
   getManagementPosition: ChooseUrl + "managementPosition", //经营定位
+  getManagementPosition: ChooseUrl + "managementPosition", //经营定位
+  
   
   
   //用户登陆注册
@@ -64,6 +67,8 @@ module.exports = {
   rivalDel: ServerUrl + '/cm/rivalDel',   //删除竞争对手
   rivalUpdate: ServerUrl + '/cm/rivalUpdate',   //更新竞争对手
   buyAddCustomer: ServerUrl + '/cm/buyAddCustomer', //买办创建客户 post
+  delCustomer: ServerUrl + '/cm/del', //区域经理删除客户 
+  
   updateCustomer: ServerUrl + '/cm/updateCustomer', //修改客户 post
   sellCusmterCreated: ServerUrl + "/cm/sellAddCustomer", //卖帮办创建客户 post
   operationUpdate: ServerUrl + "/cm/operationUpdate", //更新经营状况
@@ -89,6 +94,7 @@ module.exports = {
   densityUnit:  ServerUrl +'/choose/densityUnit',  //密度单位选择数据
   gramWeightUnit:  ServerUrl +'/choose/gramWeightUnit',  //克重单位选择数据
   quantityUnit:  ServerUrl +'/choose/quantityUnit',  //购买数量单位选择数据
+  placeOfDelivery:  ServerUrl +'/choose/placeOfDelivery',  //交货地
   buyerList:  ServerUrl + '/bInquiry/buyerList',  //创建询价单买家下拉列表
   addInquiry:  ServerUrl + '/bInquiry/add',       //创建询价单
   buyDeputyClose:  ServerUrl + '/bInquiry/buyDeputyClose',       //买办关闭询价单
@@ -131,6 +137,94 @@ module.exports = {
   
   
   zyDetails: ServerUrl +  '/bInquiry/zyDetails' ,//找样询价单详情
+  analystList: ServerUrl +  '/analyse/list' ,//分析师找样询价列表详情
+  quotationDetails: ServerUrl +  '/sQuotation/zyDetails' ,//找样报价单详情
+  analystDetails: ServerUrl +  '/analyse/details' ,//找样询价单详情
+  analystAdd: ServerUrl + '/analyse/add' ,//分析师录入
+  contrastDetails: ServerUrl + '/analyse/contrastDetails' ,//分析师设置对比结果页面详情
+  contrastAdd: ServerUrl + '/analyse/contrastAdd' ,//分析师设置对比结果
+  contrastUpdate: ServerUrl + '/analyse/updateContrast' ,//分析师修改对比结果
+  zyDetailsList: ServerUrl + '/sQuotation/zyDetailsList' ,//找样结果报价单列表
+  inquiryStatus: ServerUrl + '/choose/inquiryStatus' ,//询价状态
+  inquiryStatus2: ServerUrl + '/choose/inquiryStatus2' ,//询价状态2
+  analystUpdate: ServerUrl + '/analyse/update' ,//分析师修改分析结果
+  updateList: ServerUrl + '/analyse/updateList' ,//分析结果修改列表
+
+  qrCode: ServerUrl + '/qr/get' ,//获取二维码参数
+  isExist: ServerUrl + '/qr/isExist' ,//二维码,单号是否存在
+  quoteAgain: ServerUrl + '/sQuotation/quoteAgain' ,//二维码,单号是否存在
+  
+  //产品展示
+  machineStatus: ServerUrl + '/choose/machineStatus' ,//在机状态
+  inStock:       ServerUrl + '/choose/inStock' ,//现货状态
+  machineType:   ServerUrl + '/choose/machineType' ,//织机类型下拉数据
+  machineBrand:  ServerUrl + '/choose/machineBrand' ,//织机品牌下拉数据
+  slideshow:     ServerUrl + '/shop/slideshow' ,//查询轮播图
+  slideshowDel:  ServerUrl + '/shop/slideshowDel' ,//删除图片
+  slideshowAdd:  ServerUrl + '/shop/slideshowAdd' ,//添加图片
+  
+  goodsAdd:      ServerUrl + '/shop/goodsAdd' ,//添加产品
+  manageProfile: ServerUrl + '/shop/profile' ,//经营概况
+  weavingMachineAdd:ServerUrl + '/shop/weavingMachineAdd' ,//添加织机
+  weavingMachineDel:ServerUrl + '/shop/weavingMachineDel' ,//删除织机
+  profileUpdate: ServerUrl + '/shop/profileUpdate' ,//更新产品类型和产品系列
+  goodsList:     ServerUrl + '/shop/goodsList' ,//产品列表
+  goodsDel:      ServerUrl + '/shop/goodsDel' ,//批量删除产品
+  soldOut:       ServerUrl + '/shop/soldOut' ,//下架产品
+  goodsDetails:  ServerUrl + '/shop/goodsDetails' ,//产品详情
+  goodsUpdate:   ServerUrl + '/shop/goodsUpdate' ,//更新产品
+  goodsUpdateList:   ServerUrl + '/shop/goodsUpdateList' ,//产品更新记录
+  goodsAudit:    ServerUrl + '/shop/audit' ,//审核产品
+  auditList:     ServerUrl + '/shop/auditList' ,//审核产品列表
+  auditPass:     ServerUrl + '/shop/auditPass' ,//通过审核并上架
+  auditCount:     ServerUrl + '/shop/auditCount' ,//待审核数量
+  matchList1:     ServerUrl + '/sQuotation/matchList1' ,//系统匹配第一层
+  matchList2:     ServerUrl + '/sQuotation/matchList2' ,//系统匹配第二层
+  matchList3:     ServerUrl + '/sQuotation/matchList3' ,//系统匹配第三层
+  systemNoMatch:     ServerUrl + '/sQuotation/noMatch' ,//系统匹配不匹配原因
+  companyList:     ServerUrl + '/sQuotation/companyList' ,//报价选择客户列表
+  QgoodsList:     ServerUrl + '/sQuotation/goodsList' ,//报价产品列表
+  QgoodsDetails:     ServerUrl + '/sQuotation/goodsDetails' ,//报价产品详情
+  newQuotationAdd:     ServerUrl + '/sQuotation/add' ,//创建报价单
+  
+
+
+  
+
+  
+
+
+
+
+  
+
+
+
+  
+  
+  
+
+
+  
+
+  
+  
+
+  
+  
+  
+
+ 
+  
+  
+
+
+  
+  
+  
+  
+
+  
 
 
 

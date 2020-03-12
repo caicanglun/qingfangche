@@ -534,15 +534,11 @@ export default {
     // 跳转到产品展示
     toProductPage: function () {
       let isProduct = this.customerInfo.productInfo;
-      let url;
+      let url="/pages/qing-f-c/productShow/mainShow?companyCode="+_companyCode;
 
-      if (isProduct) {
-        url = '/pages/jin-suo-yun/customer-admin/product-display?customerId=' + _id;
-      } else {
-        url = '/pages/jin-suo-yun/customer-admin/add-productpage?type=' + this.customerInfo.type + '&customerid=' + _id;
-      }
+      
 
-      wx.navigateTo({
+      uni.navigateTo({
         url: url
       });
     },

@@ -29,6 +29,9 @@
 			<view class="baojia-content">
 			  <text class='title'>库存状态：</text><text>{{item.inventoryName||''}}</text>
 			</view>
+			<view class="baojia-content">
+			  <text class='title'>备注：</text><text>{{item.remarks||''}}</text>
+			</view>
 			<view class="baojia-contentBottom">
 				<view class="baojia_time">
 					<text>报价时间：</text><text>{{item.createTime||''}}</text>

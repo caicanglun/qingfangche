@@ -44,8 +44,7 @@
 .bottom_img {
   width: 48rpx;
   height: 48rpx;
-  -webkit-box-shadow: 0 4rpx 8rpx 0 rgba(0, 0, 0, 0.2);
-          box-shadow: 0 4rpx 8rpx 0 rgba(0, 0, 0, 0.2);
+  box-shadow: 0 4rpx 8rpx 0 rgba(0, 0, 0, 0.2);
 }
 .color_888 {
   color: #888890;
@@ -53,8 +52,7 @@
 .select_btn {
   width: 96rpx;
   height: 48rpx;
-  -webkit-box-sizing: border-box;
-          box-sizing: border-box;
+  box-sizing: border-box;
   border: 1rpx solid #FF6000;
   border-radius: 6rpx;
   line-height: 46rpx;
@@ -112,7 +110,6 @@ button::after {
   bottom: 0;
   display: -webkit-box;
   display: -webkit-flex;
-  display: -ms-flexbox;
   display: flex;
   z-index: 999;
 }
@@ -126,8 +123,7 @@ button::after {
 .bottom_img {
   width: 48rpx;
   height: 48rpx;
-  -webkit-box-shadow: 0 4rpx 8rpx 0 rgba(0, 0, 0, 0.2);
-          box-shadow: 0 4rpx 8rpx 0 rgba(0, 0, 0, 0.2);
+  box-shadow: 0 4rpx 8rpx 0 rgba(0, 0, 0, 0.2);
 }
 .unit {
   font-size: 14px;
@@ -136,8 +132,7 @@ button::after {
   height: 48rpx;
   text-align: center;
   border: 2rpx solid #FF6000;
-  -webkit-box-sizing: border-box;
-          box-sizing: border-box;
+  box-sizing: border-box;
 }
 .borderright {
   border-top-right-radius: 6rpx;
@@ -189,8 +184,7 @@ button::after {
   line-height: 56rpx;
   height: 60rpx;
   border: 2rpx solid #FF6000;
-  -webkit-box-sizing: border-box;
-          box-sizing: border-box;
+  box-sizing: border-box;
   color: #FF6000;
   background-color: #fff;
   font-size: 28rpx;
