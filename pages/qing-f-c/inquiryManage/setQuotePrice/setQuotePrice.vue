@@ -229,11 +229,12 @@
 				console.log(this.downTax)
 				console.log('税比例',this.includeTaxes)
 				console.log("mima",this.unitRate)
+				this.setUnit()
 			    if(this.brokerageIndex==1){
 					if (_this.unitIndex ==1){
-						this.finalPrice = ((this.quotePrice/this.includeTaxes + this.carriagePrice/1)*(1+this.brokerageRate/100)/this.unitRate).toFixed(2)
-					}else{
 						this.finalPrice = ((this.quotePrice/this.includeTaxes + this.carriagePrice/1)*(1+this.brokerageRate/100)*this.unitRate).toFixed(2)
+					}else{
+						this.finalPrice = ((this.quotePrice/this.includeTaxes + this.carriagePrice/1)*(1+this.brokerageRate/100)/this.unitRate).toFixed(2)
 					}
 					
 				}
@@ -242,20 +243,35 @@
 			rule2:function(){
 				console.log('报价',this.quotePrice)
 				console.log('佣金',this.brokerageRate)
-				console.log('含税',this.includeTaxes)
 				console.log('运费单价',this.carriagePrice)
 				this.includeTaxes = this.upTax - this.downTax
 				console.log("税比例",this.includeTaxes)
+				// if (quoteList.isPlusDutyCode==1){
+				// 	if (this.taxedIndex ==0){
+						
+				// 	}
+				// }
+				this.setUnit()
+				if(this.finalPrice==''){
+					return
+				}
 				if(this.brokerageIndex==2){
 					console.log("daozheli")
 					if (_this.unitIndex ==1){
-					  this.brokerageRate = ((this.finalPrice/(this.quotePrice/this.includeTaxes + this.carriagePrice/1)-1)*100/_this.unitRate).toFixed(2)
+					  this.brokerageRate = ((this.finalPrice*_this.unitRate/(this.quotePrice/this.includeTaxes + this.carriagePrice/1)-1)*100).toFixed(2)
 					}else{
-					  this.brokerageRate = ((this.finalPrice/(this.quotePrice/this.includeTaxes + this.carriagePrice/1)-1)*100*_this.unitRate).toFixed(2)
+					  this.brokerageRate = ((this.finalPrice/_this.unitRate/(this.quotePrice/this.includeTaxes + this.carriagePrice/1)-1)*100).toFixed(2)
 					}
 				}
 				
 				
+			},
+			setUnit:function(){
+				if (this.unitIndex == this.upUnit){
+					this.unitRate = 1
+				}else {
+					this.unitRate = 0.9144
+				}
 			},
 			getSelect:function(){
 				let data={}
@@ -355,11 +371,7 @@
 					  this.arrChecked(this.unit,index)
 					    
 					    this.unitIndex = index;
-						if (this.unitIndex == this.upUnit){
-							this.unitRate = 1
-						}else {
-							this.unitRate = 0.9144
-						}
+						
 						
 						if(this.brokerageIndex==1){
 							  this.rule1()

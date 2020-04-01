@@ -1,17 +1,44 @@
 {
 	"pages": [ //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
-	           
-	            {
-	             "path" : "pages/qing-f-c/index",
-	             "style" : {
-	             	            "navigationStyle":"custom",
-	            				"enablePullDownRefresh": true
-	             	        }
-	              },
+	           {
+	            "path" : "pages/qing-f-c/index",
+	            "style" : {
+	            	            "navigationStyle":"custom",
+	           				"enablePullDownRefresh": true
+	            	        }
+	             },
+			   {
+	                "path" : "pages/qing-f-c/buyDupty/followRecordDetail",
+	                "style" : {"navigationBarTitleText": "跟进记录详情"}
+	            },
+	            	            
+	            
+	            
+	             {
+	                 "path" : "pages/qing-f-c/buyDupty/competitorDetail",
+	                 "style" : {"navigationBarTitleText": "竞争对手详情"}
+	             },
+	             {
+	                 "path" : "pages/qing-f-c/buyDupty/competitorAnalyist",
+	                 "style" : {"navigationBarTitleText": "竞争对手分析"}
+	             },
+	             {
+	                 "path" : "pages/qing-f-c/buyDupty/newFollowRecord",
+	                 "style" : {"navigationBarTitleText": "新建跟进记录"}
+	             },
+	             {
+	                 "path" : "pages/qing-f-c/buyDupty/followList",
+	                 "style" : {"navigationBarTitleText": "跟进列表"}
+	             },
+	            
 				  {
 				      "path" : "pages/qing-f-c/message/messageList",
-				      "style" :{"navigationBarTitleText": "消息"}
+				      "style" :{"navigationBarTitleText": "消息",
+					            "enablePullDownRefresh": true
+					  }
+					  
 				  },
+				 
 	            {
 	                 "path" : "pages/qing-f-c/followRecord/addFollowRecord",
 	                 "style" : {"navigationBarTitleText": "新增跟进记录"}
@@ -292,7 +319,7 @@
 				},
 				{
 					"path" : "pages/qing-f-c/regionalManager/deputy-list",
-					"style" : {"navigationBarTitleText": "区域经理选择卖帮办"}
+					"style" : {"navigationBarTitleText": "区域经理选择帮办"}
 				},
 				{
 					"path" : "pages/qing-f-c/regionalManager/customer-details",
@@ -630,6 +657,15 @@
             "style" : {}
         }
         
+        ,{
+            "path" : "pages/qing-f-c/message/messageDetail",
+            "style" : {}
+        }
+
+        ,{
+            "path" : "pages/qing-f-c/bangban/bangbanList",
+            "style" : {}
+        }
     ],
 	"tabBar": {
 	    "list": [

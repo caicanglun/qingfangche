@@ -8,8 +8,10 @@ const store = new Vuex.Store({
         inquiryNumber:'',
         initName:'',
 		regionCode:''
+		
     },
     mutations: {
+		
 		regionCodesSet(state,cont){
 		    //单一的改变某一个变量
 		    console.log(state)
@@ -39,6 +41,7 @@ const store = new Vuex.Store({
         changeFun:function(context,obj){
             context.commit('change',obj)
         }
+		
     }
 })
 

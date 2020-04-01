@@ -80,7 +80,7 @@
 		
 		<view class='placeholder-view'></view>
 		<!-- (!topList.hasQuotationDirector)&&(quotationInfo.quotationStatus!=9)&&(quotationInfo.quotationStatus!=5)&&(quotationInfo.sellDeputyRealName!='直接报价')" -->
-		<view class="fixed_bottom box_shadow_btn" v-if="!quotationInfo.hasSalesDirectorQuotation">
+		<view class="fixed_bottom box_shadow_btn" v-if="!quotationInfo.hasSalesDirectorQuotation&&!quotationInfo.hasCloseCause">
 		  <!-- <button class="btn_left" hover-class="none" @tap="modifyQuote">修改报价</button> -->
 		  <button class="btn_left" hover-class="none" @tap="reject">产品驳回</button>
 		  <button class="btn_right"  hover-class="none"  @tap="modifyQuote">价格审核</button>
@@ -114,13 +114,7 @@
 			};
 		},
 		onShow:function(){
-			let pages = getCurrentPages();
-			let currPage = pages[pages.length-1];
-			if (currPage.data.isDoRefresh == true){
-				       currPage.data.isDoRefresh = false;
-					   this.getInquiryInfo()
-					  // this.getInquiryInfoPicture()
-				 }
+			
 			 this.getInquiryInfo()
 		},
 	    onLoad:function(options) {
@@ -193,6 +187,33 @@
 				
 				this.rejectReason = content
 				console.log(this.rejectReason)
+				let data = {
+					quotationNumber: _quotationNumber,
+					remarks: _this.rejectReason
+				}
+				let url = this.Api.directorNoPass
+				uni.showLoading({
+					title: '提交中',
+					mask: true
+				})
+				this.myRequest(data,url,'get').then(res => {
+				  console.log(res);
+				  if (res.data.status == 0){
+					  uni.hideLoading()
+					  this.getInquiryInfo()
+					  
+				  }else{
+					 uni.showToast({
+					 	title:  res.data.message,
+						icon: 'none'
+					 });
+				  }
+				}).catch(err => {
+				  wx.showToast({
+				    title: err.data.errMsg,
+				    icon: 'none'
+				  });
+				});
 			},
 			
 			submit:function(){

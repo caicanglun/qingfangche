@@ -688,7 +688,7 @@
 				     console.log(event)
 				     this.styleSerialIndex = event[1] || -1
 					 this.styleSerialValue = event[0]
-					 if (this.styleSerialIndex=='101346541950'){
+					 if (this.styleSerialValue=='平纹'){
 					 	 this.organize = '1/1'
 					 }
 					 console.log(this.styleSerialIndex)
@@ -698,8 +698,7 @@
 					  this.productSerialIndex = event[1] || -1
 					  this.productSerialValue = event[0]
 				      
-					  console.log(this.productSerialIndex)
-					  console.log(this.productSerialValue)
+					  
 					  break;	 
 				  case 'densityUnit':
 					  this.densityUnitIndex = event

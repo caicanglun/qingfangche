@@ -80,11 +80,15 @@
 				contPass: '',
 				passType: 'password',
 				isPhoneClear: false,
-				isPassClear: false
+				isPassClear: false,
+				clientId:''
 			};
 		},
 	   onLoad:function(){
 	   	  _this = this
+		  let clientInfo = plus.push.getClientInfo()
+		  this.clientId = clientInfo.clientid
+		  console.log(clientInfo)
 	   },
 		
 		methods:{
@@ -147,8 +151,8 @@
 			},
 			
 			formSubmit:function(e){
-				let data = e.detail.value;
-				console.log(data);
+				// let data = e.detail.value;
+				// console.log(data);
 				
 				if(!(/^1(3|4|5|6|7|8|9)\d{9}$/.test(_this.contPhone))){
 					uni.showToast({
@@ -167,56 +171,96 @@
 					return ;
 				}
 				uni.showLoading({
-					title: '加载中。。',
+					title: '提交中。。',
 					mask: true
 				});
-				uni.request({
-					url: Api.login,
-					method: 'POST',
-					header: {
-						'content-type': 'application/json'
-					},
-					data: {
-						phone: _this.contPhone,
-						password: _this.contPass
-					},
-					success: res => {
-						console.log(res.data);
-						if (res.data.status=== 0){
-							uni.setStorageSync("token",res.data.data.msg);
-							this.getPupDefault()
-							setTimeout(function() {
-								if (uni.getStorageSync('pupDefault')){
-									uni.switchTab({
-										url:"/pages/qing-f-c/index"
-									})	
-								}
-							}, 500);
+				let url = this.Api.login
+				let data = {
+					phone: _this.contPhone,
+					password: _this.contPass,
+					cid: _this.clientId
+				}
+				console.log(data)
+				this.myRequest(data,url,'post').then(res => {
+				  
+				  	if (res.data.status=== 0){
+						uni.hideLoading()
+				  		uni.setStorageSync("token",res.data.data.msg);
+				  		console.log('sfwefewf',uni.getStorageSync("cid"))
+				  		this.getPupDefault()
+				  		setTimeout(function() {
+				  			if (uni.getStorageSync('pupDefault')){
+				  				uni.switchTab({
+				  					url:"/pages/qing-f-c/index"
+				  				})	
+				  			}
+				  		}, 500);
+	
+				  	}else {
+				  		uni.showToast({
+				  			title: res.data.message,
+				  			icon: 'none',
+				  			duration: 1000
+				  		});
+				  		return
+				  	}
+				  
+				 
+				}).catch(err => {
+				  wx.showToast({
+				    title: err.data.errMsg,
+				    icon: 'none'
+				  });
+				});
+				// uni.request({
+				// 	url: Api.login,
+				// 	method: 'POST',
+				// 	header: {
+				// 		'content-type': 'application/json'
+				// 	},
+				// 	data: {
+				// 		phone: _this.contPhone,
+				// 		password: _this.contPass,
+				// 		cid: uni.getStorageSync("cid")
+				// 	},
+				// 	success: res => {
+				// 		console.log(res.data);
+				// 		if (res.data.status=== 0){
+				// 			uni.setStorageSync("token",res.data.data.msg);
+				// 			console.log('sfwefewf',uni.getStorageSync("cid"))
+				// 			this.getPupDefault()
+				// 			setTimeout(function() {
+				// 				if (uni.getStorageSync('pupDefault')){
+				// 					uni.switchTab({
+				// 						url:"/pages/qing-f-c/index"
+				// 					})	
+				// 				}
+				// 			}, 500);
 							
 								
-						}else {
-							uni.showToast({
-								title: res.data.message,
-								icon: 'none',
-								duration: 1000
-							});
-							return
-						}
-						if (res.data.status === 1){
-							uni.showToast({
-								title: res.data.message,
-								icon: 'none',
-								duration: 3000
-							});
-						}
-					},
-					fail: (err) => {
-						console.log(err.data)
-					},
-					complete: () => {
-						uni.hideLoading();
-					}
-				});
+				// 		}else {
+				// 			uni.showToast({
+				// 				title: res.data.message,
+				// 				icon: 'none',
+				// 				duration: 1000
+				// 			});
+				// 			return
+				// 		}
+				// 		if (res.data.status === 1){
+				// 			uni.showToast({
+				// 				title: res.data.message,
+				// 				icon: 'none',
+				// 				duration: 3000
+				// 			});
+				// 		}
+				// 	},
+				// 	fail: (err) => {
+				// 		console.log(err.data)
+				// 	},
+				// 	complete: () => {
+				// 		uni.hideLoading();
+				// 	}
+				// });
 				// options: {
 				// 	url: this.apiServer+'/ul/login',
 				// 	method: 'POST',

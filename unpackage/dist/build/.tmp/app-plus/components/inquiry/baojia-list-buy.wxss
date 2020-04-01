@@ -87,7 +87,6 @@
 }
 .baojia-row .title {
     font-size: 14px;
-    width: 220rpx;
     font-weight: bold;
 }
 .baojia-row .title .num {

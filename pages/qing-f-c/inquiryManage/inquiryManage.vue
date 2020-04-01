@@ -12,6 +12,7 @@
 				
 			  </view>
 			</view>
+			<view style="height: 10upx;background: #FFFFFF;"></view>
 			<view>
 				<topTabbar @change="tabSwitch()" :items="items" ></topTabbar>
 			</view>
@@ -192,7 +193,10 @@
 				_this.fitlerButtonIndex = -1
 				_this.loadingType = 'more';
 				uni.showNavigationBarLoading();
-
+                uni.showLoading({
+                	title: '加载中',
+					mask: true
+                })
 				let data ={
 					keyword : _this.keyword,			//搜索关键字
 					affiliation	 : _this.affiliation,	//1我的，2非我的
@@ -204,13 +208,17 @@
 				}
 				let url = this.Api.buyDeputyList
 				this.myRequest(data,url,'get').then(res => {
-				  _this.pageNum++;
-				  console.log(res);
-				  _this.lists = res.data.data.list
-				  //未报价计数
-				 
-				  _this.count = res.data.data.totalCount
-				  _this.totalPage = res.data.data.totalPage
+				   if (res.data.status==0){
+					   uni.hideLoading()
+					  _this.pageNum++;
+					  console.log(res);
+					  _this.lists = res.data.data.list
+					  //未报价计数
+					  				 
+					  _this.count = res.data.data.totalCount
+					  _this.totalPage = res.data.data.totalPage 
+				   }
+				  
 				}).catch(err => {
 				  wx.showToast({
 				    title: err.data.errMsg,

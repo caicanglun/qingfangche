@@ -19,9 +19,12 @@
 				  </view>
 				  
 				</view>
-				<view class="fs_12 flex height_48 color_333">
+				<view class="fs_12 flex color_333">
 				  <view class="wid_320 ">买帮办：{{item.buyDeputyRealName||''}}</view>
-				  <view>买家：{{item.companyCode||''}}</view>
+				  <view class="flex">
+					  <view style="width: 90upx;">买家：</view>
+					  <view class="text-overflow-wrap">{{item.companyCode||''}}</view>
+				  </view>
 				</view>
 				
 				<view class="fs_10 height_48 mr_20" v-if="isSellDeputy=='buyDeputy'">建立时间：{{item.inquiryCreateTime}}</view>

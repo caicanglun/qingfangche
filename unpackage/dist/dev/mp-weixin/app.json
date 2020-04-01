@@ -1,6 +1,11 @@
 {
   "pages": [
     "pages/qing-f-c/index",
+    "pages/qing-f-c/buyDupty/followRecordDetail",
+    "pages/qing-f-c/buyDupty/competitorDetail",
+    "pages/qing-f-c/buyDupty/competitorAnalyist",
+    "pages/qing-f-c/buyDupty/newFollowRecord",
+    "pages/qing-f-c/buyDupty/followList",
     "pages/qing-f-c/message/messageList",
     "pages/qing-f-c/followRecord/addFollowRecord",
     "pages/qing-f-c/inquiryManage/comQuotation/startQuotation",
@@ -109,7 +114,9 @@
     "pages/qing-f-c/inquiryManage/systemMatch/quotationDetail",
     "pages/qing-f-c/inquiryManage/systemMatch/startQuote",
     "pages/qing-f-c/inquiryManage/systemMatch/singleProduct",
-    "pages/qing-f-c/inquiryManage/comQuotation/productDetail"
+    "pages/qing-f-c/inquiryManage/comQuotation/productDetail",
+    "pages/qing-f-c/message/messageDetail",
+    "pages/qing-f-c/bangban/bangbanList"
   ],
   "subPackages": [],
   "window": {

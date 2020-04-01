@@ -14,6 +14,7 @@
 				</view> -->
 			  </view>
 			</view>
+			<view style="height: 10upx;background: #FFFFFF;"></view>
 			<view>
 				<topTabbar @change="tabSwitch()" :items="items"  :directorReviewCount="directorReviewCount"></topTabbar>
 			</view>
@@ -210,12 +211,20 @@
 				}
 				console.log("当前页面",_this.pageNum)
 				let url = this.Api.directorList
+				uni.showLoading({
+					title: '加载中',
+					mask: true
+				})
 				this.myRequest(data,url,'get').then(res => {
-					_this.pageNum++;
-				  console.log(res);
-				  _this.lists = res.data.data.list
-				  _this.totalPage = res.data.data.totalPage
-				  
+					if (res.data.status == 0){
+						uni.hideLoading()
+						_this.pageNum++;
+						console.log(res);
+						_this.lists = res.data.data.list
+						_this.totalPage = res.data.data.totalPage
+						
+					}
+				
 				}).catch(err => {
 				  wx.showToast({
 				    title: err.data.errMsg,

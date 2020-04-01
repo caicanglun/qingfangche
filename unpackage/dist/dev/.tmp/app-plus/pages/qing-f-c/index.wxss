@@ -41,7 +41,7 @@ page{
 	position: relative;
 }
 .xiaoxi_text{
-  background-color: #FF7D21;
+  background-color: #FF0000;
   color: #fff;
   border-radius: 26rpx;
   height: 26rpx;
@@ -55,13 +55,13 @@ page{
   right: -10rpx;
 }
 .xiaoxi_img{
-  height: 42rpx;
-  width: 36rpx;
+  height: 50rpx;
+  width: 50rpx;
   z-index: 95;
 }
 .setting_img{
-  height: 42rpx;
-  width: 36rpx;
+  height: 50rpx;
+  width: 50rpx;
   z-index: 95;
 }
 .box{

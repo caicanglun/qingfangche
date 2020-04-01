@@ -8,6 +8,7 @@
     "picker-input": "/components/pickerInput",
     "switch-button-s": "/components/switchButton-s",
     "popup-me": "/components/popupMe",
-    "uni-icon": "/components/uni-icons/uni-icons"
+    "uni-icon": "/components/uni-icons/uni-icons",
+    "switch-button-carrage": "/components/switchButton-edit"
   }
 }

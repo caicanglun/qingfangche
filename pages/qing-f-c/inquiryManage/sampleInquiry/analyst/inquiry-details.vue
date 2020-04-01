@@ -24,7 +24,7 @@
 				  <veiw>
 					  <text class='title'>买家：</text><text>{{topList.companyCode||''}}</text>
 				  </veiw>
-				  <image src="/static/images/printer.png" @tap="toPrintContent" class="i-print" mode="aspectFit" v-if="!topList.hasComeInitialSample"></image>
+				  <image src="/static/images/printer.png" @tap="toPrintContent" class="i-print" mode="aspectFit" v-if="!(topList.hasComeInitialSample&&!topList.hasComeAnalysisSample)"></image>
 				</view>
 				<view class="box-contentSmall">
 						<text>询价类型：</text><text>找样询价</text>

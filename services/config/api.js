@@ -1,6 +1,4 @@
-//  const ServerUrl = "https://www.144f.com"; // 生产环境
 
-//const ServerUrl = "https://www.qingfangche.net"; // 开发环境
 //const ServerUrl = "http://192.168.11.125"; 
 const ServerUrl = "http://test.144f.com:8080/qfc-web";
 //const ServerUrl = "http://apps.144f.com/qfc-web"; 
@@ -46,6 +44,9 @@ module.exports = {
   registration: ServerUrl + '/ul/registration',  //用户注册 post
   getNewsNum: ServerUrl + '/um/count',  //未读信息
   noReadList: ServerUrl + '/um/list', //未读信息列表 post
+  delReadList: ServerUrl + '/um/del', //信息删除 get
+  DetailReadList: ServerUrl + '/um/details', //信息详情 get
+  
   
   //个人中心
   userDetails: ServerUrl + '/user/details', //用户个人信息
@@ -121,6 +122,7 @@ module.exports = {
   sellDeputyClose: ServerUrl +  '/sQuotation/sellDeputyClose' ,//卖办关闭报价单
 
   directorDetails: ServerUrl +  '/sQuotation/directorDetails' ,//销售总监报价单详情
+  directorNoPass: ServerUrl +  '/sQuotation/directorNoPass' ,//销售总监驳回报价
   
   computationRule: ServerUrl +  '/choose/computationRule' ,//计算规则下拉选项
   buyDeputyDirectPrice: ServerUrl +  '/sQuotation/buyDeputyDirectPrice' ,// 买办直接报价

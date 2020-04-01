@@ -70,7 +70,7 @@
 				 let data={
 					number: _this.number,
 					orderType: _this.orderType,
-					isAnalysis: _this.isAnalysis
+					// isAnalysis: _this.isAnalysis
 				}
 				this.myRequest(data,url,'get').then(res => {
 				  console.log(res);

@@ -267,7 +267,7 @@
 		}
 		.title{
 			font-size:14px;
-			width: 220upx;
+			// width: 220upx;
 			font-weight: bold;
 			.num{
 				color: #FF6000;

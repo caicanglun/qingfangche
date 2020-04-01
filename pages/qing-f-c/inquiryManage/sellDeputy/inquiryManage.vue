@@ -14,6 +14,7 @@
 					</view> -->
 				  </view>
 				</view>
+				<view style="height: 10upx;background: #FFFFFF;"></view>
 				<view>
 					<topTabbar @change="tabSwitch()" :items="items" ></topTabbar>
 				</view>
@@ -179,19 +180,27 @@
 					
 				}
 				let url = this.Api.sellDeputyList
+				uni.showLoading({
+					title: '加载中',
+					mask: true
+				})
 				this.myRequest(data,url,'get').then(res => {
-					 _this.pageNum++;
-				  console.log(res);
-				  _this.lists = res.data.data.list
-				  //未报价计数
-				  let count = 0
-				  _this.lists.forEach((item)=>{
-					  if (item.inquiryStatusCode==3){
-						  count +=1
-					  }
-				  })
-				  _this.count = count
-				  _this.totalPage = res.data.data.totalPage
+					if (res.data.status == 0){
+						uni.hideLoading()
+						_this.pageNum++;
+						console.log(res);
+						_this.lists = res.data.data.list
+						//未报价计数
+						let count = 0
+						_this.lists.forEach((item)=>{
+											  if (item.inquiryStatusCode==3){
+												  count +=1
+											  }
+						})
+						_this.count = count
+						_this.totalPage = res.data.data.totalPage
+					}
+				  
 				}).catch(err => {
 				  wx.showToast({
 				    title: err.data.errMsg,

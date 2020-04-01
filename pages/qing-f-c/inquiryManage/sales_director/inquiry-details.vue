@@ -19,8 +19,12 @@
 				<view class="box-content">
 				  <text class='title'>买帮办：</text><text>{{inquiryInfo.buyDeputyRealName ||''}}</text>
 				</view>
-				<view class="box-content">
+				<!-- <view class="box-content">
 				  <text class='title'>买家：</text><text>{{inquiryInfo.companyName||''}}</text>
+				</view> -->
+				<view class="box-content-buyer">
+				  <view style="width: 110upx;"><text class='title'>买家：</text></view>
+				  <view class="text-overflow-wrap"><text>{{inquiryInfo.companyName||''}}</text></view>
 				</view>
 				<view class="box-contentSmall">
 				  <text>询价类型：</text><text>{{inquiryInfo.inquiryTypeCode==1?'常规询价':'找样询价'}}</text>
@@ -559,5 +563,14 @@
 			   color: white;
 	  }
 	
-	
+	.box-content-buyer{
+		display: flex;
+		// align-items: center;
+		width: 100%;
+		font-size: 13px;
+		
+		.title{
+			color: #8D8D8D;
+		}
+	}
 </style>

@@ -165,25 +165,28 @@
 		       <view class="font_we_bold fs_16">生产状态 </view>
 		     </view>
 			  <pickerButton :items="machineStatus" name="织机状态" @buttonChange="tabSwitchChange('machineStatus',$event)"></pickerButton>
-			 <pickerInput @mychange="tabSwitchChange('machineType',$event)"
-			 :items="machineType" name="织机类型" fontSize="font-size:14px;"></pickerInput>
-			 <pickerInput @mychange="tabSwitchChange('machineBrand',$event)"
-			 :items="machineBrand" name="织机品牌" fontSize="font-size:14px;"></pickerInput>
-			 <view class="flex_c list" style="position: relative;">
-			   <view>织机数量：</view>
-			   <input placeholder-class="color_909090 fs_13"   v-model="machineCount" type="number" class="input" placeholder="请输入" name="machineCount"></input>
-			   <view style="position:absolute;top:15upx;right:0;">台</view>
-			 </view>
-			 <view class="flex_c list" style="position: relative;">
-			   <view>单机产量：</view>
-			   <input placeholder-class="color_909090 fs_13"  v-model="dailyProduction" type="number" class="input" placeholder="请输入" name="dailyProduction" ></input>
-			   <view style="position:absolute;top:15upx;right:0;">米</view>
-			 </view>
-			 <view class="flex_c list" style="position: relative;">
-			   <view>日总产量：</view>
-			   <view>{{machineCount*dailyProduction}}</view>
-			   <view style="position:absolute;top:15upx;right:0;">米</view>
-			 </view>
+			  <view v-if="machineStatusIndex==1">
+				  <pickerInput @mychange="tabSwitchChange('machineType',$event)"
+				  :items="machineType" name="织机类型" fontSize="font-size:14px;"></pickerInput>
+				  <pickerInput @mychange="tabSwitchChange('machineBrand',$event)"
+				  :items="machineBrand" name="织机品牌" fontSize="font-size:14px;"></pickerInput>
+				  <view class="flex_c list" style="position: relative;">
+				    <view>织机数量：</view>
+				    <input placeholder-class="color_909090 fs_13"   v-model="machineCount" type="number" class="input" placeholder="请输入" name="machineCount"></input>
+				    <view style="position:absolute;top:15upx;right:0;">台</view>
+				  </view>
+				  <view class="flex_c list" style="position: relative;">
+				    <view>单机产量：</view>
+				    <input placeholder-class="color_909090 fs_13"  v-model="dailyProduction" type="number" class="input" placeholder="请输入" name="dailyProduction" ></input>
+				    <view style="position:absolute;top:15upx;right:0;">米</view>
+				  </view>
+				  <view class="flex_c list" style="position: relative;">
+				    <view>日总产量：</view>
+				    <view>{{machineCount*dailyProduction}}</view>
+				    <view style="position:absolute;top:15upx;right:0;">米</view>
+				  </view>
+			  </view>
+			 
 		</view>
 		<view class="form_box box_shadow">
 		     <view class="flex_c list">
@@ -808,7 +811,14 @@
 			  this.$refs.season.show()
 		  },
 		  submit:function(){
-			  
+			  if (_this.machineStatusIndex ==0){
+			  	_this.machineTypeIndex ='' //	织机类型编码
+			  	_this.machineTypeValue =''
+			  	_this.machineBrandIndex =''	//织机品牌编码
+			  	_this.machineBrandValue ='' 
+			  	_this.machineCount =''//		织机数量
+			  	_this.dailyProduction ='' //	单机日产量
+			  }
 			 
 			  //判断风格输入内容跟选择编号是否一致，不一致设置为-1
 			  

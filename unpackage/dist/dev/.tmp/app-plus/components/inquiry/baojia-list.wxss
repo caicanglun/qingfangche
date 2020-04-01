@@ -36,6 +36,9 @@
   -webkit-flex-direction: column;
           flex-direction: column;
 }
+.color_FF0000 {
+  color: #4487FD;
+}
 .baojia-row {
   display: -webkit-box;
   display: -webkit-flex;
@@ -82,7 +85,6 @@
 }
 .baojia-row .title {
     font-size: 14px;
-    width: 220rpx;
     font-weight: bold;
 }
 .baojia-row .title .num {

@@ -97,9 +97,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "components", function() { return components; });
 var components = {
   "uni-grid": () =>
-    __webpack_require__.e(/*! import() | components/uni-grid/uni-grid */ "components/uni-grid/uni-grid").then(__webpack_require__.bind(null, /*! @/components/uni-grid/uni-grid.vue */ 900)),
+    __webpack_require__.e(/*! import() | components/uni-grid/uni-grid */ "components/uni-grid/uni-grid").then(__webpack_require__.bind(null, /*! @/components/uni-grid/uni-grid.vue */ 954)),
   "uni-grid-item": () =>
-    __webpack_require__.e(/*! import() | components/uni-grid-item/uni-grid-item */ "components/uni-grid-item/uni-grid-item").then(__webpack_require__.bind(null, /*! @/components/uni-grid-item/uni-grid-item.vue */ 907))
+    __webpack_require__.e(/*! import() | components/uni-grid-item/uni-grid-item */ "components/uni-grid-item/uni-grid-item").then(__webpack_require__.bind(null, /*! @/components/uni-grid-item/uni-grid-item.vue */ 961))
 }
 var render = function() {
   var _vm = this
@@ -153,7 +153,7 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var mpvuePicker = function mpvuePicker() {return __webpack_require__.e(/*! import() | components/mpvue-picker/mpvuePicker */ "components/mpvue-picker/mpvuePicker").then(__webpack_require__.bind(null, /*! @/components/mpvue-picker/mpvuePicker.vue */ 914));};var uniGrid = function uniGrid() {return __webpack_require__.e(/*! import() | components/uni-grid/uni-grid */ "components/uni-grid/uni-grid").then(__webpack_require__.bind(null, /*! @/components/uni-grid/uni-grid.vue */ 900));};var uniGridItem = function uniGridItem() {return __webpack_require__.e(/*! import() | components/uni-grid-item/uni-grid-item */ "components/uni-grid-item/uni-grid-item").then(__webpack_require__.bind(null, /*! @/components/uni-grid-item/uni-grid-item.vue */ 907));};var widgit = function widgit() {return __webpack_require__.e(/*! import() | components/widgit */ "components/widgit").then(__webpack_require__.bind(null, /*! @/components/widgit.vue */ 921));};
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var mpvuePicker = function mpvuePicker() {return __webpack_require__.e(/*! import() | components/mpvue-picker/mpvuePicker */ "components/mpvue-picker/mpvuePicker").then(__webpack_require__.bind(null, /*! @/components/mpvue-picker/mpvuePicker.vue */ 968));};var uniGrid = function uniGrid() {return __webpack_require__.e(/*! import() | components/uni-grid/uni-grid */ "components/uni-grid/uni-grid").then(__webpack_require__.bind(null, /*! @/components/uni-grid/uni-grid.vue */ 954));};var uniGridItem = function uniGridItem() {return __webpack_require__.e(/*! import() | components/uni-grid-item/uni-grid-item */ "components/uni-grid-item/uni-grid-item").then(__webpack_require__.bind(null, /*! @/components/uni-grid-item/uni-grid-item.vue */ 961));};var widgit = function widgit() {return __webpack_require__.e(/*! import() | components/widgit */ "components/widgit").then(__webpack_require__.bind(null, /*! @/components/widgit.vue */ 975));};
 
 
 
@@ -255,84 +255,84 @@ var _this, _regionCode;
 
 var arrListBuyB = [
 {
-  icon: '/static/images/jinsy/buy-deputy/kehu.png',
+  icon: '/static/images/jinsy/common/kehu.png',
   name: '客户管理',
-  url: '/pages/qing-f-c/buyDupty/customer-admin' },
+  url: '/pages/qing-f-c/common/customer-admin' },
 
 {
-  icon: '/static/images/jinsy/buy-deputy/jiaoyi.png',
+  icon: '/static/images/jinsy/common/jiaoyi.png',
   name: '交易管理',
   url: '' },
 {
-  icon: '/static/images/jinsy/buy-deputy/xunjia.png',
+  icon: '/static/images/jinsy/common/xunjia.png',
   name: '询价管理',
   url: '/pages/qing-f-c/inquiryManage/inquiryManage' },
 
 {
-  icon: '/static/images/jinsy/buy-deputy/genjin.png',
+  icon: '/static/images/jinsy/common/genjin.png',
   name: '跟进记录',
   url: '' },
 
 {
-  icon: '/static/images/jinsy/buy-deputy/wuliu.png',
+  icon: '/static/images/jinsy/common/wuliu.png',
   name: '物流信息',
   url: '' },
 
 {
-  icon: '/static/images/jinsy/buy-deputy/renling.png',
+  icon: '/static/images/jinsy/common/shenfen.png',
   name: '身份认领',
   url: '' }];
 //买办
 var arrListSellB = [
 {
-  icon: '/static/images/jinsy/sell-deputy/kehu.png',
+  icon: '/static/images/jinsy/common/kehu.png',
   name: '客户管理',
   url: '/pages/qing-f-c/sellDupty/customer-admin' },
 
 {
-  icon: '/static/images/jinsy/sell-deputy/jiaoyi.png',
+  icon: '/static/images/jinsy/common/jiaoyi.png',
   name: '交易管理',
   url: '' },
 {
-  icon: '/static/images/jinsy/sell-deputy/xunjia.png',
+  icon: '/static/images/jinsy/common/xunjia.png',
   name: '询价管理',
   url: '/pages/qing-f-c/inquiryManage/sellDeputy/inquiryManage' },
 
 {
-  icon: '/static/images/jinsy/sell-deputy/genjin.png',
+  icon: '/static/images/jinsy/common/genjin.png',
   name: '跟进记录',
   url: '' },
 
 {
-  icon: '/static/images/jinsy/sell-deputy/wuliu.png',
+  icon: '/static/images/jinsy/common/wuliu.png',
   name: '物流信息',
   url: '' },
 
 {
-  icon: '/static/images/jinsy/sell-deputy/renling.png',
+  icon: '/static/images/jinsy/common/shenfen.png',
   name: '身份认领',
   url: '' }];
 //卖办
 var arrListRGbuy = [
 {
-  icon: '/static/images/jinsy/buy-region/kehu.png',
+  icon: '/static/images/jinsy/common/kehu.png',
   name: '客户管理',
   url: '/pages/qing-f-c/regionalManager/customer-admin' },
 
 
 {
-  icon: '/static/images/jinsy/buy-region/genjin.png',
+  icon: '/static/images/jinsy/common/genjin.png',
   name: '跟进记录',
   url: '' },
 
 
 {
-  icon: '/static/images/jinsy/buy-region/tongji.png',
+  icon: '/static/images/jinsy/common/tongji.png',
   name: '报表统计',
   url: '' },
 
 {
-  icon: '/static/images/jinsy/buy-region/admin.png',
+  icon: '/static/images/jinsy/common/bangban.png',
   name: '帮办管理',
   url: '' },
 
@@ -342,31 +342,31 @@ var arrListRGbuy = [
 //   url: ''
 // },
 {
-  icon: '/static/images/jinsy/buy-region/renling.png',
+  icon: '/static/images/jinsy/common/shenfen.png',
   name: '身份认领',
   url: '' }];
 //买办区域经理
 
 var arrListRGsell = [
 {
-  icon: '/static/images/jinsy/sell-region/kehu.png',
+  icon: '/static/images/jinsy/common/kehu.png',
   name: '客户管理',
   url: '/pages/qing-f-c/regionalManager/customer-admin' },
 
 
 {
-  icon: '/static/images/jinsy/sell-region/genjin.png',
+  icon: '/static/images/jinsy/common/genjin.png',
   name: '跟进记录',
   url: '' },
 
 
 {
-  icon: '/static/images/jinsy/sell-region/tongji.png',
+  icon: '/static/images/jinsy/common/tongji.png',
   name: '报表统计',
   url: '' },
 
 {
-  icon: '/static/images/jinsy/sell-region/admin.png',
+  icon: '/static/images/jinsy/common/bangban.png',
   name: '帮办管理',
   url: '' },
 
@@ -376,67 +376,67 @@ var arrListRGsell = [
 //   url: ''
 // },
 {
-  icon: '/static/images/jinsy/sell-region/renling.png',
+  icon: '/static/images/jinsy/common/shenfen.png',
   name: '身份认领',
   url: '' }];
 //卖办区域经理
 var arrListGM = [
 {
-  icon: '/static/images/jinsy/sales-director/kehu.png',
+  icon: '/static/images/jinsy/common/kehu.png',
   name: '客户管理',
   url: '/pages/qing-f-c/sales_director/customer-admin' },
 
 
 {
-  icon: '/static/images/jinsy/sales-director/genjin.png',
+  icon: '/static/images/jinsy/common/genjin.png',
   name: '跟进记录',
   url: '' },
 
 
 {
-  icon: '/static/images/jinsy/sales-director/tongji.png',
+  icon: '/static/images/jinsy/common/tongji.png',
   name: '报表统计',
   url: '' },
 
 {
-  icon: '/static/images/jinsy/sales-director/admin.png',
+  icon: '/static/images/jinsy/common/bangban.png',
   name: '帮办管理',
   url: '' },
 
 {
-  icon: '/static/images/jinsy/sales-director/examine.png',
+  icon: '/static/images/jinsy/common/shenke.png',
   name: '审核管理',
   url: '/pages/qing-f-c/sales_director/approved' },
 
 {
-  icon: '/static/images/jinsy/sales-director/renling.png',
+  icon: '/static/images/jinsy/common/shenfen.png',
   name: '身份认领',
   url: '' }];
 //销售总监
 var arrListAN = [
 {
-  icon: '/static/images/jinsy/sales-director/tongji.png',
+  icon: '/static/images/jinsy/common/tongji.png',
   name: '报表统计',
   url: '' },
 
 {
-  icon: '/static/images/jinsy/analyist/fenxi.png',
+  icon: '/static/images/jinsy/common/fenxi.png',
   name: '分析管理',
   url: '/pages/qing-f-c/inquiryManage/sampleInquiry/analyst/inquiryManage' },
 
 {
-  icon: '/static/images/jinsy/sales-director/examine.png',
+  icon: '/static/images/jinsy/common/shenke.png',
   name: '审核管理',
   url: '/pages/qing-f-c/analyist/analyist' }];
 
 //分析师
 var arrListBuyer = [
 { //买，卖家共用一个
-  icon: '/static/images/jinsy/buyer/xunjia.png',
+  icon: '/static/images/jinsy/common/xunjia.png',
   name: '我的询价',
   url: '/pages/jin-suo-yun/deputy/sample-many-search' },
 {
-  icon: '/static/images/jinsy/buyer/jiaoyi.png',
+  icon: '/static/images/jinsy/common/jiaoyi.png',
   name: '我的交易',
   url: '' },
 {
@@ -458,12 +458,12 @@ var arrListBuyer = [
 
 var arrListSeller = [
 { //买，卖家共用一个
-  icon: '/static/images/jinsy/seller/xunjia.png',
+  icon: '/static/images/jinsy/common/xunjia.png',
   name: '我的询价',
   url: '' },
 
 {
-  icon: '/static/images/jinsy/seller/jiaoyi.png',
+  icon: '/static/images/jinsy/common/jiaoyi.png',
   name: '我的交易',
   url: '' },
 {
@@ -482,7 +482,7 @@ var arrListSeller = [
   url: '' },
 
 {
-  icon: '/static/images/jinsy/seller/renling.png',
+  icon: '/static/images/jinsy/common/shenfen.png',
   name: '身份认领',
   url: '' },
 
@@ -551,6 +551,7 @@ var arrListSeller = [
     if (currPage.data.isDoRefresh == true) {
       currPage.data.isDoRefresh = false;
       this.reviewCount();
+      this.getAuditCount();
     }
     this.userDetails();
     this.reviewCount();
@@ -569,7 +570,7 @@ var arrListSeller = [
       var timer = setTimeout(function () {
         uni.hideLoading();
       }, 1000);
-      //用户信息
+      // 用户信息
       this.userDetails();
       //获取未读信息
       this.getNewsNum();
@@ -899,9 +900,9 @@ var arrListSeller = [
 
         },
         fail: function fail(res) {
-          uni.showLoading({
+          uni.showToast({
             title: res,
-            mask: false });
+            icon: 'none' });
 
           return;
         } });

@@ -32,6 +32,9 @@
 			// this.reviewCount()
 			this.getAuditCount()
 		},
+		onShow:function(){
+			this.getAuditCount()
+		},
 		methods:{
 			getAuditCount:function(){
 				let data={}

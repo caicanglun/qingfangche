@@ -70,35 +70,56 @@
 
 				}
 				let url = this.Api.directorModifyPrice
-				uni.showLoading({
-					title:"提交中",
-								mask: true
-				})
-				this.myRequest(data,url,'get').then(res => {
-				  console.log(res);
-				  if (res.data.status == 0){
-					  uni.hideLoading()
-					  var pages = getCurrentPages();
-					  var currPage = pages[pages.length - 1]; //当前页面
-					  var prevPage = pages[pages.length - 2]; //上一个页面
-					  //直接调用上一个页面的setData()方法，把数据存到上一个页面中去
-					  
-					  prevPage.setData({
-					     isDoRefresh:true
-					  })
-					 
-					  
-					  uni.navigateBack({
-					  	delta: 1
-					  });
-					  
-				  }
-				}).catch(err => {
-				  wx.showToast({
-				    title: err.data.errMsg,
-				    icon: 'none'
-				  });
+				uni.showModal({
+					title: '确认推送',
+					content: '确认价格合适',
+					showCancel: true,
+					cancelText: '取消',
+					confirmText: '确认',
+					success: res => {
+						if (res.confirm) {
+						   console.log('用户点击确定');
+						   uni.showLoading({
+						   	  title:'提交中',
+						      mask: true
+						   })
+						   this.myRequest(data,url,'get').then(res => {
+						     console.log(res);
+						     if (res.data.status == 0){
+						   	 uni.hideLoading()
+						   	  var pages = getCurrentPages();
+						   	  var currPage = pages[pages.length - 1]; //当前页面
+						   	  var prevPage = pages[pages.length - 2]; //上一个页面
+						   	  //直接调用上一个页面的setData()方法，把数据存到上一个页面中去
+						   	  
+						   	  prevPage.setData({
+						   	     isDoRefresh:true
+						   	  })
+						   	 
+						   	  
+						   	  uni.navigateBack({
+						   	  	delta: 1
+						   	  });
+						   	  
+						     }
+						   }).catch(err => {
+						     wx.showToast({
+						       title: err.data.errMsg,
+						       icon: 'none'
+						     });
+						   });
+						   
+						} else if (res.cancel) {
+							console.log('用户点击取消');
+						}
+					},
+					fail: (err) => {
+						console.log(err)
+					},
+					complete: () => {}
 				});
+				
+				
 			}
 		}
 		

@@ -4,16 +4,16 @@
 	  <view class="hand_box">
 		 <view class="flex-row-reverse mt_50">
 		 		 
-		 		<view class="widgit">
+		 		<view class="widgit" style="margin-top: 50upx;">
 		 			<image src="/static/images/jinsy/xiaoxi@2x.png" @tap="navNewsPage" class="xiaoxi_img" mode="aspectFit"></image>
 		 			<view class="xiaoxi_text" v-if="newsNum>0">{{newsNum|| ''}}</view>
 		 		</view>
-		 		<view style="padding-right: 20upx;">
+		 		<view style="padding-right: 30upx;margin-top: 50upx;">
 		 				<image src="/static/images/jinsy/setting@2x.png" @tap="toSetting" class="setting_img" mode="aspectFit"></image>
 		 		</view>
 		 		
 		 </view>
-		 <view style="display:flex;margin-top: 100upx;margin-left: 15upx;">
+		 <view style="display:flex;margin-left: 15upx;">
 			 <view>
 				 <image :src="userInfo.avatar" class="hand_img" mode="aspectFit"></image>
 			 </view>
@@ -100,84 +100,84 @@ let _this,_regionCode;
 
 const arrListBuyB = [
 	{
-	icon: '/static/images/jinsy/buy-deputy/kehu.png',
+	icon: '/static/images/jinsy/common/kehu.png',
 	name: '客户管理',
-	url: '/pages/qing-f-c/buyDupty/customer-admin'
+	url: '/pages/qing-f-c/common/customer-admin'
 	},
 	{
-	  icon: '/static/images/jinsy/buy-deputy/jiaoyi.png',
+	  icon: '/static/images/jinsy/common/jiaoyi.png',
 	  name: '交易管理',
 	  url: ''
 	}, {
-	  icon: '/static/images/jinsy/buy-deputy/xunjia.png',
+	  icon: '/static/images/jinsy/common/xunjia.png',
 	  name: '询价管理',
 	  url: '/pages/qing-f-c/inquiryManage/inquiryManage'
 	}, 
 	{
-	  icon: '/static/images/jinsy/buy-deputy/genjin.png',
+	  icon: '/static/images/jinsy/common/genjin.png',
 	  name: '跟进记录',
 	  url: ''
     }, 
 	{
-	  icon: '/static/images/jinsy/buy-deputy/wuliu.png',
+	  icon: '/static/images/jinsy/common/wuliu.png',
 	  name: '物流信息',
 	  url: '',
 	},
 	{
-	  icon: '/static/images/jinsy/buy-deputy/renling.png',
+	  icon: '/static/images/jinsy/common/shenfen.png',
 	  name: '身份认领',
 	  url: ''}
   ];  //买办
 const arrListSellB = [
 	{
-	icon: '/static/images/jinsy/sell-deputy/kehu.png',
+	icon: '/static/images/jinsy/common/kehu.png',
 	name: '客户管理',
 	url: '/pages/qing-f-c/sellDupty/customer-admin'
 	},
 	{
-	  icon: '/static/images/jinsy/sell-deputy/jiaoyi.png',
+	  icon: '/static/images/jinsy/common/jiaoyi.png',
 	  name: '交易管理',
 	  url: ''
 	}, {
-	  icon: '/static/images/jinsy/sell-deputy/xunjia.png',
+	  icon: '/static/images/jinsy/common/xunjia.png',
 	  name: '询价管理',
 	  url: '/pages/qing-f-c/inquiryManage/sellDeputy/inquiryManage'
 	}, 
 	{
-	  icon: '/static/images/jinsy/sell-deputy/genjin.png',
+	  icon: '/static/images/jinsy/common/genjin.png',
 	  name: '跟进记录',
 	  url: ''
 	}, 
 	{
-	  icon: '/static/images/jinsy/sell-deputy/wuliu.png',
+	  icon: '/static/images/jinsy/common/wuliu.png',
 	  name: '物流信息',
 	  url: '',
 	},
 	{
-	  icon: '/static/images/jinsy/sell-deputy/renling.png',
+	  icon: '/static/images/jinsy/common/shenfen.png',
 	  name: '身份认领',
 	  url: ''}
 ];   //卖办
 const arrListRGbuy = [
 	{
-		icon: '/static/images/jinsy/buy-region/kehu.png',
+		icon: '/static/images/jinsy/common/kehu.png',
 		name: '客户管理',
 		url: '/pages/qing-f-c/regionalManager/customer-admin'
 		},
 		
 		{
-		  icon: '/static/images/jinsy/buy-region/genjin.png',
+		  icon: '/static/images/jinsy/common/genjin.png',
 		  name: '跟进记录',
 		  url: ''
 	    }, 
 	
 		{
-		  icon: '/static/images/jinsy/buy-region/tongji.png',
+		  icon: '/static/images/jinsy/common/tongji.png',
 		  name: '报表统计',
 		  url: ''
 		},
 		{
-		  icon: '/static/images/jinsy/buy-region/admin.png',
+		  icon: '/static/images/jinsy/common/bangban.png',
 		  name: '帮办管理',
 		  url: ''
 		}, 
@@ -187,31 +187,31 @@ const arrListRGbuy = [
 		//   url: ''
 		// },
 		{
-		  icon: '/static/images/jinsy/buy-region/renling.png',
+		  icon: '/static/images/jinsy/common/shenfen.png',
 		  name: '身份认领',
 		  url: ''}
 ];      //买办区域经理
 
 const arrListRGsell = [
 	{
-		icon: '/static/images/jinsy/sell-region/kehu.png',
+		icon: '/static/images/jinsy/common/kehu.png',
 		name: '客户管理',
 		url: '/pages/qing-f-c/regionalManager/customer-admin'
 		},
 		
 		{
-		  icon: '/static/images/jinsy/sell-region/genjin.png',
+		  icon: '/static/images/jinsy/common/genjin.png',
 		  name: '跟进记录',
 		  url: ''
 	    }, 
 	
 		{
-		  icon: '/static/images/jinsy/sell-region/tongji.png',
+		  icon: '/static/images/jinsy/common/tongji.png',
 		  name: '报表统计',
 		  url: ''
 		},
 		{
-		  icon: '/static/images/jinsy/sell-region/admin.png',
+		  icon: '/static/images/jinsy/common/bangban.png',
 		  name: '帮办管理',
 		  url: ''
 		}, 
@@ -221,67 +221,67 @@ const arrListRGsell = [
 		//   url: ''
 		// },
 		{
-		  icon: '/static/images/jinsy/sell-region/renling.png',
+		  icon: '/static/images/jinsy/common/shenfen.png',
 		  name: '身份认领',
 		  url: ''}
 ];      //卖办区域经理
 const arrListGM= [
 	{
-		icon: '/static/images/jinsy/sales-director/kehu.png',
+		icon: '/static/images/jinsy/common/kehu.png',
 		name: '客户管理',
 		url: '/pages/qing-f-c/sales_director/customer-admin'
 		},
 		
 		{
-		  icon: '/static/images/jinsy/sales-director/genjin.png',
+		  icon: '/static/images/jinsy/common/genjin.png',
 		  name: '跟进记录',
 		  url: ''
 	    }, 
 	
 		{
-		  icon: '/static/images/jinsy/sales-director/tongji.png',
+		  icon: '/static/images/jinsy/common/tongji.png',
 		  name: '报表统计',
 		  url: ''
 		},
 		{
-		  icon: '/static/images/jinsy/sales-director/admin.png',
+		  icon: '/static/images/jinsy/common/bangban.png',
 		  name: '帮办管理',
 		  url: ''
 		}, 
 		{
-		  icon: '/static/images/jinsy/sales-director/examine.png',
+		  icon: '/static/images/jinsy/common/shenke.png',
 		  name: '审核管理',
 		  url: '/pages/qing-f-c/sales_director/approved'
 		},
 		{
-		  icon: '/static/images/jinsy/sales-director/renling.png',
+		  icon: '/static/images/jinsy/common/shenfen.png',
 		  name: '身份认领',
 		  url: ''}
 ];     //销售总监
 const arrListAN= [
 	{
-		  icon: '/static/images/jinsy/sales-director/tongji.png',
+		  icon: '/static/images/jinsy/common/tongji.png',
 		  name: '报表统计',
 		  url: ''
 		},
     {
-		icon: '/static/images/jinsy/analyist/fenxi.png',
+		icon: '/static/images/jinsy/common/fenxi.png',
 		name: '分析管理',
 		url: '/pages/qing-f-c/inquiryManage/sampleInquiry/analyst/inquiryManage'
 	},
 	{
-	  icon: '/static/images/jinsy/sales-director/examine.png',
+	  icon: '/static/images/jinsy/common/shenke.png',
 	  name: '审核管理',
 	  url: '/pages/qing-f-c/analyist/analyist'
 	}
 	];     //分析师
 const arrListBuyer= [
 	{   //买，卖家共用一个
-  icon: '/static/images/jinsy/buyer/xunjia.png',
+  icon: '/static/images/jinsy/common/xunjia.png',
   name: '我的询价',
   url: '/pages/jin-suo-yun/deputy/sample-many-search'
  }, {
-  icon: '/static/images/jinsy/buyer/jiaoyi.png',
+  icon: '/static/images/jinsy/common/jiaoyi.png',
   name: '我的交易',
   url: ''
  }, {
@@ -303,12 +303,12 @@ const arrListBuyer= [
   
 const arrListSeller= [
 	{   //买，卖家共用一个
-  icon: '/static/images/jinsy/seller/xunjia.png',
+  icon: '/static/images/jinsy/common/xunjia.png',
   name: '我的询价',
   url: ''
   },
   {
-  icon: '/static/images/jinsy/seller/jiaoyi.png',
+  icon: '/static/images/jinsy/common/jiaoyi.png',
   name: '我的交易',
   url: ''
   }, {
@@ -327,7 +327,7 @@ const arrListSeller= [
   url: ''
   },
  {
-  icon: '/static/images/jinsy/seller/renling.png',
+  icon: '/static/images/jinsy/common/shenfen.png',
   name: '身份认领',
   url: ''
   },
@@ -396,6 +396,7 @@ export default {
 	  if (currPage.data.isDoRefresh == true){
 	  	       currPage.data.isDoRefresh = false;
 	  		   this.reviewCount()
+			   this.getAuditCount()
 	  	 }
 	  this.userDetails()
 	  this.reviewCount()
@@ -414,7 +415,7 @@ export default {
 			let timer = setTimeout(() => {
 			  uni.hideLoading();
 			}, 1000);
-			//用户信息
+			// 用户信息
 			this.userDetails()
 			//获取未读信息
 			this.getNewsNum()
@@ -744,9 +745,9 @@ export default {
 		 
         },
         fail: function (res) {
-			uni.showLoading({
+			uni.showToast({
 				title: res,
-				mask: false
+				icon: 'none'
 			});
 			return
 		}
@@ -837,7 +838,7 @@ page{
 }
 
 .xiaoxi_text{
-  background-color: #FF7D21;
+  background-color: #FF0000;
   color: #fff;
   border-radius: 26upx;
   height: 26upx;
@@ -851,13 +852,13 @@ page{
   right: -10upx;
 }
 .xiaoxi_img{
-  height: 42upx;
-  width: 36upx;
+  height: 50upx;
+  width: 50upx;
   z-index: 95;
 }
 .setting_img{
-  height: 42upx;
-  width: 36upx;
+  height: 50upx;
+  width: 50upx;
   z-index: 95;
 }
 .box{

@@ -6,25 +6,28 @@
 		       <view class="font_we_bold fs_16">生产状态 </view>
 		     </view>
 			  <pickerButton :items="machineStatus" name="织机状态" @buttonChange="tabSwitchChange('machineStatus',$event)"></pickerButton>
-			 <pickerInput @mychange="tabSwitchChange('machineType',$event)"
-			 :items="machineType" :firstLabel="machineTypeValue" name="织机类型" fontSize="font-size:14px;"></pickerInput>
-			 <pickerInput @mychange="tabSwitchChange('machineBrand',$event)"
-			 :items="machineBrand" :firstLabel="machineBrandValue" name="织机品牌" fontSize="font-size:14px;"></pickerInput>
-			 <view class="flex_c list" style="position: relative;">
-			   <view>织机数量：</view>
-			   <input placeholder-class="color_909090 fs_13" type="number" class="input" placeholder="请输入" name="machineCount" v-model="machineCount"></input>
-			   <view style="position:absolute;top:15upx;right:0;">台</view>
-			 </view>
-			 <view class="flex_c list" style="position: relative;">
-			   <view>单机产量：</view>
-			   <input placeholder-class="color_909090 fs_13" type="number" class="input" placeholder="请输入" name="dailyProduction" v-model="dailyProduction"></input>
-			   <view style="position:absolute;top:15upx;right:0;">{{goodsDetail.goodsCountUnitName||'米'}}</view>
-			 </view>
-			 <view class="flex_c list" style="position: relative;">
-			   <view>日总产量：</view>
-			   <view>{{machineCount*dailyProduction}}</view>
-			   <view style="position:absolute;top:15upx;right:0;">{{goodsDetail.goodsCountUnitName||'米'}}</view>
-			 </view>
+			  <view v-if="machineStatusIndex==1">
+				  <pickerInput @mychange="tabSwitchChange('machineType',$event)"
+				  :items="machineType" :firstLabel="machineTypeValue" name="织机类型" fontSize="font-size:14px;"></pickerInput>
+				  <pickerInput @mychange="tabSwitchChange('machineBrand',$event)"
+				  :items="machineBrand" :firstLabel="machineBrandValue" name="织机品牌" fontSize="font-size:14px;"></pickerInput>
+				  <view class="flex_c list" style="position: relative;">
+				    <view>织机数量：</view>
+				    <input placeholder-class="color_909090 fs_13" type="number" class="input" placeholder="请输入" name="machineCount" v-model="machineCount"></input>
+				    <view style="position:absolute;top:15upx;right:0;">台</view>
+				  </view>
+				  <view class="flex_c list" style="position: relative;">
+				    <view>单机产量：</view>
+				    <input placeholder-class="color_909090 fs_13" type="number" class="input" placeholder="请输入" name="dailyProduction" v-model="dailyProduction"></input>
+				    <view style="position:absolute;top:15upx;right:0;">{{goodsDetail.goodsCountUnitName||'米'}}</view>
+				  </view>
+				  <view class="flex_c list" style="position: relative;">
+				    <view>日总产量：</view>
+				    <view>{{machineCount*dailyProduction}}</view>
+				    <view style="position:absolute;top:15upx;right:0;">{{goodsDetail.goodsCountUnitName||'米'}}</view>
+				  </view>
+			  </view>
+			
 		</view>
 		<view class="form_box box_shadow">
 		     <view class="flex_c list">
@@ -177,6 +180,14 @@
 						  
 			},
 			submit:function(){
+				// if (_this.machineStatusIndex ==0){
+				// 	_this.machineTypeIndex ='' //	织机类型编码
+				// 	_this.machineTypeValue =''
+				// 	_this.machineBrandIndex =''	//织机品牌编码
+				// 	_this.machineBrandValue ='' 
+				// 	_this.machineCount =''//		织机数量
+				// 	_this.dailyProduction ='' //	单机日产量
+				// }
 				let url = this.Api.goodsUpdate
 				let data = {
 					    goodsCode:_this.goodsDetail.goodsCode, //产品编码
@@ -193,20 +204,25 @@
 
 				}
 				console.log(data)
-				// uni.showLoading({
-				// 	title: '加载中',
-				// 	mask: true
-				// });
+				uni.showLoading({
+					title: '提交中',
+					mask: true
+				});
 				this.myRequest(data,url,'post').then(res => {
 				  console.log(res);
+				   uni.hideLoading()
 				  if (res.data.status==0){
-					  uni.hideLoading()
 					  uni.showToast({
 					  	title:'更新成功'
 					  });
 					  uni.navigateBack({
 					  	delta: 1
 					  });
+				  }else {
+					  uni.showToast({
+					  	title:res.data.message,
+						icon:'none'
+					  })
 				  }
 				  
 								

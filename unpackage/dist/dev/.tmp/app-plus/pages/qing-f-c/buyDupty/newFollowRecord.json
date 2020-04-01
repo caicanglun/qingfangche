@@ -1,0 +1,7 @@
+{
+  "navigationBarTitleText": "新建跟进记录",
+  "usingComponents": {
+    "my-picker-part": "/components/myPickerPartNew",
+    "uni-icon": "/components/uni-icons/uni-icons"
+  }
+}

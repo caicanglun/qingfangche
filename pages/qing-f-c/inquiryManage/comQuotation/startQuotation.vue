@@ -15,11 +15,11 @@
 			<view class="content">
 				<view>报价价格：</view>
 				<view><input v-model="unitPrice" placeholder="请输入价格" placeholder-style="color:#909090;font-size:13px;" /></view>
-				<switchButton :items='lengthUnit' @buttonChange="switchChange('lengthUnit',$event)"></switchButton>
+				<switchButton :items='lengthUnit' :initValue='1' @buttonChange="switchChange('lengthUnit',$event)"></switchButton>
 			</view>
 			<view class="content">
 				<view>运费：</view>
-				<switchButton :items='carriage' @buttonChange="switchChange('carriage',$event)"></switchButton>
+				<switchButtonCarrage :items='carriage' @buttonChange="switchChange('carriage',$event)"></switchButtonCarrage>
 			</view>
 			
 			<view class="content-1" style="justify-content: space-between;" v-if="carriageIndex == 1">
@@ -206,6 +206,7 @@
 	import  pickerButton from "@/components/pickerButton.vue";
 	import myPickerPart from "@/components/myPickerPartNew.vue";
 	import switchButton from "@/components/switchButton-auto.vue";
+	import switchButtonCarrage from "@/components/switchButton-edit.vue";
 	import switchButtonS from "@/components/switchButton-s.vue";
 	import partCheckboxGroup from "@/components/partCheckboxGroup.vue";
 	import pickerInput from "@/components/pickerInput.vue";
@@ -223,7 +224,8 @@
 			pickerInput,
 			switchButtonS,
 			popupMe,
-			uniIcon
+			uniIcon,
+			switchButtonCarrage
 		
 		},
 		
@@ -244,7 +246,7 @@
 				taxes:[],  //税费
 				taxedIndex: 1,
 				carriage:[], //运费
-				carriageIndex: 1,
+				carriageIndex: 0,
 				lengthUnit:[],  //价格单位
 				lengthUnitIndex: 1,
 				densityUnit:[],  //密度单位
@@ -338,6 +340,7 @@
 				  this.myRequest(data,url,'get').then(res => {
 					console.log(res);
 						_this.carriage = res.data.data.list
+						_this.setIsChecked(_this.carriage,_this.carriageIndex)
 				   }).catch(err => {
 					wx.showToast({
 					  title: err.data.errMsg,
@@ -596,6 +599,7 @@
 						break;
 					case 'carriage':
 					    this.carriageIndex = index;
+						_this.setIsChecked(_this.carriage,_this.carriageIndex)
 						console.log(this.carriageIndex)
 						break;
 					case 'taxes':

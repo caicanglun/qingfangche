@@ -7,8 +7,8 @@
   "id": "__UNI__85973DE",
   "name": "轻纺车网",
   "version": {
-    "name": "1.0.5",
-    "code": 105
+    "name": "1.0.6",
+    "code": 106
   },
   "description": "",
   "launch_path": "__uniappview.html",
@@ -22,6 +22,7 @@
     "Maps": {
       "coordType": "gcj02"
     },
+    "Push": {},
     "UniNView": {
       "description": "UniNView原生渲染"
     }
@@ -130,8 +131,10 @@
       "apple": {},
       "plugins": {
         "maps": {},
-        "ad": null,
-        "push": {},
+        "ad": {},
+        "push": {
+          "unipush": {}
+        },
         "audio": {
           "mp3": {
             "description": "Android平台录音支持MP3格式文件"
@@ -147,7 +150,7 @@
       }
     },
     "uni-app": {
-      "compilerVersion": "2.6.1",
+      "compilerVersion": "2.6.5",
       "control": "v8",
       "nvueCompiler": "uni-app",
       "renderer": "auto",

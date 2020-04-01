@@ -132,6 +132,16 @@ page {
 .box-content .title {
     color: #8D8D8D;
 }
+.box-content-buyer {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  width: 100%;
+  font-size: 13px;
+}
+.box-content-buyer .title {
+    color: #8D8D8D;
+}
 .baojia-content {
   display: -webkit-box;
   display: -webkit-flex;
