@@ -10,7 +10,7 @@
   <view class="flex_sb">
     <view class="flex">
       <image src="/static/images/qingfc/application/companyx.png" class="title_img" mode="aspectFit"></image>
-      <view class="fs_18 font_we_bold">{{customerInfo.companyName||''}}</view>
+      <view class="fs_18 font_we_bold" style="padding-left: 20upx;">{{customerInfo.companyName||''}}</view>
 	  <view :class="'ml_20 '+ (customerInfo.buyOrSell==1?'id_btn':'seller_btn')">{{customerInfo.buyOrSell==1?'买家':'卖家'}}</view>
     </view>
 
@@ -28,13 +28,13 @@
   </view>
   <view class="flex_c fs_14 mt_30">
     <view class="wid_296 flex_c">
-      <view class="wid_140 color_9b">找样结果数</view>
-      <view class="wid_156">{{customerInfo.demandNum||0}}</view>
+      <view class="wid_140 color_9b">找样需求数</view>
+      <view class="wid_156">{{counter.inquiryCount|| 0}}</view>
     </view>
     <view class="line"></view>
     <view class="wid_296 flex_c">
       <view class="wid_140 color_9b">总交易次数</view>
-      <view class="wid_156">{{customerInfo.transactionNum||0}}</view>
+      <view class="wid_156">{{counter.dealCount|| 0}}</view>
     </view>
   </view>
   
@@ -42,11 +42,11 @@
   <view class="flex_sb mt_30">
     <view class="hand_bottom_btn" @tap="toRecordDetails">
 		<view>跟进记录</view>
-		<view class="counter">36条</view>
+		<view class="counter">{{counter.followCount|| 0}}条</view>
 	</view>
     <view class="hand_bottom_btn" @tap="toProductPage">
 		<view>产品需求</view>
-		<view class="counter">12个</view>
+		<view class="counter">{{counter.productCount|| 0}}个</view>
 		
 	</view>
     <!-- <view class="hand_bottom_btn" @tap="toBondDetail">
@@ -113,7 +113,7 @@
 	   </view>
 	   <view class="flex_c box_list fs_14">
 	      <view class='list_right'>经营定位</view>
-	      <view>{{customerInfo.companyScale||''}}</view>
+	      <view>{{customerInfo.managementPosition||''}}</view>
 	    </view>
 	   <view class="flex_c box_list fs_14">
 	     <view class='list_right'>客户来源</view>
@@ -237,6 +237,7 @@ export default {
   },
   data() {
     return {
+	  counter:'',
 	  placeholdeView:false,
       identity: 2,
       //1为买帮办，2为卖帮办
@@ -264,16 +265,20 @@ export default {
     this.getCustomerInfo();
   },
   onShow: function () {
-	let pages = getCurrentPages();
-    let currPage = pages[pages.length-1];
-   if (currPage.data.isDoRefresh == true){
-	       currPage.data.isDoRefresh = false;
-		   this.getCustomerInfo();
-		   this.getLinkMan()
-		   this.getOperation()
-		   this.getRival()
-	 }
-   
+	// let pages = getCurrentPages();
+ //    let currPage = pages[pages.length-1];
+ //   if (currPage.data.isDoRefresh == true){
+	//        currPage.data.isDoRefresh = false;
+	// 	   this.getCustomerInfo();
+	// 	   this.getLinkMan()
+	// 	   this.getOperation()
+	// 	   this.getRival()
+	//  }
+    this.getCustomerInfo();
+    this.getLinkMan()
+    this.getOperation()
+    this.getRival()
+	this.getCounter()
   },
   onLoad: function (options) {
     _this = this;
@@ -284,6 +289,7 @@ export default {
 	this.getLinkMan()
 	this.getOperation()
 	this.getRival()
+	this.getCounter()
   },
   onPageScroll:function(res){
 	
@@ -298,6 +304,13 @@ export default {
   components: {},
   props: {},
   methods: {
+	  async getCounter(){
+		  const res = await this.$http.get('/cm/title',{
+			  data:{companyCode:_companyCode}
+		  })
+		  console.log(res)
+		  this.counter = res.data.data
+	  },
 	  tabSwitch:function(index){
 	  	this.activeIndex = index
 		this.placeholdeView = true
@@ -394,9 +407,14 @@ export default {
    
     // 跳转跟进记录详情（总）
     toRecordDetails: function () {
-      let userId = this.customerInfo.id;
+      let data= JSON.stringify({
+		  companyCode: _companyCode,
+		  buyOrSellCode: this.linkMan[0].buyOrSellCode,
+		  buyOrSell: this.customerInfo.buyOrSell
+	  })
+	  console.log(data)
       wx.navigateTo({
-        url: '/pages/jin-suo-yun/customer-admin/record-details?userId=' + userId + '&name=' + this.customerInfo.corporateName
+        url: `/pages/qing-f-c/customPicture/sd_followRecordDetail?companyCode=${_companyCode}`
       });
     },
     //跳转保证金管理页面
@@ -435,13 +453,9 @@ export default {
 	addCompetitor:function(e){
 		let companyCode = this.customerInfo.companyCode;
 		uni.navigateTo({
-			url: '/pages/qing-f-c/buyDupty/add-competitor?companyCode=' + companyCode,
-			success: res => {
-				console.log(res)
-			},
-			fail: (err) => {
-				console.log(err)
-			},
+			url: `/pages/qing-f-c/customPicture/addCompetitor?companyCode=${companyCode}`,
+			success: res => {},
+			fail: (err) => {console.log(err)},
 			complete: () => {}
 		});
 	},
@@ -449,13 +463,9 @@ export default {
 		let rivalCode = index;
 		
 		uni.navigateTo({
-			url: '/pages/qing-f-c/buyDupty/detail-competitor?rivalCode=' + rivalCode,
-			success: res => {
-				console.log(res)
-			},
-			fail: (err) => {
-				console.log(err)
-			},
+			url: `/pages/qing-f-c/customPicture/competitorDetail?rivalCode=${rivalCode}`,
+			success: res => {},
+			fail: (err) => { console.log(err)},
 			complete: () => {}
 		});
 		
@@ -825,7 +835,7 @@ page{
 .title_img{
 	width: 36upx;
 	height: 36upx;
-	padding-right: 20upx; 
+	 
 }
 .ellipsis{
 	width: 10upx;

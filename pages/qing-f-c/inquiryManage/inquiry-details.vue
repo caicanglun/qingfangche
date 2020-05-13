@@ -670,36 +670,7 @@
 	}
 	
 	
-.baojia-contentBottom{
-		display: flex;
-		justify-content: space-between;
-		line-height: 65upx;
-		width: 100%;
-		font-size: 12px;
-		height: 69upx;
-		color: #8D8D8D;
-		.baojia_button{
-			display: flex;
-			flex-direction: row-reverse;
-			justify-content: space-between;
-			width:300upx;
-			.baojia_Clipboard{
-				display: flex;
-				justify-content: center;
-				align-items: center;
-				background-color: #FF6000;
-				color: white;
-				line-height: 52upx;
-				width:136upx;
-				height:52upx;
-				background:rgba(255,96,0,1);
-				border-radius:4upx;
-			}
-		}
-		.baojia_time{
-			font-size: 10px;
-		}
-	}	
+
 	.baojia-bottom-spec{
 		display: flex;
 		justify-content: space-between;

@@ -42,28 +42,28 @@ page {
           flex-direction: column;
 }
 .content-box .subItem {
-    display: -webkit-box;
-    display: -webkit-flex;
-    display: flex;
-    -webkit-box-align: center;
-    -webkit-align-items: center;
-            align-items: center;
-    font-size: 13px;
-    height: 56rpx;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+          align-items: center;
+  font-size: 13px;
+  height: 56rpx;
 }
 .content-box .subItem .label {
-      color: #999999;
+  color: #999999;
 }
 .content-box .subItemTime {
-    display: -webkit-box;
-    display: -webkit-flex;
-    display: flex;
-    -webkit-box-align: center;
-    -webkit-align-items: center;
-            align-items: center;
-    font-size: 11px;
-    height: 56rpx;
-    color: #999999;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+          align-items: center;
+  font-size: 11px;
+  height: 56rpx;
+  color: #999999;
 }
 .baojia-wrap {
   padding-left: 20rpx;
@@ -114,28 +114,28 @@ page {
           flex-direction: column;
 }
 .content-box .subItem {
-    display: -webkit-box;
-    display: -webkit-flex;
-    display: flex;
-    -webkit-box-align: center;
-    -webkit-align-items: center;
-            align-items: center;
-    font-size: 13px;
-    height: 56rpx;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+          align-items: center;
+  font-size: 13px;
+  height: 56rpx;
 }
 .content-box .subItem .label {
-      color: #999999;
+  color: #999999;
 }
 .content-box .subItemTime {
-    display: -webkit-box;
-    display: -webkit-flex;
-    display: flex;
-    -webkit-box-align: center;
-    -webkit-align-items: center;
-            align-items: center;
-    font-size: 11px;
-    height: 56rpx;
-    color: #999999;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+          align-items: center;
+  font-size: 11px;
+  height: 56rpx;
+  color: #999999;
 }
 .details-box {
   margin: 20rpx 30rpx 0 30rpx;
@@ -179,6 +179,14 @@ page {
   height: 56rpx;
 }
 .details-content .title {
-    color: #999999;
+  color: #999999;
+}
+.btn_all {
+  width: 100%;
+  background-color: #FF6000;
+  color: #fff;
+  border-radius: 0;
+  font-size: 16px;
+  line-height: 88rpx;
 }
 

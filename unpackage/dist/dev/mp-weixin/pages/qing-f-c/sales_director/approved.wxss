@@ -45,15 +45,4 @@ page {
   position: relative;
   margin-left: 30rpx;
 }
-.icon-position {
-  position: absolute;
-  background-color: #5CACEE;
-  color: #ffffff;
-  line-height: 40rpx;
-  width: 40rpx;
-  height: 40rpx;
-  border-radius: 50%;
-  right: -10rpx;
-  top: -15rpx;
-}
 

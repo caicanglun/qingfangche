@@ -1,6 +1,8 @@
 {
-  "navigationBarTitleText": "新增跟进记录",
+  "navigationBarTitleText": "新增潜在订单",
   "usingComponents": {
-    "my-picker-part": "/components/myPickerPartNew"
+    "my-picker-part": "/components/myPickerPartProps",
+    "uni-icon": "/components/uni-icons/uni-icons",
+    "e-picker": "/components/e-picker/e-picker"
   }
 }

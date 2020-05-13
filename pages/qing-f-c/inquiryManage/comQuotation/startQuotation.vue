@@ -15,7 +15,8 @@
 			<view class="content">
 				<view>报价价格：</view>
 				<view><input v-model="unitPrice" placeholder="请输入价格" placeholder-style="color:#909090;font-size:13px;" /></view>
-				<switchButton :items='lengthUnit' :initValue='1' @buttonChange="switchChange('lengthUnit',$event)"></switchButton>
+				<!-- <switchButton :items='lengthUnit' :initValue='1' @buttonChange="switchChange('lengthUnit',$event)"></switchButton> -->
+				<view>米</view>
 			</view>
 			<view class="content">
 				<view>运费：</view>
@@ -123,16 +124,17 @@
 				   <view class="flex_c list_part">
 					  <view>密度<text class="pl_20">({{productDetails.clothTypeName||''}})</text></view>
 					</view>	
-					<view class="flex_c list_right_content">
-					  <view class="fs_13">经：</view>
-					  <input placeholder-class="color_888 fs_13" class="input-half-width" 
-					  placeholder="请输入数量" 
-					  name="density_longitude" v-model="density_longitude"></input>
-					  <view class="fs_13">纬:</view>
-					  <input placeholder-class="color_888 fs_13" class="input-half-width" 
-					  placeholder="请输入数量" 
-					  name="density_latitude" v-model="density_latitude"></input>
-					  <switchButtonS :items='densityUnit' @buttonChange="tabSwitchChange('densityUnit',$event)"></switchButtonS>
+					<view class="flex_c" style="padding: 0 30upx;line-height: 87upx;border-bottom: 1upx solid rgba(221, 221, 221, 0.3);">
+						  <view class="fs_13 flex_c">经：<input placeholder-class="color_909090 fs_13" placeholder="请输入数量" 
+								  v-model="density_longitude" type="number" style="width:40%;"></input>
+						  </view>
+						  
+						  <view class="fs_13 flex_c">纬： <input placeholder-class="color_909090 fs_13" 
+							  placeholder="请输入数量" v-model="density_latitude" type="number" style="width:40%;"></input>
+						  </view>
+						 
+						  <!-- <switchButton :items='densityUnit' @buttonChange="tabSwitchChange('densityUnit',$event)"></switchButton> -->
+						  <view style="display:flex;justify-content: flex-end;">条</view>
 					</view>
 					<view class="flex_sb list_right_content">
 					  <view class="flex_c">
@@ -231,6 +233,7 @@
 		
 		data(){
 			return{
+				flag:0,  //返回的标志，用去后退几层
 				content:'',  //含量
 				spec_longitude:'',  //规格中的经纱
 				spec_latitude: '', //规格中的纬纱
@@ -250,7 +253,7 @@
 				lengthUnit:[],  //价格单位
 				lengthUnitIndex: 1,
 				densityUnit:[],  //密度单位
-				densityUnitIndex:  1,
+				densityUnitIndex:  2,
 				grammageUnit:[],  //克重单位
 				grammageUnitIndex: 1,
 				styleSerial:[],      //风格
@@ -290,6 +293,10 @@
 			console.log(options)
 			this.goodsCode = options.goodsCode
 			this.buyOrSellCode = options.buyOrSellCode
+			if (options.flag){
+				this.flag = options.flag
+			}
+			
 			this.getAllSelect()
 			this.getProductDetail()
 		},
@@ -707,7 +714,7 @@
 					  console.log(_data)
 					  let url = this.Api.quotationAdd
 					  uni.showLoading({
-					  	title:'',
+					  	title:'提交中',
 						mask: true
 					  })
 					  this.myRequest(_data,url,'post').then(res => {
@@ -721,10 +728,16 @@
 								duration: 1000
 							});
 							
+							if (this.flag==1){
+								uni.navigateBack({
+									delta: 2
+								});
+							}else {
+								uni.navigateBack({
+									delta: 4
+								});
+							}
 							
-							uni.navigateBack({
-								delta: 4
-							});
 							
 						}else{
 							uni.showToast({

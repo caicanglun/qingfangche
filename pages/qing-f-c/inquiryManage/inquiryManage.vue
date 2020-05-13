@@ -16,7 +16,7 @@
 			<view>
 				<topTabbar @change="tabSwitch()" :items="items" ></topTabbar>
 			</view>
-			
+			<view style="height: 20upx;background: #FFFFFF;"></view>
 			<view  style="background: #FFFFFF;">
 					 <filterButton @change="filterButtonChange" :items="filterButton" ></filterButton>
 			</view>
@@ -25,10 +25,8 @@
 		<view style="height: 100upx;width:100%;"></view>
 	<!-- ---------------------------------------- -->
 	<view class="content">
-		
-	 
-	   <view class="counter" style="margin-top:110upx;padding-top:10upx;"  v-if="activeIndex<2"> {{filterButton[fitlerButtonIndex].label || ''}}<text class="pl_20">发起{{count}}条</text></view>
-	   <view style="height:120upx;width:100%;" v-if="activeIndex>1"></view>
+	   <view class="counter" style="margin-top:130upx;padding-top:30upx;"  v-if="activeIndex<2"> {{filterButton[fitlerButtonIndex].label || ''}}<text class="pl_20">发起{{count}}条</text></view>
+	   <view style="height:120upx;width:100%;margin-top:20upx" v-if="activeIndex>1"></view>
 		<inquireList @change="toDetail" :items="lists" :isDisplayType="activeIndex<2?true:''" isSellDeputy="buyDeputy"></inquireList>
         <uniLoadMore :status="loadingType"></uniLoadMore>
 		<view class="new_build font_we_bold box_shadow_btn child1" @tap="toNewBuild" v-if="activeIndex>1">
@@ -83,6 +81,11 @@
 
 			};
 		},
+		onLoad:function(){
+			_this = this
+			this.getInquiryList()
+			this.getInquiryStatus()
+		},
 		onReachBottom:function(){
 			 if (timer != null) {
 			            clearTimeout(timer);
@@ -97,6 +100,7 @@
 		onPullDownRefresh:function(){
 			
 			this.getInquiryList();
+		
 		},
 		onShow:function(){
 			let pages = getCurrentPages();
@@ -108,11 +112,7 @@
 			this.getInquiryList()
 			//this.getInquiryStatus()
 		},
-		onLoad:function(){
-			_this = this
-			this.getInquiryList()
-			this.getInquiryStatus()
-		},
+		
 		methods:{
 			// getInquiryStatus:function(){
 				
@@ -186,6 +186,7 @@
 							icon: 'none'
 						  });
 					   })
+					   uni.stopPullDownRefresh(); //得到数据后停止下拉刷新
 			        },
 			
 			getInquiryList:function(){

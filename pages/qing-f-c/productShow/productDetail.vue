@@ -1,26 +1,32 @@
 <template>
 	<view>
-		<view style="display: flex;background: #FFFFFF;margin: 30upx 15upx;padding: 24upx;border-radius: 8upx;">
-			<view style="width:500upx;">
-				<view class="flex_c" style="height: 50upx;">
-					
-					<text style="color:#8d8d8d;font-size:13px;">品名（别名）：</text><text>{{goodsDetail.tradeName||''}}</text>
+		<view style="background: #FFFFFF;margin: 30upx 15upx;padding: 24upx;border-radius: 8upx;">
+			<view>
+				<view class="flex_c" style="height: 50upx;justify-content: space-between;">
+					<view>
+						<text style="color:#8d8d8d;font-size:13px;">品名（别名）：</text><text>{{goodsDetail.tradeName||''}}</text>
+					</view>
+					<view class="ProductClipboard" @tap="copyProduct">复制</view>
 				</view>
 				<view class="flex_c" style="height: 50upx;">
 					
 					<text style="color:#8d8d8d;font-size:13px;">旺季时间：</text><text>{{goodsDetail.highSeasonTimeName||''}}</text>
 				</view>
-				<view class="flex_c" style="height: 50upx;">
-					
-					<text style="color:#8d8d8d;font-size:12px;">上架时间：{{goodsDetail.createTime||''}}</text>
+				<view class="flex_c" style="height: 50upx;justify-content: space-between;">
+					<view>
+						<text style="color:#8d8d8d;font-size:12px;">上架时间：{{goodsDetail.createTime||''}}</text>
+					</view>
+					<view>
+						<view class="flex_c_c" v-if="goodsDetail.goodsStatusCode==2">
+							<image src="/static/images/qingfc/shangjia.png" mode="aspectFit" style="width:140upx;height: 64upx;"></image>
+						</view>
+						<view class="flex_c_c" v-if="goodsDetail.goodsStatusCode==3">
+							<image src="/static/images/qingfc/xiajia.png" mode="aspectFit" style="width:140upx;height: 64upx;"></image>
+						</view>
+					</view>
 				</view>
 			</view>
-			<view class="flex_c_c" v-if="goodsDetail.goodsStatusCode==2">
-				<image src="/static/images/qingfc/shangjia.png" mode="aspectFit" style="width:140upx;height: 64upx;"></image>
-			</view>
-			<view class="flex_c_c" v-if="goodsDetail.goodsStatusCode==3">
-				<image src="/static/images/qingfc/xiajia.png" mode="aspectFit" style="width:140upx;height: 64upx;"></image>
-			</view>
+			
 		</view>
 		<view style="background: #FFFFFF;margin: 30upx 15upx;padding: 24upx;border-radius: 8upx;">
 			<chanpinyaosu :inquiryInfo="goodsDetail"></chanpinyaosu>
@@ -54,6 +60,8 @@
 		  <button class="btn_left" v-if="goodsDetail.goodsStatusCode==3" hover-class="none" @tap="soldIn">重新上架</button>
 		  
 		  <button class="btn_right" v-if="goodsDetail.goodsStatusCode >= 2" @tap="submit" hover-class="none">更新产品</button>
+		  <button class="btn_right_100" v-if="goodsDetail.goodsStatusCode == 1" @tap="toEdit" hover-class="none">修改</button>
+		  
 		</view>
 		
 	</view>
@@ -69,11 +77,14 @@
 			chanpinyaosu,
 			machineStatus,
 			uniIcon
+		    
 		},
 		data() {
 			return {
 				goodsCode:'',
-				goodsDetail:''
+				goodsDetail:'',
+				qualityPosition:[],
+				
 			};
 		},
 		onShow:function(){
@@ -82,16 +93,23 @@
 		onLoad:function(options){
 			_this = this
 			this.goodsCode = options.goodsCode
+			console.log(options)
 			this.getGoodsDetail()
+			this.getQualityPosition()
 		},
 		methods:{	
+			async getQualityPosition(){
+				const res = await this.$http.get("/choose/quality",{})
+				console.log(res)
+				this.qualityPosition = res.data.data.list
+			},
 			getGoodsDetail:function(){
 				let url = _this.Api.goodsDetails
 				let data ={
 					goodsCode: _this.goodsCode,  // 产品编码 
 				}
 				uni.showLoading({
-					title:'提交中',
+					title:'加载中',
 					mask: true
 				})
 				this.myRequest(data,url,'get').then(res => {
@@ -196,6 +214,16 @@
 				  });
 				});
 			},
+			toEdit:function(){
+				let data = JSON.stringify(_this.goodsDetail)
+				let qualityPosition = JSON.stringify(this.qualityPosition)
+				uni.navigateTo({
+					url: `./editProduct?goodsDetail=${data}&qualityPosition=${qualityPosition}`,
+					success: res => {},
+					fail: (err) => { console.log(err)},
+					complete: () => {}
+				});
+			},
 			submit:function(){
 				let data = JSON.stringify(_this.goodsDetail)
 				uni.navigateTo({
@@ -203,6 +231,13 @@
 					success: res => {},
 					fail: (err) => { console.log(err)},
 					complete: () => {}
+				});
+			},
+			copyProduct:function(){
+				let data = JSON.stringify(_this.goodsDetail)
+				let qualityPosition = JSON.stringify(this.qualityPosition)
+				uni.navigateTo({
+					url: `./productCreateCopy?goodsDetail=${data}&qualityPosition=${qualityPosition}&companyCode=${this.goodsDetail.companyCode}&companyName=${this.goodsDetail.companyName}`
 				});
 			}
 		}
@@ -232,6 +267,14 @@
   }
   .btn_right{
     width: 50%;
+    background-color: #FF6000;
+    color: #fff;
+    border-radius: 0;
+    font-size: 16px;
+    line-height: 98upx;
+  }
+  .btn_right_100{
+    width: 100%;
     background-color: #FF6000;
     color: #fff;
     border-radius: 0;
@@ -272,5 +315,15 @@
   	width: 200upx;
   	height: 200upx;
   	margin-top: 20upx;
+  }
+  .ProductClipboard{
+  	text-align: center;
+  	width: 80upx;
+  	height: 40upx;
+  	background-color: #FF6000;
+  	color: white;
+  	line-height: 40upx;
+  	border-radius: 20upx;
+  	
   }
 </style>

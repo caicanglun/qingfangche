@@ -51,21 +51,51 @@
 			</view>
 		  </view>
 	  </view>
-
+      <!-- <view class="box_2 box_shadow">
+		  <view style="padding: 30upx 0;">
+			   <view style="display: flex;align-content: space-around;flex-wrap: wrap;">
+				   <block v-for="(item,index) in arrList" :key="index">
+					   <view style="display: flex;align-items:center;flex-direction: column; width:220upx;margin-top: 30upx;"@tap="navMenu(item.url)">
+						   <view class="image_back" style="position: relative;">
+							   <image :src="item.icon" mode="aspectFill" class="icon_img"></image>
+							   <widgit :count="parseInt(directorReviewCount)+parseInt(auditCount)" v-if="item.name=='审核管理'&&(parseInt(directorReviewCount)+parseInt(auditCount)>0)"></widgit>
+						   </view>
+						   <view style="font-size: 13px;color:#333236">
+							   {{item.name}}
+						   </view>
+							
+					   </view>
+				   </block>
+				</view>    
+		   </view>
+	  </view> -->
 	  <!-- 九宫格插件显示 -->
 	     <view class="box_1 box_shadow">
 			 <view style="padding: 30upx 0;">
 				 <uni-grid :column="3" :show-border="false" :square="false">
 				 
 				 	    <uni-grid-item v-for="(item, index) in arrList" :key="index" >
-				 			<navigator :url="item.url" hover-class="none">
-								    
-									<view class='image_back' @tap="prompt(item.url)">
-										<image :src="item.icon" mode="aspectFill" class="icon_img"></image>
-									</view>
-				                    <widgit :count="parseInt(directorReviewCount)+parseInt(auditCount)" v-if="item.name=='审核管理'&&(parseInt(directorReviewCount)+parseInt(auditCount)>0)"></widgit>
-				 	        </navigator>
-				 			<view class="fs_12 text_algin_c">{{item.name|| ''}}</view>
+							<!-- <view class="flex_c_c">
+								<navigator :url="item.url" hover-class="none">
+									   
+											<view class='image_back' @tap="prompt(item.url)">
+												<image :src="item.icon" mode="aspectFill" class="icon_img"></image>
+											</view>
+											<widgit :count="parseInt(directorReviewCount)+parseInt(auditCount)" v-if="item.name=='审核管理'&&(parseInt(directorReviewCount)+parseInt(auditCount)>0)"></widgit>
+										
+								</navigator>
+								<view class="fs_12 text_algin_c">{{item.name|| ''}}</view>
+							</view> -->
+				 			<view style="display: flex;align-items:center;flex-direction: column; width:220upx;margin-top: 40upx;" @tap="navMenu(item.url)">
+								   <view class="image_back" style="position: relative;">
+									   <image :src="item.icon" mode="aspectFill" class="icon_img"></image>
+								   </view>
+								   <widgit :count="parseInt(directorReviewCount)+parseInt(auditCount)" v-if="item.name=='审核管理'&&(parseInt(directorReviewCount)+parseInt(auditCount)>0)"></widgit>
+								   <view style="font-size: 13px;color:#333236;margin-top:10upx;">
+									   {{item.name}}
+								   </view>
+				 										
+				 			</view>
 				 	    </uni-grid-item>
 				 	
 				 	    
@@ -73,12 +103,13 @@
 			 </view>
 			 
 		 </view>
-			
-
+	 
+	 
 	  
       <image src="/static/images/jinsy/erweima.png" mode="aspectFit" class="er_img" @tap="scanCode" v-if="identityName!='已冻结'"></image>
 
 	</view>
+	
 	<!-- <view @tap="showSinglePicker" v-if="shopList.length != 0">门店:{{shopList[index].label}}</view> -->
 	 <mpvue-picker ref="mpvuePicker" :mode="mode" :pickerValueDefault="index" 
 	 @onChange="onChange" @onConfirm="onConfirm" @onCancel="onCancel" 
@@ -102,7 +133,7 @@ const arrListBuyB = [
 	{
 	icon: '/static/images/jinsy/common/kehu.png',
 	name: '客户管理',
-	url: '/pages/qing-f-c/common/customer-admin'
+	url: '/pages/qing-f-c/buyDupty/customer-admin'
 	},
 	{
 	  icon: '/static/images/jinsy/common/jiaoyi.png',
@@ -115,8 +146,8 @@ const arrListBuyB = [
 	}, 
 	{
 	  icon: '/static/images/jinsy/common/genjin.png',
-	  name: '跟进记录',
-	  url: ''
+	  name: '潜在订单',
+	  url: '/pages/qing-f-c/followRecord/followList'
     }, 
 	{
 	  icon: '/static/images/jinsy/common/wuliu.png',
@@ -126,7 +157,12 @@ const arrListBuyB = [
 	{
 	  icon: '/static/images/jinsy/common/shenfen.png',
 	  name: '身份认领',
-	  url: ''}
+	  url: ''},
+	{
+	    icon: '/static/images/jinsy/common/customFollow.png',
+	    name: '客户跟进',
+	    url: '/pages/qing-f-c/customPicture/followListNew',
+	}
   ];  //买办
 const arrListSellB = [
 	{
@@ -145,8 +181,8 @@ const arrListSellB = [
 	}, 
 	{
 	  icon: '/static/images/jinsy/common/genjin.png',
-	  name: '跟进记录',
-	  url: ''
+	  name: '潜在订单',
+	  url: '/pages/qing-f-c/followRecord/followList'
 	}, 
 	{
 	  icon: '/static/images/jinsy/common/wuliu.png',
@@ -156,7 +192,12 @@ const arrListSellB = [
 	{
 	  icon: '/static/images/jinsy/common/shenfen.png',
 	  name: '身份认领',
-	  url: ''}
+	  url: ''},
+	{
+	    icon: '/static/images/jinsy/common/customFollow.png',
+	    name: '客户跟进',
+	    url: '/pages/qing-f-c/customPicture/followListNew',
+	}
 ];   //卖办
 const arrListRGbuy = [
 	{
@@ -167,8 +208,8 @@ const arrListRGbuy = [
 		
 		{
 		  icon: '/static/images/jinsy/common/genjin.png',
-		  name: '跟进记录',
-		  url: ''
+		  name: '潜在订单',
+		  url: '/pages/qing-f-c/followRecord/sd_followList'
 	    }, 
 	
 		{
@@ -189,7 +230,14 @@ const arrListRGbuy = [
 		{
 		  icon: '/static/images/jinsy/common/shenfen.png',
 		  name: '身份认领',
-		  url: ''}
+		  url: '',
+		},
+		  
+		{
+		    icon: '/static/images/jinsy/common/customFollow.png',
+		    name: '客户跟进',
+		    url: '/pages/qing-f-c/customPicture/sd_followList',
+		}
 ];      //买办区域经理
 
 const arrListRGsell = [
@@ -201,8 +249,8 @@ const arrListRGsell = [
 		
 		{
 		  icon: '/static/images/jinsy/common/genjin.png',
-		  name: '跟进记录',
-		  url: ''
+		  name: '潜在订单',
+		  url: '/pages/qing-f-c/followRecord/sd_followList'
 	    }, 
 	
 		{
@@ -223,7 +271,12 @@ const arrListRGsell = [
 		{
 		  icon: '/static/images/jinsy/common/shenfen.png',
 		  name: '身份认领',
-		  url: ''}
+		  url: ''},
+		{
+		    icon: '/static/images/jinsy/common/customFollow.png',
+		    name: '客户跟进',
+		    url: '/pages/qing-f-c/customPicture/sd_followList',
+		}
 ];      //卖办区域经理
 const arrListGM= [
 	{
@@ -234,8 +287,8 @@ const arrListGM= [
 		
 		{
 		  icon: '/static/images/jinsy/common/genjin.png',
-		  name: '跟进记录',
-		  url: ''
+		  name: '潜在订单',
+		  url: '/pages/qing-f-c/followRecord/sd_followList'
 	    }, 
 	
 		{
@@ -256,7 +309,13 @@ const arrListGM= [
 		{
 		  icon: '/static/images/jinsy/common/shenfen.png',
 		  name: '身份认领',
-		  url: ''}
+		  url: '',
+		},
+		{
+		    icon: '/static/images/jinsy/common/customFollow.png',
+		    name: '客户跟进',
+		    url: '/pages/qing-f-c/customPicture/sd_followList',
+		}
 ];     //销售总监
 const arrListAN= [
 	{
@@ -391,13 +450,13 @@ export default {
   },
 
   onShow: function (e) {
-	  let pages = getCurrentPages();
-	  let currPage = pages[pages.length-1];
-	  if (currPage.data.isDoRefresh == true){
-	  	       currPage.data.isDoRefresh = false;
-	  		   this.reviewCount()
-			   this.getAuditCount()
-	  	 }
+	  // let pages = getCurrentPages();
+	  // let currPage = pages[pages.length-1];
+	  // if (currPage.data.isDoRefresh == true){
+	  // 	       currPage.data.isDoRefresh = false;
+	  // 		   this.reviewCount()
+			//    this.getAuditCount()
+	  // 	 }
 	  this.userDetails()
 	  this.reviewCount()
 	  this.getAuditCount()
@@ -439,6 +498,21 @@ export default {
   },
   props: {},
   methods: {
+	  navMenu:function(url){
+		  if (url==''){
+			 uni.showToast({
+			   title: '开发中',
+			   icon: 'none'
+			 });
+			 return
+		  }
+		  uni.navigateTo({
+		  	url: url,
+		  	success: res => {},
+		  	fail: (err) => {err},
+		  	complete: () => {}
+		  });
+	  },
 	  getAuditCount:function(){
 	  	let data={}
 	  	let url= this.Api.auditCount
@@ -448,7 +522,7 @@ export default {
 		 
 	  	  console.log(_this.auditCount)
 	  	}).catch(err => {
-	  	  wx.showToast({
+	  	  uni.showToast({
 	  	    title: err.data.errMsg,
 	  	    icon: 'none'
 	  	  });
@@ -583,12 +657,14 @@ export default {
     			},
 					
     // 获取未读消息数量
-    getNewsNum: function () {
+   getNewsNum:function() {
       JsyServer.getNewsNum().then(res => {
         _this.newsNum = res.data.data.count
       }).catch(err => {
         console.log("getNewsNum=err==", res);
       });
+	  // const res = await this.$http.get('/um/count',{})
+	  // _this.newsNum = res.data.data.count
     },
 	userDetails:function(){
 		let data = {
@@ -624,10 +700,8 @@ export default {
 					 _this.detailUrl = '/pages/qing-f-c/inquiryManage/sampleInquiry/buyDeputy/inquiry-details?inquiryNumber='
 					 
 					 _this.quotationlUrl = '/pages/qing-f-c/inquiryManage/sampleInquiry/buyDeputy/quotationDetails/quotationDetails?number='
-					 console.log(_this.qrUrl)
-					 console.log(_this.detailUrl)
-					 console.log(_this.quotationlUrl)
-					 
+					
+					 console.log(_this.arrList[0])
 					 break;
 				case "SELL_DEPUTY":
 				     _this.arrList = arrListSellB
@@ -768,7 +842,7 @@ export default {
 		});
 	},
     toChoicePage: function () {
-      if (!wx.getStorageSync("token")) {
+      if (!uni.getStorageSync("token")) {
         return;
       }
     },
@@ -786,7 +860,7 @@ export default {
       let url = e.currentTarget.dataset.url;
 
       if (!url || !this.popAds && url == "/pages/user-order/order") {
-        wx.showToast({
+        uni.showToast({
           title: '开发中...',
           icon: 'none'
         });
@@ -873,9 +947,20 @@ page{
 }
 .box_1{
 	 /* padding: 30upx 50upx 0; */
-	 margin:0 30upx;
-	 position: relative;
+	 margin: 0 30upx;
+	 position: relative; 
+	 
 	 bottom: 120upx;
+	 background-color: #fff;
+	 border-radius: 8upx;
+	
+}
+.box_2{
+	 /* padding: 30upx 50upx 0; */
+	 margin: -120upx 30upx 0 30upx;
+	 position: relative; 
+	 
+	 /* bottom: 120upx; */
 	 background-color: #fff;
 	 border-radius: 8upx;
 	

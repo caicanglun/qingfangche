@@ -76,7 +76,7 @@
 		
 		background: #FFFFFF;
 		display: flex;
-		height: 65upx;
+		height: 80upx;
 		align-items: center;
 		justify-content: space-between;
 		padding-left: 20upx;

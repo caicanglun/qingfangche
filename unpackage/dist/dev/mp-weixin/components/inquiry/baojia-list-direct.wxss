@@ -51,34 +51,34 @@
   border-bottom: 1rpx solid #F3F3F3;
 }
 .baojia-row .buttonStyle {
-    color: #FF6000;
+  color: #FF6000;
 }
 .baojia-row .state-unMatch {
-    color: #333333;
+  color: #333333;
 }
 .baojia-row .tax_button {
-    display: -webkit-box;
-    display: -webkit-flex;
-    display: flex;
-    -webkit-box-pack: center;
-    -webkit-justify-content: center;
-            justify-content: center;
-    -webkit-box-align: center;
-    -webkit-align-items: center;
-            align-items: center;
-    color: #FF6000;
-    width: 124rpx;
-    height: 44rpx;
-    background: rgba(255, 96, 0, 0.12);
-    border-radius: 4rpx;
-    font-size: 11px;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+          justify-content: center;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+          align-items: center;
+  color: #FF6000;
+  width: 124rpx;
+  height: 44rpx;
+  background: rgba(255, 96, 0, 0.12);
+  border-radius: 4rpx;
+  font-size: 11px;
 }
 .baojia-row .title {
-    font-size: 14px;
-    font-weight: bold;
+  font-size: 14px;
+  font-weight: bold;
 }
 .baojia-row .title .num {
-      color: #FF6000;
+  color: #FF6000;
 }
 .baojia-content {
   display: -webkit-box;
@@ -92,7 +92,7 @@
   height: 56rpx;
 }
 .baojia-content .title {
-    color: #8D8D8D;
+  color: #8D8D8D;
 }
 .baojia-content-spec {
   display: -webkit-box;
@@ -131,39 +131,39 @@
   color: #8D8D8D;
 }
 .baojia-contentBottom .baojia_button {
-    display: -webkit-box;
-    display: -webkit-flex;
-    display: flex;
-    -webkit-box-orient: horizontal;
-    -webkit-box-direction: reverse;
-    -webkit-flex-direction: row-reverse;
-            flex-direction: row-reverse;
-    -webkit-box-pack: justify;
-    -webkit-justify-content: space-between;
-            justify-content: space-between;
-    width: 300rpx;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: reverse;
+  -webkit-flex-direction: row-reverse;
+          flex-direction: row-reverse;
+  -webkit-box-pack: justify;
+  -webkit-justify-content: space-between;
+          justify-content: space-between;
+  width: 300rpx;
 }
 .baojia-contentBottom .baojia_button .baojia_Clipboard {
-      display: -webkit-box;
-      display: -webkit-flex;
-      display: flex;
-      -webkit-box-pack: center;
-      -webkit-justify-content: center;
-              justify-content: center;
-      -webkit-box-align: center;
-      -webkit-align-items: center;
-              align-items: center;
-      background-color: #FF6000;
-      color: white;
-      line-height: 52rpx;
-      width: 136rpx;
-      font-size: 13px;
-      height: 52rpx;
-      background: #ff6000;
-      border-radius: 4rpx;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+          justify-content: center;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+          align-items: center;
+  background-color: #FF6000;
+  color: white;
+  line-height: 52rpx;
+  width: 136rpx;
+  font-size: 13px;
+  height: 52rpx;
+  background: #ff6000;
+  border-radius: 4rpx;
 }
 .baojia-contentBottom .baojia_time {
-    font-size: 10px;
+  font-size: 10px;
 }
 .baojia-box {
   margin: 20rpx 30rpx 0 30rpx;
@@ -195,7 +195,7 @@
   height: 69rpx;
 }
 .details-content .title {
-    color: #999999;
+  color: #999999;
 }
 .bingpai {
   display: -webkit-box;
@@ -238,34 +238,34 @@
   border-bottom: 1rpx solid #F3F3F3;
 }
 .box-row .buttonStyle {
-    color: #FF6000;
+  color: #FF6000;
 }
 .box-row .state-unMatch {
-    color: #333333;
+  color: #333333;
 }
 .box-row .tax_button {
-    display: -webkit-box;
-    display: -webkit-flex;
-    display: flex;
-    -webkit-box-pack: center;
-    -webkit-justify-content: center;
-            justify-content: center;
-    -webkit-box-align: center;
-    -webkit-align-items: center;
-            align-items: center;
-    color: #FF6000;
-    width: 124rpx;
-    height: 44rpx;
-    background: rgba(255, 96, 0, 0.12);
-    border-radius: 4rpx;
-    font-size: 11px;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+          justify-content: center;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+          align-items: center;
+  color: #FF6000;
+  width: 124rpx;
+  height: 44rpx;
+  background: rgba(255, 96, 0, 0.12);
+  border-radius: 4rpx;
+  font-size: 11px;
 }
 .box-row .title {
-    font-size: 14px;
-    font-weight: bold;
+  font-size: 14px;
+  font-weight: bold;
 }
 .box-row .title .num {
-      color: #FF6000;
+  color: #FF6000;
 }
 .tax_button_closing {
   display: -webkit-box;

@@ -25,12 +25,14 @@
 .icon-position{
 	font-size: 13px;
    	position: absolute;
-   	background-color: #ff0000;
+   	background: #ff0000;
    	color: #ffffff;
    	line-height: 40upx;
    	width: 40upx;
    	height: 40upx;
    	border-radius: 50%;
+	right: -10upx;
+	top: -15upx;
     // right: 50upx;
    	// top: 20upx;
    }

@@ -26,7 +26,7 @@
 		    <view class="font_we_bold fs_15">经营者特征</view>
 		  </view>
 		 
-		  <myPicker @mychange="identityChange" :items="identity" name="身份" :firstLabel="identityName"></myPicker>
+		  <myPicker v-if="identity.length>0" @mychange="identityChange" :items="identity" name="身份" :firstLabel="identityCode"></myPicker>
 		  <!-- ----------------------------------- -->
 		  <view class="flex_line_sb list">
 		    <view class="list_right_280">性格特征<text class="pl_10 color_888">(可多选)</text>：</view>
@@ -48,17 +48,17 @@
 
 		 <!-- --------------------------- -->
 
-	     <rangeButton @buttonChange="priceSensitivityChange" :items="priceSensitivity" name="价格敏感度"></rangeButton>
+	     <rangeButton @buttonChange="priceSensitivityChange" v-if="priceSensitivity.length>0" :initValue="priceSensitivityCode" :items="priceSensitivity" name="价格敏感度"></rangeButton>
 		 <!-- --------------------------- -->
 		 
-		 <myPicker @mychange="costPerformanceChange" :items="costPerformance" name="性价比思维" :firstLabel="costPerformanceName"></myPicker>
+		 <myPicker v-if="costPerformance.length>0" @mychange="costPerformanceChange" :firstLabel="costPerformanceCode" :items="costPerformance" name="性价比思维" ></myPicker>
 		 <!-- --------------------------- -->
 		 
-		 <myPicker @mychange="channelChange" :items="channel" name="渠道状况" :firstLabel="identityName"></myPicker>
+		 <myPicker v-if="channel.length>0" @mychange="channelChange" :firstLabel="channelStatusCode" :items="channel" name="渠道状况"></myPicker>
 		 <!-- --------------------------- -->
 		
 		 <!-- --------------------------- -->
-		<myPicker @mychange="potentialChange" :items="potential" name="发展潜力" :firstLabel="potentialName"></myPicker>
+		<myPicker v-if="potential.length>0" @mychange="potentialChange" :firstLabel="potentialCode" :items="potential" name="发展潜力"></myPicker>
 		 
 		<view class='placeholder-view'></view>	
 		
@@ -72,8 +72,8 @@
 </template>
 
 <script>
-	import myPicker from "@/components/myPicker.vue";
-	import rangeButton from "@/components/rangeButton-v.vue";
+	import myPicker from "@/components/myPickerEdit.vue";
+	import rangeButton from "@/components/rangeButtonLong.vue";
 	import myCheckboxGroup from "@/components/myCheckboxGroup.vue";
 	const JsyServer = require("services/jsy-server.js");
 	let _this,_buyOrSellCode;
@@ -105,8 +105,9 @@
 				identityName:'', 
 				priceInit: {},
 				channelStatusName:'',
-				potentialName:''
-				
+				potentialName:'',
+				character:'',
+				manager:''
 			};
 		},
 		
@@ -115,6 +116,20 @@
 			_this = this;
 			console.log(options)
 			_buyOrSellCode = JSON.parse(options.buyOrSellCode)
+			_this.realName = _buyOrSellCode.realName
+			_this.phone = _buyOrSellCode.phone
+			_this.costPerformanceName   = _buyOrSellCode.costPerformance
+			_this.costPerformanceCode   = _buyOrSellCode.costPerformanceCode
+			_this.identityName  = _buyOrSellCode.identity
+			_this.identityCode  = _buyOrSellCode.identityCode	
+			_this.priceSensitivityName = _buyOrSellCode.priceSensitivity
+			_this.priceSensitivityCode = _buyOrSellCode.priceSensitivityCode
+			_this.channelStatusName = _buyOrSellCode.channelStatus
+			_this.channelStatusCode = _buyOrSellCode.channelStatusCode
+			_this.potentialCode = _buyOrSellCode.potentialCode
+			_this.character = _buyOrSellCode.characterFeatures
+		    _this.manager = _buyOrSellCode.manageFeatures
+			
 			console.log(_buyOrSellCode)
 			this.getCharacterFeatures()
 			this.getCostPerformance()
@@ -126,55 +141,20 @@
 			
 			
 		},
-		onShow:function(){
-			
-			_this.realName = _buyOrSellCode.realName
-			_this.phone = _buyOrSellCode.phone
-			_this.costPerformanceName   = _buyOrSellCode.costPerformance
-			_this.identityName  = _buyOrSellCode.identity
-			
-			_this.priceSensitivityName = _buyOrSellCode.priceSensitivity
-			_this.channelStatusName = _buyOrSellCode.channelStatus
-			
-			let character = _buyOrSellCode.characterFeatures
-			let manager = _buyOrSellCode.manageFeatures
-			let price = _buyOrSellCode.priceSensitivity
-			console.log("price==",price)
-			
-			setTimeout(function() {
-				character.forEach((s) =>{
-					console.log(_this.characterFeaturesList)
-					_this.characterFeaturesList.forEach((item)=>{
-						if (item.id == s.id){
-							_this.$set(item,'isChecked',true)
-						}
-					})
-				})
-				manager.forEach((s)=>{
-					console.log(_this.manageFeaturesList)
-					_this.manageFeaturesList.forEach((item)=>{
-						if (item.id == s.id){
-							_this.$set(item,'isChecked',true)
-						}
-					})
-				})
-				
-			 _this.priceSensitivity.forEach((item)=>{
-						if (item.label == price){
-							_this.$set(item,'isChecked',true)
-						}
-					})
-				console.log("价格敏感==",_this.priceSensitivity)
-				    
-			}, 500);
-			
-		},
 		methods:{
 		
 			getManageFeatures:function(){
 				JsyServer.getManageFeatures().then(res => {
 				  console.log(res);
 				  _this.manageFeaturesList = res.data.data.list
+				  _this.manager.forEach((s)=>{
+				  	console.log(_this.manageFeaturesList)
+				  	_this.manageFeaturesList.forEach((item)=>{
+				  		if (item.id == s.id){
+				  			_this.$set(item,'isChecked',true)
+				  		}
+				  	})
+				  })
 				}).catch(err => {
 				  wx.showToast({
 				    title: err.data.errMsg,
@@ -198,6 +178,14 @@
 				JsyServer.getCharacterFeatures().then(res => {
 				  console.log(res);
 				  _this.characterFeaturesList = res.data.data.list
+				  _this.character.forEach((s) =>{
+				  	console.log(_this.characterFeaturesList)
+				  	_this.characterFeaturesList.forEach((item)=>{
+				  		if (item.id == s.id){
+				  			_this.$set(item,'isChecked',true)
+				  		}
+				  	})
+				  })
 				}).catch(err => {
 				  wx.showToast({
 				    title: err.data.errMsg,
@@ -362,7 +350,7 @@
 							isDoRefresh:true
 					})
 				  uni.navigateBack({
-				  	delta: 2
+				  	delta: 1
 				  });
 				}).catch(err => {
 				  wx.showToast({

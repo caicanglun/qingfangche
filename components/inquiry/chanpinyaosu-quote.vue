@@ -8,20 +8,20 @@
 				<view class="details-content">
 					<text class='title'>产品系列：</text><text>{{inquiryInfo.series||''}}</text>
 				</view>
-				<view class="details-content">
-					<text class='title'>品质定位：</text><text>{{inquiryInfo.quality||''}}</text>
-				</view>
 				
 				<view class=".details-content-guige">
 					<text class='title'>规格：</text><text>{{inquiryInfo.specification||''}}</text>
 				</view>
+				<view class="details-content">
+					<text class='title'>含量：</text><text>{{inquiryInfo.content||''}}</text>
+				</view>
+
 				<view class='bingpai'>
 					<view class="details-content">
 						<text class='title'>成份：</text><text>{{inquiryInfo.ingredient||''}}</text>
 					</view>
-					
 					<view class="details-content">
-						<text class='title'>含量：</text><text>{{inquiryInfo.content||''}}</text>
+						<text class='title'>品质定位：</text><text>{{inquiryInfo.quality||''}}</text>
 					</view>
 				</view>
 				

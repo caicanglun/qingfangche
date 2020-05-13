@@ -117,16 +117,17 @@
 		   <view class="flex_c list_part">
 			  <view>密度<text class="pl_20">({{sampleTypeIndex==1?'坯布':'成品'}})</text></view>
 			</view>	
-			<view class="flex_c list_right_content">
-			  <view class="fs_13">经:</view>
-			  <input placeholder-class="color_909090 fs_13" class="input-half-width" 
-			  placeholder="请输入数量" 
-			  name="density_longitude" v-model="density_longitude" type="number"></input>
-			  <view class="fs_13">纬:</view>
-			  <input placeholder-class="color_909090 fs_13" class="input-half-width" 
-			  placeholder="请输入数量" 
-			  name="density_latitude" v-model="density_latitude" type="number"></input>
-			  <switchButton :items='densityUnit' @buttonChange="tabSwitchChange('densityUnit',$event)"></switchButton>
+			<view class="flex_c" style="padding: 0 30upx;line-height: 87upx;border-bottom: 1upx solid rgba(221, 221, 221, 0.3);">
+				  <view class="fs_13 flex_c">经：<input placeholder-class="color_909090 fs_13" placeholder="请输入数量" 
+						  v-model="density_longitude" type="number" style="width:40%;"></input>
+				  </view>
+				  
+				  <view class="fs_13 flex_c">纬： <input placeholder-class="color_909090 fs_13" 
+					  placeholder="请输入数量" v-model="density_latitude" type="number" style="width:40%;"></input>
+				  </view>
+				 
+				  <!-- <switchButton :items='densityUnit' @buttonChange="tabSwitchChange('densityUnit',$event)"></switchButton> -->
+				  <view style="display:flex;justify-content: flex-end;">条</view>
 			</view>
 			<view class="flex_sb list_right_content">
 			  <view class="flex_c">
@@ -147,6 +148,12 @@
 				  name="clothBreadth" v-model="clothBreadth" type="number"></input>
 			  </view>
 			  <view>cm</view>
+			</view>
+			<view class="flex_c list_right_content">
+			  <view class="fs_13">备注:</view>
+			  <input placeholder-class="color_909090 fs_13" class="input" 
+			  placeholder="非必填" 
+			  name="remarks" v-model="remarks"></input>
 			</view>
 		</view>
 		<!-- ------------------------------------------------ -->
@@ -226,7 +233,7 @@
 			inquiryType: [],
 			inquiryTypeIndex: 1,           //询价类型
 			densityUnit:[],
-			densityUnitIndex:  1,          //密度单位： 条或梭
+			densityUnitIndex:  2,          //密度单位： 条或梭
 			grammageUnit:[],
 			grammageUnitIndex: 1,          //克重单位
 			lengthUnit: [],
@@ -298,7 +305,7 @@
 		_this.grammage = data.gramWeight
 		_this.density_latitude = data.densityLatitude
 		_this.density_longitude = data.densityLongitude
-		_this.densityUnitIndex = data.densityUnitCode
+		// _this.densityUnitIndex = data.densityUnitCode
 		_this.grammageUnitIndex = data.gramWeightUnitCode
 		_this.productSerialIndex = data.seriesCode
 		_this.productSerialValue = data.seriesName

@@ -48,7 +48,7 @@
 			// 	character.push(item.label)
 			// })
 			// this.character = character.join(',')
-			
+			this.getLinkmanDetails()
 		},
 		onLoad:function(options){
 			_this = this

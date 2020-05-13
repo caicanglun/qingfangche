@@ -59,7 +59,8 @@
    border: 1rpx solid #979797;
    background-color: #fff;
    margin-right: 20rpx;
-   box-sizing: border-box;
+   -webkit-box-sizing: border-box;
+           box-sizing: border-box;
 }
 .pitch_on{
   width: 40rpx;
@@ -119,7 +120,8 @@
   font-size: 28rpx;
   text-align: center;
   line-height: 1;
-  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
   padding-top:22rpx; 
   font-weight: bold;
 }
@@ -137,7 +139,8 @@
 .time_btn{
   width: 222rpx;
   height: 56rpx;
-  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
   background-color: #FF6000;
   color: #fff;
   font-size: 14px;

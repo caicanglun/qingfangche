@@ -6,6 +6,8 @@ const Api = require("services/config/api.js");
 
 import store from './store/store';
 
+import request from "./http.js"
+Vue.prototype.$http = request
 
 Vue.config.productionTip = false
 Vue.prototype.Api = Api
@@ -19,6 +21,7 @@ Vue.prototype.myRequest= function(data,url,method){
 	  })
 	})
 }
+
 Vue.prototype.setIsChecked = function(items,index){
 	items.forEach((item)=>{
 		if(item.id == index){

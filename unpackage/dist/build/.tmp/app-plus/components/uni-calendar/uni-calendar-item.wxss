@@ -25,7 +25,8 @@
 	        align-items: center;
 	color: #000;
 	background: #fff;
-	box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	        box-sizing: border-box;
 	padding: 10rpx 0;
 	line-height: 1.5;
 	z-index: 2
@@ -70,7 +71,8 @@
 }
 .uni-calender__body-date-week .uni-calender__date.uni-calender__date-current {
 	color: #fff;
-	box-sizing: border-box
+	-webkit-box-sizing: border-box;
+	        box-sizing: border-box
 }
 .uni-calender__body-date-week .uni-calender__date.uni-calender__date-current .uni-calender__circle-box {
 	background: #fd2e32

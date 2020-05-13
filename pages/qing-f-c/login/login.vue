@@ -6,7 +6,7 @@
 				 <image src='/static/images/qingfc/logo.png' mode='aspectFit' class='login_img'></image>
 			</view>
 			<view class="content">
-				<form @submit="formSubmit" report-submit="true">
+				<form report-submit="true">
 				  <view class="box">
 					<!-- 手机输入框 -->
 					<view class="flex_c box_row">
@@ -52,7 +52,7 @@
 						   
 					</view>
 					
-					<button class="login_btn" formType="submit">登录</button>
+					<button class="login_btn" formType="submit" @tap="formSubmit">登录</button>
 					<view class="login-footer">
 						<navigator url="/pages/qing-f-c/register/findPassword" open-type="navigate">找回密码</navigator>
 						

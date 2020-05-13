@@ -1,12 +1,15 @@
 <template>
-	<view>
-		<view :id="elId" :class="{ border: showBorder }" :style="{ 'border-left': showBorder ? '1px ' + borderColor + ' solid' : 'none' }" class="uni-grid">
+	<view class="uni-grid-wrap">
+		<view :id="elId" ref="uni-grid" class="uni-grid" :class="{ 'uni-grid--border': showBorder }" :style="{ 'border-left-style':'solid','border-left-color':borderColor, 'border-left-width':showBorder?'1px':0 }">
 			<slot />
 		</view>
 	</view>
 </template>
 
 <script>
+	// #ifdef APP-NVUE
+	const dom = uni.requireNativePlugin('dom');
+	// #endif
 	export default {
 		name: 'UniGrid',
 		props: {
@@ -20,20 +23,10 @@
 				type: Boolean,
 				default: true
 			},
-			// 是否显示边框
+			// 边框颜色
 			borderColor: {
 				type: String,
-				default: '#d0dee5'
-			},
-			// 全局标记水平方向移动距离 ，起点为中心，负数为左移动，正数为右移动
-			hor: {
-				type: Number,
-				default: 0
-			},
-			// 全局标记垂直方向移动距离 ，起点为中心，负数为上移动，正数为下移动
-			ver: {
-				type: Number,
-				default: 0
+				default: '#e5e5e5'
 			},
 			// 是否正方形显示,默认为 true
 			square: {
@@ -54,43 +47,76 @@
 			const elId = `Uni_${Math.ceil(Math.random() * 10e5).toString(36)}`
 			return {
 				index: 0,
-				elId
+				elId,
+				width: 0
 			}
 		},
 		created() {
+			this.children = []
 			this.index = 0
-			this.childrens = []
-			this.pIndex = this.pIndex ? this.pIndex++ : 0
+		},
+		mounted() {
+			this.init()
 		},
 		methods: {
+			init() {
+				setTimeout(() => {
+					this._getSize((width) => {
+						this.children.forEach((item, index) => {
+							item.width = width
+						})
+					})
+				}, 50)
+			},
 			change(e) {
 				this.$emit('change', e)
 			},
 			_getSize(fn) {
+				// #ifndef APP-NVUE
 				uni.createSelectorQuery()
 					.in(this)
 					.select(`#${this.elId}`)
 					.boundingClientRect()
 					.exec(ret => {
-						if (!ret[0]) {
-							setTimeout(this._getSize(fn))
-							return
-						}
-						let width = parseInt(ret[0].width / this.column) - 1 + 'px'
-						typeof fn === 'function' && fn(width)
+						this.width = parseInt(ret[0].width / this.column) - 1 + 'px'
+						fn(this.width)
 					})
+				// #endif
+				// #ifdef APP-NVUE
+				dom.getComponentRect(this.$refs['uni-grid'], (ret) => {
+					this.width = parseInt(ret.size.width / this.column) - 1 + 'px'
+					fn(this.width)
+				})
+				// #endif
 			}
 		}
 	}
 </script>
 
-<style>
-	@charset "UTF-8";
+<style lang="scss" scoped>
+	.uni-grid-wrap {
+		/* #ifndef APP-NVUE */
+		display: flex;
+		/* #endif */
+		flex: 1;
+		flex-direction: column;
+		/* #ifdef H5 */
+		width: 100%;
+		/* #endif */
+	}
 
 	.uni-grid {
+		/* #ifndef APP-NVUE */
 		display: flex;
+		/* #endif */
+		flex: 1;
+		flex-direction: row;
 		flex-wrap: wrap;
-		box-sizing: border-box;
-		border-left: 1px #d0dee5 solid
+	}
+
+	.uni-grid--border {
+		border-left-color: $uni-border-color;
+		border-left-style: solid;
+		border-left-width: 1px;
 	}
 </style>

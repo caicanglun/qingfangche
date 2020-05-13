@@ -32,6 +32,39 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 /*每个页面公共css */
 page{
   /* background-color: #F6F6F6 */
@@ -55,7 +88,8 @@ page{
 	top:60rpx;
 	left:20rpx;
 	font-size:15px;
-	z-index:99
+	z-index:99;
+	width: 100rpx;
 }
 .modal-authorizat .modal-authorizat-btn {
   width: 100%;
@@ -238,10 +272,12 @@ page{
           justify-content: space-between;
 }
 .box_shadow{
-  box-shadow: 0 4rpx 8rpx 0 rgba(0, 0, 0, 0.1);
+  -webkit-box-shadow: 0 4rpx 8rpx 0 rgba(0, 0, 0, 0.1);
+          box-shadow: 0 4rpx 8rpx 0 rgba(0, 0, 0, 0.1);
 }
 .box_shadow_btn{
-  box-shadow: 0 5rpx 10rpx 0 rgba(0, 0, 0, 0.1);
+  -webkit-box-shadow: 0 5rpx 10rpx 0 rgba(0, 0, 0, 0.1);
+          box-shadow: 0 5rpx 10rpx 0 rgba(0, 0, 0, 0.1);
 }
 .font_we_lighter {
   font-weight: 300;
@@ -357,12 +393,14 @@ page{
   background-color: #FF6000;
   padding:16rpx 30rpx 20rpx;
 	/* height: 92upx; */
-  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
 }
 .search_left{
   background-color:#fff;
   height: 56rpx;
-  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
   border-radius: 56rpx; 
   width: 594rpx;
 }
@@ -414,7 +452,8 @@ button::after{
 	text-align: center;
 	border-radius: 36rpx;
 	color: #FFF;
-	box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	        box-sizing: border-box;
 	height: 36rpx;
 	background-color: #4487FD;
 	font-size: 12px;
@@ -425,13 +464,15 @@ button::after{
 	width: 70rpx;
 	line-height: 36rpx;
 	height: 40rpx;
-	box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	        box-sizing: border-box;
 	border: 2rpx solid #FF6000;
 	border-radius: 4rpx;
 	background-color: #fff;
 	color: #FF6000;
 	text-align: center;
-	box-shadow: 0 4rpx 6rpx 0 rgba(0, 0, 0, 0.06);
+	-webkit-box-shadow: 0 4rpx 6rpx 0 rgba(0, 0, 0, 0.06);
+	        box-shadow: 0 4rpx 6rpx 0 rgba(0, 0, 0, 0.06);
 }
 .fidex_home{
 	position: fixed;
@@ -440,7 +481,8 @@ button::after{
 	width: 100rpx;
 	height: 100rpx;
 	border-radius: 100rpx;
-	box-shadow: 0 5rpx 10rpx 0 rgba(0, 0, 0, 0.2);
+	-webkit-box-shadow: 0 5rpx 10rpx 0 rgba(0, 0, 0, 0.2);
+	        box-shadow: 0 5rpx 10rpx 0 rgba(0, 0, 0, 0.2);
 	text-align: center;
 	font-size: 24rpx;
 	color: #fff;

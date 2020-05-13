@@ -1,5 +1,5 @@
 {
-  "navigationBarTitleText": "卖帮办新建客户",
+  "navigationBarTitleText": "新建客户",
   "usingComponents": {
     "my-picker": "/components/myPicker",
     "range-button": "/components/rangeButton",

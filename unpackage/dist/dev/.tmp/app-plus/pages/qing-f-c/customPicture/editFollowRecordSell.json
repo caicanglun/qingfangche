@@ -1,0 +1,7 @@
+{
+  "usingComponents": {
+    "my-picker-part": "/components/myPickerPartProps",
+    "uni-icon": "/components/uni-icons/uni-icons",
+    "e-picker": "/components/e-picker/e-picker"
+  }
+}

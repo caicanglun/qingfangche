@@ -54,7 +54,7 @@
 
 <script>
 	import myPicker from "@/components/myPicker.vue";
-	import rangeButton from "@/components/rangeButton-v.vue";
+	import rangeButton from "@/components/rangeButtonLong.vue";
 	import swithButton from "@/components/switchButton.vue";
 	// import myCheckboxGroup from "@/components/myCheckboxGroup.vue";
 	const Tools = require("services/tools.js");
@@ -236,7 +236,7 @@
 			},
 			//经营定位
 			managementPositionChange:function(e){
-				this.getManagementPositionCode = e
+				this.managementPositionCode = e
 			},
 			// 经营规模
 			companyScaleChange:function(e){

@@ -87,7 +87,7 @@
 					goodsCode: _this.goodsCode,  // 产品编码 
 				}
 				uni.showLoading({
-					title:'提交中',
+					title:'加载中',
 					mask: true
 				})
 				this.myRequest(data,url,'get').then(res => {
@@ -145,7 +145,7 @@
 								goodsCode: _this.goodsCode,  // 产品编码 
 							}
 							uni.showLoading({
-								title:'提交中',
+								title:'加载中',
 								mask: true
 							})
 							this.myRequest(data,url,'get').then(res => {

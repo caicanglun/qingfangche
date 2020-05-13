@@ -1,5 +1,5 @@
 {
-  "navigationBarTitleText": "卖帮办联系人详情",
+  "navigationBarTitleText": "联系人详情",
   "usingComponents": {
     "list-show": "/components/listShow"
   }

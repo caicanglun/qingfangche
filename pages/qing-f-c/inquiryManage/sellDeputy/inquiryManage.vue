@@ -18,12 +18,13 @@
 				<view>
 					<topTabbar @change="tabSwitch()" :items="items" ></topTabbar>
 				</view>
+				<view style="width:100%;background: #FFFFFF;height:20upx;"></view>
 				<view  style="background: #FFFFFF;">
 						 <filterButton @change="filterButtonChange" :items="filterButton" :index="fitlerButtonIndex"></filterButton>
 				</view>
 				<view style="background:#FFFFFF;height:20upx;width:100%;"></view>
 		</view>
-		<view style="height: 180upx;width:100%; margin-top:40upx;"></view>
+		<view style="height: 180upx;width:100%; margin-top:60upx;"></view>
 	<!-- ---------------------------------------- -->
 	<view class="content">
 		

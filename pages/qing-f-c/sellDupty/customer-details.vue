@@ -21,7 +21,7 @@
   </view> -->
   <view class="flex_end mt_30">
     <view class="fs_15 font_we_bold">评价：</view>
-    <block v-for="(item, index) in [1,2,3,4,5]" :key="index">
+    <block v-for="(item, index) in star" :key="index">
       <image src="/static/images/shixinStar.png" class="stars_img" mode="aspectFit"></image>
     </block>
     <view class="ml_30 fs_12 color_FF6000">查看详情</view>
@@ -29,46 +29,33 @@
   <view class="flex_c fs_14 mt_30">
     <view class="wid_168 flex_c">
       <view class="wid_140 color_9b">找样结果数</view>
-      <view class="wid_156">{{customerInfo.demandNum||0}}</view>
+      <view class="wid_156">{{counter.inquiryCount|| 0}}</view>
     </view>
 	<view class="line"></view>
-	<view class="wid_168 flex_c">
+	<!-- <view class="wid_168 flex_c">
 	  <view class="wid_140 color_9b">匹配确认数</view>
 	  <view class="wid_156">{{customerInfo.demandNum||0}}</view>
 	</view>
-    <view class="line"></view>
+    <view class="line"></view> -->
     <view class="wid_168 flex_c">
       <view class="wid_140 color_9b">总交易次数</view>
-      <view class="wid_156">{{customerInfo.transactionNum||0}}</view>
+      <view class="wid_156">{{counter.dealCount|| 0}}</view>
     </view>
   </view>
-  <view class="fs_14" v-if="customerInfo.type==4">
-    <view class="flex_c mt_30 color_9b">
-      <view class="wid_168">找样结果数</view>
-      <view class="line"></view>
-      <view class="wind_193 text_c">匹配确认数</view>
-      <view class="line"></view>
-      <view class="wid_168 text_right">总交易次数</view>
-    </view>
-    <view class="flex_c text_c">
-      <view class="wid_168">0</view>
-      <view class="wind_193 mlr_58">0</view>
-      <view class="wid_168">0</view>
-    </view>
-  </view>
+  
   <view class="flex_sb mt_30">
     <view class="hand_bottom_btn" @tap="toRecordDetails">
   		<view>跟进记录</view>
-  		<view class="counter">36条</view>
+  		<view class="counter">{{counter.followCount|| 0}}条</view>
   	</view>
     <view class="hand_bottom_btn" @tap="toProductPage">
   		<view>产品展示</view>
-  		<view class="counter">12个</view>
+  		<view class="counter">{{counter.productCount|| 0}}个</view>
   		
   	</view>
     <view class="hand_bottom_btn" @tap="toBondDetail">
   		<view>保证金</view>
-  		<view class="counter">20000元</view>
+  		<view class="counter">{{counter.cashDeposit|| 0}}元</view>
   	</view>
   </view>
 </view>
@@ -253,6 +240,9 @@ export default {
   },
   data() {
     return {
+	  companyCode:'',
+      star:[...Array(5).keys()],
+	  counter:'',
 	  placeholdeView:false,
       identity: 2,
       //1为买帮办，2为卖帮办
@@ -281,26 +271,32 @@ export default {
     this.getCustomerInfo();
   },
   onShow: function () {
-	let pages = getCurrentPages();
-    let currPage = pages[pages.length-1];
-   if (currPage.data.isDoRefresh == true){
-	       currPage.data.isDoRefresh = false;
-		   this.getCustomerInfo();
-		   this.getLinkMan()
-		   this.getOperation()
-		   this.getRival()
-	 }
-   
+	// let pages = getCurrentPages();
+ //    let currPage = pages[pages.length-1];
+ //   if (currPage.data.isDoRefresh == true){
+	//        currPage.data.isDoRefresh = false;
+	// 	   this.getCustomerInfo();
+	// 	   this.getLinkMan()
+	// 	   this.getOperation()
+	// 	   this.getRival()
+	//  }
+    this.getCounter()
+	this.getCustomerInfo();
+	this.getLinkMan()
+	this.getOperation()
+	this.getRival()
   },
   onLoad: function (options) {
     _this = this;
     //this.setIdentity();
 	console.log(options)
-    _companyCode = options.companyCode;
+   // this.companyCode = options.companyCode;
+	this.companyCode = options.companyCode
 	this.getCustomerInfo();
 	this.getLinkMan()
 	this.getOperation()
 	this.getRival()
+	this.getCounter()
   },
   onPageScroll:function(res){
 	
@@ -315,6 +311,13 @@ export default {
   components: {},
   props: {},
   methods: {
+	  async getCounter(){
+	  		  const res = await this.$http.get('/cm/title',{
+	  			  data:{companyCode: this.companyCode}
+	  		  })
+	  		  console.log('计数',res)
+	  		  this.counter = res.data.data
+	  },
 	  tabSwitch:function(index){
 	  	this.activeIndex = index
 		this.placeholdeView = true
@@ -357,8 +360,8 @@ export default {
     // 设置身份
     
     getCustomerInfo:function () {
-	  console.log(_companyCode)
-	  let _data = {companyCode: _companyCode}
+	  
+	  let _data = {companyCode:this.companyCode}
       JsyServer.cmDetail(_data).then(res => {
       
         console.log(res);
@@ -373,7 +376,7 @@ export default {
     },
    //获取公司联系人
 	getLinkMan:function(){
-		let _data = {companyCode: _companyCode}
+		let _data = {companyCode:this.companyCode}
 		JsyServer.linkMan(_data).then(res => {
 		  console.log(res);
 		  this.linkMan = res.data.data.list
@@ -385,7 +388,7 @@ export default {
 	},
 	//获取经营状况
 	getOperation:function(){
-		let _data = {companyCode: _companyCode}
+		let _data = {companyCode:this.companyCode}
 		JsyServer.operation(_data).then(res => {
 		  console.log(res);
 		  this.operation = res.data.data
@@ -395,7 +398,7 @@ export default {
 	},
 	//获取竞争对手
 	getRival:function(){
-		let _data = {companyCode: _companyCode}
+		let _data = {companyCode:this.companyCode}
 		JsyServer.rival(_data).then(res => {
 		  console.log("rival===",res);
 		  this.rival = res.data.data.list
@@ -408,10 +411,18 @@ export default {
    
     // 跳转跟进记录详情（总）
     toRecordDetails: function () {
-      let userId = this.customerInfo.id;
-      wx.navigateTo({
-        url: '/pages/jin-suo-yun/customer-admin/record-details?userId=' + userId + '&name=' + this.customerInfo.corporateName
-      });
+     let data= JSON.stringify({
+     		  companyCode:this.companyCode,
+     		  buyOrSellCode: this.linkMan[0].buyOrSellCode,
+     		  buyOrSell: this.customerInfo.buyOrSell
+     })
+     console.log(data)
+	 wx.navigateTo({
+	   url: `/pages/qing-f-c/customPicture/sd_followRecordDetail?companyCode=${this.companyCode}`
+	 });
+     // wx.navigateTo({
+     //   url: `/pages/qing-f-c/customPicture/followList?data=${data}`
+     // });
     },
     //跳转保证金管理页面
     goMarginControl: function () {
@@ -447,9 +458,9 @@ export default {
     },
 	//跳转到添加竞争对手
 	addCompetitor:function(e){
-		let companyCode = this.customerInfo.companyCode;
+		
 		uni.navigateTo({
-			url: '/pages/qing-f-c/sellDupty/add-competitor?companyCode=' + companyCode,
+			url: '/pages/qing-f-c/sellDupty/add-competitor?companyCode=' + this.companyCode,
 			success: res => {
 				console.log(res)
 			},
@@ -475,10 +486,8 @@ export default {
 		
 	},
 	goEditCustomer:function(){
-		let companyCode = this.customerInfo.companyCode;
-		
 		uni.navigateTo({
-			url: '/pages/qing-f-c/sellDupty/edit-customer?companyCode=' + companyCode,
+			url: '/pages/qing-f-c/sellDupty/edit-customer?companyCode=' + this.companyCode,
 			success: res => {},
 			fail: () => {},
 			complete: () => {}
@@ -486,10 +495,10 @@ export default {
 	},
     // 跳转添加联系人
     addContacts: function (e) {
-      let companyCode = this.customerInfo.companyCode;
+      
       console.log(e);
 	  uni.navigateTo({
-	  	url: '/pages/qing-f-c/sellDupty/add-contact?companyCode=' + companyCode,
+	  	url: '/pages/qing-f-c/sellDupty/add-contact?companyCode=' + this.companyCode,
 	  	success: res => {},
 	  	fail: () => {},
 	  	complete: () => {}
@@ -508,10 +517,10 @@ export default {
 	},
     //跳转设置经营状况页面
     toSetManagementCondition: function (e,code) {
-      let _companyCode =  this.customerInfo.companyCode
+      
 	  if (e == 2){
 		  wx.navigateTo({
-		    url: '/pages/qing-f-c/sellDupty/setManagerCondition?companyCode=' + _companyCode
+		    url: '/pages/qing-f-c/sellDupty/setManagerCondition?companyCode=' + this.companyCode
 		  });
 	  }else if (e == 1){
 		  let _data = JSON.stringify(this.operation)
@@ -534,9 +543,7 @@ export default {
     // 跳转到产品展示
     toProductPage: function () {
       let isProduct = this.customerInfo.productInfo;
-      let url="/pages/qing-f-c/productShow/mainShow?companyCode="+_companyCode;
-
-      
+      let url=`/pages/qing-f-c/productShow/mainShow?companyCode=${this.companyCode}`;
 
       uni.navigateTo({
         url: url

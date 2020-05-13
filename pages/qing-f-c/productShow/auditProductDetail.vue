@@ -130,32 +130,43 @@
 				
 			},
 			bindCancel:function(){
-				let url = _this.Api.auditPass
-				let data ={
-					goodsCode: _this.goodsCode,  // 产品编码 
-				}
-				uni.showLoading({
-					title:'提交中',
-					mask: true
-				})
-				this.myRequest(data,url,'get').then(res => {
-					  uni.hideLoading()
-				      console.log(res)
-					  if(res.data.status==0){
-						  uni.showToast({
-						  	title: '审核成功',
-							duration: 1000
-						  });
-						  _this.getGoodsDetail()
-						 
-					  }
-					  
-				}).catch(err => {
-				  wx.showToast({
-				    title: err.data.errMsg,
-				    icon: 'none'
-				  });
+				uni.showModal({
+				    title: '提示',
+				    content: '确认该产品无误并上架吗？',
+				    success: function (res) {
+				        if (res.confirm) {
+				            let url = _this.Api.auditPass
+				            let data ={
+				            	goodsCode: _this.goodsCode,  // 产品编码 
+				            }
+				            uni.showLoading({
+				            	title:'提交中',
+				            	mask: true
+				            })
+				            _this.myRequest(data,url,'get').then(res => {
+				            	  uni.hideLoading()
+				                  console.log(res)
+				            	  if(res.data.status==0){
+				            		  uni.showToast({
+				            		  	title: '审核成功',
+				            			duration: 1000
+				            		  });
+				            		  _this.getGoodsDetail()
+				            		 
+				            	  }
+				            	  
+				            }).catch(err => {
+				              wx.showToast({
+				                title: err.data.errMsg,
+				                icon: 'none'
+				              });
+				            });
+				        } else if (res.cancel) {
+				            console.log('用户点击取消');
+				        }
+				    }
 				});
+				
 			},
 			submit:function(){
 				let data = JSON.stringify(_this.goodsDetail)

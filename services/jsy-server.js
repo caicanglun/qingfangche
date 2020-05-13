@@ -393,18 +393,6 @@ function updateCustomer(data) {
 	 })
    })
 } 
-
-//销售总监，区域经理客户列表
-function dmList(data) {
-   return new Es6Promise(function(resolve, reject) {
-	 let newApi = Api.dmList;
-	 Util.request(newApi, data, 'get').then(res => {
-	   resolve(res);
-	 }).catch(err => {
-	   reject(err);
-	 })
-   })
-} 
 //销售总监，区域经理客户数量
 function dmCount(data) {
    return new Es6Promise(function(resolve, reject) {
@@ -606,17 +594,7 @@ function buyAddCustomer(data) {
 	 })
    })
 } 
-//修改客户
-function updateCustomer(data) {
-   return new Es6Promise(function(resolve, reject) {
-	 let newApi = Api.updateCustomer;
-	 Util.request(newApi, data, 'post').then(res => {
-	   resolve(res);
-	 }).catch(err => {
-	   reject(err);
-	 })
-   })
-} 
+
 //卖帮办创建客户
   function sellCusmterCreated(data) {
     return new Es6Promise(function(resolve, reject) {
@@ -718,7 +696,6 @@ module.exports = {
   linkmanDel,
   rivalDel,
   rivalUpdate,
-  dmList,
   dmCount,
   majordomoDel,
   managerDel,

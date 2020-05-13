@@ -48,7 +48,7 @@
 			// 	character.push(item.label)
 			// })
 			// this.character = character.join(',')
-			
+			this.getLinkmanDetails()
 		},
 		onLoad:function(options){
 			_this = this
@@ -98,7 +98,7 @@
 				uni.navigateTo({
 					url: '/pages/qing-f-c/sellDupty/edit-contact?buyOrSellCode='+ contact,
 					success: res => {},
-					fail: () => {},
+					fail: (err) => { console.log(err)},
 					complete: () => {}
 				});
 				

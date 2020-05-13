@@ -65,7 +65,8 @@
    border: 1rpx solid #979797;
    background-color: #fff;
    margin-right: 20rpx;
-   box-sizing: border-box;
+   -webkit-box-sizing: border-box;
+           box-sizing: border-box;
 }
 .pitch_on{
   width: 40rpx;
@@ -92,7 +93,8 @@
   height: 38rpx;
   width: 136rpx;
   text-align: center;
-  box-sizing: 38rpx;
+  -webkit-box-sizing: 38rpx;
+          box-sizing: 38rpx;
   border-radius: 38rpx;
   color: #EE603F;
 }

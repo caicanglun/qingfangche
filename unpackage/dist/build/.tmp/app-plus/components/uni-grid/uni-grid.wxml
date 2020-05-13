@@ -1,1 +1,1 @@
-<view><view class="{{['uni-grid',(showBorder)?'border':'']}}" style="{{'border-left:'+(showBorder?'1px '+borderColor+' solid':'none')+';'}}" id="{{elId}}"><slot></slot></view></view>
+<view class="uni-grid-wrap data-v-416e6865"><view class="{{['uni-grid data-v-416e6865 vue-ref',(showBorder)?'uni-grid--border':'']}}" style="{{'border-left-style:'+('solid')+';'+('border-left-color:'+(borderColor)+';')+('border-left-width:'+(showBorder?'1px':0)+';')}}" id="{{elId}}" data-ref="uni-grid"><slot></slot></view></view>

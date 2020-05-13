@@ -40,7 +40,8 @@
   height: 48rpx;
   text-align: center;
   border: 2rpx solid #FF6000;
-  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
   border-right: none;
 }
 .borderright {

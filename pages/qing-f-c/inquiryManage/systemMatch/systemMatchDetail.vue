@@ -85,10 +85,10 @@
 							<text>报价时间：</text><text>{{item.createTime||''}}</text>
 						</view>
 					  
-					   <view class='baojia_button' >
-						   <view class='baojia_Clipboard' @tap.stop="handleEvent('closing',item.goodsCode)">发起报价</view>
+					   <view class='baojia_button' v-if="quotationInfo.matchStatusCode==1" >
+						   <view class='baojia_Clipboard' @tap.stop="handleEvent(item.goodsCode,item.buyOrSellCode)">发起报价</view>
 						   
-				   </view>
+				       </view>
 			
 					</view>
 			
@@ -116,6 +116,7 @@
 		},
 		data() {
 			return {
+				inquiryNumber:'',
 				quotationInfo:'',
 				matchCode:'',
 				color1:'#ff6000',
@@ -145,6 +146,7 @@
 		onLoad(options) {
 			_self = this;
 			this.matchCode = options.matchCode
+			this.inquiryNumber = options.inquiryNumber
 			this.cWidth=uni.upx2px(750);
 			this.cHeight=uni.upx2px(500);
 			//this.getServerData();
@@ -155,6 +157,16 @@
 			this.matchList2()
 		},
 		methods: {
+			handleEvent(goodsCode,buyOrSellCode){
+				this.$store.dispatch('copeFun',this.inquiryNumber)
+				uni.navigateTo({
+					url: `/pages/qing-f-c/inquiryManage/comQuotation/startQuotation?goodsCode=${goodsCode}&buyOrSellCode=${buyOrSellCode}&flag=1`,
+					success: res => {},
+					fail: () => {},
+					complete: () => {}
+				});
+				
+			},
 			matchList2:function(){
 				let data={
 					matchCode: _self.matchCode,

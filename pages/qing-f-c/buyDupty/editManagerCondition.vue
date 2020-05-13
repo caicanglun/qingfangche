@@ -19,7 +19,7 @@
 		</view> 
 		  <view class="fixed_bottom box_shadow_btn">
 			<button class="btn_left" hover-class="none" @tap="bindCancel">取消</button>
-			<button class="btn_right" @tap="submit" hover-class="none">编辑</button>
+			<button class="btn_right" @tap="submit" hover-class="none">确定</button>
 		  </view>
 
 	</view>

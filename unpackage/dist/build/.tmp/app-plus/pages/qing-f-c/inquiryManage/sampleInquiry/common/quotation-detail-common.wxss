@@ -68,7 +68,7 @@ page {
   height: 56rpx;
 }
 .details-content .title {
-    color: #999999;
+  color: #999999;
 }
 .bingpai {
   display: -webkit-box;
@@ -130,28 +130,28 @@ page {
           flex-direction: column;
 }
 .content-box .subItem {
-    display: -webkit-box;
-    display: -webkit-flex;
-    display: flex;
-    -webkit-box-align: center;
-    -webkit-align-items: center;
-            align-items: center;
-    font-size: 13px;
-    height: 56rpx;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+          align-items: center;
+  font-size: 13px;
+  height: 56rpx;
 }
 .content-box .subItem .label {
-      color: #999999;
+  color: #999999;
 }
 .content-box .subItemTime {
-    display: -webkit-box;
-    display: -webkit-flex;
-    display: flex;
-    -webkit-box-align: center;
-    -webkit-align-items: center;
-            align-items: center;
-    font-size: 11px;
-    height: 56rpx;
-    color: #999999;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+          align-items: center;
+  font-size: 11px;
+  height: 56rpx;
+  color: #999999;
 }
 .baojia_line {
   width: 650rpx;

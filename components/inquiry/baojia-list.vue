@@ -314,7 +314,7 @@
 			display: flex;
 			flex-direction: row-reverse;
 			justify-content: space-between;
-			width:300upx;
+			width:280upx;
 			.baojia_Clipboard{
 				display: flex;
 				justify-content: center;

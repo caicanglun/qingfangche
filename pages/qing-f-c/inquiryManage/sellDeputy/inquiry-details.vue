@@ -173,8 +173,9 @@
 				});
 			},
 			toMatchDetail:function(matchCode){
+				
 				uni.navigateTo({
-					url: '/pages/qing-f-c/inquiryManage/systemMatch/systemMatchDetail?matchCode='+ matchCode,
+					url: '/pages/qing-f-c/inquiryManage/systemMatch/systemMatchDetail?matchCode='+ matchCode+'&inquiryNumber='+_inquiryNumber,
 					success: res => {},
 					fail: (err) => { console.log()},
 					complete: () => {}

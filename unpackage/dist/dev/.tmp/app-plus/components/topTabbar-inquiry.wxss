@@ -33,27 +33,27 @@
           justify-content: space-around;
 }
 .topTabbar .tabItem {
-    display: -webkit-box;
-    display: -webkit-flex;
-    display: flex;
-    -webkit-box-orient: vertical;
-    -webkit-box-direction: normal;
-    -webkit-flex-direction: column;
-            flex-direction: column;
-    position: relative;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: column;
+          flex-direction: column;
+  position: relative;
 }
 .topTabbar .tabItem .tabText {
-      color: black;
-      font-size: 14px;
+  color: black;
+  font-size: 14px;
 }
 .topTabbar .tabActive .tabText {
-    color: #ff6000;
-    font-size: 14px;
+  color: #ff6000;
+  font-size: 14px;
 }
 .topTabbar .tabActive .bottomLine {
-    background: #ff6000;
-    height: 2rpx;
-    border-radius: 4rpx;
+  background: #ff6000;
+  height: 2rpx;
+  border-radius: 4rpx;
 }
 .icon-position {
   font-size: 13px;

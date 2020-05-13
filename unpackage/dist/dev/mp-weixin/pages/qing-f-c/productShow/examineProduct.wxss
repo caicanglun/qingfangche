@@ -35,12 +35,14 @@
   background-color: #FFFFFF;
   padding: 16rpx 30rpx 20rpx;
   /* height: 92upx; */
-  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
 }
 .search_left_gray {
   background-color: #EFEFEF;
   height: 54rpx;
-  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
   border-radius: 26rpx;
   width: 100%;
 }

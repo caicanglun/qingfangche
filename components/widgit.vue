@@ -8,8 +8,8 @@
 	export default {
 		props:{
 			count: {
-				type: String,
-				default: ''
+				type: Number,
+				default: 0
 			}
 			
 		},

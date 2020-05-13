@@ -81,7 +81,7 @@
 			<view class="content">
 				<view class="content-left-1">
 					<view>密度</view>
-					<view>(坯布)</view>
+					<view>(({{list.quotationClothType|| ''}}))</view>
 				</view>
 				<view class="content-right">
 					<view class="content-text">
@@ -99,7 +99,7 @@
 			<view class="content">
 				<view class="content-left-1">
 					<view>克重</view>
-					<view>(坯布)</view>
+					<view>(({{list.quotationClothType|| ''}}))</view>
 				</view>
 				<view class="content-right">
 					<view class="content-text">
@@ -117,12 +117,12 @@
 			<view class="content">
 				<view class="content-left-1">
 					<view>幅宽</view>
-					<view>(坯布)</view>
+					<view>({{list.quotationClothType|| ''}})</view>
 				</view>
 				<view class="content-right">
 					<view class="content-text">
 						<view class="text-up">
-							<view>{{list.inquiryClothBreadth}}</view><view>{{list.quotationClothBreadth}}</view>
+							<view>{{list.inquiryClothBreadth || ''}}</view><view>{{list.quotationClothBreadth ||''}}</view>
 						</view>
 						<view>
 							<rangeButton @buttonChange="compareChange('clothBreadth',$event)" :items="items"></rangeButton>

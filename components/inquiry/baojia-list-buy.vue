@@ -69,7 +69,7 @@
 			   </view>
 			   <view class='baojia_button' v-if="item.operatingAuthorization&&item.quotationStatusCode==1">
 				   <view class='baojia_Clipboard' @tap.stop="handleEvent('setQuote',item.quotationNumber)">设置报价</view>
-				   <!-- <view class='baojia_Clipboard' @tap.stop="handleEvent('unMatch',item.quotationNumber)" >不匹配</view> -->
+				   <view class='baojia_Clipboard' @tap.stop="handleEvent('unMatch',item.quotationNumber)" >不匹配</view>
 			   </view>
 		
 			</view>

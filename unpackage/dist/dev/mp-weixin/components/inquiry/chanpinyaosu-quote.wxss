@@ -59,7 +59,7 @@
   line-height: 60rpx;
 }
 .details-content-guige .title {
-    color: #999999;
+  color: #999999;
 }
 .bingpai {
   display: -webkit-box;

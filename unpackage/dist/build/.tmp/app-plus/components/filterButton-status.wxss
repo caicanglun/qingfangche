@@ -32,41 +32,41 @@
           justify-content: space-around;
 }
 .topTabbar .tabItem {
-    display: -webkit-box;
-    display: -webkit-flex;
-    display: flex;
-    width: 120rpx;
-    height: 56rpx;
-    -webkit-box-pack: center;
-    -webkit-justify-content: center;
-            justify-content: center;
-    -webkit-box-align: center;
-    -webkit-align-items: center;
-            align-items: center;
-    border-radius: 28rpx;
-    background-color: #E7E7E7;
-    font-size: 13px;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  width: 120rpx;
+  height: 56rpx;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+          justify-content: center;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+          align-items: center;
+  border-radius: 28rpx;
+  background-color: #E7E7E7;
+  font-size: 13px;
 }
 .topTabbar .tabItem .tabText {
-      color: black;
+  color: black;
 }
 .topTabbar .tabActive {
-    display: -webkit-box;
-    display: -webkit-flex;
-    display: flex;
-    width: 120rpx;
-    height: 56rpx;
-    -webkit-box-pack: center;
-    -webkit-justify-content: center;
-            justify-content: center;
-    -webkit-box-align: center;
-    -webkit-align-items: center;
-            align-items: center;
-    border-radius: 28rpx;
-    background-color: #FF6000;
-    font-size: 13px;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  width: 120rpx;
+  height: 56rpx;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+          justify-content: center;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+          align-items: center;
+  border-radius: 28rpx;
+  background-color: #FF6000;
+  font-size: 13px;
 }
 .topTabbar .tabActive .tabText {
-      color: white;
+  color: white;
 }
 

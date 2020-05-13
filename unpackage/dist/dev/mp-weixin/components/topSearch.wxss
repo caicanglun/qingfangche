@@ -28,7 +28,8 @@
   background-color: #FF6000;
   padding: 16rpx 30rpx 20rpx;
   /* height: 92upx; */
-  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
 }
 .flex_sb {
   display: -webkit-box;
@@ -54,7 +55,8 @@
 .search_left_sousuo {
   background-color: #fff;
   height: 56rpx;
-  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
   border-radius: 56rpx;
   width: 100%;
 }

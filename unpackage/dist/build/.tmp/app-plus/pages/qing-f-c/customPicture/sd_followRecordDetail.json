@@ -1,0 +1,9 @@
+{
+  "navigationStyle": "custom",
+  "enablePullDownRefresh": true,
+  "usingComponents": {
+    "uni-load-more": "/components/uni-load-more/uni-load-more",
+    "uni-icon": "/components/uni-icons/uni-icons",
+    "top-tabbar": "/components/topTabbar-follow"
+  }
+}

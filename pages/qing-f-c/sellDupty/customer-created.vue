@@ -1,6 +1,6 @@
 <template>
 	<view>
-		<form @submit="formSubmit" report-submit="true">
+		<form report-submit="true">
 		  <view class="box box_shadow">
 				<view class="list flex_c">
 				  <view class="list_right ml-14">
@@ -36,6 +36,7 @@
 				
 				<rangeButton @buttonChange="coordinateChange" :items="coordinate" name="保证金配合度"></rangeButton>
 				<view class="title">高：有合作会交保证金；中：有合作考虑或者多次合作后交保证金；低：不接受保证金</view>
+				<myPicker @mychange="levelChange" :items="level" name="重要等级" star="true"></myPicker>
 				<view class="list flex_c">
 				  <view class="list_right ml-14">
 					<text style="color:#FF6000">*</text>联系人：
@@ -51,7 +52,7 @@
 		  </view>
 		  <view class="fixed_bottom box_shadow_btn">
 		    <button class="btn_left" hover-class="none" @tap="bindCancel">取消</button>
-		    <button class="btn_right" formType="submit" hover-class="none">确定</button>
+		    <button class="btn_right" @tap="formSubmit" hover-class="none">确定</button>
 		  </view>
 		  
 		</form>
@@ -98,7 +99,9 @@
 				realName: '',//  姓名
 				phone: '',// 电话
 				isSellroom: [{id: 1,label:'有'},{id: 0,label:'无'}],
-				hasSalesroom: 1
+				hasSalesroom: 1,
+				level:[],
+				levelCode:'',
 				
 			};
 		},
@@ -179,6 +182,10 @@
 			companySourceChange:function(e){
 				this.companySourceCode = e
 			},
+			levelChange:function(e){
+				this.levelCode = e
+				console.log(e)
+			},
 			cooperationIntentionChange:function(e){
 				this.cooperationIntentionCode =e
 			},
@@ -240,6 +247,7 @@
 				data.companySourceCode = this.companySourceCode //客户来源编码
 				data.cooperationIntentionCode= this.cooperationIntentionCode //合作意向
 				data.coordinateCode= this.coordinateCode //配合度
+				data.levelCode = this.levelCode  //
 				data.realName = this.realName //姓名
 				data.phone= this.phone //电话
 				console.log(data)

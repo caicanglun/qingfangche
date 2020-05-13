@@ -39,10 +39,10 @@
 		
 		
 		<view class='placeholder-view'></view>
-		<view class="fixed_bottom box_shadow_btn">
+		<!-- <view class="fixed_bottom box_shadow_btn">
 		
 		  <button class="btn_all" @tap="submit" hover-class="none">发起报价</button>
-		</view>
+		</view> -->
 		<!-- <view class="fixed_bottom box_shadow_btn">
 		  <button class="btn_left" hover-class="none" @tap="bindCancel">确定</button>
 		  <button class="btn_right" @tap="submit" hover-class="none">不匹配</button>
@@ -95,7 +95,9 @@
 				  });
 				});
 			},
+			submit:function(){
 				
+			},	
 			bindCancel:function(){
 				let data ={
 					quotationNumber: _quoteNumber

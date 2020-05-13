@@ -1,5 +1,5 @@
 
-//const ServerUrl = "http://192.168.11.125"; 
+//const ServerUrl = "http://192.168.11.135"; 
 const ServerUrl = "http://test.144f.com:8080/qfc-web";
 //const ServerUrl = "http://apps.144f.com/qfc-web"; 
 const ChooseUrl = ServerUrl + '/choose/';
@@ -9,7 +9,7 @@ module.exports = {
   VERSION: VERSION,
   ChooseUrl,
   //下拉选择
-
+  ServerUrl,
   getRegion: ChooseUrl + "region", //区域
   getCoordinate: ChooseUrl + "coordinate", //配合度
   getType: ChooseUrl + "type", //客户类型

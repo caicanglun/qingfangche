@@ -97,7 +97,12 @@ function request(url, data = {}, method = "GET") {
 				complete: () => {}
 			});
 			return;
-        }
+        }else {
+			uni.showToast({
+				title: res.statusCode,
+				icon: 'none'
+			});
+		}
       },
       fail: function (err) {
         reject(err);
@@ -716,10 +721,6 @@ function getTime(date) {
   return [year, month, day].map(formatNumber).join('-')
 }
 
-function formatNumber(n) {
-  n = n.toString()
-  return n[1] ? n : '0' + n
-}
 
 function formatNumber(n) {
   n = n.toString()

@@ -1,0 +1,14 @@
+{
+  "usingComponents": {
+    "picker-button": "/components/pickerButton-edit",
+    "my-picker": "/components/myPicker-inquiry",
+    "part-checkbox-group": "/components/partCheckboxGroup",
+    "my-picker-small": "/components/myPickerPartProps",
+    "switch-button": "/components/switchButton-auto",
+    "picker-input": "/components/pickerInput",
+    "uni-icon": "/components/uni-icons/uni-icons",
+    "popup-me": "/components/popupMe",
+    "switch-button-edit": "/components/switchButton-edit",
+    "popup-me-season": "/components/popupMeSeason"
+  }
+}

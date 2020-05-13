@@ -1,6 +1,6 @@
 <template>
 	<view>
-		<form @submit="formSubmit" report-submit="true">
+		<form report-submit="true">
 		  <view class="box box_shadow">
 				<view class="list flex_c">
 				  <view class="list_right ml-14">
@@ -27,7 +27,7 @@
 				<myPicker @mychange="companyScaleChange" :items="companyScale" name="客户规模"></myPicker>
 				<myPicker @mychange="managementPositionChange" :items="managementPosition" name="经营定位"></myPicker>
 				<rangeButton @buttonChange="cooperationIntentionChange" :items="cooperationIntention" name="合作意向"></rangeButton>
-				
+				<myPicker @mychange="levelChange" :items="level" name="重要等级" star="true"></myPicker>
 				<!-- <rangeButton @buttonChange="coordinateChange" :items="coordinate" name="保证金配合度"></rangeButton>
 				<view class="title">高：有合作会交保证金；中：有合作考虑或者多次合作后交保证金；低：不接受保证金</view> -->
 				<view class="list flex_c">
@@ -45,7 +45,7 @@
 		  </view>
 		  <view class="fixed_bottom box_shadow_btn">
 		    <button class="btn_left" hover-class="none" @tap="bindCancel">取消</button>
-		    <button class="btn_right" formType="submit" hover-class="none">确定</button>
+		    <button class="btn_right" @tap="formSubmit" hover-class="none">确定</button>
 		  </view>
 		  
 		</form>
@@ -55,7 +55,7 @@
 
 <script>
 	import myPicker from "@/components/myPicker.vue";
-	import rangeButton from "@/components/rangeButton.vue";
+	import rangeButton from "@/components/rangeButtonLong.vue";
 	import swithButton from "@/components/switchButton.vue";
 	// import myCheckboxGroup from "@/components/myCheckboxGroup.vue";
 	const JsyServer = require("services/jsy-server.js");
@@ -86,6 +86,8 @@
 				coordinateCode: '',//  配合度
 				managementPosition:[],
 				managementPositionCode: '',// 经营定位
+				level:[],
+				levelCode:'',
 				realName: '',//  姓名
 				phone: '',// 电话
 				
@@ -189,8 +191,12 @@
 			managementPositionChange:function(e){
 				this.managementPositionCode = e
 			},
+			levelChange:function(e){
+				this.levelCode = e
+				console.log(e)
+			},
 			regionChange:function(e){
-			    this.regionCode =e
+			    this.regionCode = e
 				console.log(e)
 			},
 			companyTypeChange:function(e){
@@ -201,6 +207,7 @@
 			},
 			cooperationIntentionChange:function(e){
 				this.cooperationIntentionCode =e
+				console.log(e)
 			},
 			coordinateChange:function(e){
 				this.coordinateCode = e
@@ -246,7 +253,7 @@
 				data.companyAddress = this.companyAddress // 公司地址
 				data.companyLongitude = this.companyLongitude // 经度
 				data.companyLongitude=  this.companyLatitude //纬度
-				
+				data.levelCode = this.levelCode  //重要等级
 				data.companyTypeCode=  this.companyTypeCode //客户类型编码
 				data.companySourceCode = this.companySourceCode //客户来源编码
 				data.cooperationIntentionCode= this.cooperationIntentionCode //合作意向

@@ -7,7 +7,7 @@
 				<chanpinyaosu :inquiryInfo="quotationInfo"></chanpinyaosu> 
 			</view>
 		</view>		
-		
+		<popupMe ref="unMatchRef" @input="getContent('unMatchRef',$event)" title="再次报价"></popupMe>
 		<view class="baojia-details">
 			<view class="baojia-wrap">
 				<view v-if="quotationInfo.hasSalesDirectorQuotation">
@@ -55,10 +55,15 @@
 		 	
 		 </view>  <!-- 关闭原因 -->
 		<view class='placeholder-view'></view>
+		<view class="fixed_bottom box_shadow_btn" v-if="quotationInfo.quotationStatus == 1">
+		    <button class="btn_all" hover-class="none" @tap="submit" >再次报价</button>
+		        
+		</view>
 	</view>
 </template>
 
 <script>
+	import popupMe from "@/components/popupMe-again.vue";
 	import chanpinyaosu from "@/components/inquiry/chanpinyaosu-quote.vue";
 	import baojiaDetail from "@/components/inquiry/baojia-detail-buy.vue";
 	import sellerInfo from "@/components/inquiry/sellerInfo.vue";
@@ -68,7 +73,8 @@
 		components:{
 			chanpinyaosu,
 			baojiaDetail,
-			sellerInfo
+			sellerInfo,
+			popupMe
 			
 		},
 		data() {
@@ -83,6 +89,52 @@
 			this.getInquiryInfo()
 	    },
 		methods:{
+			submit:function(){
+				this.$refs.unMatchRef.show()
+				// uni.navigateTo({
+				// 	url: './startQuote?inquiryNumber='+ _this.inquiryNumber,
+				// 	success: res => {},
+				// 	fail: () => {},
+				// 	complete: () => {}
+				// });
+				
+			},
+			getContent:function(label,content){
+						switch (label){
+							case 'unMatchRef':
+								 let price= content[0]
+								 let remarks = content[1]
+								 _this.againQuotation(price,remarks)
+								 
+								 break
+							
+						}
+						
+			},
+			againQuotation:function(price,remarks){
+				
+				let data={
+					quotationNumber : _quotationNumber,  //	询价单号
+					unitPrice : price,
+					remarks: remarks
+				}
+				let url = this.Api.quoteAgain
+				uni.showLoading({
+					title: '提交中',
+					mask: true,
+				});
+				this.myRequest(data,url,'get').then(res => {
+				   uni.hideLoading()
+				   if (res.data.status == 0){
+					   this.getInquiryInfo()
+				   }
+				}).catch(err => {
+				  wx.showToast({
+				    title: err.data.errMsg,
+				    icon: 'none'
+				  });
+				});
+			},
 			getInquiryInfo: function(){
 				let data={
 					quotationNumber: _quotationNumber,  //	询价单号
@@ -227,4 +279,12 @@
   			color: #999999;
   		}	
   	}
+	.btn_all{
+	  width: 100%;
+	  background-color: #FF6000;
+	  color: #fff;
+	  border-radius: 0;
+	  font-size: 16px;
+	  line-height: 88upx;
+	}
 </style>

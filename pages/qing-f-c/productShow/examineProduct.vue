@@ -20,6 +20,7 @@
 		<view style="background: #FFFFFF;margin:20upx 20upx;">
 			
 			<uni-list>
+				 <!-- <uni-list-item v-for="(list, listIndex) in goodList" :key="listIndex" :title="list.title" :note="list.note" :isHaveRight="operatingAuthorization" :goodsStatus="list.goodsStatus" :thumb="list.thumb" :show-extra-icon="list.showExtraIcon" :extra-icon="list.extraIcon" :show-switch="list.showSwitch" @switchChange="change" @swClick="handleClick(list.goodsCode,$event)" @click="toDetail(list.goodsCode)" /> -->
 				 <uni-list-item v-for="(list, listIndex) in goodList" :key="listIndex" :title="list.title" :note="list.note" :isHaveRight="operatingAuthorization" :goodsStatus="list.goodsStatus" :thumb="list.thumb" :show-extra-icon="list.showExtraIcon" :extra-icon="list.extraIcon" :show-switch="list.showSwitch" @switchChange="change" @swClick="handleClick(list.goodsCode,$event)" @click="toDetail(list.goodsCode)" />
 			</uni-list>
 		</view>
@@ -31,7 +32,7 @@
 	import uniList from '@/components/uni-list/uni-list.vue'
 	import uniListItem from '@/components/uni-list-item/uni-list-item.vue'
 	import uniLoadMore from "@/components/uni-load-more/uni-load-more.vue";
-	let _this
+	let _this,timer
 	export default {
 		components:{
 			uniList,
@@ -44,6 +45,7 @@
 				pageNum: 1,
 				pageSize:20,
 				inputValueOne:'',
+				operatingAuthorization:false,
 				keyword:'',
 				goodList:[],
 				subList: [{
@@ -82,6 +84,9 @@
 			this.getGoodsList()
 		},
 		methods:{
+			change:function(){
+				
+			},
 			getmoreProduct:function(){
 				if (_this.loadingType !== 'more') {//loadingType!=0;直接返回
 					return false;

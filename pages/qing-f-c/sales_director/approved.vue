@@ -114,16 +114,16 @@
 	   position: relative;
 	   margin-left: 30upx;
    }
-   .icon-position{
+ //   .icon-position{
 	
-   	position: absolute;
-   	background-color: #5CACEE;
-   	color: #ffffff;
-   	line-height: 40upx;
-   	width: 40upx;
-   	height: 40upx;
-   	border-radius: 50%;
-   	right: -10upx;
-   	top: -15upx;
-   }
+ //   	position: absolute;
+ //   	background-color: #5CACEE;
+ //   	color: #ffffff;
+ //   	line-height: 40upx;
+ //   	width: 40upx;
+ //   	height: 40upx;
+ //   	border-radius: 50%;
+ //   	right: -10upx;
+ //   	top: -15upx;
+ //   }
 </style>

@@ -171,7 +171,6 @@
 			uniIcon,
 			chanpinyaosu,
 			baojiaList,
-			popupMe,
 			popUpPic,
 			sellerMatch
 		},

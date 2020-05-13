@@ -13,7 +13,7 @@
 					</swiper>
 		    </view>
 			
-			<view style="background: #FFFFFF;margin: 0 20upx;position:relative;border-radius: 8upx;">
+			<view style="background: #FFFFFF;margin: 20upx 20upx;position:relative;border-radius: 8upx;">
 				  <view class="flex_c_c" style="height:65upx;border-radius: 6upx;">
 					  <text style="font-size:16px;font-weight: bold;">经营状况</text>
 					  <faIcon type='pencil-square-o' v-if="operatingAuthorization" @tap="editCondition" size='24' class="icon-class" color="#ff6000"></faIcon>
@@ -91,6 +91,7 @@
 				 operatingAuthorization:'',
 				 pictures:'',
 				 companyCode:'',
+				 companyName:'',
 				 interval: 3000, 
 				 mainProductList:'', //产品类型
 				 mainProductContent:'',  //类型合并
@@ -133,6 +134,7 @@
 		onLoad:function(options){
 			_this = this
 			this.companyCode = options.companyCode
+			this.companyName = options.companyName
 			console.log(this.companyCode)
 			this.getPictureList()
 			this.getManageMachineList()
@@ -149,9 +151,18 @@
 				let data ={
 					companyCode: _this.companyCode,  // 公司编码 
 				}
+				uni.showLoading({
+					title:'加载中',
+					mask: true
+				})
 				this.myRequest(data,url,'get').then(res => {
 				      console.log(res)
-					  _this.serial = res.data.data.list
+					  if(res.data.status==0){
+						   _this.serial = res.data.data.list
+						   uni.hideLoading()
+					  }
+					 
+					  
 				}).catch(err => {
 				  wx.showToast({
 				    title: err.data.errMsg,
@@ -282,7 +293,7 @@
 			},
 			toDetail:function(e){
 				uni.navigateTo({
-					url: './productDetail?goodsCode='+ e,
+					url: `./productDetail?goodsCode=${e}`,
 					success: res => {},
 					fail: (err) => {console.log(err)},
 					complete: () => {}

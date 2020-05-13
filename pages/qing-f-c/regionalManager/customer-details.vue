@@ -33,12 +33,12 @@
   	  <view class="flex_c fs_14 mt_30">
   	    <view class="wid_296 flex_c">
   	      <view class="wid_140 color_9b">找样需求数</view>
-  	      <view class="wid_156">{{customerInfo.demandNum||0}}</view>
+  	      <view class="wid_156">{{counter.inquiryCount|| 0}}</view>
   	    </view>
   	    <view class="line"></view>
   	    <view class="wid_296 flex_c">
   	      <view class="wid_140 color_9b">总交易次数</view>
-  	      <view class="wid_156">{{customerInfo.transactionNum||0}}</view>
+  	      <view class="wid_156">{{counter.dealCount|| 0}}</view>
   	    </view>
   	  </view>
   </view>
@@ -46,17 +46,13 @@
   	  <view class="flex_c fs_14 mt_30">
   	    <view class="wid_168 flex_c">
   	      <view class="wid_140 color_9b">找样结果数</view>
-  	      <view class="wid_156">{{customerInfo.demandNum||0}}</view>
+  	      <view class="wid_156">{{counter.inquiryCount|| 0}}</view>
   	    </view>
-  	  	<view class="line"></view>
-  	  	<view class="wid_168 flex_c">
-  	  	  <view class="wid_140 color_9b">匹配确认数</view>
-  	  	  <view class="wid_156">{{customerInfo.demandNum||0}}</view>
-  	  	</view>
+  	  	
   	    <view class="line"></view>
   	    <view class="wid_168 flex_c">
   	      <view class="wid_140 color_9b">总交易次数</view>
-  	      <view class="wid_156">{{customerInfo.transactionNum||0}}</view>
+  	      <view class="wid_156">{{counter.dealCount|| 0}}</view>
   	    </view>
   	  </view>
   	  
@@ -65,27 +61,27 @@
   <view class="flex_sb mt_30 " v-if="customerInfo.buyOrSell == 1">
     <view class="hand_bottom_btn wid_300" @tap="toRecordDetails">
   		<view>跟进记录</view>
-  		<view class="counter">36条</view>
+  		<view class="counter">{{counter.followCount|| 0}}条</view>
   	</view>
     <view class="hand_bottom_btn wid_300" @tap="toProductPage">
   		<view>产品展示</view>
-  		<view class="counter">12个</view>
+  		<view class="counter">{{counter.productCount|| 0}}个</view>
   	</view>
   </view>
   <!-- 卖家有保证金 -->
   <view class="flex_sb mt_30" v-if="customerInfo.buyOrSell == 2">
     <view class="hand_bottom_btn" @tap="toRecordDetails">
   		<view>跟进记录</view>
-  		<view class="counter">36条</view>
+  		<view class="counter">{{counter.followCount|| 0}}条</view>
   	</view>
     <view class="hand_bottom_btn" @tap="toProductPage">
   		<view>产品展示</view>
-  		<view class="counter">12个</view>
+  		<view class="counter">{{counter.productCount|| 0}}个</view>
   		
   	</view>
     <view class="hand_bottom_btn" @tap="toBondDetail">
   		<view>保证金</view>
-  		<view class="counter">20000元</view>
+  		<view class="counter">{{counter.cashDeposit|| 0}}元</view>
   	</view>
   </view>
 </view>
@@ -288,6 +284,7 @@ export default {
   },
   data() {
     return {
+	  counter:'',
       placeholdeView:false,
       identity: 2,
       //1为买帮办，2为卖帮办
@@ -323,7 +320,7 @@ export default {
 		   this.getOperation()
 		   this.getRival()
 	 }
-   
+   this.getCounter()
   },
   onLoad: function (options) {
     _this = this;
@@ -334,6 +331,7 @@ export default {
 	this.getLinkMan()
 	this.getOperation()
 	this.getRival()
+	this.getCounter()
   },
   onPageScroll:function(res){
 	
@@ -348,6 +346,13 @@ export default {
   components: {},
   props: {},
   methods: {
+	  async getCounter(){
+	  		  const res = await this.$http.get('/cm/title',{
+	  			  data:{companyCode:_companyCode}
+	  		  })
+	  		  console.log(res)
+	  		  this.counter = res.data.data
+	  },
 	  tabSwitch:function(index){
 	  	this.activeIndex = index
 		this.placeholdeView = true
@@ -439,10 +444,18 @@ export default {
    
     // 跳转跟进记录详情（总）
     toRecordDetails: function () {
-      let userId = this.customerInfo.id;
-      wx.navigateTo({
-        url: '/pages/jin-suo-yun/customer-admin/record-details?userId=' + userId + '&name=' + this.customerInfo.corporateName
-      });
+      let data= JSON.stringify({
+      		  companyCode: _companyCode,
+      		  buyOrSellCode: this.linkMan[0].buyOrSellCode,
+      		  buyOrSell: this.customerInfo.buyOrSell
+      })
+      console.log(data)
+	  wx.navigateTo({
+	    url: `/pages/qing-f-c/customPicture/sd_followRecordDetail?companyCode=${_companyCode}`
+	  });
+      // wx.navigateTo({
+      //   url: `/pages/qing-f-c/customPicture/followList?data=${data}`
+      // });
     },
     //跳转保证金管理页面
     goMarginControl: function () {

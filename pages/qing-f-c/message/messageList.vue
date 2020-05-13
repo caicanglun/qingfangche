@@ -37,6 +37,7 @@
 		},
 		data() {
 			return {
+				isDoRefresh:false,
 				loadingType: 'more',
 				message: [],
 				options2: [{
@@ -65,7 +66,11 @@
 			this.getMessage()
 		},
 		onShow: function() {
-			this.getMessage()
+			// this.getMessage()
+			if (this.isDoRefresh){
+				this.isDoRefresh = false
+				this.getMessage()
+			}
 		},
 		methods: {
 			getMoreMessage: function() {
@@ -103,10 +108,10 @@
 				_this.pageNum = 1
 				_this.loadingType = 'more';
 				uni.showNavigationBarLoading();
-				uni.showLoading({
-					title: '加载中',
-					mask: true
-				})
+				// uni.showLoading({
+				// 	title: '加载中',
+				// 	mask: true
+				// })
 				let url = this.Api.noReadList
 				let data = {
 					pageNum: _this.pageNum,
@@ -115,7 +120,7 @@
 				this.myRequest(data, url, 'post').then(res => {
 					console.log(res)
 					if (res.data.status == 0) {
-						uni.hideLoading()
+						// uni.hideLoading()
 						_this.pageNum++;
 
 						_this.message = res.data.data.list
@@ -166,7 +171,7 @@
 					messageCode: messageCode
 				}
 				this.myRequest(data,url,'get').then(res => {
-				   
+				   console.log(res)
 				}).catch(err => {
 				  wx.showToast({
 				    title: err.data.errMsg,
@@ -198,6 +203,7 @@
 				
 				let identity = uni.getStorageSync('pupDefault')
 				this.getMessageDetail(item.messageCode)
+				this.isDoRefresh = true
 				switch (identity){
 					case 'SELL_DEPUTY':
 					    if (item.messageType ==1){
@@ -228,7 +234,7 @@
 					    	});
 					    } else if (item.messageType ==2){
 							uni.navigateTo({
-								url: `/pages/qing-f-c/inquiryManage/sampleInquiry/buyDeputy/inquiry-details?inquiryNumber=${item.orderNum}`,
+								url: `/pages/qing-f-c/inquiryManage/sampleInquiry/buyDeputy/inquiry-details?quoteNumber=${item.orderNum}`,
 								
 							});
 						}else if (item.messageType ==3){
@@ -244,26 +250,67 @@
 						}		
 					    break;
 					case 'SALES_DIRECTOR':
-					    uni.navigateTo({
-					    	url: `/pages/qing-f-c/inquiryManage/sales_director/quotation-detail?quoteNumber=${item.orderNum}`,
-					    	
-					    });
+					    if (item.messageType ==1){
+					    	uni.navigateTo({
+					    		url: `/pages/qing-f-c/inquiryManage/sales_director/inquiry-details?inquiryNumber=${item.orderNum}`,
+					    		
+					    	});
+					    } else if (item.messageType ==2){
+					    	uni.navigateTo({
+					    		url: `/pages/qing-f-c/inquiryManage/sampleInquiry/sales_director/inquiry-details?inquiryNumber=${item.orderNum}`,
+					    		
+					    	});
+					    }else if (item.messageType ==3){
+					    	uni.navigateTo({
+					    		url: `/pages/qing-f-c/inquiryManage/sales_director/quotation-detail?quoteNumber=${item.orderNum}`,
+					    		
+					    	});
+					    }else if (item.messageType ==4){
+					    	uni.navigateTo({
+					    		url: `/pages/qing-f-c/inquiryManage/sampleInquiry/sales_director/quotation-details?number=${item.orderNum}`,
+					    		
+					    	});
+					    }else if (item.messageType == 5) {
+							uni.navigateTo({
+								url: `/pages/qing-f-c/inquiryManage/sales_director/quotation-detail?quoteNumber=${item.orderNum}`,
+								
+							});
+						}		
+					    
 					    break;
 					case 'REGIONAL_MANAGER':
-					  
+					    this.getMessage()
+					    break;
+					case 'ANALYST':
+					    this.getMessage()
 					    break;
 				}
                 
 				if (item.messageType ==6){
 					uni.navigateTo({
-						url: './messageDetail?messageCode=' + item.messageCode,
-						success: res => {},
-						fail: (err) => {
-							err
-						},
-						complete: () => {}
+						url: `/pages/qing-f-c/customPicture/followRecordDetail?recordCode=${item.orderNum}`,
+						
 					});
 				}
+				if (item.messageType == 7){
+					uni.navigateTo({
+						url: `/pages/qing-f-c/customPicture/followRecordDetailSeller?recordCode=${item.orderNum}`,
+						
+					});
+				}
+				if (item.messageType == 8){
+					uni.navigateTo({
+						url: `/pages/qing-f-c/followRecord/publicDialog?recordCode=${item.orderNum}&buyOrSell=1`,
+						
+					});
+				}
+				if (item.messageType == 9){
+					uni.navigateTo({
+						url: `/pages/qing-f-c/followRecord/publicDialog?recordCode=${item.orderNum}&buyOrSell=2`,
+						
+					});
+				}
+				
 				
 			}
 		}

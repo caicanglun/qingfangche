@@ -21,7 +21,8 @@ page{
 	top:60upx;
 	left:20upx;
 	font-size:15px;
-	z-index:99
+	z-index:99;
+	width: 100upx;
 }
 .modal-authorizat .modal-authorizat-btn {
   width: 100%;

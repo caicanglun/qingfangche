@@ -58,10 +58,10 @@
   height: 56rpx;
 }
 .details-content .title {
-    color: #999999;
+  color: #999999;
 }
 .details-content .height70 {
-    height: 70rpx;
+  height: 70rpx;
 }
 .bingpai {
   display: -webkit-box;

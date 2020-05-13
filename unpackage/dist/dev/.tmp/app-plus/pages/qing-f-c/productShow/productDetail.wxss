@@ -53,6 +53,14 @@ page {
   font-size: 16px;
   line-height: 98rpx;
 }
+.btn_right_100 {
+  width: 100%;
+  background-color: #FF6000;
+  color: #fff;
+  border-radius: 0;
+  font-size: 16px;
+  line-height: 98rpx;
+}
 .recentPrice {
   display: -webkit-box;
   display: -webkit-flex;
@@ -94,5 +102,14 @@ page {
   width: 200rpx;
   height: 200rpx;
   margin-top: 20rpx;
+}
+.ProductClipboard {
+  text-align: center;
+  width: 80rpx;
+  height: 40rpx;
+  background-color: #FF6000;
+  color: white;
+  line-height: 40rpx;
+  border-radius: 20rpx;
 }
 

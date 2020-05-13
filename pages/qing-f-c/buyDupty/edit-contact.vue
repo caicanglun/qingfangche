@@ -17,7 +17,7 @@
 		    <view class="list_right">电话号码：</view>
 		    <view class="flex_sb_c wid_462">
 		      <input name="phone" v-model="phone" 
-		  			  placeholder="请输入" placeholder-class="color_888 fs_14" style="width:350upx;" type="digit" class="input"></input>
+		  			  placeholder="请输入" placeholder-class="color_888 fs_14" style="width:350upx;"  class="input"></input>
 		    </view>
 		  </view>
 		  
@@ -73,7 +73,7 @@
 
 <script>
 	import myPicker from "@/components/myPicker.vue";
-	import rangeButton from "@/components/rangeButton-v.vue";
+	import rangeButton from "@/components/rangeButtonLong.vue";
 	import myCheckboxGroup from "@/components/myCheckboxGroup.vue";
 	const JsyServer = require("services/jsy-server.js");
 	let _this,_buyOrSellCode;
@@ -362,7 +362,7 @@
 							isDoRefresh:true
 					})
 				  uni.navigateBack({
-				  	delta: 2
+				  	delta: 1
 				  });
 				}).catch(err => {
 				  wx.showToast({

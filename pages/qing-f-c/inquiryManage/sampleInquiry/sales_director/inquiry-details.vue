@@ -146,7 +146,6 @@
 			uniIcon,
 			chanpinyaosu,
 			baojiaList,
-			popupMe,
 			popUpPic
 			
 		},

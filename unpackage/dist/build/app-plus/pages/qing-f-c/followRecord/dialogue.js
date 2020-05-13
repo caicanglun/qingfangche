@@ -1,0 +1,2 @@
+setCssToHead(["@charset \x22UTF-8\x22;\nbody { background: #f4f4f4; }\n.",[1],"send_button { position: fixed; bottom: 0; width: ",[0,750],"; z-index: 999; display: -webkit-box; display: -webkit-flex; display: flex; }\n.",[1],"input_class { background: #FFFFFF; width: ",[0,500],"; height: ",[0,90],"; text-align: center; }\n",],undefined,{path:"./pages/qing-f-c/followRecord/dialogue.wxss"})();
+document.dispatchEvent(new CustomEvent("generateFuncReady", { detail: { generateFunc: $gwx('./pages/qing-f-c/followRecord/dialogue.wxml') } }));

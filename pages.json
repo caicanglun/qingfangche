@@ -1,35 +1,106 @@
 {
 	"pages": [ //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
-	           {
-	            "path" : "pages/qing-f-c/index",
-	            "style" : {
-	            	            "navigationStyle":"custom",
-	           				"enablePullDownRefresh": true
-	            	        }
-	             },
+	          {
+	           "path" : "pages/qing-f-c/index",
+	           "style" : {
+	          				"navigationStyle":"custom",
+	          				"enablePullDownRefresh": true
+	          			}
+	           },
+	          
+			  {
+	              "path" : "pages/qing-f-c/customPicture/createCustomFollow",
+	              "style" : {"navigationBarTitleText": "新建客户跟进"}
+	          },
+			  {
+	              "path" : "pages/qing-f-c/productShow/productDetail",
+	              "style" : {"navigationBarTitleText": "产品详情"}
+	          },
+			  
+			  {
+	              "path" : "pages/qing-f-c/followRecord/dialogue",
+	              "style" : {"navigationBarTitleText": "对话"}
+	          },
+			   
+				
 			   {
-	                "path" : "pages/qing-f-c/buyDupty/followRecordDetail",
+	                "path" : "pages/qing-f-c/followRecord/addFollowRecord",
+	                "style" : {"navigationBarTitleText": "新增潜在订单"}
+	            },
+			   {
+	               "path" : "pages/qing-f-c/followRecord/connectInquiry",
+	               "style" : {"navigationBarTitleText": "选择询价单"}
+	           },
+	           
+			   {
+	               "path" : "pages/qing-f-c/followRecord/detailFollowRecord",
+	               "style" : {"navigationBarTitleText": "潜在订单跟进详情"}
+	           },
+	          
+			  {
+	               "path" : "pages/qing-f-c/customPicture/sd_followRecordDetail",
+	               "style" : {
+	              				"navigationStyle":"custom",
+								"enablePullDownRefresh": true
+	              			}
+	           },
+			   {
+	               "path" : "pages/qing-f-c/customPicture/sd_followList",
+	               "style" : {"navigationBarTitleText": "跟进列表",
+	               			"navigationBarBackgroundColor":"#ffffff",
+	               			"navigationBarTextStyle": "black",
+	               			"enablePullDownRefresh": true
+	               			}
+	           },
+			   
+	           {
+	               "path" : "pages/qing-f-c/followRecord/orderFollowSchedule",
+	               "style" : {"navigationBarTitleText": "订单跟进记录",
+				              "enablePullDownRefresh": true
+				   }
+	           },
+	          
+				
+	            {
+	                "path" : "pages/qing-f-c/customPicture/createFollowRecordSelldeputy",
+	                "style" : {"navigationBarTitleText": "新建跟进记录"}
+	            },
+	            
+				{
+	                "path" : "pages/qing-f-c/customPicture/competitorDetail",
+	                "style" : {"navigationBarTitleText": "竞争对手详情"}
+	            },
+
+	           {
+	               "path" : "pages/qing-f-c/customPicture/createFollowRecordBuydeputy",
+	               "style" : {"navigationBarTitleText": "新建跟进记录"}
+	           },
+
+			   {
+	                "path" : "pages/qing-f-c/customPicture/followRecordDetail",
 	                "style" : {"navigationBarTitleText": "跟进记录详情"}
 	            },
 	            	            
-	            
-	            
 	             {
-	                 "path" : "pages/qing-f-c/buyDupty/competitorDetail",
-	                 "style" : {"navigationBarTitleText": "竞争对手详情"}
-	             },
-	             {
-	                 "path" : "pages/qing-f-c/buyDupty/competitorAnalyist",
+	                 "path" : "pages/qing-f-c/customPicture/competitorAnalyist",
 	                 "style" : {"navigationBarTitleText": "竞争对手分析"}
 	             },
+	             
 	             {
-	                 "path" : "pages/qing-f-c/buyDupty/newFollowRecord",
-	                 "style" : {"navigationBarTitleText": "新建跟进记录"}
+	                 "path" : "pages/qing-f-c/customPicture/followList",
+	                 "style" : {"navigationBarTitleText": "客户跟进",
+	               			   
+	               			     "enablePullDownRefresh": true
+					           }
 	             },
-	             {
-	                 "path" : "pages/qing-f-c/buyDupty/followList",
-	                 "style" : {"navigationBarTitleText": "跟进列表"}
-	             },
+				 {
+				     "path" : "pages/qing-f-c/customPicture/followListNew",
+				     "style" : {"navigationBarTitleText": "客户跟进",
+				   			     "navigationBarBackgroundColor":"#ffffff",
+				   			     "navigationBarTextStyle": "black",
+				   			     "enablePullDownRefresh": true
+				 					           }
+				 },
 	            
 				  {
 				      "path" : "pages/qing-f-c/message/messageList",
@@ -39,10 +110,7 @@
 					  
 				  },
 				 
-	            {
-	                 "path" : "pages/qing-f-c/followRecord/addFollowRecord",
-	                 "style" : {"navigationBarTitleText": "新增跟进记录"}
-	             },
+	            
 	            {
 	                "path" : "pages/qing-f-c/inquiryManage/comQuotation/startQuotation",
 	                "style" : {"navigationBarTitleText": "发起报价"}
@@ -97,10 +165,7 @@
 	              					   }
 	              	    }
 	              	},
-				  {
-	                  "path" : "pages/qing-f-c/productShow/productDetail",
-	                  "style" : {"navigationBarTitleText": "产品详情"}
-	              },
+				 
 
 	               
 					{
@@ -335,11 +400,11 @@
 	             },
 	             {
 					 "path" : "pages/qing-f-c/buyDupty/customer-created",
-					 "style" : {"navigationBarTitleText": " 买帮办新建客户"}
+					 "style" : {"navigationBarTitleText": "新建客户"}
 	             },
 				 {
 					 "path" : "pages/qing-f-c/buyDupty/edit-customer",
-					 "style" : {"navigationBarTitleText": " 买帮办更新客户"}
+					 "style" : {"navigationBarTitleText": "更新客户"}
 				 },
 	             {
 	                  "path" : "pages/qing-f-c/buyDupty/contact-detail",
@@ -348,22 +413,22 @@
 	             
 	             {
 	                 "path" : "pages/qing-f-c/buyDupty/setManagerCondition",
-	                 "style" : {"navigationBarTitleText": "买帮办设置经营状况"}
+	                 "style" : {"navigationBarTitleText": "设置经营状况"}
 	             },
 	             {
 	                 "path" : "pages/qing-f-c/sellDupty/customer-admin",
-	                 "style" : {"navigationBarTitleText": "卖帮办客户管理",
+	                 "style" : {"navigationBarTitleText": "客户管理",
 					            "enablePullDownRefresh": true
 					 }
 	             },
 	              
 	             {
 	                 "path" : "pages/qing-f-c/sellDupty/customer-created",
-	                 "style" : {"navigationBarTitleText": "卖帮办新建客户"}
+	                 "style" : {"navigationBarTitleText": "新建客户"}
 	             },
 				 {
 				     "path" : "pages/qing-f-c/sellDupty/edit-customer",
-				     "style" : {"navigationBarTitleText": "卖帮办修改客户"}
+				     "style" : {"navigationBarTitleText": "修改客户"}
 				 },
 				 {
 				     "path" : "pages/qing-f-c/sellDupty/customer-details",
@@ -373,43 +438,43 @@
 				 },
 	            {
 	                "path" : "pages/qing-f-c/sellDupty/contact-detail",
-	                "style" : {"navigationBarTitleText": "卖帮办联系人详情"}
+	                "style" : {"navigationBarTitleText": "联系人详情"}
 	            },
 				{
 				    "path" : "pages/qing-f-c/sellDupty/setManagerCondition",
-				    "style" : {"navigationBarTitleText": "卖帮办设置管理者特征"}
+				    "style" : {"navigationBarTitleText": "设置管理者特征"}
 				},
 				{
 				    "path" : "pages/qing-f-c/sellDupty/editManagerCondition",
-				    "style" : {"navigationBarTitleText": "卖帮办编辑管理者特征"}
+				    "style" : {"navigationBarTitleText": "编辑管理者特征"}
 				},
 				{
 				    "path" : "pages/qing-f-c/sellDupty/add-contact",
-				    "style" : {"navigationBarTitleText": "卖帮办联系人详情"}
+				    "style" : {"navigationBarTitleText": "添加联系人"}
 				},
 				{
 				    "path" : "pages/qing-f-c/sellDupty/edit-contact",
-				    "style" : {"navigationBarTitleText": "卖帮办修改联系人"}
+				    "style" : {"navigationBarTitleText": "修改联系人"}
 				},
 				{
 				    "path" : "pages/qing-f-c/sellDupty/add-competitor",
-				    "style" : {"navigationBarTitleText": "卖帮办添加竞争者"}
+				    "style" : {"navigationBarTitleText": "添加竞争者"}
 				},
 				{
 				    "path" : "pages/qing-f-c/sellDupty/edit-competitor",
-				    "style" : {"navigationBarTitleText": "卖帮办修改竞争者"}
+				    "style" : {"navigationBarTitleText": "修改竞争者"}
 				},
 				{
 				    "path" : "pages/qing-f-c/sellDupty/detail-competitor",
-				    "style" : {"navigationBarTitleText": "卖帮办竞争对手详情"}
+				    "style" : {"navigationBarTitleText": "竞争对手详情"}
 				},
 				{
 				    "path" : "pages/qing-f-c/buyDupty/editManagerCondition",
-				    "style" : {"navigationBarTitleText": "买帮办编辑管理者特征"}
+				    "style" : {"navigationBarTitleText": "编辑管理者特征"}
 				},
 	            {
 	                "path" : "pages/qing-f-c/buyDupty/add-contact",
-	                "style" : {"navigationBarTitleText": "买帮办添加联系人"}
+	                "style" : {"navigationBarTitleText": "添加联系人"}
 	            },
 	            	          
 	            
@@ -423,15 +488,15 @@
 	           
 			  {
 			      "path" : "pages/qing-f-c/buyDupty/detail-competitor",
-			      "style" : {"navigationBarTitleText": "买帮办竞争对手详情"}
+			      "style" : {"navigationBarTitleText": "竞争对手详情"}
 			  },
 			  {
 			      "path" : "pages/qing-f-c/buyDupty/edit-competitor",
-			      "style" : {"navigationBarTitleText": "买帮办编辑竞争对手"}
+			      "style" : {"navigationBarTitleText": "编辑竞争对手"}
 			  },
 	         {
 	             "path" : "pages/qing-f-c/buyDupty/add-competitor",
-	             "style" : {"navigationBarTitleText": "买帮办添加竞争对手"}
+	             "style" : {"navigationBarTitleText": "添加竞争对手"}
 	         },
 	        
 			// {
@@ -440,7 +505,7 @@
 			// },
 	        {
 	        			 "path" : "pages/qing-f-c/buyDupty/customer-admin",
-	        			 "style" : {"navigationBarTitleText": "买帮办客户管理",
+	        			 "style" : {"navigationBarTitleText": "客户管理",
 						            "enablePullDownRefresh": true
 						 }
 	        },
@@ -470,12 +535,7 @@
 						 "style" : {"navigationBarTitleText": "选择区域经理"}
 			},
 	       
-			{
-						 "path" : "pages/qing-f-c/customer/customer-list",
-						 "style" : {"navigationBarTitleText": "客户管理"}
-			},
-		
-	       
+			
 		   {
 		       "path" : "pages/qing-f-c/claimIdentity/claimIdentity",
 		       "style" : {"navigationBarTitleText": "身份认领"}
@@ -665,6 +725,89 @@
         ,{
             "path" : "pages/qing-f-c/bangban/bangbanList",
             "style" : {}
+        }
+        
+        ,{
+            "path" : "pages/qing-f-c/customPicture/followRecordDetailSeller",
+            "style" : {"navigationBarTitleText": "跟进记录详情"}
+        }
+        ,{
+            "path" : "pages/qing-f-c/customPicture/editCompetitor",
+            "style" : {"navigationBarTitleText": "编辑竞争对手"}
+        }
+        ,{
+            "path" : "pages/qing-f-c/customPicture/editFollowRecord",
+            "style" : {"navigationBarTitleText": "编辑客户跟进"}
+        }
+        ,{
+            "path" : "pages/qing-f-c/customPicture/editFollowRecordBuy",
+            "style" : {}
+        }
+        ,{
+            "path" : "pages/qing-f-c/customPicture/editFollowRecordSell",
+            "style" : {}
+        }
+        ,{
+            "path" : "pages/qing-f-c/customPicture/addCompetitor",
+            "style" : {"navigationBarTitleText": "新增竞争对手"}
+        }
+        ,{
+            "path" : "pages/qing-f-c/followRecord/followList",
+            "style" : {"navigationBarTitleText": "潜在订单",
+			          "navigationBarBackgroundColor":"#ffffff",
+			          "navigationBarTextStyle": "black",
+			          "enablePullDownRefresh": true
+			}
+        }
+        ,{
+            "path" : "pages/qing-f-c/productShow/editProduct",
+            "style" : {"navigationBarTitleText": "编辑产品"}
+        }
+
+        ,{
+            "path" : "pages/qing-f-c/followRecord/selectBuyer",
+            "style" : {"navigationBarTitleText": "选择买家"}
+        }
+        ,{
+            "path" : "pages/qing-f-c/followRecord/editFollowRecord",
+            "style" : {"navigationBarTitleText": "修改"}
+        }
+        ,{
+            "path" : "pages/qing-f-c/followRecord/updateFollowRecord",
+            "style" : {"navigationBarTitleText": "更新进度"}
+        }
+        ,{
+            "path" : "pages/qing-f-c/followRecord/sd_followList",
+            "style" : {"navigationBarTitleText": "潜在订单",
+            			"navigationBarBackgroundColor":"#ffffff",
+            			"navigationBarTextStyle": "black",
+            			"enablePullDownRefresh": true
+            			}
+        }
+        
+        ,{
+            "path" : "pages/qing-f-c/followRecord/publicDialog",
+            "style" : {"navigationBarTitleText": "对话",
+				       "enablePullDownRefresh": true
+					   }
+        }
+        ,{
+            "path" : "pages/qing-f-c/followRecord/selectContact",
+            "style" : {"navigationBarTitleText": "选择对话人"}
+        }
+        ,{
+            "path" : "pages/qing-f-c/productShow/productCreateCopy",
+            "style" : {}
+        }
+        ,{
+            "path" : "pages/qing-f-c/productShow/selectCustomer",
+            "style" : {}
+        }
+        ,{
+            "path" : "pages/qing-f-c/customPicture/buySellFollowDetail",
+            "style" : {
+				"navigationBarTitleText": "跟进记录详情"
+			}
         }
     ],
 	"tabBar": {
