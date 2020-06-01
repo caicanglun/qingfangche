@@ -1,0 +1,1 @@
+<view><movable-area class="fixed-box"><movable-view class="fixed-button" direction="all" inertia="{{true}}"><slot></slot></movable-view></movable-area></view>

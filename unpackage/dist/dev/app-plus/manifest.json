@@ -7,8 +7,8 @@
   "id": "__UNI__85973DE",
   "name": "轻纺车网",
   "version": {
-    "name": "1.2.0",
-    "code": 120
+    "name": "1.2.4",
+    "code": 124
   },
   "description": "",
   "launch_path": "__uniappview.html",
@@ -145,6 +145,7 @@
       }
     },
     "compilerVersion": 2,
+    "nvueCompiler": "uni-app",
     "allowsInlineMediaPlayback": true,
     "safearea": {
       "background": "#f8f8f8",

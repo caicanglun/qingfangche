@@ -1,6 +1,13 @@
 {
   "pages": [
     "pages/qing-f-c/index",
+    "pages/qing-f-c/casualPrice/sd_casualList",
+    "pages/qing-f-c/casualPrice/casualList",
+    "pages/qing-f-c/casualPrice/createCasual",
+    "pages/qing-f-c/newFollowRecord/publicDialog",
+    "pages/qing-f-c/newFollowRecord/updateState",
+    "pages/qing-f-c/newFollowRecord/setTargetPrice",
+    "pages/qing-f-c/newFollowRecord/detail",
     "pages/qing-f-c/customPicture/createCustomFollow",
     "pages/qing-f-c/productShow/productDetail",
     "pages/qing-f-c/followRecord/dialogue",
@@ -141,7 +148,19 @@
     "pages/qing-f-c/followRecord/selectContact",
     "pages/qing-f-c/productShow/productCreateCopy",
     "pages/qing-f-c/productShow/selectCustomer",
-    "pages/qing-f-c/customPicture/buySellFollowDetail"
+    "pages/qing-f-c/customPicture/buySellFollowDetail",
+    "pages/qing-f-c/newFollowRecord/deputyFollowList",
+    "pages/qing-f-c/newFollowRecord/sd_followList",
+    "pages/qing-f-c/newFollowRecord/selectSellDeputy",
+    "pages/qing-f-c/newFollowRecord/addFollowRecord",
+    "pages/qing-f-c/newFollowRecord/selectBuyer",
+    "pages/qing-f-c/newFollowRecord/connectInquiry",
+    "pages/qing-f-c/newFollowRecord/modifyRecord",
+    "pages/qing-f-c/newFollowRecord/selectContact",
+    "pages/qing-f-c/newFollowRecord/selectPrincipal",
+    "pages/qing-f-c/sales_director/customLevelAudit",
+    "pages/qing-f-c/regionalManager/approved",
+    "pages/qing-f-c/buyDupty/updateCustomLevel"
   ],
   "window": {
     "navigationBarTextStyle": "white",

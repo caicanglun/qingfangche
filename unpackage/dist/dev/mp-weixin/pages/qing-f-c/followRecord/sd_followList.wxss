@@ -94,4 +94,17 @@ page {
   margin: 10px auto;
   position: relative;
 }
+.messageCount {
+  height: 36rpx;
+  width: 60rpx;
+  border-radius: 18rpx;
+  padding: 0 10rpx;
+  background: #ff0000;
+  color: #FFFFFF;
+}
+.statusStyle {
+  height: 40rpx;
+  border-radius: 20rpx;
+  padding: 0 20rpx;
+}
 

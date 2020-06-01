@@ -48,7 +48,7 @@
 }
 .title {
   margin: 0 30rpx;
-  padding: 0 10rpx 27rpx 10rpx;
+  height: 65rpx;
   border-bottom: 1rpx solid rgba(221, 221, 221, 0.3);
   font-size: 12px;
   color: #9B9B9B;

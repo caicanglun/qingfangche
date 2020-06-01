@@ -67,6 +67,7 @@
 	 	 text-align: center;
 	 	 margin-bottom: 20upx;
 		 border: 2upx solid #D3D3D3;
+		 
 	 	 }
 .icon-position{
 	position: absolute;

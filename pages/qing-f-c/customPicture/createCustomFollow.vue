@@ -1,6 +1,14 @@
 <template>
 	<view>
-		<view class="box-shawn">
+		<view style="background: #FFFFFF; padding: 10upx 40upx 0 30upx;">
+			<view class="content-1 no_border">
+				<view class='label'>跟进方式</view>
+				<view class='items'>
+					<myPickerPart  :items="selectList.followPatternList" @mychange="pickerChange('followPattern',$event)" :firstLabel='-1'></myPickerPart>
+				</view>
+			</view>
+		</view>
+		<view class="box-shawn" style="margin-top:20upx;">
 			<view class="content-1 no_border" >
 				<view style="font-weight: bold;font-size: 16px;">跟进内容</view>
 				
@@ -13,7 +21,7 @@
 			</view>
 			<view style="height: 1upx;width:100%;margin-top: 20upx;background: #E9E9E9;"></view>
 			<view style="width:100%; padding-bottom: 20upx;font-size:15px;margin-top: 20upx;">
-				<textarea auto-height placeholder-style="font-size:13px" style="width: 100%;" v-model="form.remarks"  maxlength="-1" placeholder="请填写"/> 
+				<textarea  placeholder-style="font-size:13px" style="width: 100%;min-height: 200upx;" v-model="form.remarks"  maxlength="-1" placeholder="请填写"/> 
 			</view>
 		</view>
 
@@ -33,7 +41,7 @@
 				<view>计划事项</view>
 			</view>
 			<view style="width:100%; padding-bottom: 20upx;font-size:15px;" >
-				<textarea auto-height placeholder-style="font-size:13px" style="width: 100%;" v-model="form.nextRemarks" maxlength="-1" placeholder="请填写"/> 
+				<textarea  placeholder-style="font-size:13px" style="width: 100%;min-height: 180upx;"  v-model="form.nextRemarks" maxlength="-1" placeholder="请填写"/> 
 			</view>
 		</view>
 		<view style="height:150upx;">
@@ -81,17 +89,17 @@
 		},
 		data() {
 			return {
+				
 				purcharseArr:[],
 				selectList:{
-					warningLevelList:[],
-					recordStatusList:[],
-					failCauseList:[]
+					
+					followPatternList:[]
 				},
 				tradeName:'',      //关联的品名
 				companyName:'',    //公司名
 				form:{
 					buyOrSellCode: '',      //联系人编码
-					
+					wayCode:'',             //跟进方式
 					remarks:'',				//备注
 					nextTime:'',		    //下次跟进时间
 					nextRemarks:'',			//下次跟进备注
@@ -103,13 +111,19 @@
 				
 			};
 		},
+		
 		onLoad:function(options){
 			_this = this
 			this.form.buyOrSellCode = options.buyOrSellCode
 			this.getType()
+			this.getFollowWay()
 			
 		},
 		methods:{
+			async getFollowWay(){
+				const res = await this.$http.get('/choose/follow_way',{})
+				this.selectList.followPatternList = res.data.data.list
+			},
 			async getType(){
 				const res = await this.$http.get('/choose/remarks_type',{})
 				this.purcharseArr = res.data.data.list
@@ -144,7 +158,16 @@
 				console.log(obj)
 				this.date = obj.selectTime
 			},
-			
+			pickerChange:function(label,event){
+			  console.log(event)
+			  switch (label){
+				  case 'followPattern':
+					 this.form.wayCode = event
+					 
+					 break;
+				}
+				
+			},
 			areaInput:function(e){
 				console.log(e)
 			},

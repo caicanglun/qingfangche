@@ -253,10 +253,13 @@
 				this.form.nextTime = this.date
 				let data=this.form
                 console.log(data)
-				
+				uni.showLoading({
+					title: '提交中',
+					mask: true
+				})
 				const res = await this.$http.post('/latent/add',{data:data})
 				console.log(res)
-				
+				uni.hideLoading()
 				var pages = getCurrentPages();
 				var currPage = pages[pages.length - 1]; //当前页面
 				var prevPage = pages[pages.length - 2]; //上一个页面

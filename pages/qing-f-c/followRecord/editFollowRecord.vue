@@ -39,7 +39,7 @@
 			<view class="content-1">
 				<view class='label'>跟进预警</view>
 				<view class='items'>
-					<myPickerPart :items="selectList.warningLevelList" @mychange="pickerChange('warningLevel',$event)" :firstLabel='form.warningLevelCode'></myPickerPart>
+					<myPickerPart :items="selectList.warningLevelList" @mychange="pickerChange('warningLevel',$event)" :firstLabel='form.warningLevel'></myPickerPart>
 				</view>
 			</view>
 			<view class="content-1">
@@ -53,7 +53,7 @@
 			<view class="content-1" :style="{border: isShowFail?'':'none'}">
 				<view class='label'>跟进状态</view>
 				<view class='items'>
-					<myPickerPart :items="selectList.recordStatusList" @mychange="pickerChange('recordStatus',$event)" :firstLabel='form.recordStatusCode'></myPickerPart>
+					<myPickerPart :items="selectList.recordStatusList" @mychange="pickerChange('recordStatus',$event)" :firstLabel='form.recordStatus'></myPickerPart>
 				</view>
 			</view>
 			<view class="content-1 no_border" v-if="isShowFail">
@@ -177,6 +177,8 @@
 			this.form.tradeName = this.form.latentTradeName
 			this.selectList = JSON.parse(options.selectList)
 			this.form.inquiryNumber = this.form.inquiryNumber || ''
+			this.form.recordStatus = this.form.recordStatusCode ||''
+			this.form.warningLevel = this.form.warningLevelCode || ''
 			console.log(this.selectList)
 		},
 		methods:{

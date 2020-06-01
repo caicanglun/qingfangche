@@ -53,7 +53,6 @@ page {
   padding: 20rpx;
   margin: 20rpx;
   background: #FFFFFF;
-  line-height: 25px;
   border-radius: 8rpx;
 }
 .follow_point {
@@ -63,7 +62,7 @@ page {
   margin-top: 10rpx;
 }
 .followTitle {
-  font-size: 15px;
+  font-size: 16px;
   color: #000000;
   font-weight: bold;
   line-height: 30px;
@@ -93,5 +92,18 @@ page {
   /*透明 透明  灰*/
   margin: 10px auto;
   position: relative;
+}
+.messageCount {
+  height: 36rpx;
+  width: 60rpx;
+  border-radius: 18rpx;
+  padding: 0 10rpx;
+  background: #ff0000;
+  color: #FFFFFF;
+}
+.statusStyle {
+  height: 40rpx;
+  border-radius: 20rpx;
+  padding: 0 20rpx;
 }
 

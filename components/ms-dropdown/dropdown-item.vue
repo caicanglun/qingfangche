@@ -139,14 +139,14 @@
 			display: flex;
 			align-items: center;
 			background: #fff;
-			padding: 30rpx;
+			padding: 26rpx;
 			box-sizing: border-box;
 			justify-content: center;
 			.selected__name {
 				font-size: 28rpx;
 			}
 			.selected__icon {
-				margin-left: 20rpx;
+				margin-left: 15rpx;
 				&.down {
 					transition: transform .3s;
 					transform: rotateZ(0);

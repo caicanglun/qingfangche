@@ -54,7 +54,7 @@
   -webkit-align-items: center;
           align-items: center;
   background: #fff;
-  padding: 30rpx;
+  padding: 26rpx;
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
   -webkit-box-pack: center;
@@ -65,7 +65,7 @@
   font-size: 28rpx;
 }
 .dropdown-item__selected .selected__icon {
-  margin-left: 20rpx;
+  margin-left: 15rpx;
 }
 .dropdown-item__selected .selected__icon.down {
   -webkit-transition: -webkit-transform .3s;

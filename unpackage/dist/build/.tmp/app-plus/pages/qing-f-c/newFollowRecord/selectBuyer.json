@@ -1,0 +1,7 @@
+{
+  "navigationBarTitleText": "选择客户",
+  "usingComponents": {
+    "top-search": "/components/topSearch",
+    "uni-load-more": "/components/uni-load-more/uni-load-more"
+  }
+}

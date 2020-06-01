@@ -26,24 +26,36 @@
 		</view>
 		<view style="height: 230upx;width:100%;"></view>
 		<block v-for="(item,index) in followList" :key="index" >
-			<view class="record-wrap flex_sb" @tap="toDetail(item.recordCode)">
-				<view class="flex_column">
+			<view class="record-wrap " @tap="toDetail(item.recordCode)">
+				<view class="flex_sb">
+					<view class="flex_column" style="line-height: 25px;">
+						
+						<view class="followTitle">{{item.tradeName||''}}</view>
 					
-					<view class="followTitle">{{item.tradeName||''}}</view>
-
-					<view class="followContent">客户：<text style="color: #000000">{{item.realName||''}}</text></view>
-
-				    <view style="color:#999;font-size:12px;line-height: 30px;">跟进时间：{{item.createTime||''}}</view>
+						<view class="followContent">客户：<text style="color: #000000">{{item.realName||''}}</text></view>
 					
-				</view>
-				<view style="font-size: 13px;" class="flex_column">
-					<view style="font-size: 12px;line-height: 30px;color:#FF6000">{{item.recordStatusName||''}}</view>
-					<view class="flex_c_c" style="margin-top:20upx;" v-if="item.recordStatusCode!=98&&item.recordStatusCode!=99">
-						<image :src="baseUrl+ item.warningLevelCode + '.png'" mode="aspectFit" class="alertPng" @tap="addFollow"></image>
+					    <view style="color:#999;font-size:12px;line-height: 30px;">跟进时间：{{item.createTime||''}}</view>
+						
 					</view>
-					
+					<view style="font-size: 13px;" class="flex_column">
+						<!-- <view style="font-size: 12px;line-height: 30px;color:#FF6000">{{item.recordStatusName||''}}</view>
+						<view class="flex_c_c" style="margin-top:20upx;" v-if="item.recordStatusCode!=98&&item.recordStatusCode!=99">
+							<image :src="baseUrl+ item.warningLevelCode + '.png'" mode="aspectFit" class="alertPng" @tap="addFollow"></image>
+						</view> -->
+						<view class="messageCount flex_c_c" v-show="item.messageCount>0">{{item.messageCount||''}}</view>
+					</view>
+				</view>
+				
+				<view style="height:0;width: 100%;border-bottom: 1upx dashed #DADADA;"></view>
+				<view style="display: flex;justify-content: space-between;font-size:13px;margin-top: 15upx;">
+					<view :style="{color: item.warningLevelCode==1000 ||item.warningLevelCode==3000?'#00B71E':item.warningLevelCode==5000 ||item.warningLevelCode==7000?'#FFB420':'#ff0000'}">
+					{{item.warningLevelName}}预警</view>
+					<view class="statusStyle flex_c_c" :style="[{color: item.recordStatusCode==1 ?'#007EFF':'',background: item.recordStatusCode==1?'#F2F6FF':'#F5F5F5'}]">
+					{{item.recordStatusName}}</view>
+					<view>负责人</view>
 				</view>
 			</view>
+			
 		</block>
 		
 		<uniLoadMore :status="loadingType"></uniLoadMore>
@@ -330,5 +342,18 @@ page{
     position:relative;
 
 }
+.messageCount{
+	height: 36upx;
+	width: 60upx;
+	border-radius: 18upx;
+	padding: 0 10upx;
+	background: #ff0000;
+	color: #FFFFFF;
+}
+.statusStyle{
+	height: 40upx;
+	border-radius: 20upx;
+	padding: 0 20upx;
 
+}
 </style>

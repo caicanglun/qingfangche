@@ -135,6 +135,8 @@
 			this.form.tradeName = this.form.latentTradeName
 			this.selectList = JSON.parse(options.selectList)
 			this.form.inquiryNumber = this.form.inquiryNumber || ''
+			this.form.recordStatus = this.form.recordStatusCode ||''
+			this.form.warningLevel = this.form.warningLevelCode || ''
 			this.form.remarks = ''
 			this.form.nextRemarks = ''
 			console.log(this.selectList)

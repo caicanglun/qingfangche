@@ -1,5 +1,12 @@
 <template>
 	<view>	
+	    <view style="background: #FFFFFF;padding: 0 30upx;">
+			<view class="content-1 no_border">
+					<view>
+						 <text style="color:#888890">跟进方式</text> <text style="padding-left: 30upx;">{{item.wayName||''}}</text>     
+					</view>
+			</view> 
+		</view>
 		<view class="box-shawn" style="margin-top: 20upx;" >
 			<view class="content-1 no_border">
 				<view class="flex_c">
@@ -44,7 +51,7 @@
 		</view>
 		<view style="height: 150upx;width:100%;"></view>
 		<view class="fixed_bottom box_shadow_btn" v-if="isShow">
-		   <button class="btn_left" @tap="deleteReord" hover-class="none">删除</button>
+		  <button class="btn_left" @tap="deleteReord" hover-class="none">删除</button>
 		  <button class="btn_right" @tap="submit" hover-class="none">修改</button>
 		</view>
 	</view>

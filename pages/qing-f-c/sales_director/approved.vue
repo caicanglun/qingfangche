@@ -15,7 +15,10 @@
 				<image src="/static/images/product.png" mode="aspectFit" class="approved-image" @tap= "toProduct"></image>
 				<widgit :count="auditCount" v-if="auditCount>0"></widgit>
 			</view>
-			
+			<view class="img-wrap" style="margin-top: 30upx;">
+				<image src="/static/images/level.png" mode="aspectFit" class="approved-image" @tap= "toCustomLevel"></image>
+				<widgit :count="customLevelCount" v-if="customLevelCount>0"></widgit>
+			</view>
 				
 		</view>
 			
@@ -33,21 +36,35 @@
 		data() {
 			return {
 				directorReviewCount:'',
-				auditCount:''
+				auditCount:'',
+				customLevelCount:'',
+				pupDefault:''
 			};
 		},
 		onLoad:function(){
 			_this = this
+			this.pupDefault = uni.getStorageSync('pupDefault')
 			this.reviewCount()
 			this.getAuditCount()
+			this.getCustomLevelCount()
 		},
 		onShow:function(){
 			this.reviewCount()
 			this.getAuditCount()
+			this.getCustomLevelCount()
 		},
 		methods:{
+			async getCustomLevelCount(){
+				let data ={
+					postCode: this.pupDefault
+				}
+				const res = await this.$http.get('/cm/level_audit_count',{data: data})
+				this.customLevelCount = res.data.data.msg
+			},
 			reviewCount:function(){
-				let data={}
+				let data={
+					postCode: uni.getStorageSync('pupDefault')
+				}
 				let url= this.Api.directorReviewCount
 				this.myRequest(data,url,'get').then(res => {
 				  console.log(res);
@@ -61,7 +78,9 @@
 				});
 			},
 			getAuditCount:function(){
-				let data={}
+				let data={
+					postCode: uni.getStorageSync('pupDefault')
+				}
 				let url= this.Api.auditCount
 				this.myRequest(data,url,'get').then(res => {
 				  console.log(res);
@@ -87,6 +106,12 @@
 			toProduct:function(){
 				uni.navigateTo({
 					url: '/pages/qing-f-c/productShow/examineProduct',
+				});
+			},
+			toCustomLevel:function(){
+				uni.navigateTo({
+					url: './customLevelAudit',
+					
 				});
 			}
 		}

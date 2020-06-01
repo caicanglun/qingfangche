@@ -1,228 +1,232 @@
 <template>
-<view id="outView">
+	<view id="outView">
 
 
-<view class="login_top" >
-	<view class="backto" @tap="backto" v-if="!isDisplay">返回</view>
-		<!-- <image src='https://api.qingfangche.net/api/common/picture/201904221111002/png/images/download' mode='aspectFill' class='login_img'></image> -->
-</view>
-<view class="hand_box box_shadow margin-top-200">
-  <view class="flex_sb">
-    <view class="flex">
-      <image src="/static/images/qingfc/application/companyx.png" class="title_img" mode="aspectFit"></image>
-      <view class="fs_18 font_we_bold">{{customerInfo.companyName||''}}</view>
-	  <view :class="'ml_20 '+ (customerInfo.buyOrSell==1?'id_btn':'seller_btn')">{{customerInfo.buyOrSell==1?'买家':'卖家'}}</view>
-    </view>
-
-    
-  </view>
-  <!-- <view class="flex_right mb_20">
-    <view :class="(customerInfo.type==2?'id_btn':'seller_btn')">{{customerInfo.type==2?'买家':'卖家'}}</view>
-  </view> -->
-  <view class="flex_end mt_30">
-    <view class="fs_15 font_we_bold">评价：</view>
-    <block v-for="(item, index) in star" :key="index">
-      <image src="/static/images/shixinStar.png" class="stars_img" mode="aspectFit"></image>
-    </block>
-    <view class="ml_30 fs_12 color_FF6000">查看详情</view>
-  </view>
-  <view class="flex_c fs_14 mt_30">
-    <view class="wid_168 flex_c">
-      <view class="wid_140 color_9b">找样结果数</view>
-      <view class="wid_156">{{counter.inquiryCount|| 0}}</view>
-    </view>
-	<view class="line"></view>
-	<!-- <view class="wid_168 flex_c">
-	  <view class="wid_140 color_9b">匹配确认数</view>
-	  <view class="wid_156">{{customerInfo.demandNum||0}}</view>
+	<view class="login_top" >
+		<view class="backto" @tap="backto" v-if="!isDisplay">返回</view>
+			<!-- <image src='https://api.qingfangche.net/api/common/picture/201904221111002/png/images/download' mode='aspectFill' class='login_img'></image> -->
 	</view>
-    <view class="line"></view> -->
-    <view class="wid_168 flex_c">
-      <view class="wid_140 color_9b">总交易次数</view>
-      <view class="wid_156">{{counter.dealCount|| 0}}</view>
-    </view>
-  </view>
-  
-  <view class="flex_sb mt_30">
-    <view class="hand_bottom_btn" @tap="toRecordDetails">
-  		<view>跟进记录</view>
-  		<view class="counter">{{counter.followCount|| 0}}条</view>
-  	</view>
-    <view class="hand_bottom_btn" @tap="toProductPage">
-  		<view>产品展示</view>
-  		<view class="counter">{{counter.productCount|| 0}}个</view>
-  		
-  	</view>
-    <view class="hand_bottom_btn" @tap="toBondDetail">
-  		<view>保证金</view>
-  		<view class="counter">{{counter.cashDeposit|| 0}}元</view>
-  	</view>
-  </view>
-</view>
- <!-- ---------------------------------- -->
-<view class="inTabbar box_shadow pt_30" id="inTabbar" v-if="isDisplay">
-	<view class="flex_c_c mb_20">{{customerInfo.companyName||''}}</view>
-	<view class="flex_sa">
-		<view class="tabItem fs_15"
-			v-for="(item,index) of items" 
-			:key= "index" 
-			:class= "activeIndex==index?'active':''"
-			 @tap= "tabSwitch(index)"
-		    :data-index='activeIndex'>
-			<text class= "tabText">{{item}}</text>
-			<view class= "bottomLine"></view>
+	<view class="hand_box box_shadow margin-top-200">
+	  <view class="flex_sb">
+		<view class="flex">
+		  <image src="/static/images/qingfc/application/companyx.png" class="title_img" mode="aspectFit"></image>
+		  <view class="fs_18 font_we_bold">{{customerInfo.companyName||''}}</view>
+		  <view :class="'ml_20 '+ (customerInfo.buyOrSell==1?'id_btn':'seller_btn')">{{customerInfo.buyOrSell==1?'买家':'卖家'}}</view>
 		</view>
+
+		
+	  </view>
+	  <!-- <view class="flex_right mb_20">
+		<view :class="(customerInfo.type==2?'id_btn':'seller_btn')">{{customerInfo.type==2?'买家':'卖家'}}</view>
+	  </view> -->
+	  <view class="flex_end mt_30">
+		<view class="fs_15 font_we_bold">评价：</view>
+		<block v-for="(item, index) in star" :key="index">
+		  <image src="/static/images/shixinStar.png" class="stars_img" mode="aspectFit"></image>
+		</block>
+		<view class="ml_30 fs_12 color_FF6000">查看详情</view>
+	  </view>
+	  <view class="flex_c fs_14 mt_30">
+		<view class="wid_168 flex_c">
+		  <view class="wid_140 color_9b">找样结果数</view>
+		  <view class="wid_156">{{counter.inquiryCount|| 0}}</view>
+		</view>
+		<view class="line"></view>
+		<!-- <view class="wid_168 flex_c">
+		  <view class="wid_140 color_9b">匹配确认数</view>
+		  <view class="wid_156">{{customerInfo.demandNum||0}}</view>
+		</view>
+		<view class="line"></view> -->
+		<view class="wid_168 flex_c">
+		  <view class="wid_140 color_9b">总交易次数</view>
+		  <view class="wid_156">{{counter.dealCount|| 0}}</view>
+		</view>
+	  </view>
+	  
+	  <view class="flex_sb mt_30">
+		<view class="hand_bottom_btn" @tap="toRecordDetails">
+			<view>跟进记录</view>
+			<view class="counter">{{counter.followCount|| 0}}条</view>
+		</view>
+		<view class="hand_bottom_btn" @tap="toProductPage">
+			<view>产品展示</view>
+			<view class="counter">{{counter.productCount|| 0}}个</view>
+			
+		</view>
+		<view class="hand_bottom_btn" @tap="toBondDetail">
+			<view>保证金</view>
+			<view class="counter">{{counter.cashDeposit|| 0}}元</view>
+		</view>
+	  </view>
+	</view>
+	 <!-- ---------------------------------- -->
+	<view class="inTabbar box_shadow pt_30" id="inTabbar" v-if="isDisplay">
+		<view class="flex_c_c mb_20">{{customerInfo.companyName||''}}</view>
+		<view class="flex_sa">
+			<view class="tabItem fs_15"
+				v-for="(item,index) of items" 
+				:key= "index" 
+				:class= "activeIndex==index?'active':''"
+				 @tap= "tabSwitch(index)"
+				:data-index='activeIndex'>
+				<text class= "tabText">{{item}}</text>
+				<view class= "bottomLine"></view>
+			</view>
+		</view>
+		
+	</view>
+	<!-- ----------------------- -->
+	<view style="background-color: #f4f4f4;">             <!-- 背景颜色 -->
+		
+		 
+	 <!-- ---------------------------------- -->
+	 
+	<view class="box" id="companyInfo">
+	  <view class="flex_sb_c box_list">
+		<view class="fs_16 font_we_bold lh_72 flex_c">
+		  <view class="list_line"></view>
+		  <view>公司信息</view>
+		</view>
+		<image src="/static/images/jinsy/bianji.png" class="bianji_img" mode="aspectFit" @tap="goEditCustomer"></image>
+	  </view>
+	 <!-- <view class="flex_c box">
+	   <listShow label="客户编号" :content="customerInfo.companyCode"></listShow>
+	 </view>
+	 -->
+
+	  <view class="flex_c box_list fs_14">
+		<view class='list_right'>客户编号</view>
+		<view>{{customerInfo.companyCode||''}}</view>
+	  </view>
+	  
+	  <view class="flex_c box_list fs_14">
+		<view class='list_right'>所属区域</view>
+		<view>{{customerInfo.region||''}}</view>
+	  </view>
+	  
+	  <view class="flex_c box_list fs_14">
+		<view class='list_right'>工厂地址</view>
+		<view>{{customerInfo.factoryAddress||''}}</view>
+	  </view>
+	  <view class="flex_c box_list fs_14" v-if="customerInfo.hasSalesroom==1">
+		<view class='list_right'>门市地址</view>
+		<view>{{customerInfo.salesroomAddress||''}}</view>
+	  </view>
+	  
+	  <view class="flex_c box_list fs_14">
+		<view class='list_right'>客户类型</view>
+		<view>{{customerInfo.companyType||''}}</view>
+	  </view>
+	 <!-- <view class="flex_c box_list fs_14">
+		<view class='list_right'>客户规模</view>
+		<view>{{customerInfo.companyScale||''}}</view>
+	  </view> -->
+	  <view class="flex_c box_list fs_14">
+		<view class='list_right'>客户来源</view>
+		<view>{{customerInfo.companySource||''}}</view>
+	  </view>
+	  <view class="flex_c box_list fs_14">
+		<view class='list_right'>合作意向</view>
+		<view>{{customerInfo.cooperationIntention||''}}</view>
+	  </view>
+	  <!-- <view class="flex_c box_list fs_14">
+		<view class='list_right'>重要等级</view>
+		<view>{{customerInfo.companyLevelName ||''}}</view>
+	  </view> -->
+	  <view class="flex_c box_list fs_14 no_border">
+		<view class='list_right'>配合度</view>
+		<view>{{customerInfo.coordinate||''}}</view>
+	  </view>
+	</view>
+	 <!-- ---------------------------------- -->
+	 <!-- ---------------------------------- -->
+	 <view class="box box_shadow">
+	   <view :class="'flex_sb_c box_list '">
+	     <view :class="'fs_16 font_we_bold ' + ' flex_c'">
+	       <view class="list_line"></view>
+	       <view>客户等级</view>
+	     </view>
+	     <image src="/static/images/jinsy/bianji.png" class="bianji_img" mode="aspectFit" 
+		 @tap="editCustomeLevel(customerInfo.companyCode,customerInfo.companyLevelCode)"
+		 v-show="customerInfo.companyLevelStatusCode!=1"></image>
+	   </view>
+	   <view class="flex_sb box_list fs_14">
+	 	  <view class="flex">
+	 		  <view style="width: 140upx;"><text style="color:#888890">重要等级</text></view>
+	 		  <view><text>{{customerInfo.companyLevelName||''}}</text>  </view>
+	 		  
+	 	  </view>
+	 	  <view :style="{color: customerInfo.companyLevelStatusCode==2||customerInfo.companyLevelStatusCode==4?'#ff0000':''}">{{customerInfo.companyLevelStatusName||''}}</view>
+	   </view>
+	 </view>
+	<!-- ------------------------------------------ -->
+	<view class="box box_shadow" id="contact">
+	  <view :class="'flex_sb_c box_list ' + (!linkMan?'no_border':'')">
+		<view :class="'fs_16 font_we_bold ' + (linkMan?'lh_72':'') + ' flex_c'">
+		  <view class="list_line"></view>
+		  <view>联系人</view>
+		</view>
+		<image src="/static/images/qingfc/application/tianjia.png" class="bianji_img" mode="aspectFit" @tap="addContacts"></image>
+	  </view>
+	  <block v-for="(item, index) in linkMan" :key="index">
+		<view :class="'flex_sb_c box_list fs_14 ' + (linkMan.length-1==index?'no_border':'')" @tap="toEditLinkman(item.buyOrSellCode)" data-type="1" :data-index="index">
+		  <view class="flex_c">
+			<view class="list_right color_000">{{item.realName}}</view>
+			<view class="ml_30">{{item.phone}}</view>
+		  </view>
+		  <view class="flex_c" @tap="toEditLinkman(item.buyOrSellCode)">
+			<uniIcon type="arrowright" size="20"></uniIcon>
+		  </view>
+		</view>
+	  </block>
+	</view>
+
+
+	 <!-- ---------------------------------- -->
+	<view class="box box_shadow" id="condition">
+	  <view :class="'flex_sb_c box_list ' + (!operation?'no_border':'')">
+		<view :class="'fs_16 font_we_bold ' + (operation?'lh_72':'') + ' flex_c'">
+		  <view class="list_line"></view>
+		  <view>经营状况</view>
+		</view>
+		<image src="/static/images/jinsy/bianji.png" class="bianji_img" mode="aspectFit" @tap="toSetManagementCondition(1)" v-if="operation"></image>
+		<image src="/static/images/qingfc/application/tianjia.png" class="bianji_img" mode="aspectFit" 
+		   @tap="toSetManagementCondition(2)" v-if="!operation"></image>
+	  </view>
+	  <view v-if="operation">
+		<view class="flex_c box_list fs_14">
+		  <view class="wid_198 color_888">旺季时间</view>
+		  <view>{{operation.highSeasonTime||''}}</view>
+		</view>
+		<view class="flex_c box_list fs_14">
+		  <view class="wid_198 color_888">资金状况</view>
+		  <view>{{operation.capitalName||''}}</view>
+		</view>
+		<view class="flex_c box_list fs_14" >
+		  <view class="wid_198 color_888">信用度</view>
+		  <view>{{operation.creditName||''}}</view>
+		</view>
+		
+		<view class="flex_c box_list fs_14">
+		  <view class="wid_198 color_888">口碑</view>
+		  <view>{{operation.womName||''}}</view>
+		</view>
+		<view class="flex_c box_list fs_14 no_border">
+		  <view class="wid_198 color_888">运营状况</view>
+		  <view>{{operation.operationName||''}}</view>
+		</view>
+		
+	   
+	  </view>
+
 	</view>
 	
-</view>
-<!-- ----------------------- -->
-<view style="background-color: #f4f4f4;">             <!-- 背景颜色 -->
-	
-     
- <!-- ---------------------------------- -->
- 
-<view class="box" id="companyInfo">
-  <view class="flex_sb_c box_list">
-    <view class="fs_16 font_we_bold lh_72 flex_c">
-      <view class="list_line"></view>
-      <view>公司信息</view>
-    </view>
-    <image src="/static/images/jinsy/bianji.png" class="bianji_img" mode="aspectFit" @tap="goEditCustomer"></image>
-  </view>
- <!-- <view class="flex_c box">
-   <listShow label="客户编号" :content="customerInfo.companyCode"></listShow>
- </view>
- -->
 
-  <view class="flex_c box_list fs_14">
-    <view class='list_right'>客户编号</view>
-    <view>{{customerInfo.companyCode||''}}</view>
-  </view>
-  
-  <view class="flex_c box_list fs_14">
-    <view class='list_right'>所属区域</view>
-    <view>{{customerInfo.region||''}}</view>
-  </view>
-  
-  <view class="flex_c box_list fs_14">
-    <view class='list_right'>工厂地址</view>
-    <view>{{customerInfo.factoryAddress||''}}</view>
-  </view>
-  <view class="flex_c box_list fs_14" v-if="customerInfo.hasSalesroom==1">
-    <view class='list_right'>门市地址</view>
-    <view>{{customerInfo.salesroomAddress||''}}</view>
-  </view>
-  
-  <view class="flex_c box_list fs_14">
-    <view class='list_right'>客户类型</view>
-    <view>{{customerInfo.companyType||''}}</view>
-  </view>
- <!-- <view class="flex_c box_list fs_14">
-    <view class='list_right'>客户规模</view>
-    <view>{{customerInfo.companyScale||''}}</view>
-  </view> -->
-  <view class="flex_c box_list fs_14">
-    <view class='list_right'>客户来源</view>
-    <view>{{customerInfo.companySource||''}}</view>
-  </view>
-  <view class="flex_c box_list fs_14">
-    <view class='list_right'>合作意向</view>
-    <view>{{customerInfo.cooperationIntention||''}}</view>
-  </view>
-  
-  <view class="flex_c box_list fs_14 no_border">
-    <view class='list_right'>配合度</view>
-    <view>{{customerInfo.coordinate||''}}</view>
-  </view>
-</view>
- <!-- ---------------------------------- -->
-<view class="box box_shadow" id="contact">
-  <view :class="'flex_sb_c box_list ' + (!linkMan?'no_border':'')">
-    <view :class="'fs_16 font_we_bold ' + (linkMan?'lh_72':'') + ' flex_c'">
-      <view class="list_line"></view>
-      <view>联系人</view>
-    </view>
-    <image src="/static/images/qingfc/application/tianjia.png" class="bianji_img" mode="aspectFit" @tap="addContacts"></image>
-  </view>
-  <block v-for="(item, index) in linkMan" :key="index">
-    <view :class="'flex_sb_c box_list fs_14 ' + (linkMan.length-1==index?'no_border':'')" @tap="toEditLinkman(item.buyOrSellCode)" data-type="1" :data-index="index">
-      <view class="flex_c">
-        <view class="list_right color_000">{{item.realName}}</view>
-        <view class="ml_30">{{item.phone}}</view>
-      </view>
-      <view class="flex_c" @tap="toEditLinkman(item.buyOrSellCode)">
-        <uniIcon type="arrowright" size="20"></uniIcon>
-      </view>
-    </view>
-  </block>
-</view>
+	<view style="width:100%;height:950upx;" v-if="placeholdeView"></view>
 
+	</view>   <!-- 背景色 -->
 
- <!-- ---------------------------------- -->
-<view class="box box_shadow" id="condition">
-  <view :class="'flex_sb_c box_list ' + (!operation?'no_border':'')">
-    <view :class="'fs_16 font_we_bold ' + (operation?'lh_72':'') + ' flex_c'">
-      <view class="list_line"></view>
-      <view>经营状况</view>
-    </view>
-    <image src="/static/images/jinsy/bianji.png" class="bianji_img" mode="aspectFit" @tap="toSetManagementCondition(1)" v-if="operation"></image>
-	<image src="/static/images/qingfc/application/tianjia.png" class="bianji_img" mode="aspectFit" 
-	   @tap="toSetManagementCondition(2)" v-if="!operation"></image>
-  </view>
-  <view v-if="operation">
-    <view class="flex_c box_list fs_14">
-      <view class="wid_198 color_888">旺季时间</view>
-      <view>{{operation.highSeasonTime||''}}</view>
-    </view>
-    <view class="flex_c box_list fs_14">
-      <view class="wid_198 color_888">资金状况</view>
-      <view>{{operation.capitalName||''}}</view>
-    </view>
-    <view class="flex_c box_list fs_14" >
-      <view class="wid_198 color_888">信用度</view>
-      <view>{{operation.creditName||''}}</view>
-    </view>
-	
-	<view class="flex_c box_list fs_14">
-	  <view class="wid_198 color_888">口碑</view>
-	  <view>{{operation.womName||''}}</view>
 	</view>
-	<view class="flex_c box_list fs_14 no_border">
-	  <view class="wid_198 color_888">运营状况</view>
-	  <view>{{operation.operationName||''}}</view>
-	</view>
-	
-   
-  </view>
-
-</view>
- <!-- ------------------------卖家没有竞争对手---------- -->
- <!-- <view class="box box_shadow" id="competitor">
-    <view :class="'flex_sb_c box_list ' + (!rival?'no_border':'')">
-      <view :class="'fs_16 font_we_bold ' + (rival?'lh_72':'') + ' flex_c'">
-        <view class="list_line"></view>
-        <view>竞争对手</view>
-      </view>
-      <image src="/static/images/qingfc/application/tianjia.png" class="bianji_img" mode="aspectFit" @tap="addCompetitor"></image>
-    </view>
-    <block v-for="(item, index) in rival" :key="index">
-      <view :class="'flex_sb_c box_list fs_14 ' + (rival.length-1==index?'no_border':'')" @tap="detailCompetitor(item.id)" data-type="1" :data-index="index">
-        <view class="flex_c">
-          <view class="list_right_280 color_000">{{item.label}}</view>
-        </view>
-        <view class="flex_c" @tap="detailCompetitor(item.id)">
-         <uniIcon type="arrowright" size="20"></uniIcon>
-        </view>
-      </view>
-    </block>
-  </view> -->
-<!-- ---------------------------------- --> 
-
-<view style="width:100%;height:950upx;" v-if="placeholdeView"></view>
-
-</view>   <!-- 背景色 -->
-
-</view>
 </template>
 
 <script>
@@ -311,6 +315,11 @@ export default {
   components: {},
   props: {},
   methods: {
+	  editCustomeLevel:function(companyCode,statusCode){
+	  		  uni.navigateTo({
+	  		  	url: `/pages/qing-f-c/buyDupty/updateCustomLevel?companyCode=${companyCode}&statusCode=${statusCode}`
+	  		  });
+	  },
 	  async getCounter(){
 	  		  const res = await this.$http.get('/cm/title',{
 	  			  data:{companyCode: this.companyCode}
@@ -411,12 +420,12 @@ export default {
    
     // 跳转跟进记录详情（总）
     toRecordDetails: function () {
-     let data= JSON.stringify({
-     		  companyCode:this.companyCode,
-     		  buyOrSellCode: this.linkMan[0].buyOrSellCode,
-     		  buyOrSell: this.customerInfo.buyOrSell
-     })
-     console.log(data)
+     // let data= JSON.stringify({
+     // 		  companyCode:this.companyCode,
+     // 		  buyOrSellCode: this.linkMan[0].buyOrSellCode,
+     // 		  buyOrSell: this.customerInfo.buyOrSell
+     // })
+    
 	 wx.navigateTo({
 	   url: `/pages/qing-f-c/customPicture/sd_followRecordDetail?companyCode=${this.companyCode}`
 	 });
@@ -542,7 +551,7 @@ export default {
     },
     // 跳转到产品展示
     toProductPage: function () {
-      let isProduct = this.customerInfo.productInfo;
+      
       let url=`/pages/qing-f-c/productShow/mainShow?companyCode=${this.companyCode}`;
 
       uni.navigateTo({

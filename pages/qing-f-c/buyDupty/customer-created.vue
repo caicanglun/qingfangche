@@ -28,6 +28,7 @@
 				<myPicker @mychange="managementPositionChange" :items="managementPosition" name="经营定位"></myPicker>
 				<rangeButton @buttonChange="cooperationIntentionChange" :items="cooperationIntention" name="合作意向"></rangeButton>
 				<myPicker @mychange="levelChange" :items="level" name="重要等级" star="true"></myPicker>
+				<view class="title flex_c">A级为最高等级，D级为最低等级</view>
 				<!-- <rangeButton @buttonChange="coordinateChange" :items="coordinate" name="保证金配合度"></rangeButton>
 				<view class="title">高：有合作会交保证金；中：有合作考虑或者多次合作后交保证金；低：不接受保证金</view> -->
 				<view class="list flex_c">
@@ -87,7 +88,7 @@
 				managementPosition:[],
 				managementPositionCode: '',// 经营定位
 				level:[],
-				levelCode:'',
+				companyLevel:'',
 				realName: '',//  姓名
 				phone: '',// 电话
 				
@@ -102,9 +103,14 @@
 			this.getCooperationIntention()
 			this.getManagementPosition()
 			this.getCompanyScale()
-			
+			this.getCompanyLevel()
 		},
 		methods:{
+			async getCompanyLevel(){
+				const res = await this.$http.get('/choose/company_level',{})
+				console.log('companyLevel',res)
+				this.level = res.data.data.list
+			},
 			getCompanyScale:function(){
 				JsyServer.getCompanyScale().then(res => {
 				  console.log(res);
@@ -192,7 +198,7 @@
 				this.managementPositionCode = e
 			},
 			levelChange:function(e){
-				this.levelCode = e
+				this.companyLevel = e
 				console.log(e)
 			},
 			regionChange:function(e){
@@ -253,7 +259,7 @@
 				data.companyAddress = this.companyAddress // 公司地址
 				data.companyLongitude = this.companyLongitude // 经度
 				data.companyLongitude=  this.companyLatitude //纬度
-				data.levelCode = this.levelCode  //重要等级
+				data.companyLevel = this.companyLevel  //重要等级
 				data.companyTypeCode=  this.companyTypeCode //客户类型编码
 				data.companySourceCode = this.companySourceCode //客户来源编码
 				data.cooperationIntentionCode= this.cooperationIntentionCode //合作意向
@@ -330,7 +336,8 @@
  }
  .title{
  	margin: 0 30upx;
- 	padding:0 10upx 27upx 10upx;
+	height: 65upx;
+ 	// padding:0 10upx 27upx 10upx;
  	border-bottom: 1upx solid rgba(221, 221, 221, 0.3);
  	font-size: 12px;
  	color: #9B9B9B;

@@ -1,0 +1,9 @@
+{
+  "navigationBarTitleText": "对话",
+  "enablePullDownRefresh": true,
+  "usingComponents": {
+    "uni-icon": "/components/uni-icons/uni-icons",
+    "uni-load-more": "/components/uni-load-more/uni-load-more",
+    "fixbox": "/components/fix-box/fix-box"
+  }
+}

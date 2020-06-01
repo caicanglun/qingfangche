@@ -23,7 +23,7 @@
 			},
 			
 			firstLabel:{
-				type: String
+				type: [String,Number]
 				
 			}
 		},

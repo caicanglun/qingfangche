@@ -44,7 +44,7 @@
 		<view>跟进记录</view>
 		<view class="counter">{{counter.followCount|| 0}}条</view>
 	</view>
-    <view class="hand_bottom_btn" @tap="toProductPage">
+    <view class="hand_bottom_btn">
 		<view>产品需求</view>
 		<view class="counter">{{counter.productCount|| 0}}个</view>
 		
@@ -119,6 +119,10 @@
 	     <view class='list_right'>客户来源</view>
 	     <view>{{customerInfo.companySource||''}}</view>
 	   </view>
+	 <!--  <view class="flex_c box_list fs_14">
+	     <view class='list_right'>重要等级</view>
+	     <view>{{customerInfo.companyLevelName ||''}}</view>
+	   </view> -->
 	   <view class="flex_c box_list fs_14 no_border">
 	     <view class='list_right '>合作意向</view>
 	     <view>{{customerInfo.cooperationIntention||''}}</view>
@@ -130,7 +134,27 @@
 	   </view> -->
 	 </view>
 	 
-
+<!-- ---------------------------------- -->
+<view class="box box_shadow">
+  <view :class="'flex_sb_c box_list '">
+    <view :class="'fs_16 font_we_bold ' + ' flex_c'">
+      <view class="list_line"></view>
+      <view>客户等级</view>
+    </view>
+    <image src="/static/images/jinsy/bianji.png" class="bianji_img" mode="aspectFit" 
+	@tap="editCustomeLevel(customerInfo.companyCode,customerInfo.companyLevelCode)"
+	v-show="customerInfo.companyLevelStatusCode !=1"
+	></image>
+  </view>
+  <view class="flex_sb box_list fs_14">
+	  <view class="flex">
+		  <view style="width: 140upx;"><text style="color:#888890">重要等级</text></view>
+		  <view><text>{{customerInfo.companyLevelName||''}}</text></view>
+		  
+	  </view>
+	  <view :style="{color: customerInfo.companyLevelStatusCode==2||customerInfo.companyLevelStatusCode==4?'#ff0000':''}">{{customerInfo.companyLevelStatusName||''}}</view>
+  </view>
+</view>
 
 
  <!-- ---------------------------------- -->
@@ -304,6 +328,11 @@ export default {
   components: {},
   props: {},
   methods: {
+	  editCustomeLevel:function(companyCode,statusCode){
+		  uni.navigateTo({
+		  	url: `/pages/qing-f-c/buyDupty/updateCustomLevel?companyCode=${companyCode}&statusCode=${statusCode}`
+		  });
+	  },
 	  async getCounter(){
 		  const res = await this.$http.get('/cm/title',{
 			  data:{companyCode:_companyCode}
@@ -407,12 +436,7 @@ export default {
    
     // 跳转跟进记录详情（总）
     toRecordDetails: function () {
-      let data= JSON.stringify({
-		  companyCode: _companyCode,
-		  buyOrSellCode: this.linkMan[0].buyOrSellCode,
-		  buyOrSell: this.customerInfo.buyOrSell
-	  })
-	  console.log(data)
+
       wx.navigateTo({
         url: `/pages/qing-f-c/customPicture/sd_followRecordDetail?companyCode=${_companyCode}`
       });

@@ -1,0 +1,7 @@
+{
+  "navigationBarTitleText": "更新状态",
+  "usingComponents": {
+    "my-picker-part": "/components/myPickerPartProps",
+    "my-checkbox-group": "/components/myCheckboxGroupPopCause"
+  }
+}

@@ -1,13 +1,52 @@
 {
 	"pages": [ //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
-	          {
-	           "path" : "pages/qing-f-c/index",
-	           "style" : {
-	          				"navigationStyle":"custom",
-	          				"enablePullDownRefresh": true
-	          			}
+	           {
+	            "path" : "pages/qing-f-c/index",
+	            "style" : {
+	           				"navigationStyle":"custom",
+	           				"enablePullDownRefresh": true
+	           			}
+	            },			
+			   {
+	               "path" : "pages/qing-f-c/casualPrice/sd_casualList",
+	               "style" : {"navigationBarTitleText": "随口价",
+	               			"navigationBarBackgroundColor":"#ffffff",
+	               			"navigationBarTextStyle": "black",
+	               			"enablePullDownRefresh": true}
 	           },
-	          
+			   {
+	               "path" : "pages/qing-f-c/casualPrice/casualList",
+	               "style" : {"navigationBarTitleText": "随口价",
+	               			"navigationBarBackgroundColor":"#ffffff",
+	               			"navigationBarTextStyle": "black",
+	               			"enablePullDownRefresh": true}
+	           }
+	           ,
+			   {
+	               "path" : "pages/qing-f-c/casualPrice/createCasual",
+	               "style" : {"navigationBarTitleText": "新建随口价"}
+	           },
+			      
+	          {
+	              "path" : "pages/qing-f-c/newFollowRecord/publicDialog",
+	              "style" : {"navigationBarTitleText": "对话",
+				             "enablePullDownRefresh": true}
+	          },
+	          {
+	              "path" : "pages/qing-f-c/newFollowRecord/updateState",
+	              "style" : {"navigationBarTitleText": "更新状态"}
+	          },
+              
+              
+			  {
+                  "path" : "pages/qing-f-c/newFollowRecord/setTargetPrice",
+                  "style" : {"navigationBarTitleText": "发起报价"}
+              },
+			  {
+                  "path" : "pages/qing-f-c/newFollowRecord/detail",
+                  "style" : {"navigationBarTitleText": "订单详况"}
+              },
+
 			  {
 	              "path" : "pages/qing-f-c/customPicture/createCustomFollow",
 	              "style" : {"navigationBarTitleText": "新建客户跟进"}
@@ -808,6 +847,64 @@
             "style" : {
 				"navigationBarTitleText": "跟进记录详情"
 			}
+        }
+        ,{
+            "path" : "pages/qing-f-c/newFollowRecord/deputyFollowList",
+            "style" : {"navigationBarTitleText": "潜在订单",
+	               			"navigationBarBackgroundColor":"#ffffff",
+	               			"navigationBarTextStyle": "black",
+	               			"enablePullDownRefresh": true}
+        }
+        ,{
+            "path" : "pages/qing-f-c/newFollowRecord/sd_followList",
+            "style" : {"navigationBarTitleText": "潜在订单",
+	               			"navigationBarBackgroundColor":"#ffffff",
+	               			"navigationBarTextStyle": "black",
+	               			"enablePullDownRefresh": true}
+        }
+        ,{
+            "path" : "pages/qing-f-c/newFollowRecord/selectSellDeputy",
+            "style" : {"navigationBarTitleText": "选择负责人"}
+        }
+        ,{
+            "path" : "pages/qing-f-c/newFollowRecord/addFollowRecord",
+            "style" : {"navigationBarTitleText": "新建订单"}
+        }
+        
+        ,{
+            "path" : "pages/qing-f-c/newFollowRecord/selectBuyer",
+            "style" : {"navigationBarTitleText": "选择客户"}
+        }
+        ,{
+            "path" : "pages/qing-f-c/newFollowRecord/connectInquiry",
+            "style" : {"navigationBarTitleText": "选择询价单"}
+        }
+       
+        ,{
+            "path" : "pages/qing-f-c/newFollowRecord/modifyRecord",
+            "style" : {"navigationBarTitleText": "修改订单"}
+        }
+        ,{
+            "path" : "pages/qing-f-c/newFollowRecord/selectContact",
+            "style" : {}
+        }
+        ,{
+            "path" : "pages/qing-f-c/newFollowRecord/selectPrincipal",
+            "style" : {"navigationBarTitleText": "选择帮办"}
+        }
+        
+     
+        ,{
+            "path" : "pages/qing-f-c/sales_director/customLevelAudit",
+            "style" : {"navigationBarTitleText": "客户等级"}
+        }
+        ,{
+            "path" : "pages/qing-f-c/regionalManager/approved",
+            "style" : {"navigationBarTitleText": "审核管理"}
+        }
+        ,{
+            "path" : "pages/qing-f-c/buyDupty/updateCustomLevel",
+            "style" : {"navigationBarTitleText": "修改客户等级"}
         }
     ],
 	"tabBar": {

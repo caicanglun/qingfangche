@@ -2,8 +2,8 @@
     "name" : "轻纺车网",
     "appid" : "__UNI__85973DE",
     "description" : "",
-    "versionName" : "1.2.0",
-    "versionCode" : 120,
+    "versionName" : "1.2.5",
+    "versionCode" : 125,
     "transformPx" : false,
     /* 5+App特有相关 */
     "app-plus" : {
@@ -113,7 +113,8 @@
                 }
             }
         },
-        "compilerVersion" : 2
+        "compilerVersion" : 2,
+        "nvueCompiler" : "uni-app"
     },
     /* 快应用特有相关 */
     "quickapp" : {},

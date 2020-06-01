@@ -15,7 +15,7 @@
 							<!-- <view v-if="subItem.content.indexOf('http://') != -1"> -->
 							<view v-if="item.messageType == 1">
 								
-                                 <block v-for="(num,ind) in subItem.content" :key="ind">
+                                 <block v-for="(num,index1) in subItem.content" :key="index1">
 									 <view>
 										 <image :src="num" style="width: 200upx;height:200upx;" mode="aspectFit" @tap="toBigPic(num)"></image>
 									 </view>
@@ -163,6 +163,11 @@
 				
 				// this.list = this.list.concat(res.data.data.list.reverse())
 				this.list = res.data.data.list.reverse()
+				this.list.forEach((item)=>{
+					if (item.messageType == 1){
+						item.contentList[0].content = item.contentList[0].content.split(',')
+					}
+				})
 				_this.loadingType = 'more';//将loadingType归0重置
 				uni.stopPullDownRefresh()
 				
@@ -182,7 +187,12 @@
 					fileUrl: this.pictures		//文件地址
 				
 				}
+				uni.showLoading({
+					title: '发言中',
+					mask: true
+				})
 				const res = await this.$http.post('/latent/dialog_add',{data:data})
+				uni.hideLoading()
 				this.content=''
 				this.pictures= ''
 				this.fetchList()

@@ -1,0 +1,13 @@
+{
+  "navigationBarTitleText": "潜在订单",
+  "navigationBarBackgroundColor": "#ffffff",
+  "navigationBarTextStyle": "black",
+  "enablePullDownRefresh": true,
+  "usingComponents": {
+    "uni-load-more": "/components/uni-load-more/uni-load-more",
+    "uni-icon": "/components/uni-icons/uni-icons",
+    "top-tabbar": "/components/topTabbar-follow",
+    "ms-dropdown-menu": "/components/ms-dropdown/dropdown-menu",
+    "ms-dropdown-item": "/components/ms-dropdown/dropdown-item"
+  }
+}

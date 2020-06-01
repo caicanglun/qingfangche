@@ -36,22 +36,12 @@
 				
 				<rangeButton @buttonChange="coordinateChange" :items="coordinate" name="保证金配合度" ></rangeButton>
 				<view class="title">高：有合作会交保证金；中：有合作考虑或者多次合作后交保证金；低：不接受保证金</view>
-				<!-- <view class="list flex_c">
-				 <view class="list_right ml-14">
-					<text style="color:#FF6000">*</text>联系人：
-				  </view>
-				  <input class="input" name="companyName" v-model="realName" placeholder="请输入"></input>
-				</view>
-				<view class="list flex_c">
-				  <view class="list_right ml-14">
-					<text style="color:#FF6000">*</text>电话号码：
-				  </view>
-				  <input class="input" name="companyName" v-model="phone" placeholder="请输入"></input>
-				</view> -->
+				<!-- <myPicker @mychange="levelChange" :items="level" name="重要等级" star="true" :firstLabel="customerInfo.companyLevelName" v-if="level.length>0"></myPicker>
+		        <view class="title flex_c">A级为最高等级，D级为最低等级</view> -->
 		  </view>
 		  <view class="fixed_bottom box_shadow_btn">
 		    <button class="btn_left" hover-class="none" @tap="bindCancel">取消</button>
-		    <button class="btn_right" formType="submit" hover-class="none">确定</button>
+		    <button class="btn_right" @tap="formSubmit">确定</button>
 		  </view>
 		  
 		</form>
@@ -87,6 +77,9 @@
 				regionCode: -1,  //						区域编码
 				companyTypeCode: -1,  //					客户类型编码
 				companySourceCode: -1,  //				客户来源编码
+				level:[],
+				companyLevel:''
+				
 			};
 		},
 		onLoad:function(options){
@@ -99,6 +92,7 @@
 			this.getSource()
 			this.getType()
 			this.getCooperationIntention()
+			this.getCompanyLevel()
 		},
 		onShow:function(){
 			
@@ -130,6 +124,11 @@
 			
 		},
 		methods:{
+			async getCompanyLevel(){
+				const res = await this.$http.get('/choose/company_level',{})
+				console.log('companyLevel',res)
+				this.level = res.data.data.list
+			},
 			getCustomerInfo:function () {
 			  console.log(_companyCode)
 			  let _data = {companyCode: _companyCode}
@@ -138,6 +137,7 @@
 			    console.log("customer--info==",res);
 			
 			    _this.customerInfo = res.data.data
+				_this.companyLevel = _this.customerInfo.companyLevelCode
 				console.log(_this.customerInfo)
 			  }).catch(err => {
 			    
@@ -236,6 +236,10 @@
 					}
 				})
 			},
+			levelChange:function(e){
+				this.companyLevel = e
+				console.log(e)
+			},
 			sellroomChange:function(e){
 				let items = this.isSellroom
 				
@@ -296,7 +300,7 @@
 				_data.companySourceCode = this.companySourceCode			//客户来源编码
 				_data.cooperationIntentionCode = cooper[0]
 				_data.coordinateCode = coor[0]                      //配合度编码
-			   
+			    _data.companyLevel = this.companyLevel              //重要等级
                 console.log("更新客户：",_data)
 				
                 _data = Tools.filterNull(_data)

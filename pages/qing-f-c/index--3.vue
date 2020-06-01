@@ -91,6 +91,7 @@
 									   <image :src="item.icon" mode="aspectFill" class="icon_img"></image>
 								   </view>
 								   <widgit :count="parseInt(directorReviewCount)+parseInt(auditCount)" v-if="item.name=='审核管理'&&(parseInt(directorReviewCount)+parseInt(auditCount)>0)"></widgit>
+								   <widgit :count="latentCount" v-if="item.name=='潜在订单'&&latentCount>0"></widgit>
 								   <view style="font-size: 13px;color:#333236;margin-top:10upx;">
 									   {{item.name}}
 								   </view>
@@ -161,7 +162,7 @@ const arrListBuyB = [
 	{
 	    icon: '/static/images/jinsy/common/customFollow.png',
 	    name: '客户跟进',
-	    url: '',
+	    url: '/pages/qing-f-c/customPicture/followListNew',
 	}
   ];  //买办
 const arrListSellB = [
@@ -196,7 +197,7 @@ const arrListSellB = [
 	{
 	    icon: '/static/images/jinsy/common/customFollow.png',
 	    name: '客户跟进',
-	    url: '',
+	    url: '/pages/qing-f-c/customPicture/followListNew',
 	}
 ];   //卖办
 const arrListRGbuy = [
@@ -429,7 +430,8 @@ export default {
 	  numberStatus:'',
 	  quotationlUrl:'',
 	  auditCount:0,
-	  totalCount:0
+	  totalCount:0,
+	  latentCount:0,
     };
   },
 
@@ -463,6 +465,7 @@ export default {
 	  this.pupList()
 	  this.pupDefault()
 	  this.getNewsNum()
+	  this.getLatentCount()
 	  
   },
   onLoad: function (options) {
@@ -484,6 +487,7 @@ export default {
 			this.pupList()
 			this.reviewCount()    //待审核询价单数量
 			this.getAuditCount()  //待审核产品数量
+			this.getLatentCount() //潜在订单
 			
 			
 		}
@@ -498,6 +502,10 @@ export default {
   },
   props: {},
   methods: {
+	  async getLatentCount(){
+		  const res = await this.$http.get('/latent/user_message_count',{})
+		  this.latentCount = res.data.data.msg
+	  },
 	  navMenu:function(url){
 		  if (url==''){
 			 uni.showToast({

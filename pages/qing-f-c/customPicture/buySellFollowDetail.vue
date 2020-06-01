@@ -1,5 +1,12 @@
 <template>
 	<view>	
+	    <view style="background: #FFFFFF;padding: 0 30upx;">
+	    	<view class="content-1 no_border">
+	    			<view>
+	    				 <text style="color:#888890">跟进方式</text> <text style="padding-left: 30upx;">{{item.wayName||''}}</text>     
+	    			</view>
+	    	</view> 
+	    </view>
 		<view class="box-shawn" style="margin-top: 20upx;" >
 			<view class="content-1 no_border">
 				<view class="flex_c">

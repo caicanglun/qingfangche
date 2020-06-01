@@ -90,7 +90,8 @@
 								   <view class="image_back" style="position: relative;">
 									   <image :src="item.icon" mode="aspectFill" class="icon_img"></image>
 								   </view>
-								   <widgit :count="parseInt(directorReviewCount)+parseInt(auditCount)" v-if="item.name=='审核管理'&&(parseInt(directorReviewCount)+parseInt(auditCount)>0)"></widgit>
+								   <widgit :count="parseInt(directorReviewCount)+parseInt(auditCount)+parseInt(customLevelCount)" v-if="item.name=='审核管理'&&(parseInt(directorReviewCount)+parseInt(auditCount)+parseInt(customLevelCount)>0)"></widgit>
+								   <widgit :count="latentCount" v-if="item.name=='潜在订单'&&latentCount>0"></widgit>
 								   <view style="font-size: 13px;color:#333236;margin-top:10upx;">
 									   {{item.name}}
 								   </view>
@@ -147,7 +148,7 @@ const arrListBuyB = [
 	{
 	  icon: '/static/images/jinsy/common/genjin.png',
 	  name: '潜在订单',
-	  url: '/pages/qing-f-c/followRecord/followList'
+	  url: '/pages/qing-f-c/newFollowRecord/deputyFollowList'
     }, 
 	{
 	  icon: '/static/images/jinsy/common/wuliu.png',
@@ -162,6 +163,11 @@ const arrListBuyB = [
 	    icon: '/static/images/jinsy/common/customFollow.png',
 	    name: '客户跟进',
 	    url: '/pages/qing-f-c/customPicture/followListNew',
+	},
+	{
+	    icon: '/static/images/jinsy/common/casual.png',
+	    name: '随口价',
+	    url: '/pages/qing-f-c/casualPrice/casualList',
 	}
   ];  //买办
 const arrListSellB = [
@@ -182,7 +188,7 @@ const arrListSellB = [
 	{
 	  icon: '/static/images/jinsy/common/genjin.png',
 	  name: '潜在订单',
-	  url: '/pages/qing-f-c/followRecord/followList'
+	  url: '/pages/qing-f-c/newFollowRecord/deputyFollowList'
 	}, 
 	{
 	  icon: '/static/images/jinsy/common/wuliu.png',
@@ -209,7 +215,7 @@ const arrListRGbuy = [
 		{
 		  icon: '/static/images/jinsy/common/genjin.png',
 		  name: '潜在订单',
-		  url: '/pages/qing-f-c/followRecord/sd_followList'
+		  url: '/pages/qing-f-c/newFollowRecord/sd_followList'
 	    }, 
 	
 		{
@@ -222,11 +228,11 @@ const arrListRGbuy = [
 		  name: '帮办管理',
 		  url: ''
 		}, 
-		// {
-		//   icon: '/static/images/jinsy/buy-region/examine.png',
-		//   name: '审核管理',
-		//   url: ''
-		// },
+		{
+		  icon: '/static/images/jinsy/common/shenke.png',
+		  name: '审核管理',
+		  url: '/pages/qing-f-c/regionalManager/approved'
+		},
 		{
 		  icon: '/static/images/jinsy/common/shenfen.png',
 		  name: '身份认领',
@@ -250,7 +256,7 @@ const arrListRGsell = [
 		{
 		  icon: '/static/images/jinsy/common/genjin.png',
 		  name: '潜在订单',
-		  url: '/pages/qing-f-c/followRecord/sd_followList'
+		  url: '/pages/qing-f-c/newFollowRecord/sd_followList'
 	    }, 
 	
 		{
@@ -263,11 +269,11 @@ const arrListRGsell = [
 		  name: '帮办管理',
 		  url: ''
 		}, 
-		// {
-		//   icon: '/static/images/jinsy/sell-region/examine.png',
-		//   name: '审核管理',
-		//   url: ''
-		// },
+		{
+		  icon: '/static/images/jinsy/common/shenke.png',
+		  name: '审核管理',
+		  url: '/pages/qing-f-c/regionalManager/approved'
+		},
 		{
 		  icon: '/static/images/jinsy/common/shenfen.png',
 		  name: '身份认领',
@@ -288,7 +294,7 @@ const arrListGM= [
 		{
 		  icon: '/static/images/jinsy/common/genjin.png',
 		  name: '潜在订单',
-		  url: '/pages/qing-f-c/followRecord/sd_followList'
+		  url: '/pages/qing-f-c/newFollowRecord/sd_followList'
 	    }, 
 	
 		{
@@ -315,6 +321,11 @@ const arrListGM= [
 		    icon: '/static/images/jinsy/common/customFollow.png',
 		    name: '客户跟进',
 		    url: '/pages/qing-f-c/customPicture/sd_followList',
+		},
+		{
+		    icon: '/static/images/jinsy/common/casual.png',
+		    name: '随口价',
+		    url: '/pages/qing-f-c/casualPrice/sd_casualList',
 		}
 ];     //销售总监
 const arrListAN= [
@@ -429,7 +440,9 @@ export default {
 	  numberStatus:'',
 	  quotationlUrl:'',
 	  auditCount:0,
-	  totalCount:0
+	  totalCount:0,
+	  latentCount:0,
+	  customLevelCount:0
     };
   },
 
@@ -445,8 +458,9 @@ export default {
 	  //待审核计数
 	  this.reviewCount()
 	  this.getAuditCount()
+	  this.getCustomLevelCount()  //客户等级审核
 	  uni.stopPullDownRefresh();
-    
+      
   },
 
   onShow: function (e) {
@@ -463,7 +477,8 @@ export default {
 	  this.pupList()
 	  this.pupDefault()
 	  this.getNewsNum()
-	  
+	  this.getLatentCount()
+	  this.getCustomLevelCount()  //客户等级审核
   },
   onLoad: function (options) {
         _this = this;
@@ -484,7 +499,8 @@ export default {
 			this.pupList()
 			this.reviewCount()    //待审核询价单数量
 			this.getAuditCount()  //待审核产品数量
-			
+			this.getLatentCount() //潜在订单
+			this.getCustomLevelCount()  //客户等级审核
 			
 		}
 		
@@ -498,6 +514,17 @@ export default {
   },
   props: {},
   methods: {
+	  async getCustomLevelCount(){
+	  	let data ={
+	  		postCode: uni.getStorageSync('pupDefault')
+	  	}
+	  	const res = await this.$http.get('/cm/level_audit_count',{data: data})
+	  	this.customLevelCount = res.data.data.msg
+	  },
+	  async getLatentCount(){
+		  const res = await this.$http.get('/latent/user_message_count',{})
+		  this.latentCount = res.data.data.msg
+	  },
 	  navMenu:function(url){
 		  if (url==''){
 			 uni.showToast({
@@ -509,12 +536,14 @@ export default {
 		  uni.navigateTo({
 		  	url: url,
 		  	success: res => {},
-		  	fail: (err) => {err},
+		  	fail: (err) => {console.log(err)},
 		  	complete: () => {}
 		  });
 	  },
 	  getAuditCount:function(){
-	  	let data={}
+	  	let data={
+			postCode: uni.getStorageSync('pupDefault')
+		}
 	  	let url= this.Api.auditCount
 	  	this.myRequest(data,url,'get').then(res => {
 	  	  console.log(res);
@@ -528,8 +557,10 @@ export default {
 	  	  });
 	  	});
 	  },
-	  reviewCount:function(){
-	  	let data={}
+	reviewCount:function(){
+	  	let data={
+			postCode: uni.getStorageSync('pupDefault')
+		}
 	  	let url= this.Api.directorReviewCount
 	  	this.myRequest(data,url,'get').then(res => {
 	  	  console.log(res);

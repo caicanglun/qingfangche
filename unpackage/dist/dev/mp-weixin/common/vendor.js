@@ -1560,7 +1560,143 @@ uni$1;exports.default = _default;
 
 /***/ }),
 
-/***/ 1283:
+/***/ 12:
+/*!********************************************************!*\
+  !*** /Users/lee/Downloads/备份11/轻纺车网/lib/messageUrl.js ***!
+  \********************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+/* WEBPACK VAR INJECTION */(function(uni) {module.exports = function (item) {
+  return function () {
+    var identity = uni.getStorageSync('pupDefault');
+    item;
+    this.isDoRefresh = true;
+    switch (identity) {
+      case 'SELL_DEPUTY':
+        if (item.messageType == 1) {
+          uni.navigateTo({
+            url: "/pages/qing-f-c/inquiryManage/sellDeputy/inquiry-details?inquiryNumber=".concat(item.orderNum) });
+
+
+        } else if (item.messageType == 2) {
+          uni.navigateTo({
+            url: "/pages/qing-f-c/inquiryManage/sampleInquiry/sellDeputy/inquiry-details?inquiryNumber=".concat(item.orderNum) });
+
+        } else if (item.messageType == 3) {
+          uni.navigateTo({
+            url: "/pages/qing-f-c/inquiryManage/sellDeputy/inquiry-details?inquiryNumber=".concat(item.orderNum) });
+
+        } else
+        if (item.messageType == 4) {
+          uni.navigateTo({
+            url: "/pages/qing-f-c/inquiryManage/sampleInquiry/sellDeputy/inquiry-details?inquiryNumber=".concat(item.orderNum) });
+
+        }
+        break;
+      case 'BUY_DEPUTY':
+        if (item.messageType == 1) {
+          uni.navigateTo({
+            url: "/pages/qing-f-c/inquiryManage/inquiry-details?inquiryNumber=".concat(item.orderNum) });
+
+
+        } else if (item.messageType == 2) {
+          uni.navigateTo({
+            url: "/pages/qing-f-c/inquiryManage/sampleInquiry/buyDeputy/inquiry-details?quoteNumber=".concat(item.orderNum) });
+
+
+        } else if (item.messageType == 3) {
+          uni.navigateTo({
+            url: "/pages/qing-f-c/inquiryManage/quotedPrice/quotedPrice?quoteNumber=".concat(item.orderNum) });
+
+
+        } else if (item.messageType == 4) {
+          uni.navigateTo({
+            url: "/pages/qing-f-c/inquiryManage/sampleInquiry/buyDeputy/quotationDetails/quotationDetails?number=".concat(item.orderNum) });
+
+
+        }
+        break;
+      case 'SALES_DIRECTOR':
+        if (item.messageType == 1) {
+          uni.navigateTo({
+            url: "/pages/qing-f-c/inquiryManage/sales_director/inquiry-details?inquiryNumber=".concat(item.orderNum) });
+
+
+        } else if (item.messageType == 2) {
+          uni.navigateTo({
+            url: "/pages/qing-f-c/inquiryManage/sampleInquiry/sales_director/inquiry-details?inquiryNumber=".concat(item.orderNum) });
+
+
+        } else if (item.messageType == 3) {
+          uni.navigateTo({
+            url: "/pages/qing-f-c/inquiryManage/sales_director/quotation-detail?quoteNumber=".concat(item.orderNum) });
+
+
+        } else if (item.messageType == 4) {
+          uni.navigateTo({
+            url: "/pages/qing-f-c/inquiryManage/sampleInquiry/sales_director/quotation-details?number=".concat(item.orderNum) });
+
+
+        } else if (item.messageType == 5) {
+          uni.navigateTo({
+            url: "/pages/qing-f-c/inquiryManage/sales_director/quotation-detail?quoteNumber=".concat(item.orderNum) });
+
+
+        }
+
+        break;
+      case 'REGIONAL_MANAGER':
+
+        break;
+      case 'ANALYST':
+
+        break;}
+
+
+    if (item.messageType == 6) {
+      uni.navigateTo({
+        url: "/pages/qing-f-c/customPicture/followRecordDetail?recordCode=".concat(item.orderNum) });
+
+
+    }
+    if (item.messageType == 7) {
+      uni.navigateTo({
+        url: "/pages/qing-f-c/customPicture/followRecordDetailSeller?recordCode=".concat(item.orderNum) });
+
+
+    }
+    if (item.messageType == 8) {
+      uni.navigateTo({
+        url: "/pages/qing-f-c/newFollowRecord/publicDialog?recordCode=".concat(item.orderNum, "&buyOrSell=1") });
+
+
+    }
+    if (item.messageType == 9) {
+      uni.navigateTo({
+        url: "/pages/qing-f-c/newFollowRecord/publicDialog?recordCode=".concat(item.orderNum, "&buyOrSell=2") });
+
+
+    }
+    if (item.messageType == 10) {
+      uni.navigateTo({
+        url: "/pages/qing-f-c/newFollowRecord/detail?recordCode=".concat(item.orderNum) });
+
+
+    }
+    if (item.messageType == 11) {
+      uni.navigateTo({
+        url: "/pages/qing-f-c/newFollowRecord/detail?recordCode=".concat(item.orderNum) });
+
+
+    }
+  };
+};
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
+
+/***/ }),
+
+/***/ 1450:
 /*!*****************************************************************************!*\
   !*** /Users/lee/Downloads/备份11/轻纺车网/components/uni-swipe-action/mpother.js ***!
   \*****************************************************************************/
@@ -1704,7 +1840,7 @@ uni$1;exports.default = _default;
 
 /***/ }),
 
-/***/ 1284:
+/***/ 1451:
 /*!************************************************************************!*\
   !*** /Users/lee/Downloads/备份11/轻纺车网/components/uni-swipe-action/mp.js ***!
   \************************************************************************/
@@ -1803,7 +1939,136 @@ uni$1;exports.default = _default;
 
 /***/ }),
 
-/***/ 1392:
+/***/ 15:
+/*!**********************************************************************************************************!*\
+  !*** ./node_modules/@dcloudio/vue-cli-plugin-uni/packages/vue-loader/lib/runtime/componentNormalizer.js ***!
+  \**********************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return normalizeComponent; });
+/* globals __VUE_SSR_CONTEXT__ */
+
+// IMPORTANT: Do NOT use ES2015 features in this file (except for modules).
+// This module is a runtime utility for cleaner component module output and will
+// be included in the final webpack user bundle.
+
+function normalizeComponent (
+  scriptExports,
+  render,
+  staticRenderFns,
+  functionalTemplate,
+  injectStyles,
+  scopeId,
+  moduleIdentifier, /* server only */
+  shadowMode, /* vue-cli only */
+  components, // fixed by xxxxxx auto components
+  renderjs // fixed by xxxxxx renderjs
+) {
+  // Vue.extend constructor export interop
+  var options = typeof scriptExports === 'function'
+    ? scriptExports.options
+    : scriptExports
+
+  // fixed by xxxxxx auto components
+  if (components) {
+    if (!options.components) {
+      options.components = {}
+    }
+    var hasOwn = Object.prototype.hasOwnProperty
+    for (var name in components) {
+      if (hasOwn.call(components, name) && !hasOwn.call(options.components, name)) {
+        options.components[name] = components[name]
+      }
+    }
+  }
+  // fixed by xxxxxx renderjs
+  if (renderjs) {
+    (renderjs.beforeCreate || (renderjs.beforeCreate = [])).unshift(function() {
+      this[renderjs.__module] = this
+    });
+    (options.mixins || (options.mixins = [])).push(renderjs)
+  }
+
+  // render functions
+  if (render) {
+    options.render = render
+    options.staticRenderFns = staticRenderFns
+    options._compiled = true
+  }
+
+  // functional template
+  if (functionalTemplate) {
+    options.functional = true
+  }
+
+  // scopedId
+  if (scopeId) {
+    options._scopeId = 'data-v-' + scopeId
+  }
+
+  var hook
+  if (moduleIdentifier) { // server build
+    hook = function (context) {
+      // 2.3 injection
+      context =
+        context || // cached call
+        (this.$vnode && this.$vnode.ssrContext) || // stateful
+        (this.parent && this.parent.$vnode && this.parent.$vnode.ssrContext) // functional
+      // 2.2 with runInNewContext: true
+      if (!context && typeof __VUE_SSR_CONTEXT__ !== 'undefined') {
+        context = __VUE_SSR_CONTEXT__
+      }
+      // inject component styles
+      if (injectStyles) {
+        injectStyles.call(this, context)
+      }
+      // register component module identifier for async chunk inferrence
+      if (context && context._registeredComponents) {
+        context._registeredComponents.add(moduleIdentifier)
+      }
+    }
+    // used by ssr in case component is cached and beforeCreate
+    // never gets called
+    options._ssrRegister = hook
+  } else if (injectStyles) {
+    hook = shadowMode
+      ? function () { injectStyles.call(this, this.$root.$options.shadowRoot) }
+      : injectStyles
+  }
+
+  if (hook) {
+    if (options.functional) {
+      // for template-only hot-reload because in that case the render fn doesn't
+      // go through the normalizer
+      options._injectStyles = hook
+      // register for functioal component in vue file
+      var originalRender = options.render
+      options.render = function renderWithStyleInjection (h, context) {
+        hook.call(context)
+        return originalRender(h, context)
+      }
+    } else {
+      // inject component registration as beforeCreate hook
+      var existing = options.beforeCreate
+      options.beforeCreate = existing
+        ? [].concat(existing, hook)
+        : [hook]
+    }
+  }
+
+  return {
+    exports: scriptExports,
+    options: options
+  }
+}
+
+
+/***/ }),
+
+/***/ 1559:
 /*!**************************************************************************!*\
   !*** /Users/lee/Downloads/备份11/轻纺车网/components/uni-calendar/calendar.js ***!
   \**************************************************************************/
@@ -2360,136 +2625,7 @@ calendar;exports.default = _default;
 
 /***/ }),
 
-/***/ 14:
-/*!**********************************************************************************************************!*\
-  !*** ./node_modules/@dcloudio/vue-cli-plugin-uni/packages/vue-loader/lib/runtime/componentNormalizer.js ***!
-  \**********************************************************************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return normalizeComponent; });
-/* globals __VUE_SSR_CONTEXT__ */
-
-// IMPORTANT: Do NOT use ES2015 features in this file (except for modules).
-// This module is a runtime utility for cleaner component module output and will
-// be included in the final webpack user bundle.
-
-function normalizeComponent (
-  scriptExports,
-  render,
-  staticRenderFns,
-  functionalTemplate,
-  injectStyles,
-  scopeId,
-  moduleIdentifier, /* server only */
-  shadowMode, /* vue-cli only */
-  components, // fixed by xxxxxx auto components
-  renderjs // fixed by xxxxxx renderjs
-) {
-  // Vue.extend constructor export interop
-  var options = typeof scriptExports === 'function'
-    ? scriptExports.options
-    : scriptExports
-
-  // fixed by xxxxxx auto components
-  if (components) {
-    if (!options.components) {
-      options.components = {}
-    }
-    var hasOwn = Object.prototype.hasOwnProperty
-    for (var name in components) {
-      if (hasOwn.call(components, name) && !hasOwn.call(options.components, name)) {
-        options.components[name] = components[name]
-      }
-    }
-  }
-  // fixed by xxxxxx renderjs
-  if (renderjs) {
-    (renderjs.beforeCreate || (renderjs.beforeCreate = [])).unshift(function() {
-      this[renderjs.__module] = this
-    });
-    (options.mixins || (options.mixins = [])).push(renderjs)
-  }
-
-  // render functions
-  if (render) {
-    options.render = render
-    options.staticRenderFns = staticRenderFns
-    options._compiled = true
-  }
-
-  // functional template
-  if (functionalTemplate) {
-    options.functional = true
-  }
-
-  // scopedId
-  if (scopeId) {
-    options._scopeId = 'data-v-' + scopeId
-  }
-
-  var hook
-  if (moduleIdentifier) { // server build
-    hook = function (context) {
-      // 2.3 injection
-      context =
-        context || // cached call
-        (this.$vnode && this.$vnode.ssrContext) || // stateful
-        (this.parent && this.parent.$vnode && this.parent.$vnode.ssrContext) // functional
-      // 2.2 with runInNewContext: true
-      if (!context && typeof __VUE_SSR_CONTEXT__ !== 'undefined') {
-        context = __VUE_SSR_CONTEXT__
-      }
-      // inject component styles
-      if (injectStyles) {
-        injectStyles.call(this, context)
-      }
-      // register component module identifier for async chunk inferrence
-      if (context && context._registeredComponents) {
-        context._registeredComponents.add(moduleIdentifier)
-      }
-    }
-    // used by ssr in case component is cached and beforeCreate
-    // never gets called
-    options._ssrRegister = hook
-  } else if (injectStyles) {
-    hook = shadowMode
-      ? function () { injectStyles.call(this, this.$root.$options.shadowRoot) }
-      : injectStyles
-  }
-
-  if (hook) {
-    if (options.functional) {
-      // for template-only hot-reload because in that case the render fn doesn't
-      // go through the normalizer
-      options._injectStyles = hook
-      // register for functioal component in vue file
-      var originalRender = options.render
-      options.render = function renderWithStyleInjection (h, context) {
-        hook.call(context)
-        return originalRender(h, context)
-      }
-    } else {
-      // inject component registration as beforeCreate hook
-      var existing = options.beforeCreate
-      options.beforeCreate = existing
-        ? [].concat(existing, hook)
-        : [hook]
-    }
-  }
-
-  return {
-    exports: scriptExports,
-    options: options
-  }
-}
-
-
-/***/ }),
-
-/***/ 15:
+/***/ 16:
 /*!*****************************************************!*\
   !*** /Users/lee/Downloads/备份11/轻纺车网/store/store.js ***!
   \*****************************************************/
@@ -2498,7 +2634,7 @@ function normalizeComponent (
 
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _vue = _interopRequireDefault(__webpack_require__(/*! vue */ 2));
-var _vuex = _interopRequireDefault(__webpack_require__(/*! vuex */ 16));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}
+var _vuex = _interopRequireDefault(__webpack_require__(/*! vuex */ 17));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}
 
 _vue.default.use(_vuex.default);
 
@@ -2548,7 +2684,7 @@ store;exports.default = _default;
 
 /***/ }),
 
-/***/ 16:
+/***/ 17:
 /*!********************************************!*\
   !*** ./node_modules/vuex/dist/vuex.esm.js ***!
   \********************************************/
@@ -3499,7 +3635,7 @@ var index_esm = {
 
 /***/ }),
 
-/***/ 17:
+/***/ 18:
 /*!**********************************************!*\
   !*** /Users/lee/Downloads/备份11/轻纺车网/http.js ***!
   \**********************************************/
@@ -3507,8 +3643,8 @@ var index_esm = {
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _request = _interopRequireDefault(__webpack_require__(/*! ./js_sdk/cooke-request/request/request.js */ 18));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}
-var Api = __webpack_require__(/*! services/config/api.js */ 22);
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _request = _interopRequireDefault(__webpack_require__(/*! ./js_sdk/cooke-request/request/request.js */ 19));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}
+var Api = __webpack_require__(/*! services/config/api.js */ 23);
 
 _request.default.setConfig({
   baseUrl: Api.ServerUrl, // 此为测试地址，需加入到域名白名单，或者更改为您自己的线上地址即可
@@ -3568,7 +3704,7 @@ _request.default;exports.default = _default;
 
 /***/ }),
 
-/***/ 18:
+/***/ 19:
 /*!******************************************************************************!*\
   !*** /Users/lee/Downloads/备份11/轻纺车网/js_sdk/cooke-request/request/request.js ***!
   \******************************************************************************/
@@ -3576,7 +3712,7 @@ _request.default;exports.default = _default;
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(uni, global) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _regenerator = _interopRequireDefault(__webpack_require__(/*! ./node_modules/@vue/babel-preset-app/node_modules/@babel/runtime/regenerator */ 19));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) {try {var info = gen[key](arg);var value = info.value;} catch (error) {reject(error);return;}if (info.done) {resolve(value);} else {Promise.resolve(value).then(_next, _throw);}}function _asyncToGenerator(fn) {return function () {var self = this,args = arguments;return new Promise(function (resolve, reject) {var gen = fn.apply(self, args);function _next(value) {asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value);}function _throw(err) {asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err);}_next(undefined);});};}function _classCallCheck(instance, Constructor) {if (!(instance instanceof Constructor)) {throw new TypeError("Cannot call a class as a function");}}function _defineProperties(target, props) {for (var i = 0; i < props.length; i++) {var descriptor = props[i];descriptor.enumerable = descriptor.enumerable || false;descriptor.configurable = true;if ("value" in descriptor) descriptor.writable = true;Object.defineProperty(target, descriptor.key, descriptor);}}function _createClass(Constructor, protoProps, staticProps) {if (protoProps) _defineProperties(Constructor.prototype, protoProps);if (staticProps) _defineProperties(Constructor, staticProps);return Constructor;} /**
+/* WEBPACK VAR INJECTION */(function(uni, global) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _regenerator = _interopRequireDefault(__webpack_require__(/*! ./node_modules/@vue/babel-preset-app/node_modules/@babel/runtime/regenerator */ 20));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) {try {var info = gen[key](arg);var value = info.value;} catch (error) {reject(error);return;}if (info.done) {resolve(value);} else {Promise.resolve(value).then(_next, _throw);}}function _asyncToGenerator(fn) {return function () {var self = this,args = arguments;return new Promise(function (resolve, reject) {var gen = fn.apply(self, args);function _next(value) {asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value);}function _throw(err) {asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err);}_next(undefined);});};}function _classCallCheck(instance, Constructor) {if (!(instance instanceof Constructor)) {throw new TypeError("Cannot call a class as a function");}}function _defineProperties(target, props) {for (var i = 0; i < props.length; i++) {var descriptor = props[i];descriptor.enumerable = descriptor.enumerable || false;descriptor.configurable = true;if ("value" in descriptor) descriptor.writable = true;Object.defineProperty(target, descriptor.key, descriptor);}}function _createClass(Constructor, protoProps, staticProps) {if (protoProps) _defineProperties(Constructor.prototype, protoProps);if (staticProps) _defineProperties(Constructor, staticProps);return Constructor;} /**
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      * version 1.1.7
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      */var
 
@@ -3716,17 +3852,6 @@ if (!global.$request) {
 
 global.$request;exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"], __webpack_require__(/*! ./../../../../../../../../Applications/HBuilderX.app/Contents/HBuilderX/plugins/uniapp-cli/node_modules/webpack/buildin/global.js */ 3)))
-
-/***/ }),
-
-/***/ 19:
-/*!*********************************************************************************************!*\
-  !*** ./node_modules/@vue/babel-preset-app/node_modules/@babel/runtime/regenerator/index.js ***!
-  \*********************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports = __webpack_require__(/*! regenerator-runtime */ 20);
 
 /***/ }),
 
@@ -9761,6 +9886,17 @@ internalMixin(Vue);
 /***/ }),
 
 /***/ 20:
+/*!*********************************************************************************************!*\
+  !*** ./node_modules/@vue/babel-preset-app/node_modules/@babel/runtime/regenerator/index.js ***!
+  \*********************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__(/*! regenerator-runtime */ 21);
+
+/***/ }),
+
+/***/ 21:
 /*!************************************************************!*\
   !*** ./node_modules/regenerator-runtime/runtime-module.js ***!
   \************************************************************/
@@ -9791,7 +9927,7 @@ var oldRuntime = hadRuntime && g.regeneratorRuntime;
 // Force reevalutation of runtime.js.
 g.regeneratorRuntime = undefined;
 
-module.exports = __webpack_require__(/*! ./runtime */ 21);
+module.exports = __webpack_require__(/*! ./runtime */ 22);
 
 if (hadRuntime) {
   // Restore the original runtime.
@@ -9808,7 +9944,2076 @@ if (hadRuntime) {
 
 /***/ }),
 
-/***/ 207:
+/***/ 22:
+/*!*****************************************************!*\
+  !*** ./node_modules/regenerator-runtime/runtime.js ***!
+  \*****************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+/**
+ * Copyright (c) 2014-present, Facebook, Inc.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ */
+
+!(function(global) {
+  "use strict";
+
+  var Op = Object.prototype;
+  var hasOwn = Op.hasOwnProperty;
+  var undefined; // More compressible than void 0.
+  var $Symbol = typeof Symbol === "function" ? Symbol : {};
+  var iteratorSymbol = $Symbol.iterator || "@@iterator";
+  var asyncIteratorSymbol = $Symbol.asyncIterator || "@@asyncIterator";
+  var toStringTagSymbol = $Symbol.toStringTag || "@@toStringTag";
+
+  var inModule = typeof module === "object";
+  var runtime = global.regeneratorRuntime;
+  if (runtime) {
+    if (inModule) {
+      // If regeneratorRuntime is defined globally and we're in a module,
+      // make the exports object identical to regeneratorRuntime.
+      module.exports = runtime;
+    }
+    // Don't bother evaluating the rest of this file if the runtime was
+    // already defined globally.
+    return;
+  }
+
+  // Define the runtime globally (as expected by generated code) as either
+  // module.exports (if we're in a module) or a new, empty object.
+  runtime = global.regeneratorRuntime = inModule ? module.exports : {};
+
+  function wrap(innerFn, outerFn, self, tryLocsList) {
+    // If outerFn provided and outerFn.prototype is a Generator, then outerFn.prototype instanceof Generator.
+    var protoGenerator = outerFn && outerFn.prototype instanceof Generator ? outerFn : Generator;
+    var generator = Object.create(protoGenerator.prototype);
+    var context = new Context(tryLocsList || []);
+
+    // The ._invoke method unifies the implementations of the .next,
+    // .throw, and .return methods.
+    generator._invoke = makeInvokeMethod(innerFn, self, context);
+
+    return generator;
+  }
+  runtime.wrap = wrap;
+
+  // Try/catch helper to minimize deoptimizations. Returns a completion
+  // record like context.tryEntries[i].completion. This interface could
+  // have been (and was previously) designed to take a closure to be
+  // invoked without arguments, but in all the cases we care about we
+  // already have an existing method we want to call, so there's no need
+  // to create a new function object. We can even get away with assuming
+  // the method takes exactly one argument, since that happens to be true
+  // in every case, so we don't have to touch the arguments object. The
+  // only additional allocation required is the completion record, which
+  // has a stable shape and so hopefully should be cheap to allocate.
+  function tryCatch(fn, obj, arg) {
+    try {
+      return { type: "normal", arg: fn.call(obj, arg) };
+    } catch (err) {
+      return { type: "throw", arg: err };
+    }
+  }
+
+  var GenStateSuspendedStart = "suspendedStart";
+  var GenStateSuspendedYield = "suspendedYield";
+  var GenStateExecuting = "executing";
+  var GenStateCompleted = "completed";
+
+  // Returning this object from the innerFn has the same effect as
+  // breaking out of the dispatch switch statement.
+  var ContinueSentinel = {};
+
+  // Dummy constructor functions that we use as the .constructor and
+  // .constructor.prototype properties for functions that return Generator
+  // objects. For full spec compliance, you may wish to configure your
+  // minifier not to mangle the names of these two functions.
+  function Generator() {}
+  function GeneratorFunction() {}
+  function GeneratorFunctionPrototype() {}
+
+  // This is a polyfill for %IteratorPrototype% for environments that
+  // don't natively support it.
+  var IteratorPrototype = {};
+  IteratorPrototype[iteratorSymbol] = function () {
+    return this;
+  };
+
+  var getProto = Object.getPrototypeOf;
+  var NativeIteratorPrototype = getProto && getProto(getProto(values([])));
+  if (NativeIteratorPrototype &&
+      NativeIteratorPrototype !== Op &&
+      hasOwn.call(NativeIteratorPrototype, iteratorSymbol)) {
+    // This environment has a native %IteratorPrototype%; use it instead
+    // of the polyfill.
+    IteratorPrototype = NativeIteratorPrototype;
+  }
+
+  var Gp = GeneratorFunctionPrototype.prototype =
+    Generator.prototype = Object.create(IteratorPrototype);
+  GeneratorFunction.prototype = Gp.constructor = GeneratorFunctionPrototype;
+  GeneratorFunctionPrototype.constructor = GeneratorFunction;
+  GeneratorFunctionPrototype[toStringTagSymbol] =
+    GeneratorFunction.displayName = "GeneratorFunction";
+
+  // Helper for defining the .next, .throw, and .return methods of the
+  // Iterator interface in terms of a single ._invoke method.
+  function defineIteratorMethods(prototype) {
+    ["next", "throw", "return"].forEach(function(method) {
+      prototype[method] = function(arg) {
+        return this._invoke(method, arg);
+      };
+    });
+  }
+
+  runtime.isGeneratorFunction = function(genFun) {
+    var ctor = typeof genFun === "function" && genFun.constructor;
+    return ctor
+      ? ctor === GeneratorFunction ||
+        // For the native GeneratorFunction constructor, the best we can
+        // do is to check its .name property.
+        (ctor.displayName || ctor.name) === "GeneratorFunction"
+      : false;
+  };
+
+  runtime.mark = function(genFun) {
+    if (Object.setPrototypeOf) {
+      Object.setPrototypeOf(genFun, GeneratorFunctionPrototype);
+    } else {
+      genFun.__proto__ = GeneratorFunctionPrototype;
+      if (!(toStringTagSymbol in genFun)) {
+        genFun[toStringTagSymbol] = "GeneratorFunction";
+      }
+    }
+    genFun.prototype = Object.create(Gp);
+    return genFun;
+  };
+
+  // Within the body of any async function, `await x` is transformed to
+  // `yield regeneratorRuntime.awrap(x)`, so that the runtime can test
+  // `hasOwn.call(value, "__await")` to determine if the yielded value is
+  // meant to be awaited.
+  runtime.awrap = function(arg) {
+    return { __await: arg };
+  };
+
+  function AsyncIterator(generator) {
+    function invoke(method, arg, resolve, reject) {
+      var record = tryCatch(generator[method], generator, arg);
+      if (record.type === "throw") {
+        reject(record.arg);
+      } else {
+        var result = record.arg;
+        var value = result.value;
+        if (value &&
+            typeof value === "object" &&
+            hasOwn.call(value, "__await")) {
+          return Promise.resolve(value.__await).then(function(value) {
+            invoke("next", value, resolve, reject);
+          }, function(err) {
+            invoke("throw", err, resolve, reject);
+          });
+        }
+
+        return Promise.resolve(value).then(function(unwrapped) {
+          // When a yielded Promise is resolved, its final value becomes
+          // the .value of the Promise<{value,done}> result for the
+          // current iteration.
+          result.value = unwrapped;
+          resolve(result);
+        }, function(error) {
+          // If a rejected Promise was yielded, throw the rejection back
+          // into the async generator function so it can be handled there.
+          return invoke("throw", error, resolve, reject);
+        });
+      }
+    }
+
+    var previousPromise;
+
+    function enqueue(method, arg) {
+      function callInvokeWithMethodAndArg() {
+        return new Promise(function(resolve, reject) {
+          invoke(method, arg, resolve, reject);
+        });
+      }
+
+      return previousPromise =
+        // If enqueue has been called before, then we want to wait until
+        // all previous Promises have been resolved before calling invoke,
+        // so that results are always delivered in the correct order. If
+        // enqueue has not been called before, then it is important to
+        // call invoke immediately, without waiting on a callback to fire,
+        // so that the async generator function has the opportunity to do
+        // any necessary setup in a predictable way. This predictability
+        // is why the Promise constructor synchronously invokes its
+        // executor callback, and why async functions synchronously
+        // execute code before the first await. Since we implement simple
+        // async functions in terms of async generators, it is especially
+        // important to get this right, even though it requires care.
+        previousPromise ? previousPromise.then(
+          callInvokeWithMethodAndArg,
+          // Avoid propagating failures to Promises returned by later
+          // invocations of the iterator.
+          callInvokeWithMethodAndArg
+        ) : callInvokeWithMethodAndArg();
+    }
+
+    // Define the unified helper method that is used to implement .next,
+    // .throw, and .return (see defineIteratorMethods).
+    this._invoke = enqueue;
+  }
+
+  defineIteratorMethods(AsyncIterator.prototype);
+  AsyncIterator.prototype[asyncIteratorSymbol] = function () {
+    return this;
+  };
+  runtime.AsyncIterator = AsyncIterator;
+
+  // Note that simple async functions are implemented on top of
+  // AsyncIterator objects; they just return a Promise for the value of
+  // the final result produced by the iterator.
+  runtime.async = function(innerFn, outerFn, self, tryLocsList) {
+    var iter = new AsyncIterator(
+      wrap(innerFn, outerFn, self, tryLocsList)
+    );
+
+    return runtime.isGeneratorFunction(outerFn)
+      ? iter // If outerFn is a generator, return the full iterator.
+      : iter.next().then(function(result) {
+          return result.done ? result.value : iter.next();
+        });
+  };
+
+  function makeInvokeMethod(innerFn, self, context) {
+    var state = GenStateSuspendedStart;
+
+    return function invoke(method, arg) {
+      if (state === GenStateExecuting) {
+        throw new Error("Generator is already running");
+      }
+
+      if (state === GenStateCompleted) {
+        if (method === "throw") {
+          throw arg;
+        }
+
+        // Be forgiving, per 25.3.3.3.3 of the spec:
+        // https://people.mozilla.org/~jorendorff/es6-draft.html#sec-generatorresume
+        return doneResult();
+      }
+
+      context.method = method;
+      context.arg = arg;
+
+      while (true) {
+        var delegate = context.delegate;
+        if (delegate) {
+          var delegateResult = maybeInvokeDelegate(delegate, context);
+          if (delegateResult) {
+            if (delegateResult === ContinueSentinel) continue;
+            return delegateResult;
+          }
+        }
+
+        if (context.method === "next") {
+          // Setting context._sent for legacy support of Babel's
+          // function.sent implementation.
+          context.sent = context._sent = context.arg;
+
+        } else if (context.method === "throw") {
+          if (state === GenStateSuspendedStart) {
+            state = GenStateCompleted;
+            throw context.arg;
+          }
+
+          context.dispatchException(context.arg);
+
+        } else if (context.method === "return") {
+          context.abrupt("return", context.arg);
+        }
+
+        state = GenStateExecuting;
+
+        var record = tryCatch(innerFn, self, context);
+        if (record.type === "normal") {
+          // If an exception is thrown from innerFn, we leave state ===
+          // GenStateExecuting and loop back for another invocation.
+          state = context.done
+            ? GenStateCompleted
+            : GenStateSuspendedYield;
+
+          if (record.arg === ContinueSentinel) {
+            continue;
+          }
+
+          return {
+            value: record.arg,
+            done: context.done
+          };
+
+        } else if (record.type === "throw") {
+          state = GenStateCompleted;
+          // Dispatch the exception by looping back around to the
+          // context.dispatchException(context.arg) call above.
+          context.method = "throw";
+          context.arg = record.arg;
+        }
+      }
+    };
+  }
+
+  // Call delegate.iterator[context.method](context.arg) and handle the
+  // result, either by returning a { value, done } result from the
+  // delegate iterator, or by modifying context.method and context.arg,
+  // setting context.delegate to null, and returning the ContinueSentinel.
+  function maybeInvokeDelegate(delegate, context) {
+    var method = delegate.iterator[context.method];
+    if (method === undefined) {
+      // A .throw or .return when the delegate iterator has no .throw
+      // method always terminates the yield* loop.
+      context.delegate = null;
+
+      if (context.method === "throw") {
+        if (delegate.iterator.return) {
+          // If the delegate iterator has a return method, give it a
+          // chance to clean up.
+          context.method = "return";
+          context.arg = undefined;
+          maybeInvokeDelegate(delegate, context);
+
+          if (context.method === "throw") {
+            // If maybeInvokeDelegate(context) changed context.method from
+            // "return" to "throw", let that override the TypeError below.
+            return ContinueSentinel;
+          }
+        }
+
+        context.method = "throw";
+        context.arg = new TypeError(
+          "The iterator does not provide a 'throw' method");
+      }
+
+      return ContinueSentinel;
+    }
+
+    var record = tryCatch(method, delegate.iterator, context.arg);
+
+    if (record.type === "throw") {
+      context.method = "throw";
+      context.arg = record.arg;
+      context.delegate = null;
+      return ContinueSentinel;
+    }
+
+    var info = record.arg;
+
+    if (! info) {
+      context.method = "throw";
+      context.arg = new TypeError("iterator result is not an object");
+      context.delegate = null;
+      return ContinueSentinel;
+    }
+
+    if (info.done) {
+      // Assign the result of the finished delegate to the temporary
+      // variable specified by delegate.resultName (see delegateYield).
+      context[delegate.resultName] = info.value;
+
+      // Resume execution at the desired location (see delegateYield).
+      context.next = delegate.nextLoc;
+
+      // If context.method was "throw" but the delegate handled the
+      // exception, let the outer generator proceed normally. If
+      // context.method was "next", forget context.arg since it has been
+      // "consumed" by the delegate iterator. If context.method was
+      // "return", allow the original .return call to continue in the
+      // outer generator.
+      if (context.method !== "return") {
+        context.method = "next";
+        context.arg = undefined;
+      }
+
+    } else {
+      // Re-yield the result returned by the delegate method.
+      return info;
+    }
+
+    // The delegate iterator is finished, so forget it and continue with
+    // the outer generator.
+    context.delegate = null;
+    return ContinueSentinel;
+  }
+
+  // Define Generator.prototype.{next,throw,return} in terms of the
+  // unified ._invoke helper method.
+  defineIteratorMethods(Gp);
+
+  Gp[toStringTagSymbol] = "Generator";
+
+  // A Generator should always return itself as the iterator object when the
+  // @@iterator function is called on it. Some browsers' implementations of the
+  // iterator prototype chain incorrectly implement this, causing the Generator
+  // object to not be returned from this call. This ensures that doesn't happen.
+  // See https://github.com/facebook/regenerator/issues/274 for more details.
+  Gp[iteratorSymbol] = function() {
+    return this;
+  };
+
+  Gp.toString = function() {
+    return "[object Generator]";
+  };
+
+  function pushTryEntry(locs) {
+    var entry = { tryLoc: locs[0] };
+
+    if (1 in locs) {
+      entry.catchLoc = locs[1];
+    }
+
+    if (2 in locs) {
+      entry.finallyLoc = locs[2];
+      entry.afterLoc = locs[3];
+    }
+
+    this.tryEntries.push(entry);
+  }
+
+  function resetTryEntry(entry) {
+    var record = entry.completion || {};
+    record.type = "normal";
+    delete record.arg;
+    entry.completion = record;
+  }
+
+  function Context(tryLocsList) {
+    // The root entry object (effectively a try statement without a catch
+    // or a finally block) gives us a place to store values thrown from
+    // locations where there is no enclosing try statement.
+    this.tryEntries = [{ tryLoc: "root" }];
+    tryLocsList.forEach(pushTryEntry, this);
+    this.reset(true);
+  }
+
+  runtime.keys = function(object) {
+    var keys = [];
+    for (var key in object) {
+      keys.push(key);
+    }
+    keys.reverse();
+
+    // Rather than returning an object with a next method, we keep
+    // things simple and return the next function itself.
+    return function next() {
+      while (keys.length) {
+        var key = keys.pop();
+        if (key in object) {
+          next.value = key;
+          next.done = false;
+          return next;
+        }
+      }
+
+      // To avoid creating an additional object, we just hang the .value
+      // and .done properties off the next function object itself. This
+      // also ensures that the minifier will not anonymize the function.
+      next.done = true;
+      return next;
+    };
+  };
+
+  function values(iterable) {
+    if (iterable) {
+      var iteratorMethod = iterable[iteratorSymbol];
+      if (iteratorMethod) {
+        return iteratorMethod.call(iterable);
+      }
+
+      if (typeof iterable.next === "function") {
+        return iterable;
+      }
+
+      if (!isNaN(iterable.length)) {
+        var i = -1, next = function next() {
+          while (++i < iterable.length) {
+            if (hasOwn.call(iterable, i)) {
+              next.value = iterable[i];
+              next.done = false;
+              return next;
+            }
+          }
+
+          next.value = undefined;
+          next.done = true;
+
+          return next;
+        };
+
+        return next.next = next;
+      }
+    }
+
+    // Return an iterator with no values.
+    return { next: doneResult };
+  }
+  runtime.values = values;
+
+  function doneResult() {
+    return { value: undefined, done: true };
+  }
+
+  Context.prototype = {
+    constructor: Context,
+
+    reset: function(skipTempReset) {
+      this.prev = 0;
+      this.next = 0;
+      // Resetting context._sent for legacy support of Babel's
+      // function.sent implementation.
+      this.sent = this._sent = undefined;
+      this.done = false;
+      this.delegate = null;
+
+      this.method = "next";
+      this.arg = undefined;
+
+      this.tryEntries.forEach(resetTryEntry);
+
+      if (!skipTempReset) {
+        for (var name in this) {
+          // Not sure about the optimal order of these conditions:
+          if (name.charAt(0) === "t" &&
+              hasOwn.call(this, name) &&
+              !isNaN(+name.slice(1))) {
+            this[name] = undefined;
+          }
+        }
+      }
+    },
+
+    stop: function() {
+      this.done = true;
+
+      var rootEntry = this.tryEntries[0];
+      var rootRecord = rootEntry.completion;
+      if (rootRecord.type === "throw") {
+        throw rootRecord.arg;
+      }
+
+      return this.rval;
+    },
+
+    dispatchException: function(exception) {
+      if (this.done) {
+        throw exception;
+      }
+
+      var context = this;
+      function handle(loc, caught) {
+        record.type = "throw";
+        record.arg = exception;
+        context.next = loc;
+
+        if (caught) {
+          // If the dispatched exception was caught by a catch block,
+          // then let that catch block handle the exception normally.
+          context.method = "next";
+          context.arg = undefined;
+        }
+
+        return !! caught;
+      }
+
+      for (var i = this.tryEntries.length - 1; i >= 0; --i) {
+        var entry = this.tryEntries[i];
+        var record = entry.completion;
+
+        if (entry.tryLoc === "root") {
+          // Exception thrown outside of any try block that could handle
+          // it, so set the completion value of the entire function to
+          // throw the exception.
+          return handle("end");
+        }
+
+        if (entry.tryLoc <= this.prev) {
+          var hasCatch = hasOwn.call(entry, "catchLoc");
+          var hasFinally = hasOwn.call(entry, "finallyLoc");
+
+          if (hasCatch && hasFinally) {
+            if (this.prev < entry.catchLoc) {
+              return handle(entry.catchLoc, true);
+            } else if (this.prev < entry.finallyLoc) {
+              return handle(entry.finallyLoc);
+            }
+
+          } else if (hasCatch) {
+            if (this.prev < entry.catchLoc) {
+              return handle(entry.catchLoc, true);
+            }
+
+          } else if (hasFinally) {
+            if (this.prev < entry.finallyLoc) {
+              return handle(entry.finallyLoc);
+            }
+
+          } else {
+            throw new Error("try statement without catch or finally");
+          }
+        }
+      }
+    },
+
+    abrupt: function(type, arg) {
+      for (var i = this.tryEntries.length - 1; i >= 0; --i) {
+        var entry = this.tryEntries[i];
+        if (entry.tryLoc <= this.prev &&
+            hasOwn.call(entry, "finallyLoc") &&
+            this.prev < entry.finallyLoc) {
+          var finallyEntry = entry;
+          break;
+        }
+      }
+
+      if (finallyEntry &&
+          (type === "break" ||
+           type === "continue") &&
+          finallyEntry.tryLoc <= arg &&
+          arg <= finallyEntry.finallyLoc) {
+        // Ignore the finally entry if control is not jumping to a
+        // location outside the try/catch block.
+        finallyEntry = null;
+      }
+
+      var record = finallyEntry ? finallyEntry.completion : {};
+      record.type = type;
+      record.arg = arg;
+
+      if (finallyEntry) {
+        this.method = "next";
+        this.next = finallyEntry.finallyLoc;
+        return ContinueSentinel;
+      }
+
+      return this.complete(record);
+    },
+
+    complete: function(record, afterLoc) {
+      if (record.type === "throw") {
+        throw record.arg;
+      }
+
+      if (record.type === "break" ||
+          record.type === "continue") {
+        this.next = record.arg;
+      } else if (record.type === "return") {
+        this.rval = this.arg = record.arg;
+        this.method = "return";
+        this.next = "end";
+      } else if (record.type === "normal" && afterLoc) {
+        this.next = afterLoc;
+      }
+
+      return ContinueSentinel;
+    },
+
+    finish: function(finallyLoc) {
+      for (var i = this.tryEntries.length - 1; i >= 0; --i) {
+        var entry = this.tryEntries[i];
+        if (entry.finallyLoc === finallyLoc) {
+          this.complete(entry.completion, entry.afterLoc);
+          resetTryEntry(entry);
+          return ContinueSentinel;
+        }
+      }
+    },
+
+    "catch": function(tryLoc) {
+      for (var i = this.tryEntries.length - 1; i >= 0; --i) {
+        var entry = this.tryEntries[i];
+        if (entry.tryLoc === tryLoc) {
+          var record = entry.completion;
+          if (record.type === "throw") {
+            var thrown = record.arg;
+            resetTryEntry(entry);
+          }
+          return thrown;
+        }
+      }
+
+      // The context.catch method must only be called with a location
+      // argument that corresponds to a known catch block.
+      throw new Error("illegal catch attempt");
+    },
+
+    delegateYield: function(iterable, resultName, nextLoc) {
+      this.delegate = {
+        iterator: values(iterable),
+        resultName: resultName,
+        nextLoc: nextLoc
+      };
+
+      if (this.method === "next") {
+        // Deliberately forget the last sent value so that we don't
+        // accidentally pass it on to the delegate.
+        this.arg = undefined;
+      }
+
+      return ContinueSentinel;
+    }
+  };
+})(
+  // In sloppy mode, unbound `this` refers to the global object, fallback to
+  // Function constructor if we're in global strict mode. That is sadly a form
+  // of indirect eval which violates Content Security Policy.
+  (function() {
+    return this || (typeof self === "object" && self);
+  })() || Function("return this")()
+);
+
+
+/***/ }),
+
+/***/ 23:
+/*!*************************************************************!*\
+  !*** /Users/lee/Downloads/备份11/轻纺车网/services/config/api.js ***!
+  \*************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+var _module$exports;function _defineProperty(obj, key, value) {if (key in obj) {Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true });} else {obj[key] = value;}return obj;}
+//const ServerUrl = "http://192.168.11.135"; 
+var ServerUrl = "http://test.144f.com:8080/qfc-web";
+//const ServerUrl = "http://apps.144f.com/qfc-web"; 
+var ChooseUrl = ServerUrl + '/choose/';
+var VERSION = '3.3.72'; // 小程序版本
+
+module.exports = (_module$exports = {
+  VERSION: VERSION,
+  ChooseUrl: ChooseUrl,
+  //下拉选择
+  ServerUrl: ServerUrl,
+  getRegion: ChooseUrl + "region", //区域
+  getCoordinate: ChooseUrl + "coordinate", //配合度
+  getType: ChooseUrl + "type", //客户类型
+  getCompanyScale: ChooseUrl + "scale", //客户规模
+  getSource: ChooseUrl + "source", //客户来源
+  getBusinessModel: ChooseUrl + "businessModel", //公司经营模式
+  getMainProduct: ChooseUrl + "mainProduct", //主营产品
+  getOperateCapital: ChooseUrl + "operateCapital", //资金状况
+  getOperateCredit: ChooseUrl + "operateCredit", //信用状况
+  getOperateOperation: ChooseUrl + "operateOperation", //运营状况
+  getOperateWom: ChooseUrl + "operateWom", //口碑
+  getQuality: ChooseUrl + "quality", //品质定位
+  getPost: ChooseUrl + "post", //角色
+  getChannel: ChooseUrl + "channe", //渠道
+  getCostPerformance: ChooseUrl + "costPerformance", //性价比
+  getIdentity: ChooseUrl + "identity", //身份
+  getPotential: ChooseUrl + "potential", //发展潜力
+  getPriceSensitivity: ChooseUrl + "priceSensitivity", //用户价格敏感度
+  getCooperationIntention: ChooseUrl + "cooperationIntention", //合作意向
+  getCharacterFeatures: ChooseUrl + "characterFeatures", //性格特点
+  getManageFeatures: ChooseUrl + "manageFeatures", //经营者特征
+  getManagementPosition: ChooseUrl + "managementPosition" }, _defineProperty(_module$exports, "getManagementPosition",
+ChooseUrl + "managementPosition"), _defineProperty(_module$exports, "login",
+
+
+
+
+
+ServerUrl + '/ul/login'), _defineProperty(_module$exports, "chanage_password",
+ServerUrl + '/ul/change_password'), _defineProperty(_module$exports, "verification",
+ServerUrl + '/ul/verification'), _defineProperty(_module$exports, "registration",
+ServerUrl + '/ul/registration'), _defineProperty(_module$exports, "getNewsNum",
+ServerUrl + '/um/count'), _defineProperty(_module$exports, "noReadList",
+ServerUrl + '/um/list'), _defineProperty(_module$exports, "delReadList",
+ServerUrl + '/um/del'), _defineProperty(_module$exports, "DetailReadList",
+ServerUrl + '/um/details'), _defineProperty(_module$exports, "userDetails",
+
+
+
+ServerUrl + '/user/details'), _defineProperty(_module$exports, "pupList",
+ServerUrl + '/pup/list'), _defineProperty(_module$exports, "pupDefault",
+ServerUrl + '/pup/default'), _defineProperty(_module$exports, "bsList",
+ServerUrl + '/cm/bsList'), _defineProperty(_module$exports, "dmList",
+ServerUrl + '/cm/dmList'), _defineProperty(_module$exports, "cmDetail",
+
+ServerUrl + '/cm/details'), _defineProperty(_module$exports, "updateCustomer",
+ServerUrl + '/cm/updateCustomer'), _defineProperty(_module$exports, "linkMan",
+ServerUrl + '/cm/linkman'), _defineProperty(_module$exports, "linkmanDetails",
+ServerUrl + '/cm/linkmanDetails'), _defineProperty(_module$exports, "linkmanDel",
+ServerUrl + '/cm/linkmanDel'), _defineProperty(_module$exports, "linkmanAdd",
+ServerUrl + '/cm/linkmanAdd'), _defineProperty(_module$exports, "linkmanUpdate",
+ServerUrl + '/cm/linkmanUpdate'), _defineProperty(_module$exports, "operation",
+ServerUrl + '/cm/operation'), _defineProperty(_module$exports, "rival",
+ServerUrl + '/cm/rival'), _defineProperty(_module$exports, "rivalDetails",
+ServerUrl + '/cm/rivalDetails'), _defineProperty(_module$exports, "rivalDel",
+ServerUrl + '/cm/rivalDel'), _defineProperty(_module$exports, "rivalUpdate",
+ServerUrl + '/cm/rivalUpdate'), _defineProperty(_module$exports, "buyAddCustomer",
+ServerUrl + '/cm/buyAddCustomer'), _defineProperty(_module$exports, "delCustomer",
+ServerUrl + '/cm/del'), _defineProperty(_module$exports, "updateCustomer",
+
+ServerUrl + '/cm/updateCustomer'), _defineProperty(_module$exports, "sellCusmterCreated",
+ServerUrl + "/cm/sellAddCustomer"), _defineProperty(_module$exports, "operationUpdate",
+ServerUrl + "/cm/operationUpdate"), _defineProperty(_module$exports, "operationAdd",
+ServerUrl + '/cm/operationAdd'), _defineProperty(_module$exports, "rivalAdd",
+ServerUrl + '/cm/rivalAdd'), _defineProperty(_module$exports, "dmList",
+ServerUrl + '/cm/dmList'), _defineProperty(_module$exports, "dmCount",
+ServerUrl + '/cm/dmCount'), _defineProperty(_module$exports, "majordomoDel",
+ServerUrl + '/cm/majordomoDel'), _defineProperty(_module$exports, "managerDel",
+ServerUrl + '/cm/managerDel'), _defineProperty(_module$exports, "managerList",
+ServerUrl + '/cm/managerList'), _defineProperty(_module$exports, "deputyList",
+ServerUrl + '/cm/deputyList'), _defineProperty(_module$exports, "managerAllot",
+ServerUrl + '/cm/managerAllot'), _defineProperty(_module$exports, "majordomoAllot",
+ServerUrl + '/cm/majordomoAllot'), _defineProperty(_module$exports, "inquiryType",
+
+ServerUrl + '/choose/inquiryType'), _defineProperty(_module$exports, "atom",
+ServerUrl + '/choose/atom'), _defineProperty(_module$exports, "atomAdd",
+ServerUrl + '/choose/atomAdd'), _defineProperty(_module$exports, "series",
+ServerUrl + '/choose/series'), _defineProperty(_module$exports, "seriesAdd",
+ServerUrl + '/choose/seriesAdd'), _defineProperty(_module$exports, "style",
+ServerUrl + '/choose/style'), _defineProperty(_module$exports, "styleAdd",
+ServerUrl + '/choose/styleAdd'), _defineProperty(_module$exports, "clothType",
+ServerUrl + '/choose/clothType'), _defineProperty(_module$exports, "densityUnit",
+ServerUrl + '/choose/densityUnit'), _defineProperty(_module$exports, "gramWeightUnit",
+ServerUrl + '/choose/gramWeightUnit'), _defineProperty(_module$exports, "quantityUnit",
+ServerUrl + '/choose/quantityUnit'), _defineProperty(_module$exports, "placeOfDelivery",
+ServerUrl + '/choose/placeOfDelivery'), _defineProperty(_module$exports, "buyerList",
+ServerUrl + '/bInquiry/buyerList'), _defineProperty(_module$exports, "addInquiry",
+ServerUrl + '/bInquiry/add'), _defineProperty(_module$exports, "buyDeputyClose",
+ServerUrl + '/bInquiry/buyDeputyClose'), _defineProperty(_module$exports, "push",
+ServerUrl + '/bInquiry/push'), _defineProperty(_module$exports, "buyDeputyList",
+
+
+ServerUrl + '/bInquiry/buyDeputyList'), _defineProperty(_module$exports, "sellDeputyList",
+ServerUrl + '/bInquiry/sellDeputyList'), _defineProperty(_module$exports, "upload",
+
+ServerUrl + '/oss/upload'), _defineProperty(_module$exports, "upload_batch",
+ServerUrl + '/oss/upload_batch'), _defineProperty(_module$exports, "deputyDetails",
+ServerUrl + '/bInquiry/deputyDetails'), _defineProperty(_module$exports, "priceUnit",
+
+ServerUrl + '/choose/priceUnit'), _defineProperty(_module$exports, "isIcash",
+ServerUrl + '/choose/isIcash'), _defineProperty(_module$exports, "isPlusDuty",
+ServerUrl + '/choose/isPlusDuty'), _defineProperty(_module$exports, "inventory",
+ServerUrl + '/choose/inventory'), _defineProperty(_module$exports, "quotationAdd",
+ServerUrl + '/sQuotation/add'), _defineProperty(_module$exports, "deputyQuotation",
+ServerUrl + '/sQuotation/sellDeputyList'), _defineProperty(_module$exports, "sellerQuotationDetail",
+ServerUrl + '/sQuotation/sellDeputyDetails'), _defineProperty(_module$exports, "buyerQuotation",
+
+ServerUrl + '/sQuotation/buyDeputyList'), _defineProperty(_module$exports, "buyerQuotationDetail",
+ServerUrl + '/sQuotation/buyDeputyDetails'), _defineProperty(_module$exports, "sellDeputyClose",
+ServerUrl + '/sQuotation/sellDeputyClose'), _defineProperty(_module$exports, "directorDetails",
+
+ServerUrl + '/sQuotation/directorDetails'), _defineProperty(_module$exports, "directorNoPass",
+ServerUrl + '/sQuotation/directorNoPass'), _defineProperty(_module$exports, "computationRule",
+
+ServerUrl + '/choose/computationRule'), _defineProperty(_module$exports, "buyDeputyDirectPrice",
+ServerUrl + '/sQuotation/buyDeputyDirectPrice'), _defineProperty(_module$exports, "directPriceList",
+ServerUrl + '/sQuotation/directPriceList'), _defineProperty(_module$exports, "buyDeputySetDetails",
+
+ServerUrl + '/sQuotation/buyDeputySetDetails'), _defineProperty(_module$exports, "buyDeputySetPrice",
+ServerUrl + '/sQuotation/buyDeputySetPrice'), _defineProperty(_module$exports, "buyDeputyUnsuited",
+ServerUrl + '/sQuotation/buyDeputyUnsuited'), _defineProperty(_module$exports, "buyDeputySuited",
+ServerUrl + '/sQuotation/buyDeputySuited'), _defineProperty(_module$exports, "buyDeputyAddOrder",
+ServerUrl + '/sQuotation/buyDeputyAddOrder'), _defineProperty(_module$exports, "directorList",
+ServerUrl + '/bInquiry/directorList'), _defineProperty(_module$exports, "directorReviewCount",
+ServerUrl + '/sQuotation/directorReviewCount'), _defineProperty(_module$exports, "directorModifyPrice",
+ServerUrl + '/sQuotation/directorModifyPrice'), _defineProperty(_module$exports, "zyDetails",
+
+
+ServerUrl + '/bInquiry/zyDetails'), _defineProperty(_module$exports, "analystList",
+ServerUrl + '/analyse/list'), _defineProperty(_module$exports, "quotationDetails",
+ServerUrl + '/sQuotation/zyDetails'), _defineProperty(_module$exports, "analystDetails",
+ServerUrl + '/analyse/details'), _defineProperty(_module$exports, "analystAdd",
+ServerUrl + '/analyse/add'), _defineProperty(_module$exports, "contrastDetails",
+ServerUrl + '/analyse/contrastDetails'), _defineProperty(_module$exports, "contrastAdd",
+ServerUrl + '/analyse/contrastAdd'), _defineProperty(_module$exports, "contrastUpdate",
+ServerUrl + '/analyse/updateContrast'), _defineProperty(_module$exports, "zyDetailsList",
+ServerUrl + '/sQuotation/zyDetailsList'), _defineProperty(_module$exports, "inquiryStatus",
+ServerUrl + '/choose/inquiryStatus'), _defineProperty(_module$exports, "inquiryStatus2",
+ServerUrl + '/choose/inquiryStatus2'), _defineProperty(_module$exports, "analystUpdate",
+ServerUrl + '/analyse/update'), _defineProperty(_module$exports, "updateList",
+ServerUrl + '/analyse/updateList'), _defineProperty(_module$exports, "qrCode",
+
+ServerUrl + '/qr/get'), _defineProperty(_module$exports, "isExist",
+ServerUrl + '/qr/isExist'), _defineProperty(_module$exports, "quoteAgain",
+ServerUrl + '/sQuotation/quoteAgain'), _defineProperty(_module$exports, "machineStatus",
+
+
+ServerUrl + '/choose/machineStatus'), _defineProperty(_module$exports, "inStock",
+ServerUrl + '/choose/inStock'), _defineProperty(_module$exports, "machineType",
+ServerUrl + '/choose/machineType'), _defineProperty(_module$exports, "machineBrand",
+ServerUrl + '/choose/machineBrand'), _defineProperty(_module$exports, "slideshow",
+ServerUrl + '/shop/slideshow'), _defineProperty(_module$exports, "slideshowDel",
+ServerUrl + '/shop/slideshowDel'), _defineProperty(_module$exports, "slideshowAdd",
+ServerUrl + '/shop/slideshowAdd'), _defineProperty(_module$exports, "goodsAdd",
+
+ServerUrl + '/shop/goodsAdd'), _defineProperty(_module$exports, "manageProfile",
+ServerUrl + '/shop/profile'), _defineProperty(_module$exports, "weavingMachineAdd",
+ServerUrl + '/shop/weavingMachineAdd'), _defineProperty(_module$exports, "weavingMachineDel",
+ServerUrl + '/shop/weavingMachineDel'), _defineProperty(_module$exports, "profileUpdate",
+ServerUrl + '/shop/profileUpdate'), _defineProperty(_module$exports, "goodsList",
+ServerUrl + '/shop/goodsList'), _defineProperty(_module$exports, "goodsDel",
+ServerUrl + '/shop/goodsDel'), _defineProperty(_module$exports, "soldOut",
+ServerUrl + '/shop/soldOut'), _defineProperty(_module$exports, "goodsDetails",
+ServerUrl + '/shop/goodsDetails'), _defineProperty(_module$exports, "goodsUpdate",
+ServerUrl + '/shop/goodsUpdate'), _defineProperty(_module$exports, "goodsUpdateList",
+ServerUrl + '/shop/goodsUpdateList'), _defineProperty(_module$exports, "goodsAudit",
+ServerUrl + '/shop/audit'), _defineProperty(_module$exports, "auditList",
+ServerUrl + '/shop/auditList'), _defineProperty(_module$exports, "auditPass",
+ServerUrl + '/shop/auditPass'), _defineProperty(_module$exports, "auditCount",
+ServerUrl + '/shop/auditCount'), _defineProperty(_module$exports, "matchList1",
+ServerUrl + '/sQuotation/matchList1'), _defineProperty(_module$exports, "matchList2",
+ServerUrl + '/sQuotation/matchList2'), _defineProperty(_module$exports, "matchList3",
+ServerUrl + '/sQuotation/matchList3'), _defineProperty(_module$exports, "systemNoMatch",
+ServerUrl + '/sQuotation/noMatch'), _defineProperty(_module$exports, "companyList",
+ServerUrl + '/sQuotation/companyList'), _defineProperty(_module$exports, "QgoodsList",
+ServerUrl + '/sQuotation/goodsList'), _defineProperty(_module$exports, "QgoodsDetails",
+ServerUrl + '/sQuotation/goodsDetails'), _defineProperty(_module$exports, "newQuotationAdd",
+ServerUrl + '/sQuotation/add'), _module$exports);
+
+/***/ }),
+
+/***/ 24:
+/*!****************************************************!*\
+  !*** /Users/lee/Downloads/备份11/轻纺车网/utils/util.js ***!
+  \****************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+/* WEBPACK VAR INJECTION */(function(uni) {var Api = __webpack_require__(/*! services/config/api.js */ 23);
+var Es6Promise = __webpack_require__(/*! lib/es6-promise.js */ 25);
+
+
+/**
+                                                 * 封封微信的的request
+                                                 */
+var bool = true;
+function request(url) {var data = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};var method = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "GET";
+  var loginApi = Api.AuthLoginByWeixin;
+  return new Es6Promise(function (resolve, reject) {
+    wx.request({
+      url: url,
+      data: data,
+      method: method,
+      header: {
+        'Content-Type': 'application/json',
+        // 'Authorization': "Bearer "+ wx.getStorageSync('token')
+        'MYTK': wx.getStorageSync('token') },
+
+      success: function success(res) {
+
+        if (res.statusCode >= 200 && res.statusCode < 300) {
+          resolve(res);
+        }
+        // 重新登录
+        // else if (res.statusCode == 401 && url.indexOf(loginApi) == -1) {
+        //   let loginOn = wx.getStorageSync("loginOn");
+
+        // if (!loginOn) {
+        //   wx.setStorageSync("loginOn", true);
+
+        //需要登录后才可以操作
+        // let code = null;
+        // return login().then((res) => {
+        //   code = res.code;
+        //   return getUserInfo();
+        // }).then((userInfo) => {
+
+        //   wx.setStorageSync("rawData", userInfo.rawData)
+        //   wx.setStorageSync("signature", userInfo.signature)
+
+        //   // 重新登录，登录远程服务器
+        //   request(Api.AuthLoginByWeixin, { code: code, userInfo: userInfo }, 'POST').then(res => { 
+        //     wx.setStorageSync("loginOn", false);
+
+        //     if (res.data.code == 200) {
+        //       if (res.data.sessionKey) {
+        //         wx.setStorageSync("sessionKey", res.data.sessionKey);
+        //       }
+
+
+        //     // 获取当前页面的路径
+        //       let getPage = getCurrentPages();
+
+        //       // 拼接当前页面路径
+        //       let pageRoute = `/${getPage[getPage.length-1].route}`;
+        //       let pageOptions = getPage[getPage.length - 1].options;
+        //       let nStr = ``;
+        //       // 当前路径拼接
+        //       for (let attr in pageOptions) {
+        //         nStr += `&${attr}=${pageOptions[attr]}`
+        //       }
+        //       let pageUrl = pageRoute + nStr.replace('&', '?');
+
+        //       if (wx.reLaunch) {
+        //         wx.reLaunch({
+        //           url: pageUrl
+        //         });
+        //       } else {
+        //         wx.switchTab({
+        //           url: '/pages/tab-index/index'
+        //         })
+        //       }
+        //     } else {
+        //       reject(res);
+        //     }
+        //   }).catch((err) => {
+        //     wx.setStorageSync("loginOn", false);
+        //     reject(err);
+        //   });
+
+        // }).catch((err) => {
+        //   wx.setStorageSync("loginOn", false);
+        //   reject(err);
+        // })
+        //}
+        //}
+        // 无权限
+        else if (res.statusCode == 401) {
+            // backIndexPageModal("很抱歉，你没有查看权限");
+
+            uni.navigateTo({
+              url: '/pages/qing-f-c/login/login',
+              success: function success(res) {},
+              fail: function fail() {},
+              complete: function complete() {} });
+
+            return;
+          } else {
+            uni.showToast({
+              title: res.statusCode,
+              icon: 'none' });
+
+          }
+      },
+      fail: function fail(err) {
+        reject(err);
+
+        if (bool) {
+          bool = false;
+          wx.getNetworkType({
+            success: function success(res) {
+              // 判断有没有网络
+              if (res.networkType == "none") {
+                showModal("网络连接失败，请检测网络是否正常", function () {
+                  bool = true;
+                });
+              } else {
+                if (err.errMsg.indexOf("timeout") != -1) {
+                  showModal("请求超时，请重新请求！", function () {
+                    bool = true;
+                  });
+                } else {
+                  showModal(err.errMsg, function () {
+                    bool = true;
+                  });
+                }
+              }
+            } });
+
+        }
+      } });
+
+  });
+}
+
+/**
+   * banner跳转
+   */
+
+// const bannerJumpRequest = (title,orderNo,picId,type,info,startDate,endDate,status) =>{
+//   var url = Api.bannerJump + ""
+//   var data = {
+//     title:title,
+//     orderNo:orderNo,
+//     picId:picId,
+//     type:type,
+//     info:info,
+//     startDate: startDate,
+//     endDate: endDate,
+//     status: status,
+//   }
+//   request(url,data,"POST")
+// }
+
+// const commentRequest = (url,data={},method="GET") =>{
+//   var url = `${Api.guestComment}?page=1&size=5`
+//   var data = {
+
+//   }
+//   request(url,data,"GET")
+// }
+
+// const jumpMpRequest = (m_appid, headerTokne, contentType, end_method)=>{
+//   var url = Api.tiaozhuan
+//   var data={
+//     m_appid: "wxfa94ddf446523122",
+//     method: "POST",	
+//     headerTokne: "",
+//     contentType: "application/json",
+//     end_method: "/wx/carte/user/receiveData"
+//   }
+//   request(url,data,"POST")
+// }
+var showToast = function showToast(str) {
+  wx.showToast({
+    title: str,
+    image: '/images/icon-alert.png' });
+
+};
+var showLoading = function showLoading(str) {
+  wx.showLoading({
+    title: str,
+    mask: true });
+
+};
+
+
+/**
+    * photo upload 
+    */
+function uploadPic(filePath) {
+  return new Es6Promise(function (resolve, reject) {
+    var uploadTask = wx.uploadFile({
+      url: Api.PicUpload, //仅为示例，非真实的接口地址
+      filePath: filePath,
+      name: 'file',
+      header: {
+        'Authorization': "Bearer " + wx.getStorageSync('token') },
+
+      formData: {
+        'user': 'test' },
+
+      success: function success(res) {
+        resolve(res);
+        var data = res.data;
+
+        //do something
+      },
+      fail: function fail(err) {
+        reject(err);
+      } });
+
+
+    // uploadTask.onProgressUpdate((res) => {
+    //   console.log(filePath+'上传进度', res.progress)
+    //   console.log(filePath+'已经上传的数据长度', res.totalBytesSent)
+    //   console.log(filePath+'预期需要上传的数据总长度', res.totalBytesExpectedToSend)
+    // })
+  });
+
+}
+
+
+/**
+   * 已经选中的图片上传 array
+   */
+function uploadPics(photoList) {
+  return new Es6Promise(function (resolve, reject) {
+    var picArray = photoList;
+    var photoJsonArray = [];
+    if (picArray.length != 0) {
+      for (var i = 0; i < picArray.length; i++) {
+        uploadPic(picArray[i]).then(function (res) {
+          photoJsonArray.push(JSON.parse(res.data));
+          //console.dir(res.data);
+          //console.dir(photoJsonArray);
+          if (photoJsonArray.length == picArray.length) {
+            resolve(photoJsonArray);
+          }
+        }).catch(function (err) {
+          // util.showToast("图片上传失败");
+          reject(err);
+          return;
+        });
+      }
+    } else {
+      resolve([]);
+    }
+  });
+}
+
+/**
+   * 下载图片
+   */
+function downloadFile(imgUrl) {
+  return new Es6Promise(function (resolve, reject) {
+    wx.downloadFile({
+      url: imgUrl,
+      success: function success(res) {
+        if (res.statusCode === 200) {
+          resolve(res.tempFilePath);
+        } else {
+          reject();
+        }
+      },
+      fail: function fail(err) {
+        reject();
+      } });
+
+  });
+}
+
+/**
+   * 检查微信会话是否过期
+   */
+function checkSession() {
+  return new Es6Promise(function (resolve, reject) {
+    wx.checkSession({
+      success: function success() {
+        resolve(true);
+      },
+      fail: function fail() {
+        reject(false);
+      } });
+
+  });
+}
+
+/**
+   * 调用微信登录
+   */
+function login() {
+  return new Es6Promise(function (resolve, reject) {
+    wx.login({
+      success: function success(res) {
+        if (res.code) {
+          //登录远程服务器
+          resolve(res);
+        } else {
+          reject(res);
+        }
+      },
+      fail: function fail(err) {
+        reject(err);
+      } });
+
+  });
+}
+
+/**
+   * 获取微信用户信息
+   */
+function getUserInfo() {
+  return new Es6Promise(function (resolve, reject) {
+    // 查看是否授权
+    // console.log('查看用户是否授权')
+    if (wx.getSetting) {
+      var getPages = getCurrentPages();
+      var page = getPages[getPages.length - 1];
+
+      wx.getSetting({
+        success: function success(getRes) {
+          if (getRes.authSetting['scope.userInfo']) {
+            wx.getUserInfo({
+              withCredentials: true,
+              success: function success(userRes) {
+                resolve(userRes);
+              },
+              fail: function fail(userErr) {
+                console.log(userErr, 'userInfo');
+                reject(err);
+              } });
+
+          } else {
+            page.setData({
+              userAuthor: true });
+
+            // console.log('用户需要授权');
+          }
+        },
+        fail: function fail(err) {
+          page.setData({
+            userAuthor: true });
+
+          console.log("调用 wx.getSetting 方法失败", err);
+        } });
+
+    } else {
+      showModal('当前微信版本暂不支持 wx.getSetting 方法，请升级微信版本！');
+    }
+  });
+}
+
+/**
+   * 重新登录
+   */
+function loginAgain() {
+  var code = null;
+  login().then(function (res) {
+    code = res.code;
+    return getUserInfo();
+  }).then(function (userInfo) {
+
+    wx.setStorageSync("rawData", userInfo.rawData);
+    wx.setStorageSync("signature", userInfo.signature);
+
+    // 重新登录，登录远程服务器
+    request(Api.AuthLoginByWeixin, { code: code, userInfo: userInfo }, 'POST').then(function (res) {
+      if (res.statusCode == 200) {
+        var newData = res.data;
+
+        if (newData.sessionKey) {
+          wx.setStorageSync("sessionKey", newData.sessionKey);
+        }
+
+        // 存储用户信息
+        wx.setStorageSync('userInfo', newData.userInfo);
+        wx.setStorageSync('token', newData.token);
+
+        // 获取当前页面的路径
+        var getPage = getCurrentPages();
+        var nowPage = getPage[getPage.length - 1];
+
+        // 用户已注册
+        if (newData.token && newData.userInfo.company && newData.userInfo.phone) {
+          // 拼接当前页面路径
+          var pageRoute = "/".concat(nowPage.route);
+          var pageOptions = nowPage.options;
+          var nStr = "";
+          // 当前路径拼接
+          for (var attr in pageOptions) {
+            nStr += "&".concat(attr, "=").concat(pageOptions[attr]);
+          }
+          var pageUrl = pageRoute + nStr.replace('&', '?');
+
+          // 执行当前页面的 onLoad 事件
+          // nowPage.onLoad(nowPage.options);
+          if (wx.reLaunch) {
+            wx.reLaunch({
+              url: pageUrl });
+
+          } else {
+            wx.switchTab({
+              url: '/pages/tab-index/index' });
+
+          }
+        }
+        // 用户未注册
+        else if (newData.token) {
+            var AppData = getApp().globalData;
+            AppData.regPage.route = nowPage.route;
+            AppData.regPage.opt = nowPage.options;
+
+            if (wx.reLaunch) {
+              // wx.reLaunch({
+              //   url: '/pages/public/authorize',
+              // })
+            } else {
+                // wx.redirectTo({
+                //   url: '/pages/public/authorize',
+                // })
+              }
+          }
+      } else {
+        showModal("登录服务器失败");
+        // reject(res);
+      }
+    }).catch(function (err) {
+      showModal("登录服务器失败");
+      // reject(err);
+    });
+  }).catch(function (err) {
+    showModal("登录服务器失败");
+  });
+}
+
+/**
+   * 判断是否进入注册页
+   */
+function goRegPage() {
+  var AppData = getApp().globalData;
+  var userInfo = wx.getStorageSync("userInfo");
+
+  // 用户未注册
+  if (!userInfo.company || !userInfo.phone) {
+    // 获取当前页面的路径
+    var getPage = getCurrentPages();
+    var nowPage = getPage[getPage.length - 1];
+
+    AppData.regPage.route = nowPage.route;
+    AppData.regPage.opt = nowPage.options;
+
+    if (wx.reLaunch) {
+      // wx.reLaunch({
+      //   url: '/pages/public/authorize',
+      // })
+    } else {
+        // wx.redirectTo({
+        //   url: '/pages/public/authorize',
+        // })
+      }
+    return false;
+  } else {
+    return true;
+  }
+}
+
+/**
+   * 微信是否授权判断
+   */
+// function scopeWChat() {
+// return new Promise(function (resolve, reject) {
+//   let token = wx.getStorageSync("token");
+//   let scopeLogin = wx.getStorageSync('scopeLogin');
+
+//   if (!token && scopeLogin) {
+//     wx.getSetting({
+//       success: (res) => {
+//         let scopeInfo = res.authSetting['scope.userInfo'];
+
+//         // 是否授权
+//         if (scopeInfo) {
+//           resolve(true)
+//           wx.removeStorageSync("scopeLogin");
+//         } else {
+//           reject(false);
+//         }
+//       }
+//     })
+//   }
+// })
+// }
+
+/**
+ * 获取认证信息
+ */
+function getApproveData() {
+  return new Es6Promise(function (resolve, reject) {
+    var info = wx.getStorageSync('userInfo');
+
+    // 判断用户是否已经注册
+    if (info.phone) {
+      var approveApi = Api.UserApprove;
+
+      request(approveApi, {}, 'get').then(function (res) {
+        resolve(res);
+        wx.setStorageSync("approveInfo", res.data);
+      }).catch(function (err) {
+        wx.hideLoading();
+        showModal("获取认证失败");
+      });
+    }
+  });
+}
+
+/**
+   * 获取支持的银行列表
+   */
+function getSupportBank() {
+  getPaySaveBank();
+  getPayCreditBank();
+  getCashBank();
+}
+
+/**
+   * 获取付款银行列表--储蓄卡
+   */
+function getPaySaveBank() {
+  return new Es6Promise(function (resolve, reject) {
+    var info = wx.getStorageSync('userInfo');
+
+    // 判断用户是否已经注册
+    if (info.phone) {
+      request(Api.UserPaySave).then(function (res) {
+        // 获取银行logo
+        var paySaveData = res.data.map(function (item) {
+          item.logo = item.logo ? "".concat(Api.ShowPic, "/").concat(item.logo, "/download") : null;
+          return item;
+        });
+        resolve(paySaveData);
+        wx.setStorageSync("paySaveList", paySaveData);
+      }).catch(function (err) {
+        wx.hideLoading();
+        showModal("获取付款卡失败");
+      });
+    }
+  });
+}
+
+/**
+   * 获取付款银行列表--信用卡
+   */
+function getPayCreditBank() {
+  return new Es6Promise(function (resolve, reject) {
+    var info = wx.getStorageSync('userInfo');
+
+    // 判断用户是否已经注册
+    if (info.phone) {
+      request(Api.UserPayCredit).then(function (res) {
+        // 获取银行logo
+        var payCreditData = res.data.map(function (item) {
+          item.logo = item.logo ? "".concat(Api.ShowPic, "/").concat(item.logo, "/download") : null;
+          return item;
+        });
+        resolve(payCreditData);
+        wx.setStorageSync("payCreditList", payCreditData);
+      }).catch(function (err) {
+        wx.hideLoading();
+        showModal("获取信用卡失败");
+      });
+    }
+  });
+}
+
+
+/**
+   * 获取收款银行列表
+   */
+function getCashBank() {
+  return new Es6Promise(function (resolve, reject) {
+    var info = wx.getStorageSync('userInfo');
+
+    // 判断用户是否已经注册
+    if (info.phone) {
+      request(Api.UserCashBank).then(function (res) {
+        // 获取银行logo
+        var cashData = res.data.map(function (item) {
+          item.logo = item.logo ? "".concat(Api.ShowPic, "/").concat(item.logo, "/download") : null;
+          return item;
+        });
+        resolve(cashData);
+        wx.setStorageSync("cashBankList", cashData);
+      }).catch(function (err) {
+        wx.hideLoading();
+        showModal("获取收款卡失败");
+      });
+    }
+  });
+}
+
+/**
+   * 自动消失的提示框
+   */
+function showErrorToast(msg) {
+  wx.showToast({
+    title: msg,
+    duration: 2500,
+    image: '../../images/alert.png' });
+
+}
+
+/** 
+   * 功能：modal 提醒框
+   * 参数：
+   *    第一个参数：当无第二个参数，为内容；有第二个参数，为标题
+   *    第二个参数：当参数类型为：string时，为内容；参数类型为function：为成功回调函数，并且不能传入第三个参数
+   *    第三个参数：成功回调的函数
+   * 例子：
+   *    showModal("内容")
+   *    showModal("标题", "内容")
+   *    showModal("内容", function() { console.log("成功回调函数") })
+   *    showModal("标题", "内容", function() { console.log("成功回调函数") })
+   */
+function showModal(oTitle, msg, fn) {
+  var sTitle = "";
+  var oFn = typeof msg == "function" ? msg : fn;
+  var sMsg = "";
+
+  if (msg != undefined && typeof msg == "string") {
+    sTitle = oTitle;
+    sMsg = msg;
+  } else {
+    sTitle = "";
+    sMsg = oTitle;
+  }
+
+  wx.showModal({
+    title: sTitle || "",
+    content: sMsg || "",
+    confirmColor: "#ff8834",
+    showCancel: false,
+    success: function success(res) {
+      oFn && oFn(res);
+    } });
+
+}
+
+/**
+   * 返回首页提醒框
+   */
+function backIndexPageModal(msg) {
+  wx.showModal({
+    content: msg,
+    showCancel: false,
+    confirmText: '确认',
+    confirmColor: "#ff8834",
+    success: function success(res) {
+      // if (res.confirm) {
+      if (wx.reLaunch) {
+        wx.reLaunch({
+          url: '/pages/tab-index/index' });
+
+      } else {
+        wx.switchTab({
+          url: '/pages/tab-index/index' });
+
+      }
+      // }
+    } });
+
+}
+
+/**
+   * 从需要上传的图片中，筛选出已经上传过的图片；并返回需要上传的图片 及 无需上传的图片对象
+   */
+var picUpPic = function picUpPic(picListArr, picListObjArr) {
+  var newArr = [];
+  var oldArr = [];
+  var oldPicArr = [];
+
+  // 从新获图片数组中，筛选出已经上传过的图片
+  picListArr.forEach(function (item) {
+    if (item.indexOf(Api.NewApiRootUrl) == -1) {
+      newArr.push(item); // 未上传图片
+    } else {
+      oldArr.push(item); // 上传图片
+    }
+  });
+
+  // 获取已上传图片的图片对象
+  picListObjArr.forEach(function (item) {
+    oldArr.forEach(function (list) {
+      if (list.indexOf(item.id) != -1) {
+        oldPicArr.push(item);
+      }
+    });
+  });
+
+  return [newArr, oldPicArr];
+};
+
+/**
+    * 版本过低提醒框
+    */
+function versionTip() {
+  showModal("版本提示", "当前版本暂不支持该功能，请升级微信版本！");
+}
+
+//获取当前日期
+function getTime(date) {
+  var year = date.getFullYear();
+  var month = date.getMonth() + 1;
+  var day = date.getDate();
+
+  var hour = date.getHours();
+  var minute = date.getMinutes();
+  var second = date.getSeconds();
+
+  return [year, month, day].map(formatNumber).join('-');
+}
+
+
+function formatNumber(n) {
+  n = n.toString();
+  return n[1] ? n : '0' + n;
+}
+
+module.exports = {
+  request: request,
+  checkSession: checkSession,
+  login: login,
+  getUserInfo: getUserInfo,
+  goRegPage: goRegPage,
+  // scopeWChat,
+  uploadPic: uploadPic,
+  uploadPics: uploadPics,
+  downloadFile: downloadFile,
+
+  getApproveData: getApproveData,
+  getSupportBank: getSupportBank,
+  getPaySaveBank: getPaySaveBank,
+  getPayCreditBank: getPayCreditBank,
+  getCashBank: getCashBank,
+
+  showErrorToast: showErrorToast,
+  showModal: showModal,
+  showToast: showToast,
+  showLoading: showLoading,
+  versionTip: versionTip,
+  backIndexPageModal: backIndexPageModal,
+
+  getTime: getTime,
+  picUpPic: picUpPic };
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
+
+/***/ }),
+
+/***/ 25:
+/*!*********************************************************!*\
+  !*** /Users/lee/Downloads/备份11/轻纺车网/lib/es6-promise.js ***!
+  \*********************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+/* WEBPACK VAR INJECTION */(function(process, global) {var require;!function (t, e) { true ? module.exports = e() : undefined;}(this, function () {"use strict";function t(t) {return "function" == typeof t || "object" == typeof t && null !== t;}function e(t) {return "function" == typeof t;}function n(t) {I = t;}function r(t) {J = t;}function o() {return function () {return process.nextTick(a);};}function i() {return "undefined" != typeof H ? function () {H(a);} : c();}function s() {var t = 0,e = new V(a),n = document.createTextNode("");return e.observe(n, { characterData: !0 }), function () {n.data = t = ++t % 2;};}function u() {var t = new MessageChannel();return t.port1.onmessage = a, function () {return t.port2.postMessage(0);};}function c() {var t = setTimeout;return function () {return t(a, 1);};}function a() {for (var t = 0; t < G; t += 2) {var e = $[t],n = $[t + 1];e(n), $[t] = void 0, $[t + 1] = void 0;}G = 0;}function f() {try {var t = require,e = __webpack_require__(!(function webpackMissingModule() { var e = new Error("Cannot find module 'vertx'"); e.code = 'MODULE_NOT_FOUND'; throw e; }()));return H = e.runOnLoop || e.runOnContext, i();} catch (n) {return c();}}function l(t, e) {var n = arguments,r = this,o = new this.constructor(p);void 0 === o[et] && k(o);var i = r._state;return i ? !function () {var t = n[i - 1];J(function () {return x(i, o, t, r._result);});}() : E(r, o, t, e), o;}function h(t) {var e = this;if (t && "object" == typeof t && t.constructor === e) return t;var n = new e(p);return g(n, t), n;}function p() {}function v() {return new TypeError("You cannot resolve a promise with itself");}function d() {return new TypeError("A promises callback cannot return that same promise.");}function _(t) {try {return t.then;} catch (e) {return it.error = e, it;}}function y(t, e, n, r) {try {t.call(e, n, r);} catch (o) {return o;}}function m(t, e, n) {J(function (t) {var r = !1,o = y(n, e, function (n) {r || (r = !0, e !== n ? g(t, n) : S(t, n));}, function (e) {r || (r = !0, j(t, e));}, "Settle: " + (t._label || " unknown promise"));!r && o && (r = !0, j(t, o));}, t);}function b(t, e) {e._state === rt ? S(t, e._result) : e._state === ot ? j(t, e._result) : E(e, void 0, function (e) {return g(t, e);}, function (e) {return j(t, e);});}function w(t, n, r) {n.constructor === t.constructor && r === l && n.constructor.resolve === h ? b(t, n) : r === it ? (j(t, it.error), it.error = null) : void 0 === r ? S(t, n) : e(r) ? m(t, n, r) : S(t, n);}function g(e, n) {e === n ? j(e, v()) : t(n) ? w(e, n, _(n)) : S(e, n);}function A(t) {t._onerror && t._onerror(t._result), T(t);}function S(t, e) {t._state === nt && (t._result = e, t._state = rt, 0 !== t._subscribers.length && J(T, t));}function j(t, e) {t._state === nt && (t._state = ot, t._result = e, J(A, t));}function E(t, e, n, r) {var o = t._subscribers,i = o.length;t._onerror = null, o[i] = e, o[i + rt] = n, o[i + ot] = r, 0 === i && t._state && J(T, t);}function T(t) {var e = t._subscribers,n = t._state;if (0 !== e.length) {for (var r = void 0, o = void 0, i = t._result, s = 0; s < e.length; s += 3) {r = e[s], o = e[s + n], r ? x(n, r, o, i) : o(i);}t._subscribers.length = 0;}}function M() {this.error = null;}function P(t, e) {try {return t(e);} catch (n) {return st.error = n, st;}}function x(t, n, r, o) {var i = e(r),s = void 0,u = void 0,c = void 0,a = void 0;if (i) {if (s = P(r, o), s === st ? (a = !0, u = s.error, s.error = null) : c = !0, n === s) return void j(n, d());} else s = o, c = !0;n._state !== nt || (i && c ? g(n, s) : a ? j(n, u) : t === rt ? S(n, s) : t === ot && j(n, s));}function C(t, e) {try {e(function (e) {g(t, e);}, function (e) {j(t, e);});} catch (n) {j(t, n);}}function O() {return ut++;}function k(t) {t[et] = ut++, t._state = void 0, t._result = void 0, t._subscribers = [];}function Y(t, e) {this._instanceConstructor = t, this.promise = new t(p), this.promise[et] || k(this.promise), B(e) ? (this._input = e, this.length = e.length, this._remaining = e.length, this._result = new Array(this.length), 0 === this.length ? S(this.promise, this._result) : (this.length = this.length || 0, this._enumerate(), 0 === this._remaining && S(this.promise, this._result))) : j(this.promise, q());}function q() {return new Error("Array Methods must be provided an Array");}function F(t) {return new Y(this, t).promise;}function D(t) {var e = this;return new e(B(t) ? function (n, r) {for (var o = t.length, i = 0; i < o; i++) {e.resolve(t[i]).then(n, r);}} : function (t, e) {return e(new TypeError("You must pass an array to race."));});}function K(t) {var e = this,n = new e(p);return j(n, t), n;}function L() {throw new TypeError("You must pass a resolver function as the first argument to the promise constructor");}function N() {throw new TypeError("Failed to construct 'Promise': Please use the 'new' operator, this object constructor cannot be called as a function.");}function U(t) {this[et] = O(), this._result = this._state = void 0, this._subscribers = [], p !== t && ("function" != typeof t && L(), this instanceof U ? C(this, t) : N());}function W() {var t = void 0;if ("undefined" != typeof global) t = global;else if ("undefined" != typeof self) t = self;else try {t = Function("return this")();} catch (e) {throw new Error("polyfill failed because global object is unavailable in this environment");}var n = t.Promise;if (n) {var r = null;try {r = Object.prototype.toString.call(n.resolve());} catch (e) {}if ("[object Promise]" === r && !n.cast) return;}t.Promise = U;}var z = void 0;z = Array.isArray ? Array.isArray : function (t) {return "[object Array]" === Object.prototype.toString.call(t);};var B = z,G = 0,H = void 0,I = void 0,J = function J(t, e) {$[G] = t, $[G + 1] = e, G += 2, 2 === G && (I ? I(a) : tt());},Q = "undefined" != typeof window ? window : void 0,R = Q || {},V = R.MutationObserver || R.WebKitMutationObserver,X = "undefined" == typeof self && "undefined" != typeof process && "[object process]" === {}.toString.call(process),Z = "undefined" != typeof Uint8ClampedArray && "undefined" != typeof importScripts && "undefined" != typeof MessageChannel,$ = new Array(1e3),tt = void 0;tt = X ? o() : V ? s() : Z ? u() : void 0 === Q && "function" == "function" ? f() : c();var et = Math.random().toString(36).substring(16),nt = void 0,rt = 1,ot = 2,it = new M(),st = new M(),ut = 0;return Y.prototype._enumerate = function () {for (var t = this.length, e = this._input, n = 0; this._state === nt && n < t; n++) {this._eachEntry(e[n], n);}}, Y.prototype._eachEntry = function (t, e) {var n = this._instanceConstructor,r = n.resolve;if (r === h) {var o = _(t);if (o === l && t._state !== nt) this._settledAt(t._state, e, t._result);else if ("function" != typeof o) this._remaining--, this._result[e] = t;else if (n === U) {var i = new n(p);w(i, t, o), this._willSettleAt(i, e);} else this._willSettleAt(new n(function (e) {return e(t);}), e);} else this._willSettleAt(r(t), e);}, Y.prototype._settledAt = function (t, e, n) {var r = this.promise;r._state === nt && (this._remaining--, t === ot ? j(r, n) : this._result[e] = n), 0 === this._remaining && S(r, this._result);}, Y.prototype._willSettleAt = function (t, e) {var n = this;E(t, void 0, function (t) {return n._settledAt(rt, e, t);}, function (t) {return n._settledAt(ot, e, t);});}, U.all = F, U.race = D, U.resolve = h, U.reject = K, U._setScheduler = n, U._setAsap = r, U._asap = J, U.prototype = { constructor: U, then: l, "catch": function _catch(t) {return this.then(null, t);} }, U.polyfill = W, U.Promise = U, U.polyfill(), U;});
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../../../../../../Applications/HBuilderX.app/Contents/HBuilderX/plugins/uniapp-cli/node_modules/node-libs-browser/mock/process.js */ 26), __webpack_require__(/*! ./../../../../../../Applications/HBuilderX.app/Contents/HBuilderX/plugins/uniapp-cli/node_modules/webpack/buildin/global.js */ 3)))
+
+/***/ }),
+
+/***/ 26:
+/*!********************************************************!*\
+  !*** ./node_modules/node-libs-browser/mock/process.js ***!
+  \********************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports.nextTick = function nextTick(fn) {
+    var args = Array.prototype.slice.call(arguments);
+    args.shift();
+    setTimeout(function () {
+        fn.apply(null, args);
+    }, 0);
+};
+
+exports.platform = exports.arch = 
+exports.execPath = exports.title = 'browser';
+exports.pid = 1;
+exports.browser = true;
+exports.env = {};
+exports.argv = [];
+
+exports.binding = function (name) {
+	throw new Error('No such module. (Possibly not yet loaded)')
+};
+
+(function () {
+    var cwd = '/';
+    var path;
+    exports.cwd = function () { return cwd };
+    exports.chdir = function (dir) {
+        if (!path) path = __webpack_require__(/*! path */ 27);
+        cwd = path.resolve(dir, cwd);
+    };
+})();
+
+exports.exit = exports.kill = 
+exports.umask = exports.dlopen = 
+exports.uptime = exports.memoryUsage = 
+exports.uvCounters = function() {};
+exports.features = {};
+
+
+/***/ }),
+
+/***/ 27:
+/*!***********************************************!*\
+  !*** ./node_modules/path-browserify/index.js ***!
+  \***********************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+/* WEBPACK VAR INJECTION */(function(process) {// .dirname, .basename, and .extname methods are extracted from Node.js v8.11.1,
+// backported and transplited with Babel, with backwards-compat fixes
+
+// Copyright Joyent, Inc. and other Node contributors.
+//
+// Permission is hereby granted, free of charge, to any person obtaining a
+// copy of this software and associated documentation files (the
+// "Software"), to deal in the Software without restriction, including
+// without limitation the rights to use, copy, modify, merge, publish,
+// distribute, sublicense, and/or sell copies of the Software, and to permit
+// persons to whom the Software is furnished to do so, subject to the
+// following conditions:
+//
+// The above copyright notice and this permission notice shall be included
+// in all copies or substantial portions of the Software.
+//
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
+// OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+// MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN
+// NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM,
+// DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR
+// OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE
+// USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+// resolves . and .. elements in a path array with directory names there
+// must be no slashes, empty elements, or device names (c:\) in the array
+// (so also no leading and trailing slashes - it does not distinguish
+// relative and absolute paths)
+function normalizeArray(parts, allowAboveRoot) {
+  // if the path tries to go above the root, `up` ends up > 0
+  var up = 0;
+  for (var i = parts.length - 1; i >= 0; i--) {
+    var last = parts[i];
+    if (last === '.') {
+      parts.splice(i, 1);
+    } else if (last === '..') {
+      parts.splice(i, 1);
+      up++;
+    } else if (up) {
+      parts.splice(i, 1);
+      up--;
+    }
+  }
+
+  // if the path is allowed to go above the root, restore leading ..s
+  if (allowAboveRoot) {
+    for (; up--; up) {
+      parts.unshift('..');
+    }
+  }
+
+  return parts;
+}
+
+// path.resolve([from ...], to)
+// posix version
+exports.resolve = function() {
+  var resolvedPath = '',
+      resolvedAbsolute = false;
+
+  for (var i = arguments.length - 1; i >= -1 && !resolvedAbsolute; i--) {
+    var path = (i >= 0) ? arguments[i] : process.cwd();
+
+    // Skip empty and invalid entries
+    if (typeof path !== 'string') {
+      throw new TypeError('Arguments to path.resolve must be strings');
+    } else if (!path) {
+      continue;
+    }
+
+    resolvedPath = path + '/' + resolvedPath;
+    resolvedAbsolute = path.charAt(0) === '/';
+  }
+
+  // At this point the path should be resolved to a full absolute path, but
+  // handle relative paths to be safe (might happen when process.cwd() fails)
+
+  // Normalize the path
+  resolvedPath = normalizeArray(filter(resolvedPath.split('/'), function(p) {
+    return !!p;
+  }), !resolvedAbsolute).join('/');
+
+  return ((resolvedAbsolute ? '/' : '') + resolvedPath) || '.';
+};
+
+// path.normalize(path)
+// posix version
+exports.normalize = function(path) {
+  var isAbsolute = exports.isAbsolute(path),
+      trailingSlash = substr(path, -1) === '/';
+
+  // Normalize the path
+  path = normalizeArray(filter(path.split('/'), function(p) {
+    return !!p;
+  }), !isAbsolute).join('/');
+
+  if (!path && !isAbsolute) {
+    path = '.';
+  }
+  if (path && trailingSlash) {
+    path += '/';
+  }
+
+  return (isAbsolute ? '/' : '') + path;
+};
+
+// posix version
+exports.isAbsolute = function(path) {
+  return path.charAt(0) === '/';
+};
+
+// posix version
+exports.join = function() {
+  var paths = Array.prototype.slice.call(arguments, 0);
+  return exports.normalize(filter(paths, function(p, index) {
+    if (typeof p !== 'string') {
+      throw new TypeError('Arguments to path.join must be strings');
+    }
+    return p;
+  }).join('/'));
+};
+
+
+// path.relative(from, to)
+// posix version
+exports.relative = function(from, to) {
+  from = exports.resolve(from).substr(1);
+  to = exports.resolve(to).substr(1);
+
+  function trim(arr) {
+    var start = 0;
+    for (; start < arr.length; start++) {
+      if (arr[start] !== '') break;
+    }
+
+    var end = arr.length - 1;
+    for (; end >= 0; end--) {
+      if (arr[end] !== '') break;
+    }
+
+    if (start > end) return [];
+    return arr.slice(start, end - start + 1);
+  }
+
+  var fromParts = trim(from.split('/'));
+  var toParts = trim(to.split('/'));
+
+  var length = Math.min(fromParts.length, toParts.length);
+  var samePartsLength = length;
+  for (var i = 0; i < length; i++) {
+    if (fromParts[i] !== toParts[i]) {
+      samePartsLength = i;
+      break;
+    }
+  }
+
+  var outputParts = [];
+  for (var i = samePartsLength; i < fromParts.length; i++) {
+    outputParts.push('..');
+  }
+
+  outputParts = outputParts.concat(toParts.slice(samePartsLength));
+
+  return outputParts.join('/');
+};
+
+exports.sep = '/';
+exports.delimiter = ':';
+
+exports.dirname = function (path) {
+  if (typeof path !== 'string') path = path + '';
+  if (path.length === 0) return '.';
+  var code = path.charCodeAt(0);
+  var hasRoot = code === 47 /*/*/;
+  var end = -1;
+  var matchedSlash = true;
+  for (var i = path.length - 1; i >= 1; --i) {
+    code = path.charCodeAt(i);
+    if (code === 47 /*/*/) {
+        if (!matchedSlash) {
+          end = i;
+          break;
+        }
+      } else {
+      // We saw the first non-path separator
+      matchedSlash = false;
+    }
+  }
+
+  if (end === -1) return hasRoot ? '/' : '.';
+  if (hasRoot && end === 1) {
+    // return '//';
+    // Backwards-compat fix:
+    return '/';
+  }
+  return path.slice(0, end);
+};
+
+function basename(path) {
+  if (typeof path !== 'string') path = path + '';
+
+  var start = 0;
+  var end = -1;
+  var matchedSlash = true;
+  var i;
+
+  for (i = path.length - 1; i >= 0; --i) {
+    if (path.charCodeAt(i) === 47 /*/*/) {
+        // If we reached a path separator that was not part of a set of path
+        // separators at the end of the string, stop now
+        if (!matchedSlash) {
+          start = i + 1;
+          break;
+        }
+      } else if (end === -1) {
+      // We saw the first non-path separator, mark this as the end of our
+      // path component
+      matchedSlash = false;
+      end = i + 1;
+    }
+  }
+
+  if (end === -1) return '';
+  return path.slice(start, end);
+}
+
+// Uses a mixed approach for backwards-compatibility, as ext behavior changed
+// in new Node.js versions, so only basename() above is backported here
+exports.basename = function (path, ext) {
+  var f = basename(path);
+  if (ext && f.substr(-1 * ext.length) === ext) {
+    f = f.substr(0, f.length - ext.length);
+  }
+  return f;
+};
+
+exports.extname = function (path) {
+  if (typeof path !== 'string') path = path + '';
+  var startDot = -1;
+  var startPart = 0;
+  var end = -1;
+  var matchedSlash = true;
+  // Track the state of characters (if any) we see before our first dot and
+  // after any path separator we find
+  var preDotState = 0;
+  for (var i = path.length - 1; i >= 0; --i) {
+    var code = path.charCodeAt(i);
+    if (code === 47 /*/*/) {
+        // If we reached a path separator that was not part of a set of path
+        // separators at the end of the string, stop now
+        if (!matchedSlash) {
+          startPart = i + 1;
+          break;
+        }
+        continue;
+      }
+    if (end === -1) {
+      // We saw the first non-path separator, mark this as the end of our
+      // extension
+      matchedSlash = false;
+      end = i + 1;
+    }
+    if (code === 46 /*.*/) {
+        // If this is our first dot, mark it as the start of our extension
+        if (startDot === -1)
+          startDot = i;
+        else if (preDotState !== 1)
+          preDotState = 1;
+    } else if (startDot !== -1) {
+      // We saw a non-dot and non-path separator before our dot, so we should
+      // have a good chance at having a non-empty extension
+      preDotState = -1;
+    }
+  }
+
+  if (startDot === -1 || end === -1 ||
+      // We saw a non-dot character immediately before the dot
+      preDotState === 0 ||
+      // The (right-most) trimmed path component is exactly '..'
+      preDotState === 1 && startDot === end - 1 && startDot === startPart + 1) {
+    return '';
+  }
+  return path.slice(startDot, end);
+};
+
+function filter (xs, f) {
+    if (xs.filter) return xs.filter(f);
+    var res = [];
+    for (var i = 0; i < xs.length; i++) {
+        if (f(xs[i], i, xs)) res.push(xs[i]);
+    }
+    return res;
+}
+
+// String.prototype.substr - negative index don't work in IE8
+var substr = 'ab'.substr(-1) === 'b'
+    ? function (str, start, len) { return str.substr(start, len) }
+    : function (str, start, len) {
+        if (start < 0) start = str.length + start;
+        return str.substr(start, len);
+    }
+;
+
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../node-libs-browser/mock/process.js */ 26)))
+
+/***/ }),
+
+/***/ 271:
 /*!**********************************************************************!*\
   !*** /Users/lee/Downloads/备份11/轻纺车网/components/u-charts/u-charts.js ***!
   \**********************************************************************/
@@ -14866,2075 +17071,6 @@ if ( true && typeof module.exports === "object") {
 
 /***/ }),
 
-/***/ 21:
-/*!*****************************************************!*\
-  !*** ./node_modules/regenerator-runtime/runtime.js ***!
-  \*****************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-/**
- * Copyright (c) 2014-present, Facebook, Inc.
- *
- * This source code is licensed under the MIT license found in the
- * LICENSE file in the root directory of this source tree.
- */
-
-!(function(global) {
-  "use strict";
-
-  var Op = Object.prototype;
-  var hasOwn = Op.hasOwnProperty;
-  var undefined; // More compressible than void 0.
-  var $Symbol = typeof Symbol === "function" ? Symbol : {};
-  var iteratorSymbol = $Symbol.iterator || "@@iterator";
-  var asyncIteratorSymbol = $Symbol.asyncIterator || "@@asyncIterator";
-  var toStringTagSymbol = $Symbol.toStringTag || "@@toStringTag";
-
-  var inModule = typeof module === "object";
-  var runtime = global.regeneratorRuntime;
-  if (runtime) {
-    if (inModule) {
-      // If regeneratorRuntime is defined globally and we're in a module,
-      // make the exports object identical to regeneratorRuntime.
-      module.exports = runtime;
-    }
-    // Don't bother evaluating the rest of this file if the runtime was
-    // already defined globally.
-    return;
-  }
-
-  // Define the runtime globally (as expected by generated code) as either
-  // module.exports (if we're in a module) or a new, empty object.
-  runtime = global.regeneratorRuntime = inModule ? module.exports : {};
-
-  function wrap(innerFn, outerFn, self, tryLocsList) {
-    // If outerFn provided and outerFn.prototype is a Generator, then outerFn.prototype instanceof Generator.
-    var protoGenerator = outerFn && outerFn.prototype instanceof Generator ? outerFn : Generator;
-    var generator = Object.create(protoGenerator.prototype);
-    var context = new Context(tryLocsList || []);
-
-    // The ._invoke method unifies the implementations of the .next,
-    // .throw, and .return methods.
-    generator._invoke = makeInvokeMethod(innerFn, self, context);
-
-    return generator;
-  }
-  runtime.wrap = wrap;
-
-  // Try/catch helper to minimize deoptimizations. Returns a completion
-  // record like context.tryEntries[i].completion. This interface could
-  // have been (and was previously) designed to take a closure to be
-  // invoked without arguments, but in all the cases we care about we
-  // already have an existing method we want to call, so there's no need
-  // to create a new function object. We can even get away with assuming
-  // the method takes exactly one argument, since that happens to be true
-  // in every case, so we don't have to touch the arguments object. The
-  // only additional allocation required is the completion record, which
-  // has a stable shape and so hopefully should be cheap to allocate.
-  function tryCatch(fn, obj, arg) {
-    try {
-      return { type: "normal", arg: fn.call(obj, arg) };
-    } catch (err) {
-      return { type: "throw", arg: err };
-    }
-  }
-
-  var GenStateSuspendedStart = "suspendedStart";
-  var GenStateSuspendedYield = "suspendedYield";
-  var GenStateExecuting = "executing";
-  var GenStateCompleted = "completed";
-
-  // Returning this object from the innerFn has the same effect as
-  // breaking out of the dispatch switch statement.
-  var ContinueSentinel = {};
-
-  // Dummy constructor functions that we use as the .constructor and
-  // .constructor.prototype properties for functions that return Generator
-  // objects. For full spec compliance, you may wish to configure your
-  // minifier not to mangle the names of these two functions.
-  function Generator() {}
-  function GeneratorFunction() {}
-  function GeneratorFunctionPrototype() {}
-
-  // This is a polyfill for %IteratorPrototype% for environments that
-  // don't natively support it.
-  var IteratorPrototype = {};
-  IteratorPrototype[iteratorSymbol] = function () {
-    return this;
-  };
-
-  var getProto = Object.getPrototypeOf;
-  var NativeIteratorPrototype = getProto && getProto(getProto(values([])));
-  if (NativeIteratorPrototype &&
-      NativeIteratorPrototype !== Op &&
-      hasOwn.call(NativeIteratorPrototype, iteratorSymbol)) {
-    // This environment has a native %IteratorPrototype%; use it instead
-    // of the polyfill.
-    IteratorPrototype = NativeIteratorPrototype;
-  }
-
-  var Gp = GeneratorFunctionPrototype.prototype =
-    Generator.prototype = Object.create(IteratorPrototype);
-  GeneratorFunction.prototype = Gp.constructor = GeneratorFunctionPrototype;
-  GeneratorFunctionPrototype.constructor = GeneratorFunction;
-  GeneratorFunctionPrototype[toStringTagSymbol] =
-    GeneratorFunction.displayName = "GeneratorFunction";
-
-  // Helper for defining the .next, .throw, and .return methods of the
-  // Iterator interface in terms of a single ._invoke method.
-  function defineIteratorMethods(prototype) {
-    ["next", "throw", "return"].forEach(function(method) {
-      prototype[method] = function(arg) {
-        return this._invoke(method, arg);
-      };
-    });
-  }
-
-  runtime.isGeneratorFunction = function(genFun) {
-    var ctor = typeof genFun === "function" && genFun.constructor;
-    return ctor
-      ? ctor === GeneratorFunction ||
-        // For the native GeneratorFunction constructor, the best we can
-        // do is to check its .name property.
-        (ctor.displayName || ctor.name) === "GeneratorFunction"
-      : false;
-  };
-
-  runtime.mark = function(genFun) {
-    if (Object.setPrototypeOf) {
-      Object.setPrototypeOf(genFun, GeneratorFunctionPrototype);
-    } else {
-      genFun.__proto__ = GeneratorFunctionPrototype;
-      if (!(toStringTagSymbol in genFun)) {
-        genFun[toStringTagSymbol] = "GeneratorFunction";
-      }
-    }
-    genFun.prototype = Object.create(Gp);
-    return genFun;
-  };
-
-  // Within the body of any async function, `await x` is transformed to
-  // `yield regeneratorRuntime.awrap(x)`, so that the runtime can test
-  // `hasOwn.call(value, "__await")` to determine if the yielded value is
-  // meant to be awaited.
-  runtime.awrap = function(arg) {
-    return { __await: arg };
-  };
-
-  function AsyncIterator(generator) {
-    function invoke(method, arg, resolve, reject) {
-      var record = tryCatch(generator[method], generator, arg);
-      if (record.type === "throw") {
-        reject(record.arg);
-      } else {
-        var result = record.arg;
-        var value = result.value;
-        if (value &&
-            typeof value === "object" &&
-            hasOwn.call(value, "__await")) {
-          return Promise.resolve(value.__await).then(function(value) {
-            invoke("next", value, resolve, reject);
-          }, function(err) {
-            invoke("throw", err, resolve, reject);
-          });
-        }
-
-        return Promise.resolve(value).then(function(unwrapped) {
-          // When a yielded Promise is resolved, its final value becomes
-          // the .value of the Promise<{value,done}> result for the
-          // current iteration.
-          result.value = unwrapped;
-          resolve(result);
-        }, function(error) {
-          // If a rejected Promise was yielded, throw the rejection back
-          // into the async generator function so it can be handled there.
-          return invoke("throw", error, resolve, reject);
-        });
-      }
-    }
-
-    var previousPromise;
-
-    function enqueue(method, arg) {
-      function callInvokeWithMethodAndArg() {
-        return new Promise(function(resolve, reject) {
-          invoke(method, arg, resolve, reject);
-        });
-      }
-
-      return previousPromise =
-        // If enqueue has been called before, then we want to wait until
-        // all previous Promises have been resolved before calling invoke,
-        // so that results are always delivered in the correct order. If
-        // enqueue has not been called before, then it is important to
-        // call invoke immediately, without waiting on a callback to fire,
-        // so that the async generator function has the opportunity to do
-        // any necessary setup in a predictable way. This predictability
-        // is why the Promise constructor synchronously invokes its
-        // executor callback, and why async functions synchronously
-        // execute code before the first await. Since we implement simple
-        // async functions in terms of async generators, it is especially
-        // important to get this right, even though it requires care.
-        previousPromise ? previousPromise.then(
-          callInvokeWithMethodAndArg,
-          // Avoid propagating failures to Promises returned by later
-          // invocations of the iterator.
-          callInvokeWithMethodAndArg
-        ) : callInvokeWithMethodAndArg();
-    }
-
-    // Define the unified helper method that is used to implement .next,
-    // .throw, and .return (see defineIteratorMethods).
-    this._invoke = enqueue;
-  }
-
-  defineIteratorMethods(AsyncIterator.prototype);
-  AsyncIterator.prototype[asyncIteratorSymbol] = function () {
-    return this;
-  };
-  runtime.AsyncIterator = AsyncIterator;
-
-  // Note that simple async functions are implemented on top of
-  // AsyncIterator objects; they just return a Promise for the value of
-  // the final result produced by the iterator.
-  runtime.async = function(innerFn, outerFn, self, tryLocsList) {
-    var iter = new AsyncIterator(
-      wrap(innerFn, outerFn, self, tryLocsList)
-    );
-
-    return runtime.isGeneratorFunction(outerFn)
-      ? iter // If outerFn is a generator, return the full iterator.
-      : iter.next().then(function(result) {
-          return result.done ? result.value : iter.next();
-        });
-  };
-
-  function makeInvokeMethod(innerFn, self, context) {
-    var state = GenStateSuspendedStart;
-
-    return function invoke(method, arg) {
-      if (state === GenStateExecuting) {
-        throw new Error("Generator is already running");
-      }
-
-      if (state === GenStateCompleted) {
-        if (method === "throw") {
-          throw arg;
-        }
-
-        // Be forgiving, per 25.3.3.3.3 of the spec:
-        // https://people.mozilla.org/~jorendorff/es6-draft.html#sec-generatorresume
-        return doneResult();
-      }
-
-      context.method = method;
-      context.arg = arg;
-
-      while (true) {
-        var delegate = context.delegate;
-        if (delegate) {
-          var delegateResult = maybeInvokeDelegate(delegate, context);
-          if (delegateResult) {
-            if (delegateResult === ContinueSentinel) continue;
-            return delegateResult;
-          }
-        }
-
-        if (context.method === "next") {
-          // Setting context._sent for legacy support of Babel's
-          // function.sent implementation.
-          context.sent = context._sent = context.arg;
-
-        } else if (context.method === "throw") {
-          if (state === GenStateSuspendedStart) {
-            state = GenStateCompleted;
-            throw context.arg;
-          }
-
-          context.dispatchException(context.arg);
-
-        } else if (context.method === "return") {
-          context.abrupt("return", context.arg);
-        }
-
-        state = GenStateExecuting;
-
-        var record = tryCatch(innerFn, self, context);
-        if (record.type === "normal") {
-          // If an exception is thrown from innerFn, we leave state ===
-          // GenStateExecuting and loop back for another invocation.
-          state = context.done
-            ? GenStateCompleted
-            : GenStateSuspendedYield;
-
-          if (record.arg === ContinueSentinel) {
-            continue;
-          }
-
-          return {
-            value: record.arg,
-            done: context.done
-          };
-
-        } else if (record.type === "throw") {
-          state = GenStateCompleted;
-          // Dispatch the exception by looping back around to the
-          // context.dispatchException(context.arg) call above.
-          context.method = "throw";
-          context.arg = record.arg;
-        }
-      }
-    };
-  }
-
-  // Call delegate.iterator[context.method](context.arg) and handle the
-  // result, either by returning a { value, done } result from the
-  // delegate iterator, or by modifying context.method and context.arg,
-  // setting context.delegate to null, and returning the ContinueSentinel.
-  function maybeInvokeDelegate(delegate, context) {
-    var method = delegate.iterator[context.method];
-    if (method === undefined) {
-      // A .throw or .return when the delegate iterator has no .throw
-      // method always terminates the yield* loop.
-      context.delegate = null;
-
-      if (context.method === "throw") {
-        if (delegate.iterator.return) {
-          // If the delegate iterator has a return method, give it a
-          // chance to clean up.
-          context.method = "return";
-          context.arg = undefined;
-          maybeInvokeDelegate(delegate, context);
-
-          if (context.method === "throw") {
-            // If maybeInvokeDelegate(context) changed context.method from
-            // "return" to "throw", let that override the TypeError below.
-            return ContinueSentinel;
-          }
-        }
-
-        context.method = "throw";
-        context.arg = new TypeError(
-          "The iterator does not provide a 'throw' method");
-      }
-
-      return ContinueSentinel;
-    }
-
-    var record = tryCatch(method, delegate.iterator, context.arg);
-
-    if (record.type === "throw") {
-      context.method = "throw";
-      context.arg = record.arg;
-      context.delegate = null;
-      return ContinueSentinel;
-    }
-
-    var info = record.arg;
-
-    if (! info) {
-      context.method = "throw";
-      context.arg = new TypeError("iterator result is not an object");
-      context.delegate = null;
-      return ContinueSentinel;
-    }
-
-    if (info.done) {
-      // Assign the result of the finished delegate to the temporary
-      // variable specified by delegate.resultName (see delegateYield).
-      context[delegate.resultName] = info.value;
-
-      // Resume execution at the desired location (see delegateYield).
-      context.next = delegate.nextLoc;
-
-      // If context.method was "throw" but the delegate handled the
-      // exception, let the outer generator proceed normally. If
-      // context.method was "next", forget context.arg since it has been
-      // "consumed" by the delegate iterator. If context.method was
-      // "return", allow the original .return call to continue in the
-      // outer generator.
-      if (context.method !== "return") {
-        context.method = "next";
-        context.arg = undefined;
-      }
-
-    } else {
-      // Re-yield the result returned by the delegate method.
-      return info;
-    }
-
-    // The delegate iterator is finished, so forget it and continue with
-    // the outer generator.
-    context.delegate = null;
-    return ContinueSentinel;
-  }
-
-  // Define Generator.prototype.{next,throw,return} in terms of the
-  // unified ._invoke helper method.
-  defineIteratorMethods(Gp);
-
-  Gp[toStringTagSymbol] = "Generator";
-
-  // A Generator should always return itself as the iterator object when the
-  // @@iterator function is called on it. Some browsers' implementations of the
-  // iterator prototype chain incorrectly implement this, causing the Generator
-  // object to not be returned from this call. This ensures that doesn't happen.
-  // See https://github.com/facebook/regenerator/issues/274 for more details.
-  Gp[iteratorSymbol] = function() {
-    return this;
-  };
-
-  Gp.toString = function() {
-    return "[object Generator]";
-  };
-
-  function pushTryEntry(locs) {
-    var entry = { tryLoc: locs[0] };
-
-    if (1 in locs) {
-      entry.catchLoc = locs[1];
-    }
-
-    if (2 in locs) {
-      entry.finallyLoc = locs[2];
-      entry.afterLoc = locs[3];
-    }
-
-    this.tryEntries.push(entry);
-  }
-
-  function resetTryEntry(entry) {
-    var record = entry.completion || {};
-    record.type = "normal";
-    delete record.arg;
-    entry.completion = record;
-  }
-
-  function Context(tryLocsList) {
-    // The root entry object (effectively a try statement without a catch
-    // or a finally block) gives us a place to store values thrown from
-    // locations where there is no enclosing try statement.
-    this.tryEntries = [{ tryLoc: "root" }];
-    tryLocsList.forEach(pushTryEntry, this);
-    this.reset(true);
-  }
-
-  runtime.keys = function(object) {
-    var keys = [];
-    for (var key in object) {
-      keys.push(key);
-    }
-    keys.reverse();
-
-    // Rather than returning an object with a next method, we keep
-    // things simple and return the next function itself.
-    return function next() {
-      while (keys.length) {
-        var key = keys.pop();
-        if (key in object) {
-          next.value = key;
-          next.done = false;
-          return next;
-        }
-      }
-
-      // To avoid creating an additional object, we just hang the .value
-      // and .done properties off the next function object itself. This
-      // also ensures that the minifier will not anonymize the function.
-      next.done = true;
-      return next;
-    };
-  };
-
-  function values(iterable) {
-    if (iterable) {
-      var iteratorMethod = iterable[iteratorSymbol];
-      if (iteratorMethod) {
-        return iteratorMethod.call(iterable);
-      }
-
-      if (typeof iterable.next === "function") {
-        return iterable;
-      }
-
-      if (!isNaN(iterable.length)) {
-        var i = -1, next = function next() {
-          while (++i < iterable.length) {
-            if (hasOwn.call(iterable, i)) {
-              next.value = iterable[i];
-              next.done = false;
-              return next;
-            }
-          }
-
-          next.value = undefined;
-          next.done = true;
-
-          return next;
-        };
-
-        return next.next = next;
-      }
-    }
-
-    // Return an iterator with no values.
-    return { next: doneResult };
-  }
-  runtime.values = values;
-
-  function doneResult() {
-    return { value: undefined, done: true };
-  }
-
-  Context.prototype = {
-    constructor: Context,
-
-    reset: function(skipTempReset) {
-      this.prev = 0;
-      this.next = 0;
-      // Resetting context._sent for legacy support of Babel's
-      // function.sent implementation.
-      this.sent = this._sent = undefined;
-      this.done = false;
-      this.delegate = null;
-
-      this.method = "next";
-      this.arg = undefined;
-
-      this.tryEntries.forEach(resetTryEntry);
-
-      if (!skipTempReset) {
-        for (var name in this) {
-          // Not sure about the optimal order of these conditions:
-          if (name.charAt(0) === "t" &&
-              hasOwn.call(this, name) &&
-              !isNaN(+name.slice(1))) {
-            this[name] = undefined;
-          }
-        }
-      }
-    },
-
-    stop: function() {
-      this.done = true;
-
-      var rootEntry = this.tryEntries[0];
-      var rootRecord = rootEntry.completion;
-      if (rootRecord.type === "throw") {
-        throw rootRecord.arg;
-      }
-
-      return this.rval;
-    },
-
-    dispatchException: function(exception) {
-      if (this.done) {
-        throw exception;
-      }
-
-      var context = this;
-      function handle(loc, caught) {
-        record.type = "throw";
-        record.arg = exception;
-        context.next = loc;
-
-        if (caught) {
-          // If the dispatched exception was caught by a catch block,
-          // then let that catch block handle the exception normally.
-          context.method = "next";
-          context.arg = undefined;
-        }
-
-        return !! caught;
-      }
-
-      for (var i = this.tryEntries.length - 1; i >= 0; --i) {
-        var entry = this.tryEntries[i];
-        var record = entry.completion;
-
-        if (entry.tryLoc === "root") {
-          // Exception thrown outside of any try block that could handle
-          // it, so set the completion value of the entire function to
-          // throw the exception.
-          return handle("end");
-        }
-
-        if (entry.tryLoc <= this.prev) {
-          var hasCatch = hasOwn.call(entry, "catchLoc");
-          var hasFinally = hasOwn.call(entry, "finallyLoc");
-
-          if (hasCatch && hasFinally) {
-            if (this.prev < entry.catchLoc) {
-              return handle(entry.catchLoc, true);
-            } else if (this.prev < entry.finallyLoc) {
-              return handle(entry.finallyLoc);
-            }
-
-          } else if (hasCatch) {
-            if (this.prev < entry.catchLoc) {
-              return handle(entry.catchLoc, true);
-            }
-
-          } else if (hasFinally) {
-            if (this.prev < entry.finallyLoc) {
-              return handle(entry.finallyLoc);
-            }
-
-          } else {
-            throw new Error("try statement without catch or finally");
-          }
-        }
-      }
-    },
-
-    abrupt: function(type, arg) {
-      for (var i = this.tryEntries.length - 1; i >= 0; --i) {
-        var entry = this.tryEntries[i];
-        if (entry.tryLoc <= this.prev &&
-            hasOwn.call(entry, "finallyLoc") &&
-            this.prev < entry.finallyLoc) {
-          var finallyEntry = entry;
-          break;
-        }
-      }
-
-      if (finallyEntry &&
-          (type === "break" ||
-           type === "continue") &&
-          finallyEntry.tryLoc <= arg &&
-          arg <= finallyEntry.finallyLoc) {
-        // Ignore the finally entry if control is not jumping to a
-        // location outside the try/catch block.
-        finallyEntry = null;
-      }
-
-      var record = finallyEntry ? finallyEntry.completion : {};
-      record.type = type;
-      record.arg = arg;
-
-      if (finallyEntry) {
-        this.method = "next";
-        this.next = finallyEntry.finallyLoc;
-        return ContinueSentinel;
-      }
-
-      return this.complete(record);
-    },
-
-    complete: function(record, afterLoc) {
-      if (record.type === "throw") {
-        throw record.arg;
-      }
-
-      if (record.type === "break" ||
-          record.type === "continue") {
-        this.next = record.arg;
-      } else if (record.type === "return") {
-        this.rval = this.arg = record.arg;
-        this.method = "return";
-        this.next = "end";
-      } else if (record.type === "normal" && afterLoc) {
-        this.next = afterLoc;
-      }
-
-      return ContinueSentinel;
-    },
-
-    finish: function(finallyLoc) {
-      for (var i = this.tryEntries.length - 1; i >= 0; --i) {
-        var entry = this.tryEntries[i];
-        if (entry.finallyLoc === finallyLoc) {
-          this.complete(entry.completion, entry.afterLoc);
-          resetTryEntry(entry);
-          return ContinueSentinel;
-        }
-      }
-    },
-
-    "catch": function(tryLoc) {
-      for (var i = this.tryEntries.length - 1; i >= 0; --i) {
-        var entry = this.tryEntries[i];
-        if (entry.tryLoc === tryLoc) {
-          var record = entry.completion;
-          if (record.type === "throw") {
-            var thrown = record.arg;
-            resetTryEntry(entry);
-          }
-          return thrown;
-        }
-      }
-
-      // The context.catch method must only be called with a location
-      // argument that corresponds to a known catch block.
-      throw new Error("illegal catch attempt");
-    },
-
-    delegateYield: function(iterable, resultName, nextLoc) {
-      this.delegate = {
-        iterator: values(iterable),
-        resultName: resultName,
-        nextLoc: nextLoc
-      };
-
-      if (this.method === "next") {
-        // Deliberately forget the last sent value so that we don't
-        // accidentally pass it on to the delegate.
-        this.arg = undefined;
-      }
-
-      return ContinueSentinel;
-    }
-  };
-})(
-  // In sloppy mode, unbound `this` refers to the global object, fallback to
-  // Function constructor if we're in global strict mode. That is sadly a form
-  // of indirect eval which violates Content Security Policy.
-  (function() {
-    return this || (typeof self === "object" && self);
-  })() || Function("return this")()
-);
-
-
-/***/ }),
-
-/***/ 22:
-/*!*************************************************************!*\
-  !*** /Users/lee/Downloads/备份11/轻纺车网/services/config/api.js ***!
-  \*************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-var _module$exports;function _defineProperty(obj, key, value) {if (key in obj) {Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true });} else {obj[key] = value;}return obj;}
-//const ServerUrl = "http://192.168.11.135"; 
-var ServerUrl = "http://test.144f.com:8080/qfc-web";
-//const ServerUrl = "http://apps.144f.com/qfc-web"; 
-var ChooseUrl = ServerUrl + '/choose/';
-var VERSION = '3.3.72'; // 小程序版本
-
-module.exports = (_module$exports = {
-  VERSION: VERSION,
-  ChooseUrl: ChooseUrl,
-  //下拉选择
-  ServerUrl: ServerUrl,
-  getRegion: ChooseUrl + "region", //区域
-  getCoordinate: ChooseUrl + "coordinate", //配合度
-  getType: ChooseUrl + "type", //客户类型
-  getCompanyScale: ChooseUrl + "scale", //客户规模
-  getSource: ChooseUrl + "source", //客户来源
-  getBusinessModel: ChooseUrl + "businessModel", //公司经营模式
-  getMainProduct: ChooseUrl + "mainProduct", //主营产品
-  getOperateCapital: ChooseUrl + "operateCapital", //资金状况
-  getOperateCredit: ChooseUrl + "operateCredit", //信用状况
-  getOperateOperation: ChooseUrl + "operateOperation", //运营状况
-  getOperateWom: ChooseUrl + "operateWom", //口碑
-  getQuality: ChooseUrl + "quality", //品质定位
-  getPost: ChooseUrl + "post", //角色
-  getChannel: ChooseUrl + "channe", //渠道
-  getCostPerformance: ChooseUrl + "costPerformance", //性价比
-  getIdentity: ChooseUrl + "identity", //身份
-  getPotential: ChooseUrl + "potential", //发展潜力
-  getPriceSensitivity: ChooseUrl + "priceSensitivity", //用户价格敏感度
-  getCooperationIntention: ChooseUrl + "cooperationIntention", //合作意向
-  getCharacterFeatures: ChooseUrl + "characterFeatures", //性格特点
-  getManageFeatures: ChooseUrl + "manageFeatures", //经营者特征
-  getManagementPosition: ChooseUrl + "managementPosition" }, _defineProperty(_module$exports, "getManagementPosition",
-ChooseUrl + "managementPosition"), _defineProperty(_module$exports, "login",
-
-
-
-
-
-ServerUrl + '/ul/login'), _defineProperty(_module$exports, "chanage_password",
-ServerUrl + '/ul/change_password'), _defineProperty(_module$exports, "verification",
-ServerUrl + '/ul/verification'), _defineProperty(_module$exports, "registration",
-ServerUrl + '/ul/registration'), _defineProperty(_module$exports, "getNewsNum",
-ServerUrl + '/um/count'), _defineProperty(_module$exports, "noReadList",
-ServerUrl + '/um/list'), _defineProperty(_module$exports, "delReadList",
-ServerUrl + '/um/del'), _defineProperty(_module$exports, "DetailReadList",
-ServerUrl + '/um/details'), _defineProperty(_module$exports, "userDetails",
-
-
-
-ServerUrl + '/user/details'), _defineProperty(_module$exports, "pupList",
-ServerUrl + '/pup/list'), _defineProperty(_module$exports, "pupDefault",
-ServerUrl + '/pup/default'), _defineProperty(_module$exports, "bsList",
-ServerUrl + '/cm/bsList'), _defineProperty(_module$exports, "dmList",
-ServerUrl + '/cm/dmList'), _defineProperty(_module$exports, "cmDetail",
-
-ServerUrl + '/cm/details'), _defineProperty(_module$exports, "updateCustomer",
-ServerUrl + '/cm/updateCustomer'), _defineProperty(_module$exports, "linkMan",
-ServerUrl + '/cm/linkman'), _defineProperty(_module$exports, "linkmanDetails",
-ServerUrl + '/cm/linkmanDetails'), _defineProperty(_module$exports, "linkmanDel",
-ServerUrl + '/cm/linkmanDel'), _defineProperty(_module$exports, "linkmanAdd",
-ServerUrl + '/cm/linkmanAdd'), _defineProperty(_module$exports, "linkmanUpdate",
-ServerUrl + '/cm/linkmanUpdate'), _defineProperty(_module$exports, "operation",
-ServerUrl + '/cm/operation'), _defineProperty(_module$exports, "rival",
-ServerUrl + '/cm/rival'), _defineProperty(_module$exports, "rivalDetails",
-ServerUrl + '/cm/rivalDetails'), _defineProperty(_module$exports, "rivalDel",
-ServerUrl + '/cm/rivalDel'), _defineProperty(_module$exports, "rivalUpdate",
-ServerUrl + '/cm/rivalUpdate'), _defineProperty(_module$exports, "buyAddCustomer",
-ServerUrl + '/cm/buyAddCustomer'), _defineProperty(_module$exports, "delCustomer",
-ServerUrl + '/cm/del'), _defineProperty(_module$exports, "updateCustomer",
-
-ServerUrl + '/cm/updateCustomer'), _defineProperty(_module$exports, "sellCusmterCreated",
-ServerUrl + "/cm/sellAddCustomer"), _defineProperty(_module$exports, "operationUpdate",
-ServerUrl + "/cm/operationUpdate"), _defineProperty(_module$exports, "operationAdd",
-ServerUrl + '/cm/operationAdd'), _defineProperty(_module$exports, "rivalAdd",
-ServerUrl + '/cm/rivalAdd'), _defineProperty(_module$exports, "dmList",
-ServerUrl + '/cm/dmList'), _defineProperty(_module$exports, "dmCount",
-ServerUrl + '/cm/dmCount'), _defineProperty(_module$exports, "majordomoDel",
-ServerUrl + '/cm/majordomoDel'), _defineProperty(_module$exports, "managerDel",
-ServerUrl + '/cm/managerDel'), _defineProperty(_module$exports, "managerList",
-ServerUrl + '/cm/managerList'), _defineProperty(_module$exports, "deputyList",
-ServerUrl + '/cm/deputyList'), _defineProperty(_module$exports, "managerAllot",
-ServerUrl + '/cm/managerAllot'), _defineProperty(_module$exports, "majordomoAllot",
-ServerUrl + '/cm/majordomoAllot'), _defineProperty(_module$exports, "inquiryType",
-
-ServerUrl + '/choose/inquiryType'), _defineProperty(_module$exports, "atom",
-ServerUrl + '/choose/atom'), _defineProperty(_module$exports, "atomAdd",
-ServerUrl + '/choose/atomAdd'), _defineProperty(_module$exports, "series",
-ServerUrl + '/choose/series'), _defineProperty(_module$exports, "seriesAdd",
-ServerUrl + '/choose/seriesAdd'), _defineProperty(_module$exports, "style",
-ServerUrl + '/choose/style'), _defineProperty(_module$exports, "styleAdd",
-ServerUrl + '/choose/styleAdd'), _defineProperty(_module$exports, "clothType",
-ServerUrl + '/choose/clothType'), _defineProperty(_module$exports, "densityUnit",
-ServerUrl + '/choose/densityUnit'), _defineProperty(_module$exports, "gramWeightUnit",
-ServerUrl + '/choose/gramWeightUnit'), _defineProperty(_module$exports, "quantityUnit",
-ServerUrl + '/choose/quantityUnit'), _defineProperty(_module$exports, "placeOfDelivery",
-ServerUrl + '/choose/placeOfDelivery'), _defineProperty(_module$exports, "buyerList",
-ServerUrl + '/bInquiry/buyerList'), _defineProperty(_module$exports, "addInquiry",
-ServerUrl + '/bInquiry/add'), _defineProperty(_module$exports, "buyDeputyClose",
-ServerUrl + '/bInquiry/buyDeputyClose'), _defineProperty(_module$exports, "push",
-ServerUrl + '/bInquiry/push'), _defineProperty(_module$exports, "buyDeputyList",
-
-
-ServerUrl + '/bInquiry/buyDeputyList'), _defineProperty(_module$exports, "sellDeputyList",
-ServerUrl + '/bInquiry/sellDeputyList'), _defineProperty(_module$exports, "upload",
-
-ServerUrl + '/oss/upload'), _defineProperty(_module$exports, "upload_batch",
-ServerUrl + '/oss/upload_batch'), _defineProperty(_module$exports, "deputyDetails",
-ServerUrl + '/bInquiry/deputyDetails'), _defineProperty(_module$exports, "priceUnit",
-
-ServerUrl + '/choose/priceUnit'), _defineProperty(_module$exports, "isIcash",
-ServerUrl + '/choose/isIcash'), _defineProperty(_module$exports, "isPlusDuty",
-ServerUrl + '/choose/isPlusDuty'), _defineProperty(_module$exports, "inventory",
-ServerUrl + '/choose/inventory'), _defineProperty(_module$exports, "quotationAdd",
-ServerUrl + '/sQuotation/add'), _defineProperty(_module$exports, "deputyQuotation",
-ServerUrl + '/sQuotation/sellDeputyList'), _defineProperty(_module$exports, "sellerQuotationDetail",
-ServerUrl + '/sQuotation/sellDeputyDetails'), _defineProperty(_module$exports, "buyerQuotation",
-
-ServerUrl + '/sQuotation/buyDeputyList'), _defineProperty(_module$exports, "buyerQuotationDetail",
-ServerUrl + '/sQuotation/buyDeputyDetails'), _defineProperty(_module$exports, "sellDeputyClose",
-ServerUrl + '/sQuotation/sellDeputyClose'), _defineProperty(_module$exports, "directorDetails",
-
-ServerUrl + '/sQuotation/directorDetails'), _defineProperty(_module$exports, "directorNoPass",
-ServerUrl + '/sQuotation/directorNoPass'), _defineProperty(_module$exports, "computationRule",
-
-ServerUrl + '/choose/computationRule'), _defineProperty(_module$exports, "buyDeputyDirectPrice",
-ServerUrl + '/sQuotation/buyDeputyDirectPrice'), _defineProperty(_module$exports, "directPriceList",
-ServerUrl + '/sQuotation/directPriceList'), _defineProperty(_module$exports, "buyDeputySetDetails",
-
-ServerUrl + '/sQuotation/buyDeputySetDetails'), _defineProperty(_module$exports, "buyDeputySetPrice",
-ServerUrl + '/sQuotation/buyDeputySetPrice'), _defineProperty(_module$exports, "buyDeputyUnsuited",
-ServerUrl + '/sQuotation/buyDeputyUnsuited'), _defineProperty(_module$exports, "buyDeputySuited",
-ServerUrl + '/sQuotation/buyDeputySuited'), _defineProperty(_module$exports, "buyDeputyAddOrder",
-ServerUrl + '/sQuotation/buyDeputyAddOrder'), _defineProperty(_module$exports, "directorList",
-ServerUrl + '/bInquiry/directorList'), _defineProperty(_module$exports, "directorReviewCount",
-ServerUrl + '/sQuotation/directorReviewCount'), _defineProperty(_module$exports, "directorModifyPrice",
-ServerUrl + '/sQuotation/directorModifyPrice'), _defineProperty(_module$exports, "zyDetails",
-
-
-ServerUrl + '/bInquiry/zyDetails'), _defineProperty(_module$exports, "analystList",
-ServerUrl + '/analyse/list'), _defineProperty(_module$exports, "quotationDetails",
-ServerUrl + '/sQuotation/zyDetails'), _defineProperty(_module$exports, "analystDetails",
-ServerUrl + '/analyse/details'), _defineProperty(_module$exports, "analystAdd",
-ServerUrl + '/analyse/add'), _defineProperty(_module$exports, "contrastDetails",
-ServerUrl + '/analyse/contrastDetails'), _defineProperty(_module$exports, "contrastAdd",
-ServerUrl + '/analyse/contrastAdd'), _defineProperty(_module$exports, "contrastUpdate",
-ServerUrl + '/analyse/updateContrast'), _defineProperty(_module$exports, "zyDetailsList",
-ServerUrl + '/sQuotation/zyDetailsList'), _defineProperty(_module$exports, "inquiryStatus",
-ServerUrl + '/choose/inquiryStatus'), _defineProperty(_module$exports, "inquiryStatus2",
-ServerUrl + '/choose/inquiryStatus2'), _defineProperty(_module$exports, "analystUpdate",
-ServerUrl + '/analyse/update'), _defineProperty(_module$exports, "updateList",
-ServerUrl + '/analyse/updateList'), _defineProperty(_module$exports, "qrCode",
-
-ServerUrl + '/qr/get'), _defineProperty(_module$exports, "isExist",
-ServerUrl + '/qr/isExist'), _defineProperty(_module$exports, "quoteAgain",
-ServerUrl + '/sQuotation/quoteAgain'), _defineProperty(_module$exports, "machineStatus",
-
-
-ServerUrl + '/choose/machineStatus'), _defineProperty(_module$exports, "inStock",
-ServerUrl + '/choose/inStock'), _defineProperty(_module$exports, "machineType",
-ServerUrl + '/choose/machineType'), _defineProperty(_module$exports, "machineBrand",
-ServerUrl + '/choose/machineBrand'), _defineProperty(_module$exports, "slideshow",
-ServerUrl + '/shop/slideshow'), _defineProperty(_module$exports, "slideshowDel",
-ServerUrl + '/shop/slideshowDel'), _defineProperty(_module$exports, "slideshowAdd",
-ServerUrl + '/shop/slideshowAdd'), _defineProperty(_module$exports, "goodsAdd",
-
-ServerUrl + '/shop/goodsAdd'), _defineProperty(_module$exports, "manageProfile",
-ServerUrl + '/shop/profile'), _defineProperty(_module$exports, "weavingMachineAdd",
-ServerUrl + '/shop/weavingMachineAdd'), _defineProperty(_module$exports, "weavingMachineDel",
-ServerUrl + '/shop/weavingMachineDel'), _defineProperty(_module$exports, "profileUpdate",
-ServerUrl + '/shop/profileUpdate'), _defineProperty(_module$exports, "goodsList",
-ServerUrl + '/shop/goodsList'), _defineProperty(_module$exports, "goodsDel",
-ServerUrl + '/shop/goodsDel'), _defineProperty(_module$exports, "soldOut",
-ServerUrl + '/shop/soldOut'), _defineProperty(_module$exports, "goodsDetails",
-ServerUrl + '/shop/goodsDetails'), _defineProperty(_module$exports, "goodsUpdate",
-ServerUrl + '/shop/goodsUpdate'), _defineProperty(_module$exports, "goodsUpdateList",
-ServerUrl + '/shop/goodsUpdateList'), _defineProperty(_module$exports, "goodsAudit",
-ServerUrl + '/shop/audit'), _defineProperty(_module$exports, "auditList",
-ServerUrl + '/shop/auditList'), _defineProperty(_module$exports, "auditPass",
-ServerUrl + '/shop/auditPass'), _defineProperty(_module$exports, "auditCount",
-ServerUrl + '/shop/auditCount'), _defineProperty(_module$exports, "matchList1",
-ServerUrl + '/sQuotation/matchList1'), _defineProperty(_module$exports, "matchList2",
-ServerUrl + '/sQuotation/matchList2'), _defineProperty(_module$exports, "matchList3",
-ServerUrl + '/sQuotation/matchList3'), _defineProperty(_module$exports, "systemNoMatch",
-ServerUrl + '/sQuotation/noMatch'), _defineProperty(_module$exports, "companyList",
-ServerUrl + '/sQuotation/companyList'), _defineProperty(_module$exports, "QgoodsList",
-ServerUrl + '/sQuotation/goodsList'), _defineProperty(_module$exports, "QgoodsDetails",
-ServerUrl + '/sQuotation/goodsDetails'), _defineProperty(_module$exports, "newQuotationAdd",
-ServerUrl + '/sQuotation/add'), _module$exports);
-
-/***/ }),
-
-/***/ 23:
-/*!****************************************************!*\
-  !*** /Users/lee/Downloads/备份11/轻纺车网/utils/util.js ***!
-  \****************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-/* WEBPACK VAR INJECTION */(function(uni) {var Api = __webpack_require__(/*! services/config/api.js */ 22);
-var Es6Promise = __webpack_require__(/*! lib/es6-promise.js */ 24);
-
-
-/**
-                                                 * 封封微信的的request
-                                                 */
-var bool = true;
-function request(url) {var data = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};var method = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "GET";
-  var loginApi = Api.AuthLoginByWeixin;
-  return new Es6Promise(function (resolve, reject) {
-    wx.request({
-      url: url,
-      data: data,
-      method: method,
-      header: {
-        'Content-Type': 'application/json',
-        // 'Authorization': "Bearer "+ wx.getStorageSync('token')
-        'MYTK': wx.getStorageSync('token') },
-
-      success: function success(res) {
-
-        if (res.statusCode >= 200 && res.statusCode < 300) {
-          resolve(res);
-        }
-        // 重新登录
-        // else if (res.statusCode == 401 && url.indexOf(loginApi) == -1) {
-        //   let loginOn = wx.getStorageSync("loginOn");
-
-        // if (!loginOn) {
-        //   wx.setStorageSync("loginOn", true);
-
-        //需要登录后才可以操作
-        // let code = null;
-        // return login().then((res) => {
-        //   code = res.code;
-        //   return getUserInfo();
-        // }).then((userInfo) => {
-
-        //   wx.setStorageSync("rawData", userInfo.rawData)
-        //   wx.setStorageSync("signature", userInfo.signature)
-
-        //   // 重新登录，登录远程服务器
-        //   request(Api.AuthLoginByWeixin, { code: code, userInfo: userInfo }, 'POST').then(res => { 
-        //     wx.setStorageSync("loginOn", false);
-
-        //     if (res.data.code == 200) {
-        //       if (res.data.sessionKey) {
-        //         wx.setStorageSync("sessionKey", res.data.sessionKey);
-        //       }
-
-
-        //     // 获取当前页面的路径
-        //       let getPage = getCurrentPages();
-
-        //       // 拼接当前页面路径
-        //       let pageRoute = `/${getPage[getPage.length-1].route}`;
-        //       let pageOptions = getPage[getPage.length - 1].options;
-        //       let nStr = ``;
-        //       // 当前路径拼接
-        //       for (let attr in pageOptions) {
-        //         nStr += `&${attr}=${pageOptions[attr]}`
-        //       }
-        //       let pageUrl = pageRoute + nStr.replace('&', '?');
-
-        //       if (wx.reLaunch) {
-        //         wx.reLaunch({
-        //           url: pageUrl
-        //         });
-        //       } else {
-        //         wx.switchTab({
-        //           url: '/pages/tab-index/index'
-        //         })
-        //       }
-        //     } else {
-        //       reject(res);
-        //     }
-        //   }).catch((err) => {
-        //     wx.setStorageSync("loginOn", false);
-        //     reject(err);
-        //   });
-
-        // }).catch((err) => {
-        //   wx.setStorageSync("loginOn", false);
-        //   reject(err);
-        // })
-        //}
-        //}
-        // 无权限
-        else if (res.statusCode == 401) {
-            // backIndexPageModal("很抱歉，你没有查看权限");
-
-            uni.navigateTo({
-              url: '/pages/qing-f-c/login/login',
-              success: function success(res) {},
-              fail: function fail() {},
-              complete: function complete() {} });
-
-            return;
-          } else {
-            uni.showToast({
-              title: res.statusCode,
-              icon: 'none' });
-
-          }
-      },
-      fail: function fail(err) {
-        reject(err);
-
-        if (bool) {
-          bool = false;
-          wx.getNetworkType({
-            success: function success(res) {
-              // 判断有没有网络
-              if (res.networkType == "none") {
-                showModal("网络连接失败，请检测网络是否正常", function () {
-                  bool = true;
-                });
-              } else {
-                if (err.errMsg.indexOf("timeout") != -1) {
-                  showModal("请求超时，请重新请求！", function () {
-                    bool = true;
-                  });
-                } else {
-                  showModal(err.errMsg, function () {
-                    bool = true;
-                  });
-                }
-              }
-            } });
-
-        }
-      } });
-
-  });
-}
-
-/**
-   * banner跳转
-   */
-
-// const bannerJumpRequest = (title,orderNo,picId,type,info,startDate,endDate,status) =>{
-//   var url = Api.bannerJump + ""
-//   var data = {
-//     title:title,
-//     orderNo:orderNo,
-//     picId:picId,
-//     type:type,
-//     info:info,
-//     startDate: startDate,
-//     endDate: endDate,
-//     status: status,
-//   }
-//   request(url,data,"POST")
-// }
-
-// const commentRequest = (url,data={},method="GET") =>{
-//   var url = `${Api.guestComment}?page=1&size=5`
-//   var data = {
-
-//   }
-//   request(url,data,"GET")
-// }
-
-// const jumpMpRequest = (m_appid, headerTokne, contentType, end_method)=>{
-//   var url = Api.tiaozhuan
-//   var data={
-//     m_appid: "wxfa94ddf446523122",
-//     method: "POST",	
-//     headerTokne: "",
-//     contentType: "application/json",
-//     end_method: "/wx/carte/user/receiveData"
-//   }
-//   request(url,data,"POST")
-// }
-var showToast = function showToast(str) {
-  wx.showToast({
-    title: str,
-    image: '/images/icon-alert.png' });
-
-};
-var showLoading = function showLoading(str) {
-  wx.showLoading({
-    title: str,
-    mask: true });
-
-};
-
-
-/**
-    * photo upload 
-    */
-function uploadPic(filePath) {
-  return new Es6Promise(function (resolve, reject) {
-    var uploadTask = wx.uploadFile({
-      url: Api.PicUpload, //仅为示例，非真实的接口地址
-      filePath: filePath,
-      name: 'file',
-      header: {
-        'Authorization': "Bearer " + wx.getStorageSync('token') },
-
-      formData: {
-        'user': 'test' },
-
-      success: function success(res) {
-        resolve(res);
-        var data = res.data;
-
-        //do something
-      },
-      fail: function fail(err) {
-        reject(err);
-      } });
-
-
-    // uploadTask.onProgressUpdate((res) => {
-    //   console.log(filePath+'上传进度', res.progress)
-    //   console.log(filePath+'已经上传的数据长度', res.totalBytesSent)
-    //   console.log(filePath+'预期需要上传的数据总长度', res.totalBytesExpectedToSend)
-    // })
-  });
-
-}
-
-
-/**
-   * 已经选中的图片上传 array
-   */
-function uploadPics(photoList) {
-  return new Es6Promise(function (resolve, reject) {
-    var picArray = photoList;
-    var photoJsonArray = [];
-    if (picArray.length != 0) {
-      for (var i = 0; i < picArray.length; i++) {
-        uploadPic(picArray[i]).then(function (res) {
-          photoJsonArray.push(JSON.parse(res.data));
-          //console.dir(res.data);
-          //console.dir(photoJsonArray);
-          if (photoJsonArray.length == picArray.length) {
-            resolve(photoJsonArray);
-          }
-        }).catch(function (err) {
-          // util.showToast("图片上传失败");
-          reject(err);
-          return;
-        });
-      }
-    } else {
-      resolve([]);
-    }
-  });
-}
-
-/**
-   * 下载图片
-   */
-function downloadFile(imgUrl) {
-  return new Es6Promise(function (resolve, reject) {
-    wx.downloadFile({
-      url: imgUrl,
-      success: function success(res) {
-        if (res.statusCode === 200) {
-          resolve(res.tempFilePath);
-        } else {
-          reject();
-        }
-      },
-      fail: function fail(err) {
-        reject();
-      } });
-
-  });
-}
-
-/**
-   * 检查微信会话是否过期
-   */
-function checkSession() {
-  return new Es6Promise(function (resolve, reject) {
-    wx.checkSession({
-      success: function success() {
-        resolve(true);
-      },
-      fail: function fail() {
-        reject(false);
-      } });
-
-  });
-}
-
-/**
-   * 调用微信登录
-   */
-function login() {
-  return new Es6Promise(function (resolve, reject) {
-    wx.login({
-      success: function success(res) {
-        if (res.code) {
-          //登录远程服务器
-          resolve(res);
-        } else {
-          reject(res);
-        }
-      },
-      fail: function fail(err) {
-        reject(err);
-      } });
-
-  });
-}
-
-/**
-   * 获取微信用户信息
-   */
-function getUserInfo() {
-  return new Es6Promise(function (resolve, reject) {
-    // 查看是否授权
-    // console.log('查看用户是否授权')
-    if (wx.getSetting) {
-      var getPages = getCurrentPages();
-      var page = getPages[getPages.length - 1];
-
-      wx.getSetting({
-        success: function success(getRes) {
-          if (getRes.authSetting['scope.userInfo']) {
-            wx.getUserInfo({
-              withCredentials: true,
-              success: function success(userRes) {
-                resolve(userRes);
-              },
-              fail: function fail(userErr) {
-                console.log(userErr, 'userInfo');
-                reject(err);
-              } });
-
-          } else {
-            page.setData({
-              userAuthor: true });
-
-            // console.log('用户需要授权');
-          }
-        },
-        fail: function fail(err) {
-          page.setData({
-            userAuthor: true });
-
-          console.log("调用 wx.getSetting 方法失败", err);
-        } });
-
-    } else {
-      showModal('当前微信版本暂不支持 wx.getSetting 方法，请升级微信版本！');
-    }
-  });
-}
-
-/**
-   * 重新登录
-   */
-function loginAgain() {
-  var code = null;
-  login().then(function (res) {
-    code = res.code;
-    return getUserInfo();
-  }).then(function (userInfo) {
-
-    wx.setStorageSync("rawData", userInfo.rawData);
-    wx.setStorageSync("signature", userInfo.signature);
-
-    // 重新登录，登录远程服务器
-    request(Api.AuthLoginByWeixin, { code: code, userInfo: userInfo }, 'POST').then(function (res) {
-      if (res.statusCode == 200) {
-        var newData = res.data;
-
-        if (newData.sessionKey) {
-          wx.setStorageSync("sessionKey", newData.sessionKey);
-        }
-
-        // 存储用户信息
-        wx.setStorageSync('userInfo', newData.userInfo);
-        wx.setStorageSync('token', newData.token);
-
-        // 获取当前页面的路径
-        var getPage = getCurrentPages();
-        var nowPage = getPage[getPage.length - 1];
-
-        // 用户已注册
-        if (newData.token && newData.userInfo.company && newData.userInfo.phone) {
-          // 拼接当前页面路径
-          var pageRoute = "/".concat(nowPage.route);
-          var pageOptions = nowPage.options;
-          var nStr = "";
-          // 当前路径拼接
-          for (var attr in pageOptions) {
-            nStr += "&".concat(attr, "=").concat(pageOptions[attr]);
-          }
-          var pageUrl = pageRoute + nStr.replace('&', '?');
-
-          // 执行当前页面的 onLoad 事件
-          // nowPage.onLoad(nowPage.options);
-          if (wx.reLaunch) {
-            wx.reLaunch({
-              url: pageUrl });
-
-          } else {
-            wx.switchTab({
-              url: '/pages/tab-index/index' });
-
-          }
-        }
-        // 用户未注册
-        else if (newData.token) {
-            var AppData = getApp().globalData;
-            AppData.regPage.route = nowPage.route;
-            AppData.regPage.opt = nowPage.options;
-
-            if (wx.reLaunch) {
-              // wx.reLaunch({
-              //   url: '/pages/public/authorize',
-              // })
-            } else {
-                // wx.redirectTo({
-                //   url: '/pages/public/authorize',
-                // })
-              }
-          }
-      } else {
-        showModal("登录服务器失败");
-        // reject(res);
-      }
-    }).catch(function (err) {
-      showModal("登录服务器失败");
-      // reject(err);
-    });
-  }).catch(function (err) {
-    showModal("登录服务器失败");
-  });
-}
-
-/**
-   * 判断是否进入注册页
-   */
-function goRegPage() {
-  var AppData = getApp().globalData;
-  var userInfo = wx.getStorageSync("userInfo");
-
-  // 用户未注册
-  if (!userInfo.company || !userInfo.phone) {
-    // 获取当前页面的路径
-    var getPage = getCurrentPages();
-    var nowPage = getPage[getPage.length - 1];
-
-    AppData.regPage.route = nowPage.route;
-    AppData.regPage.opt = nowPage.options;
-
-    if (wx.reLaunch) {
-      // wx.reLaunch({
-      //   url: '/pages/public/authorize',
-      // })
-    } else {
-        // wx.redirectTo({
-        //   url: '/pages/public/authorize',
-        // })
-      }
-    return false;
-  } else {
-    return true;
-  }
-}
-
-/**
-   * 微信是否授权判断
-   */
-// function scopeWChat() {
-// return new Promise(function (resolve, reject) {
-//   let token = wx.getStorageSync("token");
-//   let scopeLogin = wx.getStorageSync('scopeLogin');
-
-//   if (!token && scopeLogin) {
-//     wx.getSetting({
-//       success: (res) => {
-//         let scopeInfo = res.authSetting['scope.userInfo'];
-
-//         // 是否授权
-//         if (scopeInfo) {
-//           resolve(true)
-//           wx.removeStorageSync("scopeLogin");
-//         } else {
-//           reject(false);
-//         }
-//       }
-//     })
-//   }
-// })
-// }
-
-/**
- * 获取认证信息
- */
-function getApproveData() {
-  return new Es6Promise(function (resolve, reject) {
-    var info = wx.getStorageSync('userInfo');
-
-    // 判断用户是否已经注册
-    if (info.phone) {
-      var approveApi = Api.UserApprove;
-
-      request(approveApi, {}, 'get').then(function (res) {
-        resolve(res);
-        wx.setStorageSync("approveInfo", res.data);
-      }).catch(function (err) {
-        wx.hideLoading();
-        showModal("获取认证失败");
-      });
-    }
-  });
-}
-
-/**
-   * 获取支持的银行列表
-   */
-function getSupportBank() {
-  getPaySaveBank();
-  getPayCreditBank();
-  getCashBank();
-}
-
-/**
-   * 获取付款银行列表--储蓄卡
-   */
-function getPaySaveBank() {
-  return new Es6Promise(function (resolve, reject) {
-    var info = wx.getStorageSync('userInfo');
-
-    // 判断用户是否已经注册
-    if (info.phone) {
-      request(Api.UserPaySave).then(function (res) {
-        // 获取银行logo
-        var paySaveData = res.data.map(function (item) {
-          item.logo = item.logo ? "".concat(Api.ShowPic, "/").concat(item.logo, "/download") : null;
-          return item;
-        });
-        resolve(paySaveData);
-        wx.setStorageSync("paySaveList", paySaveData);
-      }).catch(function (err) {
-        wx.hideLoading();
-        showModal("获取付款卡失败");
-      });
-    }
-  });
-}
-
-/**
-   * 获取付款银行列表--信用卡
-   */
-function getPayCreditBank() {
-  return new Es6Promise(function (resolve, reject) {
-    var info = wx.getStorageSync('userInfo');
-
-    // 判断用户是否已经注册
-    if (info.phone) {
-      request(Api.UserPayCredit).then(function (res) {
-        // 获取银行logo
-        var payCreditData = res.data.map(function (item) {
-          item.logo = item.logo ? "".concat(Api.ShowPic, "/").concat(item.logo, "/download") : null;
-          return item;
-        });
-        resolve(payCreditData);
-        wx.setStorageSync("payCreditList", payCreditData);
-      }).catch(function (err) {
-        wx.hideLoading();
-        showModal("获取信用卡失败");
-      });
-    }
-  });
-}
-
-
-/**
-   * 获取收款银行列表
-   */
-function getCashBank() {
-  return new Es6Promise(function (resolve, reject) {
-    var info = wx.getStorageSync('userInfo');
-
-    // 判断用户是否已经注册
-    if (info.phone) {
-      request(Api.UserCashBank).then(function (res) {
-        // 获取银行logo
-        var cashData = res.data.map(function (item) {
-          item.logo = item.logo ? "".concat(Api.ShowPic, "/").concat(item.logo, "/download") : null;
-          return item;
-        });
-        resolve(cashData);
-        wx.setStorageSync("cashBankList", cashData);
-      }).catch(function (err) {
-        wx.hideLoading();
-        showModal("获取收款卡失败");
-      });
-    }
-  });
-}
-
-/**
-   * 自动消失的提示框
-   */
-function showErrorToast(msg) {
-  wx.showToast({
-    title: msg,
-    duration: 2500,
-    image: '../../images/alert.png' });
-
-}
-
-/** 
-   * 功能：modal 提醒框
-   * 参数：
-   *    第一个参数：当无第二个参数，为内容；有第二个参数，为标题
-   *    第二个参数：当参数类型为：string时，为内容；参数类型为function：为成功回调函数，并且不能传入第三个参数
-   *    第三个参数：成功回调的函数
-   * 例子：
-   *    showModal("内容")
-   *    showModal("标题", "内容")
-   *    showModal("内容", function() { console.log("成功回调函数") })
-   *    showModal("标题", "内容", function() { console.log("成功回调函数") })
-   */
-function showModal(oTitle, msg, fn) {
-  var sTitle = "";
-  var oFn = typeof msg == "function" ? msg : fn;
-  var sMsg = "";
-
-  if (msg != undefined && typeof msg == "string") {
-    sTitle = oTitle;
-    sMsg = msg;
-  } else {
-    sTitle = "";
-    sMsg = oTitle;
-  }
-
-  wx.showModal({
-    title: sTitle || "",
-    content: sMsg || "",
-    confirmColor: "#ff8834",
-    showCancel: false,
-    success: function success(res) {
-      oFn && oFn(res);
-    } });
-
-}
-
-/**
-   * 返回首页提醒框
-   */
-function backIndexPageModal(msg) {
-  wx.showModal({
-    content: msg,
-    showCancel: false,
-    confirmText: '确认',
-    confirmColor: "#ff8834",
-    success: function success(res) {
-      // if (res.confirm) {
-      if (wx.reLaunch) {
-        wx.reLaunch({
-          url: '/pages/tab-index/index' });
-
-      } else {
-        wx.switchTab({
-          url: '/pages/tab-index/index' });
-
-      }
-      // }
-    } });
-
-}
-
-/**
-   * 从需要上传的图片中，筛选出已经上传过的图片；并返回需要上传的图片 及 无需上传的图片对象
-   */
-var picUpPic = function picUpPic(picListArr, picListObjArr) {
-  var newArr = [];
-  var oldArr = [];
-  var oldPicArr = [];
-
-  // 从新获图片数组中，筛选出已经上传过的图片
-  picListArr.forEach(function (item) {
-    if (item.indexOf(Api.NewApiRootUrl) == -1) {
-      newArr.push(item); // 未上传图片
-    } else {
-      oldArr.push(item); // 上传图片
-    }
-  });
-
-  // 获取已上传图片的图片对象
-  picListObjArr.forEach(function (item) {
-    oldArr.forEach(function (list) {
-      if (list.indexOf(item.id) != -1) {
-        oldPicArr.push(item);
-      }
-    });
-  });
-
-  return [newArr, oldPicArr];
-};
-
-/**
-    * 版本过低提醒框
-    */
-function versionTip() {
-  showModal("版本提示", "当前版本暂不支持该功能，请升级微信版本！");
-}
-
-//获取当前日期
-function getTime(date) {
-  var year = date.getFullYear();
-  var month = date.getMonth() + 1;
-  var day = date.getDate();
-
-  var hour = date.getHours();
-  var minute = date.getMinutes();
-  var second = date.getSeconds();
-
-  return [year, month, day].map(formatNumber).join('-');
-}
-
-
-function formatNumber(n) {
-  n = n.toString();
-  return n[1] ? n : '0' + n;
-}
-
-module.exports = {
-  request: request,
-  checkSession: checkSession,
-  login: login,
-  getUserInfo: getUserInfo,
-  goRegPage: goRegPage,
-  // scopeWChat,
-  uploadPic: uploadPic,
-  uploadPics: uploadPics,
-  downloadFile: downloadFile,
-
-  getApproveData: getApproveData,
-  getSupportBank: getSupportBank,
-  getPaySaveBank: getPaySaveBank,
-  getPayCreditBank: getPayCreditBank,
-  getCashBank: getCashBank,
-
-  showErrorToast: showErrorToast,
-  showModal: showModal,
-  showToast: showToast,
-  showLoading: showLoading,
-  versionTip: versionTip,
-  backIndexPageModal: backIndexPageModal,
-
-  getTime: getTime,
-  picUpPic: picUpPic };
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
-
-/***/ }),
-
-/***/ 24:
-/*!*********************************************************!*\
-  !*** /Users/lee/Downloads/备份11/轻纺车网/lib/es6-promise.js ***!
-  \*********************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-/* WEBPACK VAR INJECTION */(function(process, global) {var require;!function (t, e) { true ? module.exports = e() : undefined;}(this, function () {"use strict";function t(t) {return "function" == typeof t || "object" == typeof t && null !== t;}function e(t) {return "function" == typeof t;}function n(t) {I = t;}function r(t) {J = t;}function o() {return function () {return process.nextTick(a);};}function i() {return "undefined" != typeof H ? function () {H(a);} : c();}function s() {var t = 0,e = new V(a),n = document.createTextNode("");return e.observe(n, { characterData: !0 }), function () {n.data = t = ++t % 2;};}function u() {var t = new MessageChannel();return t.port1.onmessage = a, function () {return t.port2.postMessage(0);};}function c() {var t = setTimeout;return function () {return t(a, 1);};}function a() {for (var t = 0; t < G; t += 2) {var e = $[t],n = $[t + 1];e(n), $[t] = void 0, $[t + 1] = void 0;}G = 0;}function f() {try {var t = require,e = __webpack_require__(!(function webpackMissingModule() { var e = new Error("Cannot find module 'vertx'"); e.code = 'MODULE_NOT_FOUND'; throw e; }()));return H = e.runOnLoop || e.runOnContext, i();} catch (n) {return c();}}function l(t, e) {var n = arguments,r = this,o = new this.constructor(p);void 0 === o[et] && k(o);var i = r._state;return i ? !function () {var t = n[i - 1];J(function () {return x(i, o, t, r._result);});}() : E(r, o, t, e), o;}function h(t) {var e = this;if (t && "object" == typeof t && t.constructor === e) return t;var n = new e(p);return g(n, t), n;}function p() {}function v() {return new TypeError("You cannot resolve a promise with itself");}function d() {return new TypeError("A promises callback cannot return that same promise.");}function _(t) {try {return t.then;} catch (e) {return it.error = e, it;}}function y(t, e, n, r) {try {t.call(e, n, r);} catch (o) {return o;}}function m(t, e, n) {J(function (t) {var r = !1,o = y(n, e, function (n) {r || (r = !0, e !== n ? g(t, n) : S(t, n));}, function (e) {r || (r = !0, j(t, e));}, "Settle: " + (t._label || " unknown promise"));!r && o && (r = !0, j(t, o));}, t);}function b(t, e) {e._state === rt ? S(t, e._result) : e._state === ot ? j(t, e._result) : E(e, void 0, function (e) {return g(t, e);}, function (e) {return j(t, e);});}function w(t, n, r) {n.constructor === t.constructor && r === l && n.constructor.resolve === h ? b(t, n) : r === it ? (j(t, it.error), it.error = null) : void 0 === r ? S(t, n) : e(r) ? m(t, n, r) : S(t, n);}function g(e, n) {e === n ? j(e, v()) : t(n) ? w(e, n, _(n)) : S(e, n);}function A(t) {t._onerror && t._onerror(t._result), T(t);}function S(t, e) {t._state === nt && (t._result = e, t._state = rt, 0 !== t._subscribers.length && J(T, t));}function j(t, e) {t._state === nt && (t._state = ot, t._result = e, J(A, t));}function E(t, e, n, r) {var o = t._subscribers,i = o.length;t._onerror = null, o[i] = e, o[i + rt] = n, o[i + ot] = r, 0 === i && t._state && J(T, t);}function T(t) {var e = t._subscribers,n = t._state;if (0 !== e.length) {for (var r = void 0, o = void 0, i = t._result, s = 0; s < e.length; s += 3) {r = e[s], o = e[s + n], r ? x(n, r, o, i) : o(i);}t._subscribers.length = 0;}}function M() {this.error = null;}function P(t, e) {try {return t(e);} catch (n) {return st.error = n, st;}}function x(t, n, r, o) {var i = e(r),s = void 0,u = void 0,c = void 0,a = void 0;if (i) {if (s = P(r, o), s === st ? (a = !0, u = s.error, s.error = null) : c = !0, n === s) return void j(n, d());} else s = o, c = !0;n._state !== nt || (i && c ? g(n, s) : a ? j(n, u) : t === rt ? S(n, s) : t === ot && j(n, s));}function C(t, e) {try {e(function (e) {g(t, e);}, function (e) {j(t, e);});} catch (n) {j(t, n);}}function O() {return ut++;}function k(t) {t[et] = ut++, t._state = void 0, t._result = void 0, t._subscribers = [];}function Y(t, e) {this._instanceConstructor = t, this.promise = new t(p), this.promise[et] || k(this.promise), B(e) ? (this._input = e, this.length = e.length, this._remaining = e.length, this._result = new Array(this.length), 0 === this.length ? S(this.promise, this._result) : (this.length = this.length || 0, this._enumerate(), 0 === this._remaining && S(this.promise, this._result))) : j(this.promise, q());}function q() {return new Error("Array Methods must be provided an Array");}function F(t) {return new Y(this, t).promise;}function D(t) {var e = this;return new e(B(t) ? function (n, r) {for (var o = t.length, i = 0; i < o; i++) {e.resolve(t[i]).then(n, r);}} : function (t, e) {return e(new TypeError("You must pass an array to race."));});}function K(t) {var e = this,n = new e(p);return j(n, t), n;}function L() {throw new TypeError("You must pass a resolver function as the first argument to the promise constructor");}function N() {throw new TypeError("Failed to construct 'Promise': Please use the 'new' operator, this object constructor cannot be called as a function.");}function U(t) {this[et] = O(), this._result = this._state = void 0, this._subscribers = [], p !== t && ("function" != typeof t && L(), this instanceof U ? C(this, t) : N());}function W() {var t = void 0;if ("undefined" != typeof global) t = global;else if ("undefined" != typeof self) t = self;else try {t = Function("return this")();} catch (e) {throw new Error("polyfill failed because global object is unavailable in this environment");}var n = t.Promise;if (n) {var r = null;try {r = Object.prototype.toString.call(n.resolve());} catch (e) {}if ("[object Promise]" === r && !n.cast) return;}t.Promise = U;}var z = void 0;z = Array.isArray ? Array.isArray : function (t) {return "[object Array]" === Object.prototype.toString.call(t);};var B = z,G = 0,H = void 0,I = void 0,J = function J(t, e) {$[G] = t, $[G + 1] = e, G += 2, 2 === G && (I ? I(a) : tt());},Q = "undefined" != typeof window ? window : void 0,R = Q || {},V = R.MutationObserver || R.WebKitMutationObserver,X = "undefined" == typeof self && "undefined" != typeof process && "[object process]" === {}.toString.call(process),Z = "undefined" != typeof Uint8ClampedArray && "undefined" != typeof importScripts && "undefined" != typeof MessageChannel,$ = new Array(1e3),tt = void 0;tt = X ? o() : V ? s() : Z ? u() : void 0 === Q && "function" == "function" ? f() : c();var et = Math.random().toString(36).substring(16),nt = void 0,rt = 1,ot = 2,it = new M(),st = new M(),ut = 0;return Y.prototype._enumerate = function () {for (var t = this.length, e = this._input, n = 0; this._state === nt && n < t; n++) {this._eachEntry(e[n], n);}}, Y.prototype._eachEntry = function (t, e) {var n = this._instanceConstructor,r = n.resolve;if (r === h) {var o = _(t);if (o === l && t._state !== nt) this._settledAt(t._state, e, t._result);else if ("function" != typeof o) this._remaining--, this._result[e] = t;else if (n === U) {var i = new n(p);w(i, t, o), this._willSettleAt(i, e);} else this._willSettleAt(new n(function (e) {return e(t);}), e);} else this._willSettleAt(r(t), e);}, Y.prototype._settledAt = function (t, e, n) {var r = this.promise;r._state === nt && (this._remaining--, t === ot ? j(r, n) : this._result[e] = n), 0 === this._remaining && S(r, this._result);}, Y.prototype._willSettleAt = function (t, e) {var n = this;E(t, void 0, function (t) {return n._settledAt(rt, e, t);}, function (t) {return n._settledAt(ot, e, t);});}, U.all = F, U.race = D, U.resolve = h, U.reject = K, U._setScheduler = n, U._setAsap = r, U._asap = J, U.prototype = { constructor: U, then: l, "catch": function _catch(t) {return this.then(null, t);} }, U.polyfill = W, U.Promise = U, U.polyfill(), U;});
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../../../../../../Applications/HBuilderX.app/Contents/HBuilderX/plugins/uniapp-cli/node_modules/node-libs-browser/mock/process.js */ 25), __webpack_require__(/*! ./../../../../../../Applications/HBuilderX.app/Contents/HBuilderX/plugins/uniapp-cli/node_modules/webpack/buildin/global.js */ 3)))
-
-/***/ }),
-
-/***/ 25:
-/*!********************************************************!*\
-  !*** ./node_modules/node-libs-browser/mock/process.js ***!
-  \********************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-exports.nextTick = function nextTick(fn) {
-    var args = Array.prototype.slice.call(arguments);
-    args.shift();
-    setTimeout(function () {
-        fn.apply(null, args);
-    }, 0);
-};
-
-exports.platform = exports.arch = 
-exports.execPath = exports.title = 'browser';
-exports.pid = 1;
-exports.browser = true;
-exports.env = {};
-exports.argv = [];
-
-exports.binding = function (name) {
-	throw new Error('No such module. (Possibly not yet loaded)')
-};
-
-(function () {
-    var cwd = '/';
-    var path;
-    exports.cwd = function () { return cwd };
-    exports.chdir = function (dir) {
-        if (!path) path = __webpack_require__(/*! path */ 26);
-        cwd = path.resolve(dir, cwd);
-    };
-})();
-
-exports.exit = exports.kill = 
-exports.umask = exports.dlopen = 
-exports.uptime = exports.memoryUsage = 
-exports.uvCounters = function() {};
-exports.features = {};
-
-
-/***/ }),
-
-/***/ 26:
-/*!***********************************************!*\
-  !*** ./node_modules/path-browserify/index.js ***!
-  \***********************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-/* WEBPACK VAR INJECTION */(function(process) {// .dirname, .basename, and .extname methods are extracted from Node.js v8.11.1,
-// backported and transplited with Babel, with backwards-compat fixes
-
-// Copyright Joyent, Inc. and other Node contributors.
-//
-// Permission is hereby granted, free of charge, to any person obtaining a
-// copy of this software and associated documentation files (the
-// "Software"), to deal in the Software without restriction, including
-// without limitation the rights to use, copy, modify, merge, publish,
-// distribute, sublicense, and/or sell copies of the Software, and to permit
-// persons to whom the Software is furnished to do so, subject to the
-// following conditions:
-//
-// The above copyright notice and this permission notice shall be included
-// in all copies or substantial portions of the Software.
-//
-// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
-// OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
-// MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN
-// NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM,
-// DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR
-// OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE
-// USE OR OTHER DEALINGS IN THE SOFTWARE.
-
-// resolves . and .. elements in a path array with directory names there
-// must be no slashes, empty elements, or device names (c:\) in the array
-// (so also no leading and trailing slashes - it does not distinguish
-// relative and absolute paths)
-function normalizeArray(parts, allowAboveRoot) {
-  // if the path tries to go above the root, `up` ends up > 0
-  var up = 0;
-  for (var i = parts.length - 1; i >= 0; i--) {
-    var last = parts[i];
-    if (last === '.') {
-      parts.splice(i, 1);
-    } else if (last === '..') {
-      parts.splice(i, 1);
-      up++;
-    } else if (up) {
-      parts.splice(i, 1);
-      up--;
-    }
-  }
-
-  // if the path is allowed to go above the root, restore leading ..s
-  if (allowAboveRoot) {
-    for (; up--; up) {
-      parts.unshift('..');
-    }
-  }
-
-  return parts;
-}
-
-// path.resolve([from ...], to)
-// posix version
-exports.resolve = function() {
-  var resolvedPath = '',
-      resolvedAbsolute = false;
-
-  for (var i = arguments.length - 1; i >= -1 && !resolvedAbsolute; i--) {
-    var path = (i >= 0) ? arguments[i] : process.cwd();
-
-    // Skip empty and invalid entries
-    if (typeof path !== 'string') {
-      throw new TypeError('Arguments to path.resolve must be strings');
-    } else if (!path) {
-      continue;
-    }
-
-    resolvedPath = path + '/' + resolvedPath;
-    resolvedAbsolute = path.charAt(0) === '/';
-  }
-
-  // At this point the path should be resolved to a full absolute path, but
-  // handle relative paths to be safe (might happen when process.cwd() fails)
-
-  // Normalize the path
-  resolvedPath = normalizeArray(filter(resolvedPath.split('/'), function(p) {
-    return !!p;
-  }), !resolvedAbsolute).join('/');
-
-  return ((resolvedAbsolute ? '/' : '') + resolvedPath) || '.';
-};
-
-// path.normalize(path)
-// posix version
-exports.normalize = function(path) {
-  var isAbsolute = exports.isAbsolute(path),
-      trailingSlash = substr(path, -1) === '/';
-
-  // Normalize the path
-  path = normalizeArray(filter(path.split('/'), function(p) {
-    return !!p;
-  }), !isAbsolute).join('/');
-
-  if (!path && !isAbsolute) {
-    path = '.';
-  }
-  if (path && trailingSlash) {
-    path += '/';
-  }
-
-  return (isAbsolute ? '/' : '') + path;
-};
-
-// posix version
-exports.isAbsolute = function(path) {
-  return path.charAt(0) === '/';
-};
-
-// posix version
-exports.join = function() {
-  var paths = Array.prototype.slice.call(arguments, 0);
-  return exports.normalize(filter(paths, function(p, index) {
-    if (typeof p !== 'string') {
-      throw new TypeError('Arguments to path.join must be strings');
-    }
-    return p;
-  }).join('/'));
-};
-
-
-// path.relative(from, to)
-// posix version
-exports.relative = function(from, to) {
-  from = exports.resolve(from).substr(1);
-  to = exports.resolve(to).substr(1);
-
-  function trim(arr) {
-    var start = 0;
-    for (; start < arr.length; start++) {
-      if (arr[start] !== '') break;
-    }
-
-    var end = arr.length - 1;
-    for (; end >= 0; end--) {
-      if (arr[end] !== '') break;
-    }
-
-    if (start > end) return [];
-    return arr.slice(start, end - start + 1);
-  }
-
-  var fromParts = trim(from.split('/'));
-  var toParts = trim(to.split('/'));
-
-  var length = Math.min(fromParts.length, toParts.length);
-  var samePartsLength = length;
-  for (var i = 0; i < length; i++) {
-    if (fromParts[i] !== toParts[i]) {
-      samePartsLength = i;
-      break;
-    }
-  }
-
-  var outputParts = [];
-  for (var i = samePartsLength; i < fromParts.length; i++) {
-    outputParts.push('..');
-  }
-
-  outputParts = outputParts.concat(toParts.slice(samePartsLength));
-
-  return outputParts.join('/');
-};
-
-exports.sep = '/';
-exports.delimiter = ':';
-
-exports.dirname = function (path) {
-  if (typeof path !== 'string') path = path + '';
-  if (path.length === 0) return '.';
-  var code = path.charCodeAt(0);
-  var hasRoot = code === 47 /*/*/;
-  var end = -1;
-  var matchedSlash = true;
-  for (var i = path.length - 1; i >= 1; --i) {
-    code = path.charCodeAt(i);
-    if (code === 47 /*/*/) {
-        if (!matchedSlash) {
-          end = i;
-          break;
-        }
-      } else {
-      // We saw the first non-path separator
-      matchedSlash = false;
-    }
-  }
-
-  if (end === -1) return hasRoot ? '/' : '.';
-  if (hasRoot && end === 1) {
-    // return '//';
-    // Backwards-compat fix:
-    return '/';
-  }
-  return path.slice(0, end);
-};
-
-function basename(path) {
-  if (typeof path !== 'string') path = path + '';
-
-  var start = 0;
-  var end = -1;
-  var matchedSlash = true;
-  var i;
-
-  for (i = path.length - 1; i >= 0; --i) {
-    if (path.charCodeAt(i) === 47 /*/*/) {
-        // If we reached a path separator that was not part of a set of path
-        // separators at the end of the string, stop now
-        if (!matchedSlash) {
-          start = i + 1;
-          break;
-        }
-      } else if (end === -1) {
-      // We saw the first non-path separator, mark this as the end of our
-      // path component
-      matchedSlash = false;
-      end = i + 1;
-    }
-  }
-
-  if (end === -1) return '';
-  return path.slice(start, end);
-}
-
-// Uses a mixed approach for backwards-compatibility, as ext behavior changed
-// in new Node.js versions, so only basename() above is backported here
-exports.basename = function (path, ext) {
-  var f = basename(path);
-  if (ext && f.substr(-1 * ext.length) === ext) {
-    f = f.substr(0, f.length - ext.length);
-  }
-  return f;
-};
-
-exports.extname = function (path) {
-  if (typeof path !== 'string') path = path + '';
-  var startDot = -1;
-  var startPart = 0;
-  var end = -1;
-  var matchedSlash = true;
-  // Track the state of characters (if any) we see before our first dot and
-  // after any path separator we find
-  var preDotState = 0;
-  for (var i = path.length - 1; i >= 0; --i) {
-    var code = path.charCodeAt(i);
-    if (code === 47 /*/*/) {
-        // If we reached a path separator that was not part of a set of path
-        // separators at the end of the string, stop now
-        if (!matchedSlash) {
-          startPart = i + 1;
-          break;
-        }
-        continue;
-      }
-    if (end === -1) {
-      // We saw the first non-path separator, mark this as the end of our
-      // extension
-      matchedSlash = false;
-      end = i + 1;
-    }
-    if (code === 46 /*.*/) {
-        // If this is our first dot, mark it as the start of our extension
-        if (startDot === -1)
-          startDot = i;
-        else if (preDotState !== 1)
-          preDotState = 1;
-    } else if (startDot !== -1) {
-      // We saw a non-dot and non-path separator before our dot, so we should
-      // have a good chance at having a non-empty extension
-      preDotState = -1;
-    }
-  }
-
-  if (startDot === -1 || end === -1 ||
-      // We saw a non-dot character immediately before the dot
-      preDotState === 0 ||
-      // The (right-most) trimmed path component is exactly '..'
-      preDotState === 1 && startDot === end - 1 && startDot === startPart + 1) {
-    return '';
-  }
-  return path.slice(startDot, end);
-};
-
-function filter (xs, f) {
-    if (xs.filter) return xs.filter(f);
-    var res = [];
-    for (var i = 0; i < xs.length; i++) {
-        if (f(xs[i], i, xs)) res.push(xs[i]);
-    }
-    return res;
-}
-
-// String.prototype.substr - negative index don't work in IE8
-var substr = 'ab'.substr(-1) === 'b'
-    ? function (str, start, len) { return str.substr(start, len) }
-    : function (str, start, len) {
-        if (start < 0) start = str.length + start;
-        return str.substr(start, len);
-    }
-;
-
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../node-libs-browser/mock/process.js */ 25)))
-
-/***/ }),
-
 /***/ 3:
 /*!***********************************!*\
   !*** (webpack)/buildin/global.js ***!
@@ -16966,18 +17102,18 @@ module.exports = g;
 
 /***/ }),
 
-/***/ 33:
+/***/ 34:
 /*!*************************************************************!*\
   !*** /Users/lee/Downloads/备份11/轻纺车网/services/jsy-server.js ***!
   \*************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-var _module$exports;function _defineProperty(obj, key, value) {if (key in obj) {Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true });} else {obj[key] = value;}return obj;}var Api = __webpack_require__(/*! services/config/api.js */ 22);
-var Common = __webpack_require__(/*! utils/common.js */ 34);
-var Util = __webpack_require__(/*! utils/util.js */ 23);
-var User = __webpack_require__(/*! services/user.js */ 37);
-var Es6Promise = __webpack_require__(/*! lib/es6-promise.js */ 24);
+var _module$exports;function _defineProperty(obj, key, value) {if (key in obj) {Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true });} else {obj[key] = value;}return obj;}var Api = __webpack_require__(/*! services/config/api.js */ 23);
+var Common = __webpack_require__(/*! utils/common.js */ 35);
+var Util = __webpack_require__(/*! utils/util.js */ 24);
+var User = __webpack_require__(/*! services/user.js */ 38);
+var Es6Promise = __webpack_require__(/*! lib/es6-promise.js */ 25);
 
 
 //下拉选择
@@ -17681,17 +17817,17 @@ majordomoAllot), _module$exports);
 
 /***/ }),
 
-/***/ 34:
+/***/ 35:
 /*!******************************************************!*\
   !*** /Users/lee/Downloads/备份11/轻纺车网/utils/common.js ***!
   \******************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-var Api = __webpack_require__(/*! services/config/api.js */ 22);
-var Pipe = __webpack_require__(/*! utils/pipe.js */ 35);
-var Util = __webpack_require__(/*! utils/util.js */ 23);
-var Es6Promise = __webpack_require__(/*! lib/es6-promise.js */ 24);
+var Api = __webpack_require__(/*! services/config/api.js */ 23);
+var Pipe = __webpack_require__(/*! utils/pipe.js */ 36);
+var Util = __webpack_require__(/*! utils/util.js */ 24);
+var Es6Promise = __webpack_require__(/*! lib/es6-promise.js */ 25);
 
 /**
                                                  * 去除前后空格
@@ -18342,7 +18478,7 @@ module.exports = {
 
 /***/ }),
 
-/***/ 35:
+/***/ 36:
 /*!****************************************************!*\
   !*** /Users/lee/Downloads/备份11/轻纺车网/utils/pipe.js ***!
   \****************************************************/
@@ -18364,7 +18500,7 @@ var _require =
 
 
 
-__webpack_require__(/*! ./const.js */ 36),QUALITY = _require.QUALITY,POSITION = _require.POSITION,GLOSS = _require.GLOSS,STOCK_TYPES = _require.STOCK_TYPES,BUY_ORDER = _require.BUY_ORDER,BUY_BACK_ORDER = _require.BUY_BACK_ORDER,SELL_ORDER = _require.SELL_ORDER,COMPLETE = _require.COMPLETE,COST_PERFORMANCE = _require.COST_PERFORMANCE,REAL_RATE = _require.REAL_RATE,BREAK_OUT = _require.BREAK_OUT,STOP_BRIGHT = _require.STOP_BRIGHT,STOP_DIM = _require.STOP_DIM,DARK_STRIP = _require.DARK_STRIP;
+__webpack_require__(/*! ./const.js */ 37),QUALITY = _require.QUALITY,POSITION = _require.POSITION,GLOSS = _require.GLOSS,STOCK_TYPES = _require.STOCK_TYPES,BUY_ORDER = _require.BUY_ORDER,BUY_BACK_ORDER = _require.BUY_BACK_ORDER,SELL_ORDER = _require.SELL_ORDER,COMPLETE = _require.COMPLETE,COST_PERFORMANCE = _require.COST_PERFORMANCE,REAL_RATE = _require.REAL_RATE,BREAK_OUT = _require.BREAK_OUT,STOP_BRIGHT = _require.STOP_BRIGHT,STOP_DIM = _require.STOP_DIM,DARK_STRIP = _require.DARK_STRIP;
 
 function formatTime(date) {
   if (date) {
@@ -18704,7 +18840,7 @@ module.exports = {
 
 /***/ }),
 
-/***/ 36:
+/***/ 37:
 /*!*****************************************************!*\
   !*** /Users/lee/Downloads/备份11/轻纺车网/utils/const.js ***!
   \*****************************************************/
@@ -18878,7 +19014,7 @@ module.exports = {
 
 /***/ }),
 
-/***/ 37:
+/***/ 38:
 /*!*******************************************************!*\
   !*** /Users/lee/Downloads/备份11/轻纺车网/services/user.js ***!
   \*******************************************************/
@@ -18889,9 +19025,9 @@ module.exports = {
  * 用户相关服务
  */
 
-var Util = __webpack_require__(/*! utils/util.js */ 23);
-var Api = __webpack_require__(/*! services/config/api.js */ 22);
-var Es6Promise = __webpack_require__(/*! lib/es6-promise.js */ 24);
+var Util = __webpack_require__(/*! utils/util.js */ 24);
+var Api = __webpack_require__(/*! services/config/api.js */ 23);
+var Es6Promise = __webpack_require__(/*! lib/es6-promise.js */ 25);
 
 
 /**
@@ -18970,17 +19106,17 @@ module.exports = {
 
 /***/ }),
 
-/***/ 38:
+/***/ 39:
 /*!*********************************************************!*\
   !*** /Users/lee/Downloads/备份11/轻纺车网/services/server.js ***!
   \*********************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-var Common = __webpack_require__(/*! utils/common.js */ 34);
-var Api = __webpack_require__(/*! services/config/api.js */ 22);
-var Util = __webpack_require__(/*! utils/util.js */ 23);
-var Es6Promise = __webpack_require__(/*! lib/es6-promise.js */ 24);
+var Common = __webpack_require__(/*! utils/common.js */ 35);
+var Api = __webpack_require__(/*! services/config/api.js */ 23);
+var Util = __webpack_require__(/*! utils/util.js */ 24);
+var Es6Promise = __webpack_require__(/*! lib/es6-promise.js */ 25);
 
 /*
                                                  * get 数据
@@ -20077,7 +20213,18 @@ main();
 
 /***/ }),
 
-/***/ 544:
+/***/ 6:
+/*!******************************************************!*\
+  !*** ./node_modules/@dcloudio/uni-stat/package.json ***!
+  \******************************************************/
+/*! exports provided: _from, _id, _inBundle, _integrity, _location, _phantomChildren, _requested, _requiredBy, _resolved, _shasum, _spec, _where, author, bugs, bundleDependencies, deprecated, description, devDependencies, files, gitHead, homepage, license, main, name, repository, scripts, version, default */
+/***/ (function(module) {
+
+module.exports = {"_from":"@dcloudio/uni-stat@next","_id":"@dcloudio/uni-stat@2.0.0-26920200424005","_inBundle":false,"_integrity":"sha512-FT8Z/C5xSmIxooqhV1v69jTkxATPz+FsRQIFOrbdlWekjGkrE73jfrdNMWm7gL5u41ALPJTVArxN1Re9by1bjQ==","_location":"/@dcloudio/uni-stat","_phantomChildren":{},"_requested":{"type":"tag","registry":true,"raw":"@dcloudio/uni-stat@next","name":"@dcloudio/uni-stat","escapedName":"@dcloudio%2funi-stat","scope":"@dcloudio","rawSpec":"next","saveSpec":null,"fetchSpec":"next"},"_requiredBy":["#USER","/","/@dcloudio/vue-cli-plugin-uni"],"_resolved":"https://registry.npmjs.org/@dcloudio/uni-stat/-/uni-stat-2.0.0-26920200424005.tgz","_shasum":"47f4375095eda3089cf4678b4b96fc656a7ab623","_spec":"@dcloudio/uni-stat@next","_where":"/Users/guoshengqiang/Documents/dcloud-plugins/release/uniapp-cli","author":"","bugs":{"url":"https://github.com/dcloudio/uni-app/issues"},"bundleDependencies":false,"deprecated":false,"description":"","devDependencies":{"@babel/core":"^7.5.5","@babel/preset-env":"^7.5.5","eslint":"^6.1.0","rollup":"^1.19.3","rollup-plugin-babel":"^4.3.3","rollup-plugin-clear":"^2.0.7","rollup-plugin-commonjs":"^10.0.2","rollup-plugin-copy":"^3.1.0","rollup-plugin-eslint":"^7.0.0","rollup-plugin-json":"^4.0.0","rollup-plugin-node-resolve":"^5.2.0","rollup-plugin-replace":"^2.2.0","rollup-plugin-uglify":"^6.0.2"},"files":["dist","package.json","LICENSE"],"gitHead":"94494d54ed23e2dcf9ab8e3245b48b770b4e98a9","homepage":"https://github.com/dcloudio/uni-app#readme","license":"Apache-2.0","main":"dist/index.js","name":"@dcloudio/uni-stat","repository":{"type":"git","url":"git+https://github.com/dcloudio/uni-app.git","directory":"packages/uni-stat"},"scripts":{"build":"NODE_ENV=production rollup -c rollup.config.js","dev":"NODE_ENV=development rollup -w -c rollup.config.js"},"version":"2.0.0-26920200424005"};
+
+/***/ }),
+
+/***/ 608:
 /*!********************************************************!*\
   !*** /Users/lee/Downloads/备份11/轻纺车网/services/tools.js ***!
   \********************************************************/
@@ -20119,17 +20266,6 @@ module.exports = {
 
 /***/ }),
 
-/***/ 6:
-/*!******************************************************!*\
-  !*** ./node_modules/@dcloudio/uni-stat/package.json ***!
-  \******************************************************/
-/*! exports provided: _from, _id, _inBundle, _integrity, _location, _phantomChildren, _requested, _requiredBy, _resolved, _shasum, _spec, _where, author, bugs, bundleDependencies, deprecated, description, devDependencies, files, gitHead, homepage, license, main, name, repository, scripts, version, default */
-/***/ (function(module) {
-
-module.exports = {"_from":"@dcloudio/uni-stat@next","_id":"@dcloudio/uni-stat@2.0.0-26920200424005","_inBundle":false,"_integrity":"sha512-FT8Z/C5xSmIxooqhV1v69jTkxATPz+FsRQIFOrbdlWekjGkrE73jfrdNMWm7gL5u41ALPJTVArxN1Re9by1bjQ==","_location":"/@dcloudio/uni-stat","_phantomChildren":{},"_requested":{"type":"tag","registry":true,"raw":"@dcloudio/uni-stat@next","name":"@dcloudio/uni-stat","escapedName":"@dcloudio%2funi-stat","scope":"@dcloudio","rawSpec":"next","saveSpec":null,"fetchSpec":"next"},"_requiredBy":["#USER","/","/@dcloudio/vue-cli-plugin-uni"],"_resolved":"https://registry.npmjs.org/@dcloudio/uni-stat/-/uni-stat-2.0.0-26920200424005.tgz","_shasum":"47f4375095eda3089cf4678b4b96fc656a7ab623","_spec":"@dcloudio/uni-stat@next","_where":"/Users/guoshengqiang/Documents/dcloud-plugins/release/uniapp-cli","author":"","bugs":{"url":"https://github.com/dcloudio/uni-app/issues"},"bundleDependencies":false,"deprecated":false,"description":"","devDependencies":{"@babel/core":"^7.5.5","@babel/preset-env":"^7.5.5","eslint":"^6.1.0","rollup":"^1.19.3","rollup-plugin-babel":"^4.3.3","rollup-plugin-clear":"^2.0.7","rollup-plugin-commonjs":"^10.0.2","rollup-plugin-copy":"^3.1.0","rollup-plugin-eslint":"^7.0.0","rollup-plugin-json":"^4.0.0","rollup-plugin-node-resolve":"^5.2.0","rollup-plugin-replace":"^2.2.0","rollup-plugin-uglify":"^6.0.2"},"files":["dist","package.json","LICENSE"],"gitHead":"94494d54ed23e2dcf9ab8e3245b48b770b4e98a9","homepage":"https://github.com/dcloudio/uni-app#readme","license":"Apache-2.0","main":"dist/index.js","name":"@dcloudio/uni-stat","repository":{"type":"git","url":"git+https://github.com/dcloudio/uni-app.git","directory":"packages/uni-stat"},"scripts":{"build":"NODE_ENV=production rollup -c rollup.config.js","dev":"NODE_ENV=development rollup -w -c rollup.config.js"},"version":"2.0.0-26920200424005"};
-
-/***/ }),
-
 /***/ 7:
 /*!******************************************************************!*\
   !*** /Users/lee/Downloads/备份11/轻纺车网/pages.json?{"type":"style"} ***!
@@ -20138,7 +20274,7 @@ module.exports = {"_from":"@dcloudio/uni-stat@next","_id":"@dcloudio/uni-stat@2.
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _default = { "pages": { "pages/qing-f-c/index": { "navigationStyle": "custom", "enablePullDownRefresh": true }, "pages/qing-f-c/customPicture/createCustomFollow": { "navigationBarTitleText": "新建客户跟进" }, "pages/qing-f-c/productShow/productDetail": { "navigationBarTitleText": "产品详情" }, "pages/qing-f-c/followRecord/dialogue": { "navigationBarTitleText": "对话" }, "pages/qing-f-c/followRecord/addFollowRecord": { "navigationBarTitleText": "新增潜在订单" }, "pages/qing-f-c/followRecord/connectInquiry": { "navigationBarTitleText": "选择询价单" }, "pages/qing-f-c/followRecord/detailFollowRecord": { "navigationBarTitleText": "潜在订单跟进详情" }, "pages/qing-f-c/customPicture/sd_followRecordDetail": { "navigationStyle": "custom", "enablePullDownRefresh": true }, "pages/qing-f-c/customPicture/sd_followList": { "navigationBarTitleText": "跟进列表", "navigationBarBackgroundColor": "#ffffff", "navigationBarTextStyle": "black", "enablePullDownRefresh": true }, "pages/qing-f-c/followRecord/orderFollowSchedule": { "navigationBarTitleText": "订单跟进记录", "enablePullDownRefresh": true }, "pages/qing-f-c/customPicture/createFollowRecordSelldeputy": { "navigationBarTitleText": "新建跟进记录" }, "pages/qing-f-c/customPicture/competitorDetail": { "navigationBarTitleText": "竞争对手详情" }, "pages/qing-f-c/customPicture/createFollowRecordBuydeputy": { "navigationBarTitleText": "新建跟进记录" }, "pages/qing-f-c/customPicture/followRecordDetail": { "navigationBarTitleText": "跟进记录详情" }, "pages/qing-f-c/customPicture/competitorAnalyist": { "navigationBarTitleText": "竞争对手分析" }, "pages/qing-f-c/customPicture/followList": { "navigationBarTitleText": "客户跟进", "enablePullDownRefresh": true }, "pages/qing-f-c/customPicture/followListNew": { "navigationBarTitleText": "客户跟进", "navigationBarBackgroundColor": "#ffffff", "navigationBarTextStyle": "black", "enablePullDownRefresh": true }, "pages/qing-f-c/message/messageList": { "navigationBarTitleText": "消息", "enablePullDownRefresh": true }, "pages/qing-f-c/inquiryManage/comQuotation/startQuotation": { "navigationBarTitleText": "发起报价" }, "pages/qing-f-c/inquiryManage/comQuotation/selectCustomer": { "navigationBarTitleText": "选择客户" }, "pages/qing-f-c/inquiryManage/comQuotation/selectProduct": { "navigationBarTitleText": "选择产品" }, "pages/qing-f-c/inquiryManage/systemMatch/systemMatchDetail": { "navigationBarTitleText": "匹配结果" }, "pages/qing-f-c/productShow/examineProduct": { "navigationBarTitleText": "产品审核" }, "pages/qing-f-c/productShow/manageConditionEdit": { "navigationBarTitleText": "编辑经营概况" }, "pages/qing-f-c/productShow/productUpdate": { "navigationBarTitleText": "编辑产品" }, "pages/qing-f-c/productShow/product-created": { "navigationBarTitleText": "新增产品" }, "pages/qing-f-c/productShow/mainShow": { "navigationBarTitleText": "产品展示", "enablePullDownRefresh": true }, "pages/qing-f-c/inquiryManage/priceTrend/priceTrend": { "navigationBarTitleText": "价格趋势" }, "pages/qing-f-c/inquiryManage/sampleInquiry/buyDeputy/inquiry-details-result": { "navigationStyle": "custom" }, "pages/qing-f-c/inquiryManage/sampleInquiry/analyst/setSampleResult": { "navigationBarTitleText": "设置找样结果" }, "pages/qing-f-c/login/login": { "navigationStyle": "custom" }, "pages/qing-f-c/inquiryManage/sales_director/modifyPrice": { "navigationBarTitleText": "修改报价" }, "pages/qing-f-c/inquiryManage/sampleInquiry/sales_director/modifyPrice": { "navigationBarTitleText": "修改报价价格" }, "pages/qing-f-c/inquiryManage/sampleInquiry/sales_director/quotation-details": { "navigationBarTitleText": "销售总监报价详情" }, "pages/qing-f-c/inquiryManage/sampleInquiry/buyDeputy/inquiry-details": { "navigationStyle": "custom" }, "pages/qing-f-c/inquiryManage/sampleInquiry/analyst/inquiry-details-result": { "navigationStyle": "custom" }, "pages/qing-f-c/inquiryManage/sampleInquiry/analyst/inquiry-details-1": { "navigationStyle": "custom" }, "pages/qing-f-c/inquiryManage/sampleInquiry/analyst/inquiry-details": { "navigationStyle": "custom" }, "pages/qing-f-c/inquiryManage/sampleInquiry/analyst/modifySampleResult": { "navigationBarTitleText": "修改找样结果" }, "pages/qing-f-c/inquiryManage/sampleInquiry/sellDeputy/inquiry-details": { "navigationStyle": "custom" }, "pages/qing-f-c/inquiryManage/sellDeputy/inquiry-details": { "navigationStyle": "custom" }, "pages/qing-f-c/inquiryManage/sales_director/inquiry-details": { "navigationStyle": "custom" }, "pages/qing-f-c/inquiryManage/sampleInquiry/sales_director/inquiry-details": { "navigationStyle": "custom" }, "pages/qing-f-c/inquiryManage/sampleInquiry/analyst/inquiryManage": { "navigationBarTitleText": "分析师询价管理" }, "pages/qing-f-c/inquiryManage/sampleInquiry/analyst/analyst-input": { "navigationBarTitleText": "录入分析结果" }, "pages/qing-f-c/inquiryManage/inquiry-created": { "navigationBarTitleText": "买帮办新建询价单" }, "pages/qing-f-c/inquiryManage/inquiry-created-copy": { "navigationBarTitleText": "买帮办复制询价单" }, "pages/qing-f-c/inquiryManage/inquiry-details": { "navigationStyle": "custom" }, "pages/qing-f-c/inquiryManage/sellDeputy/startQuote": { "navigationBarTitleText": "卖帮办发起报价" }, "pages/qing-f-c/inquiryManage/sampleInquiry/sellDeputy/startQuote": { "navigationBarTitleText": "卖帮办发起报价" }, "pages/qing-f-c/inquiryManage/setQuotePrice/setQuotePrice": { "navigationBarTitleText": "设置报价", "usingAutoImportComponents": {} }, "pages/qing-f-c/inquiryManage/directorQuotePrice": { "navigationBarTitleText": "直接报价", "usingAutoImportComponents": {} }, "pages/qing-f-c/test/test": { "usingAutoImportComponents": {} }, "pages/qing-f-c/inquiryManage/sales_director/quotation-detail": { "navigationBarTitleText": "报价单详情", "usingAutoImportComponents": {} }, "pages/qing-f-c/inquiryManage/quotedPrice/quotedPrice": { "navigationBarTitleText": "报价详情", "usingAutoImportComponents": {} }, "pages/qing-f-c/inquiryManage/sellDeputy/inquiryManage": { "navigationBarTitleText": "卖办询价管理", "navigationBarBackgroundColor": "#ffffff", "navigationBarTextStyle": "black", "enablePullDownRefresh": true, "usingAutoImportComponents": {} }, "pages/qing-f-c/inquiryManage/sales_director/inquiryManage": { "navigationBarTitleText": "询价管理", "navigationBarBackgroundColor": "#ffffff", "navigationBarTextStyle": "black", "enablePullDownRefresh": true, "usingAutoImportComponents": {} }, "pages/qing-f-c/inquiryManage/inquiryManage": { "navigationBarTitleText": "买办询价管理", "navigationBarBackgroundColor": "#ffffff", "navigationBarTextStyle": "black", "enablePullDownRefresh": true, "usingAutoImportComponents": {} }, "pages/qing-f-c/regionalManager/customer-admin": { "navigationBarTitleText": "区域经理客户管理", "enablePullDownRefresh": true, "usingAutoImportComponents": {} }, "pages/qing-f-c/regionalManager/deputy-list": { "navigationBarTitleText": "区域经理选择帮办", "usingAutoImportComponents": {} }, "pages/qing-f-c/regionalManager/customer-details": { "navigationStyle": "custom", "usingAutoImportComponents": {} }, "pages/qing-f-c/sales_director/customer-details": { "navigationStyle": "custom", "usingAutoImportComponents": {} }, "pages/qing-f-c/buyDupty/customer-created": { "navigationBarTitleText": "新建客户", "usingAutoImportComponents": {} }, "pages/qing-f-c/buyDupty/edit-customer": { "navigationBarTitleText": "更新客户", "usingAutoImportComponents": {} }, "pages/qing-f-c/buyDupty/contact-detail": { "navigationBarTitleText": "联系人详情", "usingAutoImportComponents": {} }, "pages/qing-f-c/buyDupty/setManagerCondition": { "navigationBarTitleText": "设置经营状况", "usingAutoImportComponents": {} }, "pages/qing-f-c/sellDupty/customer-admin": { "navigationBarTitleText": "客户管理", "enablePullDownRefresh": true, "usingAutoImportComponents": {} }, "pages/qing-f-c/sellDupty/customer-created": { "navigationBarTitleText": "新建客户", "usingAutoImportComponents": {} }, "pages/qing-f-c/sellDupty/edit-customer": { "navigationBarTitleText": "修改客户", "usingAutoImportComponents": {} }, "pages/qing-f-c/sellDupty/customer-details": { "navigationStyle": "custom", "usingAutoImportComponents": {} }, "pages/qing-f-c/sellDupty/contact-detail": { "navigationBarTitleText": "联系人详情", "usingAutoImportComponents": {} }, "pages/qing-f-c/sellDupty/setManagerCondition": { "navigationBarTitleText": "设置管理者特征", "usingAutoImportComponents": {} }, "pages/qing-f-c/sellDupty/editManagerCondition": { "navigationBarTitleText": "编辑管理者特征", "usingAutoImportComponents": {} }, "pages/qing-f-c/sellDupty/add-contact": { "navigationBarTitleText": "添加联系人", "usingAutoImportComponents": {} }, "pages/qing-f-c/sellDupty/edit-contact": { "navigationBarTitleText": "修改联系人", "usingAutoImportComponents": {} }, "pages/qing-f-c/sellDupty/add-competitor": { "navigationBarTitleText": "添加竞争者", "usingAutoImportComponents": {} }, "pages/qing-f-c/sellDupty/edit-competitor": { "navigationBarTitleText": "修改竞争者", "usingAutoImportComponents": {} }, "pages/qing-f-c/sellDupty/detail-competitor": { "navigationBarTitleText": "竞争对手详情", "usingAutoImportComponents": {} }, "pages/qing-f-c/buyDupty/editManagerCondition": { "navigationBarTitleText": "编辑管理者特征", "usingAutoImportComponents": {} }, "pages/qing-f-c/buyDupty/add-contact": { "navigationBarTitleText": "添加联系人", "usingAutoImportComponents": {} }, "pages/qing-f-c/buyDupty/customer-details": { "navigationStyle": "custom", "usingAutoImportComponents": {} }, "pages/qing-f-c/buyDupty/detail-competitor": { "navigationBarTitleText": "竞争对手详情", "usingAutoImportComponents": {} }, "pages/qing-f-c/buyDupty/edit-competitor": { "navigationBarTitleText": "编辑竞争对手", "usingAutoImportComponents": {} }, "pages/qing-f-c/buyDupty/add-competitor": { "navigationBarTitleText": "添加竞争对手", "usingAutoImportComponents": {} }, "pages/qing-f-c/buyDupty/customer-admin": { "navigationBarTitleText": "客户管理", "enablePullDownRefresh": true, "usingAutoImportComponents": {} }, "pages/qing-f-c/sales_director/customer-admin": { "navigationBarTitleText": "销售总监客户管理", "enablePullDownRefresh": true, "usingAutoImportComponents": {} }, "pages/qing-f-c/sales_director/manager-list": { "navigationBarTitleText": "选择区域经理", "usingAutoImportComponents": {} }, "pages/qing-f-c/claimIdentity/claimIdentity": { "navigationBarTitleText": "身份认领", "usingAutoImportComponents": {} }, "pages/qing-f-c/register/register": { "navigationStyle": "custom", "usingAutoImportComponents": {} }, "pages/qing-f-c/register/findPassword": { "navigationStyle": "custom", "usingAutoImportComponents": {} }, "pages/qing-f-c/register/finish": { "navigationBarTitleText": "注册完成", "usingAutoImportComponents": {} }, "pages/qing-f-c/fangzhidao/index/index": { "navigationBarTitleText": "纺织道论坛", "usingAutoImportComponents": {} }, "pages/qing-f-c/qiugouqu/index/index": { "navigationBarTitleText": "求购区", "usingAutoImportComponents": {} }, "pages/qing-f-c/xianhuoqu/index/index": { "navigationBarTitleText": "现货区", "usingAutoImportComponents": {} }, "pages/qing-f-c/temaiqu/index/index": { "navigationBarTitleText": "特卖区", "usingAutoImportComponents": {} }, "pages/qing-f-c/register/protocol/protocol": { "navigationBarTitleText": "轻纺车网服务协议", "usingAutoImportComponents": {} }, "pages/qing-f-c/inquiryManage/recentPrice/recentPrice": { "navigationBarTitleText": "最近报价", "usingAutoImportComponents": {} }, "pages/qing-f-c/inquiryManage/selectBuyer": { "navigationBarTitleText": "选择买家", "enablePullDownRefresh": true, "usingAutoImportComponents": {} }, "pages/qing-f-c/inquiryManage/sellDeputy/selectSeller": { "navigationBarTitleText": "选择卖家", "enablePullDownRefresh": true, "usingAutoImportComponents": {} }, "pages/qing-f-c/inquiryManage/sampleInquiry/sales_director/find-result": { "navigationStyle": "custom" }, "pages/qing-f-c/inquiryManage/sellDeputy/quotation-detail": { "navigationBarTitleText": "报价详情" }, "pages/qing-f-c/sales_director/approved": { "navigationBarTitleText": "审核管理" }, "pages/qing-f-c/inquiryManage/sampleInquiry/buyDeputy/quotationDetails/quotationDetails": { "navigationStyle": "custom" }, "pages/qing-f-c/inquiryManage/sampleInquiry/sellDeputy/quotationDetails": { "navigationStyle": "custom" }, "pages/qing-f-c/inquiryManage/sampleInquiry/buyDeputy/quotationDetails/quotationDetails-1": { "navigationBarTitleText": "报价单详情" }, "pages/qing-f-c/inquiryManage/sampleInquiry/sellDeputy/quotationDetails-1": { "navigationBarTitleText": "报价单详情" }, "pages/qing-f-c/pictureShow/pictureShow": {}, "pages/qing-f-c/printer/printer": { "navigationBarTitleText": "生成二维码打印" }, "pages/qing-f-c/inquiryManage/sampleInquiry/analyst/updateAnalyistResult": { "navigationBarTitleText": "修改分析结果" }, "pages/qing-f-c/inquiryManage/sampleInquiry/common/quotation-detail-common": { "navigationBarTitleText": "报价单详情" }, "pages/qing-f-c/inquiryManage/sampleInquiry/analyst/updateSampleResult": { "navigationBarTitleText": "修改对比结果" }, "pages/qing-f-c/inquiryManage/sampleInquiry/common/sampleModifyRecord": { "navigationBarTitleText": "分析样修改记录" }, "pages/qing-f-c/printer/printContent": { "navigationBarTitleText": "打印二维码内容" }, "pages/qing-f-c/setting/setting": { "navigationBarTitleText": "设置" }, "pages/qing-f-c/productShow/companyPictureEdit": { "navigationBarTitleText": "编辑公司图片" }, "pages/qing-f-c/productShow/auditProduct": { "navigationBarTitleText": "产品审核" }, "pages/qing-f-c/productShow/auditProductDetail": { "navigationBarTitleText": "产品详情" }, "pages/qing-f-c/productShow/updateRecord": { "navigationBarTitleText": "更新记录" }, "pages/qing-f-c/analyist/analyist": { "navigationBarTitleText": "产品审核" }, "pages/qing-f-c/inquiryManage/systemMatch/quotationDetail": {}, "pages/qing-f-c/inquiryManage/systemMatch/startQuote": {}, "pages/qing-f-c/inquiryManage/systemMatch/singleProduct": {}, "pages/qing-f-c/inquiryManage/comQuotation/productDetail": {}, "pages/qing-f-c/message/messageDetail": {}, "pages/qing-f-c/bangban/bangbanList": {}, "pages/qing-f-c/customPicture/followRecordDetailSeller": { "navigationBarTitleText": "跟进记录详情" }, "pages/qing-f-c/customPicture/editCompetitor": { "navigationBarTitleText": "编辑竞争对手" }, "pages/qing-f-c/customPicture/editFollowRecord": { "navigationBarTitleText": "编辑客户跟进" }, "pages/qing-f-c/customPicture/editFollowRecordBuy": {}, "pages/qing-f-c/customPicture/editFollowRecordSell": {}, "pages/qing-f-c/customPicture/addCompetitor": { "navigationBarTitleText": "新增竞争对手" }, "pages/qing-f-c/followRecord/followList": { "navigationBarTitleText": "潜在订单", "navigationBarBackgroundColor": "#ffffff", "navigationBarTextStyle": "black", "enablePullDownRefresh": true }, "pages/qing-f-c/productShow/editProduct": { "navigationBarTitleText": "编辑产品" }, "pages/qing-f-c/followRecord/selectBuyer": { "navigationBarTitleText": "选择买家" }, "pages/qing-f-c/followRecord/editFollowRecord": { "navigationBarTitleText": "修改" }, "pages/qing-f-c/followRecord/updateFollowRecord": { "navigationBarTitleText": "更新进度" }, "pages/qing-f-c/followRecord/sd_followList": { "navigationBarTitleText": "潜在订单", "navigationBarBackgroundColor": "#ffffff", "navigationBarTextStyle": "black", "enablePullDownRefresh": true }, "pages/qing-f-c/followRecord/publicDialog": { "navigationBarTitleText": "对话", "enablePullDownRefresh": true }, "pages/qing-f-c/followRecord/selectContact": { "navigationBarTitleText": "选择对话人" }, "pages/qing-f-c/productShow/productCreateCopy": {}, "pages/qing-f-c/productShow/selectCustomer": {}, "pages/qing-f-c/customPicture/buySellFollowDetail": { "navigationBarTitleText": "跟进记录详情" } }, "globalStyle": { "navigationBarTextStyle": "white", "navigationBarTitleText": "", "navigationBarBackgroundColor": "#FF6000", "backgroundColor": "white" } };exports.default = _default;
+Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _default = { "pages": { "pages/qing-f-c/index": { "navigationStyle": "custom", "enablePullDownRefresh": true }, "pages/qing-f-c/casualPrice/sd_casualList": { "navigationBarTitleText": "随口价", "navigationBarBackgroundColor": "#ffffff", "navigationBarTextStyle": "black", "enablePullDownRefresh": true }, "pages/qing-f-c/casualPrice/casualList": { "navigationBarTitleText": "随口价", "navigationBarBackgroundColor": "#ffffff", "navigationBarTextStyle": "black", "enablePullDownRefresh": true }, "pages/qing-f-c/casualPrice/createCasual": { "navigationBarTitleText": "新建随口价" }, "pages/qing-f-c/newFollowRecord/publicDialog": { "navigationBarTitleText": "对话", "enablePullDownRefresh": true }, "pages/qing-f-c/newFollowRecord/updateState": { "navigationBarTitleText": "更新状态" }, "pages/qing-f-c/newFollowRecord/setTargetPrice": { "navigationBarTitleText": "发起报价" }, "pages/qing-f-c/newFollowRecord/detail": { "navigationBarTitleText": "订单详况" }, "pages/qing-f-c/customPicture/createCustomFollow": { "navigationBarTitleText": "新建客户跟进" }, "pages/qing-f-c/productShow/productDetail": { "navigationBarTitleText": "产品详情" }, "pages/qing-f-c/followRecord/dialogue": { "navigationBarTitleText": "对话" }, "pages/qing-f-c/followRecord/addFollowRecord": { "navigationBarTitleText": "新增潜在订单" }, "pages/qing-f-c/followRecord/connectInquiry": { "navigationBarTitleText": "选择询价单" }, "pages/qing-f-c/followRecord/detailFollowRecord": { "navigationBarTitleText": "潜在订单跟进详情" }, "pages/qing-f-c/customPicture/sd_followRecordDetail": { "navigationStyle": "custom", "enablePullDownRefresh": true }, "pages/qing-f-c/customPicture/sd_followList": { "navigationBarTitleText": "跟进列表", "navigationBarBackgroundColor": "#ffffff", "navigationBarTextStyle": "black", "enablePullDownRefresh": true }, "pages/qing-f-c/followRecord/orderFollowSchedule": { "navigationBarTitleText": "订单跟进记录", "enablePullDownRefresh": true }, "pages/qing-f-c/customPicture/createFollowRecordSelldeputy": { "navigationBarTitleText": "新建跟进记录" }, "pages/qing-f-c/customPicture/competitorDetail": { "navigationBarTitleText": "竞争对手详情" }, "pages/qing-f-c/customPicture/createFollowRecordBuydeputy": { "navigationBarTitleText": "新建跟进记录" }, "pages/qing-f-c/customPicture/followRecordDetail": { "navigationBarTitleText": "跟进记录详情" }, "pages/qing-f-c/customPicture/competitorAnalyist": { "navigationBarTitleText": "竞争对手分析" }, "pages/qing-f-c/customPicture/followList": { "navigationBarTitleText": "客户跟进", "enablePullDownRefresh": true }, "pages/qing-f-c/customPicture/followListNew": { "navigationBarTitleText": "客户跟进", "navigationBarBackgroundColor": "#ffffff", "navigationBarTextStyle": "black", "enablePullDownRefresh": true }, "pages/qing-f-c/message/messageList": { "navigationBarTitleText": "消息", "enablePullDownRefresh": true }, "pages/qing-f-c/inquiryManage/comQuotation/startQuotation": { "navigationBarTitleText": "发起报价" }, "pages/qing-f-c/inquiryManage/comQuotation/selectCustomer": { "navigationBarTitleText": "选择客户" }, "pages/qing-f-c/inquiryManage/comQuotation/selectProduct": { "navigationBarTitleText": "选择产品" }, "pages/qing-f-c/inquiryManage/systemMatch/systemMatchDetail": { "navigationBarTitleText": "匹配结果" }, "pages/qing-f-c/productShow/examineProduct": { "navigationBarTitleText": "产品审核" }, "pages/qing-f-c/productShow/manageConditionEdit": { "navigationBarTitleText": "编辑经营概况" }, "pages/qing-f-c/productShow/productUpdate": { "navigationBarTitleText": "编辑产品" }, "pages/qing-f-c/productShow/product-created": { "navigationBarTitleText": "新增产品" }, "pages/qing-f-c/productShow/mainShow": { "navigationBarTitleText": "产品展示", "enablePullDownRefresh": true }, "pages/qing-f-c/inquiryManage/priceTrend/priceTrend": { "navigationBarTitleText": "价格趋势" }, "pages/qing-f-c/inquiryManage/sampleInquiry/buyDeputy/inquiry-details-result": { "navigationStyle": "custom" }, "pages/qing-f-c/inquiryManage/sampleInquiry/analyst/setSampleResult": { "navigationBarTitleText": "设置找样结果" }, "pages/qing-f-c/login/login": { "navigationStyle": "custom" }, "pages/qing-f-c/inquiryManage/sales_director/modifyPrice": { "navigationBarTitleText": "修改报价" }, "pages/qing-f-c/inquiryManage/sampleInquiry/sales_director/modifyPrice": { "navigationBarTitleText": "修改报价价格" }, "pages/qing-f-c/inquiryManage/sampleInquiry/sales_director/quotation-details": { "navigationBarTitleText": "销售总监报价详情" }, "pages/qing-f-c/inquiryManage/sampleInquiry/buyDeputy/inquiry-details": { "navigationStyle": "custom" }, "pages/qing-f-c/inquiryManage/sampleInquiry/analyst/inquiry-details-result": { "navigationStyle": "custom" }, "pages/qing-f-c/inquiryManage/sampleInquiry/analyst/inquiry-details-1": { "navigationStyle": "custom" }, "pages/qing-f-c/inquiryManage/sampleInquiry/analyst/inquiry-details": { "navigationStyle": "custom" }, "pages/qing-f-c/inquiryManage/sampleInquiry/analyst/modifySampleResult": { "navigationBarTitleText": "修改找样结果" }, "pages/qing-f-c/inquiryManage/sampleInquiry/sellDeputy/inquiry-details": { "navigationStyle": "custom" }, "pages/qing-f-c/inquiryManage/sellDeputy/inquiry-details": { "navigationStyle": "custom" }, "pages/qing-f-c/inquiryManage/sales_director/inquiry-details": { "navigationStyle": "custom" }, "pages/qing-f-c/inquiryManage/sampleInquiry/sales_director/inquiry-details": { "navigationStyle": "custom" }, "pages/qing-f-c/inquiryManage/sampleInquiry/analyst/inquiryManage": { "navigationBarTitleText": "分析师询价管理" }, "pages/qing-f-c/inquiryManage/sampleInquiry/analyst/analyst-input": { "navigationBarTitleText": "录入分析结果" }, "pages/qing-f-c/inquiryManage/inquiry-created": { "navigationBarTitleText": "买帮办新建询价单" }, "pages/qing-f-c/inquiryManage/inquiry-created-copy": { "navigationBarTitleText": "买帮办复制询价单" }, "pages/qing-f-c/inquiryManage/inquiry-details": { "navigationStyle": "custom" }, "pages/qing-f-c/inquiryManage/sellDeputy/startQuote": { "navigationBarTitleText": "卖帮办发起报价" }, "pages/qing-f-c/inquiryManage/sampleInquiry/sellDeputy/startQuote": { "navigationBarTitleText": "卖帮办发起报价" }, "pages/qing-f-c/inquiryManage/setQuotePrice/setQuotePrice": { "navigationBarTitleText": "设置报价" }, "pages/qing-f-c/inquiryManage/directorQuotePrice": { "navigationBarTitleText": "直接报价" }, "pages/qing-f-c/test/test": {}, "pages/qing-f-c/inquiryManage/sales_director/quotation-detail": { "navigationBarTitleText": "报价单详情" }, "pages/qing-f-c/inquiryManage/quotedPrice/quotedPrice": { "navigationBarTitleText": "报价详情" }, "pages/qing-f-c/inquiryManage/sellDeputy/inquiryManage": { "navigationBarTitleText": "卖办询价管理", "navigationBarBackgroundColor": "#ffffff", "navigationBarTextStyle": "black", "enablePullDownRefresh": true }, "pages/qing-f-c/inquiryManage/sales_director/inquiryManage": { "navigationBarTitleText": "询价管理", "navigationBarBackgroundColor": "#ffffff", "navigationBarTextStyle": "black", "enablePullDownRefresh": true }, "pages/qing-f-c/inquiryManage/inquiryManage": { "navigationBarTitleText": "买办询价管理", "navigationBarBackgroundColor": "#ffffff", "navigationBarTextStyle": "black", "enablePullDownRefresh": true }, "pages/qing-f-c/regionalManager/customer-admin": { "navigationBarTitleText": "区域经理客户管理", "enablePullDownRefresh": true }, "pages/qing-f-c/regionalManager/deputy-list": { "navigationBarTitleText": "区域经理选择帮办" }, "pages/qing-f-c/regionalManager/customer-details": { "navigationStyle": "custom" }, "pages/qing-f-c/sales_director/customer-details": { "navigationStyle": "custom" }, "pages/qing-f-c/buyDupty/customer-created": { "navigationBarTitleText": "新建客户" }, "pages/qing-f-c/buyDupty/edit-customer": { "navigationBarTitleText": "更新客户" }, "pages/qing-f-c/buyDupty/contact-detail": { "navigationBarTitleText": "联系人详情" }, "pages/qing-f-c/buyDupty/setManagerCondition": { "navigationBarTitleText": "设置经营状况" }, "pages/qing-f-c/sellDupty/customer-admin": { "navigationBarTitleText": "客户管理", "enablePullDownRefresh": true }, "pages/qing-f-c/sellDupty/customer-created": { "navigationBarTitleText": "新建客户" }, "pages/qing-f-c/sellDupty/edit-customer": { "navigationBarTitleText": "修改客户" }, "pages/qing-f-c/sellDupty/customer-details": { "navigationStyle": "custom" }, "pages/qing-f-c/sellDupty/contact-detail": { "navigationBarTitleText": "联系人详情" }, "pages/qing-f-c/sellDupty/setManagerCondition": { "navigationBarTitleText": "设置管理者特征" }, "pages/qing-f-c/sellDupty/editManagerCondition": { "navigationBarTitleText": "编辑管理者特征" }, "pages/qing-f-c/sellDupty/add-contact": { "navigationBarTitleText": "添加联系人" }, "pages/qing-f-c/sellDupty/edit-contact": { "navigationBarTitleText": "修改联系人" }, "pages/qing-f-c/sellDupty/add-competitor": { "navigationBarTitleText": "添加竞争者" }, "pages/qing-f-c/sellDupty/edit-competitor": { "navigationBarTitleText": "修改竞争者" }, "pages/qing-f-c/sellDupty/detail-competitor": { "navigationBarTitleText": "竞争对手详情" }, "pages/qing-f-c/buyDupty/editManagerCondition": { "navigationBarTitleText": "编辑管理者特征" }, "pages/qing-f-c/buyDupty/add-contact": { "navigationBarTitleText": "添加联系人" }, "pages/qing-f-c/buyDupty/customer-details": { "navigationStyle": "custom" }, "pages/qing-f-c/buyDupty/detail-competitor": { "navigationBarTitleText": "竞争对手详情" }, "pages/qing-f-c/buyDupty/edit-competitor": { "navigationBarTitleText": "编辑竞争对手" }, "pages/qing-f-c/buyDupty/add-competitor": { "navigationBarTitleText": "添加竞争对手" }, "pages/qing-f-c/buyDupty/customer-admin": { "navigationBarTitleText": "客户管理", "enablePullDownRefresh": true }, "pages/qing-f-c/sales_director/customer-admin": { "navigationBarTitleText": "销售总监客户管理", "enablePullDownRefresh": true }, "pages/qing-f-c/sales_director/manager-list": { "navigationBarTitleText": "选择区域经理" }, "pages/qing-f-c/claimIdentity/claimIdentity": { "navigationBarTitleText": "身份认领" }, "pages/qing-f-c/register/register": { "navigationStyle": "custom" }, "pages/qing-f-c/register/findPassword": { "navigationStyle": "custom" }, "pages/qing-f-c/register/finish": { "navigationBarTitleText": "注册完成" }, "pages/qing-f-c/fangzhidao/index/index": { "navigationBarTitleText": "纺织道论坛" }, "pages/qing-f-c/qiugouqu/index/index": { "navigationBarTitleText": "求购区" }, "pages/qing-f-c/xianhuoqu/index/index": { "navigationBarTitleText": "现货区" }, "pages/qing-f-c/temaiqu/index/index": { "navigationBarTitleText": "特卖区" }, "pages/qing-f-c/register/protocol/protocol": { "navigationBarTitleText": "轻纺车网服务协议" }, "pages/qing-f-c/inquiryManage/recentPrice/recentPrice": { "navigationBarTitleText": "最近报价" }, "pages/qing-f-c/inquiryManage/selectBuyer": { "navigationBarTitleText": "选择买家", "enablePullDownRefresh": true }, "pages/qing-f-c/inquiryManage/sellDeputy/selectSeller": { "navigationBarTitleText": "选择卖家", "enablePullDownRefresh": true }, "pages/qing-f-c/inquiryManage/sampleInquiry/sales_director/find-result": { "navigationStyle": "custom" }, "pages/qing-f-c/inquiryManage/sellDeputy/quotation-detail": { "navigationBarTitleText": "报价详情" }, "pages/qing-f-c/sales_director/approved": { "navigationBarTitleText": "审核管理" }, "pages/qing-f-c/inquiryManage/sampleInquiry/buyDeputy/quotationDetails/quotationDetails": { "navigationStyle": "custom" }, "pages/qing-f-c/inquiryManage/sampleInquiry/sellDeputy/quotationDetails": { "navigationStyle": "custom" }, "pages/qing-f-c/inquiryManage/sampleInquiry/buyDeputy/quotationDetails/quotationDetails-1": { "navigationBarTitleText": "报价单详情" }, "pages/qing-f-c/inquiryManage/sampleInquiry/sellDeputy/quotationDetails-1": { "navigationBarTitleText": "报价单详情" }, "pages/qing-f-c/pictureShow/pictureShow": {}, "pages/qing-f-c/printer/printer": { "navigationBarTitleText": "生成二维码打印" }, "pages/qing-f-c/inquiryManage/sampleInquiry/analyst/updateAnalyistResult": { "navigationBarTitleText": "修改分析结果" }, "pages/qing-f-c/inquiryManage/sampleInquiry/common/quotation-detail-common": { "navigationBarTitleText": "报价单详情" }, "pages/qing-f-c/inquiryManage/sampleInquiry/analyst/updateSampleResult": { "navigationBarTitleText": "修改对比结果" }, "pages/qing-f-c/inquiryManage/sampleInquiry/common/sampleModifyRecord": { "navigationBarTitleText": "分析样修改记录" }, "pages/qing-f-c/printer/printContent": { "navigationBarTitleText": "打印二维码内容" }, "pages/qing-f-c/setting/setting": { "navigationBarTitleText": "设置" }, "pages/qing-f-c/productShow/companyPictureEdit": { "navigationBarTitleText": "编辑公司图片" }, "pages/qing-f-c/productShow/auditProduct": { "navigationBarTitleText": "产品审核" }, "pages/qing-f-c/productShow/auditProductDetail": { "navigationBarTitleText": "产品详情" }, "pages/qing-f-c/productShow/updateRecord": { "navigationBarTitleText": "更新记录" }, "pages/qing-f-c/analyist/analyist": { "navigationBarTitleText": "产品审核" }, "pages/qing-f-c/inquiryManage/systemMatch/quotationDetail": {}, "pages/qing-f-c/inquiryManage/systemMatch/startQuote": {}, "pages/qing-f-c/inquiryManage/systemMatch/singleProduct": {}, "pages/qing-f-c/inquiryManage/comQuotation/productDetail": {}, "pages/qing-f-c/message/messageDetail": {}, "pages/qing-f-c/bangban/bangbanList": {}, "pages/qing-f-c/customPicture/followRecordDetailSeller": { "navigationBarTitleText": "跟进记录详情" }, "pages/qing-f-c/customPicture/editCompetitor": { "navigationBarTitleText": "编辑竞争对手" }, "pages/qing-f-c/customPicture/editFollowRecord": { "navigationBarTitleText": "编辑客户跟进" }, "pages/qing-f-c/customPicture/editFollowRecordBuy": {}, "pages/qing-f-c/customPicture/editFollowRecordSell": {}, "pages/qing-f-c/customPicture/addCompetitor": { "navigationBarTitleText": "新增竞争对手" }, "pages/qing-f-c/followRecord/followList": { "navigationBarTitleText": "潜在订单", "navigationBarBackgroundColor": "#ffffff", "navigationBarTextStyle": "black", "enablePullDownRefresh": true }, "pages/qing-f-c/productShow/editProduct": { "navigationBarTitleText": "编辑产品" }, "pages/qing-f-c/followRecord/selectBuyer": { "navigationBarTitleText": "选择买家" }, "pages/qing-f-c/followRecord/editFollowRecord": { "navigationBarTitleText": "修改" }, "pages/qing-f-c/followRecord/updateFollowRecord": { "navigationBarTitleText": "更新进度" }, "pages/qing-f-c/followRecord/sd_followList": { "navigationBarTitleText": "潜在订单", "navigationBarBackgroundColor": "#ffffff", "navigationBarTextStyle": "black", "enablePullDownRefresh": true }, "pages/qing-f-c/followRecord/publicDialog": { "navigationBarTitleText": "对话", "enablePullDownRefresh": true }, "pages/qing-f-c/followRecord/selectContact": { "navigationBarTitleText": "选择对话人" }, "pages/qing-f-c/productShow/productCreateCopy": {}, "pages/qing-f-c/productShow/selectCustomer": {}, "pages/qing-f-c/customPicture/buySellFollowDetail": { "navigationBarTitleText": "跟进记录详情" }, "pages/qing-f-c/newFollowRecord/deputyFollowList": { "navigationBarTitleText": "潜在订单", "navigationBarBackgroundColor": "#ffffff", "navigationBarTextStyle": "black", "enablePullDownRefresh": true }, "pages/qing-f-c/newFollowRecord/sd_followList": { "navigationBarTitleText": "潜在订单", "navigationBarBackgroundColor": "#ffffff", "navigationBarTextStyle": "black", "enablePullDownRefresh": true }, "pages/qing-f-c/newFollowRecord/selectSellDeputy": { "navigationBarTitleText": "选择负责人" }, "pages/qing-f-c/newFollowRecord/addFollowRecord": { "navigationBarTitleText": "新建订单" }, "pages/qing-f-c/newFollowRecord/selectBuyer": { "navigationBarTitleText": "选择客户" }, "pages/qing-f-c/newFollowRecord/connectInquiry": { "navigationBarTitleText": "选择询价单" }, "pages/qing-f-c/newFollowRecord/modifyRecord": { "navigationBarTitleText": "修改订单" }, "pages/qing-f-c/newFollowRecord/selectContact": {}, "pages/qing-f-c/newFollowRecord/selectPrincipal": { "navigationBarTitleText": "选择帮办" }, "pages/qing-f-c/sales_director/customLevelAudit": { "navigationBarTitleText": "客户等级" }, "pages/qing-f-c/regionalManager/approved": { "navigationBarTitleText": "审核管理" }, "pages/qing-f-c/buyDupty/updateCustomLevel": { "navigationBarTitleText": "修改客户等级" } }, "globalStyle": { "navigationBarTextStyle": "white", "navigationBarTitleText": "", "navigationBarBackgroundColor": "#FF6000", "backgroundColor": "white" } };exports.default = _default;
 
 /***/ }),
 
@@ -20154,7 +20290,7 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 
 /***/ }),
 
-/***/ 887:
+/***/ 951:
 /*!***************************************************************!*\
   !*** /Users/lee/Downloads/备份11/轻纺车网/components/gprint/tsc.js ***!
   \***************************************************************/
@@ -20162,7 +20298,7 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 /***/ (function(module, exports, __webpack_require__) {
 
 // var app = getApp();
-var encode = __webpack_require__(/*! ./encoding.js */ 888);
+var encode = __webpack_require__(/*! ./encoding.js */ 952);
 var jpPrinter = {
   createNew: function createNew() {
     var jpPrinter = {};
@@ -20386,7 +20522,7 @@ module.exports.jpPrinter = jpPrinter;
 
 /***/ }),
 
-/***/ 888:
+/***/ 952:
 /*!********************************************************************!*\
   !*** /Users/lee/Downloads/备份11/轻纺车网/components/gprint/encoding.js ***!
   \********************************************************************/
@@ -20407,7 +20543,7 @@ module.exports.jpPrinter = jpPrinter;
   if ( true && module.exports &&
   !global["encoding-indexes"]) {
     global["encoding-indexes"] =
-    __webpack_require__(/*! ./encoding-indexes.js */ 889)["encoding-indexes"];
+    __webpack_require__(/*! ./encoding-indexes.js */ 953)["encoding-indexes"];
   }
 
   //
@@ -23708,7 +23844,7 @@ module.exports.jpPrinter = jpPrinter;
 
 /***/ }),
 
-/***/ 889:
+/***/ 953:
 /*!****************************************************************************!*\
   !*** /Users/lee/Downloads/备份11/轻纺车网/components/gprint/encoding-indexes.js ***!
   \****************************************************************************/
@@ -23765,14 +23901,14 @@ global["encoding-indexes"]=
 
 /***/ }),
 
-/***/ 890:
+/***/ 954:
 /*!***************************************************************!*\
   !*** /Users/lee/Downloads/备份11/轻纺车网/components/gprint/esc.js ***!
   \***************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-var encode = __webpack_require__(/*! ./encoding.js */ 888);
+var encode = __webpack_require__(/*! ./encoding.js */ 952);
 // var app = getApp();
 var jpPrinter = {
   createNew: function createNew() {

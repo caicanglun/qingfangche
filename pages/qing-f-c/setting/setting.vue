@@ -19,13 +19,19 @@
 			</view>
 		</view>
 		<view class="row" style="border-bottom: 1upx solid #F4F4F4; margin-top:20upx;">
-			<view style="font-size:14px;">版本更新</view>
+			<view style="font-size:14px;">当前版本--{{version}}</view>
 			<view>
 				<uniIcon type="arrowright" size="24" color="#333333"></uniIcon>
 			</view>
 		</view>
 		<view class="row" style="border-bottom: 1upx solid #F4F4F4;">
 			<view style="font-size:14px;">意见反馈</view>
+			<view>
+				<uniIcon type="arrowright" size="24" color="#333333"></uniIcon>
+			</view>
+		</view>
+		<view class="row" style="border-bottom: 1upx solid #F4F4F4;" @tap="clearWigit">
+			<view style="font-size:14px;">全部已读</view>
 			<view>
 				<uniIcon type="arrowright" size="24" color="#333333"></uniIcon>
 			</view>
@@ -52,16 +58,41 @@
 		},
 		data() {
 			return {
-				
+				version:''
 			};
 		},
+		onLoad:function(){
+			this.version = plus.runtime.version
 			
+		},
 		methods:{
 			submit:function(){
 				uni.clearStorageSync("token");
 				uni.redirectTo({
 					url: '/pages/qing-f-c/login/login'
 				});
+			},
+			clearWigit:function(){
+				if (plus.os.name.toLowerCase() == 'ios') {
+					console.log("heerer")
+					 var UIApplication = plus.ios.import("UIApplication");  
+					 var app = UIApplication.sharedApplication();  
+					 //获取应用图标的数量  
+					 
+					var oldNum = app.applicationIconBadgeNumber();  
+					console.log("oldNUM",oldNum)
+					if (oldNum >0){
+						// var newNum = oldNum - 1;
+						 var newNum = 0
+						 plus.runtime.setBadgeNumber(newNum);
+						//导入个推原生类
+						 var GeTuiSdk = plus.ios.importClass("GeTuiSdk");
+						 GeTuiSdk.setBadge(newNum);
+						 uni.showToast({
+						 	title: '清除完成'
+						 })
+					}
+				}
 			}
 		}
 	}

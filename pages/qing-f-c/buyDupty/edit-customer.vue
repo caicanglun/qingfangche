@@ -1,6 +1,6 @@
 <template>
 	<view>
-		<form @submit="formSubmit" report-submit="true">
+		<form>
 		  <!-- <view class="box box_shadow"> -->
 		  <view class="box"> 
 				<view class="list flex_c">
@@ -33,8 +33,10 @@
 				
 				<myPicker @mychange="companyTypeChange" :items="companyType" name="客户类型" star="true" :firstLabel="customerInfo.companyType"></myPicker>
 				<myPicker @mychange="companySourceChange" :items="companySource" name="客户来源" star="true" :firstLabel="customerInfo.companySource"></myPicker>
-				<myPicker @mychange="managementPositionChange" :items="managementPosition" name="经营定位" star="true" :firstLabel="customerInfo.managementPosition"></myPicker>
-				<myPicker @mychange="companyScaleChange" :items="companyScale" name="经营规模" star="true" :firstLabel="customerInfo.companyScale"></myPicker>
+				<myPicker @mychange="managementPositionChange" :items="managementPosition" name="经营定位" :firstLabel="customerInfo.managementPosition"></myPicker>
+				<myPicker @mychange="companyScaleChange" :items="companyScale" name="经营规模" :firstLabel="customerInfo.companyScale"></myPicker>
+				<!-- <myPicker @mychange="levelChange" :items="level" name="重要等级" star="true" :firstLabel="customerInfo.companyLevelName"></myPicker> -->
+				<!-- <view class="title flex_c">A级为最高等级，D级为最低等级</view> -->
 				<rangeButton @buttonChange="cooperationIntentionChange" :items="cooperationIntention" name="合作意向"></rangeButton>
 				
 				
@@ -44,7 +46,7 @@
 		  </view>
 		  <view class="fixed_bottom box_shadow_btn">
 		    <button class="btn_left" hover-class="none" @tap="bindCancel">取消</button>
-		    <button class="btn_right" formType="submit" hover-class="none">确定</button>
+		    <button class="btn_right"  @tap="formSubmit">确定</button>
 		  </view>
 		  
 		</form>
@@ -80,7 +82,9 @@
 				companyTypeCode: -1,  //					客户类型编码
 				companySourceCode: -1,  //				客户来源编码
 				companyScaleCode: -1 , // 客户规模
-				managementPositionCode: -1  // 经营定位
+				managementPositionCode: -1  ,// 经营定位
+				level:[]       ,//重要等级
+				companyLevel:''
 			};
 		},
 		onLoad:function(options){
@@ -95,7 +99,7 @@
 			this.getCooperationIntention()
 			this.getCompanyScale()
 			this.getManagementPosition()
-			
+			this.getCompanyLevel()
 		},
 		onShow:function(){
 			
@@ -123,6 +127,11 @@
 			
 		},
 		methods:{
+			async getCompanyLevel(){
+				const res = await this.$http.get('/choose/company_level',{})
+				console.log('companyLevel',res)
+				this.level = res.data.data.list
+			},
 			getCustomerInfo:function () {
 			  console.log(_companyCode)
 			  let _data = {companyCode: _companyCode}
@@ -131,6 +140,7 @@
 			    console.log("customer--info==",res);
 			
 			    _this.customerInfo = res.data.data
+				_this.companyLevel = _this.customerInfo.companyLevelCode
 				console.log(_this.customerInfo)
 			  }).catch(err => {
 			    
@@ -238,6 +248,11 @@
 			managementPositionChange:function(e){
 				this.managementPositionCode = e
 			},
+			//重要等级
+			levelChange:function(e){
+				this.companyLevel = e
+				console.log(e)
+			},
 			// 经营规模
 			companyScaleChange:function(e){
 				this.companyScaleCode = e
@@ -314,7 +329,8 @@
 				_data.managementPositionCode = this.managementPositionCode 			//经营定位编码
 				_data.cooperationIntentionCode = cooper[0]
 				_data.coordinateCode = coor[0]                      //配合度编码
-			   
+				_data.companyLevel = this.companyLevel             //重要等级
+			    
                 console.log("更新客户：",_data)
 				
                 _data = Tools.filterNull(_data)

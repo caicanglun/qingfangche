@@ -63,8 +63,8 @@
   		<view>跟进记录</view>
   		<view class="counter">{{counter.followCount|| 0}}条</view>
   	</view>
-    <view class="hand_bottom_btn wid_300" @tap="toProductPage">
-  		<view>产品展示</view>
+    <view class="hand_bottom_btn wid_300">
+  		<view>产品需求</view>
   		<view class="counter">{{counter.productCount|| 0}}个</view>
   	</view>
   </view>
@@ -174,9 +174,29 @@
     <view class='list_right'>配合度</view>
     <view>{{customerInfo.coordinate||''}}</view>
   </view>
+ 
   <view class="flex_c box_list fs_14 no_border">
     <view class='list_right'>公司定位</view>
     <view>{{customerInfo.managementPosition||''}}</view>
+  </view>
+</view>
+
+<!-- ---------------------------------- -->
+<view class="box box_shadow">
+  <view :class="'flex_sb_c box_list '">
+    <view :class="'fs_16 font_we_bold ' + ' flex_c'">
+      <view class="list_line"></view>
+      <view>客户等级</view>
+    </view>
+    
+  </view>
+  <view class="flex_sb box_list fs_14">
+	  <view class="flex">
+		  <view style="width: 140upx;"><text style="color:#888890">重要等级</text></view>
+		  <view><text>{{customerInfo.companyLevelName||''}}</text>  </view>
+		  
+	  </view>
+	  <view :style="{color: customerInfo.companyLevelStatusCode==2||customerInfo.companyLevelStatusCode==4?'#ff0000':''}">{{customerInfo.companyLevelStatusName||''}}</view>
   </view>
 </view>
  <!-- ---------------------------------- -->
@@ -303,7 +323,8 @@ export default {
 	  activeIndex: -1,
 	  items: ['公司信息','联系人','经营状况','竞争对手'],
 	  itemsSell: ['公司信息','联系人','经营状况'],
-	  isDoRefresh:false
+	  isDoRefresh:false,
+	  companyCode:''
     };
   },
 
@@ -327,6 +348,7 @@ export default {
     //this.setIdentity();
 	console.log(options)
     _companyCode = options.companyCode;
+	this.companyCode = options.companyCode
 	this.getCustomerInfo();
 	this.getLinkMan()
 	this.getOperation()
@@ -444,12 +466,12 @@ export default {
    
     // 跳转跟进记录详情（总）
     toRecordDetails: function () {
-      let data= JSON.stringify({
-      		  companyCode: _companyCode,
-      		  buyOrSellCode: this.linkMan[0].buyOrSellCode,
-      		  buyOrSell: this.customerInfo.buyOrSell
-      })
-      console.log(data)
+      // let data= JSON.stringify({
+      // 		  companyCode: _companyCode,
+      // 		  buyOrSellCode: this.linkMan[0].buyOrSellCode,
+      // 		  buyOrSell: this.customerInfo.buyOrSell
+      // })
+      // console.log(data)
 	  wx.navigateTo({
 	    url: `/pages/qing-f-c/customPicture/sd_followRecordDetail?companyCode=${_companyCode}`
 	  });
@@ -624,18 +646,12 @@ export default {
     },
     // 跳转到产品展示
     toProductPage: function () {
-      let isProduct = this.customerInfo.productInfo;
-      let url;
-
-      if (isProduct) {
-        url = '/pages/jin-suo-yun/customer-admin/product-display?customerId=' + _id;
-      } else {
-        url = '/pages/jin-suo-yun/customer-admin/add-productpage?type=' + this.customerInfo.type + '&customerid=' + _id;
-      }
-
-      wx.navigateTo({
-        url: url
-      });
+       if (this.customerInfo.buyOrSell==2){
+       		  let url=`/pages/qing-f-c/productShow/mainShow?companyCode=${this.companyCode}`;
+       		  wx.navigateTo({
+       		    url: url
+       		  });
+       }
     },
     bindNull: function () {
       wx.showToast({

@@ -257,6 +257,15 @@
 				});
 			},
 			toPublicDialogue:function(){
+				if (this.wigitPublic >0){
+					var pages = getCurrentPages();
+					var currPage = pages[pages.length - 1]; //当前页面
+					var prevPage = pages[pages.length - 2]; //上一个页面
+					//直接调用上一个页面的setData()方法，把数据存到上一个页面中去
+					prevPage.setData({
+					   isDoRefresh:true
+					})
+				}
 				uni.navigateTo({
 					url: `./publicDialog?buyOrSell=1&recordCode=${this.item.recordCode}`,
 				});
@@ -267,6 +276,15 @@
 				});
 			},
 			toSellDialogue:function(){
+				if (this.wigitSell >0){
+					var pages = getCurrentPages();
+					var currPage = pages[pages.length - 1]; //当前页面
+					var prevPage = pages[pages.length - 2]; //上一个页面
+					//直接调用上一个页面的setData()方法，把数据存到上一个页面中去
+					prevPage.setData({
+					   isDoRefresh:true
+					})
+				}
 				uni.navigateTo({
 					url: `./publicDialog?buyOrSell=2&recordCode=${this.item.recordCode}`,
 				});
