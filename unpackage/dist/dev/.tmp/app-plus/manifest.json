@@ -204,11 +204,7 @@
       "selectedColor": "#FF6000",
       "backgroundColor": "#f8f8f8",
       "borderStyle": "rgba(0,0,0,0.4)",
-      "height": "50px",
-      "child": [
-        "lauchwebview"
-      ],
-      "selected": 2
+      "height": "50px"
     }
   },
   "usingComponents": {}

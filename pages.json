@@ -1,6 +1,18 @@
 {
 	"pages": [ //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
-	       {
+	      {
+	          "path" : "pages/qing-f-c/shopping/sellerDetail",
+	          "style" : {"navigationBarTitleText": "询价详情"}
+	      },
+		  {
+	          "path" : "pages/qing-f-c/index",
+	          "style" : {
+	         				"navigationStyle":"custom",
+	         				"enablePullDownRefresh": true
+	         			}
+	       },	
+		  
+		  {
 	            "path" : "pages/qing-f-c/shopping/list",
 	            "style" : {"navigationBarTitleText": "商城",
 	       	            "navigationBarBackgroundColor":"#ffffff",
@@ -12,17 +24,7 @@
 	           "path" : "pages/qing-f-c/shopping/finish",
 	           "style" : {"navigationBarTitleText": "询价"}
 	       },
-	       {
-	           "path" : "pages/qing-f-c/index",
-	           "style" : {
-	          				"navigationStyle":"custom",
-	          				"enablePullDownRefresh": true
-	          			}
-	        },	
-	       			
-		   
-		   
-			
+
 			   {
 				   "path" : "pages/qing-f-c/report/inputTarget",
 				   "style" : {"navigationBarTitleText": "设定本月目标"}
@@ -1054,6 +1056,7 @@
 			}
         }
         
+       
     ],
 	"tabBar": {
 	    "list": [

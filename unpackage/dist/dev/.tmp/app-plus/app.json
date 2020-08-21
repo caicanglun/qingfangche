@@ -1,8 +1,9 @@
 {
   "pages": [
+    "pages/qing-f-c/shopping/sellerDetail",
+    "pages/qing-f-c/index",
     "pages/qing-f-c/shopping/list",
     "pages/qing-f-c/shopping/finish",
-    "pages/qing-f-c/index",
     "pages/qing-f-c/report/inputTarget",
     "pages/qing-f-c/report/microShop",
     "pages/qing-f-c/report/targetCustomList",

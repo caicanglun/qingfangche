@@ -1560,7 +1560,239 @@ uni$1;exports.default = _default;
 
 /***/ }),
 
-/***/ 1000:
+/***/ 1015:
+/*!***************************************************************!*\
+  !*** /Users/lee/Downloads/备份11/轻纺车网/components/gprint/tsc.js ***!
+  \***************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+// var app = getApp();
+var encode = __webpack_require__(/*! ./encoding.js */ 1016);
+var jpPrinter = {
+  createNew: function createNew() {
+    var jpPrinter = {};
+    var data = "";
+    var command = [];
+
+    jpPrinter.name = "标签模式";
+
+    jpPrinter.init = function () {};
+
+    jpPrinter.addCommand = function (content) {//将指令转成数组装起
+      var code = new encode.TextEncoder(
+      'gb18030', {
+        NONSTANDARD_allowLegacyEncoding: true }).
+      encode(content);
+      for (var i = 0; i < code.length; ++i) {
+        command.push(code[i]);
+      }
+    };
+
+    jpPrinter.setSize = function (pageWidght, pageHeight) {//设置页面大小
+      data = "SIZE " + pageWidght.toString() + " mm" + "," + pageHeight.toString() + " mm" + "\r\n";
+      jpPrinter.addCommand(data);
+    };
+
+    jpPrinter.setSpeed = function (printSpeed) {//设置打印机速度
+      data = "SPEED " + printSpeed.toString() + "\r\n";
+      jpPrinter.addCommand(data);
+    };
+
+    jpPrinter.setDensity = function (printDensity) {//设置打印机浓度
+      data = "DENSITY " + printDensity.toString() + "\r\n";
+      jpPrinter.addCommand(data);
+    };
+
+    jpPrinter.setGap = function (printGap) {//传感器
+      data = "GAP " + printGap.toString() + " mm\r\n";
+      jpPrinter.addCommand(data);
+    };
+
+    jpPrinter.setCountry = function (country) {//选择国际字符集
+      /*
+      001:USA
+      002:French
+      003:Latin America
+      034:Spanish
+      039:Italian
+      044:United Kingdom
+      046:Swedish
+      047:Norwegian
+      049:German
+       */
+      data = "COUNTRY " + country + "\r\n";
+      jpPrinter.addCommand(data);
+    };
+
+    jpPrinter.setCodepage = function (codepage) {//选择国际代码页
+      /*
+      8-bit codepage 字符集代表
+      437:United States
+      850:Multilingual
+      852:Slavic
+      860:Portuguese
+      863:Canadian/French
+      865:Nordic
+      Windows code page
+      1250:Central Europe
+      1252:Latin I
+      1253:Greek
+      1254:Turkish
+      以下代码页仅限于 12×24 dot 英数字体
+      WestEurope:WestEurope
+      Greek:Greek
+      Hebrew:Hebrew
+      EastEurope:EastEurope
+      Iran:Iran
+      IranII:IranII
+      Latvian:Latvian
+      Arabic:Arabic
+      Vietnam:Vietnam
+      Uygur:Uygur
+      Thai:Thai
+      1252:Latin I
+      1257:WPC1257
+      1251:WPC1251
+      866:Cyrillic
+      858:PC858
+      747:PC747
+      864:PC864
+      1001:PC100
+      */
+      data = "CODEPAGE " + codepage + "\r\n";
+      jpPrinter.addCommand(data);
+    };
+
+    jpPrinter.setCls = function () {//清除打印机缓存
+      data = "CLS" + "\r\n";
+      jpPrinter.addCommand(data);
+    };
+
+    jpPrinter.setFeed = function (feed) {//将纸向前推出n
+      data = "FEED " + feed + "\r\n";
+      jpPrinter.addCommand(data);
+    };
+
+    jpPrinter.setBackFeed = function (backup) {//将纸向后回拉n
+      data = "BACKFEED " + backup + "\r\n";
+      jpPrinter.addCommand(data);
+    };
+
+    jpPrinter.setDirection = function (direction) {//设置打印方向，参考编程手册  
+      data = "DIRECTION " + direction + "\r\n";
+      jpPrinter.addCommand(data);
+    };
+
+    jpPrinter.setReference = function (x, y) {//设置坐标原点，与打印方向有关
+      data = "REFERENCE " + x + "," + y + "\r\n";
+      jpPrinter.addCommand(data);
+    };
+
+    jpPrinter.setFromfeed = function () {//根据Size进一张标签纸
+      data = "FORMFEED \r\n";
+      jpPrinter.addCommand(data);
+    };
+
+    jpPrinter.setHome = function () {//根据Size找到下一张标签纸的位置
+      data = "HOME \r\n";
+      jpPrinter.addCommand(data);
+    };
+
+    jpPrinter.setSound = function (level, interval) {//控制蜂鸣器
+      data = "SOUND " + level + "," + interval + "\r\n";
+      jpPrinter.addCommand(data);
+    };
+
+    jpPrinter.setLimitfeed = function (limit) {// 检测垂直间距
+      data = "LIMITFEED " + limit + "\r\n";
+      jpPrinter.addCommand(data);
+    };
+
+    jpPrinter.setBar = function (x, y, width, height) {//绘制线条
+      data = "BAR " + x + "," + y + "," + width + "," + height + "\r\n";
+      jpPrinter.addCommand(data);
+    };
+
+    jpPrinter.setBox = function (x_start, y_start, x_end, y_end, thickness) {//绘制方框
+      data = "BOX " + x_start + "," + y_start + "," + x_end + "," + y_end + "," + thickness + "\r\n";
+      jpPrinter.addCommand(data);
+    };
+
+    jpPrinter.setErase = function (x_start, y_start, x_width, y_height) {//清除指定区域的数据
+      data = "ERASE " + x_start + "," + y_start + "," + x_width + "," + y_height + "\r\n";
+      jpPrinter.addCommand(data);
+    };
+
+    jpPrinter.setReverse = function (x_start, y_start, x_width, y_height) {//将指定的区域反相打印
+      data = "REVERSE " + x_start + "," + y_start + "," + x_width + "," + y_height + "\r\n";
+      jpPrinter.addCommand(data);
+    };
+
+    jpPrinter.setText = function (x, y, font, x_, y_, str) {//打印文字
+      data = "TEXT " + x + "," + y + ",\"" + font + "\"," + 0 + "," + x_ + "," + y_ + "," + "\"" + str + "\"\r\n";
+      jpPrinter.addCommand(data);
+    };
+
+    jpPrinter.setQR = function (x, y, level, width, mode, content) {//打印二维码
+      data = "QRCODE " + x + "," + y + "," + level + "," + width + "," + mode + "," + 0 + ",\"" + content + "\"\r\n";
+      jpPrinter.addCommand(data);
+    };
+
+    jpPrinter.setBar = function (x, y, codetype, height, readable, narrow, wide, content) {//打印条形码
+      data = "BARCODE " + x + "," + y + ",\"" + codetype + "\"," + height + "," + readable + "," + 0 + "," + narrow + "," + wide + ",\"" + content + "\"\r\n";
+      jpPrinter.addCommand(data);
+    };
+
+    jpPrinter.setBitmap = function (x, y, mode, res) {//添加图片，res为画布参数
+      console.log(res);
+      var width = parseInt((res.width + 7) / 8 * 8 / 8);
+      var height = res.height;
+      var time = 1;
+      var temp = res.data.length - width * 32;
+      var pointList = [];
+      console.log(width + "--" + height);
+      data = "BITMAP " + x + "," + y + "," + width + "," + height + "," + mode + ",";
+      jpPrinter.addCommand(data);
+      for (var i = 0; i < height; ++i) {
+        console.log(temp);
+        for (var j = 0; j < width; ++j) {
+          for (var k = 0; k < 32; k += 4) {
+            if (res.data[temp] == 0 && res.data[temp + 1] == 0 && res.data[temp + 2] == 0 && res.data[temp + 3] == 0) {
+              pointList.push(1);
+            } else {
+              pointList.push(0);
+            }
+            temp += 4;
+          }
+        }
+        time++;
+        temp = res.data.length - width * 32 * time;
+      }
+      for (var i = 0; i < pointList.length; i += 8) {
+        var p = pointList[i] * 128 + pointList[i + 1] * 64 + pointList[i + 2] * 32 + pointList[i + 3] * 16 + pointList[i + 4] * 8 + pointList[i + 5] * 4 + pointList[i + 6] * 2 + pointList[i + 7];
+        command.push(p);
+      }
+    };
+
+    jpPrinter.setPagePrint = function () {//打印页面
+      data = "PRINT 1,1\r\n";
+      jpPrinter.addCommand(data);
+    };
+    //获取打印数据
+    jpPrinter.getData = function () {
+      return command;
+    };
+
+    return jpPrinter;
+  } };
+
+
+module.exports.jpPrinter = jpPrinter;
+
+/***/ }),
+
+/***/ 1016:
 /*!********************************************************************!*\
   !*** /Users/lee/Downloads/备份11/轻纺车网/components/gprint/encoding.js ***!
   \********************************************************************/
@@ -1581,7 +1813,7 @@ uni$1;exports.default = _default;
   if ( true && module.exports &&
   !global["encoding-indexes"]) {
     global["encoding-indexes"] =
-    __webpack_require__(/*! ./encoding-indexes.js */ 1001)["encoding-indexes"];
+    __webpack_require__(/*! ./encoding-indexes.js */ 1017)["encoding-indexes"];
   }
 
   //
@@ -4882,7 +5114,7 @@ uni$1;exports.default = _default;
 
 /***/ }),
 
-/***/ 1001:
+/***/ 1017:
 /*!****************************************************************************!*\
   !*** /Users/lee/Downloads/备份11/轻纺车网/components/gprint/encoding-indexes.js ***!
   \****************************************************************************/
@@ -4939,14 +5171,14 @@ global["encoding-indexes"]=
 
 /***/ }),
 
-/***/ 1002:
+/***/ 1018:
 /*!***************************************************************!*\
   !*** /Users/lee/Downloads/备份11/轻纺车网/components/gprint/esc.js ***!
   \***************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-var encode = __webpack_require__(/*! ./encoding.js */ 1000);
+var encode = __webpack_require__(/*! ./encoding.js */ 1016);
 // var app = getApp();
 var jpPrinter = {
   createNew: function createNew() {
@@ -5396,6 +5628,1638 @@ module.exports.jpPrinter = jpPrinter;
 
 /***/ }),
 
+/***/ 1490:
+/*!*********************************************************!*\
+  !*** /Users/lee/Downloads/备份11/轻纺车网/common/wxqrcode.js ***!
+  \*********************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+//---------------------------------------------------------------------
+//
+// QR Code Generator for JavaScript
+//
+// Copyright (c) 2009 Kazuhiko Arase
+//
+// URL: [url=http://www.d-project.com/]http://www.d-project.com/[/url]
+//
+// Licensed under the MIT license:
+//        [url=http://www.opensource.org/licenses/mit-license.php]http://www.opensource.org/licenses/mit-license.php[/url]
+//
+// The word 'QR Code' is registered trademark of
+// DENSO WAVE INCORPORATED
+//        [url=http://www.denso-wave.com/qrcode/faqpatent-e.html]http://www.denso-wave.com/qrcode/faqpatent-e.html[/url]
+//
+//---------------------------------------------------------------------
+
+//---------------------------------------------------------------------
+// qrcode
+//代码第1588行为补充代码
+//修改人：chenxing
+//2017-02-27 16:21:32
+//---------------------------------------------------------------------
+
+/**
+ * qrcode
+ * @param typeNumber 1 to 40
+ * @param errorCorrectLevel 'L','M','Q','H'
+ */
+var qrcode = function qrcode(typeNumber, errorCorrectLevel) {
+
+  var PAD0 = 0xEC;
+  var PAD1 = 0x11;
+
+  var _typeNumber = typeNumber;
+  var _errorCorrectLevel = QRErrorCorrectLevel[errorCorrectLevel];
+  var _modules = null;
+  var _moduleCount = 0;
+  var _dataCache = null;
+  var _dataList = new Array();
+
+  var _this = {};
+
+  var makeImpl = function makeImpl(test, maskPattern) {
+
+    _moduleCount = _typeNumber * 4 + 17;
+    _modules = function (moduleCount) {
+      var modules = new Array(moduleCount);
+      for (var row = 0; row < moduleCount; row += 1) {
+        modules[row] = new Array(moduleCount);
+        for (var col = 0; col < moduleCount; col += 1) {
+          modules[row][col] = null;
+        }
+      }
+      return modules;
+    }(_moduleCount);
+
+    setupPositionProbePattern(0, 0);
+    setupPositionProbePattern(_moduleCount - 7, 0);
+    setupPositionProbePattern(0, _moduleCount - 7);
+    setupPositionAdjustPattern();
+    setupTimingPattern();
+    setupTypeInfo(test, maskPattern);
+
+    if (_typeNumber >= 7) {
+      setupTypeNumber(test);
+    }
+
+    if (_dataCache == null) {
+      _dataCache = createData(_typeNumber, _errorCorrectLevel, _dataList);
+    }
+
+    mapData(_dataCache, maskPattern);
+  };
+
+  var setupPositionProbePattern = function setupPositionProbePattern(row, col) {
+
+    for (var r = -1; r <= 7; r += 1) {
+
+      if (row + r <= -1 || _moduleCount <= row + r) continue;
+
+      for (var c = -1; c <= 7; c += 1) {
+
+        if (col + c <= -1 || _moduleCount <= col + c) continue;
+
+        if (0 <= r && r <= 6 && (c == 0 || c == 6) ||
+        0 <= c && c <= 6 && (r == 0 || r == 6) ||
+        2 <= r && r <= 4 && 2 <= c && c <= 4) {
+          _modules[row + r][col + c] = true;
+        } else {
+          _modules[row + r][col + c] = false;
+        }
+      }
+    }
+  };
+
+  var getBestMaskPattern = function getBestMaskPattern() {
+
+    var minLostPoint = 0;
+    var pattern = 0;
+
+    for (var i = 0; i < 8; i += 1) {
+
+      makeImpl(true, i);
+
+      var lostPoint = QRUtil.getLostPoint(_this);
+
+      if (i == 0 || minLostPoint > lostPoint) {
+        minLostPoint = lostPoint;
+        pattern = i;
+      }
+    }
+
+    return pattern;
+  };
+
+  var setupTimingPattern = function setupTimingPattern() {
+
+    for (var r = 8; r < _moduleCount - 8; r += 1) {
+      if (_modules[r][6] != null) {
+        continue;
+      }
+      _modules[r][6] = r % 2 == 0;
+    }
+
+    for (var c = 8; c < _moduleCount - 8; c += 1) {
+      if (_modules[6][c] != null) {
+        continue;
+      }
+      _modules[6][c] = c % 2 == 0;
+    }
+  };
+
+  var setupPositionAdjustPattern = function setupPositionAdjustPattern() {
+
+    var pos = QRUtil.getPatternPosition(_typeNumber);
+
+    for (var i = 0; i < pos.length; i += 1) {
+
+      for (var j = 0; j < pos.length; j += 1) {
+
+        var row = pos[i];
+        var col = pos[j];
+
+        if (_modules[row][col] != null) {
+          continue;
+        }
+
+        for (var r = -2; r <= 2; r += 1) {
+
+          for (var c = -2; c <= 2; c += 1) {
+
+            if (r == -2 || r == 2 || c == -2 || c == 2 ||
+            r == 0 && c == 0) {
+              _modules[row + r][col + c] = true;
+            } else {
+              _modules[row + r][col + c] = false;
+            }
+          }
+        }
+      }
+    }
+  };
+
+  var setupTypeNumber = function setupTypeNumber(test) {
+
+    var bits = QRUtil.getBCHTypeNumber(_typeNumber);
+
+    for (var i = 0; i < 18; i += 1) {
+      var mod = !test && (bits >> i & 1) == 1;
+      _modules[Math.floor(i / 3)][i % 3 + _moduleCount - 8 - 3] = mod;
+    }
+
+    for (var i = 0; i < 18; i += 1) {
+      var mod = !test && (bits >> i & 1) == 1;
+      _modules[i % 3 + _moduleCount - 8 - 3][Math.floor(i / 3)] = mod;
+    }
+  };
+
+  var setupTypeInfo = function setupTypeInfo(test, maskPattern) {
+
+    var data = _errorCorrectLevel << 3 | maskPattern;
+    var bits = QRUtil.getBCHTypeInfo(data);
+
+    // vertical
+    for (var i = 0; i < 15; i += 1) {
+
+      var mod = !test && (bits >> i & 1) == 1;
+
+      if (i < 6) {
+        _modules[i][8] = mod;
+      } else if (i < 8) {
+        _modules[i + 1][8] = mod;
+      } else {
+        _modules[_moduleCount - 15 + i][8] = mod;
+      }
+    }
+
+    // horizontal
+    for (var i = 0; i < 15; i += 1) {
+
+      var mod = !test && (bits >> i & 1) == 1;
+
+      if (i < 8) {
+        _modules[8][_moduleCount - i - 1] = mod;
+      } else if (i < 9) {
+        _modules[8][15 - i - 1 + 1] = mod;
+      } else {
+        _modules[8][15 - i - 1] = mod;
+      }
+    }
+
+    // fixed module
+    _modules[_moduleCount - 8][8] = !test;
+  };
+
+  var mapData = function mapData(data, maskPattern) {
+
+    var inc = -1;
+    var row = _moduleCount - 1;
+    var bitIndex = 7;
+    var byteIndex = 0;
+    var maskFunc = QRUtil.getMaskFunction(maskPattern);
+
+    for (var col = _moduleCount - 1; col > 0; col -= 2) {
+
+      if (col == 6) col -= 1;
+
+      while (true) {
+
+        for (var c = 0; c < 2; c += 1) {
+
+          if (_modules[row][col - c] == null) {
+
+            var dark = false;
+
+            if (byteIndex < data.length) {
+              dark = (data[byteIndex] >>> bitIndex & 1) == 1;
+            }
+
+            var mask = maskFunc(row, col - c);
+
+            if (mask) {
+              dark = !dark;
+            }
+
+            _modules[row][col - c] = dark;
+            bitIndex -= 1;
+
+            if (bitIndex == -1) {
+              byteIndex += 1;
+              bitIndex = 7;
+            }
+          }
+        }
+
+        row += inc;
+
+        if (row < 0 || _moduleCount <= row) {
+          row -= inc;
+          inc = -inc;
+          break;
+        }
+      }
+    }
+  };
+
+  var createBytes = function createBytes(buffer, rsBlocks) {
+
+    var offset = 0;
+
+    var maxDcCount = 0;
+    var maxEcCount = 0;
+
+    var dcdata = new Array(rsBlocks.length);
+    var ecdata = new Array(rsBlocks.length);
+
+    for (var r = 0; r < rsBlocks.length; r += 1) {
+
+      var dcCount = rsBlocks[r].dataCount;
+      var ecCount = rsBlocks[r].totalCount - dcCount;
+
+      maxDcCount = Math.max(maxDcCount, dcCount);
+      maxEcCount = Math.max(maxEcCount, ecCount);
+
+      dcdata[r] = new Array(dcCount);
+
+      for (var i = 0; i < dcdata[r].length; i += 1) {
+        dcdata[r][i] = 0xff & buffer.getBuffer()[i + offset];
+      }
+      offset += dcCount;
+
+      var rsPoly = QRUtil.getErrorCorrectPolynomial(ecCount);
+      var rawPoly = qrPolynomial(dcdata[r], rsPoly.getLength() - 1);
+
+      var modPoly = rawPoly.mod(rsPoly);
+      ecdata[r] = new Array(rsPoly.getLength() - 1);
+      for (var i = 0; i < ecdata[r].length; i += 1) {
+        var modIndex = i + modPoly.getLength() - ecdata[r].length;
+        ecdata[r][i] = modIndex >= 0 ? modPoly.getAt(modIndex) : 0;
+      }
+    }
+
+    var totalCodeCount = 0;
+    for (var i = 0; i < rsBlocks.length; i += 1) {
+      totalCodeCount += rsBlocks[i].totalCount;
+    }
+
+    var data = new Array(totalCodeCount);
+    var index = 0;
+
+    for (var i = 0; i < maxDcCount; i += 1) {
+      for (var r = 0; r < rsBlocks.length; r += 1) {
+        if (i < dcdata[r].length) {
+          data[index] = dcdata[r][i];
+          index += 1;
+        }
+      }
+    }
+
+    for (var i = 0; i < maxEcCount; i += 1) {
+      for (var r = 0; r < rsBlocks.length; r += 1) {
+        if (i < ecdata[r].length) {
+          data[index] = ecdata[r][i];
+          index += 1;
+        }
+      }
+    }
+
+    return data;
+  };
+
+  var createData = function createData(typeNumber, errorCorrectLevel, dataList) {
+
+    var rsBlocks = QRRSBlock.getRSBlocks(typeNumber, errorCorrectLevel);
+
+    var buffer = qrBitBuffer();
+
+    for (var i = 0; i < dataList.length; i += 1) {
+      var data = dataList[i];
+      buffer.put(data.getMode(), 4);
+      buffer.put(data.getLength(), QRUtil.getLengthInBits(data.getMode(), typeNumber));
+      data.write(buffer);
+    }
+
+    // calc num max data.
+    var totalDataCount = 0;
+    for (var i = 0; i < rsBlocks.length; i += 1) {
+      totalDataCount += rsBlocks[i].dataCount;
+    }
+
+    if (buffer.getLengthInBits() > totalDataCount * 8) {
+      throw new Error('code length overflow. (' +
+      buffer.getLengthInBits() +
+      '>' +
+      totalDataCount * 8 +
+      ')');
+    }
+
+    // end code
+    if (buffer.getLengthInBits() + 4 <= totalDataCount * 8) {
+      buffer.put(0, 4);
+    }
+
+    // padding
+    while (buffer.getLengthInBits() % 8 != 0) {
+      buffer.putBit(false);
+    }
+
+    // padding
+    while (true) {
+
+      if (buffer.getLengthInBits() >= totalDataCount * 8) {
+        break;
+      }
+      buffer.put(PAD0, 8);
+
+      if (buffer.getLengthInBits() >= totalDataCount * 8) {
+        break;
+      }
+      buffer.put(PAD1, 8);
+    }
+
+    return createBytes(buffer, rsBlocks);
+  };
+
+  _this.addData = function (data) {
+    var newData = qr8BitByte(data);
+    _dataList.push(newData);
+    _dataCache = null;
+  };
+
+  _this.isDark = function (row, col) {
+    if (row < 0 || _moduleCount <= row || col < 0 || _moduleCount <= col) {
+      throw new Error(row + ',' + col);
+    }
+    return _modules[row][col];
+  };
+
+  _this.getModuleCount = function () {
+    return _moduleCount;
+  };
+
+  _this.make = function () {
+    makeImpl(false, getBestMaskPattern());
+  };
+
+  _this.createTableTag = function (cellSize, margin) {
+
+    cellSize = cellSize || 2;
+    margin = typeof margin == 'undefined' ? cellSize * 4 : margin;
+
+    var qrHtml = '';
+
+    qrHtml += '<table style="';
+    qrHtml += ' border-width: 0px; border-style: none;';
+    qrHtml += ' border-collapse: collapse;';
+    qrHtml += ' padding: 0px; margin: ' + margin + 'px;';
+    qrHtml += '">';
+    qrHtml += '<tbody>';
+
+    for (var r = 0; r < _this.getModuleCount(); r += 1) {
+
+      qrHtml += '<tr>';
+
+      for (var c = 0; c < _this.getModuleCount(); c += 1) {
+        qrHtml += '<td style="';
+        qrHtml += ' border-width: 0px; border-style: none;';
+        qrHtml += ' border-collapse: collapse;';
+        qrHtml += ' padding: 0px; margin: 0px;';
+        qrHtml += ' width: ' + cellSize + 'px;';
+        qrHtml += ' height: ' + cellSize + 'px;';
+        qrHtml += ' background-color: ';
+        qrHtml += _this.isDark(r, c) ? '#000000' : '#ffffff';
+        qrHtml += ';';
+        qrHtml += '"/>';
+      }
+
+      qrHtml += '</tr>';
+    }
+
+    qrHtml += '</tbody>';
+    qrHtml += '</table>';
+
+    return qrHtml;
+  };
+
+  _this.createImgTag = function (cellSize, margin, size) {
+
+    cellSize = cellSize || 2;
+    margin = typeof margin == 'undefined' ? cellSize * 4 : margin;
+
+    var min = margin;
+    var max = _this.getModuleCount() * cellSize + margin;
+
+    return createImgTag(size, size, function (x, y) {
+      if (min <= x && x < max && min <= y && y < max) {
+        var c = Math.floor((x - min) / cellSize);
+        var r = Math.floor((y - min) / cellSize);
+        return _this.isDark(r, c) ? 0 : 1;
+      } else {
+        return 1;
+      }
+    });
+  };
+
+  return _this;
+};
+
+//---------------------------------------------------------------------
+// qrcode.stringToBytes
+//---------------------------------------------------------------------
+
+qrcode.stringToBytes = function (s) {
+  var bytes = new Array();
+  for (var i = 0; i < s.length; i += 1) {
+    var c = s.charCodeAt(i);
+    bytes.push(c & 0xff);
+  }
+  return bytes;
+};
+
+//---------------------------------------------------------------------
+// qrcode.createStringToBytes
+//---------------------------------------------------------------------
+
+/**
+ * @param unicodeData base64 string of byte array.
+ * [16bit Unicode],[16bit Bytes], ...
+ * @param numChars
+ */
+qrcode.createStringToBytes = function (unicodeData, numChars) {
+
+  // create conversion map.
+
+  var unicodeMap = function () {
+
+    var bin = base64DecodeInputStream(unicodeData);
+    var read = function read() {
+      var b = bin.read();
+      if (b == -1) throw new Error();
+      return b;
+    };
+
+    var count = 0;
+    var unicodeMap = {};
+    while (true) {
+      var b0 = bin.read();
+      if (b0 == -1) break;
+      var b1 = read();
+      var b2 = read();
+      var b3 = read();
+      var k = String.fromCharCode(b0 << 8 | b1);
+      var v = b2 << 8 | b3;
+      unicodeMap[k] = v;
+      count += 1;
+    }
+    if (count != numChars) {
+      throw new Error(count + ' != ' + numChars);
+    }
+
+    return unicodeMap;
+  }();
+
+  var unknownChar = '?'.charCodeAt(0);
+
+  return function (s) {
+    var bytes = new Array();
+    for (var i = 0; i < s.length; i += 1) {
+      var c = s.charCodeAt(i);
+      if (c < 128) {
+        bytes.push(c);
+      } else {
+        var b = unicodeMap[s.charAt(i)];
+        if (typeof b == 'number') {
+          if ((b & 0xff) == b) {
+            // 1byte
+            bytes.push(b);
+          } else {
+            // 2bytes
+            bytes.push(b >>> 8);
+            bytes.push(b & 0xff);
+          }
+        } else {
+          bytes.push(unknownChar);
+        }
+      }
+    }
+    return bytes;
+  };
+};
+
+//---------------------------------------------------------------------
+// QRMode
+//---------------------------------------------------------------------
+
+var QRMode = {
+  MODE_NUMBER: 1 << 0,
+  MODE_ALPHA_NUM: 1 << 1,
+  MODE_8BIT_BYTE: 1 << 2,
+  MODE_KANJI: 1 << 3 };
+
+
+//---------------------------------------------------------------------
+// QRErrorCorrectLevel
+//---------------------------------------------------------------------
+
+var QRErrorCorrectLevel = {
+  L: 1,
+  M: 0,
+  Q: 3,
+  H: 2 };
+
+
+//---------------------------------------------------------------------
+// QRMaskPattern
+//---------------------------------------------------------------------
+
+var QRMaskPattern = {
+  PATTERN000: 0,
+  PATTERN001: 1,
+  PATTERN010: 2,
+  PATTERN011: 3,
+  PATTERN100: 4,
+  PATTERN101: 5,
+  PATTERN110: 6,
+  PATTERN111: 7 };
+
+
+//---------------------------------------------------------------------
+// QRUtil
+//---------------------------------------------------------------------
+
+var QRUtil = function () {
+
+  var PATTERN_POSITION_TABLE = [
+  [],
+  [6, 18],
+  [6, 22],
+  [6, 26],
+  [6, 30],
+  [6, 34],
+  [6, 22, 38],
+  [6, 24, 42],
+  [6, 26, 46],
+  [6, 28, 50],
+  [6, 30, 54],
+  [6, 32, 58],
+  [6, 34, 62],
+  [6, 26, 46, 66],
+  [6, 26, 48, 70],
+  [6, 26, 50, 74],
+  [6, 30, 54, 78],
+  [6, 30, 56, 82],
+  [6, 30, 58, 86],
+  [6, 34, 62, 90],
+  [6, 28, 50, 72, 94],
+  [6, 26, 50, 74, 98],
+  [6, 30, 54, 78, 102],
+  [6, 28, 54, 80, 106],
+  [6, 32, 58, 84, 110],
+  [6, 30, 58, 86, 114],
+  [6, 34, 62, 90, 118],
+  [6, 26, 50, 74, 98, 122],
+  [6, 30, 54, 78, 102, 126],
+  [6, 26, 52, 78, 104, 130],
+  [6, 30, 56, 82, 108, 134],
+  [6, 34, 60, 86, 112, 138],
+  [6, 30, 58, 86, 114, 142],
+  [6, 34, 62, 90, 118, 146],
+  [6, 30, 54, 78, 102, 126, 150],
+  [6, 24, 50, 76, 102, 128, 154],
+  [6, 28, 54, 80, 106, 132, 158],
+  [6, 32, 58, 84, 110, 136, 162],
+  [6, 26, 54, 82, 110, 138, 166],
+  [6, 30, 58, 86, 114, 142, 170]];
+
+  var G15 = 1 << 10 | 1 << 8 | 1 << 5 | 1 << 4 | 1 << 2 | 1 << 1 | 1 << 0;
+  var G18 = 1 << 12 | 1 << 11 | 1 << 10 | 1 << 9 | 1 << 8 | 1 << 5 | 1 << 2 | 1 << 0;
+  var G15_MASK = 1 << 14 | 1 << 12 | 1 << 10 | 1 << 4 | 1 << 1;
+
+  var _this = {};
+
+  var getBCHDigit = function getBCHDigit(data) {
+    var digit = 0;
+    while (data != 0) {
+      digit += 1;
+      data >>>= 1;
+    }
+    return digit;
+  };
+
+  _this.getBCHTypeInfo = function (data) {
+    var d = data << 10;
+    while (getBCHDigit(d) - getBCHDigit(G15) >= 0) {
+      d ^= G15 << getBCHDigit(d) - getBCHDigit(G15);
+    }
+    return (data << 10 | d) ^ G15_MASK;
+  };
+
+  _this.getBCHTypeNumber = function (data) {
+    var d = data << 12;
+    while (getBCHDigit(d) - getBCHDigit(G18) >= 0) {
+      d ^= G18 << getBCHDigit(d) - getBCHDigit(G18);
+    }
+    return data << 12 | d;
+  };
+
+  _this.getPatternPosition = function (typeNumber) {
+    return PATTERN_POSITION_TABLE[typeNumber - 1];
+  };
+
+  _this.getMaskFunction = function (maskPattern) {
+
+    switch (maskPattern) {
+
+      case QRMaskPattern.PATTERN000:
+        return function (i, j) {return (i + j) % 2 == 0;};
+      case QRMaskPattern.PATTERN001:
+        return function (i, j) {return i % 2 == 0;};
+      case QRMaskPattern.PATTERN010:
+        return function (i, j) {return j % 3 == 0;};
+      case QRMaskPattern.PATTERN011:
+        return function (i, j) {return (i + j) % 3 == 0;};
+      case QRMaskPattern.PATTERN100:
+        return function (i, j) {return (Math.floor(i / 2) + Math.floor(j / 3)) % 2 == 0;};
+      case QRMaskPattern.PATTERN101:
+        return function (i, j) {return i * j % 2 + i * j % 3 == 0;};
+      case QRMaskPattern.PATTERN110:
+        return function (i, j) {return (i * j % 2 + i * j % 3) % 2 == 0;};
+      case QRMaskPattern.PATTERN111:
+        return function (i, j) {return (i * j % 3 + (i + j) % 2) % 2 == 0;};
+
+      default:
+        throw new Error('bad maskPattern:' + maskPattern);}
+
+  };
+
+  _this.getErrorCorrectPolynomial = function (errorCorrectLength) {
+    var a = qrPolynomial([1], 0);
+    for (var i = 0; i < errorCorrectLength; i += 1) {
+      a = a.multiply(qrPolynomial([1, QRMath.gexp(i)], 0));
+    }
+    return a;
+  };
+
+  _this.getLengthInBits = function (mode, type) {
+
+    if (1 <= type && type < 10) {
+
+      // 1 - 9
+
+      switch (mode) {
+        case QRMode.MODE_NUMBER:return 10;
+        case QRMode.MODE_ALPHA_NUM:return 9;
+        case QRMode.MODE_8BIT_BYTE:return 8;
+        case QRMode.MODE_KANJI:return 8;
+        default:
+          throw new Error('mode:' + mode);}
+
+
+    } else if (type < 27) {
+
+      // 10 - 26
+
+      switch (mode) {
+        case QRMode.MODE_NUMBER:return 12;
+        case QRMode.MODE_ALPHA_NUM:return 11;
+        case QRMode.MODE_8BIT_BYTE:return 16;
+        case QRMode.MODE_KANJI:return 10;
+        default:
+          throw new Error('mode:' + mode);}
+
+
+    } else if (type < 41) {
+
+      // 27 - 40
+
+      switch (mode) {
+        case QRMode.MODE_NUMBER:return 14;
+        case QRMode.MODE_ALPHA_NUM:return 13;
+        case QRMode.MODE_8BIT_BYTE:return 16;
+        case QRMode.MODE_KANJI:return 12;
+        default:
+          throw new Error('mode:' + mode);}
+
+
+    } else {
+      throw new Error('type:' + type);
+    }
+  };
+
+  _this.getLostPoint = function (qrcode) {
+
+    var moduleCount = qrcode.getModuleCount();
+
+    var lostPoint = 0;
+
+    // LEVEL1
+
+    for (var row = 0; row < moduleCount; row += 1) {
+      for (var col = 0; col < moduleCount; col += 1) {
+
+        var sameCount = 0;
+        var dark = qrcode.isDark(row, col);
+
+        for (var r = -1; r <= 1; r += 1) {
+
+          if (row + r < 0 || moduleCount <= row + r) {
+            continue;
+          }
+
+          for (var c = -1; c <= 1; c += 1) {
+
+            if (col + c < 0 || moduleCount <= col + c) {
+              continue;
+            }
+
+            if (r == 0 && c == 0) {
+              continue;
+            }
+
+            if (dark == qrcode.isDark(row + r, col + c)) {
+              sameCount += 1;
+            }
+          }
+        }
+
+        if (sameCount > 5) {
+          lostPoint += 3 + sameCount - 5;
+        }
+      }
+    };
+
+    // LEVEL2
+
+    for (var row = 0; row < moduleCount - 1; row += 1) {
+      for (var col = 0; col < moduleCount - 1; col += 1) {
+        var count = 0;
+        if (qrcode.isDark(row, col)) count += 1;
+        if (qrcode.isDark(row + 1, col)) count += 1;
+        if (qrcode.isDark(row, col + 1)) count += 1;
+        if (qrcode.isDark(row + 1, col + 1)) count += 1;
+        if (count == 0 || count == 4) {
+          lostPoint += 3;
+        }
+      }
+    }
+
+    // LEVEL3
+
+    for (var row = 0; row < moduleCount; row += 1) {
+      for (var col = 0; col < moduleCount - 6; col += 1) {
+        if (qrcode.isDark(row, col) &&
+        !qrcode.isDark(row, col + 1) &&
+        qrcode.isDark(row, col + 2) &&
+        qrcode.isDark(row, col + 3) &&
+        qrcode.isDark(row, col + 4) &&
+        !qrcode.isDark(row, col + 5) &&
+        qrcode.isDark(row, col + 6)) {
+          lostPoint += 40;
+        }
+      }
+    }
+
+    for (var col = 0; col < moduleCount; col += 1) {
+      for (var row = 0; row < moduleCount - 6; row += 1) {
+        if (qrcode.isDark(row, col) &&
+        !qrcode.isDark(row + 1, col) &&
+        qrcode.isDark(row + 2, col) &&
+        qrcode.isDark(row + 3, col) &&
+        qrcode.isDark(row + 4, col) &&
+        !qrcode.isDark(row + 5, col) &&
+        qrcode.isDark(row + 6, col)) {
+          lostPoint += 40;
+        }
+      }
+    }
+
+    // LEVEL4
+
+    var darkCount = 0;
+
+    for (var col = 0; col < moduleCount; col += 1) {
+      for (var row = 0; row < moduleCount; row += 1) {
+        if (qrcode.isDark(row, col)) {
+          darkCount += 1;
+        }
+      }
+    }
+
+    var ratio = Math.abs(100 * darkCount / moduleCount / moduleCount - 50) / 5;
+    lostPoint += ratio * 10;
+
+    return lostPoint;
+  };
+
+  return _this;
+}();
+
+//---------------------------------------------------------------------
+// QRMath
+//---------------------------------------------------------------------
+
+var QRMath = function () {
+
+  var EXP_TABLE = new Array(256);
+  var LOG_TABLE = new Array(256);
+
+  // initialize tables
+  for (var i = 0; i < 8; i += 1) {
+    EXP_TABLE[i] = 1 << i;
+  }
+  for (var i = 8; i < 256; i += 1) {
+    EXP_TABLE[i] = EXP_TABLE[i - 4] ^
+    EXP_TABLE[i - 5] ^
+    EXP_TABLE[i - 6] ^
+    EXP_TABLE[i - 8];
+  }
+  for (var i = 0; i < 255; i += 1) {
+    LOG_TABLE[EXP_TABLE[i]] = i;
+  }
+
+  var _this = {};
+
+  _this.glog = function (n) {
+
+    if (n < 1) {
+      throw new Error('glog(' + n + ')');
+    }
+
+    return LOG_TABLE[n];
+  };
+
+  _this.gexp = function (n) {
+
+    while (n < 0) {
+      n += 255;
+    }
+
+    while (n >= 256) {
+      n -= 255;
+    }
+
+    return EXP_TABLE[n];
+  };
+
+  return _this;
+}();
+
+//---------------------------------------------------------------------
+// qrPolynomial
+//---------------------------------------------------------------------
+
+function qrPolynomial(num, shift) {
+
+  if (typeof num.length == 'undefined') {
+    throw new Error(num.length + '/' + shift);
+  }
+
+  var _num = function () {
+    var offset = 0;
+    while (offset < num.length && num[offset] == 0) {
+      offset += 1;
+    }
+    var _num = new Array(num.length - offset + shift);
+    for (var i = 0; i < num.length - offset; i += 1) {
+      _num[i] = num[i + offset];
+    }
+    return _num;
+  }();
+
+  var _this = {};
+
+  _this.getAt = function (index) {
+    return _num[index];
+  };
+
+  _this.getLength = function () {
+    return _num.length;
+  };
+
+  _this.multiply = function (e) {
+
+    var num = new Array(_this.getLength() + e.getLength() - 1);
+
+    for (var i = 0; i < _this.getLength(); i += 1) {
+      for (var j = 0; j < e.getLength(); j += 1) {
+        num[i + j] ^= QRMath.gexp(QRMath.glog(_this.getAt(i)) + QRMath.glog(e.getAt(j)));
+      }
+    }
+
+    return qrPolynomial(num, 0);
+  };
+
+  _this.mod = function (e) {
+
+    if (_this.getLength() - e.getLength() < 0) {
+      return _this;
+    }
+
+    var ratio = QRMath.glog(_this.getAt(0)) - QRMath.glog(e.getAt(0));
+
+    var num = new Array(_this.getLength());
+    for (var i = 0; i < _this.getLength(); i += 1) {
+      num[i] = _this.getAt(i);
+    }
+
+    for (var i = 0; i < e.getLength(); i += 1) {
+      num[i] ^= QRMath.gexp(QRMath.glog(e.getAt(i)) + ratio);
+    }
+
+    // recursive call
+    return qrPolynomial(num, 0).mod(e);
+  };
+
+  return _this;
+};
+
+//---------------------------------------------------------------------
+// QRRSBlock
+//---------------------------------------------------------------------
+
+var QRRSBlock = function () {
+
+
+  // [1: [L, M, Q, H], ..]
+  var RS_BLOCK_TABLE = [[1, 26, 19], [1, 26, 16], [1, 26, 13], [1, 26, 9], [1, 44, 34], [1, 44, 28], [1, 44, 22], [1, 44, 16], [1, 70, 55], [1, 70, 44], [2, 35, 17], [2, 35, 13], [1, 100, 80], [2, 50, 32], [2, 50, 24], [4, 25, 9], [1, 134, 108], [2, 67, 43], [2, 33, 15, 2, 34, 16], [2, 33, 11, 2, 34, 12], [2, 86, 68], [4, 43, 27], [4, 43, 19], [4, 43, 15], [2, 98, 78], [4, 49, 31], [2, 32, 14, 4, 33, 15], [4, 39, 13, 1, 40, 14], [2, 121, 97], [2, 60, 38, 2, 61, 39], [4, 40, 18, 2, 41, 19], [4, 40, 14, 2, 41, 15], [2, 146, 116], [3, 58, 36, 2, 59, 37], [4, 36, 16, 4, 37, 17], [4, 36, 12, 4, 37, 13], [2, 86, 68, 2, 87, 69], [4, 69, 43, 1, 70, 44], [6, 43, 19, 2, 44, 20], [6, 43, 15, 2, 44, 16], [4, 101, 81], [1, 80, 50, 4, 81, 51], [4, 50, 22, 4, 51, 23], [3, 36, 12, 8, 37, 13], [2, 116, 92, 2, 117, 93], [6, 58, 36, 2, 59, 37], [4, 46, 20, 6, 47, 21], [7, 42, 14, 4, 43, 15], [4, 133, 107], [8, 59, 37, 1, 60, 38], [8, 44, 20, 4, 45, 21], [12, 33, 11, 4, 34, 12], [3, 145, 115, 1, 146, 116], [4, 64, 40, 5, 65, 41], [11, 36, 16, 5, 37, 17], [11, 36, 12, 5, 37, 13], [5, 109, 87, 1, 110, 88], [5, 65, 41, 5, 66, 42], [5, 54, 24, 7, 55, 25], [11, 36, 12], [5, 122, 98, 1, 123, 99], [7, 73, 45, 3, 74, 46], [15, 43, 19, 2, 44, 20], [3, 45, 15, 13, 46, 16], [1, 135, 107, 5, 136, 108], [10, 74, 46, 1, 75, 47], [1, 50, 22, 15, 51, 23], [2, 42, 14, 17, 43, 15], [5, 150, 120, 1, 151, 121], [9, 69, 43, 4, 70, 44], [17, 50, 22, 1, 51, 23], [2, 42, 14, 19, 43, 15], [3, 141, 113, 4, 142, 114], [3, 70, 44, 11, 71, 45], [17, 47, 21, 4, 48, 22], [9, 39, 13, 16, 40, 14], [3, 135, 107, 5, 136, 108], [3, 67, 41, 13, 68, 42], [15, 54, 24, 5, 55, 25], [15, 43, 15, 10, 44, 16], [4, 144, 116, 4, 145, 117], [17, 68, 42], [17, 50, 22, 6, 51, 23], [19, 46, 16, 6, 47, 17], [2, 139, 111, 7, 140, 112], [17, 74, 46], [7, 54, 24, 16, 55, 25], [34, 37, 13], [4, 151, 121, 5, 152, 122], [4, 75, 47, 14, 76, 48], [11, 54, 24, 14, 55, 25], [16, 45, 15, 14, 46, 16], [6, 147, 117, 4, 148, 118], [6, 73, 45, 14, 74, 46], [11, 54, 24, 16, 55, 25], [30, 46, 16, 2, 47, 17], [8, 132, 106, 4, 133, 107], [8, 75, 47, 13, 76, 48], [7, 54, 24, 22, 55, 25], [22, 45, 15, 13, 46, 16], [10, 142, 114, 2, 143, 115], [19, 74, 46, 4, 75, 47], [28, 50, 22, 6, 51, 23], [33, 46, 16, 4, 47, 17], [8, 152, 122, 4, 153, 123], [22, 73, 45, 3, 74, 46], [8, 53, 23, 26, 54, 24], [12, 45, 15, 28, 46, 16], [3, 147, 117, 10, 148, 118], [3, 73, 45, 23, 74, 46], [4, 54, 24, 31, 55, 25], [11, 45, 15, 31, 46, 16], [7, 146, 116, 7, 147, 117], [21, 73, 45, 7, 74, 46], [1, 53, 23, 37, 54, 24], [19, 45, 15, 26, 46, 16], [5, 145, 115, 10, 146, 116], [19, 75, 47, 10, 76, 48], [15, 54, 24, 25, 55, 25], [23, 45, 15, 25, 46, 16], [13, 145, 115, 3, 146, 116], [2, 74, 46, 29, 75, 47], [42, 54, 24, 1, 55, 25], [23, 45, 15, 28, 46, 16], [17, 145, 115], [10, 74, 46, 23, 75, 47], [10, 54, 24, 35, 55, 25], [19, 45, 15, 35, 46, 16], [17, 145, 115, 1, 146, 116], [14, 74, 46, 21, 75, 47], [29, 54, 24, 19, 55, 25], [11, 45, 15, 46, 46, 16], [13, 145, 115, 6, 146, 116], [14, 74, 46, 23, 75, 47], [44, 54, 24, 7, 55, 25], [59, 46, 16, 1, 47, 17], [12, 151, 121, 7, 152, 122], [12, 75, 47, 26, 76, 48], [39, 54, 24, 14, 55, 25], [22, 45, 15, 41, 46, 16], [6, 151, 121, 14, 152, 122], [6, 75, 47, 34, 76, 48], [46, 54, 24, 10, 55, 25], [2, 45, 15, 64, 46, 16], [17, 152, 122, 4, 153, 123], [29, 74, 46, 14, 75, 47], [49, 54, 24, 10, 55, 25], [24, 45, 15, 46, 46, 16], [4, 152, 122, 18, 153, 123], [13, 74, 46, 32, 75, 47], [48, 54, 24, 14, 55, 25], [42, 45, 15, 32, 46, 16], [20, 147, 117, 4, 148, 118], [40, 75, 47, 7, 76, 48], [43, 54, 24, 22, 55, 25], [10, 45, 15, 67, 46, 16], [19, 148, 118, 6, 149, 119], [18, 75, 47, 31, 76, 48], [34, 54, 24, 34, 55, 25], [20, 45, 15, 61, 46, 16]];
+
+  var qrRSBlock = function qrRSBlock(totalCount, dataCount) {
+    var _this = {};
+    _this.totalCount = totalCount;
+    _this.dataCount = dataCount;
+    return _this;
+  };
+
+  var _this = {};
+
+  var getRsBlockTable = function getRsBlockTable(typeNumber, errorCorrectLevel) {
+
+    switch (errorCorrectLevel) {
+      case QRErrorCorrectLevel.L:
+        return RS_BLOCK_TABLE[(typeNumber - 1) * 4 + 0];
+      case QRErrorCorrectLevel.M:
+        return RS_BLOCK_TABLE[(typeNumber - 1) * 4 + 1];
+      case QRErrorCorrectLevel.Q:
+        return RS_BLOCK_TABLE[(typeNumber - 1) * 4 + 2];
+      case QRErrorCorrectLevel.H:
+        return RS_BLOCK_TABLE[(typeNumber - 1) * 4 + 3];
+      default:
+        return undefined;}
+
+  };
+
+  _this.getRSBlocks = function (typeNumber, errorCorrectLevel) {
+
+    var rsBlock = getRsBlockTable(typeNumber, errorCorrectLevel);
+
+    if (typeof rsBlock == 'undefined') {
+      throw new Error('bad rs block [url=home.php?mod=space&uid=5302]@[/url] typeNumber:' + typeNumber +
+      '/errorCorrectLevel:' + errorCorrectLevel);
+    }
+
+    var length = rsBlock.length / 3;
+
+    var list = new Array();
+
+    for (var i = 0; i < length; i += 1) {
+
+      var count = rsBlock[i * 3 + 0];
+      var totalCount = rsBlock[i * 3 + 1];
+      var dataCount = rsBlock[i * 3 + 2];
+
+      for (var j = 0; j < count; j += 1) {
+        list.push(qrRSBlock(totalCount, dataCount));
+      }
+    }
+
+    return list;
+  };
+
+  return _this;
+}();
+
+//---------------------------------------------------------------------
+// qrBitBuffer
+//---------------------------------------------------------------------
+
+var qrBitBuffer = function qrBitBuffer() {
+
+  var _buffer = new Array();
+  var _length = 0;
+
+  var _this = {};
+
+  _this.getBuffer = function () {
+    return _buffer;
+  };
+
+  _this.getAt = function (index) {
+    var bufIndex = Math.floor(index / 8);
+    return (_buffer[bufIndex] >>> 7 - index % 8 & 1) == 1;
+  };
+
+  _this.put = function (num, length) {
+    for (var i = 0; i < length; i += 1) {
+      _this.putBit((num >>> length - i - 1 & 1) == 1);
+    }
+  };
+
+  _this.getLengthInBits = function () {
+    return _length;
+  };
+
+  _this.putBit = function (bit) {
+
+    var bufIndex = Math.floor(_length / 8);
+    if (_buffer.length <= bufIndex) {
+      _buffer.push(0);
+    }
+
+    if (bit) {
+      _buffer[bufIndex] |= 0x80 >>> _length % 8;
+    }
+
+    _length += 1;
+  };
+
+  return _this;
+};
+
+//---------------------------------------------------------------------
+// qr8BitByte
+//---------------------------------------------------------------------
+
+var qr8BitByte = function qr8BitByte(data) {
+
+  var _mode = QRMode.MODE_8BIT_BYTE;
+  var _data = data;
+  var _parsedData = [];
+
+  var _this = {};
+
+
+  // Added to support UTF-8 Characters
+  for (var i = 0, l = _data.length; i < l; i++) {
+    var byteArray = [];
+    var code = _data.charCodeAt(i);
+
+    if (code > 0x10000) {
+      byteArray[0] = 0xF0 | (code & 0x1C0000) >>> 18;
+      byteArray[1] = 0x80 | (code & 0x3F000) >>> 12;
+      byteArray[2] = 0x80 | (code & 0xFC0) >>> 6;
+      byteArray[3] = 0x80 | code & 0x3F;
+    } else if (code > 0x800) {
+      byteArray[0] = 0xE0 | (code & 0xF000) >>> 12;
+      byteArray[1] = 0x80 | (code & 0xFC0) >>> 6;
+      byteArray[2] = 0x80 | code & 0x3F;
+    } else if (code > 0x80) {
+      byteArray[0] = 0xC0 | (code & 0x7C0) >>> 6;
+      byteArray[1] = 0x80 | code & 0x3F;
+    } else {
+      byteArray[0] = code;
+    }
+
+    // Fix Unicode corruption bug
+    _parsedData.push(byteArray);
+  }
+
+  _parsedData = Array.prototype.concat.apply([], _parsedData);
+
+  if (_parsedData.length != _data.length) {
+    _parsedData.unshift(191);
+    _parsedData.unshift(187);
+    _parsedData.unshift(239);
+  }
+
+  var _bytes = _parsedData;
+
+  _this.getMode = function () {
+    return _mode;
+  };
+
+  _this.getLength = function (buffer) {
+    return _bytes.length;
+  };
+
+  _this.write = function (buffer) {
+    for (var i = 0; i < _bytes.length; i += 1) {
+      buffer.put(_bytes[i], 8);
+    }
+  };
+
+  return _this;
+};
+
+//=====================================================================
+// GIF Support etc.
+//
+
+//---------------------------------------------------------------------
+// byteArrayOutputStream
+//---------------------------------------------------------------------
+
+var byteArrayOutputStream = function byteArrayOutputStream() {
+
+  var _bytes = new Array();
+
+  var _this = {};
+
+  _this.writeByte = function (b) {
+    _bytes.push(b & 0xff);
+  };
+
+  _this.writeShort = function (i) {
+    _this.writeByte(i);
+    _this.writeByte(i >>> 8);
+  };
+
+  _this.writeBytes = function (b, off, len) {
+    off = off || 0;
+    len = len || b.length;
+    for (var i = 0; i < len; i += 1) {
+      _this.writeByte(b[i + off]);
+    }
+  };
+
+  _this.writeString = function (s) {
+    for (var i = 0; i < s.length; i += 1) {
+      _this.writeByte(s.charCodeAt(i));
+    }
+  };
+
+  _this.toByteArray = function () {
+    return _bytes;
+  };
+
+  _this.toString = function () {
+    var s = '';
+    s += '[';
+    for (var i = 0; i < _bytes.length; i += 1) {
+      if (i > 0) {
+        s += ',';
+      }
+      s += _bytes[i];
+    }
+    s += ']';
+    return s;
+  };
+
+  return _this;
+};
+
+//---------------------------------------------------------------------
+// base64EncodeOutputStream
+//---------------------------------------------------------------------
+
+var base64EncodeOutputStream = function base64EncodeOutputStream() {
+
+  var _buffer = 0;
+  var _buflen = 0;
+  var _length = 0;
+  var _base64 = '';
+
+  var _this = {};
+
+  var writeEncoded = function writeEncoded(b) {
+    _base64 += String.fromCharCode(encode(b & 0x3f));
+  };
+
+  var encode = function encode(n) {
+    if (n < 0) {
+      // error.
+    } else if (n < 26) {
+      return 0x41 + n;
+    } else if (n < 52) {
+      return 0x61 + (n - 26);
+    } else if (n < 62) {
+      return 0x30 + (n - 52);
+    } else if (n == 62) {
+      return 0x2b;
+    } else if (n == 63) {
+      return 0x2f;
+    }
+    throw new Error('n:' + n);
+  };
+
+  _this.writeByte = function (n) {
+
+    _buffer = _buffer << 8 | n & 0xff;
+    _buflen += 8;
+    _length += 1;
+
+    while (_buflen >= 6) {
+      writeEncoded(_buffer >>> _buflen - 6);
+      _buflen -= 6;
+    }
+  };
+
+  _this.flush = function () {
+
+    if (_buflen > 0) {
+      writeEncoded(_buffer << 6 - _buflen);
+      _buffer = 0;
+      _buflen = 0;
+    }
+
+    if (_length % 3 != 0) {
+      // padding
+      var padlen = 3 - _length % 3;
+      for (var i = 0; i < padlen; i += 1) {
+        _base64 += '=';
+      }
+    }
+  };
+
+  _this.toString = function () {
+    return _base64;
+  };
+
+  return _this;
+};
+
+//---------------------------------------------------------------------
+// base64DecodeInputStream
+//---------------------------------------------------------------------
+
+var base64DecodeInputStream = function base64DecodeInputStream(str) {
+
+  var _str = str;
+  var _pos = 0;
+  var _buffer = 0;
+  var _buflen = 0;
+
+  var _this = {};
+
+  _this.read = function () {
+
+    while (_buflen < 8) {
+
+      if (_pos >= _str.length) {
+        if (_buflen == 0) {
+          return -1;
+        }
+        throw new Error('unexpected end of file./' + _buflen);
+      }
+
+      var c = _str.charAt(_pos);
+      _pos += 1;
+
+      if (c == '=') {
+        _buflen = 0;
+        return -1;
+      } else if (c.match(/^\s$/)) {
+        // ignore if whitespace.
+        continue;
+      }
+
+      _buffer = _buffer << 6 | decode(c.charCodeAt(0));
+      _buflen += 6;
+    }
+
+    var n = _buffer >>> _buflen - 8 & 0xff;
+    _buflen -= 8;
+    return n;
+  };
+
+  var decode = function decode(c) {
+    if (0x41 <= c && c <= 0x5a) {
+      return c - 0x41;
+    } else if (0x61 <= c && c <= 0x7a) {
+      return c - 0x61 + 26;
+    } else if (0x30 <= c && c <= 0x39) {
+      return c - 0x30 + 52;
+    } else if (c == 0x2b) {
+      return 62;
+    } else if (c == 0x2f) {
+      return 63;
+    } else {
+      throw new Error('c:' + c);
+    }
+  };
+
+  return _this;
+};
+
+//---------------------------------------------------------------------
+// gifImage (B/W)
+//---------------------------------------------------------------------
+
+var gifImage = function gifImage(width, height) {
+
+  var _width = width;
+  var _height = height;
+  var _data = new Array(width * height);
+
+  var _this = {};
+
+  _this.setPixel = function (x, y, pixel) {
+    _data[y * _width + x] = pixel;
+  };
+
+  _this.write = function (out) {
+
+    //---------------------------------
+    // GIF Signature
+
+    out.writeString('GIF87a');
+
+    //---------------------------------
+    // Screen Descriptor
+
+    out.writeShort(_width);
+    out.writeShort(_height);
+
+    out.writeByte(0x80); // 2bit
+    out.writeByte(0);
+    out.writeByte(0);
+
+    //---------------------------------
+    // Global Color Map
+
+    // black
+    out.writeByte(0x00);
+    out.writeByte(0x00);
+    out.writeByte(0x00);
+
+    // white
+    out.writeByte(0xff);
+    out.writeByte(0xff);
+    out.writeByte(0xff);
+
+    //---------------------------------
+    // Image Descriptor
+
+    out.writeString(',');
+    out.writeShort(0);
+    out.writeShort(0);
+    out.writeShort(_width);
+    out.writeShort(_height);
+    out.writeByte(0);
+
+    //---------------------------------
+    // Local Color Map
+
+    //---------------------------------
+    // Raster Data
+
+    var lzwMinCodeSize = 2;
+    var raster = getLZWRaster(lzwMinCodeSize);
+
+    out.writeByte(lzwMinCodeSize);
+
+    var offset = 0;
+
+    while (raster.length - offset > 255) {
+      out.writeByte(255);
+      out.writeBytes(raster, offset, 255);
+      offset += 255;
+    }
+
+    out.writeByte(raster.length - offset);
+    out.writeBytes(raster, offset, raster.length - offset);
+    out.writeByte(0x00);
+
+    //---------------------------------
+    // GIF Terminator
+    out.writeString(';');
+  };
+
+  var bitOutputStream = function bitOutputStream(out) {
+
+    var _out = out;
+    var _bitLength = 0;
+    var _bitBuffer = 0;
+
+    var _this = {};
+
+    _this.write = function (data, length) {
+
+      if (data >>> length != 0) {
+        throw new Error('length over');
+      }
+
+      while (_bitLength + length >= 8) {
+        _out.writeByte(0xff & (data << _bitLength | _bitBuffer));
+        length -= 8 - _bitLength;
+        data >>>= 8 - _bitLength;
+        _bitBuffer = 0;
+        _bitLength = 0;
+      }
+
+      _bitBuffer = data << _bitLength | _bitBuffer;
+      _bitLength = _bitLength + length;
+    };
+
+    _this.flush = function () {
+      if (_bitLength > 0) {
+        _out.writeByte(_bitBuffer);
+      }
+    };
+
+    return _this;
+  };
+
+  var getLZWRaster = function getLZWRaster(lzwMinCodeSize) {
+
+    var clearCode = 1 << lzwMinCodeSize;
+    var endCode = (1 << lzwMinCodeSize) + 1;
+    var bitLength = lzwMinCodeSize + 1;
+
+    // Setup LZWTable
+    var table = lzwTable();
+
+    for (var i = 0; i < clearCode; i += 1) {
+      table.add(String.fromCharCode(i));
+    }
+    table.add(String.fromCharCode(clearCode));
+    table.add(String.fromCharCode(endCode));
+
+    var byteOut = byteArrayOutputStream();
+    var bitOut = bitOutputStream(byteOut);
+
+    // clear code
+    bitOut.write(clearCode, bitLength);
+
+    var dataIndex = 0;
+
+    var s = String.fromCharCode(_data[dataIndex]);
+    dataIndex += 1;
+
+    while (dataIndex < _data.length) {
+
+      var c = String.fromCharCode(_data[dataIndex]);
+      dataIndex += 1;
+
+      if (table.contains(s + c)) {
+
+        s = s + c;
+
+      } else {
+
+        bitOut.write(table.indexOf(s), bitLength);
+
+        if (table.size() < 0xfff) {
+
+          if (table.size() == 1 << bitLength) {
+            bitLength += 1;
+          }
+
+          table.add(s + c);
+        }
+
+        s = c;
+      }
+    }
+
+    bitOut.write(table.indexOf(s), bitLength);
+
+    // end code
+    bitOut.write(endCode, bitLength);
+
+    bitOut.flush();
+
+    return byteOut.toByteArray();
+  };
+
+  var lzwTable = function lzwTable() {
+
+    var _map = {};
+    var _size = 0;
+
+    var _this = {};
+
+    _this.add = function (key) {
+      if (_this.contains(key)) {
+        throw new Error('dup key:' + key);
+      }
+      _map[key] = _size;
+      _size += 1;
+    };
+
+    _this.size = function () {
+      return _size;
+    };
+
+    _this.indexOf = function (key) {
+      return _map[key];
+    };
+
+    _this.contains = function (key) {
+      return typeof _map[key] != 'undefined';
+    };
+
+    return _this;
+  };
+
+  return _this;
+};
+
+var createImgTag = function createImgTag(width, height, getPixel, alt) {
+
+  var gif = gifImage(width, height);
+  for (var y = 0; y < height; y += 1) {
+    for (var x = 0; x < width; x += 1) {
+      gif.setPixel(x, y, getPixel(x, y));
+    }
+  }
+
+  var b = byteArrayOutputStream();
+  gif.write(b);
+
+  var base64 = base64EncodeOutputStream();
+  var bytes = b.toByteArray();
+  for (var i = 0; i < bytes.length; i += 1) {
+    base64.writeByte(bytes[i]);
+  }
+  base64.flush();
+
+  var img = '';
+  img += 'data:image/gif;base64,';
+  img += base64;
+
+  return img;
+};
+
+//---------------------------------------------------------------------
+// returns qrcode function.
+
+var createQrCodeImg = function createQrCodeImg(text, options) {
+  options = options || {};
+  var typeNumber = options.typeNumber || 4;
+  var errorCorrectLevel = options.errorCorrectLevel || 'M';
+  var size = options.size || 500;
+
+  var qr;
+
+  try {
+    qr = qrcode(typeNumber, errorCorrectLevel || 'M');
+    qr.addData(text);
+    qr.make();
+  } catch (e) {
+    if (typeNumber >= 40) {
+      throw new Error('Text too long to encode');
+    } else {
+      return gen(text, {
+        size: size,
+        errorCorrectLevel: errorCorrectLevel,
+        typeNumber: typeNumber + 1 });
+
+    }
+  }
+
+  // calc cellsize and margin
+  var cellsize = parseInt(size / qr.getModuleCount());
+  var margin = parseInt((size - qr.getModuleCount() * cellsize) / 2);
+
+  return qr.createImgTag(cellsize, margin, size);
+};
+// var module = {}; 需要注释这一行，否则微信小程序无法使用
+module.exports = {
+  createQrCodeImg: createQrCodeImg };
+
+/***/ }),
+
 /***/ 15:
 /*!**********************************************************************************************************!*\
   !*** ./node_modules/@dcloudio/vue-cli-plugin-uni/packages/vue-loader/lib/runtime/componentNormalizer.js ***!
@@ -5583,7 +7447,7 @@ store;exports.default = _default;
 
 /***/ }),
 
-/***/ 1640:
+/***/ 1678:
 /*!*****************************************************************************!*\
   !*** /Users/lee/Downloads/备份11/轻纺车网/components/uni-swipe-action/mpother.js ***!
   \*****************************************************************************/
@@ -5727,7 +7591,7 @@ store;exports.default = _default;
 
 /***/ }),
 
-/***/ 1641:
+/***/ 1679:
 /*!************************************************************************!*\
   !*** /Users/lee/Downloads/备份11/轻纺车网/components/uni-swipe-action/mp.js ***!
   \************************************************************************/
@@ -6777,7 +8641,7 @@ var index_esm = {
 
 /***/ }),
 
-/***/ 1749:
+/***/ 1787:
 /*!**************************************************************************!*\
   !*** /Users/lee/Downloads/备份11/轻纺车网/components/uni-calendar/calendar.js ***!
   \**************************************************************************/
@@ -13643,1638 +15507,6 @@ if (hadRuntime) {
 
 /***/ }),
 
-/***/ 2100:
-/*!*********************************************************!*\
-  !*** /Users/lee/Downloads/备份11/轻纺车网/common/wxqrcode.js ***!
-  \*********************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-//---------------------------------------------------------------------
-//
-// QR Code Generator for JavaScript
-//
-// Copyright (c) 2009 Kazuhiko Arase
-//
-// URL: [url=http://www.d-project.com/]http://www.d-project.com/[/url]
-//
-// Licensed under the MIT license:
-//        [url=http://www.opensource.org/licenses/mit-license.php]http://www.opensource.org/licenses/mit-license.php[/url]
-//
-// The word 'QR Code' is registered trademark of
-// DENSO WAVE INCORPORATED
-//        [url=http://www.denso-wave.com/qrcode/faqpatent-e.html]http://www.denso-wave.com/qrcode/faqpatent-e.html[/url]
-//
-//---------------------------------------------------------------------
-
-//---------------------------------------------------------------------
-// qrcode
-//代码第1588行为补充代码
-//修改人：chenxing
-//2017-02-27 16:21:32
-//---------------------------------------------------------------------
-
-/**
- * qrcode
- * @param typeNumber 1 to 40
- * @param errorCorrectLevel 'L','M','Q','H'
- */
-var qrcode = function qrcode(typeNumber, errorCorrectLevel) {
-
-  var PAD0 = 0xEC;
-  var PAD1 = 0x11;
-
-  var _typeNumber = typeNumber;
-  var _errorCorrectLevel = QRErrorCorrectLevel[errorCorrectLevel];
-  var _modules = null;
-  var _moduleCount = 0;
-  var _dataCache = null;
-  var _dataList = new Array();
-
-  var _this = {};
-
-  var makeImpl = function makeImpl(test, maskPattern) {
-
-    _moduleCount = _typeNumber * 4 + 17;
-    _modules = function (moduleCount) {
-      var modules = new Array(moduleCount);
-      for (var row = 0; row < moduleCount; row += 1) {
-        modules[row] = new Array(moduleCount);
-        for (var col = 0; col < moduleCount; col += 1) {
-          modules[row][col] = null;
-        }
-      }
-      return modules;
-    }(_moduleCount);
-
-    setupPositionProbePattern(0, 0);
-    setupPositionProbePattern(_moduleCount - 7, 0);
-    setupPositionProbePattern(0, _moduleCount - 7);
-    setupPositionAdjustPattern();
-    setupTimingPattern();
-    setupTypeInfo(test, maskPattern);
-
-    if (_typeNumber >= 7) {
-      setupTypeNumber(test);
-    }
-
-    if (_dataCache == null) {
-      _dataCache = createData(_typeNumber, _errorCorrectLevel, _dataList);
-    }
-
-    mapData(_dataCache, maskPattern);
-  };
-
-  var setupPositionProbePattern = function setupPositionProbePattern(row, col) {
-
-    for (var r = -1; r <= 7; r += 1) {
-
-      if (row + r <= -1 || _moduleCount <= row + r) continue;
-
-      for (var c = -1; c <= 7; c += 1) {
-
-        if (col + c <= -1 || _moduleCount <= col + c) continue;
-
-        if (0 <= r && r <= 6 && (c == 0 || c == 6) ||
-        0 <= c && c <= 6 && (r == 0 || r == 6) ||
-        2 <= r && r <= 4 && 2 <= c && c <= 4) {
-          _modules[row + r][col + c] = true;
-        } else {
-          _modules[row + r][col + c] = false;
-        }
-      }
-    }
-  };
-
-  var getBestMaskPattern = function getBestMaskPattern() {
-
-    var minLostPoint = 0;
-    var pattern = 0;
-
-    for (var i = 0; i < 8; i += 1) {
-
-      makeImpl(true, i);
-
-      var lostPoint = QRUtil.getLostPoint(_this);
-
-      if (i == 0 || minLostPoint > lostPoint) {
-        minLostPoint = lostPoint;
-        pattern = i;
-      }
-    }
-
-    return pattern;
-  };
-
-  var setupTimingPattern = function setupTimingPattern() {
-
-    for (var r = 8; r < _moduleCount - 8; r += 1) {
-      if (_modules[r][6] != null) {
-        continue;
-      }
-      _modules[r][6] = r % 2 == 0;
-    }
-
-    for (var c = 8; c < _moduleCount - 8; c += 1) {
-      if (_modules[6][c] != null) {
-        continue;
-      }
-      _modules[6][c] = c % 2 == 0;
-    }
-  };
-
-  var setupPositionAdjustPattern = function setupPositionAdjustPattern() {
-
-    var pos = QRUtil.getPatternPosition(_typeNumber);
-
-    for (var i = 0; i < pos.length; i += 1) {
-
-      for (var j = 0; j < pos.length; j += 1) {
-
-        var row = pos[i];
-        var col = pos[j];
-
-        if (_modules[row][col] != null) {
-          continue;
-        }
-
-        for (var r = -2; r <= 2; r += 1) {
-
-          for (var c = -2; c <= 2; c += 1) {
-
-            if (r == -2 || r == 2 || c == -2 || c == 2 ||
-            r == 0 && c == 0) {
-              _modules[row + r][col + c] = true;
-            } else {
-              _modules[row + r][col + c] = false;
-            }
-          }
-        }
-      }
-    }
-  };
-
-  var setupTypeNumber = function setupTypeNumber(test) {
-
-    var bits = QRUtil.getBCHTypeNumber(_typeNumber);
-
-    for (var i = 0; i < 18; i += 1) {
-      var mod = !test && (bits >> i & 1) == 1;
-      _modules[Math.floor(i / 3)][i % 3 + _moduleCount - 8 - 3] = mod;
-    }
-
-    for (var i = 0; i < 18; i += 1) {
-      var mod = !test && (bits >> i & 1) == 1;
-      _modules[i % 3 + _moduleCount - 8 - 3][Math.floor(i / 3)] = mod;
-    }
-  };
-
-  var setupTypeInfo = function setupTypeInfo(test, maskPattern) {
-
-    var data = _errorCorrectLevel << 3 | maskPattern;
-    var bits = QRUtil.getBCHTypeInfo(data);
-
-    // vertical
-    for (var i = 0; i < 15; i += 1) {
-
-      var mod = !test && (bits >> i & 1) == 1;
-
-      if (i < 6) {
-        _modules[i][8] = mod;
-      } else if (i < 8) {
-        _modules[i + 1][8] = mod;
-      } else {
-        _modules[_moduleCount - 15 + i][8] = mod;
-      }
-    }
-
-    // horizontal
-    for (var i = 0; i < 15; i += 1) {
-
-      var mod = !test && (bits >> i & 1) == 1;
-
-      if (i < 8) {
-        _modules[8][_moduleCount - i - 1] = mod;
-      } else if (i < 9) {
-        _modules[8][15 - i - 1 + 1] = mod;
-      } else {
-        _modules[8][15 - i - 1] = mod;
-      }
-    }
-
-    // fixed module
-    _modules[_moduleCount - 8][8] = !test;
-  };
-
-  var mapData = function mapData(data, maskPattern) {
-
-    var inc = -1;
-    var row = _moduleCount - 1;
-    var bitIndex = 7;
-    var byteIndex = 0;
-    var maskFunc = QRUtil.getMaskFunction(maskPattern);
-
-    for (var col = _moduleCount - 1; col > 0; col -= 2) {
-
-      if (col == 6) col -= 1;
-
-      while (true) {
-
-        for (var c = 0; c < 2; c += 1) {
-
-          if (_modules[row][col - c] == null) {
-
-            var dark = false;
-
-            if (byteIndex < data.length) {
-              dark = (data[byteIndex] >>> bitIndex & 1) == 1;
-            }
-
-            var mask = maskFunc(row, col - c);
-
-            if (mask) {
-              dark = !dark;
-            }
-
-            _modules[row][col - c] = dark;
-            bitIndex -= 1;
-
-            if (bitIndex == -1) {
-              byteIndex += 1;
-              bitIndex = 7;
-            }
-          }
-        }
-
-        row += inc;
-
-        if (row < 0 || _moduleCount <= row) {
-          row -= inc;
-          inc = -inc;
-          break;
-        }
-      }
-    }
-  };
-
-  var createBytes = function createBytes(buffer, rsBlocks) {
-
-    var offset = 0;
-
-    var maxDcCount = 0;
-    var maxEcCount = 0;
-
-    var dcdata = new Array(rsBlocks.length);
-    var ecdata = new Array(rsBlocks.length);
-
-    for (var r = 0; r < rsBlocks.length; r += 1) {
-
-      var dcCount = rsBlocks[r].dataCount;
-      var ecCount = rsBlocks[r].totalCount - dcCount;
-
-      maxDcCount = Math.max(maxDcCount, dcCount);
-      maxEcCount = Math.max(maxEcCount, ecCount);
-
-      dcdata[r] = new Array(dcCount);
-
-      for (var i = 0; i < dcdata[r].length; i += 1) {
-        dcdata[r][i] = 0xff & buffer.getBuffer()[i + offset];
-      }
-      offset += dcCount;
-
-      var rsPoly = QRUtil.getErrorCorrectPolynomial(ecCount);
-      var rawPoly = qrPolynomial(dcdata[r], rsPoly.getLength() - 1);
-
-      var modPoly = rawPoly.mod(rsPoly);
-      ecdata[r] = new Array(rsPoly.getLength() - 1);
-      for (var i = 0; i < ecdata[r].length; i += 1) {
-        var modIndex = i + modPoly.getLength() - ecdata[r].length;
-        ecdata[r][i] = modIndex >= 0 ? modPoly.getAt(modIndex) : 0;
-      }
-    }
-
-    var totalCodeCount = 0;
-    for (var i = 0; i < rsBlocks.length; i += 1) {
-      totalCodeCount += rsBlocks[i].totalCount;
-    }
-
-    var data = new Array(totalCodeCount);
-    var index = 0;
-
-    for (var i = 0; i < maxDcCount; i += 1) {
-      for (var r = 0; r < rsBlocks.length; r += 1) {
-        if (i < dcdata[r].length) {
-          data[index] = dcdata[r][i];
-          index += 1;
-        }
-      }
-    }
-
-    for (var i = 0; i < maxEcCount; i += 1) {
-      for (var r = 0; r < rsBlocks.length; r += 1) {
-        if (i < ecdata[r].length) {
-          data[index] = ecdata[r][i];
-          index += 1;
-        }
-      }
-    }
-
-    return data;
-  };
-
-  var createData = function createData(typeNumber, errorCorrectLevel, dataList) {
-
-    var rsBlocks = QRRSBlock.getRSBlocks(typeNumber, errorCorrectLevel);
-
-    var buffer = qrBitBuffer();
-
-    for (var i = 0; i < dataList.length; i += 1) {
-      var data = dataList[i];
-      buffer.put(data.getMode(), 4);
-      buffer.put(data.getLength(), QRUtil.getLengthInBits(data.getMode(), typeNumber));
-      data.write(buffer);
-    }
-
-    // calc num max data.
-    var totalDataCount = 0;
-    for (var i = 0; i < rsBlocks.length; i += 1) {
-      totalDataCount += rsBlocks[i].dataCount;
-    }
-
-    if (buffer.getLengthInBits() > totalDataCount * 8) {
-      throw new Error('code length overflow. (' +
-      buffer.getLengthInBits() +
-      '>' +
-      totalDataCount * 8 +
-      ')');
-    }
-
-    // end code
-    if (buffer.getLengthInBits() + 4 <= totalDataCount * 8) {
-      buffer.put(0, 4);
-    }
-
-    // padding
-    while (buffer.getLengthInBits() % 8 != 0) {
-      buffer.putBit(false);
-    }
-
-    // padding
-    while (true) {
-
-      if (buffer.getLengthInBits() >= totalDataCount * 8) {
-        break;
-      }
-      buffer.put(PAD0, 8);
-
-      if (buffer.getLengthInBits() >= totalDataCount * 8) {
-        break;
-      }
-      buffer.put(PAD1, 8);
-    }
-
-    return createBytes(buffer, rsBlocks);
-  };
-
-  _this.addData = function (data) {
-    var newData = qr8BitByte(data);
-    _dataList.push(newData);
-    _dataCache = null;
-  };
-
-  _this.isDark = function (row, col) {
-    if (row < 0 || _moduleCount <= row || col < 0 || _moduleCount <= col) {
-      throw new Error(row + ',' + col);
-    }
-    return _modules[row][col];
-  };
-
-  _this.getModuleCount = function () {
-    return _moduleCount;
-  };
-
-  _this.make = function () {
-    makeImpl(false, getBestMaskPattern());
-  };
-
-  _this.createTableTag = function (cellSize, margin) {
-
-    cellSize = cellSize || 2;
-    margin = typeof margin == 'undefined' ? cellSize * 4 : margin;
-
-    var qrHtml = '';
-
-    qrHtml += '<table style="';
-    qrHtml += ' border-width: 0px; border-style: none;';
-    qrHtml += ' border-collapse: collapse;';
-    qrHtml += ' padding: 0px; margin: ' + margin + 'px;';
-    qrHtml += '">';
-    qrHtml += '<tbody>';
-
-    for (var r = 0; r < _this.getModuleCount(); r += 1) {
-
-      qrHtml += '<tr>';
-
-      for (var c = 0; c < _this.getModuleCount(); c += 1) {
-        qrHtml += '<td style="';
-        qrHtml += ' border-width: 0px; border-style: none;';
-        qrHtml += ' border-collapse: collapse;';
-        qrHtml += ' padding: 0px; margin: 0px;';
-        qrHtml += ' width: ' + cellSize + 'px;';
-        qrHtml += ' height: ' + cellSize + 'px;';
-        qrHtml += ' background-color: ';
-        qrHtml += _this.isDark(r, c) ? '#000000' : '#ffffff';
-        qrHtml += ';';
-        qrHtml += '"/>';
-      }
-
-      qrHtml += '</tr>';
-    }
-
-    qrHtml += '</tbody>';
-    qrHtml += '</table>';
-
-    return qrHtml;
-  };
-
-  _this.createImgTag = function (cellSize, margin, size) {
-
-    cellSize = cellSize || 2;
-    margin = typeof margin == 'undefined' ? cellSize * 4 : margin;
-
-    var min = margin;
-    var max = _this.getModuleCount() * cellSize + margin;
-
-    return createImgTag(size, size, function (x, y) {
-      if (min <= x && x < max && min <= y && y < max) {
-        var c = Math.floor((x - min) / cellSize);
-        var r = Math.floor((y - min) / cellSize);
-        return _this.isDark(r, c) ? 0 : 1;
-      } else {
-        return 1;
-      }
-    });
-  };
-
-  return _this;
-};
-
-//---------------------------------------------------------------------
-// qrcode.stringToBytes
-//---------------------------------------------------------------------
-
-qrcode.stringToBytes = function (s) {
-  var bytes = new Array();
-  for (var i = 0; i < s.length; i += 1) {
-    var c = s.charCodeAt(i);
-    bytes.push(c & 0xff);
-  }
-  return bytes;
-};
-
-//---------------------------------------------------------------------
-// qrcode.createStringToBytes
-//---------------------------------------------------------------------
-
-/**
- * @param unicodeData base64 string of byte array.
- * [16bit Unicode],[16bit Bytes], ...
- * @param numChars
- */
-qrcode.createStringToBytes = function (unicodeData, numChars) {
-
-  // create conversion map.
-
-  var unicodeMap = function () {
-
-    var bin = base64DecodeInputStream(unicodeData);
-    var read = function read() {
-      var b = bin.read();
-      if (b == -1) throw new Error();
-      return b;
-    };
-
-    var count = 0;
-    var unicodeMap = {};
-    while (true) {
-      var b0 = bin.read();
-      if (b0 == -1) break;
-      var b1 = read();
-      var b2 = read();
-      var b3 = read();
-      var k = String.fromCharCode(b0 << 8 | b1);
-      var v = b2 << 8 | b3;
-      unicodeMap[k] = v;
-      count += 1;
-    }
-    if (count != numChars) {
-      throw new Error(count + ' != ' + numChars);
-    }
-
-    return unicodeMap;
-  }();
-
-  var unknownChar = '?'.charCodeAt(0);
-
-  return function (s) {
-    var bytes = new Array();
-    for (var i = 0; i < s.length; i += 1) {
-      var c = s.charCodeAt(i);
-      if (c < 128) {
-        bytes.push(c);
-      } else {
-        var b = unicodeMap[s.charAt(i)];
-        if (typeof b == 'number') {
-          if ((b & 0xff) == b) {
-            // 1byte
-            bytes.push(b);
-          } else {
-            // 2bytes
-            bytes.push(b >>> 8);
-            bytes.push(b & 0xff);
-          }
-        } else {
-          bytes.push(unknownChar);
-        }
-      }
-    }
-    return bytes;
-  };
-};
-
-//---------------------------------------------------------------------
-// QRMode
-//---------------------------------------------------------------------
-
-var QRMode = {
-  MODE_NUMBER: 1 << 0,
-  MODE_ALPHA_NUM: 1 << 1,
-  MODE_8BIT_BYTE: 1 << 2,
-  MODE_KANJI: 1 << 3 };
-
-
-//---------------------------------------------------------------------
-// QRErrorCorrectLevel
-//---------------------------------------------------------------------
-
-var QRErrorCorrectLevel = {
-  L: 1,
-  M: 0,
-  Q: 3,
-  H: 2 };
-
-
-//---------------------------------------------------------------------
-// QRMaskPattern
-//---------------------------------------------------------------------
-
-var QRMaskPattern = {
-  PATTERN000: 0,
-  PATTERN001: 1,
-  PATTERN010: 2,
-  PATTERN011: 3,
-  PATTERN100: 4,
-  PATTERN101: 5,
-  PATTERN110: 6,
-  PATTERN111: 7 };
-
-
-//---------------------------------------------------------------------
-// QRUtil
-//---------------------------------------------------------------------
-
-var QRUtil = function () {
-
-  var PATTERN_POSITION_TABLE = [
-  [],
-  [6, 18],
-  [6, 22],
-  [6, 26],
-  [6, 30],
-  [6, 34],
-  [6, 22, 38],
-  [6, 24, 42],
-  [6, 26, 46],
-  [6, 28, 50],
-  [6, 30, 54],
-  [6, 32, 58],
-  [6, 34, 62],
-  [6, 26, 46, 66],
-  [6, 26, 48, 70],
-  [6, 26, 50, 74],
-  [6, 30, 54, 78],
-  [6, 30, 56, 82],
-  [6, 30, 58, 86],
-  [6, 34, 62, 90],
-  [6, 28, 50, 72, 94],
-  [6, 26, 50, 74, 98],
-  [6, 30, 54, 78, 102],
-  [6, 28, 54, 80, 106],
-  [6, 32, 58, 84, 110],
-  [6, 30, 58, 86, 114],
-  [6, 34, 62, 90, 118],
-  [6, 26, 50, 74, 98, 122],
-  [6, 30, 54, 78, 102, 126],
-  [6, 26, 52, 78, 104, 130],
-  [6, 30, 56, 82, 108, 134],
-  [6, 34, 60, 86, 112, 138],
-  [6, 30, 58, 86, 114, 142],
-  [6, 34, 62, 90, 118, 146],
-  [6, 30, 54, 78, 102, 126, 150],
-  [6, 24, 50, 76, 102, 128, 154],
-  [6, 28, 54, 80, 106, 132, 158],
-  [6, 32, 58, 84, 110, 136, 162],
-  [6, 26, 54, 82, 110, 138, 166],
-  [6, 30, 58, 86, 114, 142, 170]];
-
-  var G15 = 1 << 10 | 1 << 8 | 1 << 5 | 1 << 4 | 1 << 2 | 1 << 1 | 1 << 0;
-  var G18 = 1 << 12 | 1 << 11 | 1 << 10 | 1 << 9 | 1 << 8 | 1 << 5 | 1 << 2 | 1 << 0;
-  var G15_MASK = 1 << 14 | 1 << 12 | 1 << 10 | 1 << 4 | 1 << 1;
-
-  var _this = {};
-
-  var getBCHDigit = function getBCHDigit(data) {
-    var digit = 0;
-    while (data != 0) {
-      digit += 1;
-      data >>>= 1;
-    }
-    return digit;
-  };
-
-  _this.getBCHTypeInfo = function (data) {
-    var d = data << 10;
-    while (getBCHDigit(d) - getBCHDigit(G15) >= 0) {
-      d ^= G15 << getBCHDigit(d) - getBCHDigit(G15);
-    }
-    return (data << 10 | d) ^ G15_MASK;
-  };
-
-  _this.getBCHTypeNumber = function (data) {
-    var d = data << 12;
-    while (getBCHDigit(d) - getBCHDigit(G18) >= 0) {
-      d ^= G18 << getBCHDigit(d) - getBCHDigit(G18);
-    }
-    return data << 12 | d;
-  };
-
-  _this.getPatternPosition = function (typeNumber) {
-    return PATTERN_POSITION_TABLE[typeNumber - 1];
-  };
-
-  _this.getMaskFunction = function (maskPattern) {
-
-    switch (maskPattern) {
-
-      case QRMaskPattern.PATTERN000:
-        return function (i, j) {return (i + j) % 2 == 0;};
-      case QRMaskPattern.PATTERN001:
-        return function (i, j) {return i % 2 == 0;};
-      case QRMaskPattern.PATTERN010:
-        return function (i, j) {return j % 3 == 0;};
-      case QRMaskPattern.PATTERN011:
-        return function (i, j) {return (i + j) % 3 == 0;};
-      case QRMaskPattern.PATTERN100:
-        return function (i, j) {return (Math.floor(i / 2) + Math.floor(j / 3)) % 2 == 0;};
-      case QRMaskPattern.PATTERN101:
-        return function (i, j) {return i * j % 2 + i * j % 3 == 0;};
-      case QRMaskPattern.PATTERN110:
-        return function (i, j) {return (i * j % 2 + i * j % 3) % 2 == 0;};
-      case QRMaskPattern.PATTERN111:
-        return function (i, j) {return (i * j % 3 + (i + j) % 2) % 2 == 0;};
-
-      default:
-        throw new Error('bad maskPattern:' + maskPattern);}
-
-  };
-
-  _this.getErrorCorrectPolynomial = function (errorCorrectLength) {
-    var a = qrPolynomial([1], 0);
-    for (var i = 0; i < errorCorrectLength; i += 1) {
-      a = a.multiply(qrPolynomial([1, QRMath.gexp(i)], 0));
-    }
-    return a;
-  };
-
-  _this.getLengthInBits = function (mode, type) {
-
-    if (1 <= type && type < 10) {
-
-      // 1 - 9
-
-      switch (mode) {
-        case QRMode.MODE_NUMBER:return 10;
-        case QRMode.MODE_ALPHA_NUM:return 9;
-        case QRMode.MODE_8BIT_BYTE:return 8;
-        case QRMode.MODE_KANJI:return 8;
-        default:
-          throw new Error('mode:' + mode);}
-
-
-    } else if (type < 27) {
-
-      // 10 - 26
-
-      switch (mode) {
-        case QRMode.MODE_NUMBER:return 12;
-        case QRMode.MODE_ALPHA_NUM:return 11;
-        case QRMode.MODE_8BIT_BYTE:return 16;
-        case QRMode.MODE_KANJI:return 10;
-        default:
-          throw new Error('mode:' + mode);}
-
-
-    } else if (type < 41) {
-
-      // 27 - 40
-
-      switch (mode) {
-        case QRMode.MODE_NUMBER:return 14;
-        case QRMode.MODE_ALPHA_NUM:return 13;
-        case QRMode.MODE_8BIT_BYTE:return 16;
-        case QRMode.MODE_KANJI:return 12;
-        default:
-          throw new Error('mode:' + mode);}
-
-
-    } else {
-      throw new Error('type:' + type);
-    }
-  };
-
-  _this.getLostPoint = function (qrcode) {
-
-    var moduleCount = qrcode.getModuleCount();
-
-    var lostPoint = 0;
-
-    // LEVEL1
-
-    for (var row = 0; row < moduleCount; row += 1) {
-      for (var col = 0; col < moduleCount; col += 1) {
-
-        var sameCount = 0;
-        var dark = qrcode.isDark(row, col);
-
-        for (var r = -1; r <= 1; r += 1) {
-
-          if (row + r < 0 || moduleCount <= row + r) {
-            continue;
-          }
-
-          for (var c = -1; c <= 1; c += 1) {
-
-            if (col + c < 0 || moduleCount <= col + c) {
-              continue;
-            }
-
-            if (r == 0 && c == 0) {
-              continue;
-            }
-
-            if (dark == qrcode.isDark(row + r, col + c)) {
-              sameCount += 1;
-            }
-          }
-        }
-
-        if (sameCount > 5) {
-          lostPoint += 3 + sameCount - 5;
-        }
-      }
-    };
-
-    // LEVEL2
-
-    for (var row = 0; row < moduleCount - 1; row += 1) {
-      for (var col = 0; col < moduleCount - 1; col += 1) {
-        var count = 0;
-        if (qrcode.isDark(row, col)) count += 1;
-        if (qrcode.isDark(row + 1, col)) count += 1;
-        if (qrcode.isDark(row, col + 1)) count += 1;
-        if (qrcode.isDark(row + 1, col + 1)) count += 1;
-        if (count == 0 || count == 4) {
-          lostPoint += 3;
-        }
-      }
-    }
-
-    // LEVEL3
-
-    for (var row = 0; row < moduleCount; row += 1) {
-      for (var col = 0; col < moduleCount - 6; col += 1) {
-        if (qrcode.isDark(row, col) &&
-        !qrcode.isDark(row, col + 1) &&
-        qrcode.isDark(row, col + 2) &&
-        qrcode.isDark(row, col + 3) &&
-        qrcode.isDark(row, col + 4) &&
-        !qrcode.isDark(row, col + 5) &&
-        qrcode.isDark(row, col + 6)) {
-          lostPoint += 40;
-        }
-      }
-    }
-
-    for (var col = 0; col < moduleCount; col += 1) {
-      for (var row = 0; row < moduleCount - 6; row += 1) {
-        if (qrcode.isDark(row, col) &&
-        !qrcode.isDark(row + 1, col) &&
-        qrcode.isDark(row + 2, col) &&
-        qrcode.isDark(row + 3, col) &&
-        qrcode.isDark(row + 4, col) &&
-        !qrcode.isDark(row + 5, col) &&
-        qrcode.isDark(row + 6, col)) {
-          lostPoint += 40;
-        }
-      }
-    }
-
-    // LEVEL4
-
-    var darkCount = 0;
-
-    for (var col = 0; col < moduleCount; col += 1) {
-      for (var row = 0; row < moduleCount; row += 1) {
-        if (qrcode.isDark(row, col)) {
-          darkCount += 1;
-        }
-      }
-    }
-
-    var ratio = Math.abs(100 * darkCount / moduleCount / moduleCount - 50) / 5;
-    lostPoint += ratio * 10;
-
-    return lostPoint;
-  };
-
-  return _this;
-}();
-
-//---------------------------------------------------------------------
-// QRMath
-//---------------------------------------------------------------------
-
-var QRMath = function () {
-
-  var EXP_TABLE = new Array(256);
-  var LOG_TABLE = new Array(256);
-
-  // initialize tables
-  for (var i = 0; i < 8; i += 1) {
-    EXP_TABLE[i] = 1 << i;
-  }
-  for (var i = 8; i < 256; i += 1) {
-    EXP_TABLE[i] = EXP_TABLE[i - 4] ^
-    EXP_TABLE[i - 5] ^
-    EXP_TABLE[i - 6] ^
-    EXP_TABLE[i - 8];
-  }
-  for (var i = 0; i < 255; i += 1) {
-    LOG_TABLE[EXP_TABLE[i]] = i;
-  }
-
-  var _this = {};
-
-  _this.glog = function (n) {
-
-    if (n < 1) {
-      throw new Error('glog(' + n + ')');
-    }
-
-    return LOG_TABLE[n];
-  };
-
-  _this.gexp = function (n) {
-
-    while (n < 0) {
-      n += 255;
-    }
-
-    while (n >= 256) {
-      n -= 255;
-    }
-
-    return EXP_TABLE[n];
-  };
-
-  return _this;
-}();
-
-//---------------------------------------------------------------------
-// qrPolynomial
-//---------------------------------------------------------------------
-
-function qrPolynomial(num, shift) {
-
-  if (typeof num.length == 'undefined') {
-    throw new Error(num.length + '/' + shift);
-  }
-
-  var _num = function () {
-    var offset = 0;
-    while (offset < num.length && num[offset] == 0) {
-      offset += 1;
-    }
-    var _num = new Array(num.length - offset + shift);
-    for (var i = 0; i < num.length - offset; i += 1) {
-      _num[i] = num[i + offset];
-    }
-    return _num;
-  }();
-
-  var _this = {};
-
-  _this.getAt = function (index) {
-    return _num[index];
-  };
-
-  _this.getLength = function () {
-    return _num.length;
-  };
-
-  _this.multiply = function (e) {
-
-    var num = new Array(_this.getLength() + e.getLength() - 1);
-
-    for (var i = 0; i < _this.getLength(); i += 1) {
-      for (var j = 0; j < e.getLength(); j += 1) {
-        num[i + j] ^= QRMath.gexp(QRMath.glog(_this.getAt(i)) + QRMath.glog(e.getAt(j)));
-      }
-    }
-
-    return qrPolynomial(num, 0);
-  };
-
-  _this.mod = function (e) {
-
-    if (_this.getLength() - e.getLength() < 0) {
-      return _this;
-    }
-
-    var ratio = QRMath.glog(_this.getAt(0)) - QRMath.glog(e.getAt(0));
-
-    var num = new Array(_this.getLength());
-    for (var i = 0; i < _this.getLength(); i += 1) {
-      num[i] = _this.getAt(i);
-    }
-
-    for (var i = 0; i < e.getLength(); i += 1) {
-      num[i] ^= QRMath.gexp(QRMath.glog(e.getAt(i)) + ratio);
-    }
-
-    // recursive call
-    return qrPolynomial(num, 0).mod(e);
-  };
-
-  return _this;
-};
-
-//---------------------------------------------------------------------
-// QRRSBlock
-//---------------------------------------------------------------------
-
-var QRRSBlock = function () {
-
-
-  // [1: [L, M, Q, H], ..]
-  var RS_BLOCK_TABLE = [[1, 26, 19], [1, 26, 16], [1, 26, 13], [1, 26, 9], [1, 44, 34], [1, 44, 28], [1, 44, 22], [1, 44, 16], [1, 70, 55], [1, 70, 44], [2, 35, 17], [2, 35, 13], [1, 100, 80], [2, 50, 32], [2, 50, 24], [4, 25, 9], [1, 134, 108], [2, 67, 43], [2, 33, 15, 2, 34, 16], [2, 33, 11, 2, 34, 12], [2, 86, 68], [4, 43, 27], [4, 43, 19], [4, 43, 15], [2, 98, 78], [4, 49, 31], [2, 32, 14, 4, 33, 15], [4, 39, 13, 1, 40, 14], [2, 121, 97], [2, 60, 38, 2, 61, 39], [4, 40, 18, 2, 41, 19], [4, 40, 14, 2, 41, 15], [2, 146, 116], [3, 58, 36, 2, 59, 37], [4, 36, 16, 4, 37, 17], [4, 36, 12, 4, 37, 13], [2, 86, 68, 2, 87, 69], [4, 69, 43, 1, 70, 44], [6, 43, 19, 2, 44, 20], [6, 43, 15, 2, 44, 16], [4, 101, 81], [1, 80, 50, 4, 81, 51], [4, 50, 22, 4, 51, 23], [3, 36, 12, 8, 37, 13], [2, 116, 92, 2, 117, 93], [6, 58, 36, 2, 59, 37], [4, 46, 20, 6, 47, 21], [7, 42, 14, 4, 43, 15], [4, 133, 107], [8, 59, 37, 1, 60, 38], [8, 44, 20, 4, 45, 21], [12, 33, 11, 4, 34, 12], [3, 145, 115, 1, 146, 116], [4, 64, 40, 5, 65, 41], [11, 36, 16, 5, 37, 17], [11, 36, 12, 5, 37, 13], [5, 109, 87, 1, 110, 88], [5, 65, 41, 5, 66, 42], [5, 54, 24, 7, 55, 25], [11, 36, 12], [5, 122, 98, 1, 123, 99], [7, 73, 45, 3, 74, 46], [15, 43, 19, 2, 44, 20], [3, 45, 15, 13, 46, 16], [1, 135, 107, 5, 136, 108], [10, 74, 46, 1, 75, 47], [1, 50, 22, 15, 51, 23], [2, 42, 14, 17, 43, 15], [5, 150, 120, 1, 151, 121], [9, 69, 43, 4, 70, 44], [17, 50, 22, 1, 51, 23], [2, 42, 14, 19, 43, 15], [3, 141, 113, 4, 142, 114], [3, 70, 44, 11, 71, 45], [17, 47, 21, 4, 48, 22], [9, 39, 13, 16, 40, 14], [3, 135, 107, 5, 136, 108], [3, 67, 41, 13, 68, 42], [15, 54, 24, 5, 55, 25], [15, 43, 15, 10, 44, 16], [4, 144, 116, 4, 145, 117], [17, 68, 42], [17, 50, 22, 6, 51, 23], [19, 46, 16, 6, 47, 17], [2, 139, 111, 7, 140, 112], [17, 74, 46], [7, 54, 24, 16, 55, 25], [34, 37, 13], [4, 151, 121, 5, 152, 122], [4, 75, 47, 14, 76, 48], [11, 54, 24, 14, 55, 25], [16, 45, 15, 14, 46, 16], [6, 147, 117, 4, 148, 118], [6, 73, 45, 14, 74, 46], [11, 54, 24, 16, 55, 25], [30, 46, 16, 2, 47, 17], [8, 132, 106, 4, 133, 107], [8, 75, 47, 13, 76, 48], [7, 54, 24, 22, 55, 25], [22, 45, 15, 13, 46, 16], [10, 142, 114, 2, 143, 115], [19, 74, 46, 4, 75, 47], [28, 50, 22, 6, 51, 23], [33, 46, 16, 4, 47, 17], [8, 152, 122, 4, 153, 123], [22, 73, 45, 3, 74, 46], [8, 53, 23, 26, 54, 24], [12, 45, 15, 28, 46, 16], [3, 147, 117, 10, 148, 118], [3, 73, 45, 23, 74, 46], [4, 54, 24, 31, 55, 25], [11, 45, 15, 31, 46, 16], [7, 146, 116, 7, 147, 117], [21, 73, 45, 7, 74, 46], [1, 53, 23, 37, 54, 24], [19, 45, 15, 26, 46, 16], [5, 145, 115, 10, 146, 116], [19, 75, 47, 10, 76, 48], [15, 54, 24, 25, 55, 25], [23, 45, 15, 25, 46, 16], [13, 145, 115, 3, 146, 116], [2, 74, 46, 29, 75, 47], [42, 54, 24, 1, 55, 25], [23, 45, 15, 28, 46, 16], [17, 145, 115], [10, 74, 46, 23, 75, 47], [10, 54, 24, 35, 55, 25], [19, 45, 15, 35, 46, 16], [17, 145, 115, 1, 146, 116], [14, 74, 46, 21, 75, 47], [29, 54, 24, 19, 55, 25], [11, 45, 15, 46, 46, 16], [13, 145, 115, 6, 146, 116], [14, 74, 46, 23, 75, 47], [44, 54, 24, 7, 55, 25], [59, 46, 16, 1, 47, 17], [12, 151, 121, 7, 152, 122], [12, 75, 47, 26, 76, 48], [39, 54, 24, 14, 55, 25], [22, 45, 15, 41, 46, 16], [6, 151, 121, 14, 152, 122], [6, 75, 47, 34, 76, 48], [46, 54, 24, 10, 55, 25], [2, 45, 15, 64, 46, 16], [17, 152, 122, 4, 153, 123], [29, 74, 46, 14, 75, 47], [49, 54, 24, 10, 55, 25], [24, 45, 15, 46, 46, 16], [4, 152, 122, 18, 153, 123], [13, 74, 46, 32, 75, 47], [48, 54, 24, 14, 55, 25], [42, 45, 15, 32, 46, 16], [20, 147, 117, 4, 148, 118], [40, 75, 47, 7, 76, 48], [43, 54, 24, 22, 55, 25], [10, 45, 15, 67, 46, 16], [19, 148, 118, 6, 149, 119], [18, 75, 47, 31, 76, 48], [34, 54, 24, 34, 55, 25], [20, 45, 15, 61, 46, 16]];
-
-  var qrRSBlock = function qrRSBlock(totalCount, dataCount) {
-    var _this = {};
-    _this.totalCount = totalCount;
-    _this.dataCount = dataCount;
-    return _this;
-  };
-
-  var _this = {};
-
-  var getRsBlockTable = function getRsBlockTable(typeNumber, errorCorrectLevel) {
-
-    switch (errorCorrectLevel) {
-      case QRErrorCorrectLevel.L:
-        return RS_BLOCK_TABLE[(typeNumber - 1) * 4 + 0];
-      case QRErrorCorrectLevel.M:
-        return RS_BLOCK_TABLE[(typeNumber - 1) * 4 + 1];
-      case QRErrorCorrectLevel.Q:
-        return RS_BLOCK_TABLE[(typeNumber - 1) * 4 + 2];
-      case QRErrorCorrectLevel.H:
-        return RS_BLOCK_TABLE[(typeNumber - 1) * 4 + 3];
-      default:
-        return undefined;}
-
-  };
-
-  _this.getRSBlocks = function (typeNumber, errorCorrectLevel) {
-
-    var rsBlock = getRsBlockTable(typeNumber, errorCorrectLevel);
-
-    if (typeof rsBlock == 'undefined') {
-      throw new Error('bad rs block [url=home.php?mod=space&uid=5302]@[/url] typeNumber:' + typeNumber +
-      '/errorCorrectLevel:' + errorCorrectLevel);
-    }
-
-    var length = rsBlock.length / 3;
-
-    var list = new Array();
-
-    for (var i = 0; i < length; i += 1) {
-
-      var count = rsBlock[i * 3 + 0];
-      var totalCount = rsBlock[i * 3 + 1];
-      var dataCount = rsBlock[i * 3 + 2];
-
-      for (var j = 0; j < count; j += 1) {
-        list.push(qrRSBlock(totalCount, dataCount));
-      }
-    }
-
-    return list;
-  };
-
-  return _this;
-}();
-
-//---------------------------------------------------------------------
-// qrBitBuffer
-//---------------------------------------------------------------------
-
-var qrBitBuffer = function qrBitBuffer() {
-
-  var _buffer = new Array();
-  var _length = 0;
-
-  var _this = {};
-
-  _this.getBuffer = function () {
-    return _buffer;
-  };
-
-  _this.getAt = function (index) {
-    var bufIndex = Math.floor(index / 8);
-    return (_buffer[bufIndex] >>> 7 - index % 8 & 1) == 1;
-  };
-
-  _this.put = function (num, length) {
-    for (var i = 0; i < length; i += 1) {
-      _this.putBit((num >>> length - i - 1 & 1) == 1);
-    }
-  };
-
-  _this.getLengthInBits = function () {
-    return _length;
-  };
-
-  _this.putBit = function (bit) {
-
-    var bufIndex = Math.floor(_length / 8);
-    if (_buffer.length <= bufIndex) {
-      _buffer.push(0);
-    }
-
-    if (bit) {
-      _buffer[bufIndex] |= 0x80 >>> _length % 8;
-    }
-
-    _length += 1;
-  };
-
-  return _this;
-};
-
-//---------------------------------------------------------------------
-// qr8BitByte
-//---------------------------------------------------------------------
-
-var qr8BitByte = function qr8BitByte(data) {
-
-  var _mode = QRMode.MODE_8BIT_BYTE;
-  var _data = data;
-  var _parsedData = [];
-
-  var _this = {};
-
-
-  // Added to support UTF-8 Characters
-  for (var i = 0, l = _data.length; i < l; i++) {
-    var byteArray = [];
-    var code = _data.charCodeAt(i);
-
-    if (code > 0x10000) {
-      byteArray[0] = 0xF0 | (code & 0x1C0000) >>> 18;
-      byteArray[1] = 0x80 | (code & 0x3F000) >>> 12;
-      byteArray[2] = 0x80 | (code & 0xFC0) >>> 6;
-      byteArray[3] = 0x80 | code & 0x3F;
-    } else if (code > 0x800) {
-      byteArray[0] = 0xE0 | (code & 0xF000) >>> 12;
-      byteArray[1] = 0x80 | (code & 0xFC0) >>> 6;
-      byteArray[2] = 0x80 | code & 0x3F;
-    } else if (code > 0x80) {
-      byteArray[0] = 0xC0 | (code & 0x7C0) >>> 6;
-      byteArray[1] = 0x80 | code & 0x3F;
-    } else {
-      byteArray[0] = code;
-    }
-
-    // Fix Unicode corruption bug
-    _parsedData.push(byteArray);
-  }
-
-  _parsedData = Array.prototype.concat.apply([], _parsedData);
-
-  if (_parsedData.length != _data.length) {
-    _parsedData.unshift(191);
-    _parsedData.unshift(187);
-    _parsedData.unshift(239);
-  }
-
-  var _bytes = _parsedData;
-
-  _this.getMode = function () {
-    return _mode;
-  };
-
-  _this.getLength = function (buffer) {
-    return _bytes.length;
-  };
-
-  _this.write = function (buffer) {
-    for (var i = 0; i < _bytes.length; i += 1) {
-      buffer.put(_bytes[i], 8);
-    }
-  };
-
-  return _this;
-};
-
-//=====================================================================
-// GIF Support etc.
-//
-
-//---------------------------------------------------------------------
-// byteArrayOutputStream
-//---------------------------------------------------------------------
-
-var byteArrayOutputStream = function byteArrayOutputStream() {
-
-  var _bytes = new Array();
-
-  var _this = {};
-
-  _this.writeByte = function (b) {
-    _bytes.push(b & 0xff);
-  };
-
-  _this.writeShort = function (i) {
-    _this.writeByte(i);
-    _this.writeByte(i >>> 8);
-  };
-
-  _this.writeBytes = function (b, off, len) {
-    off = off || 0;
-    len = len || b.length;
-    for (var i = 0; i < len; i += 1) {
-      _this.writeByte(b[i + off]);
-    }
-  };
-
-  _this.writeString = function (s) {
-    for (var i = 0; i < s.length; i += 1) {
-      _this.writeByte(s.charCodeAt(i));
-    }
-  };
-
-  _this.toByteArray = function () {
-    return _bytes;
-  };
-
-  _this.toString = function () {
-    var s = '';
-    s += '[';
-    for (var i = 0; i < _bytes.length; i += 1) {
-      if (i > 0) {
-        s += ',';
-      }
-      s += _bytes[i];
-    }
-    s += ']';
-    return s;
-  };
-
-  return _this;
-};
-
-//---------------------------------------------------------------------
-// base64EncodeOutputStream
-//---------------------------------------------------------------------
-
-var base64EncodeOutputStream = function base64EncodeOutputStream() {
-
-  var _buffer = 0;
-  var _buflen = 0;
-  var _length = 0;
-  var _base64 = '';
-
-  var _this = {};
-
-  var writeEncoded = function writeEncoded(b) {
-    _base64 += String.fromCharCode(encode(b & 0x3f));
-  };
-
-  var encode = function encode(n) {
-    if (n < 0) {
-      // error.
-    } else if (n < 26) {
-      return 0x41 + n;
-    } else if (n < 52) {
-      return 0x61 + (n - 26);
-    } else if (n < 62) {
-      return 0x30 + (n - 52);
-    } else if (n == 62) {
-      return 0x2b;
-    } else if (n == 63) {
-      return 0x2f;
-    }
-    throw new Error('n:' + n);
-  };
-
-  _this.writeByte = function (n) {
-
-    _buffer = _buffer << 8 | n & 0xff;
-    _buflen += 8;
-    _length += 1;
-
-    while (_buflen >= 6) {
-      writeEncoded(_buffer >>> _buflen - 6);
-      _buflen -= 6;
-    }
-  };
-
-  _this.flush = function () {
-
-    if (_buflen > 0) {
-      writeEncoded(_buffer << 6 - _buflen);
-      _buffer = 0;
-      _buflen = 0;
-    }
-
-    if (_length % 3 != 0) {
-      // padding
-      var padlen = 3 - _length % 3;
-      for (var i = 0; i < padlen; i += 1) {
-        _base64 += '=';
-      }
-    }
-  };
-
-  _this.toString = function () {
-    return _base64;
-  };
-
-  return _this;
-};
-
-//---------------------------------------------------------------------
-// base64DecodeInputStream
-//---------------------------------------------------------------------
-
-var base64DecodeInputStream = function base64DecodeInputStream(str) {
-
-  var _str = str;
-  var _pos = 0;
-  var _buffer = 0;
-  var _buflen = 0;
-
-  var _this = {};
-
-  _this.read = function () {
-
-    while (_buflen < 8) {
-
-      if (_pos >= _str.length) {
-        if (_buflen == 0) {
-          return -1;
-        }
-        throw new Error('unexpected end of file./' + _buflen);
-      }
-
-      var c = _str.charAt(_pos);
-      _pos += 1;
-
-      if (c == '=') {
-        _buflen = 0;
-        return -1;
-      } else if (c.match(/^\s$/)) {
-        // ignore if whitespace.
-        continue;
-      }
-
-      _buffer = _buffer << 6 | decode(c.charCodeAt(0));
-      _buflen += 6;
-    }
-
-    var n = _buffer >>> _buflen - 8 & 0xff;
-    _buflen -= 8;
-    return n;
-  };
-
-  var decode = function decode(c) {
-    if (0x41 <= c && c <= 0x5a) {
-      return c - 0x41;
-    } else if (0x61 <= c && c <= 0x7a) {
-      return c - 0x61 + 26;
-    } else if (0x30 <= c && c <= 0x39) {
-      return c - 0x30 + 52;
-    } else if (c == 0x2b) {
-      return 62;
-    } else if (c == 0x2f) {
-      return 63;
-    } else {
-      throw new Error('c:' + c);
-    }
-  };
-
-  return _this;
-};
-
-//---------------------------------------------------------------------
-// gifImage (B/W)
-//---------------------------------------------------------------------
-
-var gifImage = function gifImage(width, height) {
-
-  var _width = width;
-  var _height = height;
-  var _data = new Array(width * height);
-
-  var _this = {};
-
-  _this.setPixel = function (x, y, pixel) {
-    _data[y * _width + x] = pixel;
-  };
-
-  _this.write = function (out) {
-
-    //---------------------------------
-    // GIF Signature
-
-    out.writeString('GIF87a');
-
-    //---------------------------------
-    // Screen Descriptor
-
-    out.writeShort(_width);
-    out.writeShort(_height);
-
-    out.writeByte(0x80); // 2bit
-    out.writeByte(0);
-    out.writeByte(0);
-
-    //---------------------------------
-    // Global Color Map
-
-    // black
-    out.writeByte(0x00);
-    out.writeByte(0x00);
-    out.writeByte(0x00);
-
-    // white
-    out.writeByte(0xff);
-    out.writeByte(0xff);
-    out.writeByte(0xff);
-
-    //---------------------------------
-    // Image Descriptor
-
-    out.writeString(',');
-    out.writeShort(0);
-    out.writeShort(0);
-    out.writeShort(_width);
-    out.writeShort(_height);
-    out.writeByte(0);
-
-    //---------------------------------
-    // Local Color Map
-
-    //---------------------------------
-    // Raster Data
-
-    var lzwMinCodeSize = 2;
-    var raster = getLZWRaster(lzwMinCodeSize);
-
-    out.writeByte(lzwMinCodeSize);
-
-    var offset = 0;
-
-    while (raster.length - offset > 255) {
-      out.writeByte(255);
-      out.writeBytes(raster, offset, 255);
-      offset += 255;
-    }
-
-    out.writeByte(raster.length - offset);
-    out.writeBytes(raster, offset, raster.length - offset);
-    out.writeByte(0x00);
-
-    //---------------------------------
-    // GIF Terminator
-    out.writeString(';');
-  };
-
-  var bitOutputStream = function bitOutputStream(out) {
-
-    var _out = out;
-    var _bitLength = 0;
-    var _bitBuffer = 0;
-
-    var _this = {};
-
-    _this.write = function (data, length) {
-
-      if (data >>> length != 0) {
-        throw new Error('length over');
-      }
-
-      while (_bitLength + length >= 8) {
-        _out.writeByte(0xff & (data << _bitLength | _bitBuffer));
-        length -= 8 - _bitLength;
-        data >>>= 8 - _bitLength;
-        _bitBuffer = 0;
-        _bitLength = 0;
-      }
-
-      _bitBuffer = data << _bitLength | _bitBuffer;
-      _bitLength = _bitLength + length;
-    };
-
-    _this.flush = function () {
-      if (_bitLength > 0) {
-        _out.writeByte(_bitBuffer);
-      }
-    };
-
-    return _this;
-  };
-
-  var getLZWRaster = function getLZWRaster(lzwMinCodeSize) {
-
-    var clearCode = 1 << lzwMinCodeSize;
-    var endCode = (1 << lzwMinCodeSize) + 1;
-    var bitLength = lzwMinCodeSize + 1;
-
-    // Setup LZWTable
-    var table = lzwTable();
-
-    for (var i = 0; i < clearCode; i += 1) {
-      table.add(String.fromCharCode(i));
-    }
-    table.add(String.fromCharCode(clearCode));
-    table.add(String.fromCharCode(endCode));
-
-    var byteOut = byteArrayOutputStream();
-    var bitOut = bitOutputStream(byteOut);
-
-    // clear code
-    bitOut.write(clearCode, bitLength);
-
-    var dataIndex = 0;
-
-    var s = String.fromCharCode(_data[dataIndex]);
-    dataIndex += 1;
-
-    while (dataIndex < _data.length) {
-
-      var c = String.fromCharCode(_data[dataIndex]);
-      dataIndex += 1;
-
-      if (table.contains(s + c)) {
-
-        s = s + c;
-
-      } else {
-
-        bitOut.write(table.indexOf(s), bitLength);
-
-        if (table.size() < 0xfff) {
-
-          if (table.size() == 1 << bitLength) {
-            bitLength += 1;
-          }
-
-          table.add(s + c);
-        }
-
-        s = c;
-      }
-    }
-
-    bitOut.write(table.indexOf(s), bitLength);
-
-    // end code
-    bitOut.write(endCode, bitLength);
-
-    bitOut.flush();
-
-    return byteOut.toByteArray();
-  };
-
-  var lzwTable = function lzwTable() {
-
-    var _map = {};
-    var _size = 0;
-
-    var _this = {};
-
-    _this.add = function (key) {
-      if (_this.contains(key)) {
-        throw new Error('dup key:' + key);
-      }
-      _map[key] = _size;
-      _size += 1;
-    };
-
-    _this.size = function () {
-      return _size;
-    };
-
-    _this.indexOf = function (key) {
-      return _map[key];
-    };
-
-    _this.contains = function (key) {
-      return typeof _map[key] != 'undefined';
-    };
-
-    return _this;
-  };
-
-  return _this;
-};
-
-var createImgTag = function createImgTag(width, height, getPixel, alt) {
-
-  var gif = gifImage(width, height);
-  for (var y = 0; y < height; y += 1) {
-    for (var x = 0; x < width; x += 1) {
-      gif.setPixel(x, y, getPixel(x, y));
-    }
-  }
-
-  var b = byteArrayOutputStream();
-  gif.write(b);
-
-  var base64 = base64EncodeOutputStream();
-  var bytes = b.toByteArray();
-  for (var i = 0; i < bytes.length; i += 1) {
-    base64.writeByte(bytes[i]);
-  }
-  base64.flush();
-
-  var img = '';
-  img += 'data:image/gif;base64,';
-  img += base64;
-
-  return img;
-};
-
-//---------------------------------------------------------------------
-// returns qrcode function.
-
-var createQrCodeImg = function createQrCodeImg(text, options) {
-  options = options || {};
-  var typeNumber = options.typeNumber || 4;
-  var errorCorrectLevel = options.errorCorrectLevel || 'M';
-  var size = options.size || 500;
-
-  var qr;
-
-  try {
-    qr = qrcode(typeNumber, errorCorrectLevel || 'M');
-    qr.addData(text);
-    qr.make();
-  } catch (e) {
-    if (typeNumber >= 40) {
-      throw new Error('Text too long to encode');
-    } else {
-      return gen(text, {
-        size: size,
-        errorCorrectLevel: errorCorrectLevel,
-        typeNumber: typeNumber + 1 });
-
-    }
-  }
-
-  // calc cellsize and margin
-  var cellsize = parseInt(size / qr.getModuleCount());
-  var margin = parseInt((size - qr.getModuleCount() * cellsize) / 2);
-
-  return qr.createImgTag(cellsize, margin, size);
-};
-// var module = {}; 需要注释这一行，否则微信小程序无法使用
-module.exports = {
-  createQrCodeImg: createQrCodeImg };
-
-/***/ }),
-
 /***/ 22:
 /*!*****************************************************!*\
   !*** ./node_modules/regenerator-runtime/runtime.js ***!
@@ -17375,7 +17607,7 @@ module.exports = g;
 
 /***/ }),
 
-/***/ 327:
+/***/ 343:
 /*!**********************************************************************!*\
   !*** /Users/lee/Downloads/备份11/轻纺车网/components/u-charts/u-charts.js ***!
   \**********************************************************************/
@@ -22444,2219 +22676,6 @@ if ( true && typeof module.exports === "object") {
 
 /***/ }),
 
-/***/ 42:
-/*!*************************************************************!*\
-  !*** /Users/lee/Downloads/备份11/轻纺车网/services/jsy-server.js ***!
-  \*************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-var _module$exports;function _defineProperty(obj, key, value) {if (key in obj) {Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true });} else {obj[key] = value;}return obj;}var Api = __webpack_require__(/*! services/config/api.js */ 23);
-var Common = __webpack_require__(/*! utils/common.js */ 43);
-var Util = __webpack_require__(/*! utils/util.js */ 24);
-var User = __webpack_require__(/*! services/user.js */ 46);
-var Es6Promise = __webpack_require__(/*! lib/es6-promise.js */ 25);
-
-
-//下拉选择
-//区域列表
-function getRegion() {
-  return new Es6Promise(function (resolve, reject) {
-    var newApi = Api.getRegion;
-    Util.request(newApi, {}, 'get').then(function (res) {
-      resolve(res);
-    }).catch(function (err) {
-      reject(err);
-    });
-  });
-}
-//配合度
-function getCoordinate() {
-  return new Es6Promise(function (resolve, reject) {
-    var newApi = Api.getCoordinate;
-    Util.request(newApi, {}, 'get').then(function (res) {
-      resolve(res);
-    }).catch(function (err) {
-      reject(err);
-    });
-  });
-}
-//客户类型
-function getType() {
-  return new Es6Promise(function (resolve, reject) {
-    var newApi = Api.getType;
-    Util.request(newApi, {}, 'get').then(function (res) {
-      resolve(res);
-    }).catch(function (err) {
-      reject(err);
-    });
-  });
-}
-//客户规模
-function getCompanyScale() {
-  return new Es6Promise(function (resolve, reject) {
-    var newApi = Api.getCompanyScale;
-    Util.request(newApi, {}, 'get').then(function (res) {
-      resolve(res);
-    }).catch(function (err) {
-      reject(err);
-    });
-  });
-}
-//客户来源
-function getSource() {
-  return new Es6Promise(function (resolve, reject) {
-    var newApi = Api.getSource;
-    Util.request(newApi, {}, 'get').then(function (res) {
-      resolve(res);
-    }).catch(function (err) {
-      reject(err);
-    });
-  });
-}
-//公司经营模式
-function getBusinessModel() {
-  return new Es6Promise(function (resolve, reject) {
-    var newApi = Api.getBusinessModel;
-    Util.request(newApi, {}, 'get').then(function (res) {
-      resolve(res);
-    }).catch(function (err) {
-      reject(err);
-    });
-  });
-}
-//主营产品
-function getMainProduct() {
-  return new Es6Promise(function (resolve, reject) {
-    var newApi = Api.getMainProduct;
-    Util.request(newApi, {}, 'get').then(function (res) {
-      resolve(res);
-    }).catch(function (err) {
-      reject(err);
-    });
-  });
-}
-//资金状况
-function getOperateCapital() {
-  return new Es6Promise(function (resolve, reject) {
-    var newApi = Api.getOperateCapital;
-    Util.request(newApi, {}, 'get').then(function (res) {
-      resolve(res);
-    }).catch(function (err) {
-      reject(err);
-    });
-  });
-}
-//信用状况
-function getOperateCredit() {
-  return new Es6Promise(function (resolve, reject) {
-    var newApi = Api.getOperateCredit;
-    Util.request(newApi, {}, 'get').then(function (res) {
-      resolve(res);
-    }).catch(function (err) {
-      reject(err);
-    });
-  });
-}
-//运营状况
-function getOperateOperation() {
-  return new Es6Promise(function (resolve, reject) {
-    var newApi = Api.getOperateOperation;
-    Util.request(newApi, {}, 'get').then(function (res) {
-      resolve(res);
-    }).catch(function (err) {
-      reject(err);
-    });
-  });
-}
-//口碑
-function getOperateWom() {
-  return new Es6Promise(function (resolve, reject) {
-    var newApi = Api.getOperateWom;
-    Util.request(newApi, {}, 'get').then(function (res) {
-      resolve(res);
-    }).catch(function (err) {
-      reject(err);
-    });
-  });
-}
-//品质定位
-function getQuality() {
-  return new Es6Promise(function (resolve, reject) {
-    var newApi = Api.getQuality;
-    Util.request(newApi, {}, 'get').then(function (res) {
-      resolve(res);
-    }).catch(function (err) {
-      reject(err);
-    });
-  });
-}
-//角色
-function getPost() {
-  return new Es6Promise(function (resolve, reject) {
-    var newApi = Api.getPost;
-    Util.request(newApi, {}, 'get').then(function (res) {
-      resolve(res);
-    }).catch(function (err) {
-      reject(err);
-    });
-  });
-}
-//渠道
-function getChannel() {
-  return new Es6Promise(function (resolve, reject) {
-    var newApi = Api.getChannel;
-    Util.request(newApi, {}, 'get').then(function (res) {
-      resolve(res);
-    }).catch(function (err) {
-      reject(err);
-    });
-  });
-}
-//性价比
-function getCostPerformance() {
-  return new Es6Promise(function (resolve, reject) {
-    var newApi = Api.getCostPerformance;
-    Util.request(newApi, {}, 'get').then(function (res) {
-      resolve(res);
-    }).catch(function (err) {
-      reject(err);
-    });
-  });
-}
-//身份
-function getIdentity() {
-  return new Es6Promise(function (resolve, reject) {
-    var newApi = Api.getIdentity;
-    Util.request(newApi, {}, 'get').then(function (res) {
-      resolve(res);
-    }).catch(function (err) {
-      reject(err);
-    });
-  });
-}
-//发展潜力
-function getPotential() {
-  return new Es6Promise(function (resolve, reject) {
-    var newApi = Api.getPotential;
-    Util.request(newApi, {}, 'get').then(function (res) {
-      resolve(res);
-    }).catch(function (err) {
-      reject(err);
-    });
-  });
-}
-
-//用户价格敏感度
-function getPriceSensitivity() {
-  return new Es6Promise(function (resolve, reject) {
-    var newApi = Api.getPriceSensitivity;
-    Util.request(newApi, {}, 'get').then(function (res) {
-      resolve(res);
-    }).catch(function (err) {
-      reject(err);
-    });
-  });
-}
-//性格特点
-function getCharacterFeatures() {
-  return new Es6Promise(function (resolve, reject) {
-    var newApi = Api.getCharacterFeatures;
-    Util.request(newApi, {}, 'get').then(function (res) {
-      resolve(res);
-    }).catch(function (err) {
-      reject(err);
-    });
-  });
-}
-//经营者特征
-function getManageFeatures() {
-  return new Es6Promise(function (resolve, reject) {
-    var newApi = Api.getManageFeatures;
-    Util.request(newApi, {}, 'get').then(function (res) {
-      resolve(res);
-    }).catch(function (err) {
-      reject(err);
-    });
-  });
-}
-//经营定位
-function getManagementPosition() {
-  return new Es6Promise(function (resolve, reject) {
-    var newApi = Api.getManagementPosition;
-    Util.request(newApi, {}, 'get').then(function (res) {
-      resolve(res);
-    }).catch(function (err) {
-      reject(err);
-    });
-  });
-}
-//合作意向
-function getCooperationIntention() {
-  return new Es6Promise(function (resolve, reject) {
-    var newApi = Api.getCooperationIntention;
-    Util.request(newApi, {}, 'get').then(function (res) {
-      resolve(res);
-    }).catch(function (err) {
-      reject(err);
-    });
-  });
-}
-//用户登陆
-// function login(data) {
-//     return new Es6Promise(function(resolve, reject) {
-//       let newApi = Api.login;
-//       Util.request(newApi, data, 'post').then(res => {
-//         resolve(res);
-//       }).catch(err => {
-//         reject(err);
-//       })
-//     })
-//   }
-// 更改密码
-function chanage_password(data) {
-  return new Es6Promise(function (resolve, reject) {
-    var newApi = Api.chanage_password;
-    Util.request(newApi, data, 'post').then(function (res) {
-      resolve(res);
-    }).catch(function (err) {
-      reject(err);
-    });
-  });
-}
-//验证码
-function verification(data) {
-  return new Es6Promise(function (resolve, reject) {
-    var newApi = Api.verification;
-    Util.request(newApi, data, 'post').then(function (res) {
-      resolve(res);
-    }).catch(function (err) {
-      reject(err);
-    });
-  });
-}
-//用户注册
-function registration(data) {
-  return new Es6Promise(function (resolve, reject) {
-    var newApi = Api.registration;
-    Util.request(newApi, data, 'post').then(function (res) {
-      resolve(res);
-    }).catch(function (err) {
-      reject(err);
-    });
-  });
-}
-//用户个人信息
-function userDetails(data) {
-  return new Es6Promise(function (resolve, reject) {
-    var newApi = Api.userDetails;
-    Util.request(newApi, data, 'get').then(function (res) {
-      resolve(res);
-    }).catch(function (err) {
-      reject(err);
-    });
-  });
-}
-//未读信息
-function getNewsNum() {
-  return new Es6Promise(function (resolve, reject) {
-    var newApi = Api.getNewsNum;
-    Util.request(newApi, {}, 'get').then(function (res) {
-      resolve(res);
-    }).catch(function (err) {
-      reject(err);
-    });
-  });
-}
-//未读信息列表
-function noReadList(data) {
-  return new Es6Promise(function (resolve, reject) {
-    var newApi = Api.noReadList;
-    Util.request(newApi, data, 'post').then(function (res) {
-      resolve(res);
-    }).catch(function (err) {
-      reject(err);
-    });
-  });
-}
-//查询用户职位列表
-function pupList(data) {
-  return new Es6Promise(function (resolve, reject) {
-    var newApi = Api.pupList;
-    Util.request(newApi, data, 'get').then(function (res) {
-      resolve(res);
-    }).catch(function (err) {
-      reject(err);
-    });
-  });
-}
-//获取默认职位
-function pupDefault(data) {
-  return new Es6Promise(function (resolve, reject) {
-    var newApi = Api.pupDefault;
-    Util.request(newApi, data, 'get').then(function (res) {
-      resolve(res);
-    }).catch(function (err) {
-      reject(err);
-    });
-  });
-}
-//买/卖帮办客户列表
-function bsList(data) {
-  return new Es6Promise(function (resolve, reject) {
-    var newApi = Api.bsList;
-    Util.request(newApi, data, 'get').then(function (res) {
-      resolve(res);
-    }).catch(function (err) {
-      reject(err);
-    });
-  });
-}
-//销售总监，区域经理客户列表
-
-function dmList(data) {
-  return new Es6Promise(function (resolve, reject) {
-    var newApi = Api.dmList;
-    Util.request(newApi, data, 'get').then(function (res) {
-      resolve(res);
-    }).catch(function (err) {
-      reject(err);
-    });
-  });
-}
-//客户详情
-function cmDetail(data) {
-  return new Es6Promise(function (resolve, reject) {
-    var newApi = Api.cmDetail;
-    Util.request(newApi, data, 'get').then(function (res) {
-      resolve(res);
-    }).catch(function (err) {
-      reject(err);
-    });
-  });
-}
-//更新客户信息 
-function updateCustomer(data) {
-  return new Es6Promise(function (resolve, reject) {
-    var newApi = Api.updateCustomer;
-    Util.request(newApi, data, 'post').then(function (res) {
-      resolve(res);
-    }).catch(function (err) {
-      reject(err);
-    });
-  });
-}
-//销售总监，区域经理客户数量
-function dmCount(data) {
-  return new Es6Promise(function (resolve, reject) {
-    var newApi = Api.dmCount;
-    Util.request(newApi, data, 'get').then(function (res) {
-      resolve(res);
-    }).catch(function (err) {
-      reject(err);
-    });
-  });
-}
-
-//销售总监删除分配
-function majordomoDel(data) {
-  return new Es6Promise(function (resolve, reject) {
-    var newApi = Api.majordomoDel;
-    Util.request(newApi, data, 'get').then(function (res) {
-      resolve(res);
-    }).catch(function (err) {
-      reject(err);
-    });
-  });
-}
-//区域经理删除分配
-function managerDel(data) {
-  return new Es6Promise(function (resolve, reject) {
-    var newApi = Api.managerDel;
-    Util.request(newApi, data, 'get').then(function (res) {
-      resolve(res);
-    }).catch(function (err) {
-      reject(err);
-    });
-  });
-}
-//销售总监查询区域经理列表
-function managerList(data) {
-  return new Es6Promise(function (resolve, reject) {
-    var newApi = Api.managerList;
-    Util.request(newApi, data, 'get').then(function (res) {
-      resolve(res);
-    }).catch(function (err) {
-      reject(err);
-    });
-  });
-}
-//区域经理查询手下帮办列表
-function deputyList(data) {
-  return new Es6Promise(function (resolve, reject) {
-    var newApi = Api.deputyList;
-    Util.request(newApi, data, 'get').then(function (res) {
-      resolve(res);
-    }).catch(function (err) {
-      reject(err);
-    });
-  });
-}
-//区域经理分配客户给帮办
-function managerAllot(data) {
-  return new Es6Promise(function (resolve, reject) {
-    var newApi = Api.managerAllot;
-    Util.request(newApi, data, 'post').then(function (res) {
-      resolve(res);
-    }).catch(function (err) {
-      reject(err);
-    });
-  });
-}
-//销售总监分配客户给区域经理
-function majordomoAllot(data) {
-  return new Es6Promise(function (resolve, reject) {
-    var newApi = Api.majordomoAllot;
-    Util.request(newApi, data, 'post').then(function (res) {
-      resolve(res);
-    }).catch(function (err) {
-      reject(err);
-    });
-  });
-}
-
-//公司联系人
-function linkMan(data) {
-  return new Es6Promise(function (resolve, reject) {
-    var newApi = Api.linkMan;
-    Util.request(newApi, data, 'get').then(function (res) {
-      resolve(res);
-    }).catch(function (err) {
-      reject(err);
-    });
-  });
-}
-//联系人详情
-function linkmanDetails(data) {
-  return new Es6Promise(function (resolve, reject) {
-    var newApi = Api.linkmanDetails;
-    Util.request(newApi, data, 'get').then(function (res) {
-      resolve(res);
-    }).catch(function (err) {
-      reject(err);
-    });
-  });
-}
-//删除联系人
-function linkmanDel(data) {
-  return new Es6Promise(function (resolve, reject) {
-    var newApi = Api.linkmanDel;
-    Util.request(newApi, data, 'get').then(function (res) {
-      resolve(res);
-    }).catch(function (err) {
-      reject(err);
-    });
-  });
-}
-//公司联系人添加
-function linkmanAdd(data) {
-  return new Es6Promise(function (resolve, reject) {
-    var newApi = Api.linkmanAdd;
-    Util.request(newApi, data, 'post').then(function (res) {
-      resolve(res);
-    }).catch(function (err) {
-      reject(err);
-    });
-  });
-}
-//更新联系人 
-function linkmanUpdate(data) {
-  return new Es6Promise(function (resolve, reject) {
-    var newApi = Api.linkmanUpdate;
-    Util.request(newApi, data, 'post').then(function (res) {
-      resolve(res);
-    }).catch(function (err) {
-      reject(err);
-    });
-  });
-}
-//获取公司经营状况
-function operation(data) {
-  return new Es6Promise(function (resolve, reject) {
-    var newApi = Api.operation;
-    Util.request(newApi, data, 'get').then(function (res) {
-      resolve(res);
-    }).catch(function (err) {
-      reject(err);
-    });
-  });
-}
-//公司竞争对手列表
-function rival(data) {
-  return new Es6Promise(function (resolve, reject) {
-    var newApi = Api.rival;
-    Util.request(newApi, data, 'get').then(function (res) {
-      resolve(res);
-    }).catch(function (err) {
-      reject(err);
-    });
-  });
-}
-//竞争对手详情
-function rivalDetails(data) {
-  return new Es6Promise(function (resolve, reject) {
-    var newApi = Api.rivalDetails;
-    Util.request(newApi, data, 'get').then(function (res) {
-      resolve(res);
-    }).catch(function (err) {
-      reject(err);
-    });
-  });
-}
-//竞争对手更新
-function rivalUpdate(data) {
-  return new Es6Promise(function (resolve, reject) {
-    var newApi = Api.rivalUpdate;
-    Util.request(newApi, data, 'post').then(function (res) {
-      resolve(res);
-    }).catch(function (err) {
-      reject(err);
-    });
-  });
-}
-
-//删除竞争对手
-function rivalDel(data) {
-  return new Es6Promise(function (resolve, reject) {
-    var newApi = Api.rivalDel;
-    Util.request(newApi, data, 'get').then(function (res) {
-      resolve(res);
-    }).catch(function (err) {
-      reject(err);
-    });
-  });
-}
-//买办创建客户
-function buyAddCustomer(data) {
-  return new Es6Promise(function (resolve, reject) {
-    var newApi = Api.buyAddCustomer;
-    Util.request(newApi, data, 'post').then(function (res) {
-      resolve(res);
-    }).catch(function (err) {
-      reject(err);
-    });
-  });
-}
-
-//卖帮办创建客户
-function sellCusmterCreated(data) {
-  return new Es6Promise(function (resolve, reject) {
-    var newApi = Api.sellCusmterCreated;
-    Util.request(newApi, data, 'post').then(function (res) {
-      resolve(res);
-    }).catch(function (err) {
-      reject(err);
-    });
-  });
-}
-//更新经营状况
-function operationUpdate(data) {
-  return new Es6Promise(function (resolve, reject) {
-    var newApi = Api.operationUpdate;
-    Util.request(newApi, data, 'post').then(function (res) {
-      resolve(res);
-    }).catch(function (err) {
-      reject(err);
-    });
-  });
-}
-//添加经营状况
-function operationAdd(data) {
-  return new Es6Promise(function (resolve, reject) {
-    var newApi = Api.operationAdd;
-    Util.request(newApi, data, 'post').then(function (res) {
-      resolve(res);
-    }).catch(function (err) {
-      reject(err);
-    });
-  });
-}
-function rivalAdd(data) {
-  return new Es6Promise(function (resolve, reject) {
-    var newApi = Api.rivalAdd;
-    Util.request(newApi, data, 'post').then(function (res) {
-      resolve(res);
-    }).catch(function (err) {
-      reject(err);
-    });
-  });
-}
-
-
-
-
-module.exports = (_module$exports = {
-
-  getManageFeatures: getManageFeatures,
-  getRegion: getRegion,
-  getCoordinate: getCoordinate,
-  getType: getType,
-  getCompanyScale: getCompanyScale,
-  getSource: getSource,
-  getBusinessModel: getBusinessModel,
-  getMainProduct: getMainProduct,
-  getOperateCapital: getOperateCapital,
-  getOperateCredit: getOperateCredit,
-  getOperateOperation: getOperateOperation,
-  getOperateWom: getOperateWom,
-  getQuality: getQuality,
-  getPost: getPost,
-  getChannel: getChannel,
-  getCostPerformance: getCostPerformance,
-  getIdentity: getIdentity,
-  getPotential: getPotential,
-  getPriceSensitivity: getPriceSensitivity,
-  getCharacterFeatures: getCharacterFeatures }, _defineProperty(_module$exports, "getManageFeatures",
-getManageFeatures), _defineProperty(_module$exports, "getManagementPosition",
-getManagementPosition), _defineProperty(_module$exports, "getCooperationIntention",
-getCooperationIntention), _defineProperty(_module$exports, "chanage_password",
-
-
-chanage_password), _defineProperty(_module$exports, "verification",
-verification), _defineProperty(_module$exports, "registration",
-registration), _defineProperty(_module$exports, "getNewsNum",
-getNewsNum), _defineProperty(_module$exports, "noReadList",
-noReadList), _defineProperty(_module$exports, "pupList",
-pupList), _defineProperty(_module$exports, "pupDefault",
-pupDefault), _defineProperty(_module$exports, "bsList",
-bsList), _defineProperty(_module$exports, "dmList",
-dmList), _defineProperty(_module$exports, "linkMan",
-linkMan), _defineProperty(_module$exports, "linkmanDetails",
-linkmanDetails), _defineProperty(_module$exports, "linkmanAdd",
-linkmanAdd), _defineProperty(_module$exports, "linkmanUpdate",
-linkmanUpdate), _defineProperty(_module$exports, "operation",
-operation), _defineProperty(_module$exports, "rival",
-rival), _defineProperty(_module$exports, "buyAddCustomer",
-buyAddCustomer), _defineProperty(_module$exports, "updateCustomer",
-updateCustomer), _defineProperty(_module$exports, "sellCusmterCreated",
-sellCusmterCreated), _defineProperty(_module$exports, "userDetails",
-userDetails), _defineProperty(_module$exports, "cmDetail",
-cmDetail), _defineProperty(_module$exports, "operationUpdate",
-operationUpdate), _defineProperty(_module$exports, "operationAdd",
-operationAdd), _defineProperty(_module$exports, "rivalDetails",
-rivalDetails), _defineProperty(_module$exports, "rivalAdd",
-rivalAdd), _defineProperty(_module$exports, "linkmanDel",
-linkmanDel), _defineProperty(_module$exports, "rivalDel",
-rivalDel), _defineProperty(_module$exports, "rivalUpdate",
-rivalUpdate), _defineProperty(_module$exports, "dmCount",
-dmCount), _defineProperty(_module$exports, "majordomoDel",
-majordomoDel), _defineProperty(_module$exports, "managerDel",
-managerDel), _defineProperty(_module$exports, "managerList",
-managerList), _defineProperty(_module$exports, "deputyList",
-deputyList), _defineProperty(_module$exports, "managerAllot",
-managerAllot), _defineProperty(_module$exports, "majordomoAllot",
-majordomoAllot), _module$exports);
-
-/***/ }),
-
-/***/ 43:
-/*!******************************************************!*\
-  !*** /Users/lee/Downloads/备份11/轻纺车网/utils/common.js ***!
-  \******************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-var Api = __webpack_require__(/*! services/config/api.js */ 23);
-var Pipe = __webpack_require__(/*! utils/pipe.js */ 44);
-var Util = __webpack_require__(/*! utils/util.js */ 24);
-var Es6Promise = __webpack_require__(/*! lib/es6-promise.js */ 25);
-
-/**
-                                                 * 去除前后空格
-                                                 */
-function trim(str) {
-  return str.replace(/(^\s*)|(\s*$)/g, "");
-}
-
-/**
-   * 功能：显示loading图标；并将loadState设为false，防止用户多次点击
-   * 参数：that：当前页面的this；val：loading的提示内容
-   */
-function showLoading(that, val) {
-  var sVal = val.toString();
-  that.setData({
-    loadState: false });
-
-  // 兼容处理
-  if (wx.showLoading) {
-    wx.showLoading({
-      title: sVal,
-      mask: true });
-
-  } else {
-    wx.showToast({
-      title: sVal,
-      mask: true,
-      duration: 2500 });
-
-  }
-}
-
-/**
-   * 功能：隐藏loading图标；并将loadState设为true，防止出现错误，用户无法点击
-   * 参数：that：当前页面的this
-   */
-function hideLoading(that) {
-  // 兼容处理
-  if (wx.hideLoading) {
-    wx.hideLoading();
-  } else {
-    wx.hideToast();
-  }
-  that.setData({
-    loadState: true });
-
-}
-/**
-   * 函数：showLoad(val)、hideLoad()
-   * 功能：显示/隐藏 loading图标
-   * 参数：val：loading图显示的文字
-   */
-function showLoad(val) {
-  var sVal = val.toString();
-  if (wx.showLoading) {
-    wx.showLoading({
-      title: sVal,
-      mask: true });
-
-  } else {
-    wx.showToast({
-      title: sVal,
-      mask: true,
-      duration: 3000 });
-
-  }
-}
-function hideLoad() {
-  if (wx.hideLoading) {
-    wx.hideLoading();
-  } else {
-    wx.hideToast();
-  }
-}
-
-/**
-   * 函数：setLoadFalse(that)、setLoadTrue(that)
-   * 功能：将loadState设置为false；防止用户重复点击提交表单
-   * 参数：that：页面的this
-   */
-function setLoadFalse(that) {
-  that.setData({
-    loadState: false });
-
-}
-function setLoadTrue(that) {
-  that.setData({
-    loadState: true });
-
-}
-
-/**
-   * 函数：changePageFalse(that)、changePageTrue(that)
-   * 功能：防止用户重复点击多次跳转页面
-   * 参数：that：页面的this
-   */
-function changePageFalse(that) {
-  that.setData({
-    changePage: false });
-
-}
-function changePageTrue(that) {
-  that.setData({
-    changePage: true });
-
-}
-
-
-/**
-   * 特性 值的转换
-   */
-function changeGloss(gloss) {
-  return Pipe.pipeGloss(gloss);
-}
-
-/**
-   * 特性、品质要求、品质定位 值的转换
-   */
-function changeVal(obj, stockType) {
-  if (obj) {
-    var oInfo = obj;
-    // 品质要求转换
-    oInfo.quality = Pipe.pipeQuality(oInfo.quality);
-    // 特性转换
-    oInfo.glossLongitude = Pipe.pipeGloss(oInfo.glossLongitude);
-    // oInfo.glossLatitude = Pipe.pipeGloss(oInfo.glossLatitude);
-    // 品质定位转换
-    oInfo.positionQuality = Pipe.pipePosition(oInfo.positionQuality);
-    // 库存状态
-    if (stockType) {
-      oInfo.stockType = Pipe.pipeStock(stockType);
-    }
-  }
-}
-
-/**
-   * 单个--图片地址拼接--返回图片地址数组
-   */
-function pinImgUrl(obj, defaultImg) {
-  if (obj && obj.length >= 1) {
-    return obj.map(function (item) {
-      return "".concat(Api.ShowPic, "/").concat(item.id, "/download");
-    });
-  } else {
-    return defaultImg ? [defaultImg] : [];
-  }
-}
-
-
-/**
-   * 单个--图片地址拼接--返回图片地址数组
-   */
-function pinImgSmallUrl(obj, defaultImg) {
-  if (obj && obj.length >= 1) {
-    return obj.map(function (item) {
-      return "".concat(Api.ShowPic, "/").concat(item.id, "/small/download");
-    });
-  } else {
-    return defaultImg ? [defaultImg] : [];
-  }
-}
-
-/**
-   * 单个--图片地址拼接--返回图片地址数组
-   */
-function pinImgMiddleUrl(obj, defaultImg) {
-  if (obj && obj.length >= 1) {
-    return obj.map(function (item) {
-      return "".concat(Api.ShowPic, "/").concat(item.id, "/middle/download");
-    });
-  } else {
-    return defaultImg ? [defaultImg] : [];
-  }
-}
-
-/**
-   * 图片预加载--图片地址拼接(求购区、现货区 列表)
-   */
-function pinPreImg(picId) {
-  if (picId) {
-    var imgArr = picId.split("|");
-
-    return {
-      url: "".concat(Api.ShowPic, "/").concat(imgArr[0], "/download"),
-      loaded: false };
-
-  } else {
-    return {
-      url: '../../images/detail-buy-s.png',
-      loaded: false };
-
-  }
-}
-
-/**
-   * 图片预加载--图片地址拼接(求购区、现货区 列表)
-   */
-function pinPreSmallImg(picId) {
-  if (picId) {
-    var imgArr = picId.split("|");
-
-    return {
-      url: "".concat(Api.ShowPic, "/").concat(imgArr[0], "/small/download"),
-      loaded: false };
-
-  } else {
-    return {
-      url: '../../images/detail-buy-s.png',
-      loaded: false };
-
-  }
-}
-
-/**
-   * 图片预加载--图片是否加载完成处理
-   */
-function imgPreload(that, imgArr, fn) {
-  if (imgArr.length < 1) return;
-  imgArr.forEach(function (item) {
-    // 图片预加载
-    that.imgLoader.load(item.url, function (err, data) {
-      var imgList = [];
-      imgList = imgArr.map(function (list) {
-        if (list.url == data.src) {
-          list.loaded = true;
-        }
-        return list;
-      });
-
-      fn && fn(imgList);
-    });
-  });
-}
-
-/**
-   * 获取 页面高度
-   */
-function onWindowH() {
-  return new Es6Promise(function (resolve, reject) {
-    wx.getSystemInfo({
-      success: function success(res) {
-        var minHeight = res.windowHeight;
-
-        resolve(minHeight);
-      },
-      fail: function fail(err) {
-        reject(err);
-      } });
-
-  });
-}
-
-/**
-   * 判断有没有token
-   */
-function getToken() {
-  return wx.getStorageSync("token");
-}
-
-/**
-   * formId 地址拼接
-   */
-function pinFormId(api, formId) {
-  var isFormId = formId == "the formId is a mock one" ? "" : formId;
-
-  return isFormId ? api + "?formid=" + isFormId : api;
-}
-
-/**
-   * 添加图片--单张
-   */
-function addPic(fn) {
-  wx.chooseImage({
-    count: 1,
-    sizeType: ['original', 'compressed'], // 可以指定是原图还是压缩图，默认二者都有
-    sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有
-    success: function success(res) {
-      var filesArr = res.tempFiles;
-      var fliesPathArr = res.tempFilePaths;
-      var maxSize = 1024 * 1024;
-      var picState = true;
-
-      if (!filesArr) {// 用于处理部分手机返回值为空的问题
-        Util.versionTip();
-        picState = false;
-        return;
-      }
-
-      // 验证size是否大于1M
-      filesArr.map(function (item, index) {
-        var size = item.size;
-
-        if (size > maxSize) {
-          wx.showModal({
-            content: '图片不能大于1M',
-            showCancel: false });
-
-          picState = false;
-          return false;
-        }
-      });
-
-      if (picState) {
-        fn && fn(fliesPathArr);
-      } else {
-        fn && fn(picState);
-      }
-    },
-    fail: function fail() {
-      console.log("已取消图片选择");
-    } });
-
-}
-
-/**
-   * 控制按钮状态
-   */
-function setBtnState(formText, that) {
-  var stateNum = 0;
-
-  formText.forEach(function (item) {
-    if (item == 1) stateNum++;
-  });
-
-  if (stateNum == formText.length) {
-    that.setData({
-      submitBtn: true });
-
-  } else {
-    that.setData({
-      submitBtn: false });
-
-  }
-}
-
-
-/**
-   * 倒计时
-   */
-function downTime(that) {
-  var backTime = parseInt(that.data.backTime);
-  setBackTime();
-
-  function setBackTime() {
-    backTime--;
-    that.setData({
-      backTime: backTime });
-
-    if (backTime <= 0 || that.data.backTimeState) {
-      that.setData({
-        validateCod: !that.data.validateCod,
-        backTime: 60,
-        backTimeState: false });
-
-      return false;
-    }
-    setTimeout(setBackTime, 1000);
-  }
-}
-
-/**
-   * 价格补零
-   */
-function supZero(price) {
-  if (price) {
-    var sPrice = price.toString();
-
-    if (sPrice.indexOf(".") != -1) {
-      var newPrice = sPrice.split('.');
-      if (!newPrice[1]) {// 有. 没有数
-        sPrice += "00";
-      } else if (newPrice[1].length == 1) {// 有. 有一位数
-        sPrice += "0";
-      }
-    } else {
-      sPrice += ".00";
-    }
-    return sPrice;
-  }
-  return price;
-}
-
-/**
-   * 打 * 函数
-   */
-function setStar(str, bNum, aNum) {
-  var oStr = '';
-  if (str) {
-    oStr = str.toString();
-
-    var nStr = '';
-    var nANum = oStr.length - aNum;
-
-    nStr += oStr.substring(0, bNum);
-    for (var i = bNum; i < nANum; i++) {
-      nStr += '*';
-    }
-    nStr += oStr.substring(nANum, oStr.length);
-
-    return nStr;
-  } else {
-    return oStr;
-  }
-}
-
-/**
-   * 每个几个字符加空格 函数
-   */
-function setSpace(str, num) {
-  var nStr = '';
-  var firstIndex = 0;
-  var endIndex = 4;
-  var len = Math.ceil(str.length / 4);
-
-  for (var i = 0; i < len; i++) {
-    if (i < len - 1) {
-      nStr += str.substring(firstIndex, endIndex) + ' ';
-    } else {
-      nStr += str.substring(firstIndex, endIndex);
-    }
-    firstIndex = endIndex;
-    endIndex = endIndex + num;
-  }
-  return nStr;
-}
-
-/**
-   * 每个几个数字加逗号 函数
-   */
-function setComma(num) {
-  var num = (num || 0).toString();
-  var result = '';
-  while (num.length > 3) {
-    result = ',' + num.slice(-3) + result;
-    num = num.slice(0, num.length - 3);
-  }
-  if (num) {result = num + result;}
-  return result;
-}
-
-/**
-   * 判断点击认证进入的页面
-   */
-function goApprovePage(that) {
-  var approveUrl = ["../user-approve/approve", "../c-approve/private", "../c-approve/public"];
-  var applyType = that.data.applyType;
-  var appState = that.data.appState;
-  var changePage = that.data.changePage;
-
-  if (appState == 2 && applyType == 1 || appState == 2 && applyType == 0 && changePage) {
-    changePageFalse(that);
-    // 个人认证填写页
-    wx.navigateTo({
-      url: approveUrl[1] });
-
-  } else if (appState == 2 && applyType == 2 && changePage) {
-    changePageFalse(that);
-    // 企业认证填写页
-    wx.navigateTo({
-      url: approveUrl[2] + "?only=true" });
-
-  } else if (appState == 0 && changePage) {
-    changePageFalse(that);
-    // 企业认证、个人认证选择页
-    wx.navigateTo({
-      url: approveUrl[0] });
-
-  } else if (appState == 3 && applyType == 1 && changePage) {
-    changePageFalse(that);
-    // 企业认证填写页
-    wx.navigateTo({
-      url: approveUrl[2] + "?only=true" });
-
-  }
-}
-
-/**
-   * 银行账号对比，是否重复添加
-   */
-function toCompareBank(bankArr, bankNum) {
-  var BBank = true;
-
-  if (bankArr.length < 1) return BBank;
-
-  bankArr.map(function (item) {
-    if (item == bankNum) {
-      Util.showModal("绑定提示", "您已添加过该账户，请换一个账户");
-      BBank = false;
-    }
-  });
-  return BBank;
-}
-
-/**
-   * 设置银行logo、判断银行是否停用
-   * bank1：付款储蓄卡列表、收款卡列表
-   * bank2：付款信用卡列表
-   */
-function getBankLogo(bankArr, str, bank1, bank2) {
-  var bankList = [];
-
-  if (bankArr.length < 1) return;
-
-  if (str == "pay") {
-    bankArr.map(function (item) {
-      if (item.cardType == 10) {
-        // bankList = wx.getStorageSync("paySaveList");
-        setBankLogo(item, bank1);
-
-      } else {
-        // bankList = wx.getStorageSync("payCreditList");
-        setBankLogo(item, bank2);
-      }
-    });
-  } else if (str = "cash") {
-    // bankList = wx.getStorageSync("cashBankList");
-
-    bankArr.map(function (item, index) {
-      setBankLogo(item, bank1);
-    });
-  }
-}
-
-/**
-   * 设置银行的logo、是否停用等
-   */
-function setBankLogo(item, bankList) {
-  item.bStop = false;
-
-  if (bankList.length < 1) return;
-
-  bankList.map(function (list, j) {
-    if (trim(item.bankId) == trim(list.code)) {
-      item.logo = list.logo;
-      item.bStop = true;
-      item.limitOnce = list.limitOnce; // 单日限额
-      item.limitDay = list.limitDay;
-      getBankOverNum(item);
-      getBankAccount(item);
-    }
-  });
-}
-
-/**
-   * 功能：截取银行卡号后四位
-   * 参数：获取到的银行列表数组不同索引的对象
-   */
-function getBankOverNum(item) {
-  var len = item.accountNumber.length;
-  item.overNum = item.accountNumber.substring(len - 4, len);
-}
-
-/**
-   * 功能：返回拼接后的银行账户
-   * 参数：获取到的银行列表数组不同索引的对象
-   */
-function getBankAccount(item) {
-  item.sBankVal = "".concat(item.bankName).concat(item.cardType == 10 ? '储蓄卡' : '信用卡', "(").concat(item.overNum, ")");
-}
-
-/**
-   * 信用卡费率计算
-   */
-function getRate(amount, PayRateNum) {
-  var nAmount = amount * 100 * PayRateNum / 1000000;
-  var arr = nAmount.toString().split(".");
-  var price = 0;
-
-  price = nAmount.toFixed(2);
-
-  // if (arr[1].substring(0,2) > 0) {
-  // 如果小数位超过3位
-  // if (arr.length > 1 && arr[1].length > 3 && arr[1].substring(2, 3) < 5) {
-  //   console.log("price")
-  //   price = (price * 100 + 1)/100;
-  // }
-  // }
-
-  return supZero(Number(price));
-}
-
-//数字四舍五入
-function forDight(Dight, How) {
-  Dight = Math.round(Dight * Math.pow(10, How)) / Math.pow(10, How);
-  return Dight;
-}
-function setPositionQuality(item) {
-  if (item == 1) {
-    return '一般订单';
-  } else if (item == 2) {
-    return '市场货';
-  } else if (item == 3) {
-    return '高级订单';
-  } else if (item == 4) {
-    return '品牌订单';
-  } else {
-    return '';
-  }
-}
-function setGlossLongitude(item) {
-  if (item == 1) {
-    return '消光';
-  } else if (item == 2) {
-    return '半光';
-  } else if (item == 3) {
-    return '半消光';
-  } else if (item == 4) {
-    return '有光';
-  } else {
-    return '';
-  }
-}
-module.exports = {
-  showLoading: showLoading,
-  hideLoading: hideLoading,
-  showLoad: showLoad,
-  hideLoad: hideLoad,
-  setLoadFalse: setLoadFalse,
-  setLoadTrue: setLoadTrue,
-  changePageFalse: changePageFalse,
-  changePageTrue: changePageTrue,
-  changeGloss: changeGloss,
-  changeVal: changeVal,
-  pinImgUrl: pinImgUrl,
-  pinImgSmallUrl: pinImgSmallUrl,
-  pinImgMiddleUrl: pinImgMiddleUrl,
-  pinPreImg: pinPreImg,
-  pinPreSmallImg: pinPreSmallImg,
-  imgPreload: imgPreload,
-  onWindowH: onWindowH,
-  getToken: getToken,
-  pinFormId: pinFormId,
-  addPic: addPic,
-  setBtnState: setBtnState,
-  downTime: downTime,
-  supZero: supZero,
-  setStar: setStar,
-  setSpace: setSpace,
-  setComma: setComma,
-  goApprovePage: goApprovePage,
-  toCompareBank: toCompareBank,
-  getBankLogo: getBankLogo,
-  getBankAccount: getBankAccount,
-  getRate: getRate,
-  forDight: forDight,
-  setPositionQuality: setPositionQuality,
-  setGlossLongitude: setGlossLongitude };
-
-/***/ }),
-
-/***/ 44:
-/*!****************************************************!*\
-  !*** /Users/lee/Downloads/备份11/轻纺车网/utils/pipe.js ***!
-  \****************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-var _require =
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-__webpack_require__(/*! ./const.js */ 45),QUALITY = _require.QUALITY,POSITION = _require.POSITION,GLOSS = _require.GLOSS,STOCK_TYPES = _require.STOCK_TYPES,BUY_ORDER = _require.BUY_ORDER,BUY_BACK_ORDER = _require.BUY_BACK_ORDER,SELL_ORDER = _require.SELL_ORDER,COMPLETE = _require.COMPLETE,COST_PERFORMANCE = _require.COST_PERFORMANCE,REAL_RATE = _require.REAL_RATE,BREAK_OUT = _require.BREAK_OUT,STOP_BRIGHT = _require.STOP_BRIGHT,STOP_DIM = _require.STOP_DIM,DARK_STRIP = _require.DARK_STRIP;
-
-function formatTime(date) {
-  if (date) {
-    var oDate = date.slice(0, date.indexOf(".")); // 截取时间戳 . 前面的数
-
-    oDate = oDate.replace(/T/g, ' ').replace(/(-)/g, '/');
-
-    var nDate = new Date(oDate);
-
-    var year = nDate.getFullYear();
-    var month = nDate.getMonth() + 1;
-    var day = nDate.getDate();
-
-    var h = nDate.getHours();
-    var m = nDate.getMinutes();
-    var s = nDate.getSeconds();
-    console.log(h, m, s);
-    return [year, month, day].map(formatNumber).join('-');
-    //  + ' ' + [hour, minute, second].map(formatNumber).join(':')
-  } else {
-    return '';
-  }
-}
-
-function formatNumber(n) {
-  n = n.toString();
-  return n[1] ? n : '0' + n;
-}
-
-/**
-   * 返回key所对应的值
-   */
-function change(obj, num) {
-  var value = '';
-  var n = parseInt(num);
-  obj.map(function (item) {
-    if (item.key == num) value = item.value;
-  });
-  return value;
-}
-/**
-   * 返回key所对应的值
-   */
-function changeMore(obj, num) {
-  if (num) {
-    var value = [];
-    var n = parseInt(num);
-    obj.map(function (item) {
-      if (item.key & num) {
-        value.push(item.value);
-      }
-    });
-    return value.join('、');
-  }
-}
-
-/**
-   * 品质要求
-   */
-function pipeQuality(num) {
-  return changeMore(QUALITY, num);
-}
-
-/**
-   * 品质定位
-   */
-function pipePosition(num) {
-  return changeMore(POSITION, num);
-}
-
-/**
-   * 特性
-   */
-function pipeGloss(num) {
-  return changeMore(GLOSS, num);
-}
-
-/**
-   * 现货详情-库存状态
-   */
-function pipeStock(num) {
-  return changeMore(STOCK_TYPES, num);
-}
-
-/**
-   * 找布状态
-   */
-function pipeStatus(num) {
-  var newNum = parseInt(num);
-  var sI = 0; // 状态
-
-  if (newNum == 1) {
-    sI = 0;
-  } else if (newNum == 2) {
-    sI = 1;
-  } else if (newNum == 4) {
-    sI = 2;
-  } else if (newNum < 0) {
-    sI = 3;
-  }
-  return sI;
-}
-
-/**
-   * 认证状态
-   */
-function approveState(oData) {
-  // currentType：0: 未认证；1: 个人认证；2: 企业认证
-  // status：0: 认证中；1: 认证通过；2: 认证失败
-  // applyType：1：个人认证中；2：企业认证中
-
-  // 未认证：404
-  // 个人认证-审核中 status:0 currentType:null
-  // 个人认证失败-重新审核 status:2 currentType:null（0）
-  // 个人认证-通过：status:1 currentType:1
-  // 企业认证-审核中：status:0 currentType:null
-  // 企业认证 status:1 currentType:2
-  // 企业认证失败-重新审核：status:2 currentType:0
-  var current = oData.currentType;
-  var state = oData.status;
-
-  if (state == 0) {
-    return 1; // 认证中
-  } else if (state == 2) {
-    return 2; // 认证失败，重新认证
-  } else if (current == 1 && state == 1) {
-    return 3; // 个人认证
-  } else if (current == 2 && state == 1) {
-    return 4; // 企业认证
-  } else {
-    return 0;
-  }
-}
-
-
-/**
-   * 采购订单状态转换
-   *    总状态：1：正常；2：取消(0)；3：完成(7)
-   *    分状态(总状态：1)：1：待支付；2：支付处理中；3：待结算；4：结算处理中；5：待收货；6：订单完成;9:买家支付中
-   */
-function changeBuyState(obj) {
-
-  var oState = 1;
-  var stateText = "";
-  var buyState = obj.buyOrder.status;
-
-  // if (obj.status == 1) { // 订单处理中
-
-  // }
-  // else 
-  if (obj.status == 2) {// 取消订单
-    if (buyState == 3 && !obj.buyOrder.refundBankId) {
-      oState = -1;
-    } else if (buyState == 3 && obj.buyOrder.refundBankId) {
-      oState = -4;
-    } else {
-      oState = buyState == -4 ? buyState : buyState == -5 ? buyState : -1;
-    }
-    stateText = buyBackOrderState(oState);
-  } else {
-    oState = buyState;
-    stateText = buyOrderState(oState);
-  }
-  // else if (obj.status == 3) { // 完成订单
-  //   oState = buyState == 7 ? buyState : 9;
-  //   stateText = buyState == 7 ? "线下订单" : "订单完成";
-  // }
-
-  return {
-    state: oState,
-    text: stateText };
-
-}
-
-
-
-/**
-   * 销售订单状态转换
-   *    总状态(item.status)：1：正常；2：取消；3：完成
-   *    分状态(item.sellOrder.status)：1：等待代付；2：代付处理中；3：待发货；4：订单完成
-   */
-function changeSellState(obj) {
-  var oState = 1;
-  var stateText = "";
-  var sellState = obj.sellOrder.status;
-
-  if (obj.status == 1 || obj.status == 3) {
-    oState = sellState;
-    stateText = obj.sellOrder.cardid == null && sellState == 1 ? "待确认" : sellOrderState(sellState);
-  } else if (obj.status == 2) {
-    oState = -1;
-    stateText = "订单已取消";
-  }
-  //  else if (obj.status == 3) {
-  //   oState = sellState == 5 ? sellState : 9;
-  //   stateText = sellState == 5 ? "线下订单" : "订单完成"
-  // }
-
-  return {
-    state: oState,
-    text: stateText };
-
-}
-
-
-
-
-/**
-   * 交易订单--状态转换
-   */
-// 采购订单
-function buyOrderState(state) {
-  return change(BUY_ORDER, state);
-}
-// 采购退款订单
-function buyBackOrderState(state) {
-  return change(BUY_BACK_ORDER, state);
-}
-// 销售订单
-function sellOrderState(state) {
-  return change(SELL_ORDER, state);
-}
-
-/**
-   * 订单流水--退款结果
-   */
-function pipeComplete(state) {
-  return change(COMPLETE, state);
-}
-
-
-/**
-   * 采购订单评价--性价比
-   */
-function pipeCost(num) {
-  return changeMore(COST_PERFORMANCE, num);
-}
-/**
-   * 采购订单评价--实码率
-   */
-function pipeReal(num) {
-  return changeMore(REAL_RATE, num);
-}
-/**
-   * 采购订单评价--断经、断纬
-   */
-function pipeBreak(num) {
-  return changeMore(BREAK_OUT, num);
-}
-/**
-   * 采购订单评价--停车明档
-   */
-function pipeBright(num) {
-  return changeMore(STOP_BRIGHT, num);
-}
-/**
-   * 采购订单评价--停车暗档
-   */
-function pipeDim(num) {
-  return changeMore(STOP_DIM, num);
-}
-/**
-   * 采购订单评价--暗条
-   */
-function pipeDark(num) {
-  return changeMore(DARK_STRIP, num);
-}
-
-// 获取时间戳
-function getTimeStamp() {
-  var myDate = new Date();
-  var Y = myDate.getFullYear().toString().slice(2);
-  var M = myDate.getMonth() + 1 < 10 ? "0" + (myDate.getMonth() + 1) : (myDate.getMonth() + 1).toString();
-  var D = myDate.getDate() < 10 ? "0" + myDate.getDate() : myDate.getDate().toString();
-  var h = myDate.getHours().toString();
-  var m = myDate.getMinutes().toString();
-  var s = myDate.getSeconds() < 10 ? "0" + myDate.getSeconds() : myDate.getSeconds().toString();
-  var ms = myDate.getMilliseconds() < 10 ? "00" + myDate.getMilliseconds() : myDate.getMilliseconds() < 100 ? "0" + myDate.getMilliseconds() : myDate.getMilliseconds();
-  var timeId = Y + M + D + h + m + s + ms;
-  return timeId;
-}
-function timeName(time) {
-  if (!time) {
-    return '';
-  }
-  var myDate = new Date(time);
-  var Y = myDate.getFullYear().toString();
-  var M = myDate.getMonth() + 1 < 10 ? "0" + (myDate.getMonth() + 1) : (myDate.getMonth() + 1).toString();
-  var D = myDate.getDate() < 10 ? "0" + myDate.getDate() : myDate.getDate().toString();
-  var h = myDate.getHours() < 10 ? "0" + myDate.getHours() : myDate.getHours().toString();
-  var m = myDate.getMinutes() < 10 ? "0" + myDate.getMinutes() : myDate.getMinutes().toString();
-  var s = myDate.getSeconds() < 10 ? "0" + myDate.getSeconds() : myDate.getSeconds().toString();
-  var timeId = Y + '-' + M + '-' + D + ' ' + h + ':' + m + ':' + s;
-  return timeId;
-}
-
-// 设置时间
-function setTime(time) {
-  if (time && time.indexOf("T") != -1) {
-    var date = new Date(time),
-    Y = date.getFullYear() + '-',
-    M = (date.getMonth() + 1 < 10 ? '0' + (date.getMonth() + 1) : date.getMonth() + 1) + '-',
-    D = date.getDate() < 10 ? '0' + date.getDate() + ' ' : date.getDate() + ' ',
-    h = date.getHours() < 10 ? '0' + date.getHours() + ':' : date.getHours() + ':',
-    m = date.getMinutes() < 10 ? '0' + date.getMinutes() + ':' : date.getMinutes() + ':',
-    s = date.getSeconds() < 10 ? '0' + date.getSeconds() : date.getSeconds();
-    console.log("data", date);
-    return Y + M + D + h + m + s;
-  } else {
-    return time;
-  }
-}
-module.exports = {
-  formatTime: formatTime,
-  pipeStatus: pipeStatus,
-  pipeQuality: pipeQuality,
-  pipePosition: pipePosition,
-  pipeGloss: pipeGloss,
-  pipeStock: pipeStock,
-  approveState: approveState,
-  changeBuyState: changeBuyState,
-  changeSellState: changeSellState,
-  buyOrderState: buyOrderState,
-  buyBackOrderState: buyBackOrderState,
-  sellOrderState: sellOrderState,
-  pipeComplete: pipeComplete,
-  getTimeStamp: getTimeStamp,
-  // 采购订单评价
-  pipeCost: pipeCost,
-  pipeReal: pipeReal,
-  pipeBreak: pipeBreak,
-  pipeBright: pipeBright,
-  pipeDim: pipeDim,
-  pipeDark: pipeDark,
-  timeName: timeName,
-  setTime: setTime };
-
-/***/ }),
-
-/***/ 45:
-/*!*****************************************************!*\
-  !*** /Users/lee/Downloads/备份11/轻纺车网/utils/const.js ***!
-  \*****************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-/**
- * 品质要求
- */
-var QUALITY = [
-{ key: 1 << 3, value: '包染色' },
-{ key: 1 << 2, value: '染白色' },
-{ key: 1 << 1, value: '染黑色' },
-{ key: 1, value: '不包染色' }];
-
-
-/** 品质定位
-                             * 
-                             */
-var POSITION = [
-{ key: 1, value: '品牌订单' },
-{ key: 1 << 1, value: '高级订单' },
-{ key: 1 << 2, value: '一般订单' },
-{ key: 1 << 3, value: '市场订单' }];
-
-
-/** 特性
-                                  * 
-                                  */
-var GLOSS = [
-{ key: 1 << 2, value: '有光' },
-{ key: 1 << 1, value: '半光' },
-{ key: 1, value: '消光' }];
-
-
-/**
-                           * 库存状态
-                           */
-var STOCK_TYPES = [
-{ key: 1, value: '有现货并生产中' },
-{ key: 1 << 1, value: '有现货' },
-{ key: 1 << 2, value: '生产中' },
-{ key: 1 << 3, value: '可定织' },
-{ key: 1 << 4, value: '已售罄' }];
-
-
-/** 采购订单
-                                 *    总状态：1：正常；2：取消(0)；3：完成(7)
-                                 *    分状态(总状态：1)：1：待支付；2：支付处理中；3：待结算；4：结算处理中；5：待收货；6：订单完成;9:买家支付中
-                                 */
-var BUY_ORDER = [
-{ key: 1, value: "待支付" },
-{ key: 2, value: "已支付，银行处理中" },
-{ key: 3, value: "支付成功" },
-{ key: 4, value: "支付成功" },
-{ key: 5, value: "待收货" },
-{ key: 6, value: "已收货" },
-{ key: 7, value: "线下订单" },
-{ key: 8, value: "订单完成" },
-{ key: 9, value: "支付中" }];
-
-
-/**
-                            * 采购订单
-                            *    总状态：1：正常；2：取消(0)；3：完成(7)
-                            *    分状态(总状态：2)：-4：退款中；-5：已退款
-                            */
-var BUY_BACK_ORDER = [
-{ key: -1, value: "订单已取消" },
-// { key: -3, value: "待退款" },
-{ key: -4, value: "退款中" },
-{ key: -5, value: "已退款" }];
-
-
-/** 
-                             * 销售订单
-                             *    总状态：1：正常；2：取消；3：完成
-                             *    分状态：1：等待代付；2：代付处理中；3：待发货；4：订单完成
-                             * 
-                             *    待确认；已确认；买家已支付，待发货；已发货；订单完成；订单已取消
-                             */
-var SELL_ORDER = [
-{ key: 1, value: "已确认" },
-{ key: 2, value: "已确认" },
-{ key: 3, value: "买家已支付，待发货" },
-{ key: 4, value: "已发货" },
-{ key: 5, value: "线下订单" },
-{ key: 6, value: "订单完成" }];
-
-
-/**
-                             * 订单退款结果
-                             */
-var COMPLETE = [
-{ key: -1, value: "退款失败" },
-{ key: 0, value: "退款中" },
-{ key: 1, value: "退款成功" }];
-
-
-
-/**
-                             * 采购订单评价--性价比
-                             */
-var COST_PERFORMANCE = [
-{ key: 1, value: '性价比偏高' },
-{ key: 1 << 1, value: '性价比合理' },
-{ key: 1 << 2, value: '性价比偏低' }];
-
-
-/**
-                                   * 采购订单评价--实码率
-                                   */
-var REAL_RATE = [
-{ key: 1, value: '实码率正常' },
-{ key: 1 << 1, value: '实码率偏低' }];
-
-
-/**
-                                   * 采购订单评价--断经、断纬
-                                   */
-var BREAK_OUT = [
-{ key: 1, value: '断经、断纬偶尔' },
-{ key: 1 << 1, value: '断经、断纬较多' },
-{ key: 1 << 2, value: '断经、断纬多' }];
-
-
-/**
-                                    * 采购订单评价--停车明档
-                                    */
-var STOP_BRIGHT = [
-{ key: 1, value: '停车明档偶尔' },
-{ key: 1 << 1, value: '停车明档较多' },
-{ key: 1 << 2, value: '停车明档多' }];
-
-
-/**
-                                   * 采购订单评价--停车暗档
-                                   */
-var STOP_DIM = [
-{ key: 1, value: '停车暗档偶尔' },
-{ key: 1 << 1, value: '停车暗档较多' },
-{ key: 1 << 2, value: '停车暗档多' }];
-
-
-/**
-                                   * 采购订单评价--暗条
-                                   */
-var DARK_STRIP = [
-{ key: 1, value: '暗条偶尔' },
-{ key: 1 << 1, value: '暗条较多' },
-{ key: 1 << 2, value: '暗条多' }];
-
-
-module.exports = {
-  QUALITY: QUALITY,
-  POSITION: POSITION,
-  GLOSS: GLOSS,
-  STOCK_TYPES: STOCK_TYPES,
-  BUY_ORDER: BUY_ORDER,
-  BUY_BACK_ORDER: BUY_BACK_ORDER,
-  SELL_ORDER: SELL_ORDER,
-  COMPLETE: COMPLETE,
-
-  // 采购订单评价
-  COST_PERFORMANCE: COST_PERFORMANCE,
-  REAL_RATE: REAL_RATE,
-  BREAK_OUT: BREAK_OUT,
-  STOP_BRIGHT: STOP_BRIGHT,
-  STOP_DIM: STOP_DIM,
-  DARK_STRIP: DARK_STRIP };
-
-/***/ }),
-
-/***/ 46:
-/*!*******************************************************!*\
-  !*** /Users/lee/Downloads/备份11/轻纺车网/services/user.js ***!
-  \*******************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-/**
- * 用户相关服务
- */
-
-var Util = __webpack_require__(/*! utils/util.js */ 24);
-var Api = __webpack_require__(/*! services/config/api.js */ 23);
-var Es6Promise = __webpack_require__(/*! lib/es6-promise.js */ 25);
-
-
-/**
-                                                 * 调用微信登录
-                                                 */
-function loginByWeixin() {
-  var code = null;
-  return new Es6Promise(function (resolve, reject) {
-    // return Util.login().then((res) => {
-    //   code = res.code;
-    //   return Util.getUserInfo();
-    // }).then((userInfo) => {
-    Es6Promise.all([
-    Util.login(),
-    Util.getUserInfo()]).
-    then(function (allRes) {
-      var code = allRes[0].code;
-      var userInfo = allRes[1];
-      var loginOn = wx.getStorageSync("loginOn");
-
-      if (!loginOn) {// 防止重复请求登录
-        wx.setStorageSync("loginOn", true);
-
-        wx.setStorageSync("rawData", userInfo.rawData);
-        wx.setStorageSync("signature", userInfo.signature);
-
-        //登录远程服务器
-        Util.request(Api.AuthLoginByWeixin, { code: code, userInfo: userInfo }, 'post').then(function (res) {
-          wx.setStorageSync("loginOn", false);
-
-          if (res.statusCode == 200) {
-            if (res.data.sessionKey) {
-              wx.setStorageSync("sessionKey", res.data.sessionKey);
-            }
-            //存储用户信息
-            wx.setStorageSync('userInfo', res.data.userInfo);
-            wx.setStorageSync('token', res.data.token);
-
-            resolve(res);
-          } else {
-            reject(res);
-          }
-        }).catch(function (err) {
-          wx.setStorageSync("loginOn", false);
-          reject(err);
-        });
-      }
-    }).catch(function (err) {
-      reject(err);
-    });
-  });
-}
-
-/**
-   * 判断用户是否登录
-   */
-function checkLogin() {
-  return new Es6Promise(function (resolve, reject) {
-    if (wx.getStorageSync('userInfo') && wx.getStorageSync('token')) {
-
-      Util.checkSession().then(function () {
-        resolve(true);
-      }).catch(function () {
-        reject(false);
-      });
-
-    } else {
-      reject(false);
-    }
-  });
-}
-
-module.exports = {
-  loginByWeixin: loginByWeixin,
-  checkLogin: checkLogin };
-
-/***/ }),
-
-/***/ 47:
-/*!*********************************************************!*\
-  !*** /Users/lee/Downloads/备份11/轻纺车网/services/server.js ***!
-  \*********************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-var Common = __webpack_require__(/*! utils/common.js */ 43);
-var Api = __webpack_require__(/*! services/config/api.js */ 23);
-var Util = __webpack_require__(/*! utils/util.js */ 24);
-var Es6Promise = __webpack_require__(/*! lib/es6-promise.js */ 25);
-
-/*
-                                                 * get 数据
-                                                 */
-function getDataWX(api, data) {
-  return new Es6Promise(function (resolve, reject) {
-    Util.request(api, data, 'get').then(function (res) {
-      if (res.statusCode === 200) {
-        resolve(res);
-      } else {
-        reject(res);
-      }
-    }).catch(function (err) {
-      reject(err);
-    });
-  });
-}
-
-/**
-   * post 数据
-   */
-function postDataWX(api, data) {
-  return new Es6Promise(function (resolve, reject) {
-    Util.request(api, data, 'post').then(function (res) {
-      if (res.statusCode >= 200 && res.statusCode < 300) {
-        resolve(res);
-      } else {
-        reject(res);
-      }
-    }).catch(function (err) {
-      reject(err);
-    });
-  });
-}
-
-
-/**
-   * put 数据
-   */
-function putDataWX(api, data) {
-  return new Es6Promise(function (resolve, reject) {
-    Util.request(api, data, 'put').then(function (res) {
-      if (res.statusCode >= 200 && res.statusCode < 300) {
-        resolve(res);
-      } else {
-        reject(res);
-      }
-    }).catch(function (err) {
-      reject(err);
-    });
-  });
-}
-
-/**
-   * delete 数据
-   */
-function deleteDataWX(api, data) {
-  return new Es6Promise(function (resolve, reject) {
-    Util.request(api, data, 'delete').then(function (res) {
-      if (res.statusCode >= 200 && res.statusCode < 300) {
-        resolve(res);
-      } else {
-        reject(res);
-      }
-    }).catch(function (err) {
-      reject(err);
-    });
-  });
-}
-
-/**
-   * 页面行为记录
-   */
-function setActive(that, data) {
-  var apiStr = Api.userBehavior;
-  var token = wx.getStorageSync("token");
-
-  if (that.data.loadState && token) {
-    postDataWX(apiStr, data).then(function (res) {
-      Common.setLoadTrue(that);
-    }).catch(function (err) {
-      Common.setLoadTrue(that);
-    });
-  }
-}
-
-/**
-   * 获取表单formId
-   */
-function getFormId(e) {
-  var formId = e.detail.formId;
-  var formApi = Common.pinFormId(Api.formID, formId);
-  var token = wx.getStorageSync("token");
-
-  if (token && formId != "the formId is a mock one") {
-    Util.request(formApi, {}, 'get').then(function (res) {}).catch(function (err) {});
-  }
-}
-
-
-/**
-   * 功能：获取二维码
-   * 参数：
-   *    pagePath：页面路径
-   *    id：订单id
-   */
-function getQRCodeUrl(pagePath, id) {
-  return new Es6Promise(function (resolve, reject) {
-    var COdeApi = Api.QRCodeUrl;
-    var pageUrl = id ? "".concat(pagePath, "?id=").concat(id) : pagePath;
-
-    Util.request(COdeApi, pageUrl, 'post').then(function (res) {
-      var picUrl = "".concat(Api.ShowPic, "/").concat(res.data.id, "/download");
-
-      Util.downloadFile(picUrl).then(function (weChatUrl) {
-        resolve(weChatUrl);
-      }).catch(function (err) {
-        showModal("图片下载失败");
-      });
-    }).catch(function (err) {
-      Util.showErrorToast("获取二维码失败");
-    });
-  });
-}
-
-/**
-   * 上传图片
-   * 
-   * 参数：
-   *    photoList：要上传的图片数组
-   *    apiState：控制使用压缩上传的api，还是不压缩上传的api
-   */
-var uploadPics = function uploadPics(photoList) {var apiState = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;
-  return new Es6Promise(function (resolve, reject) {
-    var photoJsonArray = [];
-    if (photoList && photoList.length >= 1) {
-      photoList.forEach(function (item) {
-        wx.uploadFile({
-          url: !apiState ? Api.PicUpload : Api.PicNewUpload,
-          filePath: item,
-          name: 'file',
-          header: {
-            'Authorization': "Bearer " + wx.getStorageSync('token') },
-
-          formData: {
-            'user': 'test' },
-
-          success: function success(res) {
-            photoJsonArray.push(JSON.parse(res.data));
-
-            if (photoJsonArray.length == photoList.length) {
-              resolve(photoJsonArray);
-            }
-          },
-          fail: function fail(err) {
-            reject(err);
-          } });
-
-      });
-    } else {
-      resolve([]);
-    }
-  });
-};
-
-
-
-/**
-    * 功能：采购订单详情--获取用户的 付款银行账户 
-    */
-function createOrder(data) {
-  return new Es6Promise(function (resolve, reject) {
-    var createOrderApi = Api.createOrder;
-
-    Util.request(createOrderApi, data, 'post').then(function (res) {
-      resolve(res);
-    }).catch(function (err) {
-      Util.showModal("新建询价单失败");
-      // reject(err);
-    });
-  });
-}
-
-
-
-module.exports = {
-  getDataWX: getDataWX,
-  postDataWX: postDataWX,
-  putDataWX: putDataWX,
-  deleteDataWX: deleteDataWX,
-  setActive: setActive,
-  getFormId: getFormId,
-  getQRCodeUrl: getQRCodeUrl,
-  uploadPics: uploadPics,
-  createOrder: createOrder };
-
-/***/ }),
-
 /***/ 5:
 /*!*******************************************************!*\
   !*** ./node_modules/@dcloudio/uni-stat/dist/index.js ***!
@@ -25544,6 +23563,1382 @@ main();
 
 /***/ }),
 
+/***/ 58:
+/*!*************************************************************!*\
+  !*** /Users/lee/Downloads/备份11/轻纺车网/services/jsy-server.js ***!
+  \*************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var _module$exports;function _defineProperty(obj, key, value) {if (key in obj) {Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true });} else {obj[key] = value;}return obj;}var Api = __webpack_require__(/*! services/config/api.js */ 23);
+var Common = __webpack_require__(/*! utils/common.js */ 59);
+var Util = __webpack_require__(/*! utils/util.js */ 24);
+var User = __webpack_require__(/*! services/user.js */ 62);
+var Es6Promise = __webpack_require__(/*! lib/es6-promise.js */ 25);
+
+
+//下拉选择
+//区域列表
+function getRegion() {
+  return new Es6Promise(function (resolve, reject) {
+    var newApi = Api.getRegion;
+    Util.request(newApi, {}, 'get').then(function (res) {
+      resolve(res);
+    }).catch(function (err) {
+      reject(err);
+    });
+  });
+}
+//配合度
+function getCoordinate() {
+  return new Es6Promise(function (resolve, reject) {
+    var newApi = Api.getCoordinate;
+    Util.request(newApi, {}, 'get').then(function (res) {
+      resolve(res);
+    }).catch(function (err) {
+      reject(err);
+    });
+  });
+}
+//客户类型
+function getType() {
+  return new Es6Promise(function (resolve, reject) {
+    var newApi = Api.getType;
+    Util.request(newApi, {}, 'get').then(function (res) {
+      resolve(res);
+    }).catch(function (err) {
+      reject(err);
+    });
+  });
+}
+//客户规模
+function getCompanyScale() {
+  return new Es6Promise(function (resolve, reject) {
+    var newApi = Api.getCompanyScale;
+    Util.request(newApi, {}, 'get').then(function (res) {
+      resolve(res);
+    }).catch(function (err) {
+      reject(err);
+    });
+  });
+}
+//客户来源
+function getSource() {
+  return new Es6Promise(function (resolve, reject) {
+    var newApi = Api.getSource;
+    Util.request(newApi, {}, 'get').then(function (res) {
+      resolve(res);
+    }).catch(function (err) {
+      reject(err);
+    });
+  });
+}
+//公司经营模式
+function getBusinessModel() {
+  return new Es6Promise(function (resolve, reject) {
+    var newApi = Api.getBusinessModel;
+    Util.request(newApi, {}, 'get').then(function (res) {
+      resolve(res);
+    }).catch(function (err) {
+      reject(err);
+    });
+  });
+}
+//主营产品
+function getMainProduct() {
+  return new Es6Promise(function (resolve, reject) {
+    var newApi = Api.getMainProduct;
+    Util.request(newApi, {}, 'get').then(function (res) {
+      resolve(res);
+    }).catch(function (err) {
+      reject(err);
+    });
+  });
+}
+//资金状况
+function getOperateCapital() {
+  return new Es6Promise(function (resolve, reject) {
+    var newApi = Api.getOperateCapital;
+    Util.request(newApi, {}, 'get').then(function (res) {
+      resolve(res);
+    }).catch(function (err) {
+      reject(err);
+    });
+  });
+}
+//信用状况
+function getOperateCredit() {
+  return new Es6Promise(function (resolve, reject) {
+    var newApi = Api.getOperateCredit;
+    Util.request(newApi, {}, 'get').then(function (res) {
+      resolve(res);
+    }).catch(function (err) {
+      reject(err);
+    });
+  });
+}
+//运营状况
+function getOperateOperation() {
+  return new Es6Promise(function (resolve, reject) {
+    var newApi = Api.getOperateOperation;
+    Util.request(newApi, {}, 'get').then(function (res) {
+      resolve(res);
+    }).catch(function (err) {
+      reject(err);
+    });
+  });
+}
+//口碑
+function getOperateWom() {
+  return new Es6Promise(function (resolve, reject) {
+    var newApi = Api.getOperateWom;
+    Util.request(newApi, {}, 'get').then(function (res) {
+      resolve(res);
+    }).catch(function (err) {
+      reject(err);
+    });
+  });
+}
+//品质定位
+function getQuality() {
+  return new Es6Promise(function (resolve, reject) {
+    var newApi = Api.getQuality;
+    Util.request(newApi, {}, 'get').then(function (res) {
+      resolve(res);
+    }).catch(function (err) {
+      reject(err);
+    });
+  });
+}
+//角色
+function getPost() {
+  return new Es6Promise(function (resolve, reject) {
+    var newApi = Api.getPost;
+    Util.request(newApi, {}, 'get').then(function (res) {
+      resolve(res);
+    }).catch(function (err) {
+      reject(err);
+    });
+  });
+}
+//渠道
+function getChannel() {
+  return new Es6Promise(function (resolve, reject) {
+    var newApi = Api.getChannel;
+    Util.request(newApi, {}, 'get').then(function (res) {
+      resolve(res);
+    }).catch(function (err) {
+      reject(err);
+    });
+  });
+}
+//性价比
+function getCostPerformance() {
+  return new Es6Promise(function (resolve, reject) {
+    var newApi = Api.getCostPerformance;
+    Util.request(newApi, {}, 'get').then(function (res) {
+      resolve(res);
+    }).catch(function (err) {
+      reject(err);
+    });
+  });
+}
+//身份
+function getIdentity() {
+  return new Es6Promise(function (resolve, reject) {
+    var newApi = Api.getIdentity;
+    Util.request(newApi, {}, 'get').then(function (res) {
+      resolve(res);
+    }).catch(function (err) {
+      reject(err);
+    });
+  });
+}
+//发展潜力
+function getPotential() {
+  return new Es6Promise(function (resolve, reject) {
+    var newApi = Api.getPotential;
+    Util.request(newApi, {}, 'get').then(function (res) {
+      resolve(res);
+    }).catch(function (err) {
+      reject(err);
+    });
+  });
+}
+
+//用户价格敏感度
+function getPriceSensitivity() {
+  return new Es6Promise(function (resolve, reject) {
+    var newApi = Api.getPriceSensitivity;
+    Util.request(newApi, {}, 'get').then(function (res) {
+      resolve(res);
+    }).catch(function (err) {
+      reject(err);
+    });
+  });
+}
+//性格特点
+function getCharacterFeatures() {
+  return new Es6Promise(function (resolve, reject) {
+    var newApi = Api.getCharacterFeatures;
+    Util.request(newApi, {}, 'get').then(function (res) {
+      resolve(res);
+    }).catch(function (err) {
+      reject(err);
+    });
+  });
+}
+//经营者特征
+function getManageFeatures() {
+  return new Es6Promise(function (resolve, reject) {
+    var newApi = Api.getManageFeatures;
+    Util.request(newApi, {}, 'get').then(function (res) {
+      resolve(res);
+    }).catch(function (err) {
+      reject(err);
+    });
+  });
+}
+//经营定位
+function getManagementPosition() {
+  return new Es6Promise(function (resolve, reject) {
+    var newApi = Api.getManagementPosition;
+    Util.request(newApi, {}, 'get').then(function (res) {
+      resolve(res);
+    }).catch(function (err) {
+      reject(err);
+    });
+  });
+}
+//合作意向
+function getCooperationIntention() {
+  return new Es6Promise(function (resolve, reject) {
+    var newApi = Api.getCooperationIntention;
+    Util.request(newApi, {}, 'get').then(function (res) {
+      resolve(res);
+    }).catch(function (err) {
+      reject(err);
+    });
+  });
+}
+//用户登陆
+// function login(data) {
+//     return new Es6Promise(function(resolve, reject) {
+//       let newApi = Api.login;
+//       Util.request(newApi, data, 'post').then(res => {
+//         resolve(res);
+//       }).catch(err => {
+//         reject(err);
+//       })
+//     })
+//   }
+// 更改密码
+function chanage_password(data) {
+  return new Es6Promise(function (resolve, reject) {
+    var newApi = Api.chanage_password;
+    Util.request(newApi, data, 'post').then(function (res) {
+      resolve(res);
+    }).catch(function (err) {
+      reject(err);
+    });
+  });
+}
+//验证码
+function verification(data) {
+  return new Es6Promise(function (resolve, reject) {
+    var newApi = Api.verification;
+    Util.request(newApi, data, 'post').then(function (res) {
+      resolve(res);
+    }).catch(function (err) {
+      reject(err);
+    });
+  });
+}
+//用户注册
+function registration(data) {
+  return new Es6Promise(function (resolve, reject) {
+    var newApi = Api.registration;
+    Util.request(newApi, data, 'post').then(function (res) {
+      resolve(res);
+    }).catch(function (err) {
+      reject(err);
+    });
+  });
+}
+//用户个人信息
+function userDetails(data) {
+  return new Es6Promise(function (resolve, reject) {
+    var newApi = Api.userDetails;
+    Util.request(newApi, data, 'get').then(function (res) {
+      resolve(res);
+    }).catch(function (err) {
+      reject(err);
+    });
+  });
+}
+//未读信息
+function getNewsNum() {
+  return new Es6Promise(function (resolve, reject) {
+    var newApi = Api.getNewsNum;
+    Util.request(newApi, {}, 'get').then(function (res) {
+      resolve(res);
+    }).catch(function (err) {
+      reject(err);
+    });
+  });
+}
+//未读信息列表
+function noReadList(data) {
+  return new Es6Promise(function (resolve, reject) {
+    var newApi = Api.noReadList;
+    Util.request(newApi, data, 'post').then(function (res) {
+      resolve(res);
+    }).catch(function (err) {
+      reject(err);
+    });
+  });
+}
+//查询用户职位列表
+function pupList(data) {
+  return new Es6Promise(function (resolve, reject) {
+    var newApi = Api.pupList;
+    Util.request(newApi, data, 'get').then(function (res) {
+      resolve(res);
+    }).catch(function (err) {
+      reject(err);
+    });
+  });
+}
+//获取默认职位
+function pupDefault(data) {
+  return new Es6Promise(function (resolve, reject) {
+    var newApi = Api.pupDefault;
+    Util.request(newApi, data, 'get').then(function (res) {
+      resolve(res);
+    }).catch(function (err) {
+      reject(err);
+    });
+  });
+}
+//买/卖帮办客户列表
+function bsList(data) {
+  return new Es6Promise(function (resolve, reject) {
+    var newApi = Api.bsList;
+    Util.request(newApi, data, 'get').then(function (res) {
+      resolve(res);
+    }).catch(function (err) {
+      reject(err);
+    });
+  });
+}
+//销售总监，区域经理客户列表
+
+function dmList(data) {
+  return new Es6Promise(function (resolve, reject) {
+    var newApi = Api.dmList;
+    Util.request(newApi, data, 'get').then(function (res) {
+      resolve(res);
+    }).catch(function (err) {
+      reject(err);
+    });
+  });
+}
+//客户详情
+function cmDetail(data) {
+  return new Es6Promise(function (resolve, reject) {
+    var newApi = Api.cmDetail;
+    Util.request(newApi, data, 'get').then(function (res) {
+      resolve(res);
+    }).catch(function (err) {
+      reject(err);
+    });
+  });
+}
+//更新客户信息 
+function updateCustomer(data) {
+  return new Es6Promise(function (resolve, reject) {
+    var newApi = Api.updateCustomer;
+    Util.request(newApi, data, 'post').then(function (res) {
+      resolve(res);
+    }).catch(function (err) {
+      reject(err);
+    });
+  });
+}
+//销售总监，区域经理客户数量
+function dmCount(data) {
+  return new Es6Promise(function (resolve, reject) {
+    var newApi = Api.dmCount;
+    Util.request(newApi, data, 'get').then(function (res) {
+      resolve(res);
+    }).catch(function (err) {
+      reject(err);
+    });
+  });
+}
+
+//销售总监删除分配
+function majordomoDel(data) {
+  return new Es6Promise(function (resolve, reject) {
+    var newApi = Api.majordomoDel;
+    Util.request(newApi, data, 'get').then(function (res) {
+      resolve(res);
+    }).catch(function (err) {
+      reject(err);
+    });
+  });
+}
+//区域经理删除分配
+function managerDel(data) {
+  return new Es6Promise(function (resolve, reject) {
+    var newApi = Api.managerDel;
+    Util.request(newApi, data, 'get').then(function (res) {
+      resolve(res);
+    }).catch(function (err) {
+      reject(err);
+    });
+  });
+}
+//销售总监查询区域经理列表
+function managerList(data) {
+  return new Es6Promise(function (resolve, reject) {
+    var newApi = Api.managerList;
+    Util.request(newApi, data, 'get').then(function (res) {
+      resolve(res);
+    }).catch(function (err) {
+      reject(err);
+    });
+  });
+}
+//区域经理查询手下帮办列表
+function deputyList(data) {
+  return new Es6Promise(function (resolve, reject) {
+    var newApi = Api.deputyList;
+    Util.request(newApi, data, 'get').then(function (res) {
+      resolve(res);
+    }).catch(function (err) {
+      reject(err);
+    });
+  });
+}
+//区域经理分配客户给帮办
+function managerAllot(data) {
+  return new Es6Promise(function (resolve, reject) {
+    var newApi = Api.managerAllot;
+    Util.request(newApi, data, 'post').then(function (res) {
+      resolve(res);
+    }).catch(function (err) {
+      reject(err);
+    });
+  });
+}
+//销售总监分配客户给区域经理
+function majordomoAllot(data) {
+  return new Es6Promise(function (resolve, reject) {
+    var newApi = Api.majordomoAllot;
+    Util.request(newApi, data, 'post').then(function (res) {
+      resolve(res);
+    }).catch(function (err) {
+      reject(err);
+    });
+  });
+}
+
+//公司联系人
+function linkMan(data) {
+  return new Es6Promise(function (resolve, reject) {
+    var newApi = Api.linkMan;
+    Util.request(newApi, data, 'get').then(function (res) {
+      resolve(res);
+    }).catch(function (err) {
+      reject(err);
+    });
+  });
+}
+//联系人详情
+function linkmanDetails(data) {
+  return new Es6Promise(function (resolve, reject) {
+    var newApi = Api.linkmanDetails;
+    Util.request(newApi, data, 'get').then(function (res) {
+      resolve(res);
+    }).catch(function (err) {
+      reject(err);
+    });
+  });
+}
+//删除联系人
+function linkmanDel(data) {
+  return new Es6Promise(function (resolve, reject) {
+    var newApi = Api.linkmanDel;
+    Util.request(newApi, data, 'get').then(function (res) {
+      resolve(res);
+    }).catch(function (err) {
+      reject(err);
+    });
+  });
+}
+//公司联系人添加
+function linkmanAdd(data) {
+  return new Es6Promise(function (resolve, reject) {
+    var newApi = Api.linkmanAdd;
+    Util.request(newApi, data, 'post').then(function (res) {
+      resolve(res);
+    }).catch(function (err) {
+      reject(err);
+    });
+  });
+}
+//更新联系人 
+function linkmanUpdate(data) {
+  return new Es6Promise(function (resolve, reject) {
+    var newApi = Api.linkmanUpdate;
+    Util.request(newApi, data, 'post').then(function (res) {
+      resolve(res);
+    }).catch(function (err) {
+      reject(err);
+    });
+  });
+}
+//获取公司经营状况
+function operation(data) {
+  return new Es6Promise(function (resolve, reject) {
+    var newApi = Api.operation;
+    Util.request(newApi, data, 'get').then(function (res) {
+      resolve(res);
+    }).catch(function (err) {
+      reject(err);
+    });
+  });
+}
+//公司竞争对手列表
+function rival(data) {
+  return new Es6Promise(function (resolve, reject) {
+    var newApi = Api.rival;
+    Util.request(newApi, data, 'get').then(function (res) {
+      resolve(res);
+    }).catch(function (err) {
+      reject(err);
+    });
+  });
+}
+//竞争对手详情
+function rivalDetails(data) {
+  return new Es6Promise(function (resolve, reject) {
+    var newApi = Api.rivalDetails;
+    Util.request(newApi, data, 'get').then(function (res) {
+      resolve(res);
+    }).catch(function (err) {
+      reject(err);
+    });
+  });
+}
+//竞争对手更新
+function rivalUpdate(data) {
+  return new Es6Promise(function (resolve, reject) {
+    var newApi = Api.rivalUpdate;
+    Util.request(newApi, data, 'post').then(function (res) {
+      resolve(res);
+    }).catch(function (err) {
+      reject(err);
+    });
+  });
+}
+
+//删除竞争对手
+function rivalDel(data) {
+  return new Es6Promise(function (resolve, reject) {
+    var newApi = Api.rivalDel;
+    Util.request(newApi, data, 'get').then(function (res) {
+      resolve(res);
+    }).catch(function (err) {
+      reject(err);
+    });
+  });
+}
+//买办创建客户
+function buyAddCustomer(data) {
+  return new Es6Promise(function (resolve, reject) {
+    var newApi = Api.buyAddCustomer;
+    Util.request(newApi, data, 'post').then(function (res) {
+      resolve(res);
+    }).catch(function (err) {
+      reject(err);
+    });
+  });
+}
+
+//卖帮办创建客户
+function sellCusmterCreated(data) {
+  return new Es6Promise(function (resolve, reject) {
+    var newApi = Api.sellCusmterCreated;
+    Util.request(newApi, data, 'post').then(function (res) {
+      resolve(res);
+    }).catch(function (err) {
+      reject(err);
+    });
+  });
+}
+//更新经营状况
+function operationUpdate(data) {
+  return new Es6Promise(function (resolve, reject) {
+    var newApi = Api.operationUpdate;
+    Util.request(newApi, data, 'post').then(function (res) {
+      resolve(res);
+    }).catch(function (err) {
+      reject(err);
+    });
+  });
+}
+//添加经营状况
+function operationAdd(data) {
+  return new Es6Promise(function (resolve, reject) {
+    var newApi = Api.operationAdd;
+    Util.request(newApi, data, 'post').then(function (res) {
+      resolve(res);
+    }).catch(function (err) {
+      reject(err);
+    });
+  });
+}
+function rivalAdd(data) {
+  return new Es6Promise(function (resolve, reject) {
+    var newApi = Api.rivalAdd;
+    Util.request(newApi, data, 'post').then(function (res) {
+      resolve(res);
+    }).catch(function (err) {
+      reject(err);
+    });
+  });
+}
+
+
+
+
+module.exports = (_module$exports = {
+
+  getManageFeatures: getManageFeatures,
+  getRegion: getRegion,
+  getCoordinate: getCoordinate,
+  getType: getType,
+  getCompanyScale: getCompanyScale,
+  getSource: getSource,
+  getBusinessModel: getBusinessModel,
+  getMainProduct: getMainProduct,
+  getOperateCapital: getOperateCapital,
+  getOperateCredit: getOperateCredit,
+  getOperateOperation: getOperateOperation,
+  getOperateWom: getOperateWom,
+  getQuality: getQuality,
+  getPost: getPost,
+  getChannel: getChannel,
+  getCostPerformance: getCostPerformance,
+  getIdentity: getIdentity,
+  getPotential: getPotential,
+  getPriceSensitivity: getPriceSensitivity,
+  getCharacterFeatures: getCharacterFeatures }, _defineProperty(_module$exports, "getManageFeatures",
+getManageFeatures), _defineProperty(_module$exports, "getManagementPosition",
+getManagementPosition), _defineProperty(_module$exports, "getCooperationIntention",
+getCooperationIntention), _defineProperty(_module$exports, "chanage_password",
+
+
+chanage_password), _defineProperty(_module$exports, "verification",
+verification), _defineProperty(_module$exports, "registration",
+registration), _defineProperty(_module$exports, "getNewsNum",
+getNewsNum), _defineProperty(_module$exports, "noReadList",
+noReadList), _defineProperty(_module$exports, "pupList",
+pupList), _defineProperty(_module$exports, "pupDefault",
+pupDefault), _defineProperty(_module$exports, "bsList",
+bsList), _defineProperty(_module$exports, "dmList",
+dmList), _defineProperty(_module$exports, "linkMan",
+linkMan), _defineProperty(_module$exports, "linkmanDetails",
+linkmanDetails), _defineProperty(_module$exports, "linkmanAdd",
+linkmanAdd), _defineProperty(_module$exports, "linkmanUpdate",
+linkmanUpdate), _defineProperty(_module$exports, "operation",
+operation), _defineProperty(_module$exports, "rival",
+rival), _defineProperty(_module$exports, "buyAddCustomer",
+buyAddCustomer), _defineProperty(_module$exports, "updateCustomer",
+updateCustomer), _defineProperty(_module$exports, "sellCusmterCreated",
+sellCusmterCreated), _defineProperty(_module$exports, "userDetails",
+userDetails), _defineProperty(_module$exports, "cmDetail",
+cmDetail), _defineProperty(_module$exports, "operationUpdate",
+operationUpdate), _defineProperty(_module$exports, "operationAdd",
+operationAdd), _defineProperty(_module$exports, "rivalDetails",
+rivalDetails), _defineProperty(_module$exports, "rivalAdd",
+rivalAdd), _defineProperty(_module$exports, "linkmanDel",
+linkmanDel), _defineProperty(_module$exports, "rivalDel",
+rivalDel), _defineProperty(_module$exports, "rivalUpdate",
+rivalUpdate), _defineProperty(_module$exports, "dmCount",
+dmCount), _defineProperty(_module$exports, "majordomoDel",
+majordomoDel), _defineProperty(_module$exports, "managerDel",
+managerDel), _defineProperty(_module$exports, "managerList",
+managerList), _defineProperty(_module$exports, "deputyList",
+deputyList), _defineProperty(_module$exports, "managerAllot",
+managerAllot), _defineProperty(_module$exports, "majordomoAllot",
+majordomoAllot), _module$exports);
+
+/***/ }),
+
+/***/ 59:
+/*!******************************************************!*\
+  !*** /Users/lee/Downloads/备份11/轻纺车网/utils/common.js ***!
+  \******************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var Api = __webpack_require__(/*! services/config/api.js */ 23);
+var Pipe = __webpack_require__(/*! utils/pipe.js */ 60);
+var Util = __webpack_require__(/*! utils/util.js */ 24);
+var Es6Promise = __webpack_require__(/*! lib/es6-promise.js */ 25);
+
+/**
+                                                 * 去除前后空格
+                                                 */
+function trim(str) {
+  return str.replace(/(^\s*)|(\s*$)/g, "");
+}
+
+/**
+   * 功能：显示loading图标；并将loadState设为false，防止用户多次点击
+   * 参数：that：当前页面的this；val：loading的提示内容
+   */
+function showLoading(that, val) {
+  var sVal = val.toString();
+  that.setData({
+    loadState: false });
+
+  // 兼容处理
+  if (wx.showLoading) {
+    wx.showLoading({
+      title: sVal,
+      mask: true });
+
+  } else {
+    wx.showToast({
+      title: sVal,
+      mask: true,
+      duration: 2500 });
+
+  }
+}
+
+/**
+   * 功能：隐藏loading图标；并将loadState设为true，防止出现错误，用户无法点击
+   * 参数：that：当前页面的this
+   */
+function hideLoading(that) {
+  // 兼容处理
+  if (wx.hideLoading) {
+    wx.hideLoading();
+  } else {
+    wx.hideToast();
+  }
+  that.setData({
+    loadState: true });
+
+}
+/**
+   * 函数：showLoad(val)、hideLoad()
+   * 功能：显示/隐藏 loading图标
+   * 参数：val：loading图显示的文字
+   */
+function showLoad(val) {
+  var sVal = val.toString();
+  if (wx.showLoading) {
+    wx.showLoading({
+      title: sVal,
+      mask: true });
+
+  } else {
+    wx.showToast({
+      title: sVal,
+      mask: true,
+      duration: 3000 });
+
+  }
+}
+function hideLoad() {
+  if (wx.hideLoading) {
+    wx.hideLoading();
+  } else {
+    wx.hideToast();
+  }
+}
+
+/**
+   * 函数：setLoadFalse(that)、setLoadTrue(that)
+   * 功能：将loadState设置为false；防止用户重复点击提交表单
+   * 参数：that：页面的this
+   */
+function setLoadFalse(that) {
+  that.setData({
+    loadState: false });
+
+}
+function setLoadTrue(that) {
+  that.setData({
+    loadState: true });
+
+}
+
+/**
+   * 函数：changePageFalse(that)、changePageTrue(that)
+   * 功能：防止用户重复点击多次跳转页面
+   * 参数：that：页面的this
+   */
+function changePageFalse(that) {
+  that.setData({
+    changePage: false });
+
+}
+function changePageTrue(that) {
+  that.setData({
+    changePage: true });
+
+}
+
+
+/**
+   * 特性 值的转换
+   */
+function changeGloss(gloss) {
+  return Pipe.pipeGloss(gloss);
+}
+
+/**
+   * 特性、品质要求、品质定位 值的转换
+   */
+function changeVal(obj, stockType) {
+  if (obj) {
+    var oInfo = obj;
+    // 品质要求转换
+    oInfo.quality = Pipe.pipeQuality(oInfo.quality);
+    // 特性转换
+    oInfo.glossLongitude = Pipe.pipeGloss(oInfo.glossLongitude);
+    // oInfo.glossLatitude = Pipe.pipeGloss(oInfo.glossLatitude);
+    // 品质定位转换
+    oInfo.positionQuality = Pipe.pipePosition(oInfo.positionQuality);
+    // 库存状态
+    if (stockType) {
+      oInfo.stockType = Pipe.pipeStock(stockType);
+    }
+  }
+}
+
+/**
+   * 单个--图片地址拼接--返回图片地址数组
+   */
+function pinImgUrl(obj, defaultImg) {
+  if (obj && obj.length >= 1) {
+    return obj.map(function (item) {
+      return "".concat(Api.ShowPic, "/").concat(item.id, "/download");
+    });
+  } else {
+    return defaultImg ? [defaultImg] : [];
+  }
+}
+
+
+/**
+   * 单个--图片地址拼接--返回图片地址数组
+   */
+function pinImgSmallUrl(obj, defaultImg) {
+  if (obj && obj.length >= 1) {
+    return obj.map(function (item) {
+      return "".concat(Api.ShowPic, "/").concat(item.id, "/small/download");
+    });
+  } else {
+    return defaultImg ? [defaultImg] : [];
+  }
+}
+
+/**
+   * 单个--图片地址拼接--返回图片地址数组
+   */
+function pinImgMiddleUrl(obj, defaultImg) {
+  if (obj && obj.length >= 1) {
+    return obj.map(function (item) {
+      return "".concat(Api.ShowPic, "/").concat(item.id, "/middle/download");
+    });
+  } else {
+    return defaultImg ? [defaultImg] : [];
+  }
+}
+
+/**
+   * 图片预加载--图片地址拼接(求购区、现货区 列表)
+   */
+function pinPreImg(picId) {
+  if (picId) {
+    var imgArr = picId.split("|");
+
+    return {
+      url: "".concat(Api.ShowPic, "/").concat(imgArr[0], "/download"),
+      loaded: false };
+
+  } else {
+    return {
+      url: '../../images/detail-buy-s.png',
+      loaded: false };
+
+  }
+}
+
+/**
+   * 图片预加载--图片地址拼接(求购区、现货区 列表)
+   */
+function pinPreSmallImg(picId) {
+  if (picId) {
+    var imgArr = picId.split("|");
+
+    return {
+      url: "".concat(Api.ShowPic, "/").concat(imgArr[0], "/small/download"),
+      loaded: false };
+
+  } else {
+    return {
+      url: '../../images/detail-buy-s.png',
+      loaded: false };
+
+  }
+}
+
+/**
+   * 图片预加载--图片是否加载完成处理
+   */
+function imgPreload(that, imgArr, fn) {
+  if (imgArr.length < 1) return;
+  imgArr.forEach(function (item) {
+    // 图片预加载
+    that.imgLoader.load(item.url, function (err, data) {
+      var imgList = [];
+      imgList = imgArr.map(function (list) {
+        if (list.url == data.src) {
+          list.loaded = true;
+        }
+        return list;
+      });
+
+      fn && fn(imgList);
+    });
+  });
+}
+
+/**
+   * 获取 页面高度
+   */
+function onWindowH() {
+  return new Es6Promise(function (resolve, reject) {
+    wx.getSystemInfo({
+      success: function success(res) {
+        var minHeight = res.windowHeight;
+
+        resolve(minHeight);
+      },
+      fail: function fail(err) {
+        reject(err);
+      } });
+
+  });
+}
+
+/**
+   * 判断有没有token
+   */
+function getToken() {
+  return wx.getStorageSync("token");
+}
+
+/**
+   * formId 地址拼接
+   */
+function pinFormId(api, formId) {
+  var isFormId = formId == "the formId is a mock one" ? "" : formId;
+
+  return isFormId ? api + "?formid=" + isFormId : api;
+}
+
+/**
+   * 添加图片--单张
+   */
+function addPic(fn) {
+  wx.chooseImage({
+    count: 1,
+    sizeType: ['original', 'compressed'], // 可以指定是原图还是压缩图，默认二者都有
+    sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有
+    success: function success(res) {
+      var filesArr = res.tempFiles;
+      var fliesPathArr = res.tempFilePaths;
+      var maxSize = 1024 * 1024;
+      var picState = true;
+
+      if (!filesArr) {// 用于处理部分手机返回值为空的问题
+        Util.versionTip();
+        picState = false;
+        return;
+      }
+
+      // 验证size是否大于1M
+      filesArr.map(function (item, index) {
+        var size = item.size;
+
+        if (size > maxSize) {
+          wx.showModal({
+            content: '图片不能大于1M',
+            showCancel: false });
+
+          picState = false;
+          return false;
+        }
+      });
+
+      if (picState) {
+        fn && fn(fliesPathArr);
+      } else {
+        fn && fn(picState);
+      }
+    },
+    fail: function fail() {
+      console.log("已取消图片选择");
+    } });
+
+}
+
+/**
+   * 控制按钮状态
+   */
+function setBtnState(formText, that) {
+  var stateNum = 0;
+
+  formText.forEach(function (item) {
+    if (item == 1) stateNum++;
+  });
+
+  if (stateNum == formText.length) {
+    that.setData({
+      submitBtn: true });
+
+  } else {
+    that.setData({
+      submitBtn: false });
+
+  }
+}
+
+
+/**
+   * 倒计时
+   */
+function downTime(that) {
+  var backTime = parseInt(that.data.backTime);
+  setBackTime();
+
+  function setBackTime() {
+    backTime--;
+    that.setData({
+      backTime: backTime });
+
+    if (backTime <= 0 || that.data.backTimeState) {
+      that.setData({
+        validateCod: !that.data.validateCod,
+        backTime: 60,
+        backTimeState: false });
+
+      return false;
+    }
+    setTimeout(setBackTime, 1000);
+  }
+}
+
+/**
+   * 价格补零
+   */
+function supZero(price) {
+  if (price) {
+    var sPrice = price.toString();
+
+    if (sPrice.indexOf(".") != -1) {
+      var newPrice = sPrice.split('.');
+      if (!newPrice[1]) {// 有. 没有数
+        sPrice += "00";
+      } else if (newPrice[1].length == 1) {// 有. 有一位数
+        sPrice += "0";
+      }
+    } else {
+      sPrice += ".00";
+    }
+    return sPrice;
+  }
+  return price;
+}
+
+/**
+   * 打 * 函数
+   */
+function setStar(str, bNum, aNum) {
+  var oStr = '';
+  if (str) {
+    oStr = str.toString();
+
+    var nStr = '';
+    var nANum = oStr.length - aNum;
+
+    nStr += oStr.substring(0, bNum);
+    for (var i = bNum; i < nANum; i++) {
+      nStr += '*';
+    }
+    nStr += oStr.substring(nANum, oStr.length);
+
+    return nStr;
+  } else {
+    return oStr;
+  }
+}
+
+/**
+   * 每个几个字符加空格 函数
+   */
+function setSpace(str, num) {
+  var nStr = '';
+  var firstIndex = 0;
+  var endIndex = 4;
+  var len = Math.ceil(str.length / 4);
+
+  for (var i = 0; i < len; i++) {
+    if (i < len - 1) {
+      nStr += str.substring(firstIndex, endIndex) + ' ';
+    } else {
+      nStr += str.substring(firstIndex, endIndex);
+    }
+    firstIndex = endIndex;
+    endIndex = endIndex + num;
+  }
+  return nStr;
+}
+
+/**
+   * 每个几个数字加逗号 函数
+   */
+function setComma(num) {
+  var num = (num || 0).toString();
+  var result = '';
+  while (num.length > 3) {
+    result = ',' + num.slice(-3) + result;
+    num = num.slice(0, num.length - 3);
+  }
+  if (num) {result = num + result;}
+  return result;
+}
+
+/**
+   * 判断点击认证进入的页面
+   */
+function goApprovePage(that) {
+  var approveUrl = ["../user-approve/approve", "../c-approve/private", "../c-approve/public"];
+  var applyType = that.data.applyType;
+  var appState = that.data.appState;
+  var changePage = that.data.changePage;
+
+  if (appState == 2 && applyType == 1 || appState == 2 && applyType == 0 && changePage) {
+    changePageFalse(that);
+    // 个人认证填写页
+    wx.navigateTo({
+      url: approveUrl[1] });
+
+  } else if (appState == 2 && applyType == 2 && changePage) {
+    changePageFalse(that);
+    // 企业认证填写页
+    wx.navigateTo({
+      url: approveUrl[2] + "?only=true" });
+
+  } else if (appState == 0 && changePage) {
+    changePageFalse(that);
+    // 企业认证、个人认证选择页
+    wx.navigateTo({
+      url: approveUrl[0] });
+
+  } else if (appState == 3 && applyType == 1 && changePage) {
+    changePageFalse(that);
+    // 企业认证填写页
+    wx.navigateTo({
+      url: approveUrl[2] + "?only=true" });
+
+  }
+}
+
+/**
+   * 银行账号对比，是否重复添加
+   */
+function toCompareBank(bankArr, bankNum) {
+  var BBank = true;
+
+  if (bankArr.length < 1) return BBank;
+
+  bankArr.map(function (item) {
+    if (item == bankNum) {
+      Util.showModal("绑定提示", "您已添加过该账户，请换一个账户");
+      BBank = false;
+    }
+  });
+  return BBank;
+}
+
+/**
+   * 设置银行logo、判断银行是否停用
+   * bank1：付款储蓄卡列表、收款卡列表
+   * bank2：付款信用卡列表
+   */
+function getBankLogo(bankArr, str, bank1, bank2) {
+  var bankList = [];
+
+  if (bankArr.length < 1) return;
+
+  if (str == "pay") {
+    bankArr.map(function (item) {
+      if (item.cardType == 10) {
+        // bankList = wx.getStorageSync("paySaveList");
+        setBankLogo(item, bank1);
+
+      } else {
+        // bankList = wx.getStorageSync("payCreditList");
+        setBankLogo(item, bank2);
+      }
+    });
+  } else if (str = "cash") {
+    // bankList = wx.getStorageSync("cashBankList");
+
+    bankArr.map(function (item, index) {
+      setBankLogo(item, bank1);
+    });
+  }
+}
+
+/**
+   * 设置银行的logo、是否停用等
+   */
+function setBankLogo(item, bankList) {
+  item.bStop = false;
+
+  if (bankList.length < 1) return;
+
+  bankList.map(function (list, j) {
+    if (trim(item.bankId) == trim(list.code)) {
+      item.logo = list.logo;
+      item.bStop = true;
+      item.limitOnce = list.limitOnce; // 单日限额
+      item.limitDay = list.limitDay;
+      getBankOverNum(item);
+      getBankAccount(item);
+    }
+  });
+}
+
+/**
+   * 功能：截取银行卡号后四位
+   * 参数：获取到的银行列表数组不同索引的对象
+   */
+function getBankOverNum(item) {
+  var len = item.accountNumber.length;
+  item.overNum = item.accountNumber.substring(len - 4, len);
+}
+
+/**
+   * 功能：返回拼接后的银行账户
+   * 参数：获取到的银行列表数组不同索引的对象
+   */
+function getBankAccount(item) {
+  item.sBankVal = "".concat(item.bankName).concat(item.cardType == 10 ? '储蓄卡' : '信用卡', "(").concat(item.overNum, ")");
+}
+
+/**
+   * 信用卡费率计算
+   */
+function getRate(amount, PayRateNum) {
+  var nAmount = amount * 100 * PayRateNum / 1000000;
+  var arr = nAmount.toString().split(".");
+  var price = 0;
+
+  price = nAmount.toFixed(2);
+
+  // if (arr[1].substring(0,2) > 0) {
+  // 如果小数位超过3位
+  // if (arr.length > 1 && arr[1].length > 3 && arr[1].substring(2, 3) < 5) {
+  //   console.log("price")
+  //   price = (price * 100 + 1)/100;
+  // }
+  // }
+
+  return supZero(Number(price));
+}
+
+//数字四舍五入
+function forDight(Dight, How) {
+  Dight = Math.round(Dight * Math.pow(10, How)) / Math.pow(10, How);
+  return Dight;
+}
+function setPositionQuality(item) {
+  if (item == 1) {
+    return '一般订单';
+  } else if (item == 2) {
+    return '市场货';
+  } else if (item == 3) {
+    return '高级订单';
+  } else if (item == 4) {
+    return '品牌订单';
+  } else {
+    return '';
+  }
+}
+function setGlossLongitude(item) {
+  if (item == 1) {
+    return '消光';
+  } else if (item == 2) {
+    return '半光';
+  } else if (item == 3) {
+    return '半消光';
+  } else if (item == 4) {
+    return '有光';
+  } else {
+    return '';
+  }
+}
+module.exports = {
+  showLoading: showLoading,
+  hideLoading: hideLoading,
+  showLoad: showLoad,
+  hideLoad: hideLoad,
+  setLoadFalse: setLoadFalse,
+  setLoadTrue: setLoadTrue,
+  changePageFalse: changePageFalse,
+  changePageTrue: changePageTrue,
+  changeGloss: changeGloss,
+  changeVal: changeVal,
+  pinImgUrl: pinImgUrl,
+  pinImgSmallUrl: pinImgSmallUrl,
+  pinImgMiddleUrl: pinImgMiddleUrl,
+  pinPreImg: pinPreImg,
+  pinPreSmallImg: pinPreSmallImg,
+  imgPreload: imgPreload,
+  onWindowH: onWindowH,
+  getToken: getToken,
+  pinFormId: pinFormId,
+  addPic: addPic,
+  setBtnState: setBtnState,
+  downTime: downTime,
+  supZero: supZero,
+  setStar: setStar,
+  setSpace: setSpace,
+  setComma: setComma,
+  goApprovePage: goApprovePage,
+  toCompareBank: toCompareBank,
+  getBankLogo: getBankLogo,
+  getBankAccount: getBankAccount,
+  getRate: getRate,
+  forDight: forDight,
+  setPositionQuality: setPositionQuality,
+  setGlossLongitude: setGlossLongitude };
+
+/***/ }),
+
 /***/ 6:
 /*!******************************************************!*\
   !*** ./node_modules/@dcloudio/uni-stat/package.json ***!
@@ -25555,7 +24950,844 @@ module.exports = {"_from":"@dcloudio/uni-stat@next","_id":"@dcloudio/uni-stat@2.
 
 /***/ }),
 
-/***/ 656:
+/***/ 60:
+/*!****************************************************!*\
+  !*** /Users/lee/Downloads/备份11/轻纺车网/utils/pipe.js ***!
+  \****************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var _require =
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+__webpack_require__(/*! ./const.js */ 61),QUALITY = _require.QUALITY,POSITION = _require.POSITION,GLOSS = _require.GLOSS,STOCK_TYPES = _require.STOCK_TYPES,BUY_ORDER = _require.BUY_ORDER,BUY_BACK_ORDER = _require.BUY_BACK_ORDER,SELL_ORDER = _require.SELL_ORDER,COMPLETE = _require.COMPLETE,COST_PERFORMANCE = _require.COST_PERFORMANCE,REAL_RATE = _require.REAL_RATE,BREAK_OUT = _require.BREAK_OUT,STOP_BRIGHT = _require.STOP_BRIGHT,STOP_DIM = _require.STOP_DIM,DARK_STRIP = _require.DARK_STRIP;
+
+function formatTime(date) {
+  if (date) {
+    var oDate = date.slice(0, date.indexOf(".")); // 截取时间戳 . 前面的数
+
+    oDate = oDate.replace(/T/g, ' ').replace(/(-)/g, '/');
+
+    var nDate = new Date(oDate);
+
+    var year = nDate.getFullYear();
+    var month = nDate.getMonth() + 1;
+    var day = nDate.getDate();
+
+    var h = nDate.getHours();
+    var m = nDate.getMinutes();
+    var s = nDate.getSeconds();
+    console.log(h, m, s);
+    return [year, month, day].map(formatNumber).join('-');
+    //  + ' ' + [hour, minute, second].map(formatNumber).join(':')
+  } else {
+    return '';
+  }
+}
+
+function formatNumber(n) {
+  n = n.toString();
+  return n[1] ? n : '0' + n;
+}
+
+/**
+   * 返回key所对应的值
+   */
+function change(obj, num) {
+  var value = '';
+  var n = parseInt(num);
+  obj.map(function (item) {
+    if (item.key == num) value = item.value;
+  });
+  return value;
+}
+/**
+   * 返回key所对应的值
+   */
+function changeMore(obj, num) {
+  if (num) {
+    var value = [];
+    var n = parseInt(num);
+    obj.map(function (item) {
+      if (item.key & num) {
+        value.push(item.value);
+      }
+    });
+    return value.join('、');
+  }
+}
+
+/**
+   * 品质要求
+   */
+function pipeQuality(num) {
+  return changeMore(QUALITY, num);
+}
+
+/**
+   * 品质定位
+   */
+function pipePosition(num) {
+  return changeMore(POSITION, num);
+}
+
+/**
+   * 特性
+   */
+function pipeGloss(num) {
+  return changeMore(GLOSS, num);
+}
+
+/**
+   * 现货详情-库存状态
+   */
+function pipeStock(num) {
+  return changeMore(STOCK_TYPES, num);
+}
+
+/**
+   * 找布状态
+   */
+function pipeStatus(num) {
+  var newNum = parseInt(num);
+  var sI = 0; // 状态
+
+  if (newNum == 1) {
+    sI = 0;
+  } else if (newNum == 2) {
+    sI = 1;
+  } else if (newNum == 4) {
+    sI = 2;
+  } else if (newNum < 0) {
+    sI = 3;
+  }
+  return sI;
+}
+
+/**
+   * 认证状态
+   */
+function approveState(oData) {
+  // currentType：0: 未认证；1: 个人认证；2: 企业认证
+  // status：0: 认证中；1: 认证通过；2: 认证失败
+  // applyType：1：个人认证中；2：企业认证中
+
+  // 未认证：404
+  // 个人认证-审核中 status:0 currentType:null
+  // 个人认证失败-重新审核 status:2 currentType:null（0）
+  // 个人认证-通过：status:1 currentType:1
+  // 企业认证-审核中：status:0 currentType:null
+  // 企业认证 status:1 currentType:2
+  // 企业认证失败-重新审核：status:2 currentType:0
+  var current = oData.currentType;
+  var state = oData.status;
+
+  if (state == 0) {
+    return 1; // 认证中
+  } else if (state == 2) {
+    return 2; // 认证失败，重新认证
+  } else if (current == 1 && state == 1) {
+    return 3; // 个人认证
+  } else if (current == 2 && state == 1) {
+    return 4; // 企业认证
+  } else {
+    return 0;
+  }
+}
+
+
+/**
+   * 采购订单状态转换
+   *    总状态：1：正常；2：取消(0)；3：完成(7)
+   *    分状态(总状态：1)：1：待支付；2：支付处理中；3：待结算；4：结算处理中；5：待收货；6：订单完成;9:买家支付中
+   */
+function changeBuyState(obj) {
+
+  var oState = 1;
+  var stateText = "";
+  var buyState = obj.buyOrder.status;
+
+  // if (obj.status == 1) { // 订单处理中
+
+  // }
+  // else 
+  if (obj.status == 2) {// 取消订单
+    if (buyState == 3 && !obj.buyOrder.refundBankId) {
+      oState = -1;
+    } else if (buyState == 3 && obj.buyOrder.refundBankId) {
+      oState = -4;
+    } else {
+      oState = buyState == -4 ? buyState : buyState == -5 ? buyState : -1;
+    }
+    stateText = buyBackOrderState(oState);
+  } else {
+    oState = buyState;
+    stateText = buyOrderState(oState);
+  }
+  // else if (obj.status == 3) { // 完成订单
+  //   oState = buyState == 7 ? buyState : 9;
+  //   stateText = buyState == 7 ? "线下订单" : "订单完成";
+  // }
+
+  return {
+    state: oState,
+    text: stateText };
+
+}
+
+
+
+/**
+   * 销售订单状态转换
+   *    总状态(item.status)：1：正常；2：取消；3：完成
+   *    分状态(item.sellOrder.status)：1：等待代付；2：代付处理中；3：待发货；4：订单完成
+   */
+function changeSellState(obj) {
+  var oState = 1;
+  var stateText = "";
+  var sellState = obj.sellOrder.status;
+
+  if (obj.status == 1 || obj.status == 3) {
+    oState = sellState;
+    stateText = obj.sellOrder.cardid == null && sellState == 1 ? "待确认" : sellOrderState(sellState);
+  } else if (obj.status == 2) {
+    oState = -1;
+    stateText = "订单已取消";
+  }
+  //  else if (obj.status == 3) {
+  //   oState = sellState == 5 ? sellState : 9;
+  //   stateText = sellState == 5 ? "线下订单" : "订单完成"
+  // }
+
+  return {
+    state: oState,
+    text: stateText };
+
+}
+
+
+
+
+/**
+   * 交易订单--状态转换
+   */
+// 采购订单
+function buyOrderState(state) {
+  return change(BUY_ORDER, state);
+}
+// 采购退款订单
+function buyBackOrderState(state) {
+  return change(BUY_BACK_ORDER, state);
+}
+// 销售订单
+function sellOrderState(state) {
+  return change(SELL_ORDER, state);
+}
+
+/**
+   * 订单流水--退款结果
+   */
+function pipeComplete(state) {
+  return change(COMPLETE, state);
+}
+
+
+/**
+   * 采购订单评价--性价比
+   */
+function pipeCost(num) {
+  return changeMore(COST_PERFORMANCE, num);
+}
+/**
+   * 采购订单评价--实码率
+   */
+function pipeReal(num) {
+  return changeMore(REAL_RATE, num);
+}
+/**
+   * 采购订单评价--断经、断纬
+   */
+function pipeBreak(num) {
+  return changeMore(BREAK_OUT, num);
+}
+/**
+   * 采购订单评价--停车明档
+   */
+function pipeBright(num) {
+  return changeMore(STOP_BRIGHT, num);
+}
+/**
+   * 采购订单评价--停车暗档
+   */
+function pipeDim(num) {
+  return changeMore(STOP_DIM, num);
+}
+/**
+   * 采购订单评价--暗条
+   */
+function pipeDark(num) {
+  return changeMore(DARK_STRIP, num);
+}
+
+// 获取时间戳
+function getTimeStamp() {
+  var myDate = new Date();
+  var Y = myDate.getFullYear().toString().slice(2);
+  var M = myDate.getMonth() + 1 < 10 ? "0" + (myDate.getMonth() + 1) : (myDate.getMonth() + 1).toString();
+  var D = myDate.getDate() < 10 ? "0" + myDate.getDate() : myDate.getDate().toString();
+  var h = myDate.getHours().toString();
+  var m = myDate.getMinutes().toString();
+  var s = myDate.getSeconds() < 10 ? "0" + myDate.getSeconds() : myDate.getSeconds().toString();
+  var ms = myDate.getMilliseconds() < 10 ? "00" + myDate.getMilliseconds() : myDate.getMilliseconds() < 100 ? "0" + myDate.getMilliseconds() : myDate.getMilliseconds();
+  var timeId = Y + M + D + h + m + s + ms;
+  return timeId;
+}
+function timeName(time) {
+  if (!time) {
+    return '';
+  }
+  var myDate = new Date(time);
+  var Y = myDate.getFullYear().toString();
+  var M = myDate.getMonth() + 1 < 10 ? "0" + (myDate.getMonth() + 1) : (myDate.getMonth() + 1).toString();
+  var D = myDate.getDate() < 10 ? "0" + myDate.getDate() : myDate.getDate().toString();
+  var h = myDate.getHours() < 10 ? "0" + myDate.getHours() : myDate.getHours().toString();
+  var m = myDate.getMinutes() < 10 ? "0" + myDate.getMinutes() : myDate.getMinutes().toString();
+  var s = myDate.getSeconds() < 10 ? "0" + myDate.getSeconds() : myDate.getSeconds().toString();
+  var timeId = Y + '-' + M + '-' + D + ' ' + h + ':' + m + ':' + s;
+  return timeId;
+}
+
+// 设置时间
+function setTime(time) {
+  if (time && time.indexOf("T") != -1) {
+    var date = new Date(time),
+    Y = date.getFullYear() + '-',
+    M = (date.getMonth() + 1 < 10 ? '0' + (date.getMonth() + 1) : date.getMonth() + 1) + '-',
+    D = date.getDate() < 10 ? '0' + date.getDate() + ' ' : date.getDate() + ' ',
+    h = date.getHours() < 10 ? '0' + date.getHours() + ':' : date.getHours() + ':',
+    m = date.getMinutes() < 10 ? '0' + date.getMinutes() + ':' : date.getMinutes() + ':',
+    s = date.getSeconds() < 10 ? '0' + date.getSeconds() : date.getSeconds();
+    console.log("data", date);
+    return Y + M + D + h + m + s;
+  } else {
+    return time;
+  }
+}
+module.exports = {
+  formatTime: formatTime,
+  pipeStatus: pipeStatus,
+  pipeQuality: pipeQuality,
+  pipePosition: pipePosition,
+  pipeGloss: pipeGloss,
+  pipeStock: pipeStock,
+  approveState: approveState,
+  changeBuyState: changeBuyState,
+  changeSellState: changeSellState,
+  buyOrderState: buyOrderState,
+  buyBackOrderState: buyBackOrderState,
+  sellOrderState: sellOrderState,
+  pipeComplete: pipeComplete,
+  getTimeStamp: getTimeStamp,
+  // 采购订单评价
+  pipeCost: pipeCost,
+  pipeReal: pipeReal,
+  pipeBreak: pipeBreak,
+  pipeBright: pipeBright,
+  pipeDim: pipeDim,
+  pipeDark: pipeDark,
+  timeName: timeName,
+  setTime: setTime };
+
+/***/ }),
+
+/***/ 61:
+/*!*****************************************************!*\
+  !*** /Users/lee/Downloads/备份11/轻纺车网/utils/const.js ***!
+  \*****************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+/**
+ * 品质要求
+ */
+var QUALITY = [
+{ key: 1 << 3, value: '包染色' },
+{ key: 1 << 2, value: '染白色' },
+{ key: 1 << 1, value: '染黑色' },
+{ key: 1, value: '不包染色' }];
+
+
+/** 品质定位
+                             * 
+                             */
+var POSITION = [
+{ key: 1, value: '品牌订单' },
+{ key: 1 << 1, value: '高级订单' },
+{ key: 1 << 2, value: '一般订单' },
+{ key: 1 << 3, value: '市场订单' }];
+
+
+/** 特性
+                                  * 
+                                  */
+var GLOSS = [
+{ key: 1 << 2, value: '有光' },
+{ key: 1 << 1, value: '半光' },
+{ key: 1, value: '消光' }];
+
+
+/**
+                           * 库存状态
+                           */
+var STOCK_TYPES = [
+{ key: 1, value: '有现货并生产中' },
+{ key: 1 << 1, value: '有现货' },
+{ key: 1 << 2, value: '生产中' },
+{ key: 1 << 3, value: '可定织' },
+{ key: 1 << 4, value: '已售罄' }];
+
+
+/** 采购订单
+                                 *    总状态：1：正常；2：取消(0)；3：完成(7)
+                                 *    分状态(总状态：1)：1：待支付；2：支付处理中；3：待结算；4：结算处理中；5：待收货；6：订单完成;9:买家支付中
+                                 */
+var BUY_ORDER = [
+{ key: 1, value: "待支付" },
+{ key: 2, value: "已支付，银行处理中" },
+{ key: 3, value: "支付成功" },
+{ key: 4, value: "支付成功" },
+{ key: 5, value: "待收货" },
+{ key: 6, value: "已收货" },
+{ key: 7, value: "线下订单" },
+{ key: 8, value: "订单完成" },
+{ key: 9, value: "支付中" }];
+
+
+/**
+                            * 采购订单
+                            *    总状态：1：正常；2：取消(0)；3：完成(7)
+                            *    分状态(总状态：2)：-4：退款中；-5：已退款
+                            */
+var BUY_BACK_ORDER = [
+{ key: -1, value: "订单已取消" },
+// { key: -3, value: "待退款" },
+{ key: -4, value: "退款中" },
+{ key: -5, value: "已退款" }];
+
+
+/** 
+                             * 销售订单
+                             *    总状态：1：正常；2：取消；3：完成
+                             *    分状态：1：等待代付；2：代付处理中；3：待发货；4：订单完成
+                             * 
+                             *    待确认；已确认；买家已支付，待发货；已发货；订单完成；订单已取消
+                             */
+var SELL_ORDER = [
+{ key: 1, value: "已确认" },
+{ key: 2, value: "已确认" },
+{ key: 3, value: "买家已支付，待发货" },
+{ key: 4, value: "已发货" },
+{ key: 5, value: "线下订单" },
+{ key: 6, value: "订单完成" }];
+
+
+/**
+                             * 订单退款结果
+                             */
+var COMPLETE = [
+{ key: -1, value: "退款失败" },
+{ key: 0, value: "退款中" },
+{ key: 1, value: "退款成功" }];
+
+
+
+/**
+                             * 采购订单评价--性价比
+                             */
+var COST_PERFORMANCE = [
+{ key: 1, value: '性价比偏高' },
+{ key: 1 << 1, value: '性价比合理' },
+{ key: 1 << 2, value: '性价比偏低' }];
+
+
+/**
+                                   * 采购订单评价--实码率
+                                   */
+var REAL_RATE = [
+{ key: 1, value: '实码率正常' },
+{ key: 1 << 1, value: '实码率偏低' }];
+
+
+/**
+                                   * 采购订单评价--断经、断纬
+                                   */
+var BREAK_OUT = [
+{ key: 1, value: '断经、断纬偶尔' },
+{ key: 1 << 1, value: '断经、断纬较多' },
+{ key: 1 << 2, value: '断经、断纬多' }];
+
+
+/**
+                                    * 采购订单评价--停车明档
+                                    */
+var STOP_BRIGHT = [
+{ key: 1, value: '停车明档偶尔' },
+{ key: 1 << 1, value: '停车明档较多' },
+{ key: 1 << 2, value: '停车明档多' }];
+
+
+/**
+                                   * 采购订单评价--停车暗档
+                                   */
+var STOP_DIM = [
+{ key: 1, value: '停车暗档偶尔' },
+{ key: 1 << 1, value: '停车暗档较多' },
+{ key: 1 << 2, value: '停车暗档多' }];
+
+
+/**
+                                   * 采购订单评价--暗条
+                                   */
+var DARK_STRIP = [
+{ key: 1, value: '暗条偶尔' },
+{ key: 1 << 1, value: '暗条较多' },
+{ key: 1 << 2, value: '暗条多' }];
+
+
+module.exports = {
+  QUALITY: QUALITY,
+  POSITION: POSITION,
+  GLOSS: GLOSS,
+  STOCK_TYPES: STOCK_TYPES,
+  BUY_ORDER: BUY_ORDER,
+  BUY_BACK_ORDER: BUY_BACK_ORDER,
+  SELL_ORDER: SELL_ORDER,
+  COMPLETE: COMPLETE,
+
+  // 采购订单评价
+  COST_PERFORMANCE: COST_PERFORMANCE,
+  REAL_RATE: REAL_RATE,
+  BREAK_OUT: BREAK_OUT,
+  STOP_BRIGHT: STOP_BRIGHT,
+  STOP_DIM: STOP_DIM,
+  DARK_STRIP: DARK_STRIP };
+
+/***/ }),
+
+/***/ 62:
+/*!*******************************************************!*\
+  !*** /Users/lee/Downloads/备份11/轻纺车网/services/user.js ***!
+  \*******************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+/**
+ * 用户相关服务
+ */
+
+var Util = __webpack_require__(/*! utils/util.js */ 24);
+var Api = __webpack_require__(/*! services/config/api.js */ 23);
+var Es6Promise = __webpack_require__(/*! lib/es6-promise.js */ 25);
+
+
+/**
+                                                 * 调用微信登录
+                                                 */
+function loginByWeixin() {
+  var code = null;
+  return new Es6Promise(function (resolve, reject) {
+    // return Util.login().then((res) => {
+    //   code = res.code;
+    //   return Util.getUserInfo();
+    // }).then((userInfo) => {
+    Es6Promise.all([
+    Util.login(),
+    Util.getUserInfo()]).
+    then(function (allRes) {
+      var code = allRes[0].code;
+      var userInfo = allRes[1];
+      var loginOn = wx.getStorageSync("loginOn");
+
+      if (!loginOn) {// 防止重复请求登录
+        wx.setStorageSync("loginOn", true);
+
+        wx.setStorageSync("rawData", userInfo.rawData);
+        wx.setStorageSync("signature", userInfo.signature);
+
+        //登录远程服务器
+        Util.request(Api.AuthLoginByWeixin, { code: code, userInfo: userInfo }, 'post').then(function (res) {
+          wx.setStorageSync("loginOn", false);
+
+          if (res.statusCode == 200) {
+            if (res.data.sessionKey) {
+              wx.setStorageSync("sessionKey", res.data.sessionKey);
+            }
+            //存储用户信息
+            wx.setStorageSync('userInfo', res.data.userInfo);
+            wx.setStorageSync('token', res.data.token);
+
+            resolve(res);
+          } else {
+            reject(res);
+          }
+        }).catch(function (err) {
+          wx.setStorageSync("loginOn", false);
+          reject(err);
+        });
+      }
+    }).catch(function (err) {
+      reject(err);
+    });
+  });
+}
+
+/**
+   * 判断用户是否登录
+   */
+function checkLogin() {
+  return new Es6Promise(function (resolve, reject) {
+    if (wx.getStorageSync('userInfo') && wx.getStorageSync('token')) {
+
+      Util.checkSession().then(function () {
+        resolve(true);
+      }).catch(function () {
+        reject(false);
+      });
+
+    } else {
+      reject(false);
+    }
+  });
+}
+
+module.exports = {
+  loginByWeixin: loginByWeixin,
+  checkLogin: checkLogin };
+
+/***/ }),
+
+/***/ 63:
+/*!*********************************************************!*\
+  !*** /Users/lee/Downloads/备份11/轻纺车网/services/server.js ***!
+  \*********************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var Common = __webpack_require__(/*! utils/common.js */ 59);
+var Api = __webpack_require__(/*! services/config/api.js */ 23);
+var Util = __webpack_require__(/*! utils/util.js */ 24);
+var Es6Promise = __webpack_require__(/*! lib/es6-promise.js */ 25);
+
+/*
+                                                 * get 数据
+                                                 */
+function getDataWX(api, data) {
+  return new Es6Promise(function (resolve, reject) {
+    Util.request(api, data, 'get').then(function (res) {
+      if (res.statusCode === 200) {
+        resolve(res);
+      } else {
+        reject(res);
+      }
+    }).catch(function (err) {
+      reject(err);
+    });
+  });
+}
+
+/**
+   * post 数据
+   */
+function postDataWX(api, data) {
+  return new Es6Promise(function (resolve, reject) {
+    Util.request(api, data, 'post').then(function (res) {
+      if (res.statusCode >= 200 && res.statusCode < 300) {
+        resolve(res);
+      } else {
+        reject(res);
+      }
+    }).catch(function (err) {
+      reject(err);
+    });
+  });
+}
+
+
+/**
+   * put 数据
+   */
+function putDataWX(api, data) {
+  return new Es6Promise(function (resolve, reject) {
+    Util.request(api, data, 'put').then(function (res) {
+      if (res.statusCode >= 200 && res.statusCode < 300) {
+        resolve(res);
+      } else {
+        reject(res);
+      }
+    }).catch(function (err) {
+      reject(err);
+    });
+  });
+}
+
+/**
+   * delete 数据
+   */
+function deleteDataWX(api, data) {
+  return new Es6Promise(function (resolve, reject) {
+    Util.request(api, data, 'delete').then(function (res) {
+      if (res.statusCode >= 200 && res.statusCode < 300) {
+        resolve(res);
+      } else {
+        reject(res);
+      }
+    }).catch(function (err) {
+      reject(err);
+    });
+  });
+}
+
+/**
+   * 页面行为记录
+   */
+function setActive(that, data) {
+  var apiStr = Api.userBehavior;
+  var token = wx.getStorageSync("token");
+
+  if (that.data.loadState && token) {
+    postDataWX(apiStr, data).then(function (res) {
+      Common.setLoadTrue(that);
+    }).catch(function (err) {
+      Common.setLoadTrue(that);
+    });
+  }
+}
+
+/**
+   * 获取表单formId
+   */
+function getFormId(e) {
+  var formId = e.detail.formId;
+  var formApi = Common.pinFormId(Api.formID, formId);
+  var token = wx.getStorageSync("token");
+
+  if (token && formId != "the formId is a mock one") {
+    Util.request(formApi, {}, 'get').then(function (res) {}).catch(function (err) {});
+  }
+}
+
+
+/**
+   * 功能：获取二维码
+   * 参数：
+   *    pagePath：页面路径
+   *    id：订单id
+   */
+function getQRCodeUrl(pagePath, id) {
+  return new Es6Promise(function (resolve, reject) {
+    var COdeApi = Api.QRCodeUrl;
+    var pageUrl = id ? "".concat(pagePath, "?id=").concat(id) : pagePath;
+
+    Util.request(COdeApi, pageUrl, 'post').then(function (res) {
+      var picUrl = "".concat(Api.ShowPic, "/").concat(res.data.id, "/download");
+
+      Util.downloadFile(picUrl).then(function (weChatUrl) {
+        resolve(weChatUrl);
+      }).catch(function (err) {
+        showModal("图片下载失败");
+      });
+    }).catch(function (err) {
+      Util.showErrorToast("获取二维码失败");
+    });
+  });
+}
+
+/**
+   * 上传图片
+   * 
+   * 参数：
+   *    photoList：要上传的图片数组
+   *    apiState：控制使用压缩上传的api，还是不压缩上传的api
+   */
+var uploadPics = function uploadPics(photoList) {var apiState = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;
+  return new Es6Promise(function (resolve, reject) {
+    var photoJsonArray = [];
+    if (photoList && photoList.length >= 1) {
+      photoList.forEach(function (item) {
+        wx.uploadFile({
+          url: !apiState ? Api.PicUpload : Api.PicNewUpload,
+          filePath: item,
+          name: 'file',
+          header: {
+            'Authorization': "Bearer " + wx.getStorageSync('token') },
+
+          formData: {
+            'user': 'test' },
+
+          success: function success(res) {
+            photoJsonArray.push(JSON.parse(res.data));
+
+            if (photoJsonArray.length == photoList.length) {
+              resolve(photoJsonArray);
+            }
+          },
+          fail: function fail(err) {
+            reject(err);
+          } });
+
+      });
+    } else {
+      resolve([]);
+    }
+  });
+};
+
+
+
+/**
+    * 功能：采购订单详情--获取用户的 付款银行账户 
+    */
+function createOrder(data) {
+  return new Es6Promise(function (resolve, reject) {
+    var createOrderApi = Api.createOrder;
+
+    Util.request(createOrderApi, data, 'post').then(function (res) {
+      resolve(res);
+    }).catch(function (err) {
+      Util.showModal("新建询价单失败");
+      // reject(err);
+    });
+  });
+}
+
+
+
+module.exports = {
+  getDataWX: getDataWX,
+  postDataWX: postDataWX,
+  putDataWX: putDataWX,
+  deleteDataWX: deleteDataWX,
+  setActive: setActive,
+  getFormId: getFormId,
+  getQRCodeUrl: getQRCodeUrl,
+  uploadPics: uploadPics,
+  createOrder: createOrder };
+
+/***/ }),
+
+/***/ 672:
 /*!********************************************************!*\
   !*** /Users/lee/Downloads/备份11/轻纺车网/services/tools.js ***!
   \********************************************************/
@@ -25605,7 +25837,7 @@ module.exports = {
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _default = { "pages": { "pages/qing-f-c/shopping/list": { "navigationBarTitleText": "商城", "navigationBarBackgroundColor": "#ffffff", "navigationBarTextStyle": "black", "enablePullDownRefresh": true }, "pages/qing-f-c/index": { "navigationStyle": "custom", "enablePullDownRefresh": true }, "pages/qing-f-c/report/inputTarget": { "navigationBarTitleText": "设定本月目标" }, "pages/qing-f-c/report/microShop": { "navigationStyle": "custom" }, "pages/qing-f-c/report/targetCustomList": { "navigationBarTitleText": "本月目标客户" }, "pages/qing-f-c/report/setTargetCustomer": { "navigationBarTitleText": "设定目标客户" }, "pages/qing-f-c/login/login": { "navigationStyle": "custom" }, "pages/qing-f-c/report/reportManager": { "navigationBarTitleText": "报表统计" }, "pages/qing-f-c/casualPrice/sd_casualList": { "navigationBarTitleText": "随口价", "navigationBarBackgroundColor": "#ffffff", "navigationBarTextStyle": "black", "enablePullDownRefresh": true }, "pages/qing-f-c/casualPrice/casualList": { "navigationBarTitleText": "随口价", "navigationBarBackgroundColor": "#ffffff", "navigationBarTextStyle": "black", "enablePullDownRefresh": true }, "pages/qing-f-c/casualPrice/createCasual": { "navigationBarTitleText": "新建随口价" }, "pages/qing-f-c/newFollowRecord/publicDialog": { "navigationBarTitleText": "对话" }, "pages/qing-f-c/newFollowRecord/updateState": { "navigationBarTitleText": "更新状态" }, "pages/qing-f-c/newFollowRecord/setTargetPrice": { "navigationBarTitleText": "发起报价" }, "pages/qing-f-c/newFollowRecord/detail": { "navigationBarTitleText": "订单详况" }, "pages/qing-f-c/customPicture/createCustomFollow": { "navigationBarTitleText": "新建客户跟进" }, "pages/qing-f-c/productShow/productDetail": { "navigationBarTitleText": "产品详情" }, "pages/qing-f-c/followRecord/dialogue": { "navigationBarTitleText": "对话" }, "pages/qing-f-c/followRecord/addFollowRecord": { "navigationBarTitleText": "新增潜在订单" }, "pages/qing-f-c/followRecord/connectInquiry": { "navigationBarTitleText": "选择询价单" }, "pages/qing-f-c/followRecord/detailFollowRecord": { "navigationBarTitleText": "潜在订单跟进详情" }, "pages/qing-f-c/customPicture/sd_followRecordDetail": { "navigationStyle": "custom", "enablePullDownRefresh": true }, "pages/qing-f-c/customPicture/sd_followList": { "navigationBarTitleText": "跟进列表", "navigationBarBackgroundColor": "#ffffff", "navigationBarTextStyle": "black", "enablePullDownRefresh": true }, "pages/qing-f-c/followRecord/orderFollowSchedule": { "navigationBarTitleText": "订单跟进记录", "enablePullDownRefresh": true }, "pages/qing-f-c/customPicture/createFollowRecordSelldeputy": { "navigationBarTitleText": "新建跟进记录" }, "pages/qing-f-c/customPicture/competitorDetail": { "navigationBarTitleText": "竞争对手详情" }, "pages/qing-f-c/customPicture/createFollowRecordBuydeputy": { "navigationBarTitleText": "新建跟进记录" }, "pages/qing-f-c/customPicture/followRecordDetail": { "navigationBarTitleText": "跟进记录详情" }, "pages/qing-f-c/customPicture/competitorAnalyist": { "navigationBarTitleText": "竞争对手分析" }, "pages/qing-f-c/customPicture/followList": { "navigationBarTitleText": "客户跟进", "enablePullDownRefresh": true }, "pages/qing-f-c/customPicture/followListNew": { "navigationBarTitleText": "客户跟进", "navigationBarBackgroundColor": "#ffffff", "navigationBarTextStyle": "black", "enablePullDownRefresh": true }, "pages/qing-f-c/message/messageList": { "navigationBarTitleText": "消息", "enablePullDownRefresh": true }, "pages/qing-f-c/inquiryManage/comQuotation/startQuotation": { "navigationBarTitleText": "发起报价" }, "pages/qing-f-c/inquiryManage/comQuotation/selectCustomer": { "navigationBarTitleText": "选择客户" }, "pages/qing-f-c/inquiryManage/comQuotation/selectProduct": { "navigationBarTitleText": "选择产品" }, "pages/qing-f-c/inquiryManage/systemMatch/systemMatchDetail": { "navigationBarTitleText": "匹配结果" }, "pages/qing-f-c/productShow/examineProduct": { "navigationBarTitleText": "产品审核" }, "pages/qing-f-c/productShow/manageConditionEdit": { "navigationBarTitleText": "编辑经营概况" }, "pages/qing-f-c/productShow/productUpdate": { "navigationBarTitleText": "编辑产品" }, "pages/qing-f-c/productShow/product-created": { "navigationBarTitleText": "新增产品" }, "pages/qing-f-c/productShow/mainShow": { "navigationBarTitleText": "产品展示", "enablePullDownRefresh": true }, "pages/qing-f-c/inquiryManage/priceTrend/priceTrend": { "navigationBarTitleText": "价格趋势" }, "pages/qing-f-c/inquiryManage/sampleInquiry/buyDeputy/inquiry-details-result": { "navigationStyle": "custom" }, "pages/qing-f-c/inquiryManage/sampleInquiry/analyst/setSampleResult": { "navigationBarTitleText": "设置找样结果" }, "pages/qing-f-c/inquiryManage/sales_director/modifyPrice": { "navigationBarTitleText": "修改报价" }, "pages/qing-f-c/inquiryManage/sampleInquiry/sales_director/modifyPrice": { "navigationBarTitleText": "修改报价价格" }, "pages/qing-f-c/inquiryManage/sampleInquiry/sales_director/quotation-details": { "navigationBarTitleText": "销售总监报价详情" }, "pages/qing-f-c/inquiryManage/sampleInquiry/buyDeputy/inquiry-details": { "navigationStyle": "custom" }, "pages/qing-f-c/inquiryManage/sampleInquiry/analyst/inquiry-details-result": { "navigationStyle": "custom" }, "pages/qing-f-c/inquiryManage/sampleInquiry/analyst/inquiry-details-1": { "navigationStyle": "custom" }, "pages/qing-f-c/inquiryManage/sampleInquiry/analyst/inquiry-details": { "navigationStyle": "custom" }, "pages/qing-f-c/inquiryManage/sampleInquiry/analyst/modifySampleResult": { "navigationBarTitleText": "修改找样结果" }, "pages/qing-f-c/inquiryManage/sampleInquiry/sellDeputy/inquiry-details": { "navigationStyle": "custom" }, "pages/qing-f-c/inquiryManage/sellDeputy/inquiry-details": { "navigationStyle": "custom" }, "pages/qing-f-c/inquiryManage/sales_director/inquiry-details": { "navigationStyle": "custom" }, "pages/qing-f-c/inquiryManage/sampleInquiry/sales_director/inquiry-details": { "navigationStyle": "custom" }, "pages/qing-f-c/inquiryManage/sampleInquiry/analyst/inquiryManage": { "navigationBarTitleText": "分析师询价管理" }, "pages/qing-f-c/inquiryManage/sampleInquiry/analyst/analyst-input": { "navigationBarTitleText": "录入分析结果" }, "pages/qing-f-c/inquiryManage/inquiry-created": { "navigationBarTitleText": "买帮办新建询价单" }, "pages/qing-f-c/inquiryManage/inquiry-created-copy": { "navigationBarTitleText": "买帮办复制询价单" }, "pages/qing-f-c/inquiryManage/inquiry-details": { "navigationStyle": "custom" }, "pages/qing-f-c/inquiryManage/sellDeputy/startQuote": { "navigationBarTitleText": "卖帮办发起报价" }, "pages/qing-f-c/inquiryManage/sampleInquiry/sellDeputy/startQuote": { "navigationBarTitleText": "卖帮办发起报价" }, "pages/qing-f-c/inquiryManage/setQuotePrice/setQuotePrice": { "navigationBarTitleText": "设置报价" }, "pages/qing-f-c/inquiryManage/directorQuotePrice": { "navigationBarTitleText": "直接报价" }, "pages/qing-f-c/test/test": {}, "pages/qing-f-c/inquiryManage/sales_director/quotation-detail": { "navigationBarTitleText": "报价单详情" }, "pages/qing-f-c/inquiryManage/quotedPrice/quotedPrice": { "navigationBarTitleText": "报价详情" }, "pages/qing-f-c/inquiryManage/sellDeputy/inquiryManage": { "navigationBarTitleText": "卖办询价管理", "navigationBarBackgroundColor": "#ffffff", "navigationBarTextStyle": "black", "enablePullDownRefresh": true }, "pages/qing-f-c/inquiryManage/sales_director/inquiryManage": { "navigationBarTitleText": "询价管理", "navigationBarBackgroundColor": "#ffffff", "navigationBarTextStyle": "black", "enablePullDownRefresh": true }, "pages/qing-f-c/inquiryManage/inquiryManage": { "navigationBarTitleText": "买办询价管理", "navigationBarBackgroundColor": "#ffffff", "navigationBarTextStyle": "black", "enablePullDownRefresh": true }, "pages/qing-f-c/regionalManager/customer-admin": { "navigationBarTitleText": "区域经理客户管理", "enablePullDownRefresh": true }, "pages/qing-f-c/regionalManager/deputy-list": { "navigationBarTitleText": "区域经理选择帮办" }, "pages/qing-f-c/regionalManager/customer-details": { "navigationStyle": "custom" }, "pages/qing-f-c/sales_director/customer-details": { "navigationStyle": "custom" }, "pages/qing-f-c/buyDupty/customer-created": { "navigationBarTitleText": "新建客户" }, "pages/qing-f-c/buyDupty/edit-customer": { "navigationBarTitleText": "更新客户" }, "pages/qing-f-c/buyDupty/contact-detail": { "navigationBarTitleText": "联系人详情" }, "pages/qing-f-c/buyDupty/setManagerCondition": { "navigationBarTitleText": "设置经营状况" }, "pages/qing-f-c/sellDupty/customer-admin": { "navigationBarTitleText": "客户管理", "enablePullDownRefresh": true }, "pages/qing-f-c/sellDupty/customer-created": { "navigationBarTitleText": "新建客户" }, "pages/qing-f-c/sellDupty/edit-customer": { "navigationBarTitleText": "修改客户" }, "pages/qing-f-c/sellDupty/customer-details": { "navigationStyle": "custom" }, "pages/qing-f-c/sellDupty/contact-detail": { "navigationBarTitleText": "联系人详情" }, "pages/qing-f-c/sellDupty/setManagerCondition": { "navigationBarTitleText": "设置管理者特征" }, "pages/qing-f-c/sellDupty/editManagerCondition": { "navigationBarTitleText": "编辑管理者特征" }, "pages/qing-f-c/sellDupty/add-contact": { "navigationBarTitleText": "添加联系人" }, "pages/qing-f-c/sellDupty/edit-contact": { "navigationBarTitleText": "修改联系人" }, "pages/qing-f-c/sellDupty/add-competitor": { "navigationBarTitleText": "添加竞争者" }, "pages/qing-f-c/sellDupty/edit-competitor": { "navigationBarTitleText": "修改竞争者" }, "pages/qing-f-c/sellDupty/detail-competitor": { "navigationBarTitleText": "竞争对手详情" }, "pages/qing-f-c/buyDupty/editManagerCondition": { "navigationBarTitleText": "编辑管理者特征" }, "pages/qing-f-c/buyDupty/add-contact": { "navigationBarTitleText": "添加联系人" }, "pages/qing-f-c/buyDupty/customer-details": { "navigationStyle": "custom" }, "pages/qing-f-c/buyDupty/detail-competitor": { "navigationBarTitleText": "竞争对手详情" }, "pages/qing-f-c/buyDupty/edit-competitor": { "navigationBarTitleText": "编辑竞争对手" }, "pages/qing-f-c/buyDupty/add-competitor": { "navigationBarTitleText": "添加竞争对手" }, "pages/qing-f-c/buyDupty/customer-admin": { "navigationBarTitleText": "客户管理", "enablePullDownRefresh": true }, "pages/qing-f-c/sales_director/customer-admin": { "navigationBarTitleText": "销售总监客户管理", "enablePullDownRefresh": true }, "pages/qing-f-c/sales_director/manager-list": { "navigationBarTitleText": "选择区域经理" }, "pages/qing-f-c/claimIdentity/claimIdentity": { "navigationBarTitleText": "身份认领" }, "pages/qing-f-c/register/register": { "navigationStyle": "custom" }, "pages/qing-f-c/register/findPassword": { "navigationStyle": "custom" }, "pages/qing-f-c/register/finish": { "navigationBarTitleText": "注册完成" }, "pages/qing-f-c/fangzhidao/index/index": { "navigationBarTitleText": "纺织道论坛" }, "pages/qing-f-c/qiugouqu/index/index": { "navigationBarTitleText": "求购区" }, "pages/qing-f-c/xianhuoqu/index/index": { "navigationBarTitleText": "现货区" }, "pages/qing-f-c/temaiqu/index/index": { "navigationBarTitleText": "特卖区" }, "pages/qing-f-c/register/protocol/protocol": { "navigationBarTitleText": "轻纺车网服务协议" }, "pages/qing-f-c/inquiryManage/recentPrice/recentPrice": { "navigationBarTitleText": "最近报价" }, "pages/qing-f-c/inquiryManage/selectBuyer": { "navigationBarTitleText": "选择买家", "enablePullDownRefresh": true }, "pages/qing-f-c/inquiryManage/sellDeputy/selectSeller": { "navigationBarTitleText": "选择卖家", "enablePullDownRefresh": true }, "pages/qing-f-c/inquiryManage/sampleInquiry/sales_director/find-result": { "navigationStyle": "custom" }, "pages/qing-f-c/inquiryManage/sellDeputy/quotation-detail": { "navigationBarTitleText": "报价详情" }, "pages/qing-f-c/sales_director/approved": { "navigationBarTitleText": "审核管理" }, "pages/qing-f-c/inquiryManage/sampleInquiry/buyDeputy/quotationDetails/quotationDetails": { "navigationStyle": "custom" }, "pages/qing-f-c/inquiryManage/sampleInquiry/sellDeputy/quotationDetails": { "navigationStyle": "custom" }, "pages/qing-f-c/inquiryManage/sampleInquiry/buyDeputy/quotationDetails/quotationDetails-1": { "navigationBarTitleText": "报价单详情" }, "pages/qing-f-c/inquiryManage/sampleInquiry/sellDeputy/quotationDetails-1": { "navigationBarTitleText": "报价单详情" }, "pages/qing-f-c/pictureShow/pictureShow": {}, "pages/qing-f-c/printer/printer": { "navigationBarTitleText": "生成二维码打印" }, "pages/qing-f-c/inquiryManage/sampleInquiry/analyst/updateAnalyistResult": { "navigationBarTitleText": "修改分析结果" }, "pages/qing-f-c/inquiryManage/sampleInquiry/common/quotation-detail-common": { "navigationBarTitleText": "报价单详情" }, "pages/qing-f-c/inquiryManage/sampleInquiry/analyst/updateSampleResult": { "navigationBarTitleText": "修改对比结果" }, "pages/qing-f-c/inquiryManage/sampleInquiry/common/sampleModifyRecord": { "navigationBarTitleText": "分析样修改记录" }, "pages/qing-f-c/printer/printContent": { "navigationBarTitleText": "打印二维码内容" }, "pages/qing-f-c/setting/setting": { "navigationBarTitleText": "设置" }, "pages/qing-f-c/productShow/companyPictureEdit": { "navigationBarTitleText": "编辑公司图片" }, "pages/qing-f-c/productShow/auditProduct": { "navigationBarTitleText": "产品审核" }, "pages/qing-f-c/productShow/auditProductDetail": { "navigationBarTitleText": "产品详情" }, "pages/qing-f-c/productShow/updateRecord": { "navigationBarTitleText": "更新记录" }, "pages/qing-f-c/analyist/analyist": { "navigationBarTitleText": "产品审核" }, "pages/qing-f-c/inquiryManage/systemMatch/quotationDetail": {}, "pages/qing-f-c/inquiryManage/systemMatch/startQuote": {}, "pages/qing-f-c/inquiryManage/systemMatch/singleProduct": {}, "pages/qing-f-c/inquiryManage/comQuotation/productDetail": {}, "pages/qing-f-c/message/messageDetail": {}, "pages/qing-f-c/bangban/bangbanList": {}, "pages/qing-f-c/customPicture/followRecordDetailSeller": { "navigationBarTitleText": "跟进记录详情" }, "pages/qing-f-c/customPicture/editCompetitor": { "navigationBarTitleText": "编辑竞争对手" }, "pages/qing-f-c/customPicture/editFollowRecord": { "navigationBarTitleText": "编辑客户跟进" }, "pages/qing-f-c/customPicture/editFollowRecordBuy": {}, "pages/qing-f-c/customPicture/editFollowRecordSell": {}, "pages/qing-f-c/customPicture/addCompetitor": { "navigationBarTitleText": "新增竞争对手" }, "pages/qing-f-c/followRecord/followList": { "navigationBarTitleText": "潜在订单", "navigationBarBackgroundColor": "#ffffff", "navigationBarTextStyle": "black", "enablePullDownRefresh": true }, "pages/qing-f-c/productShow/editProduct": { "navigationBarTitleText": "编辑产品" }, "pages/qing-f-c/followRecord/selectBuyer": { "navigationBarTitleText": "选择买家" }, "pages/qing-f-c/followRecord/editFollowRecord": { "navigationBarTitleText": "修改" }, "pages/qing-f-c/followRecord/updateFollowRecord": { "navigationBarTitleText": "更新进度" }, "pages/qing-f-c/followRecord/sd_followList": { "navigationBarTitleText": "潜在订单", "navigationBarBackgroundColor": "#ffffff", "navigationBarTextStyle": "black", "enablePullDownRefresh": true }, "pages/qing-f-c/followRecord/publicDialog": { "navigationBarTitleText": "对话", "enablePullDownRefresh": true }, "pages/qing-f-c/followRecord/selectContact": { "navigationBarTitleText": "选择对话人" }, "pages/qing-f-c/productShow/productCreateCopy": {}, "pages/qing-f-c/productShow/selectCustomer": {}, "pages/qing-f-c/customPicture/buySellFollowDetail": { "navigationBarTitleText": "跟进记录详情" }, "pages/qing-f-c/newFollowRecord/deputyFollowList": { "navigationBarTitleText": "潜在订单", "navigationBarBackgroundColor": "#ffffff", "navigationBarTextStyle": "black", "enablePullDownRefresh": true }, "pages/qing-f-c/newFollowRecord/sd_followList": { "navigationBarTitleText": "潜在订单", "navigationBarBackgroundColor": "#ffffff", "navigationBarTextStyle": "black", "enablePullDownRefresh": true }, "pages/qing-f-c/newFollowRecord/selectSellDeputy": { "navigationBarTitleText": "选择负责人" }, "pages/qing-f-c/newFollowRecord/addFollowRecord": { "navigationBarTitleText": "新建订单" }, "pages/qing-f-c/newFollowRecord/selectBuyer": { "navigationBarTitleText": "选择客户" }, "pages/qing-f-c/newFollowRecord/connectInquiry": { "navigationBarTitleText": "选择询价单" }, "pages/qing-f-c/newFollowRecord/modifyRecord": { "navigationBarTitleText": "修改订单" }, "pages/qing-f-c/newFollowRecord/selectContact": {}, "pages/qing-f-c/newFollowRecord/selectPrincipal": { "navigationBarTitleText": "选择帮办" }, "pages/qing-f-c/sales_director/customLevelAudit": { "navigationBarTitleText": "客户等级" }, "pages/qing-f-c/regionalManager/approved": { "navigationBarTitleText": "审核管理" }, "pages/qing-f-c/buyDupty/updateCustomLevel": { "navigationBarTitleText": "修改客户等级" }, "pages/qing-f-c/buyDupty/updatePrivateLevel": { "navigationBarTitleText": "自定义分级" }, "pages/qing-f-c/customPicture/followCircle": { "navigationBarTitleText": "跟进周期设置" }, "pages/qing-f-c/report/selectTime": { "navigationBarTitleText": "时间选择" }, "pages/qing-f-c/report/deputyReport": { "navigationBarTitleText": "报表统计" }, "pages/qing-f-c/report/sellDeputyReport": { "navigationBarTitleText": "报表统计" }, "pages/qing-f-c/report/regionReport": { "navigationBarTitleText": "报表统计" }, "pages/qing-f-c/report/monthTargetList": {}, "pages/qing-f-c/report/selectMonths": { "navigationBarTitleText": "时间选择" }, "pages/qing-f-c/report/selectCustomerList": { "navigationBarTitleText": "目标销售额明细" }, "pages/qing-f-c/report/selectTargetCustomer": { "navigationBarTitleText": "本月目标客户" }, "pages/qing-f-c/inquiryManage/orderSummary/orderSummary": { "navigationBarTitleText": "订单总结" }, "pages/qing-f-c/regionalManager/dispatchCustomer": {}, "pages/qing-f-c/shopping/detail": { "navigationBarTitleText": "产品详情" } }, "globalStyle": { "navigationBarTextStyle": "white", "navigationBarTitleText": "", "navigationBarBackgroundColor": "#FF6000", "backgroundColor": "white" } };exports.default = _default;
+Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _default = { "pages": { "pages/qing-f-c/shopping/sellerDetail": { "navigationBarTitleText": "询价详情", "usingComponents": { "uni-icon": "/components/uni-icons/uni-icons", "musk-picture": "/components/muskPicture/muskPicture", "service-assurance": "/components/serviceAssurance", "immediate-inquiry": "/components/shopping/immediateInquiry" }, "usingAutoImportComponents": { "musk-picture": "/components/muskPicture/muskPicture" } }, "pages/qing-f-c/shopping/list": { "navigationBarTitleText": "商城", "navigationBarBackgroundColor": "#ffffff", "navigationBarTextStyle": "black", "enablePullDownRefresh": true, "usingComponents": { "uni-load-more": "/components/uni-load-more/uni-load-more", "uni-icon": "/components/uni-icons/uni-icons", "top-tabbar": "/components/topTabbar-follow" }, "usingAutoImportComponents": {} }, "pages/qing-f-c/shopping/finish": { "navigationBarTitleText": "询价", "usingComponents": {}, "usingAutoImportComponents": {} }, "pages/qing-f-c/index": { "navigationStyle": "custom", "enablePullDownRefresh": true, "usingComponents": { "mpvue-picker": "/components/mpvue-picker/mpvuePicker", "uni-grid": "/components/uni-grid/uni-grid", "uni-grid-item": "/components/uni-grid-item/uni-grid-item", "widgit": "/components/widgit" }, "usingAutoImportComponents": { "uni-grid": "/components/uni-grid/uni-grid", "uni-grid-item": "/components/uni-grid-item/uni-grid-item" } }, "pages/qing-f-c/report/inputTarget": { "navigationBarTitleText": "设定本月目标", "usingComponents": {}, "usingAutoImportComponents": {} }, "pages/qing-f-c/report/microShop": { "navigationStyle": "custom", "usingComponents": {}, "usingAutoImportComponents": {} }, "pages/qing-f-c/report/targetCustomList": { "navigationBarTitleText": "本月目标客户", "usingComponents": { "top-search": "/components/topSearch", "uni-load-more": "/components/uni-load-more/uni-load-more", "ms-dropdown-menu": "/components/ms-dropdown/dropdown-menu", "ms-dropdown-item": "/components/ms-dropdown/dropdown-item" }, "usingAutoImportComponents": {} }, "pages/qing-f-c/report/setTargetCustomer": { "navigationBarTitleText": "设定目标客户", "usingComponents": {}, "usingAutoImportComponents": {} }, "pages/qing-f-c/login/login": { "navigationStyle": "custom", "usingComponents": { "uni-icon": "/components/uni-icons/uni-icons" }, "usingAutoImportComponents": {} }, "pages/qing-f-c/report/reportManager": { "navigationBarTitleText": "报表统计", "usingComponents": { "ms-dropdown-menu": "/components/ms-dropdown/dropdown-menu", "ms-dropdown-item": "/components/ms-dropdown/dropdown-item", "my-progress": "/components/myProgress/myProgress", "tongji-color": "/components/tongji-color", "t-table": "/components/t-table/t-table", "t-th": "/components/t-table/t-th", "t-tr": "/components/t-table/t-tr", "t-td": "/components/t-table/t-td" }, "usingAutoImportComponents": { "t-table": "/components/t-table/t-table" } }, "pages/qing-f-c/casualPrice/sd_casualList": { "navigationBarTitleText": "随口价", "navigationBarBackgroundColor": "#ffffff", "navigationBarTextStyle": "black", "enablePullDownRefresh": true, "usingComponents": { "uni-load-more": "/components/uni-load-more/uni-load-more", "uni-icon": "/components/uni-icons/uni-icons", "top-tabbar": "/components/topTabbar-follow", "ms-dropdown-menu": "/components/ms-dropdown/dropdown-menu", "ms-dropdown-item": "/components/ms-dropdown/dropdown-item" }, "usingAutoImportComponents": {} }, "pages/qing-f-c/casualPrice/casualList": { "navigationBarTitleText": "随口价", "navigationBarBackgroundColor": "#ffffff", "navigationBarTextStyle": "black", "enablePullDownRefresh": true, "usingComponents": { "uni-load-more": "/components/uni-load-more/uni-load-more", "uni-icon": "/components/uni-icons/uni-icons", "top-tabbar": "/components/topTabbar-follow" }, "usingAutoImportComponents": {} }, "pages/qing-f-c/casualPrice/createCasual": { "navigationBarTitleText": "新建随口价", "usingComponents": { "my-picker-part": "/components/myPickerPartProps", "uni-icon": "/components/uni-icons/uni-icons", "e-picker": "/components/e-picker/e-picker" }, "usingAutoImportComponents": {} }, "pages/qing-f-c/newFollowRecord/publicDialog": { "navigationBarTitleText": "对话", "usingComponents": { "uni-icon": "/components/uni-icons/uni-icons", "uni-load-more": "/components/uni-load-more/uni-load-more", "fixbox": "/components/fix-box/fix-box" }, "usingAutoImportComponents": {} }, "pages/qing-f-c/newFollowRecord/updateState": { "navigationBarTitleText": "更新状态", "usingComponents": { "my-picker-part": "/components/myPickerPartProps", "my-checkbox-group": "/components/myCheckboxGroupPopCause" }, "usingAutoImportComponents": {} }, "pages/qing-f-c/newFollowRecord/setTargetPrice": { "navigationBarTitleText": "发起报价", "usingComponents": { "my-picker-part": "/components/myPickerPartProps", "uni-icon": "/components/uni-icons/uni-icons", "e-picker": "/components/e-picker/e-picker" }, "usingAutoImportComponents": {} }, "pages/qing-f-c/newFollowRecord/detail": { "navigationBarTitleText": "订单详况", "usingComponents": {}, "usingAutoImportComponents": {} }, "pages/qing-f-c/customPicture/createCustomFollow": { "navigationBarTitleText": "新建客户跟进", "usingComponents": { "my-picker-part": "/components/myPickerPartProps", "uni-icon": "/components/uni-icons/uni-icons", "e-picker": "/components/e-picker/e-picker" }, "usingAutoImportComponents": {} }, "pages/qing-f-c/productShow/productDetail": { "navigationBarTitleText": "产品详情", "usingComponents": { "chanpinyaosu": "/components/productShow/chanpinyaosu-show", "machine-status": "/components/productShow/machineStatus", "uni-icon": "/components/uni-icons/uni-icons" }, "usingAutoImportComponents": {} }, "pages/qing-f-c/followRecord/dialogue": { "navigationBarTitleText": "对话", "usingComponents": { "uni-icon": "/components/uni-icons/uni-icons" }, "usingAutoImportComponents": {} }, "pages/qing-f-c/followRecord/addFollowRecord": { "navigationBarTitleText": "新增潜在订单", "usingComponents": { "my-picker-part": "/components/myPickerPartProps", "uni-icon": "/components/uni-icons/uni-icons", "e-picker": "/components/e-picker/e-picker" }, "usingAutoImportComponents": {} }, "pages/qing-f-c/followRecord/connectInquiry": { "navigationBarTitleText": "选择询价单", "usingComponents": { "top-search": "/components/topSearch", "uni-load-more": "/components/uni-load-more/uni-load-more", "inquire-list": "/components/inquireList-select" }, "usingAutoImportComponents": {} }, "pages/qing-f-c/followRecord/detailFollowRecord": { "navigationBarTitleText": "潜在订单跟进详情", "usingComponents": { "uni-icon": "/components/uni-icons/uni-icons" }, "usingAutoImportComponents": {} }, "pages/qing-f-c/customPicture/sd_followRecordDetail": { "navigationStyle": "custom", "enablePullDownRefresh": true, "usingComponents": { "uni-load-more": "/components/uni-load-more/uni-load-more", "uni-icon": "/components/uni-icons/uni-icons", "top-tabbar": "/components/topTabbar-follow" }, "usingAutoImportComponents": {} }, "pages/qing-f-c/customPicture/sd_followList": { "navigationBarTitleText": "跟进列表", "navigationBarBackgroundColor": "#ffffff", "navigationBarTextStyle": "black", "enablePullDownRefresh": true, "usingComponents": { "uni-load-more": "/components/uni-load-more/uni-load-more", "uni-icon": "/components/uni-icons/uni-icons", "top-tabbar": "/components/topTabbar-follow", "ms-dropdown-menu": "/components/ms-dropdown/dropdown-menu", "ms-dropdown-item": "/components/ms-dropdown/dropdown-item" }, "usingAutoImportComponents": {} }, "pages/qing-f-c/followRecord/orderFollowSchedule": { "navigationBarTitleText": "订单跟进记录", "enablePullDownRefresh": true, "usingComponents": { "uni-load-more": "/components/uni-load-more/uni-load-more", "uni-icon": "/components/uni-icons/uni-icons" }, "usingAutoImportComponents": {} }, "pages/qing-f-c/customPicture/createFollowRecordSelldeputy": { "navigationBarTitleText": "新建跟进记录", "usingComponents": { "my-picker-part": "/components/myPickerPartProps", "uni-icon": "/components/uni-icons/uni-icons", "e-picker": "/components/e-picker/e-picker" }, "usingAutoImportComponents": {} }, "pages/qing-f-c/customPicture/competitorDetail": { "navigationBarTitleText": "竞争对手详情", "usingComponents": {}, "usingAutoImportComponents": {} }, "pages/qing-f-c/customPicture/createFollowRecordBuydeputy": { "navigationBarTitleText": "新建跟进记录", "usingComponents": { "my-picker-part": "/components/myPickerPartProps", "uni-icon": "/components/uni-icons/uni-icons", "e-picker": "/components/e-picker/e-picker" }, "usingAutoImportComponents": {} }, "pages/qing-f-c/customPicture/followRecordDetail": { "navigationBarTitleText": "跟进记录详情", "usingComponents": { "uni-icon": "/components/uni-icons/uni-icons" }, "usingAutoImportComponents": {} }, "pages/qing-f-c/customPicture/competitorAnalyist": { "navigationBarTitleText": "竞争对手分析", "usingComponents": { "my-checkbox-group": "/components/myCheckboxGroup", "my-picker-part": "/components/myPickerPartNew" }, "usingAutoImportComponents": {} }, "pages/qing-f-c/customPicture/followList": { "navigationBarTitleText": "客户跟进", "enablePullDownRefresh": true, "usingComponents": { "uni-load-more": "/components/uni-load-more/uni-load-more" }, "usingAutoImportComponents": {} }, "pages/qing-f-c/customPicture/followListNew": { "navigationBarTitleText": "客户跟进", "navigationBarBackgroundColor": "#ffffff", "navigationBarTextStyle": "black", "enablePullDownRefresh": true, "usingComponents": { "uni-load-more": "/components/uni-load-more/uni-load-more", "uni-icon": "/components/uni-icons/uni-icons", "top-tabbar": "/components/topTabbar-follow", "ms-dropdown-menu": "/components/ms-dropdown/dropdown-menu", "ms-dropdown-item": "/components/ms-dropdown/dropdown-item" }, "usingAutoImportComponents": {} }, "pages/qing-f-c/message/messageList": { "navigationBarTitleText": "消息", "enablePullDownRefresh": true, "usingComponents": { "uni-swipe-action": "/components/uni-swipe-action/uni-swipe-action", "uni-load-more": "/components/uni-load-more/uni-load-more" }, "usingAutoImportComponents": {} }, "pages/qing-f-c/inquiryManage/comQuotation/startQuotation": { "navigationBarTitleText": "发起报价", "usingComponents": { "my-picker-part": "/components/myPickerPartNew", "switch-button": "/components/switchButton-auto", "picker-button": "/components/pickerButton", "part-checkbox-group": "/components/partCheckboxGroup", "picker-input": "/components/pickerInput", "switch-button-s": "/components/switchButton-s", "popup-me": "/components/popupMe", "uni-icon": "/components/uni-icons/uni-icons", "switch-button-carrage": "/components/switchButton-edit" }, "usingAutoImportComponents": {} }, "pages/qing-f-c/inquiryManage/comQuotation/selectCustomer": { "navigationBarTitleText": "选择客户", "usingComponents": { "top-search": "/components/topSearch", "uni-load-more": "/components/uni-load-more/uni-load-more" }, "usingAutoImportComponents": {} }, "pages/qing-f-c/inquiryManage/comQuotation/selectProduct": { "navigationBarTitleText": "选择产品", "usingComponents": { "uni-collapse": "/components/uni-collapse/uni-collapse", "uni-collapse-item": "/components/uni-collapse-item/uni-collapse-item", "uni-list": "/components/uni-list/uni-list", "uni-list-item": "/components/uni-list-item/uni-list-item-my" }, "usingAutoImportComponents": { "uni-collapse": "/components/uni-collapse/uni-collapse", "uni-collapse-item": "/components/uni-collapse-item/uni-collapse-item", "uni-list": "/components/uni-list/uni-list", "uni-list-item": "/components/uni-list-item/uni-list-item" } }, "pages/qing-f-c/inquiryManage/systemMatch/systemMatchDetail": { "navigationBarTitleText": "匹配结果", "usingComponents": { "fa-icon": "/components/kilvn-fa-icon/fa-icon", "uni-drawer": "/components/uni-drawer/uni-drawer", "uni-calendar": "/components/uni-calendar/uni-calendar", "seller-info-match": "/components/inquiry/sellerInfoMatch" }, "usingAutoImportComponents": { "uni-drawer": "/components/uni-drawer/uni-drawer" } }, "pages/qing-f-c/productShow/examineProduct": { "navigationBarTitleText": "产品审核", "usingComponents": { "uni-list": "/components/uni-list/uni-list", "uni-list-item": "/components/uni-list-item/uni-list-item", "uni-load-more": "/components/uni-load-more/uni-load-more" }, "usingAutoImportComponents": { "uni-list": "/components/uni-list/uni-list", "uni-list-item": "/components/uni-list-item/uni-list-item" } }, "pages/qing-f-c/productShow/manageConditionEdit": { "navigationBarTitleText": "编辑经营概况", "usingComponents": { "my-checkbox-group": "/components/myCheckboxGroup", "uni-icon": "/components/uni-icons/uni-icons", "popup-me-add": "/components/popupMe-addM", "uni-swipe-action": "/components/uni-swipe-action/uni-swipe-action" }, "usingAutoImportComponents": { "uni-swipe-action": "/components/uni-swipe-action/uni-swipe-action" } }, "pages/qing-f-c/productShow/productUpdate": { "navigationBarTitleText": "编辑产品", "usingComponents": { "picker-input": "/components/pickerInput", "picker-button": "/components/pickerButton-edit", "switch-button-edit": "/components/switchButton-edit" }, "usingAutoImportComponents": {} }, "pages/qing-f-c/productShow/product-created": { "navigationBarTitleText": "新增产品", "usingComponents": { "picker-button": "/components/pickerButton-edit", "my-picker": "/components/myPicker-inquiry", "part-checkbox-group": "/components/partCheckboxGroup", "my-picker-small": "/components/myPickerSmall", "switch-button": "/components/switchButton-auto", "picker-input": "/components/pickerInput", "uni-icon": "/components/uni-icons/uni-icons", "popup-me": "/components/popupMe", "switch-button-edit": "/components/switchButton-edit", "popup-me-season": "/components/popupMeSeason", "input-search": "/components/p-inputSearch/inputSearch" }, "usingAutoImportComponents": {} }, "pages/qing-f-c/productShow/mainShow": { "navigationBarTitleText": "产品展示", "enablePullDownRefresh": true, "usingComponents": { "uni-collapse": "/components/uni-collapse/uni-collapse", "uni-collapse-item": "/components/uni-collapse-item/uni-collapse-item", "uni-list": "/components/uni-list/uni-list", "uni-list-item": "/components/uni-list-item/uni-list-item", "fa-icon": "/components/kilvn-fa-icon/fa-icon", "uni-swipe-action": "/components/uni-swipe-action/uni-swipe-action" }, "usingAutoImportComponents": { "uni-collapse": "/components/uni-collapse/uni-collapse", "uni-collapse-item": "/components/uni-collapse-item/uni-collapse-item", "uni-list": "/components/uni-list/uni-list", "uni-list-item": "/components/uni-list-item/uni-list-item" } }, "pages/qing-f-c/inquiryManage/priceTrend/priceTrend": { "navigationBarTitleText": "价格趋势", "usingComponents": {}, "usingAutoImportComponents": {} }, "pages/qing-f-c/inquiryManage/sampleInquiry/buyDeputy/inquiry-details-result": { "navigationStyle": "custom", "usingComponents": { "popup-me": "/components/popupMe", "uni-icon": "/components/uni-icons/uni-icons", "chanpinyaosu": "/components/inquiry/chanpinyaosu", "baojia-list": "/components/inquiry/baojia-list" }, "usingAutoImportComponents": {} }, "pages/qing-f-c/inquiryManage/sampleInquiry/analyst/setSampleResult": { "navigationBarTitleText": "设置找样结果", "usingComponents": { "range-button": "/components/rangeButton-single" }, "usingAutoImportComponents": {} }, "pages/qing-f-c/inquiryManage/sales_director/modifyPrice": { "navigationBarTitleText": "修改报价", "usingComponents": { "switch-button": "/components/switchButton-auto" }, "usingAutoImportComponents": {} }, "pages/qing-f-c/inquiryManage/sampleInquiry/sales_director/modifyPrice": { "navigationBarTitleText": "修改报价价格", "usingComponents": { "switch-button": "/components/switchButton-auto" }, "usingAutoImportComponents": {} }, "pages/qing-f-c/inquiryManage/sampleInquiry/sales_director/quotation-details": { "navigationBarTitleText": "销售总监报价详情", "usingComponents": { "chanpinyaosu": "/components/inquiry/chanpinyaosu-quote", "baojia-detail": "/components/inquiry/baojia-detail", "seller-info": "/components/inquiry/sellerInfo", "baojia-detail-sell": "/components/inquiry/baojiaDetail-sell", "popup-back": "/components/popupMeArea" }, "usingAutoImportComponents": {} }, "pages/qing-f-c/inquiryManage/sampleInquiry/buyDeputy/inquiry-details": { "navigationStyle": "custom", "usingComponents": { "popup-me": "/components/popupMe", "uni-icon": "/components/uni-icons/uni-icons", "baojia-list": "/components/inquiry/baojia-list-buy", "baojia-list-direct": "/components/inquiry/baojia-list-direct", "chanpinyaosu": "/components/sample-inquiry/chanpinyaosu-quote", "sample-result": "/components/sampleResult", "popup-copy": "/components/popupMe-copy", "pop-up-pic": "/components/popupMe-pic" }, "usingAutoImportComponents": {} }, "pages/qing-f-c/inquiryManage/sampleInquiry/analyst/inquiry-details-result": { "navigationStyle": "custom", "usingComponents": { "popup-me": "/components/popupMe", "uni-icon": "/components/uni-icons/uni-icons", "chanpinyaosu": "/components/inquiry/chanpinyaosu", "sample-result": "/components/sampleResult" }, "usingAutoImportComponents": {} }, "pages/qing-f-c/inquiryManage/sampleInquiry/analyst/inquiry-details-1": { "navigationStyle": "custom", "usingComponents": { "popup-me": "/components/popupMe", "uni-icon": "/components/uni-icons/uni-icons", "chanpinyaosu": "/components/sample-inquiry/chanpinyaosu-quote", "compare-result": "/components/sample-inquiry/compare-result", "pop-up-pic": "/components/popupMe-pic" }, "usingAutoImportComponents": {} }, "pages/qing-f-c/inquiryManage/sampleInquiry/analyst/inquiry-details": { "navigationStyle": "custom", "usingComponents": { "popup-me": "/components/popupMe", "uni-icon": "/components/uni-icons/uni-icons", "chanpinyaosu": "/components/sample-inquiry/chanpinyaosu-quote", "sample-result": "/components/sampleResult", "pop-up-pic": "/components/popupMe-pic" }, "usingAutoImportComponents": {} }, "pages/qing-f-c/inquiryManage/sampleInquiry/analyst/modifySampleResult": { "navigationBarTitleText": "修改找样结果", "usingComponents": { "range-button": "/components/rangeButton-single" }, "usingAutoImportComponents": {} }, "pages/qing-f-c/inquiryManage/sampleInquiry/sellDeputy/inquiry-details": { "navigationStyle": "custom", "usingComponents": { "popup-me": "/components/popupMe", "uni-icon": "/components/uni-icons/uni-icons", "chanpinyaosu": "/components/sample-inquiry/chanpinyaosu-quote", "baojia-list": "/components/inquiry/baojia-list", "pop-up-pic": "/components/popupMe-pic", "seller-match": "/components/sellerMatch" }, "usingAutoImportComponents": {} }, "pages/qing-f-c/inquiryManage/sellDeputy/inquiry-details": { "navigationStyle": "custom", "usingComponents": { "baojia-list": "/components/inquiry/baojia-list", "chanpinyaosu": "/components/inquiry/chanpinyaosu", "popup-me": "/components/popupMe", "seller-match": "/components/sellerMatch" }, "usingAutoImportComponents": {} }, "pages/qing-f-c/inquiryManage/sales_director/inquiry-details": { "navigationStyle": "custom", "usingComponents": { "baojia-list": "/components/inquiry/baojia-list", "chanpinyaosu": "/components/inquiry/chanpinyaosu", "popup-me": "/components/popupMe" }, "usingAutoImportComponents": {} }, "pages/qing-f-c/inquiryManage/sampleInquiry/sales_director/inquiry-details": { "navigationStyle": "custom", "usingComponents": { "popup-me": "/components/popupMe", "uni-icon": "/components/uni-icons/uni-icons", "chanpinyaosu": "/components/sample-inquiry/chanpinyaosu-quote", "baojia-list": "/components/inquiry/baojia-list", "pop-up-pic": "/components/popupMe-pic" }, "usingAutoImportComponents": {} }, "pages/qing-f-c/inquiryManage/sampleInquiry/analyst/inquiryManage": { "navigationBarTitleText": "分析师询价管理", "usingComponents": { "uni-icon": "/components/uni-icons/uni-icons", "top-tabbar": "/components/topTabbar-inquiry", "filter-button": "/components/filterButton-status", "inquire-list": "/components/sample-inquiry/inquireList", "uni-load-more": "/components/uni-load-more/uni-load-more" }, "usingAutoImportComponents": {} }, "pages/qing-f-c/inquiryManage/sampleInquiry/analyst/analyst-input": { "navigationBarTitleText": "录入分析结果", "usingComponents": { "picker-button": "/components/pickerButton", "my-picker": "/components/myPicker", "part-checkbox-group": "/components/partCheckboxGroup", "my-picker-small": "/components/myPickerSmall", "switch-button": "/components/switchButton-auto", "picker-input": "/components/pickerInput", "uni-icon": "/components/uni-icons/uni-icons", "popup-me": "/components/popupMe", "input-search": "/components/p-inputSearch/inputSearch" }, "usingAutoImportComponents": {} }, "pages/qing-f-c/inquiryManage/inquiry-created": { "navigationBarTitleText": "买帮办新建询价单", "usingComponents": { "picker-button": "/components/pickerButton-edit", "my-picker": "/components/myPicker-inquiry", "part-checkbox-group": "/components/partCheckboxGroup", "my-picker-small": "/components/myPickerSmall", "switch-button": "/components/switchButton-auto", "picker-input": "/components/pickerInput", "uni-icon": "/components/uni-icons/uni-icons", "popup-me": "/components/popupMe", "switch-button-edit": "/components/switchButton-edit", "input-search": "/components/p-inputSearch/inputSearch" }, "usingAutoImportComponents": {} }, "pages/qing-f-c/inquiryManage/inquiry-created-copy": { "navigationBarTitleText": "买帮办复制询价单", "usingComponents": { "picker-button": "/components/pickerButton-edit", "my-picker": "/components/myPicker-inquiry", "part-checkbox-group": "/components/partCheckboxGroup", "my-picker-small": "/components/myPickerSmall", "switch-button": "/components/switchButton-edit", "picker-input": "/components/pickerInput", "uni-icon": "/components/uni-icons/uni-icons", "popup-me": "/components/popupMe" }, "usingAutoImportComponents": {} }, "pages/qing-f-c/inquiryManage/inquiry-details": { "navigationStyle": "custom", "usingComponents": { "popup-me": "/components/popupMe", "uni-icon": "/components/uni-icons/uni-icons", "baojia-list": "/components/inquiry/baojia-list-buy", "baojia-list-direct": "/components/inquiry/baojia-list-direct", "chanpinyaosu": "/components/sample-inquiry/chanpinyaosu-quote", "popup-copy": "/components/popupMe-copy", "popup-me-unmatch": "/components/popupMeUnmatch" }, "usingAutoImportComponents": {} }, "pages/qing-f-c/inquiryManage/sellDeputy/startQuote": { "navigationBarTitleText": "卖帮办发起报价", "usingComponents": { "my-picker-part": "/components/myPickerPart", "switch-button": "/components/switchButton-auto", "picker-button": "/components/pickerButton", "part-checkbox-group": "/components/partCheckboxGroup", "picker-input": "/components/pickerInput", "switch-button-s": "/components/switchButton-s", "popup-me": "/components/popupMe", "uni-icon": "/components/uni-icons/uni-icons" }, "usingAutoImportComponents": {} }, "pages/qing-f-c/inquiryManage/sampleInquiry/sellDeputy/startQuote": { "navigationBarTitleText": "卖帮办发起报价", "usingComponents": { "my-picker-part": "/components/myPickerPart", "switch-button": "/components/switchButton-auto", "picker-button": "/components/pickerButton", "part-checkbox-group": "/components/partCheckboxGroup", "picker-input": "/components/pickerInput", "switch-button-s": "/components/switchButton-s", "popup-me": "/components/popupMe", "uni-icon": "/components/uni-icons/uni-icons", "picture": "/components/pictures", "switch-button-e": "/components/switchButton-edit" }, "usingAutoImportComponents": {} }, "pages/qing-f-c/inquiryManage/setQuotePrice/setQuotePrice": { "navigationBarTitleText": "设置报价", "usingComponents": { "switch-button": "/components/switchButton-edit", "switch-button-one": "/components/switchButton-auto" }, "usingAutoImportComponents": {} }, "pages/qing-f-c/inquiryManage/directorQuotePrice": { "navigationBarTitleText": "直接报价", "usingComponents": { "switch-button": "/components/switchButton-auto", "my-picker-part": "/components/myPickerPart" }, "usingAutoImportComponents": {} }, "pages/qing-f-c/test/test": { "usingComponents": { "switch-button": "/components/switchButton-last", "my-picker": "/components/myPicker", "popup-me": "/components/popupMe" }, "usingAutoImportComponents": {} }, "pages/qing-f-c/inquiryManage/sales_director/quotation-detail": { "navigationBarTitleText": "报价单详情", "usingComponents": { "chanpinyaosu": "/components/inquiry/chanpinyaosu-quote", "baojia-detail": "/components/inquiry/baojia-detail", "seller-info": "/components/inquiry/sellerInfo", "baojia-detail-sell": "/components/inquiry/baojiaDetail-sell", "popup-back": "/components/popupMeArea" }, "usingAutoImportComponents": {} }, "pages/qing-f-c/inquiryManage/quotedPrice/quotedPrice": { "navigationBarTitleText": "报价详情", "usingComponents": { "uni-icon": "/components/uni-icons/uni-icons", "chanpinyaosu": "/components/inquiry/chanpinyaosu-quote", "baojia-detail": "/components/inquiry/baojia-detail-buy", "seller-info": "/components/inquiry/sellerInfo", "baojia-detail-sell": "/components/inquiry/baojiaDetail-sell" }, "usingAutoImportComponents": {} }, "pages/qing-f-c/inquiryManage/sellDeputy/inquiryManage": { "navigationBarTitleText": "卖办询价管理", "navigationBarBackgroundColor": "#ffffff", "navigationBarTextStyle": "black", "enablePullDownRefresh": true, "usingComponents": { "uni-icon": "/components/uni-icons/uni-icons", "top-tabbar": "/components/topTabbar-inquiry", "filter-button": "/components/filterButton-status", "inquire-list": "/components/inquireList", "uni-load-more": "/components/uni-load-more/uni-load-more" }, "usingAutoImportComponents": {} }, "pages/qing-f-c/inquiryManage/sales_director/inquiryManage": { "navigationBarTitleText": "询价管理", "navigationBarBackgroundColor": "#ffffff", "navigationBarTextStyle": "black", "enablePullDownRefresh": true, "usingComponents": { "uni-icon": "/components/uni-icons/uni-icons", "top-tabbar": "/components/topTabbar-inquiry", "filter-button": "/components/filterButton-status", "inquire-list": "/components/inquireList", "uni-load-more": "/components/uni-load-more/uni-load-more" }, "usingAutoImportComponents": {} }, "pages/qing-f-c/inquiryManage/inquiryManage": { "navigationBarTitleText": "买办询价管理", "navigationBarBackgroundColor": "#ffffff", "navigationBarTextStyle": "black", "enablePullDownRefresh": true, "usingComponents": { "uni-icon": "/components/uni-icons/uni-icons", "top-tabbar": "/components/topTabbar-inquiry", "filter-button": "/components/filterButton-status", "inquire-list": "/components/inquireList", "uni-load-more": "/components/uni-load-more/uni-load-more" }, "usingAutoImportComponents": {} }, "pages/qing-f-c/regionalManager/customer-admin": { "navigationBarTitleText": "区域经理客户管理", "enablePullDownRefresh": true, "usingComponents": { "uni-icon": "/components/uni-icons/uni-icons", "uni-load-more": "/components/uni-load-more/uni-load-more", "drop-menu-region": "/components/dropMenuRegion", "drop-menu-deputy": "/components/dropMenuDeputy", "drop-menu-level": "/components/dropMenuLevel" }, "usingAutoImportComponents": {} }, "pages/qing-f-c/regionalManager/deputy-list": { "navigationBarTitleText": "区域经理选择帮办", "usingComponents": {}, "usingAutoImportComponents": {} }, "pages/qing-f-c/regionalManager/customer-details": { "navigationStyle": "custom", "usingComponents": { "list-show": "/components/listShow", "uni-icon": "/components/uni-icons/uni-icons" }, "usingAutoImportComponents": {} }, "pages/qing-f-c/sales_director/customer-details": { "navigationStyle": "custom", "usingComponents": { "list-show": "/components/listShow", "uni-icon": "/components/uni-icons/uni-icons" }, "usingAutoImportComponents": {} }, "pages/qing-f-c/buyDupty/customer-created": { "navigationBarTitleText": "新建客户", "usingComponents": { "my-picker": "/components/myPicker", "range-button": "/components/rangeButtonLong", "swith-button": "/components/switchButton" }, "usingAutoImportComponents": {} }, "pages/qing-f-c/buyDupty/edit-customer": { "navigationBarTitleText": "更新客户", "usingComponents": { "my-picker": "/components/myPicker", "range-button": "/components/rangeButtonLong", "swith-button": "/components/switchButton" }, "usingAutoImportComponents": {} }, "pages/qing-f-c/buyDupty/contact-detail": { "navigationBarTitleText": "联系人详情", "usingComponents": { "list-show": "/components/listShow" }, "usingAutoImportComponents": {} }, "pages/qing-f-c/buyDupty/setManagerCondition": { "navigationBarTitleText": "设置经营状况", "usingComponents": { "my-picker": "/components/myPicker", "my-checkbox-group": "/components/myCheckboxGroup", "uni-icon": "/components/uni-icons/uni-icons" }, "usingAutoImportComponents": {} }, "pages/qing-f-c/sellDupty/customer-admin": { "navigationBarTitleText": "客户管理", "enablePullDownRefresh": true, "usingComponents": { "uni-icon": "/components/uni-icons/uni-icons", "uni-load-more": "/components/uni-load-more/uni-load-more", "ms-dropdown-menu": "/components/ms-dropdown/dropdown-menu", "ms-dropdown-item": "/components/ms-dropdown/dropdown-item", "drop-menu-region": "/components/dropMenuRegion", "drop-menu-deputy": "/components/dropMenuDeputy", "drop-menu-level": "/components/dropMenuLevel", "drop-menu-pir-level": "/components/dropMenuPrivateLevel" }, "usingAutoImportComponents": {} }, "pages/qing-f-c/sellDupty/customer-created": { "navigationBarTitleText": "新建客户", "usingComponents": { "my-picker": "/components/myPicker", "range-button": "/components/rangeButton", "swith-button": "/components/switchButton" }, "usingAutoImportComponents": {} }, "pages/qing-f-c/sellDupty/edit-customer": { "navigationBarTitleText": "修改客户", "usingComponents": { "my-picker": "/components/myPicker", "range-button": "/components/rangeButton-v", "swith-button": "/components/switchButton" }, "usingAutoImportComponents": {} }, "pages/qing-f-c/sellDupty/customer-details": { "navigationStyle": "custom", "usingComponents": { "list-show": "/components/listShow", "uni-icon": "/components/uni-icons/uni-icons" }, "usingAutoImportComponents": {} }, "pages/qing-f-c/sellDupty/contact-detail": { "navigationBarTitleText": "联系人详情", "usingComponents": { "list-show": "/components/listShow" }, "usingAutoImportComponents": {} }, "pages/qing-f-c/sellDupty/setManagerCondition": { "navigationBarTitleText": "设置管理者特征", "usingComponents": { "my-picker": "/components/myPicker", "my-checkbox-group": "/components/myCheckboxGroup", "uni-icon": "/components/uni-icons/uni-icons" }, "usingAutoImportComponents": {} }, "pages/qing-f-c/sellDupty/editManagerCondition": { "navigationBarTitleText": "编辑管理者特征", "usingComponents": { "my-picker": "/components/myPicker", "my-checkbox-group": "/components/myCheckboxGroup", "uni-icon": "/components/uni-icons/uni-icons" }, "usingAutoImportComponents": {} }, "pages/qing-f-c/sellDupty/add-contact": { "navigationBarTitleText": "添加联系人", "usingComponents": { "my-picker": "/components/myPicker", "range-button": "/components/rangeButton", "my-checkbox-group": "/components/myCheckboxGroup" }, "usingAutoImportComponents": {} }, "pages/qing-f-c/sellDupty/edit-contact": { "navigationBarTitleText": "修改联系人", "usingComponents": { "my-picker": "/components/myPickerEdit", "range-button": "/components/rangeButtonLong", "my-checkbox-group": "/components/myCheckboxGroup" }, "usingAutoImportComponents": {} }, "pages/qing-f-c/sellDupty/add-competitor": { "navigationBarTitleText": "添加竞争者", "usingComponents": { "my-picker": "/components/myPicker", "my-checkbox-group": "/components/myCheckboxGroup" }, "usingAutoImportComponents": {} }, "pages/qing-f-c/sellDupty/edit-competitor": { "navigationBarTitleText": "修改竞争者", "usingComponents": { "my-picker": "/components/myPicker", "my-checkbox-group": "/components/myCheckboxGroup" }, "usingAutoImportComponents": {} }, "pages/qing-f-c/sellDupty/detail-competitor": { "navigationBarTitleText": "竞争对手详情", "usingComponents": {}, "usingAutoImportComponents": {} }, "pages/qing-f-c/buyDupty/editManagerCondition": { "navigationBarTitleText": "编辑管理者特征", "usingComponents": { "my-picker": "/components/myPicker", "my-checkbox-group": "/components/myCheckboxGroup", "uni-icon": "/components/uni-icons/uni-icons" }, "usingAutoImportComponents": {} }, "pages/qing-f-c/buyDupty/add-contact": { "navigationBarTitleText": "添加联系人", "usingComponents": { "my-picker": "/components/myPicker", "range-button": "/components/rangeButton", "my-checkbox-group": "/components/myCheckboxGroup" }, "usingAutoImportComponents": {} }, "pages/qing-f-c/buyDupty/customer-details": { "navigationStyle": "custom", "usingComponents": { "list-show": "/components/listShow", "uni-icon": "/components/uni-icons/uni-icons" }, "usingAutoImportComponents": {} }, "pages/qing-f-c/buyDupty/detail-competitor": { "navigationBarTitleText": "竞争对手详情", "usingComponents": {}, "usingAutoImportComponents": {} }, "pages/qing-f-c/buyDupty/edit-competitor": { "navigationBarTitleText": "编辑竞争对手", "usingComponents": { "my-picker": "/components/myPicker", "my-checkbox-group": "/components/myCheckboxGroup" }, "usingAutoImportComponents": {} }, "pages/qing-f-c/buyDupty/add-competitor": { "navigationBarTitleText": "添加竞争对手", "usingComponents": { "my-picker": "/components/myPicker", "my-checkbox-group": "/components/myCheckboxGroup" }, "usingAutoImportComponents": {} }, "pages/qing-f-c/buyDupty/customer-admin": { "navigationBarTitleText": "客户管理", "enablePullDownRefresh": true, "usingComponents": { "uni-icon": "/components/uni-icons/uni-icons", "uni-load-more": "/components/uni-load-more/uni-load-more", "ms-dropdown-menu": "/components/ms-dropdown/dropdown-menu", "ms-dropdown-item": "/components/ms-dropdown/dropdown-item", "drop-menu-region": "/components/dropMenuRegion", "drop-menu-deputy": "/components/dropMenuDeputy", "drop-menu-level": "/components/dropMenuLevel", "drop-menu-pir-level": "/components/dropMenuPrivateLevel" }, "usingAutoImportComponents": {} }, "pages/qing-f-c/sales_director/customer-admin": { "navigationBarTitleText": "销售总监客户管理", "enablePullDownRefresh": true, "usingComponents": { "uni-icon": "/components/uni-icons/uni-icons", "uni-load-more": "/components/uni-load-more/uni-load-more", "ms-dropdown-menu": "/components/ms-dropdown/dropdown-menu", "ms-dropdown-item": "/components/ms-dropdown/dropdown-item", "drop-menu-region": "/components/dropMenuRegion", "drop-menu-deputy": "/components/dropMenuDeputy", "drop-menu-level": "/components/dropMenuLevel" }, "usingAutoImportComponents": {} }, "pages/qing-f-c/sales_director/manager-list": { "navigationBarTitleText": "选择区域经理", "usingComponents": {}, "usingAutoImportComponents": {} }, "pages/qing-f-c/claimIdentity/claimIdentity": { "navigationBarTitleText": "身份认领", "usingComponents": {}, "usingAutoImportComponents": {} }, "pages/qing-f-c/register/register": { "navigationStyle": "custom", "usingComponents": { "uni-icon": "/components/uni-icons/uni-icons" }, "usingAutoImportComponents": {} }, "pages/qing-f-c/register/findPassword": { "navigationStyle": "custom", "usingComponents": { "uni-icon": "/components/uni-icons/uni-icons" }, "usingAutoImportComponents": {} }, "pages/qing-f-c/register/finish": { "navigationBarTitleText": "注册完成", "usingComponents": {}, "usingAutoImportComponents": {} }, "pages/qing-f-c/fangzhidao/index/index": { "navigationBarTitleText": "纺织道论坛", "usingComponents": {}, "usingAutoImportComponents": {} }, "pages/qing-f-c/qiugouqu/index/index": { "navigationBarTitleText": "求购区", "usingComponents": {}, "usingAutoImportComponents": {} }, "pages/qing-f-c/xianhuoqu/index/index": { "navigationBarTitleText": "现货区", "usingComponents": {}, "usingAutoImportComponents": {} }, "pages/qing-f-c/temaiqu/index/index": { "navigationBarTitleText": "特卖区", "usingComponents": {}, "usingAutoImportComponents": {} }, "pages/qing-f-c/register/protocol/protocol": { "navigationBarTitleText": "轻纺车网服务协议", "usingComponents": {}, "usingAutoImportComponents": {} }, "pages/qing-f-c/inquiryManage/recentPrice/recentPrice": { "navigationBarTitleText": "最近报价", "usingComponents": {}, "usingAutoImportComponents": {} }, "pages/qing-f-c/inquiryManage/selectBuyer": { "navigationBarTitleText": "选择买家", "enablePullDownRefresh": true, "usingComponents": { "top-search": "/components/topSearch", "uni-load-more": "/components/uni-load-more/uni-load-more" }, "usingAutoImportComponents": {} }, "pages/qing-f-c/inquiryManage/sellDeputy/selectSeller": { "navigationBarTitleText": "选择卖家", "enablePullDownRefresh": true, "usingComponents": { "top-search": "/components/topSearch", "uni-load-more": "/components/uni-load-more/uni-load-more" }, "usingAutoImportComponents": {} }, "pages/qing-f-c/inquiryManage/sampleInquiry/sales_director/find-result": { "navigationStyle": "custom", "usingComponents": { "chanpinyaosu": "/components/inquiry/chanpinyaosu" }, "usingAutoImportComponents": {} }, "pages/qing-f-c/inquiryManage/sellDeputy/quotation-detail": { "navigationBarTitleText": "报价详情", "usingComponents": { "chanpinyaosu": "/components/inquiry/chanpinyaosu-quote", "baojia-detail": "/components/inquiry/baojia-detail-buy", "seller-info": "/components/inquiry/sellerInfo", "popup-me": "/components/popupMe-again" }, "usingAutoImportComponents": {} }, "pages/qing-f-c/sales_director/approved": { "navigationBarTitleText": "审核管理", "usingComponents": { "widgit": "/components/widgit-menu" }, "usingAutoImportComponents": {} }, "pages/qing-f-c/inquiryManage/sampleInquiry/buyDeputy/quotationDetails/quotationDetails": { "navigationStyle": "custom", "usingComponents": { "popup-me": "/components/popupMe", "uni-icon": "/components/uni-icons/uni-icons", "chanpinyaosu": "/components/sample-inquiry/chanpinyaosu-quote", "sample-result": "/components/sampleResult", "baojia-list": "/components/sample-inquiry/baojia-detail-buy", "seller-info": "/components/sample-inquiry/sellerInfo", "pop-up-pic": "/components/popupMe-pic" }, "usingAutoImportComponents": {} }, "pages/qing-f-c/inquiryManage/sampleInquiry/sellDeputy/quotationDetails": { "navigationStyle": "custom", "usingComponents": { "popup-me": "/components/popupMe-again", "uni-icon": "/components/uni-icons/uni-icons", "chanpinyaosu": "/components/sample-inquiry/chanpinyaosu-quote", "sample-result": "/components/sampleResult", "baojia-list": "/components/sample-inquiry/baojia-detail-buy", "seller-info": "/components/sample-inquiry/sellerInfo", "pop-up-pic": "/components/popupMe-pic" }, "usingAutoImportComponents": {} }, "pages/qing-f-c/inquiryManage/sampleInquiry/buyDeputy/quotationDetails/quotationDetails-1": { "navigationBarTitleText": "报价单详情", "usingComponents": { "baojia-detail": "/components/sample-inquiry/baojia-detail-buy", "baojia-detail-tuisong": "/components/sample-inquiry/baojia-detail-tuisong" }, "usingAutoImportComponents": {} }, "pages/qing-f-c/inquiryManage/sampleInquiry/sellDeputy/quotationDetails-1": { "navigationBarTitleText": "报价单详情", "usingComponents": { "baojia-detail": "/components/sample-inquiry/baojia-detail-buy" }, "usingAutoImportComponents": {} }, "pages/qing-f-c/pictureShow/pictureShow": { "usingComponents": {}, "usingAutoImportComponents": {} }, "pages/qing-f-c/printer/printer": { "navigationBarTitleText": "生成二维码打印", "usingComponents": {}, "usingAutoImportComponents": {} }, "pages/qing-f-c/inquiryManage/sampleInquiry/analyst/updateAnalyistResult": { "navigationBarTitleText": "修改分析结果", "usingComponents": { "picker-button": "/components/pickerButton", "my-picker": "/components/myPicker", "part-checkbox-group": "/components/partCheckboxGroup", "my-picker-small": "/components/myPickerSmall", "switch-button": "/components/switchButton-edit", "picker-input": "/components/pickerInput", "uni-icon": "/components/uni-icons/uni-icons", "popup-me": "/components/popupMe" }, "usingAutoImportComponents": {} }, "pages/qing-f-c/inquiryManage/sampleInquiry/common/quotation-detail-common": { "navigationBarTitleText": "报价单详情", "usingComponents": { "baojia-detail": "/components/sample-inquiry/baojia-detail-buy", "baojia-detail-tuisong": "/components/sample-inquiry/baojia-detail-tuisong" }, "usingAutoImportComponents": {} }, "pages/qing-f-c/inquiryManage/sampleInquiry/analyst/updateSampleResult": { "navigationBarTitleText": "修改对比结果", "usingComponents": { "range-button": "/components/rangeButton-edit" }, "usingAutoImportComponents": {} }, "pages/qing-f-c/inquiryManage/sampleInquiry/common/sampleModifyRecord": { "navigationBarTitleText": "分析样修改记录", "usingComponents": {}, "usingAutoImportComponents": {} }, "pages/qing-f-c/printer/printContent": { "navigationBarTitleText": "打印二维码内容", "usingComponents": {}, "usingAutoImportComponents": {} }, "pages/qing-f-c/setting/setting": { "navigationBarTitleText": "设置", "usingComponents": { "uni-icon": "/components/uni-icons/uni-icons" }, "usingAutoImportComponents": {} }, "pages/qing-f-c/productShow/companyPictureEdit": { "navigationBarTitleText": "编辑公司图片", "usingComponents": { "uni-icon": "/components/uni-icons/uni-icons" }, "usingAutoImportComponents": {} }, "pages/qing-f-c/productShow/auditProduct": { "navigationBarTitleText": "产品审核", "usingComponents": { "picker-button": "/components/pickerButton-edit", "my-picker": "/components/myPicker-inquiry", "part-checkbox-group": "/components/partCheckboxGroup", "my-picker-small": "/components/myPickerSmall", "switch-button": "/components/switchButton-auto", "picker-input": "/components/pickerInput", "uni-icon": "/components/uni-icons/uni-icons", "popup-me": "/components/popupMe", "switch-button-edit": "/components/switchButton-edit", "popup-me-season": "/components/popupMeSeason" }, "usingAutoImportComponents": {} }, "pages/qing-f-c/productShow/auditProductDetail": { "navigationBarTitleText": "产品详情", "usingComponents": { "chanpinyaosu": "/components/productShow/chanpinyaosu-show", "machine-status": "/components/productShow/machineStatus", "uni-icon": "/components/uni-icons/uni-icons" }, "usingAutoImportComponents": {} }, "pages/qing-f-c/productShow/updateRecord": { "navigationBarTitleText": "更新记录", "usingComponents": { "machine-status": "/components/productShow/machineStatus" }, "usingAutoImportComponents": {} }, "pages/qing-f-c/analyist/analyist": { "navigationBarTitleText": "产品审核", "usingComponents": { "widgit": "/components/widgit-menu" }, "usingAutoImportComponents": {} }, "pages/qing-f-c/inquiryManage/systemMatch/quotationDetail": { "usingComponents": { "uni-icon": "/components/uni-icons/uni-icons", "chanpinyaosu": "/components/inquiry/chanpinyaosu-quote", "baojia-detail": "/components/inquiry/baojia-detail-buy", "seller-info": "/components/inquiry/sellerInfo", "baojia-detail-sell": "/components/inquiry/baojiaDetail-sell" }, "usingAutoImportComponents": {} }, "pages/qing-f-c/inquiryManage/systemMatch/startQuote": { "usingComponents": { "my-picker-part": "/components/myPickerPart", "switch-button": "/components/switchButton-auto", "picker-button": "/components/pickerButton", "part-checkbox-group": "/components/partCheckboxGroup", "picker-input": "/components/pickerInput", "switch-button-s": "/components/switchButton-s", "popup-me": "/components/popupMe", "uni-icon": "/components/uni-icons/uni-icons", "picture": "/components/pictures", "switch-button-e": "/components/switchButton-edit" }, "usingAutoImportComponents": {} }, "pages/qing-f-c/inquiryManage/systemMatch/singleProduct": { "usingComponents": { "fa-icon": "/components/kilvn-fa-icon/fa-icon", "uni-drawer": "/components/uni-drawer/uni-drawer", "uni-calendar": "/components/uni-calendar/uni-calendar", "seller-info-match": "/components/inquiry/sellerInfoMatch" }, "usingAutoImportComponents": { "uni-drawer": "/components/uni-drawer/uni-drawer" } }, "pages/qing-f-c/inquiryManage/comQuotation/productDetail": { "usingComponents": { "chanpinyaosu": "/components/productShow/chanpinyaosu-show", "machine-status": "/components/productShow/machineStatus", "uni-icon": "/components/uni-icons/uni-icons" }, "usingAutoImportComponents": {} }, "pages/qing-f-c/message/messageDetail": { "usingComponents": {}, "usingAutoImportComponents": {} }, "pages/qing-f-c/bangban/bangbanList": { "usingComponents": {}, "usingAutoImportComponents": {} }, "pages/qing-f-c/customPicture/followRecordDetailSeller": { "navigationBarTitleText": "跟进记录详情", "usingComponents": { "uni-icon": "/components/uni-icons/uni-icons" }, "usingAutoImportComponents": {} }, "pages/qing-f-c/customPicture/editCompetitor": { "navigationBarTitleText": "编辑竞争对手", "usingComponents": { "my-checkbox-group": "/components/myCheckboxGroup", "my-picker-part": "/components/myPickerPartProps" }, "usingAutoImportComponents": {} }, "pages/qing-f-c/customPicture/editFollowRecord": { "navigationBarTitleText": "编辑客户跟进", "usingComponents": { "my-picker-part": "/components/myPickerPartProps", "uni-icon": "/components/uni-icons/uni-icons", "e-picker": "/components/e-picker/e-picker" }, "usingAutoImportComponents": {} }, "pages/qing-f-c/customPicture/editFollowRecordBuy": { "usingComponents": { "my-picker-part": "/components/myPickerPartProps", "uni-icon": "/components/uni-icons/uni-icons", "e-picker": "/components/e-picker/e-picker" }, "usingAutoImportComponents": {} }, "pages/qing-f-c/customPicture/editFollowRecordSell": { "usingComponents": { "my-picker-part": "/components/myPickerPartProps", "uni-icon": "/components/uni-icons/uni-icons", "e-picker": "/components/e-picker/e-picker" }, "usingAutoImportComponents": {} }, "pages/qing-f-c/customPicture/addCompetitor": { "navigationBarTitleText": "新增竞争对手", "usingComponents": { "my-checkbox-group": "/components/myCheckboxGroup", "my-picker-part": "/components/myPickerPartNew" }, "usingAutoImportComponents": {} }, "pages/qing-f-c/followRecord/followList": { "navigationBarTitleText": "潜在订单", "navigationBarBackgroundColor": "#ffffff", "navigationBarTextStyle": "black", "enablePullDownRefresh": true, "usingComponents": { "uni-load-more": "/components/uni-load-more/uni-load-more", "uni-icon": "/components/uni-icons/uni-icons", "top-tabbar": "/components/topTabbar-follow" }, "usingAutoImportComponents": {} }, "pages/qing-f-c/productShow/editProduct": { "navigationBarTitleText": "编辑产品", "usingComponents": { "picker-button": "/components/pickerButton-edit", "my-picker": "/components/myPicker-inquiry", "part-checkbox-group": "/components/partCheckboxGroup", "my-picker-small": "/components/myPickerPartProps", "switch-button": "/components/switchButton-auto", "picker-input": "/components/pickerInput", "uni-icon": "/components/uni-icons/uni-icons", "popup-me": "/components/popupMe", "switch-button-edit": "/components/switchButton-edit", "popup-me-season": "/components/popupMeSeason" }, "usingAutoImportComponents": {} }, "pages/qing-f-c/followRecord/selectBuyer": { "navigationBarTitleText": "选择买家", "usingComponents": { "top-search": "/components/topSearch", "uni-load-more": "/components/uni-load-more/uni-load-more" }, "usingAutoImportComponents": {} }, "pages/qing-f-c/followRecord/editFollowRecord": { "navigationBarTitleText": "修改", "usingComponents": { "my-picker-part": "/components/myPickerPartProps", "uni-icon": "/components/uni-icons/uni-icons", "e-picker": "/components/e-picker/e-picker" }, "usingAutoImportComponents": {} }, "pages/qing-f-c/followRecord/updateFollowRecord": { "navigationBarTitleText": "更新进度", "usingComponents": { "my-picker-part": "/components/myPickerPartProps", "uni-icon": "/components/uni-icons/uni-icons", "e-picker": "/components/e-picker/e-picker" }, "usingAutoImportComponents": {} }, "pages/qing-f-c/followRecord/sd_followList": { "navigationBarTitleText": "潜在订单", "navigationBarBackgroundColor": "#ffffff", "navigationBarTextStyle": "black", "enablePullDownRefresh": true, "usingComponents": { "uni-load-more": "/components/uni-load-more/uni-load-more", "uni-icon": "/components/uni-icons/uni-icons", "top-tabbar": "/components/topTabbar-follow", "ms-dropdown-menu": "/components/ms-dropdown/dropdown-menu", "ms-dropdown-item": "/components/ms-dropdown/dropdown-item" }, "usingAutoImportComponents": {} }, "pages/qing-f-c/followRecord/publicDialog": { "navigationBarTitleText": "对话", "enablePullDownRefresh": true, "usingComponents": { "uni-icon": "/components/uni-icons/uni-icons", "uni-load-more": "/components/uni-load-more/uni-load-more" }, "usingAutoImportComponents": {} }, "pages/qing-f-c/followRecord/selectContact": { "navigationBarTitleText": "选择对话人", "usingComponents": {}, "usingAutoImportComponents": {} }, "pages/qing-f-c/productShow/productCreateCopy": { "usingComponents": { "picker-button": "/components/pickerButton-edit", "my-picker": "/components/myPicker-inquiry", "part-checkbox-group": "/components/partCheckboxGroup", "my-picker-small": "/components/myPickerPartProps", "switch-button": "/components/switchButton-auto", "picker-input": "/components/pickerInput", "uni-icon": "/components/uni-icons/uni-icons", "popup-me": "/components/popupMe", "switch-button-edit": "/components/switchButton-edit", "popup-me-season": "/components/popupMeSeason" }, "usingAutoImportComponents": {} }, "pages/qing-f-c/productShow/selectCustomer": { "usingComponents": { "top-search": "/components/topSearch", "uni-load-more": "/components/uni-load-more/uni-load-more" }, "usingAutoImportComponents": {} }, "pages/qing-f-c/customPicture/buySellFollowDetail": { "navigationBarTitleText": "跟进记录详情", "usingComponents": { "uni-icon": "/components/uni-icons/uni-icons" }, "usingAutoImportComponents": {} }, "pages/qing-f-c/newFollowRecord/deputyFollowList": { "navigationBarTitleText": "潜在订单", "navigationBarBackgroundColor": "#ffffff", "navigationBarTextStyle": "black", "enablePullDownRefresh": true, "usingComponents": { "uni-load-more": "/components/uni-load-more/uni-load-more", "uni-icon": "/components/uni-icons/uni-icons", "top-tabbar": "/components/topTabbar-follow" }, "usingAutoImportComponents": {} }, "pages/qing-f-c/newFollowRecord/sd_followList": { "navigationBarTitleText": "潜在订单", "navigationBarBackgroundColor": "#ffffff", "navigationBarTextStyle": "black", "enablePullDownRefresh": true, "usingComponents": { "uni-load-more": "/components/uni-load-more/uni-load-more", "uni-icon": "/components/uni-icons/uni-icons", "top-tabbar": "/components/topTabbar-follow", "ms-dropdown-menu": "/components/ms-dropdown/dropdown-menu", "ms-dropdown-item": "/components/ms-dropdown/dropdown-item" }, "usingAutoImportComponents": {} }, "pages/qing-f-c/newFollowRecord/selectSellDeputy": { "navigationBarTitleText": "选择负责人", "usingComponents": {}, "usingAutoImportComponents": {} }, "pages/qing-f-c/newFollowRecord/addFollowRecord": { "navigationBarTitleText": "新建订单", "usingComponents": { "my-picker-part": "/components/myPickerPartProps", "uni-icon": "/components/uni-icons/uni-icons", "e-picker": "/components/e-picker/e-picker" }, "usingAutoImportComponents": {} }, "pages/qing-f-c/newFollowRecord/selectBuyer": { "navigationBarTitleText": "选择客户", "usingComponents": { "top-search": "/components/topSearch", "uni-load-more": "/components/uni-load-more/uni-load-more" }, "usingAutoImportComponents": {} }, "pages/qing-f-c/newFollowRecord/connectInquiry": { "navigationBarTitleText": "选择询价单", "usingComponents": { "top-search": "/components/topSearch", "uni-load-more": "/components/uni-load-more/uni-load-more", "inquire-list": "/components/inquireList-select" }, "usingAutoImportComponents": {} }, "pages/qing-f-c/newFollowRecord/modifyRecord": { "navigationBarTitleText": "修改订单", "usingComponents": { "my-picker-part": "/components/myPickerPartProps", "uni-icon": "/components/uni-icons/uni-icons", "e-picker": "/components/e-picker/e-picker" }, "usingAutoImportComponents": {} }, "pages/qing-f-c/newFollowRecord/selectContact": { "usingComponents": {}, "usingAutoImportComponents": {} }, "pages/qing-f-c/newFollowRecord/selectPrincipal": { "navigationBarTitleText": "选择帮办", "usingComponents": {}, "usingAutoImportComponents": {} }, "pages/qing-f-c/sales_director/customLevelAudit": { "navigationBarTitleText": "客户等级", "usingComponents": { "uni-load-more": "/components/uni-load-more/uni-load-more", "uni-icon": "/components/uni-icons/uni-icons", "top-tabbar": "/components/topTabbar-follow" }, "usingAutoImportComponents": {} }, "pages/qing-f-c/regionalManager/approved": { "navigationBarTitleText": "审核管理", "usingComponents": { "widgit": "/components/widgit-menu" }, "usingAutoImportComponents": {} }, "pages/qing-f-c/buyDupty/updateCustomLevel": { "navigationBarTitleText": "修改客户等级", "usingComponents": { "my-picker-part": "/components/myPickerPartProps", "my-checkbox-group": "/components/myCheckboxGroupPopCause" }, "usingAutoImportComponents": {} }, "pages/qing-f-c/buyDupty/updatePrivateLevel": { "navigationBarTitleText": "自定义分级", "usingComponents": { "my-picker-part": "/components/myPickerPartProps", "my-checkbox-group": "/components/myCheckboxGroupPopCause" }, "usingAutoImportComponents": {} }, "pages/qing-f-c/customPicture/followCircle": { "navigationBarTitleText": "跟进周期设置", "usingComponents": { "uni-icon": "/components/uni-icons/uni-icons" }, "usingAutoImportComponents": {} }, "pages/qing-f-c/report/selectTime": { "navigationBarTitleText": "时间选择", "usingComponents": {}, "usingAutoImportComponents": {} }, "pages/qing-f-c/report/deputyReport": { "navigationBarTitleText": "报表统计", "usingComponents": { "ms-dropdown-menu": "/components/ms-dropdown/dropdown-menu", "ms-dropdown-item": "/components/ms-dropdown/dropdown-item", "my-progress": "/components/myProgress/myProgress", "tongji-color": "/components/tongji-color", "t-table": "/components/t-table/t-table", "t-th": "/components/t-table/t-th", "t-tr": "/components/t-table/t-tr", "t-td": "/components/t-table/t-td" }, "usingAutoImportComponents": { "t-table": "/components/t-table/t-table" } }, "pages/qing-f-c/report/sellDeputyReport": { "navigationBarTitleText": "报表统计", "usingComponents": { "ms-dropdown-menu": "/components/ms-dropdown/dropdown-menu", "ms-dropdown-item": "/components/ms-dropdown/dropdown-item", "my-progress": "/components/myProgress/myProgress", "tongji-color": "/components/tongji-color", "t-table": "/components/t-table/t-table", "t-th": "/components/t-table/t-th", "t-tr": "/components/t-table/t-tr", "t-td": "/components/t-table/t-td" }, "usingAutoImportComponents": { "my-progress": "/components/myProgress/myProgress" } }, "pages/qing-f-c/report/regionReport": { "navigationBarTitleText": "报表统计", "usingComponents": { "ms-dropdown-menu": "/components/ms-dropdown/dropdown-menu", "ms-dropdown-item": "/components/ms-dropdown/dropdown-item", "my-progress": "/components/myProgress/myProgress", "tongji-color": "/components/tongji-color", "t-table": "/components/t-table/t-table", "t-th": "/components/t-table/t-th", "t-tr": "/components/t-table/t-tr", "t-td": "/components/t-table/t-td" }, "usingAutoImportComponents": { "t-table": "/components/t-table/t-table" } }, "pages/qing-f-c/report/monthTargetList": { "usingComponents": { "top-search": "/components/topSearch", "uni-load-more": "/components/uni-load-more/uni-load-more", "ms-dropdown-menu": "/components/ms-dropdown/dropdown-menu", "ms-dropdown-item": "/components/ms-dropdown/dropdown-item" }, "usingAutoImportComponents": {} }, "pages/qing-f-c/report/selectMonths": { "navigationBarTitleText": "时间选择", "usingComponents": {}, "usingAutoImportComponents": {} }, "pages/qing-f-c/report/selectCustomerList": { "navigationBarTitleText": "目标销售额明细", "usingComponents": { "top-search": "/components/topSearch", "uni-load-more": "/components/uni-load-more/uni-load-more", "ms-dropdown-menu": "/components/ms-dropdown/dropdown-menu", "ms-dropdown-item": "/components/ms-dropdown/dropdown-item" }, "usingAutoImportComponents": {} }, "pages/qing-f-c/report/selectTargetCustomer": { "navigationBarTitleText": "本月目标客户", "usingComponents": { "top-search": "/components/topSearch", "uni-load-more": "/components/uni-load-more/uni-load-more", "ms-dropdown-menu": "/components/ms-dropdown/dropdown-menu", "ms-dropdown-item": "/components/ms-dropdown/dropdown-item" }, "usingAutoImportComponents": {} }, "pages/qing-f-c/inquiryManage/orderSummary/orderSummary": { "navigationBarTitleText": "订单总结", "usingComponents": { "my-checkbox-group": "/components/myCheckboxGroup", "my-picker-part": "/components/myPickerPartNew" }, "usingAutoImportComponents": {} }, "pages/qing-f-c/regionalManager/dispatchCustomer": { "usingComponents": {}, "usingAutoImportComponents": {} }, "pages/qing-f-c/shopping/detail": { "navigationBarTitleText": "产品详情", "usingComponents": { "uni-icon": "/components/uni-icons/uni-icons", "musk-picture": "/components/muskPicture/muskPicture", "service-assurance": "/components/serviceAssurance", "immediate-inquiry": "/components/shopping/immediateInquiry" }, "usingAutoImportComponents": { "musk-picture": "/components/muskPicture/muskPicture" } } }, "globalStyle": { "navigationBarTextStyle": "white", "navigationBarTitleText": "", "navigationBarBackgroundColor": "#FF6000", "backgroundColor": "white" } };exports.default = _default;
 
 /***/ }),
 
@@ -25618,238 +25850,6 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _default = { "appid": "__UNI__85973DE" };exports.default = _default;
-
-/***/ }),
-
-/***/ 999:
-/*!***************************************************************!*\
-  !*** /Users/lee/Downloads/备份11/轻纺车网/components/gprint/tsc.js ***!
-  \***************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-// var app = getApp();
-var encode = __webpack_require__(/*! ./encoding.js */ 1000);
-var jpPrinter = {
-  createNew: function createNew() {
-    var jpPrinter = {};
-    var data = "";
-    var command = [];
-
-    jpPrinter.name = "标签模式";
-
-    jpPrinter.init = function () {};
-
-    jpPrinter.addCommand = function (content) {//将指令转成数组装起
-      var code = new encode.TextEncoder(
-      'gb18030', {
-        NONSTANDARD_allowLegacyEncoding: true }).
-      encode(content);
-      for (var i = 0; i < code.length; ++i) {
-        command.push(code[i]);
-      }
-    };
-
-    jpPrinter.setSize = function (pageWidght, pageHeight) {//设置页面大小
-      data = "SIZE " + pageWidght.toString() + " mm" + "," + pageHeight.toString() + " mm" + "\r\n";
-      jpPrinter.addCommand(data);
-    };
-
-    jpPrinter.setSpeed = function (printSpeed) {//设置打印机速度
-      data = "SPEED " + printSpeed.toString() + "\r\n";
-      jpPrinter.addCommand(data);
-    };
-
-    jpPrinter.setDensity = function (printDensity) {//设置打印机浓度
-      data = "DENSITY " + printDensity.toString() + "\r\n";
-      jpPrinter.addCommand(data);
-    };
-
-    jpPrinter.setGap = function (printGap) {//传感器
-      data = "GAP " + printGap.toString() + " mm\r\n";
-      jpPrinter.addCommand(data);
-    };
-
-    jpPrinter.setCountry = function (country) {//选择国际字符集
-      /*
-      001:USA
-      002:French
-      003:Latin America
-      034:Spanish
-      039:Italian
-      044:United Kingdom
-      046:Swedish
-      047:Norwegian
-      049:German
-       */
-      data = "COUNTRY " + country + "\r\n";
-      jpPrinter.addCommand(data);
-    };
-
-    jpPrinter.setCodepage = function (codepage) {//选择国际代码页
-      /*
-      8-bit codepage 字符集代表
-      437:United States
-      850:Multilingual
-      852:Slavic
-      860:Portuguese
-      863:Canadian/French
-      865:Nordic
-      Windows code page
-      1250:Central Europe
-      1252:Latin I
-      1253:Greek
-      1254:Turkish
-      以下代码页仅限于 12×24 dot 英数字体
-      WestEurope:WestEurope
-      Greek:Greek
-      Hebrew:Hebrew
-      EastEurope:EastEurope
-      Iran:Iran
-      IranII:IranII
-      Latvian:Latvian
-      Arabic:Arabic
-      Vietnam:Vietnam
-      Uygur:Uygur
-      Thai:Thai
-      1252:Latin I
-      1257:WPC1257
-      1251:WPC1251
-      866:Cyrillic
-      858:PC858
-      747:PC747
-      864:PC864
-      1001:PC100
-      */
-      data = "CODEPAGE " + codepage + "\r\n";
-      jpPrinter.addCommand(data);
-    };
-
-    jpPrinter.setCls = function () {//清除打印机缓存
-      data = "CLS" + "\r\n";
-      jpPrinter.addCommand(data);
-    };
-
-    jpPrinter.setFeed = function (feed) {//将纸向前推出n
-      data = "FEED " + feed + "\r\n";
-      jpPrinter.addCommand(data);
-    };
-
-    jpPrinter.setBackFeed = function (backup) {//将纸向后回拉n
-      data = "BACKFEED " + backup + "\r\n";
-      jpPrinter.addCommand(data);
-    };
-
-    jpPrinter.setDirection = function (direction) {//设置打印方向，参考编程手册  
-      data = "DIRECTION " + direction + "\r\n";
-      jpPrinter.addCommand(data);
-    };
-
-    jpPrinter.setReference = function (x, y) {//设置坐标原点，与打印方向有关
-      data = "REFERENCE " + x + "," + y + "\r\n";
-      jpPrinter.addCommand(data);
-    };
-
-    jpPrinter.setFromfeed = function () {//根据Size进一张标签纸
-      data = "FORMFEED \r\n";
-      jpPrinter.addCommand(data);
-    };
-
-    jpPrinter.setHome = function () {//根据Size找到下一张标签纸的位置
-      data = "HOME \r\n";
-      jpPrinter.addCommand(data);
-    };
-
-    jpPrinter.setSound = function (level, interval) {//控制蜂鸣器
-      data = "SOUND " + level + "," + interval + "\r\n";
-      jpPrinter.addCommand(data);
-    };
-
-    jpPrinter.setLimitfeed = function (limit) {// 检测垂直间距
-      data = "LIMITFEED " + limit + "\r\n";
-      jpPrinter.addCommand(data);
-    };
-
-    jpPrinter.setBar = function (x, y, width, height) {//绘制线条
-      data = "BAR " + x + "," + y + "," + width + "," + height + "\r\n";
-      jpPrinter.addCommand(data);
-    };
-
-    jpPrinter.setBox = function (x_start, y_start, x_end, y_end, thickness) {//绘制方框
-      data = "BOX " + x_start + "," + y_start + "," + x_end + "," + y_end + "," + thickness + "\r\n";
-      jpPrinter.addCommand(data);
-    };
-
-    jpPrinter.setErase = function (x_start, y_start, x_width, y_height) {//清除指定区域的数据
-      data = "ERASE " + x_start + "," + y_start + "," + x_width + "," + y_height + "\r\n";
-      jpPrinter.addCommand(data);
-    };
-
-    jpPrinter.setReverse = function (x_start, y_start, x_width, y_height) {//将指定的区域反相打印
-      data = "REVERSE " + x_start + "," + y_start + "," + x_width + "," + y_height + "\r\n";
-      jpPrinter.addCommand(data);
-    };
-
-    jpPrinter.setText = function (x, y, font, x_, y_, str) {//打印文字
-      data = "TEXT " + x + "," + y + ",\"" + font + "\"," + 0 + "," + x_ + "," + y_ + "," + "\"" + str + "\"\r\n";
-      jpPrinter.addCommand(data);
-    };
-
-    jpPrinter.setQR = function (x, y, level, width, mode, content) {//打印二维码
-      data = "QRCODE " + x + "," + y + "," + level + "," + width + "," + mode + "," + 0 + ",\"" + content + "\"\r\n";
-      jpPrinter.addCommand(data);
-    };
-
-    jpPrinter.setBar = function (x, y, codetype, height, readable, narrow, wide, content) {//打印条形码
-      data = "BARCODE " + x + "," + y + ",\"" + codetype + "\"," + height + "," + readable + "," + 0 + "," + narrow + "," + wide + ",\"" + content + "\"\r\n";
-      jpPrinter.addCommand(data);
-    };
-
-    jpPrinter.setBitmap = function (x, y, mode, res) {//添加图片，res为画布参数
-      console.log(res);
-      var width = parseInt((res.width + 7) / 8 * 8 / 8);
-      var height = res.height;
-      var time = 1;
-      var temp = res.data.length - width * 32;
-      var pointList = [];
-      console.log(width + "--" + height);
-      data = "BITMAP " + x + "," + y + "," + width + "," + height + "," + mode + ",";
-      jpPrinter.addCommand(data);
-      for (var i = 0; i < height; ++i) {
-        console.log(temp);
-        for (var j = 0; j < width; ++j) {
-          for (var k = 0; k < 32; k += 4) {
-            if (res.data[temp] == 0 && res.data[temp + 1] == 0 && res.data[temp + 2] == 0 && res.data[temp + 3] == 0) {
-              pointList.push(1);
-            } else {
-              pointList.push(0);
-            }
-            temp += 4;
-          }
-        }
-        time++;
-        temp = res.data.length - width * 32 * time;
-      }
-      for (var i = 0; i < pointList.length; i += 8) {
-        var p = pointList[i] * 128 + pointList[i + 1] * 64 + pointList[i + 2] * 32 + pointList[i + 3] * 16 + pointList[i + 4] * 8 + pointList[i + 5] * 4 + pointList[i + 6] * 2 + pointList[i + 7];
-        command.push(p);
-      }
-    };
-
-    jpPrinter.setPagePrint = function () {//打印页面
-      data = "PRINT 1,1\r\n";
-      jpPrinter.addCommand(data);
-    };
-    //获取打印数据
-    jpPrinter.getData = function () {
-      return command;
-    };
-
-    return jpPrinter;
-  } };
-
-
-module.exports.jpPrinter = jpPrinter;
 
 /***/ })
 
