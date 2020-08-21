@@ -1,9 +1,0 @@
-{
-  "navigationBarTitleText": "编辑经营概况",
-  "usingComponents": {
-    "uni-swipe-action": "/components/uni-swipe-action/uni-swipe-action",
-    "my-checkbox-group": "/components/myCheckboxGroup",
-    "uni-icon": "/components/uni-icons/uni-icons",
-    "popup-me-add": "/components/popupMe-addM"
-  }
-}

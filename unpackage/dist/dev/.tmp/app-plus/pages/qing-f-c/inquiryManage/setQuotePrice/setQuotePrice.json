@@ -1,7 +1,0 @@
-{
-  "navigationBarTitleText": "设置报价",
-  "usingComponents": {
-    "switch-button": "/components/switchButton-edit",
-    "switch-button-one": "/components/switchButton-auto"
-  }
-}

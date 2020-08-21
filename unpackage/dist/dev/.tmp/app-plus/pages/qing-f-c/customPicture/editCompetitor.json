@@ -1,7 +1,0 @@
-{
-  "navigationBarTitleText": "编辑竞争对手",
-  "usingComponents": {
-    "my-checkbox-group": "/components/myCheckboxGroup",
-    "my-picker-part": "/components/myPickerPartProps"
-  }
-}

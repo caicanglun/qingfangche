@@ -1,8 +1,0 @@
-{
-  "navigationBarTitleText": "修改客户",
-  "usingComponents": {
-    "my-picker": "/components/myPicker",
-    "range-button": "/components/rangeButton-v",
-    "swith-button": "/components/switchButton"
-  }
-}

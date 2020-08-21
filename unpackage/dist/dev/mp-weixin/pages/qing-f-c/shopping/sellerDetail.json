@@ -1,9 +1,0 @@
-{
-  "navigationBarTitleText": "询价详情",
-  "usingComponents": {
-    "musk-picture": "/components/muskPicture/muskPicture",
-    "uni-icon": "/components/uni-icons/uni-icons",
-    "service-assurance": "/components/serviceAssurance",
-    "start-quote": "/components/shopping/startQuote"
-  }
-}

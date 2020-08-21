@@ -1,8 +1,0 @@
-{
-  "navigationBarTitleText": "新建客户",
-  "usingComponents": {
-    "my-picker": "/components/myPicker",
-    "range-button": "/components/rangeButtonLong",
-    "swith-button": "/components/switchButton"
-  }
-}

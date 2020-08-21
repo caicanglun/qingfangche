@@ -1,7 +1,0 @@
-{
-  "navigationStyle": "custom",
-  "usingComponents": {
-    "list-show": "/components/listShow",
-    "uni-icon": "/components/uni-icons/uni-icons"
-  }
-}

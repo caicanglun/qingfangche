@@ -1,2 +1,0 @@
-setCssToHead(["@charset \x22UTF-8\x22;\nbody { background: #F4F4F4; }\n.",[1],"title_img { width: ",[0,32],"; height: ",[0,35],"; padding-left: ",[0,10],"; padding-right: ",[0,20],"; }\n.",[1],"top-nav-fixed { position: fixed; top: 0; z-index: 99; background: #F4F4F4; width: 100%; }\n",],undefined,{path:"./pages/qing-f-c/report/monthTargetList.wxss"})();
-document.dispatchEvent(new CustomEvent("generateFuncReady", { detail: { generateFunc: $gwx('./pages/qing-f-c/report/monthTargetList.wxml') } }));

@@ -1,8 +1,0 @@
-{
-  "navigationBarTitleText": "产品详情",
-  "usingComponents": {
-    "chanpinyaosu": "/components/productShow/chanpinyaosu-show",
-    "machine-status": "/components/productShow/machineStatus",
-    "uni-icon": "/components/uni-icons/uni-icons"
-  }
-}

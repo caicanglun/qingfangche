@@ -1,7 +1,0 @@
-{
-  "navigationBarTitleText": "订单总结",
-  "usingComponents": {
-    "my-checkbox-group": "/components/myCheckboxGroup",
-    "my-picker-part": "/components/myPickerPartNew"
-  }
-}

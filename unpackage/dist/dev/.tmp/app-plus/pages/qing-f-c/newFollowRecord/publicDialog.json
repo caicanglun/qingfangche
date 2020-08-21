@@ -1,8 +1,0 @@
-{
-  "navigationBarTitleText": "对话",
-  "usingComponents": {
-    "uni-icon": "/components/uni-icons/uni-icons",
-    "uni-load-more": "/components/uni-load-more/uni-load-more",
-    "fixbox": "/components/fix-box/fix-box"
-  }
-}

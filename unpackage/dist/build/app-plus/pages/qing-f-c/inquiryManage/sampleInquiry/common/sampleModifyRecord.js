@@ -1,2 +1,0 @@
-setCssToHead(["@charset \x22UTF-8\x22;\nbody { background: #F4F4F4; }\n.",[1],"wrap { margin-bottom: ",[0,20],"; padding-top: ",[0,10],"; padding-bottom: ",[0,10],"; padding-left: ",[0,34],"; padding-right: ",[0,34],"; background: #FFFFFF; }\n",],undefined,{path:"./pages/qing-f-c/inquiryManage/sampleInquiry/common/sampleModifyRecord.wxss"})();
-document.dispatchEvent(new CustomEvent("generateFuncReady", { detail: { generateFunc: $gwx('./pages/qing-f-c/inquiryManage/sampleInquiry/common/sampleModifyRecord.wxml') } }));

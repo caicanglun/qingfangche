@@ -1,7 +1,0 @@
-{
-  "usingComponents": {
-    "switch-button": "/components/switchButton-last",
-    "my-picker": "/components/myPicker",
-    "popup-me": "/components/popupMe"
-  }
-}

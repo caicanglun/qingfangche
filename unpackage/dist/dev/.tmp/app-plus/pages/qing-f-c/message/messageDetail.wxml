@@ -1,1 +1,0 @@
-<view><view style="margin:20rpx;background:#FFFFFF;"><view style="padding:20rpx;"><view style="font-size:15px;font-weight:bold;color:#333333;">{{''+message.messageTitle+''}}</view><view style="color:#666666;font-size:13px;padding-top:10rpx;">{{''+message.messageDetails+''}}</view></view></view></view>

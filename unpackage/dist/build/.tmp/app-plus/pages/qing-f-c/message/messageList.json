@@ -1,8 +1,0 @@
-{
-  "navigationBarTitleText": "消息",
-  "enablePullDownRefresh": true,
-  "usingComponents": {
-    "uni-swipe-action": "/components/uni-swipe-action/uni-swipe-action",
-    "uni-load-more": "/components/uni-load-more/uni-load-more"
-  }
-}

@@ -1,6 +1,0 @@
-{
-  "navigationBarTitleText": "修改对比结果",
-  "usingComponents": {
-    "range-button": "/components/rangeButton-edit"
-  }
-}

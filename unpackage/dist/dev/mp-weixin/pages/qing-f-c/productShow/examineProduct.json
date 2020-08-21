@@ -1,8 +1,0 @@
-{
-  "navigationBarTitleText": "产品审核",
-  "usingComponents": {
-    "uni-list": "/components/uni-list/uni-list",
-    "uni-list-item": "/components/uni-list-item/uni-list-item",
-    "uni-load-more": "/components/uni-load-more/uni-load-more"
-  }
-}

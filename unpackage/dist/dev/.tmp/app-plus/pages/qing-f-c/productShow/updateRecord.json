@@ -1,6 +1,0 @@
-{
-  "navigationBarTitleText": "更新记录",
-  "usingComponents": {
-    "machine-status": "/components/productShow/machineStatus"
-  }
-}

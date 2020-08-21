@@ -1,9 +1,0 @@
-{
-  "navigationStyle": "custom",
-  "usingComponents": {
-    "baojia-list": "/components/inquiry/baojia-list",
-    "chanpinyaosu": "/components/inquiry/chanpinyaosu",
-    "popup-me": "/components/popupMe",
-    "seller-match": "/components/sellerMatch"
-  }
-}

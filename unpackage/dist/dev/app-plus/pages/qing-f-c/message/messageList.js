@@ -1,2 +1,0 @@
-setCssToHead(["@charset \x22UTF-8\x22;\nbody { background: #F4F4F4; }\n.",[1],"redpoint { background-color: red; height: ",[0,16],"; width: ",[0,16],"; border-radius: 50%; }\n.",[1],"cont_text { color: #666666; font-size: 13px; width: 90%; word-break: break-all; display: -webkit-box; -webkit-box-orient: vertical; }\n",],undefined,{path:"./pages/qing-f-c/message/messageList.wxss"})();
-document.dispatchEvent(new CustomEvent("generateFuncReady", { detail: { generateFunc: $gwx('./pages/qing-f-c/message/messageList.wxml') } }));

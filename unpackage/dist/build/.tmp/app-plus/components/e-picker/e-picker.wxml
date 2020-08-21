@@ -1,1 +1,0 @@
-<view class="data-v-2edd04a6"><picker mode="multiSelector" range="{{dateTimeArr}}" value="{{value}}" data-event-opts="{{[['change',[['pickerChange',['$event']]]],['columnchange',[['columnchange',['$event']]]]]}}" bindchange="__e" bindcolumnchange="__e" class="data-v-2edd04a6"><view class="select-time data-v-2edd04a6"><slot></slot></view></picker></view>

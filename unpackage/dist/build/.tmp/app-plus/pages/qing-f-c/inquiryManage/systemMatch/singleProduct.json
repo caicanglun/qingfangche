@@ -1,8 +1,0 @@
-{
-  "usingComponents": {
-    "uni-drawer": "/components/uni-drawer/uni-drawer",
-    "fa-icon": "/components/kilvn-fa-icon/fa-icon",
-    "uni-calendar": "/components/uni-calendar/uni-calendar",
-    "seller-info-match": "/components/inquiry/sellerInfoMatch"
-  }
-}
