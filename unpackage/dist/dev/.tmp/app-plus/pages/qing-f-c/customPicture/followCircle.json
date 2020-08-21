@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText": "跟进周期设置",
+  "usingComponents": {
+    "uni-icon": "/components/uni-icons/uni-icons"
+  }
+}

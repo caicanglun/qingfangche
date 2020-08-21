@@ -88,7 +88,8 @@
 				totalCount: 0,
 				isShowDialogue: 'false',
 				wigitSell: 0,
-				recordCode:''
+				recordCode:'',
+				flag: true
 			};
 		},
 		filters:{
@@ -96,19 +97,26 @@
 				return e.split(',')
 			}
 		},
-		onReachBottom:function(){
-			this.fetchList();
+		// onReachBottom:function(){
+		// 	this.fetchList();
 			
-		},
-		onPullDownRefresh:function(){
-			console.log('here here')
-			if (timer != null) {
-			     clearTimeout(timer);
-			       }
-			  timer = setTimeout(function() {
-			       _this.fetchMoreList();
-			       }, 1000);
+		// },
+		// onPullDownRefresh:function(){
+		// 	console.log('here here')
+		// 	if (timer != null) {
+		// 	     clearTimeout(timer);
+		// 	       }
+		// 	  timer = setTimeout(function() {
+		// 	       _this.fetchMoreList();
+		// 	       }, 100);
 			
+		// },
+		onPageScroll(e){
+			if(e.scrollTop<5){
+				this.fetchMoreList();
+				// this.fetchList()
+				
+			}
 		},
 		onLoad:function(options){
 			_this = this
@@ -143,7 +151,12 @@
 				console.log(this.isShowDialogue)
 			},
 			async fetchList(){
-				this.pageSize = 5
+				// if (!this.flag){
+				// 	return
+				// }
+				// this.flag = false;
+				// this.pageSize = 5
+				this.pageNum = 1
 				let data={
 					recordCode:this.recordCode, //	记录编码
 					buyOrSell: this.buyOrSell, //		1买家聊天框，2卖家聊天
@@ -157,43 +170,59 @@
 				const res = await this.$http.get('/latent/dialog_list',{data:data})
 				console.log(res)
                 // uni.hideLoading()
-				if (res.data.data.totalCount > this.totalCount){
+				
+				
 					this.totalCount = res.data.data.totalCount
+					
+					let selector = '';
+										
+					// if(this.pageNum>1){
+					// 	// 非第一页，则取历史消息数据的第一条信息元素
+					// 	selector = `#msg-${this.list[0].messageCode}`;
+					// }else{
+					// 	// 第一页，则取当前消息数据的最后一条信息元素
+					// 	selector = `#msg-${res.data.data.list[res.data.data.list.length-1].messageCode}`;
+					// }
+					selector = `#msg-${res.data.data.list[0].messageCode}`;
+					console.log(selector)
 					this.list = res.data.data.list.reverse()
 					this.list.forEach((item)=>{
 						if (item.messageType == 1){
 							item.contentList[0].content = item.contentList[0].content.split(',')
 						}
 					})
-					if (this.list.length>0){
-						let selector = `#msg-${this.list[this.list.length-1].messageCode}`;
-						console.log(selector)
-						this.$nextTick(function(){
-							uni.createSelectorQuery().select(selector).boundingClientRect((tab)=>{
-								console.log(tab)
-								uni.pageScrollTo({
-								    duration:300,
-								    scrollTop: tab.bottom-150
-								})
-							}).exec()
-						})
-					}
-				}else {
-					return
-				}
+					this.$nextTick(()=>{
+						// 设置当前滚动的位置
+						this.setPageScrollTo(selector);
+						
+						// this.hideLoadTips(true);
+												
+						
+						
+					})
+					// if (this.list.length>0){
+					// 	let selector = `#msg-${this.list[this.list.length-1].messageCode}`;
+					// 	console.log(selector)
+					// 	this.$nextTick(function(){
+					// 		this.setPageScrollTo(selector);
+					// 	})
+					// }
 				
-				
-				
+							
 				
 				
 				// uni.stopPullDownRefresh(); //得到数据后停止下拉刷新
 			},
 			async fetchMoreList(){
-				this.pageSize += 5
+				if (_this.loadingType == ''){
+					return
+				}
+				this.pageNum += 1
 				// if (_this.loadingType !== 'more') {//loadingType!=0;直接返回
 				// 	return false;
 				// }
-				_this.loadingType = 'loading';
+				
+				_this.loadingType = '';
 				uni.showNavigationBarLoading();//显示加载动画
 				let data={
 					recordCode:this.recordCode, //	记录编码
@@ -203,20 +232,35 @@
 				}
 				const res = await this.$http.get('/latent/dialog_list',{data:data})
 				uni.hideNavigationBarLoading();//关闭加载动画
-				if (res.data.data.list.length < this.pageSize){
+				if (res.data.data.isLastPage){
 					_this.loadingType = '';
-					return;
+					
+				}else {
+					setTimeout(function() {
+						_this.loadingType = 'more'
+					}, 1000);
 				}
-				
+				let selector = `#msg-${res.data.data.list[0].messageCode}`;
 				// this.list = this.list.concat(res.data.data.list.reverse())
-				this.list = res.data.data.list.reverse()
-				this.list.forEach((item)=>{
+				console.log(selector)
+				let tmp
+				tmp = res.data.data.list.reverse()
+				tmp.forEach((item)=>{
 					if (item.messageType == 1){
 						item.contentList[0].content = item.contentList[0].content.split(',')
 					}
 				})
-				_this.loadingType = 'more';//将loadingType归0重置
-				uni.stopPullDownRefresh()
+				this.list = [...tmp, ...this.list]
+				this.$nextTick(()=>{
+					// 设置当前滚动的位置
+					this.setPageScrollTo(selector);
+					
+					// this.hideLoadTips(true);
+											
+					
+					
+				})
+				// uni.stopPullDownRefresh()
 				
 			},
 			sendText:function(){
@@ -298,6 +342,16 @@
 				uni.navigateTo({
 					url: `./detail?recordCode=${this.recordCode}`
 				})
+			},
+			// 设置页面滚动位置
+			setPageScrollTo(selector){
+				let view = uni.createSelectorQuery().in(this).select(selector);
+				view.boundingClientRect((res) => {
+					uni.pageScrollTo({
+					    scrollTop:res.top - 30,	// -30 为多显示出大半个消息的高度，示意上面还有信息。
+					    duration: 0
+					});
+				}).exec();
 			},
 			toBigPic:function(src){
 				

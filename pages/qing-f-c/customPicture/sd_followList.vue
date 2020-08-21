@@ -90,10 +90,25 @@
 			this.fetchList()
 			this.getBuyDeputy()
 		},
+		onNavigationBarButtonTap:function(val){
+			 
+				 this.tapSettingButton() 
+    
+		},
 		onShow:function(){
-			this.fetchList()
+			let pages = getCurrentPages();
+			let currPage = pages[pages.length-1];
+			if (currPage.data.isDoRefresh == true){
+				       currPage.data.isDoRefresh = false;
+					   this.fetchList()
+				}
 		},
 		methods:{
+			tapSettingButton:function(){
+				uni.navigateTo({
+					url: './followCircle'
+				})
+			},
 			async getBuyDeputy(){
 				const res = await this.$http.get('/portrayal/deputy_base',{})
 				let tmp = res.data.data.list
@@ -157,6 +172,7 @@
 			
 			},
 			filterInput:function(){
+				this.loadingType = 'more'
 				this.fetchList()
 			},
 			toDetail:function(e){

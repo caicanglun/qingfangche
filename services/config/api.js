@@ -1,7 +1,7 @@
 
-//const ServerUrl = "http://192.168.11.135"; 
-//const ServerUrl = "http://test.144f.com:8080/qfc-web";
-const ServerUrl = "http://apps.144f.com/qfc-web"; 
+//const ServerUrl = "http://192.168.11.118"; 
+const ServerUrl = "http://test.144f.com:8080/qfc-web";
+//const ServerUrl = "http://apps.144f.com/qfc-web"; 
 const ChooseUrl = ServerUrl + '/choose/';
 const VERSION = '3.3.72'; // 小程序版本
 

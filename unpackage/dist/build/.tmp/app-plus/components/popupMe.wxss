@@ -143,4 +143,10 @@
   -webkit-flex-direction: column;
           flex-direction: column;
 }
+.mt_20 {
+  margin-top: 20rpx;
+}
+.mb_20 {
+  margin-bottom: 20rpx;
+}
 

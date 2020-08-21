@@ -100,4 +100,5 @@
 <style>
 	/*每个页面公共css */
 	@import url("common/app.css");
+	
 </style>

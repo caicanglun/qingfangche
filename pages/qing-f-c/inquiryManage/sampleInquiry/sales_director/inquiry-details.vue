@@ -46,6 +46,15 @@
 		</view>
 		<!-- <popUpPic ref="bigimage" :src='src'></popUpPic>
 		<popupMe ref="closingRef" @input="getContent('closingRef',$event)" title="关闭原因"></popupMe> -->
+		<!-- 订单总结 -->
+		<view class="details-box" style="padding: 20upx;" v-if="orderSummary.have">
+			<view class="flex_c" style="font-size: 15px;font-weight: bold;">订单总结</view>
+			<view class="flex_sb" style="margin-top: 20upx;line-height: 25px;">
+				<view style="width: 50%;font-size: 14px;"><text style="color: #8C8C8C;">状态：</text>{{orderSummary.inquiryStatusName}}</view>
+				<view style="width: 50%;font-size: 14px;"><text style="color: #8C8C8C;">原因：</text>{{orderSummary.list | returnCombine}}</view>
+			</view>
+		</view>
+		<!-- 订单总结 -->
 		<view class="details-box">
 			<view class='wrap-box'>
 				<view class="details-title">
@@ -149,6 +158,13 @@
 			popUpPic
 			
 		},
+		filters:{
+			returnCombine:function(value){
+				
+				return value.join('，')
+				
+			}
+		},
 		data(){
 			return {
 				inquiryNumber:'',
@@ -164,7 +180,8 @@
 				quotationList:'',
 				pageNum: 1,
 				pageSize: 10,
-				src:''
+				src:'',
+				orderSummary:''
 			};
 		},
 		onLoad:function(options){
@@ -172,6 +189,7 @@
 			     this.inquiryNumber = options.inquiryNumber
 				 this.getInquiryInfo()
 				 this.getDeputyQuotation()
+				 this.getOrderSummary()
 		},
 		onShow: function () {
 		  let pages = getCurrentPages();
@@ -183,8 +201,17 @@
 		  	 }
 		  this.getInquiryInfo()
 		  this.getDeputyQuotation()
+		  this.getOrderSummary()
 		},
 		methods:{
+			async getOrderSummary(){
+				let data ={
+					inquiryNumber: this.inquiryNumber
+				}
+				const res = await this.$http.get('/bInquiry/summary_details',{data:data})
+				this.orderSummary = res.data.data
+				console.log(this.orderSummary)
+			},
 			getInquiryInfo:function(){
 				let url = this.Api.zyDetails
 				let data ={

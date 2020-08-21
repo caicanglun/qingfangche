@@ -10,6 +10,7 @@
     "uni-icon": "/components/uni-icons/uni-icons",
     "popup-me": "/components/popupMe",
     "switch-button-edit": "/components/switchButton-edit",
-    "popup-me-season": "/components/popupMeSeason"
+    "popup-me-season": "/components/popupMeSeason",
+    "input-search": "/components/p-inputSearch/inputSearch"
   }
 }

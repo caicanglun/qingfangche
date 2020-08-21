@@ -656,9 +656,10 @@
 		  // ---  弹窗新增纬度处理
 
 		  tapPaste:function(){
-			  uni.setClipboardData({
-			  	data: this.spec_longitude
-			  })
+			  // uni.setClipboardData({
+			  // 	data: this.spec_longitude
+			  // })
+			  this.spec_latitude = this.spec_longitude
 		  },
 		  tabSwitchChange:function(label,event){
 			  switch (label){

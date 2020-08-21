@@ -3,6 +3,11 @@
   "enablePullDownRefresh": true,
   "usingComponents": {
     "uni-icon": "/components/uni-icons/uni-icons",
-    "uni-load-more": "/components/uni-load-more/uni-load-more"
+    "uni-load-more": "/components/uni-load-more/uni-load-more",
+    "ms-dropdown-menu": "/components/ms-dropdown/dropdown-menu",
+    "ms-dropdown-item": "/components/ms-dropdown/dropdown-item",
+    "drop-menu-region": "/components/dropMenuRegion",
+    "drop-menu-deputy": "/components/dropMenuDeputy",
+    "drop-menu-level": "/components/dropMenuLevel"
   }
 }

@@ -1,265 +1,439 @@
 <template>
 <view>
-
-<topSearch @search='tapSearch'></topSearch>
-
-<view>
-  <block v-for="(item, index) in customerList" :key="index">
-    <view class="list flex_c box_shadow" @click.stop="toClientDetail" :data-id="item.companyCode" :data-index="index">
-      
-      <!-- <image src="/images/jinsy/pitch_on.png"  mode="aspectFill" class="pitch_on"></image> -->
-      <view :class="(compileing?'wid_610':'wid_670')">
-        <view class="flex_sb mt_10">
-          <view class="flex">
-            <image src="/static/images/qingfc/application/companyx.png" class="title_img" mode="aspectFit"></image>
-            <view class="fs_16 font_we_bold wid_510">{{item.companyName||''}}</view>
-          </view>
-          <!-- <view :class="(item.buyOrsell==1?'id_btn':'seller_btn')">{{item.buyOrsell==1?'买家':'卖家'}}</view> -->
-		  <view :class="(item.buyOrSell==1?'id_btn':'seller_btn')">{{item.buyOrSell==1?'买家':'卖家'}}</view>
-        </view>
-        <view class="flex_c mt_20">
-          <image src="/static/images/qingfc/application/list.png" class="title_img" mode="aspectFit"></image>
-          <view class="fs_14 ">
-            <text class="mr_60">{{item.regionName||''}}</text>
-            <text class="mr_60">{{item.companyTypeName||''}}</text>
-            <text>{{item.linkmanCount||0}}个联系人</text>
-          </view>
-        </view>
-        <view class="flex_c mt_20">
-			  <image src="/static/images/qingfc/application/contacts.png" class="title_img" mode="aspectFit"></image>
-			  <view class="fs_14">{{item.deputyRealName||''}} {{item.deputyPhone||""}}</view>
-        </view>
-		<!-- <view class="flex_sb mt_20">
-		  <view class="flex">
-			  <image src="/static/images/qingfc/application/organize.png" class="title_img" mode="aspectFit"></image>
-			  <view class="fs_14 ">所属帮办: {{ item.deputyRealName||'' }}</view>
-		  </view>
-		  
-		</view> -->
+    <view style="position: fixed;top:0;z-index: 99;width: 100%;">
+		<view class="search_top_box">
+			  <view class="flex_sb height_56">
+				<view class="flex_c search_left " style="width:100%">
+				  <icon type="search" size="14" style="height:14px;margin-left:40upx;"></icon>
+				  <input class="search_left_input" v-model="inputValueOne" placeholder="请输入搜索内容" 
+				  @input="blurInput" confirm-type="search" @confirm="tapSearch"></input>
+				</view>
+			  </view>
+			</view>
 		
+			<view class="box_shadow">
+			  <!-- <view class="flex_sa tab_list">
+				<view :class="'tab_208 flex_c_c ' + (tabTwo==0?'tab_on':'')" @tap="tapTabTwo" data-index="0">
+				  <view :class="(tabTwo==0?'text_on':'') + ' ptb_20'">
+					<view>全部</view>
+					<view>({{numOne}})</view>
+				  </view>
+				</view>
+				<view class="line"></view>
+				<view :class="'tab_208 flex_c_c ' + (tabTwo==1?'tab_on':'')" @tap="tapTabTwo" data-index="1">
+				  <view :class="(tabTwo==1?'text_on':'') + ' ptb_20'">
+					<view>已分配</view>
+					<view>({{numTwo}})</view>
+				  </view>
+				</view>
+				<view class="line"></view>
+				<view :class="'tab_208 flex_c_c ' + (tabTwo==2?'tab_on':'')" @tap="tapTabTwo" data-index="2">
+				  <view :class="(tabTwo==2?'text_on':'') + ' ptb_20'">
+					<view>未分配</view>
+					<view>({{numThree}})</view>
+				  </view>
+				</view> -->
+			  <!-- </view> -->
+		<!-- 条件筛选框 -->
+			  <view class="search_area_box">
+				<view class="flex_sa height_56">
+				  <!-- <dropMenuRegion @selected="tapRegion"></dropMenuRegion> -->
+				  <!-- <dropMenuDeputy ref="refDeputy" @selected="tapSelectDeputy"></dropMenuDeputy> -->
+				  <dropMenuLevel @selected="tapSelectLevel"></dropMenuLevel>
+				  <dropMenuPirLevel @selected="tapSelectPrivateLevel"></dropMenuPirLevel>
+				</view>
+			  </view>
+		   </view> 
+		   
+		  <view class="flex_c_c" style="height: 80upx;color: #333333;background: #F2F2F2;font-size: 15px;">共{{totalCount ||0}}个客户</view>
+	</view>
+	
+  <view style="margin-top: 250upx;">
+   
+   <block v-for="(item, index) in customerList" :key="index" v-if="!compileing">
+    <view class="list flex_c box_shadow" @click.stop="toClientDetail(item.companyCode)" :data-id="item.id" :data-index="index">
+      
+      <view :class="(compileing?'wid_610':'wid_670')">
+        <view class="flex_sb">
+			   <view class="flex">
+				 <image src="/static/images/qingfc/application/companyx.png" class="title_img" mode="aspectFit"></image>
+				 <view style="font-size: 16px;font-weight: bold;">{{item.companyName||''}}</view>
+			   </view>
+			   
+				<view :class="(item.buyOrSell==1?'id_btn':'seller_btn')">{{item.buyOrSell==1?'买家':'卖家'}}</view>
+         </view>
+        
+        <view class="flex" style="margin-top: 10upx;">
+			  <view class="flex_c">
+					  <image src="/static/images/qingfc/application/gengduo-3@2x.png" class="title_img" mode="aspectFit"></image>
+					  <view class="fs_14 ">{{ item.companyLevelName||'' }}</view>
+			  </view>
+			  <view class="flex_c" style="padding-left: 30upx;">
+				  <image src="/static/images/qingfc/application/organize.png" class="title_img" mode="aspectFit"></image>
+				  <view class="fs_14 ">所属帮办: {{ item.realName||'' }}</view>
+			  </view>
+        </view>				
+
       </view>
     </view>
   </block>
+
   
+  <uniLoadMore :status="loadingType"></uniLoadMore>
 </view>
- <uniLoadMore :status="loadingType"></uniLoadMore>
+
 <view class="fixed_right_bottom box_shadow"  @tap="goCustomerCreated">
   <view>新建</view>
   <view>客户</view>
 </view>
 
+
+
 </view>
 </template>
 
 <script>
-
-let pageSize = 20
-let _this,timer
-const JsyServer = require("@/services/jsy-server.js");
-import topSearch from "@/components/topSearch.vue";
+import dropMenuRegion from "@/components/dropMenuRegion.vue";
+import dropMenuDeputy from "@/components/dropMenuDeputy.vue";
+import dropMenuLevel from "@/components/dropMenuLevel.vue";
+import dropMenuPirLevel from "@/components/dropMenuPrivateLevel.vue";
+import uniIcon from "@/components/uni-icons/uni-icons.vue";
 import uniLoadMore from "@/components/uni-load-more/uni-load-more.vue";
+import msDropdownMenu from '@/components/ms-dropdown/dropdown-menu.vue'
+import msDropdownItem from '@/components/ms-dropdown/dropdown-item.vue'
+let pageSize = 20
+let _this,_postCode,_regionCode,timer
+const JsyServer = require("@/services/jsy-server.js");
+
 export default {
-  components: {
-	  topSearch,
-	  uniLoadMore
-  },
-  data() {
+	components:{
+		uniIcon,
+		uniLoadMore,
+		msDropdownMenu,
+		msDropdownItem,
+		dropMenuRegion,
+		dropMenuDeputy,
+		dropMenuLevel,
+		dropMenuPirLevel
+	},
+    data() {
     return {
-	  loadingType: 'more',
-      tabOne: 0,
+      regionList:[],
+      tabTwo: 0,
+      compileing:false,
+      allPitchOn: false,
       //是否全部选中
-      list: [{
-        option: false
-      }, {
-        option: false
-      }, {
-        option: false
-      }],
-      inputValue: '',
-      //跟进记录搜索内容
       inputValueOne: '',
-      
-      timeIconStatus: false,
-      //时间区间选择是否被打开
-      
       setOver: false,
       //返回该页是否刷新
-      selectContent: [{
-        name: '全部',
-        id: 0
-      }, {
-        name: '买家',
-        id: 2
-      }, {
-        name: '卖家',
-        id: 4
-      }],
+      selectContent: [],
       bindSelect: false,
       //是否点开搜素类别
+	  loadingType:'more',
       loading: false,
-     //默认身份
-	  pupDef:'',
-	  //客户列表
+      numOne: 0,
+      numTwo: 0,
+      numThree: 0,
 	  customerList: [],
-	  pageNum: 1,
+	  isFilterBuyer:false,
+	  isFilterSeller: false,
+	  pageNum: 1,   //当前页
+	  buyOrSell: -1,   //-1全部，1买家，2卖家
+	  isAllocation: -1,   //-1全部，1已分配，0未分配
+	  isLastPage: false   ,//是否最后一页面
+	  codeValue:[],
 	  isDoRefresh:false,
-	  totalPage: ''
+	  totalPage:'',
+	  userCode:'',
+	  privateLevel:'',
+	  companyLevel:'',
+	  regionCode:'',
+	  postCode:'',
+	  totalCount:''
     };
   },
 
   onReachBottom: function () {
-      
-         if (timer != null) {
-                    clearTimeout(timer);
-                }
-           timer = setTimeout(function() {
-                _this.getMoreCustomer('',_this.pageNum,pageSize);
-            }, 1000);
-         
-        
-
-  },
-  onPullDownRefresh: function () {
-	
-		_this.getCustomerList('',_this.pageNum,pageSize);
-		
-  },
-  onShow: function () {
-    let pages = getCurrentPages();
-    let currPage = pages[pages.length-1];
-    if (currPage.data.isDoRefresh == true){
-	   currPage.data.isDoRefresh = false;
-	   _this.getCustomerList('',this.pageNum,pageSize);
-    }
+    if (timer != null) {
+               clearTimeout(timer);
+           }
+      timer = setTimeout(function() {
+           _this.getMoreCustomer();
+       }, 1000);
     
-    
-  },
-  onLoad: function (options) {
-    _this = this;
-    //let userInfo = wx.getStorageSync("userInfo");
-	if (this.checkLogin()){
-	    this.pupDefault()
-	    //获取职位列表
-		_this.getCustomerList('',_this.pageNum,pageSize);
-	}
-  }
      
-  ,
 
+   },
+   onPullDownRefresh: function () {
+	   _this.getCustomerList();
+	      
+   },
+   onShow: function () {
+	   
+      let pages = getCurrentPages();
+      let currPage = pages[pages.length-1];
+	  console.log(currPage)
+     //  if (currPage.data.isDoRefresh == true){
+		   // currPage.data.isDoRefresh = false;
+		   // this.pageNum =1
+		   // this.getCustomerList();
+		   
+     // 	 }
+	this.getCustomerList();
+   },
+   onLoad: function (options) {
+     _this = this;
+	 this.postCode = uni.getStorageSync('pupDefault')
+	 this.regionCode = this.$store.state.regionCode
+	 // this.getRegionCode()
+  	if (this.checkLogin()){
+		this.getCustomerList()
+		//this.getRegionCode()
+		//this.dmCount()
+  	    //获取职位
+  	
+  	}
+   },
+  onNavigationBarButtonTap:function(val){
+	  if (this.tabTwo>0) {
+		 this.tapCompile() 
+	  }
+	  
+	    
+  },
+  components: {},
   props: {},
   methods: {
-	getMoreCustomer:function(keyword,pageNum,pageSize){
-		    if (_this.loadingType !== 'more') {//loadingType!='more';直接返回
-		    	return false;
-		    }
-			_this.loadingType = 'loading';
-			uni.showNavigationBarLoading();//显示加载动画
-			
-		    let _postCode = uni.getStorageSync('pupDefault')
-		    let _data= {
-				keyword: keyword,
-				pageNum: pageNum,
-				pageSize: pageSize,
-				postCode: _postCode
-			}
-		   JsyServer.bsList(_data).then(res => {
-			  if (res.data.data.list.length == 0) {//没有数据
-			      console.log("no data")
-			  	_this.loadingType = '';
-			  	uni.hideNavigationBarLoading();//关闭加载动画
-			  	return;
-			 }
-			  _this.pageNum++;//每触底一次 page +1
-		     console.log(res)
-		     _this.customerList = _this.customerList.concat(res.data.data.list)
-			_this.loadingType = 'more';//将loadingType归0重置
-			uni.hideNavigationBarLoading();//关闭加载动画
-			
-		   }).catch(err => {
-			  
-		     console.log("getBSList=err==", err);
-		   });
+	  goCustomerCreated: function () {
+	    
+	  	  wx.navigateTo({
+	  	    url: '/pages/qing-f-c/buyDupty/customer-created'
+	  	  });
+	   
+	  },
+	  async getRegionCode(){
+
+	  		  const res = await this.$http.get('/cm/region_deputy')
+	  		  this.regionList = res.data.data.list
+			  this.tapRegion(this.regionCode)
+	  		  console.log(res)
+	  },
+	  tapRegion:function(e){
+		  console.log(e)
 		  
-	},
-	
+		  this.regionList.forEach((item,index)=>{
+			  if (item.regionCode == e){
+				  this.$refs.refDeputy.selectContent = this.regionList[index].list
+				  if (this.regionList[index].list.length>6){
+					  this.$refs.refDeputy.index = 2
+				  }else {
+					  this.$refs.refDeputy.index = 1
+				  }
+			  }
+		  })
+		  
+		  
+	  },
+	  tapSelectLevel:function(e){
+		 console.log(e) 
+		 this.companyLevel = e
+		 this.pageNum =1
+		 this.loadingType = 'more'
+		 this.privateLevel = ''
+		 this.getCustomerList()
+	  },
+	  tapSelectPrivateLevel:function(e){
+		 console.log(e) 
+		 this.privateLevel = e
+		 this.companyLevel = ''
+		 this.pageNum =1
+		 this.loadingType = 'more'
+		 this.getCustomerList()
+	  },
+	  tapSelectDeputy:function(e){
+		  console.log(e)
+		  this.userCode = e
+		  this.pageNum =1
+		  this.loadingType = 'more'
+		  this.getCustomerList()
+	  },
+	  async getMoreCustomer(){
+	  		 
+	  	    if (_this.loadingType !== 'more') {//loadingType!='more';直接返回
+	  	    	return false;
+	  	    }
+	  		_this.loadingType = 'loading';
+	  		uni.showNavigationBarLoading();//显示加载动画
+	  
+	  	    let _data= {
+	  			keyword: _this.inputValueOne,		//搜索关键字
+	  			regionCode: _this.regionCode,	//区域编码，空为全部区域
+	  			// buyOrSell: _this.buyOrSell,			//-1全部，0未知，1买家，2卖家
+	  			isAllocation: _this.isAllocation,		//-1全部，1已分配，0未分配
+	  			pageNum: _this.pageNum,			  //当前页
+	  			pageSize: pageSize,               // 页面大小
+	  			postCode: this.postCode ,
+				userCode: this.userCode,          //用户编码&
+				companyLevel: this.companyLevel,  //客户等级&
+				privateLevel: this.privateLevel,   //私有等级&
+
+				
+	  		}
+	  	    const res = await this.$http.get('/cm/list',{data: _data})
+	  		 if (res.data.data.list.length == 0) {//没有数据
+	  		      console.log("no data")
+	  		  	_this.loadingType = '';
+	  		  	uni.hideNavigationBarLoading();//关闭加载动画
+	  		  	return;
+	  		 }
+	  		  _this.pageNum++;//每触底一次 page +1
+	  	     console.log(res)
+	  	     _this.customerList = _this.customerList.concat(res.data.data.list)
+	  		_this.loadingType = 'more';//将loadingType归0重置
+	  		uni.hideNavigationBarLoading();//关闭加载动画
+	  		
+	  	   
+	  },
+	  async getCustomerList(){
+		  _this.pageNum = 1
+		  _this.loadingType = 'more';
+		  uni.showNavigationBarLoading();
+			let _data={
+			 	keyword: _this.inputValueOne,		//搜索关键字
+			 	regionCode: _this.regionCode,	//区域编码，空为全部区域
+			 	// buyOrSell: _this.buyOrSell,			//-1全部，0未知，1买家，2卖家
+			 	isAllocation: _this.isAllocation,		//-1全部，1已分配，0未分配
+			 	pageNum: _this.pageNum,			  //当前页
+			 	pageSize: pageSize,               // 页面大小
+			 	postCode: this.postCode ,
+			 	userCode: this.userCode,          //用户编码&
+			 	companyLevel: this.companyLevel,  //客户等级&
+			 	privateLevel: this.privateLevel,   //私有等级&
+			 	
+			 }
+		    console.log('客户请求参数',_data)
+	        const res = await this.$http.get('/cm/list',{data: _data})
+			
+			console.log("客户信息===",res)
+		     _this.pageNum++;//每触底一次 page +1
+		     _this.customerList = res.data.data.list
+			 this.totalCount = res.data.data.totalCount
+			_this.isLastPage = res.data.data.isLastPage
+			_this.totalPage = res.data.data.totalPage
+				
+			 
+			 // let __data={
+				//   keyword:_this.inputValueOne,		//关键词
+				//   regionCode: this.regionCode,   //区域编码
+				//   buyOrSell: _this.buyOrSell,  //买卖家
+				//   postCode: this.postCode
+			 //  }
+			 // JsyServer.dmCount(__data).then(res => {
+			 //    console.log("客户数量===",res)
+			 //            _this.numOne = res.data.data.all
+			 // 			_this.numTwo = res.data.data.isAllocation
+			 // 			_this.numThree = res.data.data.notAllocation
+			 //  }).catch(err => {
+			 //    console.log("getBSList=err==", res);
+			 //  }); 
+			  _this.loadingType = 'more';//将loadingType归0重置
+			  uni.hideNavigationBarLoading();//关闭加载动画
+	  },
+	  
+	  
+	  checkboxChange: function (e) {
+			
+			this.codeValue = e.detail.value
+			
+						
+	  },
+	  tabAllPitchOn:function(){
+		  this.allPitchOn = !this.allPitchOn;
+		  console.log('quanxuankuang',this.allPitchOn)
+		  let temp = []
+		  if (this.allPitchOn){
+			 
+			 this.customerList.forEach((item)=>{
+			 			  temp.push(item.companyCode)
+			 })
+			 _this.codeValue = temp 
+		  }else {
+			  _this.codeValue=[]
+		  }
+		 
+	  },
     blurInput: function (e) {
-      console.log(e.detail.value);
-      this.inputValueOne = e.detail.value
+      console.log(this.inputValueOne, e.detail.value);
+      
+  //     if (this.tabOne == 0) {
+  //       // this.setData({
+  //       //   inputValueOne: e.detail.value
+  //       // });
+		// this.inputValue = e.detail.value
+  //     } else {
+  //       this.inputValue = e.detail.value
+  //     }
     },
+	tapBuyFilter:function(e){
+		this.buyOrSell = 1
+		this.isFilterBuyer = true
+		this.isFilterSeller = false
+		let regionCode 
+		if(this.selectContent[0].id == 0){
+			regionCode = ''
+		}else {
+			regionCode = this.selectContent[0].id
+		}
+		this.getCustomerList(this.pageNum,this.isAllocation,this.buyOrSell,regionCode)
+		
+		
+	},
+	tapSellFilter:function(){
+		this.buyOrSell = 2
+		this.isFilterBuyer = false
+		this.isFilterSeller = true
+		let regionCode
+		if(this.selectContent[0].id == 0){
+			regionCode = ''
+		}else {
+			regionCode = this.selectContent[0].id
+		}
+		this.getCustomerList(this.pageNum,this.isAllocation,this.buyOrSell,regionCode)
+		
+	},
     bindSearch: function (e) {
-      recordPage = 1;
+    
       // this.setData({
       //   inputValue: e.detail.value
       // });
-	  this.inputValue = e.detail.value
-      this.getRecordList();
+     
     },
     // 点开搜索下拉选项
     bindSelectFunc: function () {
-      this.setData({
-         bindSelect: !this.bindSelect
-      });
+      // this.setData({
+      //    bindSelect: !this.bindSelect
+      // });
+	  this.bindSelect = !this.bindSelect
     },
-    // 点击选项
-    bindSelectContent: function (e) {
-      let index = e.currentTarget.dataset.index;
-      let selectContent = this.selectContent;
-      let obj = selectContent[0];
-      selectContent[0] = selectContent[index];
-      selectContent[index] = obj;
-     
-      this.selectContent = selectContent
    
-
-      if (index > 0) {
-        this.tapSearch();
-      }
-    },
     // 点击搜索
-    tapSearch: function (value) {
-	  uni.showLoading({
-	    title: '搜索中...'
-	  });
-	  console.log("suosuo==",value)
-      this.getCustomerList(value,1,pageSize);
-	  setTimeout(function() {
-	  		  uni.hideLoading();
-	  }, 2000);
+    tapSearch: function () {
+      
+      uni.showLoading({
+        title: '搜索中...'
+      });
+	  this.pageNum = 1
+	  this.isAllocation = -1
+	  this.buyOrSell = -1
+      this.getCustomerList();
+	  
+      setTimeout(function() {
+      		  uni.hideLoading();
+      }, 1000);
+	  
 	  
     },
-    // 获取客户列表
-    getCustomerList: function (keyword,pageNum,pageSize) {
-		_this.pageNum = 1
-		_this.loadingType = 'more';
-		uni.showNavigationBarLoading();
-		
-		let _postCode = uni.getStorageSync('pupDefault')
-	    let _data= {
-			keyword: keyword,
-			pageNum: _this.pageNum,
-			pageSize: pageSize,
-			postCode: _postCode
-		}
-       JsyServer.bsList(_data).then(res => {
-		  _this.pageNum++;
-         console.log(res)
-         _this.customerList = res.data.data.list
-		 _this.totalPage = res.data.data.totalPage
-		 
-       }).catch(err => {
-         console.log("getBSList=err==", err);
-       });
-	   uni.hideNavigationBarLoading();
-	   uni.stopPullDownRefresh();//得到数据后停止下拉刷新
-    },
-	pupDefault:function(){
-		JsyServer.pupDefault().then(res => {
-			console.log(res)
-			_this.pupDef = res.data.data.msg
-		}).catch(err => {
-		  console.log("pupDefault=err==", res);
-		});
-	},
+
     setNavButton:function(val){
 		let pages = getCurrentPages();
 		let page = pages[pages.length-1];
@@ -274,15 +448,47 @@ export default {
 	},
     tapTabTwo: function (e) {
       let index = e.currentTarget.dataset.index;
-
+	  //重新请求已分配客户列表
       this.tabTwo = index;
 	  console.log(index);
-      this.getCustomerList();
+	  if (index == 0){
+		  //this.customerList = this.orginalList
+		  this.setNavButton("")
+		  this.isAllocation = -1
+		  this.compileing = false
+		  
+		  
+	  }
+      if (index==1){
+		 this.setNavButton("编辑") 
+		 //重新请求已分配客户列表
+		 this.isAllocation = 1
+		 this.pageNum = 1
+		
+	  }
+	  if(index==2){
+		  //重新请求未分配客户列表
+		this.setNavButton("编辑") 
+		this.isAllocation = 0
+		this.pageNum = 1
+		console.log("分配状态：",this.isAllocation)
+		
+	  }
+	  this.getCustomerList()
+    },
+    // 点击编辑
+    tapCompile: function () {
+      this.compileing = !this.compileing;
+	  if (this.compileing){
+	  		  this.setNavButton('完成')
+	  }else {
+	  		  this.setNavButton('编辑')
+	  }
 	  
     },
+    // 点击全部
     
-   
-
+    
        
     //设置当前时间
     setTime: function () {
@@ -290,70 +496,130 @@ export default {
       let month = newDate.getMonth() + 1;
       month = month < 10 ? "0" + month : month;
       let newTime = newDate.getFullYear() + '-' + month + '-' + newDate.getDate();
-      this.setData({
-        newTime: newTime
-      });
+      // this.setData({
+      //   newTime: newTime
+      // });
+	  this.newTime = newTime
+    },
+   toSingleAllo:function(companyCode){
+   	_this.codeValue = []
+   	_this.codeValue.push(companyCode)
+   	this.toAllotAreaManager()
+   },
+   delSingleAllo:function(companyCode){
+	  
+   	_this.codeValue = []
+   	_this.codeValue.push(companyCode)
+   	this.deleteAllot()
+   },
+  
+    // 跳转到选中区域经理页
+    toAllotAreaManager: function () {
+      
+	  
+      let optionList = _this.codeValue
+	  let _temp = []
+	  _this.codeValue.forEach((s)=>{
+		  this.customerList.forEach((item)=>{
+		  		  if (item.companyCode == s){
+					  _temp.push(item.buyOrSell)
+				  }
+		  })
+	  })
+	  
+	  if (_temp.includes(1) && _temp.includes(2)){
+		  uni.showToast({
+		  	title: '不能同时选择买家和卖家',
+			icon: 'none'
+		  });
+		  return
+	  }
+	  
+	  let buyOrSell = optionList
+      console.log("optionList===",optionList.length)
+      if (optionList.length > 0) {
+        optionList = JSON.stringify(optionList);
+        uni.navigateTo({
+          url: '/pages/qing-f-c/regionalManager/deputy-list?optionList=' + optionList+ '&buyOrSell=' + _temp[0] 
+		  // url: '/pages/qing-f-c/sales_director/deputy-list?optionList=' + optionList + '&type=1'
+        });
+      } else {
+        uni.showToast({
+          title: '至少选择一个客户',
+          icon: 'none'
+        });
+      }
     },
    
- 
+    deleteAllot:function(){
+		uni.showModal({
+			title: '移除分配',
+			content: '确认要移除该分配吗？不要请返回',
+			showCancel: true,
+			cancelText: '返回',
+			confirmText: '我要移除',
+			success: res => {
+				if (res.confirm) {
+				         let optionList = _this.codeValue
+				         let _data={
+				         	companyCodes:optionList
+				         }
+				         let url = this.Api.managerDel
+				         this.myRequest(_data,url,'post').then(res => {
+				         	console.log("区域经理删除分配",res)
+				         	if (res.data.status == 0){  
+				         			wx.showToast({
+				         			  title: '成功删除分配'
+				         			});
+				         			this.getCustomerList(this.pageNum,this.isAllocation)
+				         		}		 
+				         
+				         	
+				          }).catch(err => {
+				            console.log("getBSList=err==", res);
+				          });     
+				        } else if (res.cancel) {
+				           return
+				        }
+				
+				
+			},
+			fail: () => {},
+			complete: () => {}
+		});
+		
+		
+	},
     
-    //跳转到新建客户页面
-    goCustomerCreated: function () {
-	  
-		  wx.navigateTo({
-		    url: '/pages/qing-f-c/buyDupty/customer-created'
-		  });
-     
-    },
-    //跳转到新增跟进记录页
    
     // 跳转到客户详情页
     toClientDetail: function (e) {
-      // if (this.compileing) {
-      //   this.tapPitchOn(e.currentTarget.dataset.index);
-      // } else {
-        let id = e.currentTarget.dataset.id;
-
-		uni.navigateTo({
-		  url: '/pages/qing-f-c/buyDupty/customer-details?companyCode=' + id
+      
+		console.log(e)
+		wx.navigateTo({
+		  url: './customer-details?companyCode=' + e
 		});
-    
+      
     },
     
     // 重置时间
-    bindReset: function () {
-      this.setData({
-        startDate: "",
-        endDate: "",
-        inputValue: ''
-      });
-    
-    },
-    setData: function (obj) {
-      let that = this;
-      let keys = [];
-      let val, data;
-      Object.keys(obj).forEach(function (key) {
-        keys = key.split('.');
-        val = obj[key];
-        data = that.$data;
-        keys.forEach(function (key2, index) {
-          if (index + 1 == keys.length) {
-            that.$set(data, key2, val);
-          } else {
-            if (!data[key2]) {
-              that.$set(data, key2, {});
-            }
-          }
-
-          data = data[key2];
-        });
-      });
-    }
+    // bindReset: function () {
+    //   this.setData({
+    //     startDate: "",
+    //     endDate: "",
+    //     inputValue: ''
+    //   });
+    //   recordPage = 1;
+    //   this.getRecordList();
+    // },
+ 
   }
 };
 </script>
 <style>
+	page{
+		background: #F2F2F2;
+	}
 .tab_one{
   color: #fff;
   text-align: center;
@@ -511,12 +777,14 @@ export default {
 	line-height: 1.1
 }
 .search_btn{
-  width: 138upx;
-  background-color: #fff;
+  width: 210upx;
+  /* background-color: #F2F2F2; */
+  background-color: #F2F2F2;
   border-radius: 28upx;
   display: flex;
   justify-content: center;
-  color:#9B9B9B;
+ /* color:#9B9B9B; */
+  color:#333;
   height: 56upx;
   flex-wrap: wrap;
   position: relative;
@@ -525,7 +793,8 @@ export default {
   transition: 0.2s
 }
 .bind_searach{
-  height: 192upx;
+  /* height: 192upx; */
+  height: 350upx;
 }
 .selection{
   line-height: 56upx;
@@ -538,6 +807,9 @@ export default {
 }
 .lh_62{
   line-height: 62upx;
+}
+.lh_30{
+  line-height: 30upx;
 }
 .height_92{
 	height: 92upx
@@ -609,6 +881,99 @@ export default {
 	width: 510upx;
 	line-height: 1.1
 }
-
-
+checkbox .wx-checkbox-input {
+		border-radius: 50%;
+	}
+checkbox .wx-checkbox-input.wx-checkbox-input-checked {
+		background: #FF6000;
+		color: #fff !important;
+		border: 2upx solid #FF6000;
+	}
+.checkboxSty {
+		display: flex;
+		align-items: center;
+		padding-left:15upx;
+	}
+.btn_right_director{
+		width: 20%;
+		background-color: #FF6000;
+		color: #fff;
+		border-radius: 0;
+		font-weight: bold;
+		line-height: 88upx;
+		font-size: 16px;
+		
+	}
+.btn_right_director_1{
+		width: 40%;
+		background-color: #FF6000;
+		color: #fff;
+		border-radius: 0;
+		font-weight: bold;
+		line-height: 88upx;
+		font-size: 16px;	
+	}
+.btn_right_director{
+		width: 40%;
+		background-color: #ffaf7f;
+		color: #fff;
+		border-radius: 0;
+		font-weight: bold;
+		line-height: 88upx;
+		font-size: 16px;	
+	}
+.btn_left_director{
+		width: 20%;
+		background-color: #fff;
+		color: #000;
+		line-height: 88upx;
+		border-radius: 0;
+		font-size: 16px;
+	}
+.btn_left_tapTwo{
+	width: 70%;
+	background-color: #fff;
+	color: #000;
+	line-height: 88upx;
+	border-radius: 0;
+	font-size: 16px;
+	padding-left: 20upx;
+	text-align:left;	
+}
+.btn_right_tapTwo{
+	width: 30%;
+	background-color: #FF6000;
+	color: #fff;
+	border-radius: 0;
+	font-weight: bold;
+	line-height: 88upx;
+	font-size: 16px;	
+}
+.search_area_box{
+  background-color: #fff;
+  padding:16upx 30upx 20upx;
+	/* height: 92upx; */
+  box-sizing: border-box;
+ 
+  }
+  .filter_btn{
+	  width: 210upx;
+	  background-color: #F2F2F2;
+	  border-radius: 28upx;
+	  color:#333;
+	  height: 56upx;
+	  display: flex;
+	  justify-content: center;
+	  align-items: center;
+  }
+  .filter_btn_select{
+  	  width: 210upx;
+  	  background-color: #FFECE0;
+  	  border-radius: 28upx;
+  	  color:#FF6000;
+  	  height: 56upx;
+  	  display: flex;
+  	  justify-content: center;
+  	  align-items: center;
+  }
 </style>

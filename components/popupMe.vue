@@ -201,5 +201,10 @@
 			display: flex;
 			flex-direction: column;
 		}
-     
+     .mt_20{
+		margin-top: 20upx; 
+	 }
+	 .mb_20{
+		 margin-bottom: 20upx;
+	 }
 </style>

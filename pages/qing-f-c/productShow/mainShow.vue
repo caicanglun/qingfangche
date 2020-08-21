@@ -123,7 +123,9 @@
 			};
 		},
 		onNavigationBarButtonTap:function(e) {
-			
+			if (uni.getStorageSync('pupDefault')=='SALES_DIRECTOR'){
+				return
+			}
 			uni.navigateTo({
 				url: '/pages/qing-f-c/productShow/companyPictureEdit?companyCode='+ this.companyCode,
 				success: res => {},
@@ -139,13 +141,33 @@
 			this.getPictureList()
 			this.getManageMachineList()
 			this.getGoodsList()
+			this.tapCompile()
 		},
 		onShow:function(){
 			this.getPictureList()
 			this.getManageMachineList()
 			this.getGoodsList()
+			this.tapCompile()
 		},
 		methods:{
+			tapCompile: function () {
+			  if (uni.getStorageSync('pupDefault')=='SALES_DIRECTOR'){
+			  	this.setNavButton('')
+			  }
+			  
+			},
+			setNavButton:function(val){
+				let pages = getCurrentPages();
+				let page = pages[pages.length-1];
+				let currentWebview = page.$getAppWebview();
+				let titleObj = currentWebview.getStyle().titleNView;  
+				                    
+				titleObj.buttons[0].text = val;  
+				currentWebview.setStyle({  
+					titleNView: titleObj  
+				});  
+				
+			},
 			getGoodsList:function(){
 				let url = _this.Api.goodsList
 				let data ={

@@ -1,0 +1,7 @@
+{
+  "navigationBarTitleText": "自定义分级",
+  "usingComponents": {
+    "my-picker-part": "/components/myPickerPartProps",
+    "my-checkbox-group": "/components/myCheckboxGroupPopCause"
+  }
+}

@@ -1,17 +1,24 @@
 <template>
-	<view class="topTabbar">
-		<view class= "box_shadow_btn" 
-			v-for="(item,index) of items" 
-			:key= "item.id"
-			:class = "item.isChecked? 'tabActive': 'tabItem'"
-			@tap = "tapTab(item.id)"
-	    >
-			
-				<text class="tabText">{{item.label}}</text>
-			
-			
-		</view>
+	<view>
+		<scroll-view scroll-x class="uni-swiper-tab" style="margin-top: 0;">
+			<view class="topTabbar">
+				
+					<view class= "box_shadow_btn" 
+						v-for="(item,index) of items" 
+						:key= "item.id"
+						:class = "item.isChecked? 'tabActive': 'tabItem'"
+						@tap = "tapTab(item.id)"
+					>
+						
+							<text class="tabText">{{item.label}}</text>
+						
+						
+					</view>
+				
+			</view>
+		</scroll-view>
 	</view>
+	
 </template>
 
 <script>
@@ -46,9 +53,20 @@
 </script>
 
 <style lang="scss">
+	.uni-swiper-tab {
+		width: 100%;
+		overflow: hidden;
+		// white-space: nowrap;
+		margin-top: 20upx;
+		
+		// line-height: 60upx;
+		// height: 60upx;
+		// border-bottom: 1px solid #c8c7cc;
+	}
 	.topTabbar{
 		display: flex;
 		justify-content: space-around;
+		width: 150%;
 		.tabItem{
 			display: flex;
 			width: 120upx;

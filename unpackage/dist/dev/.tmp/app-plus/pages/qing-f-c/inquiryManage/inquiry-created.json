@@ -9,6 +9,7 @@
     "picker-input": "/components/pickerInput",
     "uni-icon": "/components/uni-icons/uni-icons",
     "popup-me": "/components/popupMe",
-    "switch-button-edit": "/components/switchButton-edit"
+    "switch-button-edit": "/components/switchButton-edit",
+    "input-search": "/components/p-inputSearch/inputSearch"
   }
 }

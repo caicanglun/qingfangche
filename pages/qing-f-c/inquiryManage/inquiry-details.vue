@@ -10,11 +10,11 @@
 					<view>
 						询价单号: {{inquiry.inquiryNumber ||''}}
 					</view>
-					<!-- <view class="buttonStyle">
-						 复制
-					</view> -->
+					<view class="orderSummary" @tap="toOrderSummary" v-if="inquiry.inquiryStatusCode !==7&&inquiry.inquiryStatusCode !==8">
+						 订单总结
+					</view>
 					<view class="buttonStyle">
-						{{inquiry.inquiryStatus ||''}}
+						{{inquiry.inquiryStatusName ||''}}
 					</view>
 				</view>
 				<view class="box-content">
@@ -46,6 +46,15 @@
 		<popupMeUnmatch ref="closingRef" :propItems="closeItems" @input="getContent('closingRef',$event)" title="关闭原因"></popupMeUnmatch>
 		<popupCopy ref="copyInquiry" @input="getContent('toCopyInquiry',$event)" title="提示"></popupCopy>
 		<!-- ------弹窗---- -->
+		<!-- 订单总结 -->
+		<view class="details-box" style="padding: 20upx;" v-if="orderSummary.have">
+			<view class="flex_c" style="font-size: 15px;font-weight: bold;">订单总结</view>
+			<view class="flex_sb" style="margin-top: 20upx;line-height: 25px;">
+				<view style="width: 50%;font-size: 14px;"><text style="color: #8C8C8C;">状态：</text>{{orderSummary.inquiryStatusName}}</view>
+				<view style="width: 50%;font-size: 14px;"><text style="color: #8C8C8C;">原因：</text>{{orderSummary.list | returnCombine}}</view>
+			</view>
+		</view>
+		<!-- 订单总结 -->
 		<view class="details-box">
 			<view class='wrap-box-1'>
 				<view class="details-title">
@@ -123,6 +132,13 @@
 	import popupCopy from "@/components/popupMe-copy.vue";
 	let _this,_inquiryNumber
 	export default {
+		filters:{
+			returnCombine:function(value){
+				
+				return value.join('，')
+				
+			}
+		},
 		components:{
 			popupMe,
 			uniIcon,
@@ -188,7 +204,9 @@
 				isDoRefresh:false,
 				quotationNumber:'',
 				pageNum:1,
-				pageSize:10
+				pageSize:10,
+				orderSummary:''
+				
 				
 			};
 		},
@@ -205,6 +223,7 @@
 		  _this.getInquiryInfo(_inquiryNumber)
 		  _this.getDeputyQuotation()
 		  _this.getDirectQuotation()
+		  this.getOrderSummary()
 		},
 		onLoad:function(options){
 			_this = this
@@ -212,8 +231,24 @@
 			this.getInquiryInfo(_inquiryNumber)
 			this.getDeputyQuotation()
 			_this.getDirectQuotation()
+			this.getOrderSummary()
 		},
 		methods:{
+			async getOrderSummary(){
+				let data ={
+					inquiryNumber: _inquiryNumber
+				}
+				const res = await this.$http.get('/bInquiry/summary_details',{data:data})
+				this.orderSummary = res.data.data
+				console.log(this.orderSummary)
+			},
+			toOrderSummary:function(){
+				uni.navigateTo({
+					url: `/pages/qing-f-c/inquiryManage/orderSummary/orderSummary?inquiryNumber=${_inquiryNumber}`,
+					
+				});
+				
+			},
 			
 			getDirectQuotation:function(){
 					let data={
@@ -603,6 +638,16 @@
 				color: #FF6000;
 			}
 		}
+	}
+	.orderSummary{
+		color: #FFFFFF;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		width:137upx;
+		height:48upx;
+		background:rgba(255,96,0,1);
+		border-radius:6upx;
 	}
 	.box-content{
 		display: flex;

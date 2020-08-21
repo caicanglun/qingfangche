@@ -85,18 +85,14 @@
 			<view class="flex_c list_right_content justify-content">
 			  <view class="flex_c">
 				  <view class="fs_13">经：</view>
-				  <input placeholder-class="color_909090 fs_13" class="input" 
-				  placeholder="例如50D/96FDTY半光+75D/144FFDY消光" 
-				  name="spec_longitude" v-model="spec_longitude"></input>
+				  <inputSearch @input="handleInput" @select="handleChange" placeholder="例：T50D/72F半光DTY"/>
 			  </view>
 			 
 			   <view class="Clipboard" @tap="tapPaste">复制</view>
 			</view>
 			<view class="flex_c list_right_content">
 			  <view class="fs_13">纬：</view>
-			  <input placeholder-class="color_909090 fs_13" class="input" 
-			  placeholder="例如50D/96FDTY半光+75D/144FFDY消光" 
-			  name="spec_latitude" v-model="spec_latitude"></input>
+			  <inputSearch ref="specLati" @input="handleInputLati" @select="handleChangeLati" placeholder="例：T50D/72F半光DTY" />
 			</view>
 		</view>
 	<!-- ------------------------------------------------ -->
@@ -227,6 +223,7 @@
 	import pickerInput from "@/components/pickerInput.vue";
 	import uniIcon from "@/components/uni-icons/uni-icons.vue";
 	import popupMe from "@/components/popupMe.vue";
+	import inputSearch from '@/components/p-inputSearch/inputSearch.vue'
 	var _this
 	export default {
 		components:{
@@ -238,7 +235,8 @@
 			pickerInput,
 			uniIcon,
 			popupMe,
-			switchButtonEdit
+			switchButtonEdit,
+			inputSearch
 		},
 	   data(){
 		return{
@@ -315,6 +313,19 @@
 		 this.getAllSelect()
 	  },
 	  methods:{
+		  handleChange:function(item){
+			          console.log(item)
+		  			  this.spec_longitude = item
+		  },
+		  handleInput:function(data){
+		  			  this.spec_longitude = data
+		  },
+		  handleChangeLati:function(item){
+		  			  this.spec_latitude = item
+		  },
+		  handleInputLati:function(data){
+		  	 this.spec_latitude = data
+		  },
 		  selectBuyer:function(){
 			  uni.navigateTo({
 			  	url: '/pages/qing-f-c/inquiryManage/selectBuyer',
@@ -556,6 +567,7 @@
 			  // uni.setClipboardData({
 			  // 	data: this.spec_longitude
 			  // })
+			  this.$refs.specLati.name = this.spec_longitude
 			  this.spec_latitude = this.spec_longitude
 		  },
 		  tabSwitchChange:function(label,event){

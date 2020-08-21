@@ -1,12 +1,79 @@
 {
 	"pages": [ //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
-	           {
-	            "path" : "pages/qing-f-c/index",
-	            "style" : {
-	           				"navigationStyle":"custom",
-	           				"enablePullDownRefresh": true
-	           			}
-	            },			
+	       {
+	            "path" : "pages/qing-f-c/shopping/list",
+	            "style" : {"navigationBarTitleText": "商城",
+	       	            "navigationBarBackgroundColor":"#ffffff",
+	       	            "navigationBarTextStyle": "black",
+	       	            "enablePullDownRefresh": true
+	       	 }
+	        },
+		   {
+	           "path" : "pages/qing-f-c/shopping/finish",
+	           "style" : {"navigationBarTitleText": "询价"}
+	       },
+	       {
+	           "path" : "pages/qing-f-c/index",
+	           "style" : {
+	          				"navigationStyle":"custom",
+	          				"enablePullDownRefresh": true
+	          			}
+	        },	
+	       			
+		   
+		   
+			
+			   {
+				   "path" : "pages/qing-f-c/report/inputTarget",
+				   "style" : {"navigationBarTitleText": "设定本月目标"}
+			   },
+			 {
+	             "path" : "pages/qing-f-c/report/microShop",
+	             "style" : { 
+	                          			"navigationStyle":"custom"
+	                          							
+	                          	}
+	         },
+			 
+			 {
+	             "path" : "pages/qing-f-c/report/targetCustomList",
+	             "style" : {"navigationBarTitleText": "本月目标客户"}
+	         },
+			
+			 {
+	             "path" : "pages/qing-f-c/report/setTargetCustomer",
+	             "style" : {"navigationBarTitleText": "设定目标客户",
+							 "app-plus": {
+											  "titleNView": {
+												  
+												  "buttons": [
+												  {
+													   "color": "#FFFFFF",
+													   "float": "right",
+													   "fontSize": "15px",
+													   "text": "完成" // 字体图标\u 开头，加上字体图标unicode后面四位
+												  }
+												  ]
+											  }
+										   }
+							 }
+				 
+	         },
+			 
+
+			 {
+	         	"path" : "pages/qing-f-c/login/login",
+	         	"style" : {
+	         				"navigationStyle":"custom"
+	         								
+	         			 } 
+	         },
+			 {
+	             "path" : "pages/qing-f-c/report/reportManager",
+	             "style" : {"navigationBarTitleText": "报表统计"}
+	         },
+			 
+			
 			   {
 	               "path" : "pages/qing-f-c/casualPrice/sd_casualList",
 	               "style" : {"navigationBarTitleText": "随口价",
@@ -29,8 +96,8 @@
 			      
 	          {
 	              "path" : "pages/qing-f-c/newFollowRecord/publicDialog",
-	              "style" : {"navigationBarTitleText": "对话",
-				             "enablePullDownRefresh": true}
+	              "style" : {"navigationBarTitleText": "对话"
+				   }
 	          },
 	          {
 	              "path" : "pages/qing-f-c/newFollowRecord/updateState",
@@ -88,7 +155,19 @@
 	               "style" : {"navigationBarTitleText": "跟进列表",
 	               			"navigationBarBackgroundColor":"#ffffff",
 	               			"navigationBarTextStyle": "black",
-	               			"enablePullDownRefresh": true
+	               			"enablePullDownRefresh": true,
+							"app-plus": {
+								  "titleNView": {
+									  
+									  "buttons": [
+									  {
+										   "float": "right",
+										   "fontSize": "15px",
+										   "text": "查看" // 字体图标\u 开头，加上字体图标unicode后面四位
+									  }
+									  ]
+								  }
+							 }
 	               			}
 	           },
 			   
@@ -130,6 +209,7 @@
 	                 "style" : {"navigationBarTitleText": "客户跟进",
 	               			   
 	               			     "enablePullDownRefresh": true
+								
 					           }
 	             },
 				 {
@@ -223,13 +303,7 @@
 	                    "style" : {"navigationBarTitleText": "设置找样结果"}
 	                },
 	                
-					{
-						"path" : "pages/qing-f-c/login/login",
-						"style" : {
-									"navigationStyle":"custom"
-													
-								 } 
-					},
+					
 	                {
 	                    "path" : "pages/qing-f-c/inquiryManage/sales_director/modifyPrice",
 	                    "style" : {"navigationBarTitleText": "修改报价"}
@@ -414,7 +488,7 @@
 												  {
 													   "float": "right",
 													   "fontSize": "15px",
-													   "text": "" // 字体图标\u 开头，加上字体图标unicode后面四位
+													   "text": "编辑" // 字体图标\u 开头，加上字体图标unicode后面四位
 												  }
 												  ]
 											  }
@@ -561,7 +635,7 @@
 											  {
 												   "float": "right",
 												   "fontSize": "15px",
-												   "text": "" // 字体图标\u 开头，加上字体图标unicode后面四位
+												   "text": "编辑" // 字体图标\u 开头，加上字体图标unicode后面四位
 											  }
 											  ]
 										  }
@@ -906,6 +980,80 @@
             "path" : "pages/qing-f-c/buyDupty/updateCustomLevel",
             "style" : {"navigationBarTitleText": "修改客户等级"}
         }
+        
+        ,{
+            "path" : "pages/qing-f-c/buyDupty/updatePrivateLevel",
+            "style" : {"navigationBarTitleText": "自定义分级"}
+        }
+        ,{
+            "path" : "pages/qing-f-c/customPicture/followCircle",
+            "style" : {"navigationBarTitleText": "跟进周期设置"}
+        }
+        ,{
+            "path" : "pages/qing-f-c/report/selectTime",
+            "style" : {"navigationBarTitleText": "时间选择"}
+        }
+        ,{
+            "path" : "pages/qing-f-c/report/deputyReport",
+            "style" : {"navigationBarTitleText": "报表统计"}
+        }
+        ,{
+            "path" : "pages/qing-f-c/report/sellDeputyReport",
+            "style" : {"navigationBarTitleText": "报表统计"}
+        }
+        ,{
+            "path" : "pages/qing-f-c/report/regionReport",
+            "style" : {"navigationBarTitleText": "报表统计"}
+        }
+        
+       
+       
+       
+        ,{
+            "path" : "pages/qing-f-c/report/monthTargetList",
+            "style" : {}
+        }
+        ,{
+            "path" : "pages/qing-f-c/report/selectMonths",
+            "style" : {"navigationBarTitleText": "时间选择"}
+        }
+        ,{
+            "path" : "pages/qing-f-c/report/selectCustomerList",
+            "style" : {"navigationBarTitleText": "目标销售额明细"}
+        }
+        ,{
+            "path" : "pages/qing-f-c/report/selectTargetCustomer",
+            "style" : {"navigationBarTitleText": "本月目标客户"}
+        }
+        ,{
+            "path" : "pages/qing-f-c/inquiryManage/orderSummary/orderSummary",
+            "style" : {"navigationBarTitleText": "订单总结"}
+        }
+        ,{
+            "path" : "pages/qing-f-c/regionalManager/dispatchCustomer",
+            "style" : {}
+        }
+        
+        ,{
+            "path" : "pages/qing-f-c/shopping/detail",
+            "style" : {
+				"navigationBarTitleText": "产品详情",
+				
+				"app-plus": {
+							  "titleNView": {
+								  
+								  "buttons": [
+								  {
+									   "float": "right",
+									   "fontSize": "25px",
+									   "text": "..." // 字体图标\u 开头，加上字体图标unicode后面四位
+								  }
+								  ]
+							  }
+						   }
+			}
+        }
+        
     ],
 	"tabBar": {
 	    "list": [
@@ -922,10 +1070,10 @@
 	        "text": "求购区"
 	      },
 	      {
-	        "pagePath": "pages/qing-f-c/xianhuoqu/index/index",
+	        "pagePath": "pages/qing-f-c/shopping/list",
 	        "iconPath": "/static/images/tab/xianhuo.png",
 	        "selectedIconPath": "/static/images/tab/xianhuo-end.png",
-	        "text": "现货区"
+	        "text": "商城"
 	      },
 	      {
 	        "pagePath": "pages/qing-f-c/temaiqu/index/index",

@@ -24,12 +24,18 @@
 /* 垂直间距 */
 /* 透明度 */
 /* 文章场景相关 */
+.uni-swiper-tab {
+  width: 100%;
+  overflow: hidden;
+  margin-top: 20rpx;
+}
 .topTabbar {
   display: -webkit-box;
   display: -webkit-flex;
   display: flex;
   -webkit-justify-content: space-around;
           justify-content: space-around;
+  width: 150%;
 }
 .topTabbar .tabItem {
   display: -webkit-box;

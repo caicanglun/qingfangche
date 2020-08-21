@@ -210,7 +210,7 @@
 				this.form.purchaseQuantity = item.purchaseQuantity|| ''		//购买数量
 				this.form.timeCode = item.timeCode|| ''					//交期编码
 				this.form.dayCount = item.dayCount|| 0					//天数
-				this.form.buyerPrice = item.buyerPrice|| ''				//目标价
+				this.form.buyerPrice = item.buyerPrice|| 0				//目标价
 				this.form.buyerIsPlusDuty = item.buyerIsPlusDutyCode|| ''		//目标价是否含税
 				this.form.buyerIsIcash = item.buyerIsIcashCode|| ''			//目标价是否含运费
 				this.form.attributeCode = item.attributeCode|| ''			//订单属性编码

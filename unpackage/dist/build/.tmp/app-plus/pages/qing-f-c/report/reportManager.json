@@ -1,0 +1,13 @@
+{
+  "navigationBarTitleText": "报表统计",
+  "usingComponents": {
+    "t-table": "/components/t-table/t-table",
+    "ms-dropdown-menu": "/components/ms-dropdown/dropdown-menu",
+    "ms-dropdown-item": "/components/ms-dropdown/dropdown-item",
+    "my-progress": "/components/myProgress/myProgress",
+    "tongji-color": "/components/tongji-color",
+    "t-th": "/components/t-table/t-th",
+    "t-tr": "/components/t-table/t-tr",
+    "t-td": "/components/t-table/t-td"
+  }
+}

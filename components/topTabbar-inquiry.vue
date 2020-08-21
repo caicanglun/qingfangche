@@ -1,16 +1,19 @@
 <template>
+	
 	<view class="topTabbar">
-		<view class= "tabItem" 
-			v-for="(item,index) of items" 
-			:key= "index"
-			:class = "activeIndex==index? 'tabActive': ''"
-			@tap = "tapTab(index)"
-	    >
-			<text class="tabText">{{item}}</text>
-			<view class="bottomLine"></view>
-			<view style="height:10upx;"></view>
-			<view class="icon-position flex_c_c" v-if="directorReviewCount>0&&index==0">{{directorReviewCount}}</view>
-		</view>
+		
+			<view class= "tabItem" 
+				v-for="(item,index) of items" 
+				:key= "index"
+				:class = "activeIndex==index? 'tabActive': ''"
+				@tap = "tapTab(index)"
+			>
+				<text class="tabText">{{item}}</text>
+				<view class="bottomLine"></view>
+				<view style="height:10upx;"></view>
+				<view class="icon-position flex_c_c" v-if="directorReviewCount>0&&index==0">{{directorReviewCount}}</view>
+			</view>
+		
 	</view>
 </template>
 

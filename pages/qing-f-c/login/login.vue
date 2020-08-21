@@ -17,9 +17,8 @@
 						  placeholder-style="color: #ccc;font-size: 14px;" 
 						  maxlength="11"
 						  @input="showCloseIcon"
-						  
-						  
 					  ></input>
+					  
 					  <!-- <image v-if="isPhoneClear" src="../../../static/images/qingfc/close.png" class="i-next-login" mode="aspectFill" @tap="clearPhone"></image> -->
 					  <view style="width: 40upx;padding-left: 20upx;"  @tap="clearPhone">
 						  <uniIcon type="close" size="20" v-if="isPhoneClear"></uniIcon>

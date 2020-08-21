@@ -84,7 +84,7 @@
 			  <view class="flex_c">
 				  <view class="fs_13">经:</view>
 				  <input placeholder-class="color_909090 fs_13" class="input" 
-				  placeholder="例如50D/96FDTY半光+75D/144FFDY消光" 
+				  placeholder="例：T50D/72F半光DTY" 
 				  name="spec_longitude" v-model="spec_longitude"></input>
 			  </view>
 			 
@@ -93,7 +93,7 @@
 			<view class="flex_c list_right_content">
 			  <view class="fs_13">纬:</view>
 			  <input placeholder-class="color_909090 fs_13" class="input" 
-			  placeholder="例如50D/96FDTY半光+75D/144FFDY消光" 
+			  placeholder="例：T50D/72F半光DTY" 
 			  name="spec_latitude" v-model="spec_latitude"></input>
 			</view>
 		</view>

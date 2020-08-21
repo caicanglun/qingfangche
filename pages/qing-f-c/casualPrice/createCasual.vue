@@ -34,6 +34,18 @@
 					<view @tap="tapCarrButton" :class="isCarriageSelect?'tabActiveTax':'taxButton'">含运费</view>
 				</view>
 			</view>
+			<view class="content-1 no_border">
+				<view class='label'>价格</view>
+				<view class='items'>
+					<view style="display:flex;">
+						<view @tap="tapReason" :class="dataIndex==1?'tabActiveReason':'ButtonReason'"  data-index="1">偏高</view>
+						<view @tap="tapReason" :class="dataIndex ==2?'tabActiveReason':'ButtonReason'" data-index="2">合理</view>
+						<view @tap="tapReason" :class="dataIndex ==3?'tabActiveReason':'ButtonReason'" data-index="3">较低</view>
+						
+					</view>
+				</view>
+				
+			</view>
 		</view>
 		
 		<view style="height:150upx;"></view>
@@ -57,6 +69,7 @@
 		},
 		data() {
 			return {
+				dataIndex: -1,
 				delivery: ['现货','定织'],
 				activeIndex: -1,
 				isTaxSelect: false,
@@ -73,7 +86,8 @@
 						tradeName:'',				//品名(别名)
 						price:'',                   //目标价
                         isPlusDuty:'',	            //是否含税
-                        isIcash:''			        //是否含运费
+                        isIcash:''			        ,//是否含运费
+						priceStatus: ''
 
 				    }
 				
@@ -83,10 +97,12 @@
 			_this = this
 		},
 		methods:{
-			
-			
-			
-			
+			tapReason:function(e){
+				console.log(e.target.dataset.index)
+				this.dataIndex = e.target.dataset.index
+				this.form.priceStatus = e.target.dataset.index
+			},
+
 			selectButton:function(e){
 				console.log(e)
 				this.activeIndex = e
@@ -245,6 +261,17 @@
  	 border-radius:8px; 
 	 margin-left: 20upx;
  }
+ .ButtonReason{
+ 	 display: flex;
+ 	 
+ 	 align-items: center;
+ 	 justify-content: center;
+ 	 padding: 0 10upx;
+ 	 height:48upx;
+ 	 border:2upx solid rgba(220,220,220,1);
+ 	 border-radius:8px; 
+ 	 margin-right: 30upx;
+ }
  .tabActiveTax{
  	 display: flex;
 	
@@ -258,6 +285,20 @@
  	 background: #FF6000;
  	 color: white;
  }
+ .tabActiveReason{
+ 	 display: flex;
+ 	
+ 	 align-items: center;
+ 	 justify-content: center;
+ 	 padding: 0 10upx;
+ 	 height:48upx;
+ 	 border:2upx solid #ff6000;
+ 	 border-radius:8px;
+ 	 margin-right: 30upx;
+ 	 background: #FF6000;
+ 	 color: white;
+ }
+ 
  .blackLine{
 	 width:24upx;
 	 height:3upx;

@@ -113,6 +113,7 @@
 			   	       currPage.data.isDoRefresh = false;
 			   		   this.fetchList()
 			   	}
+				this.fetchList()
 		},
 		methods:{
 			async fetchList(){
@@ -174,6 +175,7 @@
 				if (this.activeIndex ==1){
 					this.scope = 2
 				}
+				this.followList = []
 				this.fetchList()
 			},
 			tapSearch:function() {

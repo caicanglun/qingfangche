@@ -1,0 +1,2 @@
+setCssToHead(["@charset \x22UTF-8\x22;\nbody { background: #F4F4F4; font-size: 15px; }\n.",[1],"fixed_bottom { width: 100%; position: fixed; bottom: 0; display: -webkit-box; display: -webkit-flex; display: flex; z-index: 999; }\n.",[1],"btn_right { width: 100%; background-color: #FF6000; color: #fff; font-size: 16px; line-height: ",[0,88],"; }\n",],undefined,{path:"./pages/qing-f-c/report/inputTarget.wxss"})();
+document.dispatchEvent(new CustomEvent("generateFuncReady", { detail: { generateFunc: $gwx('./pages/qing-f-c/report/inputTarget.wxml') } }));

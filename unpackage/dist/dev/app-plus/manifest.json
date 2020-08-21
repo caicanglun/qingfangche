@@ -7,8 +7,8 @@
   "id": "__UNI__85973DE",
   "name": "轻纺车网",
   "version": {
-    "name": "1.2.4",
-    "code": 124
+    "name": "1.3.3",
+    "code": 133
   },
   "description": "",
   "launch_path": "__uniappview.html",
@@ -126,6 +126,10 @@
           "<uses-permission android:name=\"android.permission.WRITE_CONTACTS\"/>",
           "<uses-permission android:name=\"android.permission.WRITE_EXTERNAL_STORAGE\"/>",
           "<uses-permission android:name=\"android.permission.WRITE_SETTINGS\"/>"
+        ],
+        "abiFilters": [
+          "armeabi-v7a",
+          "x86"
         ]
       },
       "apple": {
@@ -177,10 +181,10 @@
           "text": "求购区"
         },
         {
-          "pagePath": "pages/qing-f-c/xianhuoqu/index/index",
+          "pagePath": "pages/qing-f-c/shopping/list",
           "iconPath": "/static/images/tab/xianhuo.png",
           "selectedIconPath": "/static/images/tab/xianhuo-end.png",
-          "text": "现货区"
+          "text": "商城"
         },
         {
           "pagePath": "pages/qing-f-c/temaiqu/index/index",
@@ -204,7 +208,7 @@
       "child": [
         "lauchwebview"
       ],
-      "selected": 4
+      "selected": 2
     }
   },
   "usingComponents": {}

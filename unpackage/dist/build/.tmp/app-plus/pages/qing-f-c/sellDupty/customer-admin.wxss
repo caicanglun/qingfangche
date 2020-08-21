@@ -1,4 +1,7 @@
 
+page{
+		background: #F2F2F2;
+}
 .tab_one{
   color: #fff;
   text-align: center;
@@ -156,8 +159,9 @@
 	line-height: 1.1
 }
 .search_btn{
-  width: 138rpx;
-  background-color: #fff;
+  width: 210rpx;
+  /* background-color: #F2F2F2; */
+  background-color: #F2F2F2;
   border-radius: 28rpx;
   display: -webkit-box;
   display: -webkit-flex;
@@ -165,7 +169,8 @@
   -webkit-box-pack: center;
   -webkit-justify-content: center;
           justify-content: center;
-  color:#9B9B9B;
+ /* color:#9B9B9B; */
+  color:#333;
   height: 56rpx;
   -webkit-flex-wrap: wrap;
           flex-wrap: wrap;
@@ -176,7 +181,8 @@
   transition: 0.2s
 }
 .bind_searach{
-  height: 192rpx;
+  /* height: 192upx; */
+  height: 350rpx;
 }
 .selection{
   line-height: 56rpx;
@@ -189,6 +195,9 @@
 }
 .lh_62{
   line-height: 62rpx;
+}
+.lh_30{
+  line-height: 30rpx;
 }
 .height_92{
 	height: 92rpx
@@ -259,5 +268,115 @@
 .wid_510{
 	width: 510rpx;
 	line-height: 1.1
+}
+checkbox .wx-checkbox-input {
+		border-radius: 50%;
+}
+checkbox .wx-checkbox-input.wx-checkbox-input-checked {
+		background: #FF6000;
+		color: #fff !important;
+		border: 2rpx solid #FF6000;
+}
+.checkboxSty {
+		display: -webkit-box;
+		display: -webkit-flex;
+		display: flex;
+		-webkit-box-align: center;
+		-webkit-align-items: center;
+		        align-items: center;
+		padding-left:15rpx;
+}
+.btn_right_director{
+		width: 20%;
+		background-color: #FF6000;
+		color: #fff;
+		border-radius: 0;
+		font-weight: bold;
+		line-height: 88rpx;
+		font-size: 16px;
+}
+.btn_right_director_1{
+		width: 40%;
+		background-color: #FF6000;
+		color: #fff;
+		border-radius: 0;
+		font-weight: bold;
+		line-height: 88rpx;
+		font-size: 16px;
+}
+.btn_right_director{
+		width: 40%;
+		background-color: #ffaf7f;
+		color: #fff;
+		border-radius: 0;
+		font-weight: bold;
+		line-height: 88rpx;
+		font-size: 16px;
+}
+.btn_left_director{
+		width: 20%;
+		background-color: #fff;
+		color: #000;
+		line-height: 88rpx;
+		border-radius: 0;
+		font-size: 16px;
+}
+.btn_left_tapTwo{
+	width: 70%;
+	background-color: #fff;
+	color: #000;
+	line-height: 88rpx;
+	border-radius: 0;
+	font-size: 16px;
+	padding-left: 20rpx;
+	text-align:left;
+}
+.btn_right_tapTwo{
+	width: 30%;
+	background-color: #FF6000;
+	color: #fff;
+	border-radius: 0;
+	font-weight: bold;
+	line-height: 88rpx;
+	font-size: 16px;
+}
+.search_area_box{
+  background-color: #fff;
+  padding:16rpx 30rpx 20rpx;
+	/* height: 92upx; */
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+}
+.filter_btn{
+	  width: 210rpx;
+	  background-color: #F2F2F2;
+	  border-radius: 28rpx;
+	  color:#333;
+	  height: 56rpx;
+	  display: -webkit-box;
+	  display: -webkit-flex;
+	  display: flex;
+	  -webkit-box-pack: center;
+	  -webkit-justify-content: center;
+	          justify-content: center;
+	  -webkit-box-align: center;
+	  -webkit-align-items: center;
+	          align-items: center;
+}
+.filter_btn_select{
+  	  width: 210rpx;
+  	  background-color: #FFECE0;
+  	  border-radius: 28rpx;
+  	  color:#FF6000;
+  	  height: 56rpx;
+  	  display: -webkit-box;
+  	  display: -webkit-flex;
+  	  display: flex;
+  	  -webkit-box-pack: center;
+  	  -webkit-justify-content: center;
+  	          justify-content: center;
+  	  -webkit-box-align: center;
+  	  -webkit-align-items: center;
+  	          align-items: center;
 }
 

@@ -14,11 +14,11 @@
 		 		
 		 </view>
 		 <view style="display:flex;margin-left: 15upx;">
-			 <view>
+			 <view v-if="userInfo">
 				 <image :src="userInfo.avatar" class="hand_img" mode="aspectFit"></image>
 			 </view>
 			
-			<view class="hand_content">
+			<view class="hand_content" v-if="userInfo">
 			  <view class="fs_15 font_we_bold  mt_10">{{userInfo.nickName || ''}}</view>
 			  <view class="fs_14 font_we_bold color_cf mt_30">{{userInfo.realName|| ''}}</view>
 			  <view class="fs_12 font_we_bold color_cf mt_20">{{userInfo.phone|| ''}}</view>
@@ -40,11 +40,11 @@
 					<view class="flex pb_20">
 						<!-- <view class="hand_btn" v-if="regionalManager">区域经理</view> -->
 						<!-- <view class="hand_btn" v-if="!isSpecial">{{userInfo.postName}}</view> -->
-						<view class="hand_btn ml_20" @tap="showSinglePicker">
+						<view class="hand_btn ml_20" @tap="showSinglePicker" v-if="userInfo">
 							   {{userInfo.postName|| ''}}
 						</view>
 						
-						<view class="hand_btn ml_20">{{userInfo.regionName||'区域'}}</view>
+						<view class="hand_btn ml_20" v-if="userInfo">{{userInfo.regionName||'区域'}}</view>
 
 					</view>
 			
@@ -168,7 +168,12 @@ const arrListBuyB = [
 	    icon: '/static/images/jinsy/common/casual.png',
 	    name: '随口价',
 	    url: '/pages/qing-f-c/casualPrice/casualList',
-	}
+	},
+	{
+	  icon: '/static/images/jinsy/common/tongji.png',
+	  name: '报表统计',
+	  url: '/pages/qing-f-c/report/deputyReport'
+	},
   ];  //买办
 const arrListSellB = [
 	{
@@ -203,7 +208,12 @@ const arrListSellB = [
 	    icon: '/static/images/jinsy/common/customFollow.png',
 	    name: '客户跟进',
 	    url: '/pages/qing-f-c/customPicture/followListNew',
-	}
+	},
+	{
+	  icon: '/static/images/jinsy/common/tongji.png',
+	  name: '报表统计',
+	  url: '/pages/qing-f-c/report/deputyReport'
+	},
 ];   //卖办
 const arrListRGbuy = [
 	{
@@ -221,7 +231,7 @@ const arrListRGbuy = [
 		{
 		  icon: '/static/images/jinsy/common/tongji.png',
 		  name: '报表统计',
-		  url: ''
+		  url: '/pages/qing-f-c/report/reportManager'
 		},
 		{
 		  icon: '/static/images/jinsy/common/bangban.png',
@@ -262,7 +272,7 @@ const arrListRGsell = [
 		{
 		  icon: '/static/images/jinsy/common/tongji.png',
 		  name: '报表统计',
-		  url: ''
+		  url: '/pages/qing-f-c/report/reportManager'
 		},
 		{
 		  icon: '/static/images/jinsy/common/bangban.png',
@@ -300,7 +310,7 @@ const arrListGM= [
 		{
 		  icon: '/static/images/jinsy/common/tongji.png',
 		  name: '报表统计',
-		  url: ''
+		  url: '/pages/qing-f-c/report/reportManager'
 		},
 		{
 		  icon: '/static/images/jinsy/common/bangban.png',
@@ -502,6 +512,10 @@ export default {
 			this.getLatentCount() //潜在订单
 			this.getCustomLevelCount()  //客户等级审核
 			
+		}else {
+			uni.redirectTo({
+				url: '/pages/qing-f-c/login/login'
+			})
 		}
 		
 
@@ -514,6 +528,14 @@ export default {
   },
   props: {},
   methods: {
+	  checkLogin:function(){
+		  let token = uni.getStorageSync('token')
+		  if (token){
+			  return true
+		  }else {
+			  return false
+		  }
+	  },
 	  async getCustomLevelCount(){
 	  	let data ={
 	  		postCode: uni.getStorageSync('pupDefault')
@@ -771,7 +793,7 @@ export default {
 			if (res.data.status == 80){
 				uni.redirectTo({
 					url: '/pages/qing-f-c/login/login'
-				});
+				})
 			}
 			
 			 

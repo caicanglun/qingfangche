@@ -1,0 +1,9 @@
+{
+  "navigationBarTitleText": "产品详情",
+  "usingComponents": {
+    "musk-picture": "/components/muskPicture/muskPicture",
+    "uni-icon": "/components/uni-icons/uni-icons",
+    "service-assurance": "/components/serviceAssurance",
+    "immediate-inquiry": "/components/shopping/immediateInquiry"
+  }
+}

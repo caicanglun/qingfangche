@@ -32,16 +32,13 @@
   -webkit-box-direction: normal;
   -webkit-flex-direction: row;
           flex-direction: row;
-  -webkit-box-pack: justify;
-  -webkit-justify-content: space-between;
-          justify-content: space-between;
   -webkit-align-content: flex-start;
           align-content: flex-start;
   -webkit-flex-wrap: wrap;
           flex-wrap: wrap;
 }
 .typeItemSelect {
-  width: 200rpx;
+  padding: 0 10rpx;
   height: 50rpx;
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
@@ -52,9 +49,10 @@
   border: 2rpx solid #FF6000;
   color: #FF6000;
   position: relative;
+  margin-right: 30rpx;
 }
 .typeItem {
-  width: 200rpx;
+  padding: 0 10rpx;
   height: 50rpx;
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
@@ -63,6 +61,7 @@
   text-align: center;
   margin-bottom: 20rpx;
   border: 2rpx solid #D3D3D3;
+  margin-right: 30rpx;
 }
 .icon-position {
   position: absolute;

@@ -3,6 +3,15 @@
   "navigationBarBackgroundColor": "#ffffff",
   "navigationBarTextStyle": "black",
   "enablePullDownRefresh": true,
+  "titleNView": {
+    "buttons": [
+      {
+        "float": "right",
+        "fontSize": "15px",
+        "text": "查看"
+      }
+    ]
+  },
   "usingComponents": {
     "uni-load-more": "/components/uni-load-more/uni-load-more",
     "uni-icon": "/components/uni-icons/uni-icons",

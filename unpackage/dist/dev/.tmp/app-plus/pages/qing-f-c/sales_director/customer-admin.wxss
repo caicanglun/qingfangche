@@ -1,4 +1,7 @@
 
+page{
+		background: #F2F2F2;
+}
 .tab_one{
   color: #fff;
   text-align: center;
@@ -30,10 +33,9 @@
   font-weight: bold;
 }
 .line{
-  height: 48rpx;
-  width: 1rpx;
-  background-color: #E5E5E5;
-  margin-top: 20rpx;
+  height: 60rpx;
+  width: 2rpx;
+  background-color: #D3D3D3;
 }
 .tab_text{
   display: inline-block;
@@ -180,7 +182,7 @@
 }
 .bind_searach{
   /* height: 192upx; */
-  height: 300rpx;
+  height: 350rpx;
 }
 .selection{
   line-height: 56rpx;
@@ -363,9 +365,9 @@ checkbox .wx-checkbox-input.wx-checkbox-input-checked {
 }
 .filter_btn_select{
   	  width: 210rpx;
-  	  background-color: #FF6000;
+  	  background-color: #FFECE0;
   	  border-radius: 28rpx;
-  	  color: white;
+  	  color:#FF6000;
   	  height: 56rpx;
   	  display: -webkit-box;
   	  display: -webkit-flex;

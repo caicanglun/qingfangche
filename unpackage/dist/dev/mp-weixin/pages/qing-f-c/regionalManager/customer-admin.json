@@ -3,6 +3,9 @@
   "enablePullDownRefresh": true,
   "usingComponents": {
     "uni-icon": "/components/uni-icons/uni-icons",
-    "uni-load-more": "/components/uni-load-more/uni-load-more"
+    "uni-load-more": "/components/uni-load-more/uni-load-more",
+    "drop-menu-region": "/components/dropMenuRegion",
+    "drop-menu-deputy": "/components/dropMenuDeputy",
+    "drop-menu-level": "/components/dropMenuLevel"
   }
 }

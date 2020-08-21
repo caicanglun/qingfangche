@@ -1,103 +1,78 @@
 <template>
 <view>
-  
-	<view class="search_top_box">
-	  <view class="flex_sb height_56">
-		<view class="flex_c search_left " style="width:100%">
-		  <icon type="search" size="14" style="height:14px;margin-left:40upx;"></icon>
-		  <input class="search_left_input" v-model="inputValueOne" placeholder="请输入搜索内容" 
-		  @input="blurInput" confirm-type="search" @confirm="tapSearch"></input>
-		</view>
-	  </view>
-	</view>
-
-	<view class="box_shadow">
-	  <view class="flex_sa tab_list">
-		<view :class="'tab_208 flex_c_c ' + (tabTwo==0?'tab_on':'')" @tap="tapTabTwo" data-index="0">
-		  <view :class="(tabTwo==0?'text_on':'') + ' ptb_20'">
-			<view>全部</view>
-			<view>({{numOne}})</view>
-		  </view>
-		</view>
-		<view class="line"></view>
-		<view :class="'tab_208 flex_c_c ' + (tabTwo==1?'tab_on':'')" @tap="tapTabTwo" data-index="1">
-		  <view :class="(tabTwo==1?'text_on':'') + ' ptb_20'">
-			<view>已分配</view>
-			<view>({{numTwo}})</view>
-		  </view>
-		</view>
-		<view class="line"></view>
-		<view :class="'tab_208 flex_c_c ' + (tabTwo==2?'tab_on':'')" @tap="tapTabTwo" data-index="2">
-		  <view :class="(tabTwo==2?'text_on':'') + ' ptb_20'">
-			<view>未分配</view>
-			<view>({{numThree}})</view>
-		  </view>
-		</view>
-	  </view>
- <!-- 条件筛选框 -->
-<!-- 	  <view class="search_area_box">
-		<view class="flex_sa height_56">
-		  <view :class="'box_shadow search_btn ' + (bindSelect?'bind_searach':'')" @tap="bindSelectFunc">
-			<view class="flex selection ">
-			  <view>
-				<block v-for="(item, index) in selectContent" :key="index">
-				  <view :class="'fs_14 ' + (index>0?'lh_62':'color_FF6000')" @tap="bindSelectContent" 
-				  :data-index="index">{{item.label}}</view>
-				</block>
+    <view style="position: fixed;top:0;z-index: 99;width: 100%;">
+		<view class="search_top_box">
+			  <view class="flex_sb height_56">
+				<view class="flex_c search_left " style="width:100%">
+				  <icon type="search" size="14" style="height:14px;margin-left:40upx;"></icon>
+				  <input class="search_left_input" v-model="inputValueOne" placeholder="请输入搜索内容" 
+				  @input="blurInput" confirm-type="search" @confirm="tapSearch"></input>
+				</view>
 			  </view>
-			  <image src="/static/images/qingfc/application/select_bind.png" mode="aspectFit"></image>
 			</view>
-		  </view>
-		  <view :class="isFilterBuyer?'box_shadow filter_btn_select fs_14':'box_shadow filter_btn fs_14'"
-		  @tap="tapBuyFilter" >
-			  买家
-		  </view>
-		  <view :class="isFilterSeller?'box_shadow filter_btn_select fs_14':'box_shadow filter_btn fs_14'" 
-		  @tap="tapSellFilter" data-index="1">
-			  卖家
-		  </view>
-		</view>
-	  </view> -->
-	</view> 
-
-
- 
-
-<view>
-  <block v-for="(item, index) in customerList" :key="index" v-if="!compileing">
+		
+			<view class="box_shadow">
+			  <view class="flex_sa tab_list" v-show="showAllocation">
+				<view :class="'tab_208 flex_c_c ' + (tabTwo==0?'tab_on':'')" @tap="tapTabTwo" data-index="0">
+				  <view :class="(tabTwo==0?'text_on':'') + ' ptb_20'">
+					<view>全部</view>
+					<view>({{numOne}})</view>
+				  </view>
+				</view>
+				<view class="line"></view>
+				<view :class="'tab_208 flex_c_c ' + (tabTwo==1?'tab_on':'')" @tap="tapTabTwo" data-index="1">
+				  <view :class="(tabTwo==1?'text_on':'') + ' ptb_20'">
+					<view>已分配</view>
+					<view>({{numTwo}})</view>
+				  </view>
+				</view>
+				<view class="line"></view>
+				<view :class="'tab_208 flex_c_c ' + (tabTwo==2?'tab_on':'')" @tap="tapTabTwo" data-index="2">
+				  <view :class="(tabTwo==2?'text_on':'') + ' ptb_20'">
+					<view>未分配</view>
+					<view>({{numThree}})</view>
+				  </view>
+				</view>
+			  </view>
+		<!-- 条件筛选框 -->
+			  <view class="search_area_box">
+				<view class="flex_sa height_56">
+				  <!-- <dropMenuRegion @selected="tapRegion"></dropMenuRegion> -->
+				  <dropMenuDeputy ref="refDeputy" @selected="tapSelectDeputy"></dropMenuDeputy>
+				  <dropMenuLevel @selected="tapSelectLevel"></dropMenuLevel>
+				</view>
+			  </view>
+		   </view> 
+		   
+		  <view class="flex_c_c" style="height: 80upx;color: #333333;background: #F2F2F2;font-size: 15px;">共{{totalCount ||0}}个客户</view>
+	</view>
+	
+  <view :style="{'margin-top': (showAllocation?'360upx':'250upx')}">
+   
+   <block v-for="(item, index) in customerList" :key="index" v-if="!compileing">
     <view class="list flex_c box_shadow" @click.stop="toClientDetail(item.companyCode)" :data-id="item.id" :data-index="index">
       
       <view :class="(compileing?'wid_610':'wid_670')">
-        <view class="flex_sb mt_10">
-          <view class="flex">
-            <image src="/static/images/qingfc/application/companyx.png" class="title_img" mode="aspectFit"></image>
-            <view class="fs_16 font_we_bold wid_510">{{item.companyName||''}}</view>
-          </view>
-          <view :class="(item.buyOrSell==1?'id_btn':'seller_btn')">{{item.buyOrSell==1?'买家':'卖家'}}</view>
-        </view>
-        <view class="flex_c mt_20">
-          <image src="/static/images/qingfc/application/list.png" class="title_img" mode="aspectFit"></image>
-          <view class="fs_14 ">
-            <text class="mr_60">{{item.regionName||''}}</text>
-            <text class="mr_60">{{item.companyTypeName||''}}</text>
-            <text>{{item.linkmanCount||0}}个联系人</text>
-          </view>
-        </view>
-        <view class="flex_c mt_20">
-			  <image src="/static/images/qingfc/application/contacts.png" class="title_img" mode="aspectFit"></image>
-			  <view class="fs_14">{{item.deputyRealName||''}} {{item.deputyPhone||""}}</view>
-        </view>
-		<view class="flex_sb mt_20">
-		  <view class="flex">
-			  <image src="/static/images/qingfc/application/organize.png" class="title_img" mode="aspectFit"></image>
-			  <view class="fs_14 ">所属帮办: {{ item.deputyRealName||'' }}</view>
-		  </view>
-		  <view v-if="tabTwo==0">
-			  <image src="/static/images/qingfc/application/exit2x.png" class="title_img" mode="aspectFit" @click.stop='delSingleAllo(item.companyCode)'></image>
-			  <image src="/static/images/qingfc/application/swap2x.png" class="title_img" mode="aspectFit" @click.stop='toSingleAllo(item.companyCode)'></image>
-		  </view>
-		</view>
-		
+        <view class="flex_sb">
+			   <view class="flex">
+				 <image src="/static/images/qingfc/application/companyx.png" class="title_img" mode="aspectFit"></image>
+				 <view style="font-size: 16px;font-weight: bold;">{{item.companyName||''}}</view>
+			   </view>
+			   
+				<view :class="(item.buyOrSell==1?'id_btn':'seller_btn')">{{item.buyOrSell==1?'买家':'卖家'}}</view>
+         </view>
+        
+        <view class="flex" style="margin-top: 10upx;">
+			  <view class="flex_c">
+					  <image src="/static/images/qingfc/application/gengduo-3@2x.png" class="title_img" mode="aspectFit"></image>
+					  <view class="fs_14 ">{{ item.companyLevelName||'' }}</view>
+			  </view>
+			  <view class="flex_c" style="padding-left: 30upx;">
+				  <image src="/static/images/qingfc/application/organize.png" class="title_img" mode="aspectFit"></image>
+				  <view class="fs_14 ">所属帮办: {{ item.realName||'' }}</view>
+			  </view>
+        </view>				
+
       </view>
     </view>
   </block>
@@ -113,32 +88,25 @@
 			 <view class="list flex_c box_shadow" >
 			   
 			    <view :class="(compileing?'wid_610':'wid_670')" >
-			      <view class="flex_sb mt_10">
-			        <view class="flex">
-			          <image src="/static/images/qingfc/application/companyx.png" class="title_img" mode="aspectFit"></image>
-			          <view class="fs_16 font_we_bold wid_510">{{item.companyName||''}}</view>
-			        </view>
-			        <view :class="(item.buyOrSell==1?'id_btn':'seller_btn')">{{item.buyOrSell==1?'买家':'卖家'}}</view>
-			      </view>
-			      <view class="flex_c mt_20">
-			        <image src="/static/images/qingfc/application/list.png" class="title_img" mode="aspectFit"></image>
-			        <view class="fs_14 ">
-			          <text class="mr_60">{{item.regionName||''}}</text>
-			          <text class="mr_60">{{item.companyTypeName||''}}</text>
-			          <text>{{item.linkmanCount||0}}个联系人</text>
-			        </view>
-			      </view>
-			      <view class="flex_c mt_20">
-						  <image src="/static/images/qingfc/application/contacts.png" class="title_img" mode="aspectFit"></image>
-						  <view class="fs_14">{{item.deputyRealName||''}} {{item.deputyPhone||""}}</view>
-			      </view>
-					<view class="flex_sb mt_20">
-					  <view class="flex">
+			      <view class="flex_sb">
+					   <view class="flex">
+						 <image src="/static/images/qingfc/application/companyx.png" class="title_img" mode="aspectFit"></image>
+						 <view style="font-size: 16px;font-weight: bold;">{{item.companyName||''}}</view>
+					   </view>
+					   
+						<view :class="(item.buyOrSell==1?'id_btn':'seller_btn')">{{item.buyOrSell==1?'买家':'卖家'}}</view>
+			       </view>
+			      
+			      <view class="flex" style="margin-top: 10upx;">
+					  <view class="flex_c">
+							  <image src="/static/images/qingfc/application/gengduo-3@2x.png" class="title_img" mode="aspectFit"></image>
+							  <view class="fs_14 ">{{ item.companyLevelName||'' }}</view>
+					  </view>
+					  <view class="flex_c" style="padding-left: 30upx;">
 						  <image src="/static/images/qingfc/application/organize.png" class="title_img" mode="aspectFit"></image>
 						  <view class="fs_14 ">所属帮办: {{ item.deputyRealName||'' }}</view>
 					  </view>
-					 
-					</view>	
+			      </view>				
 			    </view>
 			  </view>
 			
@@ -177,8 +145,12 @@
 </template>
 
 <script>
+import dropMenuRegion from "@/components/dropMenuRegion.vue";
+import dropMenuDeputy from "@/components/dropMenuDeputy.vue";
+import dropMenuLevel from "@/components/dropMenuLevel.vue";
 import uniIcon from "@/components/uni-icons/uni-icons.vue";
 import uniLoadMore from "@/components/uni-load-more/uni-load-more.vue";
+
 let pageSize = 20
 let _this,_postCode,_regionCode,timer
 const JsyServer = require("@/services/jsy-server.js");
@@ -186,11 +158,15 @@ const JsyServer = require("@/services/jsy-server.js");
 export default {
 	components:{
 		uniIcon,
-		uniLoadMore
+		uniLoadMore,
+		dropMenuRegion,
+		dropMenuDeputy,
+		dropMenuLevel
 	},
     data() {
     return {
-   
+	  showAllocation: false,
+      regionList:[],
       tabTwo: 0,
       compileing:false,
       allPitchOn: false,
@@ -216,8 +192,12 @@ export default {
 	  codeValue:[],
 	  isDoRefresh:false,
 	  totalPage:'',
-	  
-	  
+	  userCode:'',
+	  privateLevel:'',
+	  companyLevel:'',
+	  regionCode:'',
+	  postCode:'',
+	  totalCount:''
     };
   },
 
@@ -238,23 +218,23 @@ export default {
    },
    onShow: function () {
 	   
-      let pages = getCurrentPages();
-      let currPage = pages[pages.length-1];
-      if (currPage.data.isDoRefresh == true){
-		   currPage.data.isDoRefresh = false;
-		   this.pageNum =1
-		   this.getCustomerList(this.pageNum,this.isAllocation);
-		   this.dmCount()
-     	 }
+     //  let pages = getCurrentPages();
+     //  let currPage = pages[pages.length-1];
+     //  if (currPage.data.isDoRefresh == true){
+		   // currPage.data.isDoRefresh = false;
+		   // this.pageNum =1
+		   // this.getCustomerList();
+		   // this.dmCount()
+     // 	 }
 	this.getCustomerList();
    },
    onLoad: function (options) {
      _this = this;
-	 _postCode = uni.getStorageSync('pupDefault')
-	 _regionCode = this.$store.state.regionCode
-	
+	 this.postCode = uni.getStorageSync('pupDefault')
+	 this.regionCode = this.$store.state.regionCode
+	 this.getRegionCode()
   	if (this.checkLogin()){
-		this.getCustomerList(this.pageNum,this.isAllocation)
+		this.getCustomerList()
 		//this.getRegionCode()
 		//this.dmCount()
   	    //获取职位
@@ -262,16 +242,53 @@ export default {
   	}
    },
   onNavigationBarButtonTap:function(val){
-	  if (this.tabTwo>0) {
-		 this.tapCompile() 
-	  }
-	  
+	  // if (this.tabTwo>0) {
+		 // this.tapCompile() 
+	  // }
+	  this.tapCompile() 
 	    
   },
   components: {},
   props: {},
   methods: {
-	  getMoreCustomer:function(){
+	  async getRegionCode(){
+
+	  		  const res = await this.$http.get('/cm/region_deputy')
+	  		  this.regionList = res.data.data.list
+			  this.tapRegion(this.regionCode)
+	  		  console.log(res)
+	  },
+	  tapRegion:function(e){
+		  console.log(e)
+		  
+		  this.regionList.forEach((item,index)=>{
+			  if (item.regionCode == e){
+				  this.$refs.refDeputy.selectContent = this.regionList[index].list
+				  if (this.regionList[index].list.length>6){
+					  this.$refs.refDeputy.index = 2
+				  }else {
+					  this.$refs.refDeputy.index = 1
+				  }
+			  }
+		  })
+		  
+		  
+	  },
+	  tapSelectLevel:function(e){
+		 console.log(e) 
+		 this.companyLevel = e
+		 this.pageNum =1
+		 this.loadingType = 'more'
+		 this.getCustomerList()
+	  },
+	  tapSelectDeputy:function(e){
+		  console.log(e)
+		  this.userCode = e
+		  this.pageNum =1
+		  this.loadingType = 'more'
+		  this.getCustomerList()
+	  },
+	  async getMoreCustomer(){
 	  		 
 	  	    if (_this.loadingType !== 'more') {//loadingType!='more';直接返回
 	  	    	return false;
@@ -282,14 +299,19 @@ export default {
 	  	    let _data= {
 	  			keyword: _this.inputValueOne,		//搜索关键字
 	  			regionCode: _this.regionCode,	//区域编码，空为全部区域
-	  			buyOrSell: _this.buyOrSell,			//-1全部，0未知，1买家，2卖家
+	  			// buyOrSell: _this.buyOrSell,			//-1全部，0未知，1买家，2卖家
 	  			isAllocation: _this.isAllocation,		//-1全部，1已分配，0未分配
-	  			pageNum: _this.pageNum,			//当前页
-	  			pageSize: pageSize,             // 页面大小
-	  			postCode: _postCode   
+	  			pageNum: _this.pageNum,			  //当前页
+	  			pageSize: pageSize,               // 页面大小
+	  			postCode: this.postCode ,
+				userCode: this.userCode,          //用户编码&
+				companyLevel: this.companyLevel,  //客户等级&
+				privateLevel: this.privateLevel,   //私有等级&
+
+				
 	  		}
-	  	   JsyServer.dmList(_data).then(res => {
-	  		  if (res.data.data.list.length == 0) {//没有数据
+	  	    const res = await this.$http.get('/cm/list',{data: _data})
+	  		 if (res.data.data.list.length == 0) {//没有数据
 	  		      console.log("no data")
 	  		  	_this.loadingType = '';
 	  		  	uni.hideNavigationBarLoading();//关闭加载动画
@@ -301,43 +323,41 @@ export default {
 	  		_this.loadingType = 'more';//将loadingType归0重置
 	  		uni.hideNavigationBarLoading();//关闭加载动画
 	  		
-	  	   }).catch(err => {
-	  		  
-	  	     console.log("getBSList=err==", err);
-	  	   });
-	  	  
+	  	   
 	  },
-	  getCustomerList:function(){
+	  async getCustomerList(){
 		  _this.pageNum = 1
 		  _this.loadingType = 'more';
 		  uni.showNavigationBarLoading();
 			let _data={
-			 	keyword:_this.inputValueOne,		//搜索关键字
-			 	regionCode: _regionCode,	//区域编码，空为全部区域
-			 	buyOrSell: _this.buyOrSell,			//-1全部，0未知，1买家，2卖家
-			 	isAllocation: _this.isAllocation,		//是否已分配买/卖帮办。-1全部，1已分配，0未分配
-			 	pageNum: _this.pageNum,			//当前页
-			 	pageSize: pageSize,             // 页面大小
-			 	postCode: _postCode             //职位
+			 	keyword: _this.inputValueOne,		//搜索关键字
+			 	regionCode: _this.regionCode,	//区域编码，空为全部区域
+			 	// buyOrSell: _this.buyOrSell,			//-1全部，0未知，1买家，2卖家
+			 	isAllocation: _this.isAllocation,		//-1全部，1已分配，0未分配
+			 	pageNum: _this.pageNum,			  //当前页
+			 	pageSize: pageSize,               // 页面大小
+			 	postCode: this.postCode ,
+			 	userCode: this.userCode,          //用户编码&
+			 	companyLevel: this.companyLevel,  //客户等级&
+			 	privateLevel: this.privateLevel,   //私有等级&
+			 	
 			 }
 		    console.log('客户请求参数',_data)
-	    
-			JsyServer.dmList(_data).then(res => {
-			   console.log("客户信息===",res)
-			   _this.pageNum++;//每触底一次 page +1
-			   _this.customerList = res.data.data.list
+	        const res = await this.$http.get('/cm/list',{data: _data})
+			
+			console.log("客户信息===",res)
+		     _this.pageNum++;//每触底一次 page +1
+		     _this.customerList = res.data.data.list
+			 this.totalCount = res.data.data.totalCount
+			_this.isLastPage = res.data.data.isLastPage
+			_this.totalPage = res.data.data.totalPage
 				
-				_this.isLastPage = res.data.data.isLastPage
-				_this.totalPage = res.data.data.totalPage
-				
-			 }).catch(err => {
-			   console.log("getBSList=err==", err.Msg);
-			 }); 
-			  let __data={
+			 
+			 let __data={
 				  keyword:_this.inputValueOne,		//关键词
-				  regionCode:_regionCode,   //区域编码
+				  regionCode: this.regionCode,   //区域编码
 				  buyOrSell: _this.buyOrSell,  //买卖家
-				  postCode: _postCode
+				  postCode: this.postCode
 			  }
 			 JsyServer.dmCount(__data).then(res => {
 			    console.log("客户数量===",res)
@@ -464,23 +484,25 @@ export default {
 	  console.log(index);
 	  if (index == 0){
 		  //this.customerList = this.orginalList
-		  this.setNavButton("")
+		  // this.setNavButton("")
 		  this.isAllocation = -1
 		  this.compileing = false
 		  
 		  
 	  }
       if (index==1){
-		 this.setNavButton("编辑") 
+		 // this.setNavButton("编辑") 
 		 //重新请求已分配客户列表
 		 this.isAllocation = 1
+		 this.compileing = true
 		 this.pageNum = 1
 		
 	  }
 	  if(index==2){
 		  //重新请求未分配客户列表
-		this.setNavButton("编辑") 
+		// this.setNavButton("编辑") 
 		this.isAllocation = 0
+		this.compileing = true
 		this.pageNum = 1
 		console.log("分配状态：",this.isAllocation)
 		
@@ -489,12 +511,18 @@ export default {
     },
     // 点击编辑
     tapCompile: function () {
-      this.compileing = !this.compileing;
-	  if (this.compileing){
-	  		  this.setNavButton('完成')
-	  }else {
-	  		  this.setNavButton('编辑')
-	  }
+		this.showAllocation = !this.showAllocation
+		// if (this.tabTwo>0){
+		// 	this.compileing = true
+		// }else {
+		// 	this.compileing = false
+		// }
+        // this.compileing = false;
+	  // if (this.compileing){
+	  // 		  this.setNavButton('完成')
+	  // }else {
+	  // 		  this.setNavButton('编辑')
+	  // }
 	  
     },
     // 点击全部
@@ -628,6 +656,9 @@ export default {
 };
 </script>
 <style>
+	page{
+		background: #F2F2F2;
+	}
 .tab_one{
   color: #fff;
   text-align: center;

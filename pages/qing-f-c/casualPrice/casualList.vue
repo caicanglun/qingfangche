@@ -35,7 +35,9 @@
 						   <view class="taxButton">
 							{{item.isIcashName ||''}}
 						   </view>
-						  
+						  <view class="taxButton">
+						  		价格{{item.priceStatusName ||''}}
+						  </view>
 						</view>
 						<view class="followContent"><text style="color: #333333">{{item.companyName||''}}</text></view>
 					    <view style="color:#999;font-size:12px;line-height: 20px;">时间：{{item.createTime||''}}</view>

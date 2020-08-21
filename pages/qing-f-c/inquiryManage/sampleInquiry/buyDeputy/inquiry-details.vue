@@ -13,6 +13,9 @@
 					<!-- <view class="buttonStyle" @tap='toCopyInquiry' v-if="topList.inquiry.inquiryStatusCode !=0">
 						 复制
 					</view> -->
+					<view class="orderSummary" @tap="toOrderSummary">
+						 订单总结
+					</view>
 					<view class="buttonStyle">
 						{{topList.inquiry.inquiryStatusName ||''}}
 					</view>
@@ -51,7 +54,15 @@
 		<popUpPic ref="bigimage" :src='src'></popUpPic>
 		
 		<!-- ------弹窗---- -->
-		
+		<!-- 订单总结 -->
+		<view class="details-box" style="padding: 20upx;" v-if="orderSummary.have">
+			<view class="flex_c" style="font-size: 15px;font-weight: bold;">订单总结</view>
+			<view class="flex_sb" style="margin-top: 20upx;line-height: 25px;">
+				<view style="width: 50%;font-size: 14px;"><text style="color: #8C8C8C;">状态：</text>{{orderSummary.inquiryStatusName}}</view>
+				<view style="width: 50%;font-size: 14px;"><text style="color: #8C8C8C;">原因：</text>{{orderSummary.list | returnCombine}}</view>
+			</view>
+		</view>
+		<!-- 订单总结 -->
 		<view class="details-box" v-if="topList.hasSnalyseContrast">
 		   <sampleResult :resultList="topList.snalyseContrast" ></sampleResult>
 		</view>
@@ -199,6 +210,11 @@
 			popupCopy,
 			popUpPic
 		},
+		filters:{
+			returnCombine:function(value){
+				return value.join('，')
+			}
+		},
 		data(){
 			return {
 				isMatch: true,
@@ -217,7 +233,8 @@
 				isDisplayOrginal: true,
 				isDisplayOrginalCome:true,
 				isAnaly: false,
-				src:''
+				src:'',
+				orderSummary:''
 			};
 		},
 		
@@ -233,6 +250,7 @@
 		     this.getInquiryInfo()
 		     this.getDeputyQuotation()
 			 this.getDirectQuotation()
+			 this.getOrderSummary()
 		},
 		onLoad:function(options){
 			console.log(options)
@@ -241,8 +259,24 @@
 			this.getInquiryInfo()
 			this.getDeputyQuotation()
 			this.getDirectQuotation()
+			this.getOrderSummary()
 		},
 		methods:{
+			async getOrderSummary(){
+				let data ={
+					inquiryNumber: this.inquiryNumber
+				}
+				const res = await this.$http.get('/bInquiry/summary_details',{data:data})
+				this.orderSummary = res.data.data
+				console.log(this.orderSummary)
+			},
+			toOrderSummary:function(){
+				uni.navigateTo({
+					url: `/pages/qing-f-c/inquiryManage/orderSummary/orderSummary?inquiryNumber=${this.inquiryNumber}`,
+					
+				});
+				
+			},
 			getDirectQuotation:function(){
 					let data={
 						inquiryNumber:_this.inquiryNumber,  //		询价单号
@@ -711,7 +745,16 @@
 		
 	}
 	
-	
+.orderSummary{
+		color: #FFFFFF;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		width:137upx;
+		height:48upx;
+		background:rgba(255,96,0,1);
+		border-radius:6upx;
+	}	
 .baojia-contentBottom{
 		display: flex;
 		justify-content: space-between;

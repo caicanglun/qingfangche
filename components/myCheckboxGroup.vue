@@ -42,12 +42,13 @@
 .checkgroup{
 	 display: flex;
 	 flex-direction: row;
-	 justify-content: space-between;
+	 // justify-content: space-between;
 	 align-content: flex-start;
 	 flex-wrap: wrap;
  }
  .typeItemSelect{
-	 width: 200upx;
+	 // width: 220upx;
+	 padding: 0 10upx;
 	 height: 50upx;
 	 box-sizing: border-box;
 	 border-radius: 6upx;
@@ -57,9 +58,11 @@
 	 border: 2upx solid #FF6000;
 	 color: #FF6000;
 	 position:relative;
+	 margin-right: 30upx;
 	 }
 .typeItem{
-	 	 width: 200upx;
+	 	 // width: 220upx;
+		 padding: 0 10upx;
 	 	 height: 50upx;
 	 	 box-sizing: border-box;
 	 	 border-radius: 6upx;
@@ -67,6 +70,7 @@
 	 	 text-align: center;
 	 	 margin-bottom: 20upx;
 		 border: 2upx solid #D3D3D3;
+		 margin-right: 30upx;
 	 	 }
 .icon-position{
 	position: absolute;

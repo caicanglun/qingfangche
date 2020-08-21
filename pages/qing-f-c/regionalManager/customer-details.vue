@@ -199,6 +199,23 @@
 	  <view :style="{color: customerInfo.companyLevelStatusCode==2||customerInfo.companyLevelStatusCode==4?'#ff0000':''}">{{customerInfo.companyLevelStatusName||''}}</view>
   </view>
 </view>
+<!-- -------------------------------- -->
+<view class="box box_shadow">
+  <view :class="'flex_sb_c box_list '">
+    <view :class="'fs_16 font_we_bold ' + ' flex_c'">
+      <view class="list_line"></view>
+      <view>自定义分级</view>
+    </view>
+    
+  </view>
+  <view class="flex_sb box_list fs_14">
+	  <view class="flex">
+		  <view style="width: 140upx;"><text style="color:#888890">客户等级</text></view>
+		  <view><text>{{customerInfo.privateLevelName||''}}</text></view>
+ 
+	  </view>
+  </view>
+</view>
  <!-- ---------------------------------- -->
 <view class="box box_shadow" id="contact">
   <view :class="'flex_sb_c box_list ' + (!linkMan?'no_border':'')">

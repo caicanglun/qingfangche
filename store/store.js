@@ -20,8 +20,7 @@ const store = new Vuex.Store({
 		},
         copy(state,cont){
             //单一的改变某一个变量
-            console.log(state)
-            console.log(cont)
+           
             state.inquiryNumber = cont;
         },
         change(state,contObj){

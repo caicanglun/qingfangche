@@ -194,9 +194,9 @@
 						//未报价计数
 						let count = 0
 						_this.lists.forEach((item)=>{
-											  if (item.inquiryStatusCode==3){
-												  count +=1
-											  }
+							  if (item.inquiryStatusCode==3){
+								  count +=1
+							  }
 						})
 						_this.count = count
 						_this.totalPage = res.data.data.totalPage
@@ -238,11 +238,14 @@
 			tabSwitch:function(index){
 				this.activeIndex = index
 				console.log('activeIndex',this.activeIndex)
+				this.lists =[]
 				switch (this.activeIndex){
+					
 					case 0:
 					   this.affiliation = 1  
 					   this.inquiryType = 1
 					   this.inquiryStatus = -1
+					   
 					   this.getInquiryStatus()
 					   this.getInquiryList()
 					   uni.pageScrollTo({

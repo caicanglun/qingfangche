@@ -288,6 +288,7 @@
 			
 			},
 			filterInput:function(){
+				this.loadingType = 'more'
 				this.fetchList()
 			},
 			addFollow:function(){

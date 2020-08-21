@@ -1,6 +1,14 @@
 {
   "pages": [
+    "pages/qing-f-c/shopping/list",
+    "pages/qing-f-c/shopping/finish",
     "pages/qing-f-c/index",
+    "pages/qing-f-c/report/inputTarget",
+    "pages/qing-f-c/report/microShop",
+    "pages/qing-f-c/report/targetCustomList",
+    "pages/qing-f-c/report/setTargetCustomer",
+    "pages/qing-f-c/login/login",
+    "pages/qing-f-c/report/reportManager",
     "pages/qing-f-c/casualPrice/sd_casualList",
     "pages/qing-f-c/casualPrice/casualList",
     "pages/qing-f-c/casualPrice/createCasual",
@@ -37,7 +45,6 @@
     "pages/qing-f-c/inquiryManage/priceTrend/priceTrend",
     "pages/qing-f-c/inquiryManage/sampleInquiry/buyDeputy/inquiry-details-result",
     "pages/qing-f-c/inquiryManage/sampleInquiry/analyst/setSampleResult",
-    "pages/qing-f-c/login/login",
     "pages/qing-f-c/inquiryManage/sales_director/modifyPrice",
     "pages/qing-f-c/inquiryManage/sampleInquiry/sales_director/modifyPrice",
     "pages/qing-f-c/inquiryManage/sampleInquiry/sales_director/quotation-details",
@@ -160,7 +167,20 @@
     "pages/qing-f-c/newFollowRecord/selectPrincipal",
     "pages/qing-f-c/sales_director/customLevelAudit",
     "pages/qing-f-c/regionalManager/approved",
-    "pages/qing-f-c/buyDupty/updateCustomLevel"
+    "pages/qing-f-c/buyDupty/updateCustomLevel",
+    "pages/qing-f-c/buyDupty/updatePrivateLevel",
+    "pages/qing-f-c/customPicture/followCircle",
+    "pages/qing-f-c/report/selectTime",
+    "pages/qing-f-c/report/deputyReport",
+    "pages/qing-f-c/report/sellDeputyReport",
+    "pages/qing-f-c/report/regionReport",
+    "pages/qing-f-c/report/monthTargetList",
+    "pages/qing-f-c/report/selectMonths",
+    "pages/qing-f-c/report/selectCustomerList",
+    "pages/qing-f-c/report/selectTargetCustomer",
+    "pages/qing-f-c/inquiryManage/orderSummary/orderSummary",
+    "pages/qing-f-c/regionalManager/dispatchCustomer",
+    "pages/qing-f-c/shopping/detail"
   ],
   "window": {
     "navigationBarTextStyle": "white",
@@ -183,10 +203,10 @@
         "text": "求购区"
       },
       {
-        "pagePath": "pages/qing-f-c/xianhuoqu/index/index",
+        "pagePath": "pages/qing-f-c/shopping/list",
         "iconPath": "/static/images/tab/xianhuo.png",
         "selectedIconPath": "/static/images/tab/xianhuo-end.png",
-        "text": "现货区"
+        "text": "商城"
       },
       {
         "pagePath": "pages/qing-f-c/temaiqu/index/index",

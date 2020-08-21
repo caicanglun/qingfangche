@@ -9,7 +9,7 @@
 			  				<view style="font-size:16px;color:#333333;font-weight: bold;">{{item.messageTitle}}</view>
 			  				<view style="font-size:11px;color:#999999;">{{item.createTime}}</view>
 			  			</view>
-			  			<view class="flex_sb" style="align-items: center;height:46upx;">
+			  			<view class="flex_sb" style="align-items: center;line-height: 26px;">
 			  				<view class="cont_text">{{item.messageDetails}}</view>
 			  				<view class="redpoint" v-if="item.isRead == 0"></view>
 			  			</view>
@@ -332,17 +332,18 @@
 		color: #666666;
 		// max-height: 130upx;
 		font-size: 13px;
+		// line-height: 30px;
 		width: 90%;
-		overflow: hidden;
+		// overflow: hidden;
 		word-break: break-all;
 		/* break-all(允许在单词内换行。) */
-		text-overflow: ellipsis;
+		// text-overflow: ellipsis;
 		/* 超出部分省略号 */
 		display: -webkit-box;
 		/** 对象作为伸缩盒子模型显示 **/
 		-webkit-box-orient: vertical;
 		/** 设置或检索伸缩盒对象的子元素的排列方式 **/
-		-webkit-line-clamp: 1;
+		
 		/** 显示的行数 **/
 
 	}

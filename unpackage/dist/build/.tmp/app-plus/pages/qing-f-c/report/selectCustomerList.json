@@ -1,0 +1,9 @@
+{
+  "navigationBarTitleText": "目标销售额明细",
+  "usingComponents": {
+    "top-search": "/components/topSearch",
+    "uni-load-more": "/components/uni-load-more/uni-load-more",
+    "ms-dropdown-menu": "/components/ms-dropdown/dropdown-menu",
+    "ms-dropdown-item": "/components/ms-dropdown/dropdown-item"
+  }
+}

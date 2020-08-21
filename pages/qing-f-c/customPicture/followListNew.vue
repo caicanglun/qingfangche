@@ -13,12 +13,17 @@
 			
 			  </view>
 			</view>
-			<view>
+			<!-- <view>
 				<topTabbar @change="tabSwitch()" :items="items" ></topTabbar>
-			</view>
-
+			</view> -->
+            <view style="background: #FFFFFF;">
+            	<ms-dropdown-menu>
+            		<ms-dropdown-item v-model="scope" :list="items" @input="filterInput"></ms-dropdown-item>
+            	    <ms-dropdown-item v-model="companyLevel" :list="companyLevelList" @input="filterInput" v-if="companyLevelList.length>0"></ms-dropdown-item>
+            	</ms-dropdown-menu>
+            </view>
 		</view>
-		<view style="height: 180upx;width:100%;"></view>
+		<view style="height: 220upx;width:100%;"></view>
 		<block v-for="(item,index) in followList" :key="index" >
 			<view class="record-wrap flex_sb" @tap="toDetail(item.companyCode)">
 				<view class="flex_column">
@@ -52,20 +57,25 @@
 	import uniLoadMore from "@/components/uni-load-more/uni-load-more.vue";
 	import uniIcon from "@/components/uni-icons/uni-icons.vue";
 	import topTabbar from "@/components/topTabbar-follow.vue";
+	import msDropdownMenu from '@/components/ms-dropdown/dropdown-menu.vue'
+	import msDropdownItem from '@/components/ms-dropdown/dropdown-item.vue'
 	let _this,timer;
 	export default {
 		components:{
 			uniLoadMore,
 			uniIcon,
-			topTabbar
+			topTabbar,
+			msDropdownMenu,
+			msDropdownItem
 		},
 		data() {
 			return {
 				pupDefault:'',
 				baseUrl:'/static/images/jinsy/alert/',
-				items: ['最新跟进','待跟进'],
+				items: [{text:'最新跟进',value: 0},{text:'待跟进',value: 1}],
 				loadingType: 'more',
-			
+			    companyLevelList:[],
+			    companyLevel: 0,
 				followList:[],
 				keyword:"",
 				scope: 0,
@@ -93,6 +103,7 @@
 		    if (this.pupDefault == "BUY_DEPUTY"){
 		    	this.isShowButton = true
 		    }
+			this.getCompanyLevel()
 			this.fetchList()
 			
 		},
@@ -107,10 +118,25 @@
 
 		},
 		methods:{
+			async getCompanyLevel(){
+				const res = await this.$http.get('/choose/company_level',{})
+				console.log('companyLevel',res)
+				let tmp = res.data.data.list
+				tmp.forEach((item)=>{
+					this.companyLevelList.push({text:item.label,value:item.id})
+				})
+				this.companyLevelList.unshift({text:'客户等级',value: 0})
+				
+			},
+			filterInput:function(){
+				this.loadingType = 'more'
+				this.fetchList()
+			},
 			async fetchList(){
 				this.pageNum =1
 				let data={
 					// postCode: this.pupDefault,  //身份编码
+					companyLevel: this.companyLevel, //客户等级
 					keyword:this.keyword,  //	搜索关键字
 					scope:this.scope,			//我的跟进:1，订单跟进:2
 					pageNum:  this.pageNum,
@@ -131,6 +157,7 @@
 				uni.showNavigationBarLoading();//显示加载动画
 				let data={
 					// postCode: this.pupDefault,  //身份编码
+					companyLevel: this.companyLevel, //客户等级
 					keyword:this.keyword,  //	搜索关键字
 					scope:this.scope,
 					pageNum:  this.pageNum,
